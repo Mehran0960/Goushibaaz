@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>داشبورد GoushiBaaz</title>
+  <style>
+    body { background: #121212; color: #fff; font-family: sans-serif; padding: 20px; }
+    .video { border:1px solid #333; padding:10px; margin-bottom:15px; border-radius:8px; }
+    .btn { padding:8px 12px; background:#00aaff; border:none; color:#fff; border-radius:5px; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <h2>ویدیوهای ترند تکنولوژی</h2>
+  <hr>
+  {% for v in videos %}
+    <div class="video">
+      <h3>{{ v.title }}</h3>
+      <p>📺 {{ v.channel }} | 🕒 {{ v.published[:10] }}</p>
+      <a href="https://www.youtube.com/watch?v={{ v.id }}" target="_blank" style="color:#00aaff;">مشاهده در یوتیوب</a>
+      <form action="/send/{{ v.id }}" method="post" style="margin-top:10px;">
+        <input type="hidden" name="title" value="{{ v.title }}">
+        <input type="hidden" name="channel" value="{{ v.channel }}">
+        <input type="hidden" name="published" value="{{ v.published }}">
+        <button type="submit" class="btn">ارسال به تلگرام</button>
+      </form>
+    </div>
+  {% endfor %}
+</body>
+</html>
