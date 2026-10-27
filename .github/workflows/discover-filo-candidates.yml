@@ -41,10 +41,13 @@ jobs:
           NOW = datetime.now(timezone.utc)
           SOURCES = [
               ("mediafarsi_shorts", "https://mediafarsi.com/shorts", "persian"),
-              ("memento", "https://mediafarsi.com/channel/memento-studios?tab=shorts", "persian"),
-              ("mikikalafe", "https://mediafarsi.com/channel/mikikalafe?tab=shorts", "persian"),
-              ("mehdi_jahaan", "https://mediafarsi.com/channel/mehdi-jahaan?tab=shorts", "persian"),
-              ("hidden_camera", "https://mediafarsi.com/channel/naserkian_official?tab=shorts", "persian"),
+              ("memento_shorts", "https://mediafarsi.com/channel/memento-studios?tab=shorts", "persian"),
+              ("memento_recent", "https://mediafarsi.com/channel/memento-studios", "persian"),
+              ("mikikalafe_shorts", "https://mediafarsi.com/channel/mikikalafe?tab=shorts", "persian"),
+              ("mikikalafe_recent", "https://mediafarsi.com/channel/mikikalafe", "persian"),
+              ("mehdi_jahaan_shorts", "https://mediafarsi.com/channel/mehdi-jahaan?tab=shorts", "persian"),
+              ("mehdi_jahaan_recent", "https://mediafarsi.com/channel/mehdi-jahaan", "persian"),
+              ("hidden_camera", "https://mediafarsi.com/channel/naserkianofficial", "persian"),
               ("sargarmi", "https://channeldb.com/hi/c/%40sargarmi-p1f", "persian"),
           ]
           DIGITS = str.maketrans("۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧٨٩", "01234567890123456789")
@@ -98,10 +101,12 @@ jobs:
                       errors.append({"source":source,"status":resp.status_code}); continue
                   soup=BeautifulSoup(resp.text,"html.parser")
                   seen=set()
-                  for a in soup.select('a[href*="/video/"]'):
+                  anchors=soup.select('a[href*="/video/"]')
+                  print("SOURCE_SCAN", json.dumps({"source":source,"status":resp.status_code,"anchors":len(anchors),"final_url":resp.url,"title":soup.title.get_text(" ",strip=True) if soup.title else ""},ensure_ascii=False))
+                  for a in anchors:
                       href=urljoin(page_url,a.get("href",""))
                       parsed=urlparse(href)
-                      if parsed.netloc not in ("mediafarsi.com","www.mediafarsi.com"): continue
+                      if parsed.netloc and parsed.netloc not in ("mediafarsi.com","www.mediafarsi.com"): continue
                       vid=parsed.path.rstrip("/").split("/")[-1]
                       if not vid or vid in seen: continue
                       seen.add(vid)
