@@ -55,6 +55,7 @@ jobs:
                   required: !!el.required,
                   accept: el.getAttribute('accept') || ''
                 }));
+                const fileInputs = [...document.querySelectorAll('input[type="file"]')].map(el => ({name: el.getAttribute('name') || '', id: el.id || '', accept: el.getAttribute('accept') || '', multiple: !!el.multiple}));
                 const forms = [...document.forms].map(f => ({
                   action: f.getAttribute('action') || '',
                   method: (f.getAttribute('method') || 'get').toUpperCase(),
@@ -69,7 +70,7 @@ jobs:
                   text: (el.innerText || el.value || el.getAttribute('aria-label') || '').trim().replace(/\\s+/g,' ').slice(0,100),
                   href: el.tagName === 'A' ? el.getAttribute('href') || '' : ''
                 })).filter(x => x.text || x.href);
-                return { title: document.title, forms, inputs, buttons, bodyText: document.body.innerText.slice(0,1200) };
+                return { title: document.title, forms, inputs, fileInputs, buttons, bodyText: document.body.innerText.slice(0,1600) };
               });
               data.forms = data.forms.map(f => ({...f, action: safePath(f.action, page.url())}));
               data.buttons = data.buttons.filter(x => /upload|بارگذار|ویدیو|فیلم|ورود|login|sign in|ثبت/i.test(x.text + ' ' + x.href))
@@ -133,10 +134,10 @@ jobs:
               console.log('No password field found on selected upload route.');
             }
 
-            await page.goto(uploadUrl, { waitUntil: 'domcontentloaded', timeout: 45000 }).catch(async e => console.log('Post-login upload navigation warning:', e.message.split('\\n')[0]));
-            await page.locator('input[type="file"]').waitFor({ state: 'visible', timeout: 12000 }).catch(() => {});
-            await page.locator('input[type="password"]').waitFor({ state: 'visible', timeout: 2000 }).catch(() => {});
-            await page.waitForTimeout(1200);
+            if (!new URL(page.url()).pathname.startsWith('/upload')) {
+              await page.goto('https://ifilo.net/upload', { waitUntil: 'domcontentloaded', timeout: 45000 }).catch(async e => console.log('Post-login upload navigation warning:', e.message.split('\\n')[0]));
+            }
+            await page.waitForTimeout(2200);
             await inspect('UPLOAD_FORM_AFTER_LOGIN');
             console.log('Diagnostic completed: no video was uploaded and no cookies or credentials were printed.');
             await context.close();
