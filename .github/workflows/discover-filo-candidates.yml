@@ -45,8 +45,7 @@ jobs:
               {key:'chizomiz', url:'https://mediafarsi.com/channel/chizomiz?tab=shorts', language:'persian'},
               {key:'fasteris', url:'https://mediafarsi.com/channel/fasteris?tab=shorts', language:'mixed'},
               {key:'mrnoon', url:'https://mediafarsi.com/channel/mrnoon?tab=shorts', language:'persian'},
-              {key:'pouyannr', url:'https://mediafarsi.com/channel/pouyannr?tab=shorts', language:'persian'},
-              {key:'pranknr', url:'https://mediafarsi.com/channel/pranknr?tab=shorts', language:'persian'}
+              {key:'tpm', url:'https://mediafarsi.com/channel/tpm-top-persian-movies?tab=shorts', language:'persian'}
             ];
             const browser = await chromium.launch({headless:true});
             const context = await browser.newContext({
@@ -170,6 +169,10 @@ jobs:
               title = norm(item.get("title"))
               vid = item.get("video_id")
               if not short_id(vid) or not title:
+                  continue
+              # This is an entertainment-focused scout; skip politics, ethnicity, and overtly violent headlines.
+              excluded_topic = re.compile(r"توافق|جنگ|سیاست|سیاسی|انتخابات|قومیت|نژاد|خامنه|ترور|اعدام|قتل|اسلحه|سلاح|حمله به صنعت رپ", re.I)
+              if excluded_topic.search(title):
                   continue
               card_text = norm(item.get("card_text"))
               views = views_from(card_text)
