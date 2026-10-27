@@ -209,8 +209,8 @@ async function runScan(env, source) {
         score.state, observedAt
       ));
     }
-    if (snapshotStatements.length) await env.DB.batch(snapshotStatements);
     if (candidateStatements.length) await env.DB.batch(candidateStatements);
+    if (snapshotStatements.length) await env.DB.batch(snapshotStatements);
 
     const finishedAt = new Date().toISOString();
     const note = searchWarning ? "Search discovery warning: " + searchWarning : null;
