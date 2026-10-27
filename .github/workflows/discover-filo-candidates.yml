@@ -181,6 +181,7 @@ jobs:
               "candidates":candidates[:100]
           }
           Path("out/candidates.json").write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding="utf-8")
+          def esc(s): return str(s or "").replace("|","\\\\|").replace("\\\\n"," ")[:150]
           md=["# Persian-first video trend leads","",f"Generated: {NOW.isoformat()}","",
               "**No media was downloaded or uploaded.** License status is intentionally unverified for these trend leads.",
               "Observed views/hour is only available after at least two scans; one-scan views/hour is a rough proxy based on posted age.","",
