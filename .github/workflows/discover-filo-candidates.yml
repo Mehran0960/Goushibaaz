@@ -177,6 +177,9 @@ jobs:
               card_text = norm(item.get("card_text"))
               views = views_from(card_text)
               age = age_hours_from(card_text)
+              # Exclude stale items older than 30 days from the viral-hunt shortlist.
+              if age is not None and age > 720:
+                  continue
               old = tracked.get(vid, {})
               prev_views = old.get("last_views")
               prev_at = old.get("last_seen_at")
@@ -222,12 +225,15 @@ jobs:
               observed = x.get("observed_views_per_hour")
               proxy = x.get("views_per_hour_proxy")
               age = x.get("age_hours")
-              freshness = 1 if age is not None and age <= 72 else 0
+              freshness = 2 if age is not None and age <= 48 else 1 if age is not None and age <= 168 else 0
               persian = 2 if x.get("language_priority") == "persian" else 1 if x.get("language_priority") == "mixed / language may be irrelevant" else 0
               topic = 1 if keywords.search(x.get("title","")) else 0
+              # Only positive measured velocity counts as a live trend signal; a flat count must not outrank fresh clips.
+              observed_signal = 1 if observed is not None and observed >= 300 else 0
+              measured_velocity = observed if observed_signal else -1
               return (
-                  1 if observed is not None else 0,
-                  observed if observed is not None else -1,
+                  observed_signal,
+                  measured_velocity,
                   freshness,
                   persian,
                   topic,
@@ -279,8 +285,10 @@ jobs:
           git add state/trends.json
           if ! git diff --cached --quiet; then
             git commit -m "Update Persian-first Shorts trend snapshots"
-            git push
           fi
+          # Another workflow or edit can update main while the browser scan runs; rebase instead of losing the snapshot.
+          git pull --rebase origin main
+          git push origin HEAD:main
       - name: Save candidate report artifact
         uses: actions/upload-artifact@v4
         with:
