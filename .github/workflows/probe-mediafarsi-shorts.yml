@@ -58,7 +58,7 @@ jobs:
                     cls:typeof a.className==='string'?a.className:'',
                     outer:a.outerHTML.slice(0,500)
                   })),
-                  cards:[...document.querySelectorAll('[class*="short"],[class*="video"],[data-id],[wire\:click]')].filter(el=>{
+                  cards:[...document.querySelectorAll('[class*="short"],[class*="video"],[data-id]')].filter(el=>{
                     const t=(el.innerText||'').trim(); return t.length>25 && t.length<450 && /بازدید|views|پیش/.test(t);
                   }).slice(0,35).map(el=>({tag:el.tagName,cls:typeof el.className==='string'?el.className:'',id:el.id||'',text:(el.innerText||'').trim().replace(/\\s+/g,' ').slice(0,400),outer:el.outerHTML.slice(0,700)}))
                 }));
