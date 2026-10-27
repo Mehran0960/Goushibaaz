@@ -52,13 +52,13 @@ jobs:
           ]
           DIGITS = str.maketrans("۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧٨٩", "01234567890123456789")
           def norm(s):
-              return re.sub(r"\\s+", " ", html.unescape(s or "")).strip()
+              return re.sub(r"\s+", " ", html.unescape(s or "")).strip()
           def int_fa(s):
               try: return int(str(s).translate(DIGITS).replace(",", "").replace(".", ""))
               except: return None
           def views_from(text):
               t = norm(text).translate(DIGITS).lower().replace(",", "")
-              matches = list(re.finditer(r"([0-9]+(?:\\.[0-9]+)?)\\s*(میلیون|میلیارد|هزار|m\\b|k\\b)?\\s*(?:بازدید|view(?:s)?|مشاهده)", t, re.I))
+              matches = list(re.finditer(r"([0-9]+(?:\.[0-9]+)?)\s*(میلیون|میلیارد|هزار|m\b|k\b)?\s*(?:بازدید|view(?:s)?|مشاهده)", t, re.I))
               if not matches: return None
               m = matches[0]
               try: n=float(m.group(1))
@@ -71,12 +71,12 @@ jobs:
           def age_hours_from(text):
               t = norm(text).translate(DIGITS).lower()
               pats = [
-                  (r"(\\d+)\\s*دقیقه\\s*پیش", 1/60),
-                  (r"(\\d+)\\s*ساعت\\s*پیش", 1),
-                  (r"(\\d+)\\s*روز\\s*پیش", 24),
-                  (r"(\\d+)\\s*هفته\\s*پیش", 168),
-                  (r"(\\d+)\\s*ماه\\s*پیش", 730),
-                  (r"(\\d+)\\s*سال\\s*پیش", 8760),
+                  (r"(\d+)\s*دقیقه\s*پیش", 1/60),
+                  (r"(\d+)\s*ساعت\s*پیش", 1),
+                  (r"(\d+)\s*روز\s*پیش", 24),
+                  (r"(\d+)\s*هفته\s*پیش", 168),
+                  (r"(\d+)\s*ماه\s*پیش", 730),
+                  (r"(\d+)\s*سال\s*پیش", 8760),
               ]
               for pat, factor in pats:
                   m=re.search(pat,t)
@@ -87,7 +87,7 @@ jobs:
               return None
           def duration_seconds(text):
               t=norm(text).translate(DIGITS)
-              m=re.search(r"(?<!\\d)(\\d{1,2}):(\\d{2})(?::(\\d{2}))?(?!\\d)",t)
+              m=re.search(r"(?<!\d)(\d{1,2}):(\d{2})(?::(\d{2}))?(?!\d)",t)
               if not m: return None
               parts=[int(x) for x in m.groups() if x is not None]
               return parts[0]*60+parts[1] if len(parts)==2 else parts[0]*3600+parts[1]*60+parts[2]
@@ -186,14 +186,14 @@ jobs:
               "candidates":candidates[:100]
           }
           Path("out/candidates.json").write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding="utf-8")
-          def esc(s): return str(s or "").replace("|","\\\\|").replace("\\\\n"," ")[:150]
+          def esc(s): return str(s or "").replace("|","\\|").replace("\\n"," ")[:150]
           md=["# Persian-first video trend leads","",f"Generated: {NOW.isoformat()}","",
               "**No media was downloaded or uploaded.** License status is intentionally unverified for these trend leads.",
               "Observed views/hour is only available after at least two scans; one-scan views/hour is a rough proxy based on posted age.","",
               "| Rank | Title / source | Views | Age (h) | Observed growth/h | One-scan proxy/h | License |",
               "|---:|---|---:|---:|---:|---:|---|"]
           for i,v in enumerate(candidates[:60],1):
-              def esc(s): return str(s or "").replace("|","\\|").replace("\\n"," ")[:150]
+              def esc(s): return str(s or "").replace("|","\|").replace("\n"," ")[:150]
               link=v.get("youtube_url") or v["source_url"]
               views=f'{v["views"]:,}' if v.get("views") is not None else "—"
               age=v.get("age_hours") if v.get("age_hours") is not None else "—"
@@ -202,7 +202,7 @@ jobs:
               md.append(f'| {i} | [{esc(v["title"])}]({link}) · {esc(v["source_channel"])} | {views} | {age} | {growth} | {proxy} | not verified |')
           if errors:
               md += ["","## Source errors"]+[f'- {esc(e.get("source"))}: {esc(e.get("error",e.get("status","unknown")))}' for e in errors]
-          Path("out/candidates.md").write_text("\\n".join(md)+"\\n",encoding="utf-8")
+          Path("out/candidates.md").write_text("\n".join(md)+"\n",encoding="utf-8")
           print("CANDIDATES",len(candidates))
           print("SOURCE_ERRORS",json.dumps(errors,ensure_ascii=False))
           print("TOP_LEADS")
