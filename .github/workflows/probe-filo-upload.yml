@@ -65,12 +65,14 @@ jobs:
                     id: el.id || ''
                   }))
                 }));
+                const uploadTabs = [...document.querySelectorAll('body *')].filter(el => el.children.length === 0 && /از دستگاه شما|از سایت های دیگر|از سایت‌های دیگر|ویدیوساز آنلاین/.test(el.textContent || '')).slice(0,20).map(el => ({tag:el.tagName.toLowerCase(), cls:typeof el.className === 'string' ? el.className : '', text:(el.textContent||'').trim().slice(0,100), html:el.outerHTML.slice(0,600), parent:el.parentElement ? el.parentElement.outerHTML.slice(0,1200) : ''}));
+                const scriptSrcs = [...document.querySelectorAll('script[src]')].map(el => el.src).slice(0,35);
                 const buttons = [...document.querySelectorAll('button,input[type=submit],input[type=button],a')].filter(visible).slice(0,80).map(el => ({
                   tag: el.tagName.toLowerCase(),
                   text: (el.innerText || el.value || el.getAttribute('aria-label') || '').trim().replace(/\\s+/g,' ').slice(0,100),
                   href: el.tagName === 'A' ? el.getAttribute('href') || '' : ''
                 })).filter(x => x.text || x.href);
-                return { title: document.title, forms, inputs, fileInputs, buttons, bodyText: document.body.innerText.slice(0,1600) };
+                return { title: document.title, forms, inputs, fileInputs, uploadTabs, scriptSrcs, buttons, bodyText: document.body.innerText.slice(0,1600) };
               });
               data.forms = data.forms.map(f => ({...f, action: safePath(f.action, page.url())}));
               data.buttons = data.buttons.filter(x => /upload|بارگذار|ویدیو|فیلم|ورود|login|sign in|ثبت/i.test(x.text + ' ' + x.href))
