@@ -182,13 +182,16 @@ jobs:
               prev_at = old.get("last_seen_at")
               rate = None
               delta = None
-              if isinstance(prev_views, int) and isinstance(views, int) and prev_at and views >= prev_views:
+              elapsed = None
+              if isinstance(prev_views, int) and isinstance(views, int) and prev_at:
                   try:
-                      elapsed = max(1/60, (NOW - datetime.fromisoformat(prev_at.replace("Z","+00:00"))).total_seconds()/3600)
-                      delta = views - prev_views
-                      rate = round(delta/elapsed, 1)
+                      elapsed = max(0, (NOW - datetime.fromisoformat(prev_at.replace("Z","+00:00"))).total_seconds()/3600)
+                      # A real-growth comparison needs a full scan interval; ignore rapid manual/push-triggered reruns.
+                      if elapsed >= 1.5 and views >= prev_views:
+                          delta = views - prev_views
+                          rate = round(delta/elapsed, 1)
                   except Exception:
-                      pass
+                      elapsed = None
               v = dict(item)
               v.update({
                   "title":title,
@@ -205,10 +208,11 @@ jobs:
               if isinstance(views, int):
                   history.append({"at":NOW.isoformat(),"views":views})
                   history = history[-8:]
+                  baseline_is_new = not prev_at or (elapsed is not None and elapsed >= 1.5)
                   tracked[vid] = {
                       "first_seen_at":old.get("first_seen_at",NOW.isoformat()),
-                      "last_seen_at":NOW.isoformat(),
-                      "last_views":views,
+                      "last_seen_at":NOW.isoformat() if baseline_is_new else prev_at,
+                      "last_views":views if baseline_is_new else prev_views,
                       "history":history,
                       "title":title,
                       "source_url":v.get("youtube_url")
