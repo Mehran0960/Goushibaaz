@@ -20,6 +20,33 @@ jobs:
           python-version: "3.12"
       - name: Install discovery tools
         run: python -m pip install --upgrade yt-dlp
+      - name: Verify public Persian trend sources
+        run: |
+          python -m pip install --quiet requests beautifulsoup4
+          python <<'PY'
+          import requests, json
+          from bs4 import BeautifulSoup
+          urls = [
+              "https://mediafarsi.com/channel/memento-studios",
+              "https://mediafarsi.com/channel/mikikalafe",
+              "https://mediafarsi.com/channel/mehdi-jahaan",
+              "https://mediafarsi.com/",
+          ]
+          for url in urls:
+              try:
+                  r = requests.get(url, timeout=25, headers={"User-Agent":"Mozilla/5.0 (compatible; GoushibaazTrendScout/1.0)"})
+                  soup = BeautifulSoup(r.text, "html.parser")
+                  title = soup.title.get_text(" ", strip=True) if soup.title else ""
+                  anchors = []
+                  for a in soup.select("a[href]"):
+                      href = a.get("href", "")
+                      text = a.get_text(" ", strip=True)
+                      if ("youtube.com" in href or "/video/" in href or "shorts" in href.lower()) and (text or href):
+                          anchors.append({"text": text[:100], "href": href[:220]})
+                  print(json.dumps({"url":url,"status":r.status_code,"bytes":len(r.content),"title":title[:160],"anchors":anchors[:15],"text_preview":soup.get_text(" ",strip=True)[:800]},ensure_ascii=False))
+              except Exception as e:
+                  print(json.dumps({"url":url,"error":str(e)[:200]},ensure_ascii=False))
+          PY
       - name: Scan recent Persian and language-light videos
         run: |
           mkdir -p out
