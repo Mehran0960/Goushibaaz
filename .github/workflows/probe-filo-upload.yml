@@ -1,0 +1,143 @@
+name: Probe Filo upload flow
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/probe-filo-upload.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  inspect-upload-ui:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      FILO_USER: ${{ secrets.FILO_USER }}
+      FILO_PASS: ${{ secrets.FILO_PASS }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright
+        run: |
+          npm init -y
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Log in safely and inspect upload form (no upload)
+        run: |
+          node <<'NODE'
+          const { chromium } = require('playwright');
+
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+            const context = await browser.newContext();
+            const page = await context.newPage();
+            page.setDefaultTimeout(15000);
+
+            const safePath = (raw, base) => {
+              try {
+                const u = new URL(raw, base);
+                return u.origin + u.pathname;
+              } catch { return String(raw || '').split('?')[0].split('#')[0]; }
+            };
+            const inspect = async (label) => {
+              const data = await page.evaluate(() => {
+                const visible = (el) => !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+                const inputs = [...document.querySelectorAll('input,textarea,select')].filter(visible).map(el => ({
+                  tag: el.tagName.toLowerCase(),
+                  type: (el.getAttribute('type') || '').toLowerCase(),
+                  name: el.getAttribute('name') || '',
+                  id: el.id || '',
+                  placeholder: el.getAttribute('placeholder') || '',
+                  required: !!el.required,
+                  accept: el.getAttribute('accept') || ''
+                }));
+                const forms = [...document.forms].map(f => ({
+                  action: f.getAttribute('action') || '',
+                  method: (f.getAttribute('method') || 'get').toUpperCase(),
+                  inputs: [...f.querySelectorAll('input,textarea,select')].map(el => ({
+                    type: (el.getAttribute('type') || '').toLowerCase(),
+                    name: el.getAttribute('name') || '',
+                    id: el.id || ''
+                  }))
+                }));
+                const buttons = [...document.querySelectorAll('button,input[type=submit],input[type=button],a')].filter(visible).slice(0,80).map(el => ({
+                  tag: el.tagName.toLowerCase(),
+                  text: (el.innerText || el.value || el.getAttribute('aria-label') || '').trim().replace(/\\s+/g,' ').slice(0,100),
+                  href: el.tagName === 'A' ? el.getAttribute('href') || '' : ''
+                })).filter(x => x.text || x.href);
+                return { title: document.title, forms, inputs, buttons, bodyText: document.body.innerText.slice(0,1200) };
+              });
+              data.forms = data.forms.map(f => ({...f, action: safePath(f.action, page.url())}));
+              data.buttons = data.buttons.filter(x => /upload|بارگذار|ویدیو|فیلم|ورود|login|sign in|ثبت/i.test(x.text + ' ' + x.href))
+                .map(x => ({...x, href:safePath(x.href,page.url())}));
+              console.log(label, JSON.stringify({url:safePath(page.url(),page.url()), ...data}, null, 2));
+              return data;
+            };
+
+            console.log('FILO_USER configured:', Boolean(process.env.FILO_USER));
+            console.log('FILO_PASS configured:', Boolean(process.env.FILO_PASS));
+            if (!process.env.FILO_USER || !process.env.FILO_PASS) {
+              console.log('Required repository secrets are missing; stopping before login.');
+              await browser.close();
+              process.exit(2);
+            }
+
+            await page.goto('https://ifilo.net', { waitUntil: 'domcontentloaded', timeout: 45000 });
+            let data = await inspect('HOMEPAGE');
+
+            let uploadHref = data.buttons.find(x => /upload|بارگذار/i.test(x.text + ' ' + x.href))?.href;
+            if (!uploadHref) {
+              const hrefs = await page.locator('a[href]').evaluateAll(els => els.map(a => ({
+                text:(a.innerText||'').trim().replace(/\\s+/g,' ').slice(0,80),
+                href:a.getAttribute('href')||''
+              })).filter(x => /upload|بارگذار|افزودن.?ویدیو/i.test(x.text+' '+x.href)).slice(0,20));
+              console.log('UPLOAD_LINK_CANDIDATES', JSON.stringify(hrefs));
+              uploadHref = hrefs[0]?.href;
+            }
+
+            let uploadUrl = uploadHref ? new URL(uploadHref, page.url()).href : 'https://ifilo.net/upload';
+            await page.goto(uploadUrl, { waitUntil: 'domcontentloaded', timeout: 45000 }).catch(async e => console.log('Upload route navigation warning:', e.message.split('\\n')[0]));
+            data = await inspect('UPLOAD_ROUTE_BEFORE_LOGIN');
+
+            const pass = page.locator('input[type="password"]').first();
+            if (await pass.count()) {
+              const userCandidates = page.locator('input:not([type="password"]):not([type="hidden"])');
+              const candidateInfo = await userCandidates.evaluateAll(els => els.map((el,i)=>({
+                i, type:(el.getAttribute('type')||'text').toLowerCase(),
+                name:el.getAttribute('name')||'', id:el.id||'', placeholder:el.getAttribute('placeholder')||''
+              })));
+              let userIndex = candidateInfo.findIndex(x => /email|user|login|phone|mobile/i.test(x.type+' '+x.name+' '+x.id+' '+x.placeholder));
+              if (userIndex < 0) userIndex = candidateInfo.findIndex(x => ['text','email','tel'].includes(x.type));
+              if (userIndex < 0) throw new Error('Login form is visible but username field could not be identified safely.');
+              await userCandidates.nth(userIndex).fill(process.env.FILO_USER);
+              await pass.fill(process.env.FILO_PASS);
+              const form = pass.locator('xpath=ancestor::form[1]');
+              const submit = form.locator('button[type="submit"],input[type="submit"],button:not([type])').first();
+              if (await submit.count()) {
+                await submit.click();
+              } else {
+                await form.evaluate(f => f.requestSubmit());
+              }
+              await page.waitForLoadState('domcontentloaded', { timeout: 20000 }).catch(() => {});
+              await page.waitForTimeout(2500);
+              console.log('POST_LOGIN_URL', safePath(page.url(), page.url()));
+              console.log('PASSWORD_FIELD_REMAINS', await page.locator('input[type="password"]').count() > 0);
+              console.log('LOGIN_ERROR_TEXT', await page.locator('body').innerText().then(t => t.split('\\n').map(x=>x.trim()).filter(x=>/رمز|گذرواژه|اشتباه|نامعتبر|نام کاربری|خطا|captcha|کد امنیتی/i.test(x)).slice(0,8)).catch(()=>[]));
+            } else {
+              console.log('No password field found on selected upload route.');
+            }
+
+            await page.goto(uploadUrl, { waitUntil: 'domcontentloaded', timeout: 45000 }).catch(async e => console.log('Post-login upload navigation warning:', e.message.split('\\n')[0]));
+            await inspect('UPLOAD_FORM_AFTER_LOGIN');
+            console.log('Diagnostic completed: no video was uploaded and no cookies or credentials were printed.');
+            await context.close();
+            await browser.close();
+          })().catch(err => {
+            console.error('FILO_PROBE_FAILED:', err && err.message ? err.message : String(err));
+            process.exit(1);
+          });
+          NODE
