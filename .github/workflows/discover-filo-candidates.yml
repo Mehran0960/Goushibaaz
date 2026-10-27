@@ -1,0 +1,153 @@
+name: Discover Filo video candidates
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/discover-filo-candidates.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  discovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install discovery tools
+        run: python -m pip install --upgrade yt-dlp
+      - name: Scan recent Persian and language-light videos
+        run: |
+          mkdir -p out
+          python <<'PY'
+          import json, re, time
+          from datetime import datetime, timezone
+          from pathlib import Path
+          import yt_dlp
+
+          QUERIES = [
+              ("fa_hidden_camera", "دوربین مخفی فارسی"),
+              ("fa_funny_moments", "لحظات خنده دار فارسی"),
+              ("fa_unexpected", "اتفاقات عجیب و غیرمنتظره فارسی"),
+              ("fa_animals", "حیوانات بامزه فارسی"),
+              ("nonverbal_animals", "funny animals caught on camera no talking"),
+              ("nonverbal_moments", "unexpected moments caught on camera shorts"),
+              ("nonverbal_fails", "funny fails no talking short video"),
+          ]
+          opts = {
+              "quiet": True,
+              "no_warnings": True,
+              "skip_download": True,
+              "ignoreerrors": True,
+              "extract_flat": False,
+              "socket_timeout": 20,
+              "retries": 1,
+              "playlistend": 15,
+              "noplaylist": False,
+          }
+
+          now = datetime.now(timezone.utc)
+          results, errors = [], []
+          with yt_dlp.YoutubeDL(opts) as ydl:
+              for bucket, query in QUERIES:
+                  try:
+                      info = ydl.extract_info("ytsearch15:" + query, download=False)
+                      for e in (info or {}).get("entries") or []:
+                          if not e or not e.get("id"):
+                              continue
+                          url = e.get("webpage_url") or ("https://www.youtube.com/watch?v=" + e["id"])
+                          ts = e.get("release_timestamp") or e.get("timestamp")
+                          if ts:
+                              published = datetime.fromtimestamp(ts, timezone.utc)
+                          else:
+                              up = e.get("upload_date")
+                              published = datetime.strptime(up, "%Y%m%d").replace(tzinfo=timezone.utc) if up and re.fullmatch(r"\d{8}", up) else None
+                          age_hours = max(0.25, (now - published).total_seconds()/3600) if published else None
+                          views = int(e.get("view_count") or 0)
+                          license_text = str(e.get("license") or "")
+                          is_cc = bool(re.search(r"creative commons|cc\s*by|public domain", license_text, re.I))
+                          title = str(e.get("title") or "")
+                          persian = bool(re.search(r"[\u0600-\u06FF]", title))
+                          duration = int(e.get("duration") or 0)
+                          results.append({
+                              "video_id": str(e["id"]),
+                              "title": title,
+                              "channel": e.get("channel") or e.get("uploader") or "",
+                              "url": url,
+                              "bucket": bucket,
+                              "language_priority": "persian" if persian else ("language-light search" if bucket.startswith("nonverbal") else "unknown"),
+                              "views": views,
+                              "published_at": published.isoformat() if published else None,
+                              "age_hours": round(age_hours, 2) if age_hours is not None else None,
+                              "views_per_hour_proxy": round(views/age_hours, 1) if age_hours else None,
+                              "duration_seconds": duration,
+                              "license": license_text or "not exposed by source",
+                              "license_eligible_for_review": is_cc,
+                              "thumbnail": e.get("thumbnail"),
+                          })
+                  except Exception as ex:
+                      errors.append({"bucket": bucket, "error": str(ex)[:240]})
+
+          unique = {}
+          for item in results:
+              prev = unique.get(item["video_id"])
+              if not prev or (item["views_per_hour_proxy"] or 0) > (prev["views_per_hour_proxy"] or 0):
+                  unique[item["video_id"]] = item
+          rows = list(unique.values())
+          rows.sort(key=lambda x: (
+              1 if x["language_priority"] == "persian" else 0,
+              1 if x["license_eligible_for_review"] else 0,
+              x["views_per_hour_proxy"] or 0,
+              x["views"]
+          ), reverse=True)
+
+          Path("out/candidates.json").write_text(json.dumps({
+              "generated_at": now.isoformat(),
+              "source": "public YouTube search metadata via yt-dlp",
+              "note": "This is discovery only. No video was downloaded or uploaded. License metadata must be verified before any commercial republication.",
+              "count": len(rows),
+              "errors": errors,
+              "candidates": rows
+          }, ensure_ascii=False, indent=2), encoding="utf-8")
+
+          md = [
+              "# Filo candidate discovery report",
+              "",
+              f"Generated: {now.isoformat()}",
+              "",
+              "**No videos were downloaded or uploaded in this run.**",
+              "Candidates are ranked by Persian-language priority, explicit license indication, and views/hour proxy. This is not proof of a trend; repeated measurements are needed.",
+              "",
+              "| Priority | Title | Views | Age (h) | Views/h proxy | License | Source |",
+              "|---|---|---:|---:|---:|---|---|"
+          ]
+          for i, x in enumerate(rows[:35], 1):
+              def esc(s):
+                  return str(s or "").replace("|", "\\|").replace("\\n", " ")[:140]
+              md.append(
+                  f'| {i} | [{esc(x["title"])}]({x["url"]}) | {x["views"]:,} | '
+                  f'{x["age_hours"] if x["age_hours"] is not None else "?"} | '
+                  f'{x["views_per_hour_proxy"] if x["views_per_hour_proxy"] is not None else "?"} | '
+                  f'{esc(x["license"])} | {esc(x["channel"])} |'
+              )
+          if errors:
+              md += ["", "## Source errors"]
+              md += [f'- {esc(x["bucket"])}: {esc(x["error"])}' for x in errors]
+          Path("out/candidates.md").write_text("\\n".join(md) + "\\n", encoding="utf-8")
+          print(f"DISCOVERED={len(rows)}")
+          print(f"WITH_EXPLICIT_CC_LICENSE={sum(1 for x in rows if x['license_eligible_for_review'])}")
+          print(f"SOURCE_ERRORS={len(errors)}")
+          print("TOP_CANDIDATES:")
+          for x in rows[:15]:
+              print(json.dumps({k:x[k] for k in ["title","url","channel","views","age_hours","views_per_hour_proxy","license","license_eligible_for_review","language_priority"]}, ensure_ascii=False))
+          PY
+      - name: Save candidate report
+        uses: actions/upload-artifact@v4
+        with:
+          name: filo-candidate-discovery
+          path: out/
+          retention-days: 7
