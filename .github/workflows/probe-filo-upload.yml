@@ -141,18 +141,19 @@ jobs:
             }
             await page.waitForTimeout(2200);
             await inspect('UPLOAD_FORM_AFTER_LOGIN');
-            const otherSiteTab = page.locator('#tablistItem2');
-            console.log('OTHER_TAB_COUNT', await otherSiteTab.count());
-            console.log('OTHER_TAB_VISIBLE', await otherSiteTab.isVisible().catch(() => false));
-            if (await otherSiteTab.count()) {
-              await otherSiteTab.evaluate(el => el.click()).catch(e => console.log('OTHER_TAB_CLICK_WARNING', e.message.split('\\n')[0]));
-              await page.waitForTimeout(1600);
-              await inspect('OTHER_SITES_TAB');
-            }
+            const tabInfo = await page.locator('#tablistItem2').evaluateAll(els => els.map((el,i) => ({
+              i, text:(el.textContent||'').trim(), visible:!!(el.offsetWidth || el.offsetHeight || el.getClientRects().length),
+              cls:el.className||'', parent:el.parentElement?.className||''
+            })));
+            console.log('OTHER_TAB_INFO', JSON.stringify(tabInfo));
+            await page.locator('#tablistItem2').evaluateAll(els => els.forEach(el => el.click())).catch(e => console.log('OTHER_TAB_CLICK_WARNING', e.message.split('\\n')[0]));
+            await page.waitForTimeout(1600);
+            await inspect('OTHER_SITES_TAB');
             await page.goto('https://ifilo.net/uploadRules', { waitUntil: 'domcontentloaded', timeout: 45000 }).catch(e => console.log('RULES_ROUTE_WARNING', e.message.split('\\n')[0]));
             await page.waitForTimeout(900);
             const rulesText = await page.locator('body').innerText().catch(() => '');
-            console.log('FILO_RULES_TEXT', JSON.stringify(rulesText.slice(0,3500)));
+            console.log('FILO_RULES_RIGHTS', JSON.stringify(rulesText.split('\\n').map(x=>x.trim()).filter(x=>/کپی رایت|حق نشر|حقوق مالکیت|مالکیت فکری|اجازه بازنشر|مالک محتوا|مالک اثر|حق مولف|حقوق مولف|انتشار محتوای دیگران|محتوای دیگران|copyright|قانونی|مجوز انتشار/i.test(x)).slice(0,40)));
+            console.log('FILO_RULES_END', JSON.stringify(rulesText.slice(-2500)));
             console.log('Diagnostic completed: no video was uploaded and no cookies or credentials were printed.');
             await context.close();
             await browser.close();
