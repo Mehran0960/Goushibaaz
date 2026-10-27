@@ -14,6 +14,14 @@ The current first source is YouTube Data API v3. The worker samples video statis
 
 The current discovery source is a signal, not a guarantee that a video will go viral. Additional sources can be added behind the same discovery interface.
 
+## Scheduled Persian-first Shorts scout
+
+The GitHub Actions workflow `.github/workflows/discover-filo-candidates.yml` runs every two hours and can also be started manually. It renders public Shorts lists from seven MediaFarsi channel pages, collects public titles/view counts/posting age, records repeated snapshots in `state/trends.json`, and stores the current report as the `filo-candidate-discovery` workflow artifact. A view-per-hour estimate from one scan is only a proxy; observed velocity is shown only after a sufficient interval between scans.
+
+The scout prioritizes Persian-language entertainment and also flags mixed-language clips whose titles suggest the language may be less important. It excludes obvious political/sensitive headlines and stale clips from the shortlist. Public visibility and trend rank do **not** establish republication rights; all candidates remain ineligible for upload until license/permission and Filo compliance are verified.
+
+View the [latest scout runs](https://github.com/Mehran0960/Goushibaaz/actions/workflows/discover-filo-candidates.yml).
+
 ## Publishing destinations
 
 The target destinations are **Filo, Rubika, Bale, and Telegram**. Each destination must use a separate adapter and independent retry/status state, so a failure at one platform does not block discovery or publishing to the others.
