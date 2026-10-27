@@ -51,11 +51,16 @@ jobs:
                   title:document.title,
                   url:location.href,
                   body:document.body.innerText.slice(0,2200),
-                  links:[...document.querySelectorAll('a[href*="/video/"]')].slice(0,35).map(a=>({
+                  links:[...document.querySelectorAll('a[href]')].filter(a=>/short|video|watch|youtube/i.test(a.getAttribute('href')||'')).slice(0,90).map(a=>({
                     href:a.href.split('?')[0],
                     text:(a.innerText||'').trim().replace(/\\s+/g,' ').slice(0,220),
-                    parent:(a.parentElement?.parentElement?.innerText||'').trim().replace(/\\s+/g,' ').slice(0,260)
-                  }))
+                    parent:(a.parentElement?.parentElement?.innerText||'').trim().replace(/\\s+/g,' ').slice(0,260),
+                    cls:typeof a.className==='string'?a.className:'',
+                    outer:a.outerHTML.slice(0,500)
+                  })),
+                  cards:[...document.querySelectorAll('[class*="short"],[class*="video"],[data-id],[wire\:click]')].filter(el=>{
+                    const t=(el.innerText||'').trim(); return t.length>25 && t.length<450 && /بازدید|views|پیش/.test(t);
+                  }).slice(0,35).map(el=>({tag:el.tagName,cls:typeof el.className==='string'?el.className:'',id:el.id||'',text:(el.innerText||'').trim().replace(/\\s+/g,' ').slice(0,400),outer:el.outerHTML.slice(0,700)}))
                 }));
                 console.log('PAGE_RESULT',JSON.stringify(data));
               } catch(e) {
