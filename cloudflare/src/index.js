@@ -238,6 +238,107 @@ async function runScan(env, source) {
   }
 }
 
+
+async function dispatchFiloJobs(env, limit = 2) {
+  if (!env.DB) return { ok: false, skipped: true, reason: "D1 binding DB is not configured" };
+  if (!env.FILO_UPLOAD_BRIDGE_URL || !env.FILO_UPLOAD_BRIDGE_TOKEN) {
+    return { ok: true, skipped: true, reason: "Filo connector not configured" };
+  }
+
+  let bridgeUrl;
+  try {
+    bridgeUrl = new URL(env.FILO_UPLOAD_BRIDGE_URL);
+  } catch {
+    return { ok: false, skipped: true, reason: "FILO_UPLOAD_BRIDGE_URL is invalid" };
+  }
+  if (bridgeUrl.protocol !== "https:") {
+    return { ok: false, skipped: true, reason: "Filo connector URL must use HTTPS" };
+  }
+
+  const now = new Date().toISOString();
+  const found = await env.DB.prepare(
+    "SELECT d.id AS job_id, d.video_id, d.attempt_count, c.source_url, c.title, c.channel_title, " +
+    "c.published_at, c.view_count, p.license_type, p.evidence_url, p.media_url " +
+    "FROM delivery_jobs d " +
+    "JOIN video_candidates c ON c.video_id = d.video_id " +
+    "JOIN publication_authorizations p ON p.video_id = d.video_id AND p.status = 'approved' " +
+    "WHERE d.destination = 'filo' AND d.status IN ('pending', 'retry') " +
+    "AND (d.next_attempt_at IS NULL OR d.next_attempt_at <= ?) " +
+    "AND p.media_url IS NOT NULL " +
+    "ORDER BY d.created_at ASC LIMIT ?"
+  ).bind(now, limit).all();
+
+  const jobs = found.results || [];
+  const results = [];
+  for (const job of jobs) {
+    const attempt = Number(job.attempt_count || 0) + 1;
+    const claimed = await env.DB.prepare(
+      "UPDATE delivery_jobs SET status = 'processing', attempt_count = ?, updated_at = ?, last_error = NULL " +
+      "WHERE id = ? AND status IN ('pending', 'retry')"
+    ).bind(attempt, new Date().toISOString(), job.job_id).run();
+
+    if (!claimed.meta || Number(claimed.meta.changes || 0) === 0) {
+      results.push({ job_id: job.job_id, status: "skipped", reason: "already claimed" });
+      continue;
+    }
+
+    try {
+      const response = await fetch(bridgeUrl.toString(), {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "accept": "application/json",
+          "authorization": "Bearer " + env.FILO_UPLOAD_BRIDGE_TOKEN,
+          "idempotency-key": "goushibaaz-filo-" + job.video_id
+        },
+        body: JSON.stringify({
+          platform: "filo",
+          job_id: job.job_id,
+          idempotency_key: "goushibaaz-filo-" + job.video_id,
+          video_id: job.video_id,
+          title: String(job.title || "").slice(0, 300),
+          description: "منبع: " + String(job.channel_title || "منبع ویدئو") +
+            (job.source_url ? "\nلینک منبع: " + job.source_url : ""),
+          source_url: job.source_url,
+          media_url: job.media_url,
+          license_type: job.license_type,
+          license_evidence_url: job.evidence_url
+        }),
+        signal: AbortSignal.timeout(20000)
+      });
+
+      const payload = await response.json().catch(() => ({}));
+      const postId = payload && (payload.post_id || payload.video_id || payload.id);
+      if (response.ok && payload && payload.ok === true && postId) {
+        const postRef = String(postId).slice(0, 500);
+        await env.DB.prepare(
+          "UPDATE delivery_jobs SET status = 'published', destination_post_id = ?, last_error = NULL, " +
+          "next_attempt_at = NULL, updated_at = ? WHERE id = ?"
+        ).bind(postRef, new Date().toISOString(), job.job_id).run();
+        results.push({ job_id: job.job_id, status: "published", destination_post_id: postRef });
+      } else {
+        const reason = "connector HTTP " + response.status + ": " +
+          String((payload && (payload.error || payload.message)) || "missing ok=true and post_id").slice(0, 350);
+        const delayMinutes = Math.min(360, Math.pow(2, Math.min(attempt, 8)));
+        const nextAttempt = new Date(Date.now() + delayMinutes * 60000).toISOString();
+        await env.DB.prepare(
+          "UPDATE delivery_jobs SET status = 'retry', last_error = ?, next_attempt_at = ?, updated_at = ? WHERE id = ?"
+        ).bind(reason, nextAttempt, new Date().toISOString(), job.job_id).run();
+        results.push({ job_id: job.job_id, status: "retry", error: reason, next_attempt_at: nextAttempt });
+      }
+    } catch (error) {
+      const reason = safeError(error);
+      const delayMinutes = Math.min(360, Math.pow(2, Math.min(attempt, 8)));
+      const nextAttempt = new Date(Date.now() + delayMinutes * 60000).toISOString();
+      await env.DB.prepare(
+        "UPDATE delivery_jobs SET status = 'retry', last_error = ?, next_attempt_at = ?, updated_at = ? WHERE id = ?"
+      ).bind(reason, nextAttempt, new Date().toISOString(), job.job_id).run();
+      results.push({ job_id: job.job_id, status: "retry", error: reason, next_attempt_at: nextAttempt });
+    }
+  }
+  return { ok: true, configured: true, processed: results.length, results };
+}
+
 async function authorized(request, env) {
   if (!env.ADMIN_TOKEN) return { ok: false, response: json({ error: "ADMIN_TOKEN secret is not configured" }, 503) };
   const expected = "Bearer " + env.ADMIN_TOKEN;
@@ -258,7 +359,8 @@ export default {
         configured: {
           database: Boolean(env.DB),
           youtubeApiKey: Boolean(env.YOUTUBE_API_KEY),
-          adminToken: Boolean(env.ADMIN_TOKEN)
+          adminToken: Boolean(env.ADMIN_TOKEN),
+          filoConnector: Boolean(env.FILO_UPLOAD_BRIDGE_URL && env.FILO_UPLOAD_BRIDGE_TOKEN)
         }
       });
     }
@@ -269,6 +371,74 @@ export default {
     if (url.pathname === "/admin/scan" && request.method === "POST") {
       return json(await runScan(env, "manual"));
     }
+
+    if (url.pathname === "/admin/filo/status" && request.method === "GET") {
+      if (!env.DB) return json({ ok: false, error: "D1 binding DB is not configured" }, 503);
+      const counts = await env.DB.prepare(
+        "SELECT status, COUNT(*) AS count FROM delivery_jobs WHERE destination = 'filo' GROUP BY status"
+      ).all();
+      return json({
+        ok: true,
+        destination: "filo",
+        connectorConfigured: Boolean(env.FILO_UPLOAD_BRIDGE_URL && env.FILO_UPLOAD_BRIDGE_TOKEN),
+        adapterMode: "external connector contract",
+        note: "No public Filo upload API was verified. Configure a legitimate connector that performs the actual Filo upload; no post is sent until then.",
+        queue: counts.results || []
+      });
+    }
+
+    if (url.pathname === "/admin/filo/queue" && request.method === "POST") {
+      if (!env.DB) return json({ ok: false, error: "D1 binding DB is not configured" }, 503);
+      const body = await request.json().catch(() => null);
+      if (!body || !body.video_id) return json({ error: "video_id is required" }, 400);
+      const videoId = String(body.video_id).trim().slice(0, 200);
+      const authorizedVideo = await env.DB.prepare(
+        "SELECT c.video_id, p.status AS authorization_status, p.media_url " +
+        "FROM video_candidates c LEFT JOIN publication_authorizations p ON p.video_id = c.video_id " +
+        "WHERE c.video_id = ? LIMIT 1"
+      ).bind(videoId).first();
+
+      if (!authorizedVideo) return json({ error: "candidate_not_found; scan before queueing" }, 404);
+      if (authorizedVideo.authorization_status !== "approved") {
+        return json({ error: "publication_blocked: verified commercial-use authorization is required" }, 403);
+      }
+      if (!authorizedVideo.media_url) {
+        return json({ error: "media_url_required: add a direct HTTPS media URL to the verified authorization" }, 400);
+      }
+
+      const now = new Date().toISOString();
+      await env.DB.prepare(
+        "INSERT OR IGNORE INTO delivery_jobs (video_id, destination, status, attempt_count, next_attempt_at, created_at, updated_at) " +
+        "VALUES (?, 'filo', 'pending', 0, ?, ?, ?)"
+      ).bind(videoId, now, now, now).run();
+      const job = await env.DB.prepare(
+        "SELECT id AS job_id, video_id, destination, status, attempt_count, next_attempt_at, destination_post_id, last_error, created_at, updated_at " +
+        "FROM delivery_jobs WHERE video_id = ? AND destination = 'filo' LIMIT 1"
+      ).bind(videoId).first();
+      return json({
+        ok: true,
+        job,
+        auto_dispatch_ready: Boolean(env.FILO_UPLOAD_BRIDGE_URL && env.FILO_UPLOAD_BRIDGE_TOKEN),
+        note: "Queueing is not confirmation of a Filo upload. The Filo connector must be configured and must return a confirmed post ID."
+      }, 201);
+    }
+
+    if (url.pathname === "/admin/filo/dispatch" && request.method === "POST") {
+      return json(await dispatchFiloJobs(env, clampInt(url.searchParams.get("limit"), 2, 1, 5)));
+    }
+
+    if (url.pathname === "/admin/filo/jobs" && request.method === "GET") {
+      if (!env.DB) return json({ ok: false, error: "D1 binding DB is not configured" }, 503);
+      const limit = clampInt(url.searchParams.get("limit"), 30, 1, 100);
+      const jobs = await env.DB.prepare(
+        "SELECT d.id AS job_id, d.video_id, d.destination, d.status, d.attempt_count, d.next_attempt_at, " +
+        "d.destination_post_id, d.last_error, d.created_at, d.updated_at, c.title, c.source_url " +
+        "FROM delivery_jobs d JOIN video_candidates c ON c.video_id = d.video_id " +
+        "WHERE d.destination = 'filo' ORDER BY d.created_at DESC LIMIT ?"
+      ).bind(limit).all();
+      return json({ ok: true, count: (jobs.results || []).length, jobs: jobs.results || [] });
+    }
+
 
     if (url.pathname === "/admin/candidates" && request.method === "GET") {
       if (!env.DB) return json({ error: "D1 binding DB is not configured" }, 503);
@@ -340,8 +510,15 @@ export default {
   },
 
   async scheduled(controller, env, ctx) {
-    ctx.waitUntil(runScan(env, "cron").then(result => {
-      if (!result.ok) console.error("scheduled scan not successful: " + safeError(result.error || result.status));
-    }).catch(error => console.error("scheduled scan error: " + safeError(error))));
+    if (env.YOUTUBE_API_KEY && env.DB) {
+      ctx.waitUntil(runScan(env, "cron").then(result => {
+        if (!result.ok) console.error("scheduled scan not successful: " + safeError(result.error || result.status));
+      }).catch(error => console.error("scheduled scan error: " + safeError(error))));
+    }
+    if (env.FILO_UPLOAD_BRIDGE_URL && env.FILO_UPLOAD_BRIDGE_TOKEN && env.DB) {
+      ctx.waitUntil(dispatchFiloJobs(env).then(result => {
+        if (!result.ok) console.error("Filo dispatch not successful: " + safeError(result.reason || result.error || "unknown"));
+      }).catch(error => console.error("Filo dispatch error: " + safeError(error))));
+    }
   }
 };
