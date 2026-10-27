@@ -18,207 +18,262 @@ concurrency:
 jobs:
   discover:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: true
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-node@v4
         with:
-          python-version: "3.12"
-      - name: Install discovery tools
-        run: python -m pip install --quiet requests beautifulsoup4
-      - name: Discover public Persian Shorts and language-light leads
+          node-version: 22
+      - name: Install browser discovery
+        run: |
+          npm init -y
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Render and collect public Persian Shorts metadata
         run: |
           mkdir -p out state
-          python <<'PY'
-          import json, re, requests, html
-          from bs4 import BeautifulSoup
+          node <<'NODE'
+          const fs = require('fs');
+          const { chromium } = require('playwright');
+          (async () => {
+            const sources = [
+              {key:'memento', url:'https://mediafarsi.com/channel/memento-studios?tab=shorts', language:'persian'},
+              {key:'mikikalafe', url:'https://mediafarsi.com/channel/mikikalafe?tab=shorts', language:'mixed'},
+              {key:'mehdi_jahaan', url:'https://mediafarsi.com/channel/mehdi-jahaan?tab=shorts', language:'persian'},
+              {key:'chizomiz', url:'https://mediafarsi.com/channel/chizomiz?tab=shorts', language:'persian'},
+              {key:'fasteris', url:'https://mediafarsi.com/channel/fasteris?tab=shorts', language:'mixed'},
+              {key:'mrnoon', url:'https://mediafarsi.com/channel/mrnoon?tab=shorts', language:'persian'},
+              {key:'pouyannr', url:'https://mediafarsi.com/channel/pouyannr?tab=shorts', language:'persian'},
+              {key:'pranknr', url:'https://mediafarsi.com/channel/pranknr?tab=shorts', language:'persian'}
+            ];
+            const browser = await chromium.launch({headless:true});
+            const context = await browser.newContext({
+              userAgent:'Mozilla/5.0 (compatible; GoushibaazTrendScout/1.0; public-metadata-only)',
+              locale:'fa-IR'
+            });
+            const results = [];
+            const errors = [];
+            for (const src of sources) {
+              const page = await context.newPage();
+              page.setDefaultTimeout(12000);
+              try {
+                await page.goto(src.url, {waitUntil:'domcontentloaded', timeout:45000});
+                await page.waitForSelector('article.rd-video-card.is-short', {timeout:10000}).catch(()=>{});
+                await page.waitForTimeout(800);
+                const data = await page.evaluate(() => {
+                  const norm = s => (s || '').replace(/\s+/g,' ').trim();
+                  const cards = [...document.querySelectorAll('article.rd-video-card.is-short')];
+                  return {
+                    pageTitle: document.title,
+                    pageUrl: location.href,
+                    pageText: document.body.innerText.slice(0,1000),
+                    cards: cards.map(card => {
+                      const a = card.querySelector('a.rd-thumb-link[href*="/shorts/"]') || card.querySelector('a[href*="/shorts/"]');
+                      const href = a ? a.href.split('?')[0] : '';
+                      const match = href.match(/\/shorts\/([A-Za-z0-9_-]{11})(?:\/|$)/);
+                      const img = card.querySelector('img');
+                      const title = norm((a && a.getAttribute('aria-label')) || (img && img.getAttribute('alt')) || (a && a.innerText) || '');
+                      return {video_id: match ? match[1] : '', title, href, card_text: norm(card.innerText), thumbnail: img ? img.src : ''};
+                    }).filter(x => x.video_id && x.title)
+                  };
+                });
+                for (const card of data.cards) results.push({
+                  ...card,
+                  source_channel:src.key,
+                  source_page:src.url,
+                  language_priority:src.language,
+                  youtube_url:'https://www.youtube.com/shorts/' + card.video_id
+                });
+                console.log('SOURCE_RESULT', JSON.stringify({
+                  source:src.key, status:'ok', cards:data.cards.length, pageTitle:data.pageTitle, finalUrl:data.pageUrl
+                }));
+                if (!data.cards.length) errors.push({source:src.key, error:'No rendered Shorts cards detected'});
+              } catch (e) {
+                errors.push({source:src.key, error:String(e.message || e).slice(0,240)});
+                console.log('SOURCE_RESULT', JSON.stringify({source:src.key, error:String(e.message || e).slice(0,240)}));
+              } finally {
+                await page.close();
+              }
+            }
+            await browser.close();
+            const unique = new Map();
+            for (const x of results) {
+              const old = unique.get(x.video_id);
+              if (!old || (x.title.length > old.title.length && !/^\d{1,2}:\d{2}(?::\d{2})?$/.test(old.title))) unique.set(x.video_id,x);
+            }
+            const out = {
+              generated_at:new Date().toISOString(),
+              source:'Rendered public metadata from MediaFarsi channel Shorts lists',
+              note:'Discovery only: public metadata does not grant republication rights. Nothing was downloaded or uploaded.',
+              candidate_count:unique.size,
+              source_errors:errors,
+              candidates:[...unique.values()]
+            };
+            fs.writeFileSync('out/rendered_candidates.json', JSON.stringify(out,null,2));
+            console.log('RENDERED_CANDIDATES', unique.size);
+            console.log('RENDERED_SOURCE_ERRORS', JSON.stringify(errors));
+          })().catch(e => { console.error('RENDERED_SCOUT_FAILED', e); process.exit(1); });
+          NODE
+      - name: Score candidates and track observed growth
+        run: |
+          python - <<'PY'
+          import json, re, html
           from datetime import datetime, timezone
           from pathlib import Path
-          from urllib.parse import urljoin, urlparse
 
           NOW = datetime.now(timezone.utc)
-          SOURCES = [
-              ("mediafarsi_shorts", "https://mediafarsi.com/shorts", "persian"),
-              ("memento_shorts", "https://mediafarsi.com/channel/memento-studios?tab=shorts", "persian"),
-              ("memento_recent", "https://mediafarsi.com/channel/memento-studios", "persian"),
-              ("mikikalafe_shorts", "https://mediafarsi.com/channel/mikikalafe?tab=shorts", "persian"),
-              ("mikikalafe_recent", "https://mediafarsi.com/channel/mikikalafe", "persian"),
-              ("mehdi_jahaan_shorts", "https://mediafarsi.com/channel/mehdi-jahaan?tab=shorts", "persian"),
-              ("mehdi_jahaan_recent", "https://mediafarsi.com/channel/mehdi-jahaan", "persian"),
-              ("hidden_camera", "https://mediafarsi.com/channel/naserkianofficial", "persian"),
-              ("sargarmi", "https://channeldb.com/hi/c/%40sargarmi-p1f", "persian"),
-          ]
+          raw = json.loads(Path("out/rendered_candidates.json").read_text(encoding="utf-8"))
           DIGITS = str.maketrans("۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧٨٩", "01234567890123456789")
+
           def norm(s):
               return re.sub(r"\s+", " ", html.unescape(s or "")).strip()
-          def int_fa(s):
-              try: return int(str(s).translate(DIGITS).replace(",", "").replace(".", ""))
-              except: return None
           def views_from(text):
               t = norm(text).translate(DIGITS).lower().replace(",", "")
-              matches = list(re.finditer(r"([0-9]+(?:\.[0-9]+)?)\s*(میلیون|میلیارد|هزار|m\b|k\b)?\s*(?:بازدید|view(?:s)?|مشاهده)", t, re.I))
-              if not matches: return None
-              m = matches[0]
-              try: n=float(m.group(1))
+              m = re.search(r"([0-9]+(?:\.[0-9]+)?)\s*(میلیون|میلیارد|هزار|m\b|k\b)?\s*(?:بازدید|view(?:s)?|مشاهده)", t, re.I)
+              if not m: return None
+              try: n = float(m.group(1))
               except: return None
-              unit=(m.group(2) or "").lower()
-              if unit in ("هزار","k"): n*=1_000
-              elif unit in ("میلیون","m"): n*=1_000_000
-              elif unit=="میلیارد": n*=1_000_000_000
+              unit = (m.group(2) or "").lower()
+              if unit in ("هزار", "k"): n *= 1_000
+              elif unit in ("میلیون", "m"): n *= 1_000_000
+              elif unit == "میلیارد": n *= 1_000_000_000
               return int(n)
           def age_hours_from(text):
               t = norm(text).translate(DIGITS).lower()
-              pats = [
+              patterns = [
                   (r"(\d+)\s*دقیقه\s*پیش", 1/60),
                   (r"(\d+)\s*ساعت\s*پیش", 1),
                   (r"(\d+)\s*روز\s*پیش", 24),
                   (r"(\d+)\s*هفته\s*پیش", 168),
                   (r"(\d+)\s*ماه\s*پیش", 730),
-                  (r"(\d+)\s*سال\s*پیش", 8760),
+                  (r"(\d+)\s*سال\s*پیش", 8760)
               ]
-              for pat, factor in pats:
-                  m=re.search(pat,t)
+              for pattern, factor in patterns:
+                  m = re.search(pattern, t)
                   if m: return max(1/60, int(m.group(1))*factor)
-              words={"امروز":1,"دیروز":24,"یک روز پیش":24,"دیروز":24,"یک هفته پیش":168}
-              for token,val in words.items():
-                  if token in t: return val
+              if "دیروز" in t: return 24
+              if "امروز" in t: return 1
               return None
-          def duration_seconds(text):
-              t=norm(text).translate(DIGITS)
-              m=re.search(r"(?<!\d)(\d{1,2}):(\d{2})(?::(\d{2}))?(?!\d)",t)
-              if not m: return None
-              parts=[int(x) for x in m.groups() if x is not None]
-              return parts[0]*60+parts[1] if len(parts)==2 else parts[0]*3600+parts[1]*60+parts[2]
-          session=requests.Session()
-          session.headers.update({"User-Agent":"Mozilla/5.0 (compatible; GoushibaazTrendScout/1.0; public-metadata-only)"})
-          raw=[]; errors=[]
-          for source, page_url, lang in SOURCES:
-              try:
-                  resp=session.get(page_url,timeout=22)
-                  if resp.status_code!=200:
-                      errors.append({"source":source,"status":resp.status_code}); continue
-                  soup=BeautifulSoup(resp.text,"html.parser")
-                  seen=set()
-                  anchors=soup.select('a[href*="/video/"]')
-                  print("SOURCE_SCAN", json.dumps({"source":source,"status":resp.status_code,"anchors":len(anchors),"final_url":resp.url,"title":soup.title.get_text(" ",strip=True) if soup.title else ""},ensure_ascii=False))
-                  for a in anchors:
-                      href=urljoin(page_url,a.get("href",""))
-                      parsed=urlparse(href)
-                      if parsed.netloc and parsed.netloc not in ("mediafarsi.com","www.mediafarsi.com"): continue
-                      vid=parsed.path.rstrip("/").split("/")[-1]
-                      if not vid or vid in seen: continue
-                      seen.add(vid)
-                      title=norm(a.get_text(" ",strip=True))
-                      node=a
-                      card_text=title
-                      for _ in range(5):
-                          if not node.parent: break
-                          node=node.parent
-                          txt=norm(node.get_text(" ",strip=True))
-                          if len(txt)>20 and len(txt)<650 and (views_from(txt) is not None or age_hours_from(txt) is not None):
-                              card_text=txt
-                              break
-                      views=views_from(card_text)
-                      age=age_hours_from(card_text)
-                      duration=duration_seconds(card_text)
-                      # Do not treat old/month-only pages as proof of fresh growth.
-                      source_url=href
-                      youtube_url="https://www.youtube.com/watch?v="+vid if re.fullmatch(r"[A-Za-z0-9_-]{11}",vid) else None
-                      raw.append({
-                          "video_id":vid,"title":title or card_text[:140],"source_channel":source,
-                          "source_page":page_url,"source_url":source_url,"youtube_url":youtube_url,
-                          "language_priority":lang,"views":views,"age_hours":round(age,2) if age else None,
-                          "views_per_hour_proxy":round(views/age,1) if views is not None and age else None,
-                          "duration_seconds":duration,"license_status":"not verified; do not reupload",
-                          "card_text":card_text[:500]
-                      })
-              except Exception as e:
-                  errors.append({"source":source,"error":str(e)[:220]})
-
-          # De-duplicate same YouTube/source video.
-          unique={}
-          for v in raw:
-              key=v["video_id"]
-              old=unique.get(key)
-              if old is None or len(v.get("card_text",""))>len(old.get("card_text","")): unique[key]=v
-          candidates=list(unique.values())
-
-          state_path=Path("state/trends.json")
-          try: state=json.loads(state_path.read_text(encoding="utf-8"))
-          except: state={"videos":{}}
-          tracked=state.get("videos",{})
-          for v in candidates:
-              old=tracked.get(v["video_id"],{})
-              prev_views=old.get("last_views")
-              prev_at=old.get("last_seen_at")
-              rate=None; delta=None
-              if isinstance(prev_views,int) and isinstance(v.get("views"),int) and prev_at and v["views"]>=prev_views:
+          def is_persian(s):
+              return bool(re.search(r"[\u0600-\u06FF]", s or ""))
+          def short_id(s):
+              return bool(re.fullmatch(r"[A-Za-z0-9_-]{11}", s or ""))
+          
+          state_path = Path("state/trends.json")
+          try: state = json.loads(state_path.read_text(encoding="utf-8"))
+          except: state = {"videos":{}}
+          tracked = state.get("videos", {})
+          candidates = []
+          for item in raw.get("candidates", []):
+              title = norm(item.get("title"))
+              vid = item.get("video_id")
+              if not short_id(vid) or not title:
+                  continue
+              card_text = norm(item.get("card_text"))
+              views = views_from(card_text)
+              age = age_hours_from(card_text)
+              old = tracked.get(vid, {})
+              prev_views = old.get("last_views")
+              prev_at = old.get("last_seen_at")
+              rate = None
+              delta = None
+              if isinstance(prev_views, int) and isinstance(views, int) and prev_at and views >= prev_views:
                   try:
-                      elapsed=max(1/60,(NOW-datetime.fromisoformat(prev_at.replace("Z","+00:00"))).total_seconds()/3600)
-                      delta=v["views"]-prev_views
-                      rate=round(delta/elapsed,1)
-                  except: pass
-              v["observed_view_delta"]=delta
-              v["observed_views_per_hour"]=rate
-              history=old.get("history",[])
-              if v.get("views") is not None:
-                  history.append({"at":NOW.isoformat(),"views":v["views"]})
-                  history=history[-8:]
-                  tracked[v["video_id"]]={"first_seen_at":old.get("first_seen_at",NOW.isoformat()),
-                                          "last_seen_at":NOW.isoformat(),"last_views":v["views"],"history":history,
-                                          "title":v["title"],"source_url":v["source_url"]}
-          # Prioritize verified observed growth; then recent high velocity; then Persian relevance.
-          candidates.sort(key=lambda x:(
-              x["observed_views_per_hour"] if x["observed_views_per_hour"] is not None else -1,
-              x["views_per_hour_proxy"] if x["views_per_hour_proxy"] is not None else -1,
-              1 if x["language_priority"]=="persian" else 0,
-              x["views"] if x["views"] is not None else -1
-          ), reverse=True)
-          # Bound state size to most recently seen 1,000 IDs.
-          if len(tracked)>1000:
-              tracked=dict(sorted(tracked.items(),key=lambda kv:kv[1].get("last_seen_at",""),reverse=True)[:1000])
-          state_path.write_text(json.dumps({"updated_at":NOW.isoformat(),"videos":tracked},ensure_ascii=False,indent=2),encoding="utf-8")
-          report={
-              "generated_at":NOW.isoformat(),"candidate_count":len(candidates),"source_errors":errors,
-              "important":"Discovery leads only. Public visibility does not grant republication rights. Only upload after documented permission/license verification.",
+                      elapsed = max(1/60, (NOW - datetime.fromisoformat(prev_at.replace("Z","+00:00"))).total_seconds()/3600)
+                      delta = views - prev_views
+                      rate = round(delta/elapsed, 1)
+                  except Exception:
+                      pass
+              v = dict(item)
+              v.update({
+                  "title":title,
+                  "views":views,
+                  "age_hours":round(age,2) if age is not None else None,
+                  "views_per_hour_proxy":round(views/age,1) if views is not None and age and age > 0 else None,
+                  "observed_view_delta":delta,
+                  "observed_views_per_hour":rate,
+                  "license_status":"not verified; do not reupload",
+                  "language_priority":"persian" if is_persian(title) else ("mixed / language may be irrelevant" if item.get("language_priority") == "mixed" else "unknown")
+              })
+              candidates.append(v)
+              history = old.get("history", [])
+              if isinstance(views, int):
+                  history.append({"at":NOW.isoformat(),"views":views})
+                  history = history[-8:]
+                  tracked[vid] = {
+                      "first_seen_at":old.get("first_seen_at",NOW.isoformat()),
+                      "last_seen_at":NOW.isoformat(),
+                      "last_views":views,
+                      "history":history,
+                      "title":title,
+                      "source_url":v.get("youtube_url")
+                  }
+          keywords = re.compile(r"دوربین مخفی|پرنک|prank|لحظه|اتفاق|بامزه|حیوان|گربه|سگ|ترس|پریدن|غافلگیر|چالش|خنده|funny|fail|caught|unexpected|animal|cat|dog|rooster|trust my eyes|nightmare", re.I)
+          def score(x):
+              observed = x.get("observed_views_per_hour")
+              proxy = x.get("views_per_hour_proxy")
+              age = x.get("age_hours")
+              freshness = 1 if age is not None and age <= 72 else 0
+              persian = 2 if x.get("language_priority") == "persian" else 1 if x.get("language_priority") == "mixed / language may be irrelevant" else 0
+              topic = 1 if keywords.search(x.get("title","")) else 0
+              return (
+                  1 if observed is not None else 0,
+                  observed if observed is not None else -1,
+                  freshness,
+                  persian,
+                  topic,
+                  proxy if proxy is not None else -1,
+                  x.get("views") or -1
+              )
+          candidates.sort(key=score, reverse=True)
+          if len(tracked) > 1500:
+              tracked = dict(sorted(tracked.items(), key=lambda kv:kv[1].get("last_seen_at",""), reverse=True)[:1500])
+          state_path.write_text(json.dumps({"updated_at":NOW.isoformat(),"videos":tracked},ensure_ascii=False,indent=2), encoding="utf-8")
+          report = {
+              "generated_at":NOW.isoformat(),
+              "source_errors":raw.get("source_errors",[]),
+              "candidate_count":len(candidates),
+              "note":"Trend scout reports public metadata only. Views/hour from a single scan is a rough age-based proxy, not proof of growth. Only reupload after verifying permissions/license and Filo compliance.",
               "candidates":candidates[:100]
           }
           Path("out/candidates.json").write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding="utf-8")
-          def esc(s): return str(s or "").replace("|","\\|").replace("\\n"," ")[:150]
-          md=["# Persian-first video trend leads","",f"Generated: {NOW.isoformat()}","",
-              "**No media was downloaded or uploaded.** License status is intentionally unverified for these trend leads.",
-              "Observed views/hour is only available after at least two scans; one-scan views/hour is a rough proxy based on posted age.","",
-              "| Rank | Title / source | Views | Age (h) | Observed growth/h | One-scan proxy/h | License |",
-              "|---:|---|---:|---:|---:|---:|---|"]
+          def esc(s):
+              return str(s or "").replace("|","\\|").replace("\n"," ")[:130]
+          md = [
+              "# Persian-first video trend leads", "",
+              f"Generated: {NOW.isoformat()}", "",
+              "**No media was downloaded or uploaded.** Rights are unverified for all trend leads.",
+              "Observed views/hour becomes available after repeated scans; the first scan uses only an age-based proxy.", "",
+              "| Rank | Title | Views | Age (h) | Observed growth/h | Proxy/h | Source |",
+              "|---:|---|---:|---:|---:|---:|---|"
+          ]
           for i,v in enumerate(candidates[:60],1):
-              def esc(s): return str(s or "").replace("|","\|").replace("\n"," ")[:150]
-              link=v.get("youtube_url") or v["source_url"]
-              views=f'{v["views"]:,}' if v.get("views") is not None else "—"
-              age=v.get("age_hours") if v.get("age_hours") is not None else "—"
-              growth=v.get("observed_views_per_hour") if v.get("observed_views_per_hour") is not None else "—"
-              proxy=v.get("views_per_hour_proxy") if v.get("views_per_hour_proxy") is not None else "—"
-              md.append(f'| {i} | [{esc(v["title"])}]({link}) · {esc(v["source_channel"])} | {views} | {age} | {growth} | {proxy} | not verified |')
-          if errors:
-              md += ["","## Source errors"]+[f'- {esc(e.get("source"))}: {esc(e.get("error",e.get("status","unknown")))}' for e in errors]
+              views = f'{v["views"]:,}' if v.get("views") is not None else "—"
+              age = v.get("age_hours") if v.get("age_hours") is not None else "—"
+              growth = v.get("observed_views_per_hour") if v.get("observed_views_per_hour") is not None else "—"
+              proxy = v.get("views_per_hour_proxy") if v.get("views_per_hour_proxy") is not None else "—"
+              md.append(f'| {i} | [{esc(v["title"])}]({v.get("youtube_url") or v.get("source_page")}) | {views} | {age} | {growth} | {proxy} | {esc(v.get("source_channel"))} |')
+          if raw.get("source_errors"):
+              md += ["", "## Source errors"]
+              md += [f'- {esc(x.get("source"))}: {esc(x.get("error","unknown"))}' for x in raw["source_errors"]]
           Path("out/candidates.md").write_text("\n".join(md)+"\n",encoding="utf-8")
           print("CANDIDATES",len(candidates))
-          print("SOURCE_ERRORS",json.dumps(errors,ensure_ascii=False))
+          print("SOURCES_WITH_ERRORS",len(raw.get("source_errors",[])))
           print("TOP_LEADS")
-          for v in candidates[:25]:
-              print(json.dumps({k:v.get(k) for k in ["title","youtube_url","source_url","source_channel","views","age_hours","views_per_hour_proxy","observed_views_per_hour","license_status"]},ensure_ascii=False))
+          for x in candidates[:20]:
+              print(json.dumps({k:x.get(k) for k in ["title","youtube_url","source_channel","views","age_hours","views_per_hour_proxy","observed_views_per_hour","language_priority","license_status"]},ensure_ascii=False))
           PY
-      - name: Save trend snapshot and candidate report
+      - name: Commit trend snapshots
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add state/trends.json
           if ! git diff --cached --quiet; then
-            git commit -m "Update Persian-first trend snapshots"
+            git commit -m "Update Persian-first Shorts trend snapshots"
             git push
           fi
-          git status --short
       - name: Save candidate report artifact
         uses: actions/upload-artifact@v4
         with:
