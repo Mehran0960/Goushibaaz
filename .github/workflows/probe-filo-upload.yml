@@ -141,10 +141,10 @@ jobs:
             }
             await page.waitForTimeout(2200);
             await inspect('UPLOAD_FORM_AFTER_LOGIN');
-            const otherSiteTab = page.getByText(/از سایت های دیگر|از سایت‌های دیگر/).last();
+            const otherSiteTab = page.locator('#tablistItem2');
             if (await otherSiteTab.count() && await otherSiteTab.isVisible().catch(() => false)) {
               await otherSiteTab.click().catch(() => {});
-              await page.waitForTimeout(900);
+              await page.waitForTimeout(1200);
               await inspect('OTHER_SITES_TAB');
             }
             console.log('Diagnostic completed: no video was uploaded and no cookies or credentials were printed.');
