@@ -101,6 +101,8 @@ jobs:
 
             let uploadUrl = uploadHref ? new URL(uploadHref, page.url()).href : 'https://ifilo.net/upload';
             await page.goto(uploadUrl, { waitUntil: 'domcontentloaded', timeout: 45000 }).catch(async e => console.log('Upload route navigation warning:', e.message.split('\\n')[0]));
+            await page.locator('input[type="password"]').waitFor({ state: 'visible', timeout: 15000 }).catch(() => {});
+            await page.waitForTimeout(1200);
             data = await inspect('UPLOAD_ROUTE_BEFORE_LOGIN');
 
             const pass = page.locator('input[type="password"]').first();
@@ -132,6 +134,9 @@ jobs:
             }
 
             await page.goto(uploadUrl, { waitUntil: 'domcontentloaded', timeout: 45000 }).catch(async e => console.log('Post-login upload navigation warning:', e.message.split('\\n')[0]));
+            await page.locator('input[type="file"]').waitFor({ state: 'visible', timeout: 12000 }).catch(() => {});
+            await page.locator('input[type="password"]').waitFor({ state: 'visible', timeout: 2000 }).catch(() => {});
+            await page.waitForTimeout(1200);
             await inspect('UPLOAD_FORM_AFTER_LOGIN');
             console.log('Diagnostic completed: no video was uploaded and no cookies or credentials were printed.');
             await context.close();
