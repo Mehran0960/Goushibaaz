@@ -200,7 +200,7 @@ async function runScan(env, source) {
         "view_count=excluded.view_count, like_count=excluded.like_count, comment_count=excluded.comment_count, " +
         "duration=excluded.duration, source_license=excluded.source_license, views_per_minute=excluded.views_per_minute, " +
         "previous_views_per_minute=excluded.previous_views_per_minute, growth_ratio=excluded.growth_ratio, " +
-        "growth_score=excluded.growth_score, snapshot_count=excluded.snapshot_count, trend_state=excluded.trend_state, " +
+        "growth_score=excluded.growth_score, snapshot_count=video_candidates.snapshot_count + 1, trend_state=excluded.trend_state, " +
         "updated_at=excluded.updated_at"
       ).bind(
         video.id, video.sourceUrl, video.title, video.channelId, video.channelTitle, video.publishedAt,
