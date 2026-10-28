@@ -35,6 +35,20 @@ const cleanText = value => String(value || '').replace(/\s+/g, ' ').trim();
 const pathOnly = value => {
   try { return new URL(value).pathname; } catch { return ''; }
 };
+function comparableText(value) {
+  return cleanText(String(value || '')
+    .replace(/[\u200c\u200d\u200e\u200f\u202a-\u202e\u2066-\u2069]/g, ' ')
+    .replace(/ـ/g, ' '))
+    .toLocaleLowerCase('fa');
+}
+function titleMatchesContent(value, title) {
+  const haystack = comparableText(value);
+  const needle = comparableText(title);
+  if (needle && haystack.includes(needle)) return true;
+  const ignored = new Set(['لحظه', 'لحظه‌ای', 'دیدنی', 'تماشایی', 'دنیای', 'یک', 'از', 'که', 'برای', 'وقتی']);
+  const tokens = needle.split(' ').filter(token => token.length > 2 && !ignored.has(token));
+  return tokens.length > 0 && tokens.every(token => haystack.includes(token));
+}
 
 function plainMetadata(value) {
   return cleanText(String(value || '')
@@ -48,6 +62,7 @@ function titleForCandidate(candidate) {
   if (/\b(cat|cats|kitten|kittens|feline)\b|گربه/.test(text)) return 'لحظه‌ای غیرمنتظره از دنیای گربه‌ها 😹';
   if (/\b(dog|dogs|puppy|puppies)\b|سگ/.test(text)) return 'یک حرکت بامزه از دنیای سگ‌ها 🐶';
   if (/\b(bird|birds|parrot|parrots|pigeon)\b|پرنده/.test(text)) return 'لحظه‌ای تماشایی از دنیای پرندگان 🐦';
+  if (/\b(mouse|mice|hamster|hamsters|gerbil|gerbils)\b/.test(text)) return 'لحظه‌های بامزه از دنیای موش‌های خانگی 🐭';
   if (/\b(squirrel|squirrels|monkey|monkeys|rabbit|rabbits)\b/.test(text)) return 'رفتار جالب یک حیوان در چند ثانیه 🐾';
   if (/\b(caught on camera|surprise|jumpscare|unexpected|funny|playful|playing|fail)\b/.test(text)) return 'یک لحظه غیرمنتظره که ارزش دیدن دارد 😮';
   return 'لحظه‌ای دیدنی از دنیای حیوانات 🐾';
@@ -757,13 +772,18 @@ async function main() {
       postUrl = page.url().split('?')[0];
     }
     if (!postUrl) {
-      postUrl = await page.locator('a[href*="/v/"], a[href*="/video/"]').evaluateAll(as => as.map(a => ({
+      const firstPageLinks = await page.locator('a[href*="/v/"], a[href*="/video/"]').evaluateAll(as => as.map(a => ({
         href: a.href.split('?')[0],
-        text: String(a.innerText || a.getAttribute('title') || a.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 90),
-        cardText: String((a.closest('article, li, [class*="video"], [class*="Video"]') || a).innerText || '').trim().replace(/\s+/g, ' ').slice(0, 200)
-      })).filter(x => /^https?:\/\/(?:www\.)?ifilo\.net\/(?:v|video)\//i.test(x.href) &&
-        !existingVideoUrls.has(x.href) &&
-        /گربه|وقتی گربه|cat jumpscare/i.test(x.text + ' ' + x.cardText)).map(x => x.href)[0] || '').catch(() => '');
+        text: String(a.innerText || a.getAttribute('title') || a.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' '),
+        cardText: String((a.closest('article, li, [class*="video"], [class*="Video"]') || a).innerText || '').trim().replace(/\s+/g, ' ').slice(0, 240)
+      }))).catch(() => []);
+      const firstPageFresh = firstPageLinks.filter(x =>
+        /^https?:\/\/(?:www\.)?ifilo\.net\/(?:v|video)\//i.test(x.href) &&
+        !existingVideoUrls.has(x.href)
+      );
+      const firstPageTitleMatch = firstPageFresh.find(x => titleMatchesContent(x.text + ' ' + x.cardText, PERSIAN_TITLE));
+      postUrl = firstPageTitleMatch ? firstPageTitleMatch.href :
+        firstPageFresh.length === 1 ? firstPageFresh[0].href : '';
     }
 
     if (!postUrl) {
@@ -773,12 +793,13 @@ async function main() {
         href: a.href,
         text: (a.innerText || a.getAttribute('title') || '').trim().replace(/\s+/g,' ')
       }))).catch(() => []);
-      const match = links.find(x =>
+      const freshLinks = links.filter(x =>
         /^https?:\/\/(?:www\.)?ifilo\.net\/(?:v|video)\//i.test(x.href) &&
-        !existingVideoUrls.has(x.href.split('?')[0]) &&
-        x.text.toLowerCase().includes(PERSIAN_TITLE.toLowerCase())
+        !existingVideoUrls.has(x.href.split('?')[0])
       );
+      const match = freshLinks.find(x => titleMatchesContent(x.text, PERSIAN_TITLE));
       if (match) postUrl = match.href.split('?')[0];
+      else if (freshLinks.length === 1) postUrl = freshLinks[0].href.split('?')[0];
       bodyText = (await page.locator('body').innerText().catch(() => '')).slice(0, 6000);
     }
 
