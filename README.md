@@ -34,12 +34,17 @@ Filo may hold new videos in a moderation/approval queue for up to 72 hours. A su
 
 ## Other publishing destinations
 
-The planned destinations are **Rubika, Bale, and Telegram** as independent adapters. Rubika is the next integration. The public channel `@didobyn` has been resolved and verified through the official Bot API: channel ID `c0EHrgB0fb431bf54ac2552d95d29b86`, title `دیدوبین`, type `Channel`. The earlier `RUBIKA_CHAT_ID` value was rejected by `sendMessage`; the preflight no longer depends on that secret and resolves `@didobyn` directly. A real send/delete test succeeded, confirming the bot can post to the channel and remove the test message. `.github/workflows/rubika-preflight.yml` now validates `RUBIKA_BOT_TOKEN`, resolves the right channel automatically, keeps routine checks read-only, and cleans up the optional test post. This is a connection test only; the automated Rubika video publisher and independent retry/state handling remain to be implemented next. Bale and Telegram will follow as separate adapters, and a failure at one destination must never block the others. The Cloudflare trend-scout Worker also requires its API key and admin token to be configured as Cloudflare secrets.
+Publishing destinations are being added as independent adapters so one platform failure cannot block the others. The public Rubika channel `@didobyn` is verified through the Bot API as `Channel`, title `دیدوبین`, internal ID `c0EHrgB0fb431bf54ac2552d95d29b86`. Do not use the old `RUBIKA_CHAT_ID` secret; it was rejected by `sendMessage`. Both preflight and the publisher resolve `@didobyn` directly using `RUBIKA_BOT_TOKEN`.
+
+The independent Rubika publisher is implemented in `scripts/rubika_publish_cc0.cjs` and scheduled by `.github/workflows/publish-approved-video-to-rubika.yml` every three hours, offset from the Filo schedule, with manual dispatch available. The first real native video post succeeded (Rubika message ID `1954300513323781160`). The workflow searches for new short videos with explicitly verified CC0 1.0 or CC BY 4.0 reuse rights, converts them to portrait 1080×1920 MP4, includes attribution/license links, and records each destination publication in `state/rubika-published.json` to avoid reposts. The Bot API upload endpoint repeatedly timed out on MP4s carrying an AAC audio stream, while silent MP4s uploaded successfully; for now, Rubika videos are exported without audio. This limitation is isolated to the Rubika adapter and does not modify Filo output. Improving audio compatibility remains a follow-up engineering task. The preflight workflow `.github/workflows/rubika-preflight.yml` resolves the channel automatically, stays read-only by default, and can optionally send then delete a temporary test message. Bale and Telegram remain separate future adapters. The Cloudflare trend-scout Worker also requires its API key and admin token to be configured as Cloudflare secrets.
 
 ## Repository layout
 
 - `cloudflare/src/index.js` — Worker API, scheduled scanning, scoring, and candidate endpoints.
 - `scripts/platform_scout.cjs` — public Telegram, Aparat, and YouTube Creative Commons-filtered metadata scouting.
+- `scripts/rubika_publish_cc0.cjs` — independent, verified-license Rubika vertical-video publisher.
+- `.github/workflows/publish-approved-video-to-rubika.yml` — separate Rubika schedule/dispatch and publication-state persistence.
+- `state/rubika-published.json` — Rubika-only deduplication and destination message IDs.
 - `cloudflare/schema.sql` — full D1 schema.
 - `cloudflare/migrations/0001_init.sql` and `0002_content_fit_preferences.sql` — D1 schema migrations.
 - `cloudflare/wrangler.jsonc` — Worker, Cron, and D1 binding configuration.
