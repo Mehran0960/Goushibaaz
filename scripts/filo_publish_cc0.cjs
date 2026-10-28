@@ -21,6 +21,7 @@ const STATE_PATH = path.join('state', 'filo-published.json');
 const VIDEO_DIR = path.join(process.cwd(), 'work', 'filo-publish');
 const INPUT_FILE = path.join(VIDEO_DIR, 'Cat_Jumpscare.webm');
 const OUTPUT_FILE = path.join(VIDEO_DIR, 'cat-jumpscare-fa.mp4');
+const COVER_FILE = path.join(VIDEO_DIR, 'cat-jumpscare-cover.jpg');
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const cleanText = value => String(value || '').replace(/\s+/g, ' ').trim();
@@ -91,6 +92,22 @@ function convertToPortraitMp4() {
   const stat = fs.statSync(OUTPUT_FILE);
   if (stat.size < 100000 || stat.size > 80000000) throw new Error('converted_video_size_out_of_range');
   return { outputBytes: stat.size, outputPath: OUTPUT_FILE };
+}
+
+function extractCoverFrame() {
+  execFileSync('ffmpeg', [
+    '-hide_banner', '-loglevel', 'error', '-y',
+    '-ss', '00:00:01.0', '-i', OUTPUT_FILE,
+    '-frames:v', '1',
+    '-vf', 'scale=576:1024:force_original_aspect_ratio=decrease,pad=576:1024:(ow-iw)/2:(oh-ih)/2,setsar=1',
+    '-q:v', '2',
+    COVER_FILE
+  ], { stdio: 'pipe', timeout: 30000 });
+  const bytes = fs.readFileSync(COVER_FILE);
+  if (bytes.length < 10000 || bytes.length > 10000000 || bytes[0] !== 0xff || bytes[1] !== 0xd8) {
+    throw new Error('cover_frame_generation_failed');
+  }
+  return { coverBytes: bytes.length, coverPath: COVER_FILE, width: 576, height: 1024 };
 }
 
 async function visibleFirst(page, selectors) {
@@ -275,6 +292,90 @@ function cleanButtonText(el) {
   return String(el.getAttribute('aria-label') || el.innerText || el.getAttribute('value') || '').trim().replace(/\s+/g, ' ').slice(0, 90);
 }
 
+async function uploadCoverThumbnail(page, coverPath) {
+  const tile = page.locator('#uploadVideoThumb').first();
+  await tile.waitFor({ state: 'attached', timeout: 12000 }).catch(() => {});
+  if (!(await tile.count().catch(() => 0))) throw new Error('filo_thumbnail_tile_not_found');
+
+  const responsePromise = page.waitForResponse(response => {
+    try {
+      const url = new URL(response.url());
+      return response.request().method() === 'POST' && /uploadVideoThumb/i.test(url.pathname);
+    } catch { return false; }
+  }, { timeout: 30000 }).catch(() => null);
+
+  const inputSelectors = [
+    '#uploadVideoThumb input[type="file"]',
+    'input[type="file"][name="dut"]',
+    'input[type="file"][accept*="image"]',
+    'input[type="file"][accept*=".jpg"]'
+  ];
+  let fileInput = null;
+  for (const selector of inputSelectors) {
+    const candidate = page.locator(selector).first();
+    if (await candidate.count().catch(() => 0)) {
+      fileInput = candidate;
+      break;
+    }
+  }
+
+  if (fileInput) {
+    await fileInput.setInputFiles(coverPath);
+  } else {
+    const uploadButton = page.locator('#uploadVideoThumb a[title="آپلود تصویر"], #uploadVideoThumb button[title="آپلود تصویر"], a[title="آپلود تصویر"]').first();
+    if (!(await uploadButton.isVisible().catch(() => false))) {
+      const fields = await visibleFieldReport(page);
+      throw new Error('filo_thumbnail_file_control_not_found:' +
+        fields.filter(item => item.type === 'file').map(item => item.id + ':' + item.name + ':' + item.accept).join(',').slice(0, 120));
+    }
+    const chooserPromise = page.waitForEvent('filechooser', { timeout: 7000 }).catch(() => null);
+    await uploadButton.click();
+    const chooser = await chooserPromise;
+    if (chooser) {
+      await chooser.setFiles(coverPath);
+    } else {
+      const lateInput = page.locator('#uploadVideoThumb input[type="file"], input[type="file"][name="dut"], input[type="file"][accept*="image"]').first();
+      if (!(await lateInput.count().catch(() => 0))) throw new Error('filo_thumbnail_filechooser_not_opened');
+      await lateInput.setInputFiles(coverPath);
+    }
+  }
+
+  const response = await responsePromise;
+  if (!response) throw new Error('filo_thumbnail_upload_response_missing');
+  const status = response.status();
+  let apiSignal = 'unknown';
+  let apiError = '';
+  try {
+    let data = await response.json();
+    if (typeof data === 'string') {
+      try { data = JSON.parse(data); } catch {}
+    }
+    if (data && (data.s === true || data.s === 1 || data.s === '1')) apiSignal = 'success';
+    else if (data && (data.s === false || data.s === 0 || data.s === '0')) apiSignal = 'rejected';
+    if (data && data.r) apiError = String(data.r).replace(/\s+/g, ' ').slice(0, 100);
+  } catch {}
+
+  if (status >= 400 || apiSignal === 'rejected' || apiError) {
+    throw new Error('filo_thumbnail_upload_rejected:http_' + status + ':api_' + apiSignal +
+      (apiError ? ':' + apiError : ''));
+  }
+
+  const tileHeading = tile.locator('h3').first();
+  if (await tileHeading.isVisible().catch(() => false)) {
+    await tileHeading.click().catch(() => {});
+  } else {
+    await tile.click({ position: { x: 18, y: 18 } }).catch(() => {});
+  }
+  await sleep(700);
+  const tileClass = await tile.getAttribute('class').catch(() => '');
+  return {
+    status,
+    apiSignal,
+    tileSelected: /\bselected\b/.test(tileClass || ''),
+    tileClass: String(tileClass || '').slice(0, 100)
+  };
+}
+
 async function main() {
   fs.mkdirSync(path.dirname(STATE_PATH), { recursive: true });
   let state = { posts: [] };
@@ -293,6 +394,7 @@ async function main() {
 
   const rights = await downloadVerifiedCc0Source();
   const converted = convertToPortraitMp4();
+  const cover = extractCoverFrame();
 
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({
@@ -434,7 +536,7 @@ async function main() {
       await descriptionField.fill(PERSIAN_DESCRIPTION);
     }
 
-    const beforeText = (await page.locator('body').innerText().catch(() => '')).slice(0, 1000);
+    const coverUpload = await uploadCoverThumbnail(page, COVER_FILE);
     const publishButton = await findPublishButton(page);
     if (!publishButton) {
       result = {
@@ -540,23 +642,27 @@ async function main() {
       };
       state.posts = [...(state.posts || []).filter(x => !(x.sourcePage === COMMONS_PAGE && x.status === 'submit_started')), entry].slice(-500);
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
-      result = { status: 'published', title: PERSIAN_TITLE, postUrl, sourcePage: COMMONS_PAGE, license: rights.licenseName, sourceBytes: rights.sourceBytes, convertedBytes: converted.outputBytes, publishHttpStatus, publishApiAccepted, requests: observedRequests.slice(-20), responses: observedResponses.slice(-20) };
+      result = { status: 'published', title: PERSIAN_TITLE, postUrl, sourcePage: COMMONS_PAGE, license: rights.licenseName, sourceBytes: rights.sourceBytes, convertedBytes: converted.outputBytes, coverBytes: cover.coverBytes, coverUpload, publishHttpStatus, publishApiAccepted, requests: observedRequests.slice(-20), responses: observedResponses.slice(-20) };
     } else {
-      const bodySignal = /با موفقیت|موفقیت آمیز|بارگذاری شد|ارسال شد|منتشر شد/i.test(bodyText) ? 'success_text_seen' : 'no_success_text_seen';
-      const accepted = publishApiAccepted || bodySignal === 'success_text_seen';
+      // The /my/videos page contains unrelated phrases such as "ارسال شده برای سانسور";
+      // generic text matching is not evidence that the publish request was accepted.
+      const confirmedAcceptance = publishApiAccepted;
+      const rejected = Boolean(publishResponse && !publishApiAccepted);
+      const finalStatus = confirmedAcceptance
+        ? 'submitted_pending_approval'
+        : rejected ? 'rejected_by_filo' : 'submit_result_unconfirmed';
       const updated = {
         ...preSubmitEntry,
-        status: accepted ? 'submitted_pending_approval' : 'submitted_unconfirmed',
+        status: finalStatus,
         attemptedAt: preSubmitEntry.attemptedAt,
         publishHttpStatus,
         publishApiAccepted,
-        bodySignal,
         publishApiError: publishApiError || undefined
       };
       state.posts = [...(state.posts || []).filter(x => !(x.sourcePage === COMMONS_PAGE && x.status === 'submit_started')), updated].slice(-500);
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
       result = {
-        status: accepted ? 'submitted_pending_approval' : 'submit_result_unconfirmed',
+        status: finalStatus,
         title: PERSIAN_TITLE,
         currentPath: pathOnly(page.url()),
         sourcePage: COMMONS_PAGE,
@@ -564,11 +670,16 @@ async function main() {
         publishHttpStatus,
         publishApiAccepted,
         publishApiError: publishApiError || undefined,
-        bodySignal,
-        note: accepted ? 'Filo accepted the publish request, but a new public post URL was not confirmed; platform review may take up to 72 hours.' : 'No reliable acceptance response or fresh public post URL was found.',
+        coverUpload,
+        note: confirmedAcceptance
+          ? 'Filo accepted the publish request, but a new public post URL was not confirmed; platform review may take up to 72 hours.'
+          : rejected
+            ? 'Filo rejected the publish request. No successful publication is claimed.'
+            : 'The publish response was not conclusive; a new public post URL could not be confirmed.',
         sourceBytes: rights.sourceBytes,
         convertedBytes: converted.outputBytes,
-        bodyText,
+        coverBytes: cover.coverBytes,
+        bodyText: bodyText.slice(0, 1200),
         requests: observedRequests.slice(-20),
         responses: observedResponses.slice(-20)
       };
