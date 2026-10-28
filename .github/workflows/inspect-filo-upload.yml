@@ -2,6 +2,9 @@ name: Inspect Filo upload interface
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/inspect-filo-upload.yml"
 
 permissions:
   contents: read
@@ -61,6 +64,10 @@ jobs:
               fileInputDetails: [],
               formSummaries: [],
               visibleButtonLabels: [],
+              bodyText: '',
+              scriptPaths: [],
+              uploadInputAncestors: [],
+              uploadRelatedLinks: [],
               note: 'Inspection only. No video file selected, no form submitted, no post created.'
             };
 
@@ -212,6 +219,29 @@ jobs:
               }
 
               stage = 'inspect_upload_controls';
+              report.bodyText = (await page.locator('body').innerText().catch(() => '')).slice(0, 5000);
+              report.scriptPaths = (await page.locator('script[src]').evaluateAll(nodes => nodes.map(el => {
+                try { return new URL(el.src).pathname; } catch { return ''; }
+              }))).filter(Boolean).slice(0, 40);
+              report.uploadRelatedLinks = await page.locator('a[href]').evaluateAll(nodes => nodes
+                .map(el => ({text:(el.innerText || el.getAttribute('aria-label') || '').trim().replace(/\\s+/g,' ').slice(0,50), path:(()=>{try{return new URL(el.href).pathname}catch{return ''}})()}))
+                .filter(x => /upload|video|publish|submit|آپلود|ویدیو|انتشار/i.test(x.text+' '+x.path))
+                .slice(0, 30));
+              report.uploadInputAncestors = await page.locator('#fileInput').evaluateAll(nodes => nodes.slice(0, 1).map(el => {
+                let current = el;
+                const out = [];
+                for (let i=0; current && i<5; i++, current=current.parentElement) {
+                  out.push({
+                    tag:current.tagName.toLowerCase(),
+                    id:current.id || '',
+                    className: String(current.className || '').slice(0,120),
+                    role:current.getAttribute('role') || '',
+                    text:(current.innerText || '').trim().replace(/\\s+/g,' ').slice(0,100),
+                    snippet:current.outerHTML.slice(0,700)
+                  });
+                }
+                return out;
+              })).then(v => v[0] || []);
               report.uploadPagePath = pathOnly(page.url());
               report.uploadPageTitle = (await page.title().catch(() => '')).slice(0, 100);
               report.fileInputDetails = await page.locator('input[type="file"]').evaluateAll(nodes => nodes.map(el => {
