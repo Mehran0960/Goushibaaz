@@ -34,7 +34,7 @@ jobs:
             'filetype:video pet',
             'filetype:video bird'
           ];
-          const clean = value => String(value || '').replace(/<[^>]*>/g, ' ').replace(/\\s+/g, ' ').trim();
+          const clean = value => String(value || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
           (async () => {
             let total = 0, videoWebm = 0, verifiedCc0Webm = 0, eligibleShorts = 0;
             const report = [];
@@ -64,19 +64,19 @@ jobs:
                 const meta = info.extmetadata || {};
                 const licenseName = clean(meta.LicenseShortName && meta.LicenseShortName.value);
                 const licenseUrl = clean(meta.LicenseUrl && meta.LicenseUrl.value);
-                const cc0 = /\\bCC0\\b/i.test(licenseName) && /creativecommons\\.org\\/publicdomain\\/zero\\/1\\.0/i.test(licenseUrl);
+                const cc0 = /\bCC0\b/i.test(licenseName) && /creativecommons\.org\/publicdomain\/zero\/1\.0/i.test(licenseUrl);
                 if (!cc0) continue;
                 verifiedCc0Webm++; queryCc0++;
                 if (!Number.isFinite(info.size) || info.size < 200000 || info.size > 45000000) continue;
                 const description = clean(meta.ImageDescription && meta.ImageDescription.value);
                 const text = (String(page.title || '') + ' ' + description).toLowerCase();
-                if (!/\\b(cat|cats|kitten|feline|dog|dogs|puppy|pet|pets|bird|birds|parrot|pigeon|squirrel|monkey|rabbit|animal|wildlife)\\b|گربه|سگ|حیوان|پرنده/.test(text)) continue;
+                if (!/\b(cat|cats|kitten|feline|dog|dogs|puppy|pet|pets|bird|birds|parrot|pigeon|squirrel|monkey|rabbit|animal|wildlife)\b|گربه|سگ|حیوان|پرنده/.test(text)) continue;
                 const common = Array.isArray(info.commonmetadata) ? info.commonmetadata : [];
                 let duration = null;
                 for (const item of common) {
                   if (!/duration|length|runtime|run time/i.test(String(item.name || ''))) continue;
                   const v=String(item.value||'');
-                  const m=v.match(/PT(?:(\\d+(?:\\.\\d+)?)H)?(?:(\\d+(?:\\.\\d+)?)M)?(?:(\\d+(?:\\.\\d+)?)S)?/i);
+                  const m=v.match(/PT(?:(\d+(?:\.\d+)?)H)?(?:(\d+(?:\.\d+)?)M)?(?:(\d+(?:\.\d+)?)S)?/i);
                   if (m) duration=Number(m[1]||0)*3600+Number(m[2]||0)*60+Number(m[3]||0);
                 }
                 if (duration !== null && (duration < 3 || duration > 180)) continue;
