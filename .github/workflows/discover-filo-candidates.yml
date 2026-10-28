@@ -305,6 +305,8 @@ jobs:
           for x in candidates[:20]:
               print(json.dumps({k:x.get(k) for k in ["title","youtube_url","source_channel","views","age_hours","views_per_hour_proxy","observed_views_per_hour","language_priority","format_fit","format_reason","license_status"]},ensure_ascii=False))
           PY
+      - name: Scout public Telegram and Aparat feeds
+        run: node scripts/platform_scout.cjs
       - name: Inspect public YouTube reuse-license metadata for leading candidates
         run: |
           node <<'NODE'
@@ -422,7 +424,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add state/trends.json
+          git add state/trends.json state/platform-trends.json
           if ! git diff --cached --quiet; then
             git commit -m "Update Persian-first Shorts trend snapshots"
           fi
