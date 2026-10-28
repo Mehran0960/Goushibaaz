@@ -57,6 +57,21 @@ function plainMetadata(value) {
     .replace(/&#0*39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>'));
 }
 
+function commercialLicenseProfile(licenseName, licenseUrl) {
+  const name = String(licenseName || '');
+  const url = String(licenseUrl || '').replace(/&amp;/g, '&');
+  if (/\bCC0\b/i.test(name) && /creativecommons\.org\/publicdomain\/zero\/1\.0(?:\/|$)/i.test(url)) {
+    return { type: 'CC0 1.0', url: 'https://creativecommons.org/publicdomain/zero/1.0/' };
+  }
+  // Commercial reuse allowed with attribution/change notice; exclude NC, ND, and SA variants.
+  if (/\bCC BY 4\.0\b/i.test(name) &&
+      /creativecommons\.org\/licenses\/by\/4\.0(?:\/|$)/i.test(url) &&
+      !/creativecommons\.org\/licenses\/by-(?:nc|nd|sa)(?:-|\/)/i.test(url)) {
+    return { type: 'CC BY 4.0', url: 'https://creativecommons.org/licenses/by/4.0/' };
+  }
+  return null;
+}
+
 function titleForCandidate(candidate) {
   const text = (candidate.fileTitle + ' ' + candidate.description).toLowerCase();
   if (/\b(cat|cats|kitten|kittens|feline)\b|گربه/.test(text)) return 'لحظه‌ای غیرمنتظره از دنیای گربه‌ها 😹';
@@ -69,14 +84,20 @@ function titleForCandidate(candidate) {
 }
 
 function descriptionForCandidate(candidate) {
+  const licenseType = candidate.licenseType || commercialLicenseProfile(candidate.licenseName, candidate.licenseUrl)?.type || 'CC0 1.0';
+  const licenseUrl = candidate.licenseUrl || (licenseType === 'CC BY 4.0'
+    ? 'https://creativecommons.org/licenses/by/4.0/'
+    : CC0_LICENSE_URL);
+  const changeNote = 'تغییرات: تبدیل به قالب عمودی ۹:۱۶، برش/مقیاس‌دهی تصویر و فشرده‌سازی برای انتشار.';
   return [
     'یک ویدئوی کوتاه و تصویری؛ بدون نیاز به زبان 🐾',
     '',
     'منبع: ' + candidate.fileTitle.replace(/^File:/i, ''),
     'پدیدآورنده: ' + (candidate.author || 'طبق اطلاعات صفحهٔ منبع'),
-    'مجوز: CC0 1.0 (دامنهٔ عمومی)',
+    'مجوز: ' + licenseType,
+    ...(licenseType === 'CC BY 4.0' ? [changeNote] : []),
     candidate.sourcePage,
-    candidate.licenseUrl || CC0_LICENSE_URL,
+    licenseUrl,
     '',
     'اگر این کلیپ لبخندت را آورد، با دوستت هم به اشتراک بگذار.'
   ].join('\n');
@@ -105,7 +126,7 @@ function classifyCandidate(candidate) {
   return /caught on camera|jumpscare|unexpected|surprise|funny|playful|playing|fail|visual comedy|oddly satisfying/.test(text);
 }
 
-async function discoverCc0Candidates(state) {
+async function discoverCommercialCandidates(state) {
   const used = new Set((state.posts || [])
     .filter(item => ACTIVE_SOURCE_STATUSES.has(item.status) || item.status === 'ineligible_source')
     .map(item => item.sourcePage));
@@ -128,7 +149,7 @@ async function discoverCc0Candidates(state) {
     api.searchParams.set('prop', 'imageinfo');
     api.searchParams.set('iiprop', 'url|mime|size|extmetadata|commonmetadata');
     const response = await fetch(api, {
-      headers: { 'User-Agent': 'GoushibaazFiloPublisher/1.0 (CC0 reuse verification)' },
+      headers: { 'User-Agent': 'GoushibaazFiloPublisher/1.0 (CC0 and CC BY 4.0 verified reuse)' },
       signal: AbortSignal.timeout(20000)
     });
     if (!response.ok) {
@@ -143,11 +164,12 @@ async function discoverCc0Candidates(state) {
       if (!info || !info.url || info.mime !== 'video/webm') continue;
       if (!Number.isFinite(info.size) || info.size < 200000 || info.size > MAX_SOURCE_BYTES) continue;
       const meta = info.extmetadata || {};
-      const licenseName = plainMetadata(meta.LicenseShortName && meta.LicenseShortName.value);
-      const licenseUrl = plainMetadata(meta.LicenseUrl && meta.LicenseUrl.value);
-      const explicitlyCc0 = /\bCC0\b/i.test(licenseName) &&
-        /creativecommons\.org\/publicdomain\/zero\/1\.0/i.test(licenseUrl);
-      if (!explicitlyCc0) continue;
+      const rawLicenseName = plainMetadata(meta.LicenseShortName && meta.LicenseShortName.value);
+      const rawLicenseUrl = plainMetadata(meta.LicenseUrl && meta.LicenseUrl.value);
+      const licenseProfile = commercialLicenseProfile(rawLicenseName, rawLicenseUrl);
+      if (!licenseProfile) continue;
+      const licenseName = licenseProfile.type;
+      const licenseUrl = licenseProfile.url;
       const description = plainMetadata(meta.ImageDescription && meta.ImageDescription.value);
       const author = plainMetadata(meta.Artist && meta.Artist.value);
       const fileTitle = String(page.title || '');
@@ -157,7 +179,8 @@ async function discoverCc0Candidates(state) {
       if (duration !== null && (duration < 3 || duration > MAX_DURATION_SECONDS)) continue;
       const candidate = {
         fileTitle, sourcePage, fileUrl: info.url, mime: info.mime, size: info.size,
-        durationSeconds: duration, licenseName, licenseUrl, description, author
+        durationSeconds: duration, licenseName, licenseUrl, licenseType: licenseProfile.type,
+        description, author
       };
       candidate.title = titleForCandidate(candidate);
       candidate.descriptionText = descriptionForCandidate(candidate);
@@ -172,15 +195,16 @@ async function downloadVerifiedCc0Source(candidate) {
   if (!candidate || !candidate.fileUrl || !candidate.sourcePage || !candidate.fileTitle) {
     throw new Error('commons_candidate_missing_required_fields');
   }
-  const explicitlyCc0 = /\bCC0\b/i.test(candidate.licenseName || '') &&
-    /creativecommons\.org\/publicdomain\/zero\/1\.0/i.test(candidate.licenseUrl || '');
-  if (!explicitlyCc0) throw new Error('commons_license_not_verified_as_cc0');
+  const licenseProfile = commercialLicenseProfile(candidate.licenseName, candidate.licenseUrl);
+  if (!licenseProfile || (candidate.licenseType && candidate.licenseType !== licenseProfile.type)) {
+    throw new Error('commons_license_not_verified_for_commercial_reuse');
+  }
   if (candidate.mime !== 'video/webm' || candidate.size > MAX_SOURCE_BYTES) {
     throw new Error('commons_video_type_or_size_not_allowed');
   }
   fs.mkdirSync(VIDEO_DIR, { recursive: true });
   const fileResponse = await fetch(candidate.fileUrl, {
-    headers: { 'User-Agent': 'GoushibaazFiloPublisher/1.0 (CC0 video reuse)' },
+    headers: { 'User-Agent': 'GoushibaazFiloPublisher/1.0 (verified commercial-reuse license)' },
     signal: AbortSignal.timeout(45000)
   });
   if (!fileResponse.ok) throw new Error('commons_video_download_http_' + fileResponse.status);
@@ -193,7 +217,8 @@ async function downloadVerifiedCc0Source(candidate) {
   return {
     sourcePage: candidate.sourcePage, sourceTitle: candidate.fileTitle,
     directFilePath: pathOnly(candidate.fileUrl), licenseName: candidate.licenseName,
-    licenseUrl: candidate.licenseUrl, author: String(candidate.author || 'Not identified on the source page').slice(0, 100),
+    licenseUrl: licenseProfile.url, licenseType: licenseProfile.type,
+    author: String(candidate.author || 'Not identified on the source page').slice(0, 100),
     sourceBytes: bytes.length, sourceDescription: candidate.description.slice(0, 180),
     durationSeconds: candidate.durationSeconds
   };
@@ -501,7 +526,7 @@ async function main() {
   try { state = JSON.parse(fs.readFileSync(STATE_PATH, 'utf8')); } catch {}
   if (!Array.isArray(state.posts)) state.posts = [];
 
-  const candidates = await discoverCc0Candidates(state);
+  const candidates = await discoverCommercialCandidates(state);
   if (!candidates.length) {
     const result = {
       status: 'no_eligible_candidate',
