@@ -17,12 +17,44 @@ function clampInt(value, fallback, min, max) {
   return Number.isFinite(n) ? Math.min(max, Math.max(min, n)) : fallback;
 }
 
+function classifyContent(title, channelTitle, audioLanguage, defaultLanguage) {
+  const text = (String(title || "") + " " + String(channelTitle || "")).normalize("NFKC").toLowerCase();
+  const language = (String(audioLanguage || "") + " " + String(defaultLanguage || "")).toLowerCase();
+  const hasPersianMetadata = /(^|[^a-z])fa([_-][a-z]{2,4})?([^a-z]|$)|persian|farsi/.test(language);
+  const hasPersianScript = /[\u067e\u0686\u0698\u06af\u06a9\u06cc]/.test(text);
+  const hasPersianTerms = /طنز|فان|خنده|دوربین مخفی|شکار لحظه|سوتی|کلیپ خنده|ولاگ|سرگرمی|چالش|باورنکردنی|عجیب ترین|حیوانات بامزه/.test(text);
+
+  if (hasPersianMetadata || hasPersianScript || hasPersianTerms) {
+    return {
+      contentFit: "persian_priority",
+      languageHint: "fa",
+      fitReason: hasPersianMetadata ? "YouTube language metadata indicates Persian" : "Persian title or channel signals"
+    };
+  }
+
+  const visualFirstPattern = /\b(cctv|dashcam|body ?cam|security camera|caught on camera|instant karma|near miss|epic fails?|funny moments|unexpected moments|oddly satisfying|satisfying video|no talking|without talking|silent comedy|slapstick|animal fails?|pets being silly)\b|\b(visual comedy|wordless|nonverbal)\b/i;
+  if (visualFirstPattern.test(text)) {
+    return {
+      contentFit: "language_neutral_candidate",
+      languageHint: "visual-first-review",
+      fitReason: "Title suggests CCTV, visual comedy, animals, fails, or a no-dialogue format; verify the clip visually before reuse"
+    };
+  }
+
+  return {
+    contentFit: "other_language_review",
+    languageHint: language || "unknown",
+    fitReason: "No reliable Persian-language or language-neutral signal in public metadata"
+  };
+}
+
 function parseVideo(item) {
   const stats = item.statistics || {};
   const snippet = item.snippet || {};
   const details = item.contentDetails || {};
   const viewCount = Number(stats.viewCount);
   if (!item.id || !Number.isFinite(viewCount)) return null;
+  const fit = classifyContent(snippet.title, snippet.channelTitle, snippet.defaultAudioLanguage, snippet.defaultLanguage);
   return {
     id: String(item.id),
     title: String(snippet.title || "Untitled").slice(0, 500),
@@ -34,6 +66,9 @@ function parseVideo(item) {
     comments: stats.commentCount == null ? null : Number(stats.commentCount),
     duration: details.duration || null,
     sourceLicense: item.status && item.status.license ? item.status.license : null,
+    contentFit: fit.contentFit,
+    languageHint: fit.languageHint,
+    fitReason: fit.fitReason,
     sourceUrl: "https://www.youtube.com/watch?v=" + encodeURIComponent(String(item.id))
   };
 }
@@ -126,15 +161,29 @@ async function runScan(env, source) {
       "SELECT value FROM app_config WHERE key = 'last_search_at' LIMIT 1"
     ).first();
     const lastSearchAt = lastSearchRow && lastSearchRow.value ? Date.parse(lastSearchRow.value) : 0;
+    const queryRotation = [
+      { q: "دوربین مخفی|شکار لحظه|سوتی|لحظات عجیب", language: "fa", region: "IR" },
+      { q: "حیوانات بامزه|گربه|سگ|کلیپ خنده دار", language: "fa", region: "IR" },
+      { q: "طنز کوتاه|فان|چالش خنده دار|اتفاق باورنکردنی", language: "fa", region: "IR" },
+      { q: "caught on camera|CCTV|dashcam|near miss", language: "en", region: "" },
+      { q: "funny moments|instant karma|epic fails|unexpected moments", language: "en", region: "" },
+      { q: "oddly satisfying|no talking|visual comedy|animal fails", language: "en", region: "" }
+    ];
+    const rotationRow = await env.DB.prepare(
+      "SELECT value FROM app_config WHERE key = 'next_search_index' LIMIT 1"
+    ).first();
+    const searchIndex = clampInt(rotationRow && rotationRow.value, 0, 0, queryRotation.length - 1);
+    const searchSpec = queryRotation[searchIndex];
     if (!lastSearchAt || Date.now() - lastSearchAt >= 30 * 60 * 1000) {
       try {
         const searchData = await youtube("search", {
           part: "snippet",
           type: "video",
-          order: "date",
-          regionCode,
-          relevanceLanguage: "fa",
-          publishedAfter: new Date(Date.now() - 12 * 3600000).toISOString(),
+          order: "viewCount",
+          q: searchSpec.q,
+          regionCode: searchSpec.region || undefined,
+          relevanceLanguage: searchSpec.language,
+          publishedAfter: new Date(Date.now() - 72 * 3600000).toISOString(),
           maxResults: 50
         }, env.YOUTUBE_API_KEY);
         const ids = [...new Set((searchData.items || [])
@@ -154,10 +203,16 @@ async function runScan(env, source) {
       } catch (error) {
         searchWarning = safeError(error);
       } finally {
-        await env.DB.prepare(
-          "INSERT INTO app_config (key, value, updated_at) VALUES ('last_search_at', ?, ?) " +
-          "ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at"
-        ).bind(observedAt, observedAt).run();
+        await env.DB.batch([
+          env.DB.prepare(
+            "INSERT INTO app_config (key, value, updated_at) VALUES ('last_search_at', ?, ?) " +
+            "ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at"
+          ).bind(observedAt, observedAt),
+          env.DB.prepare(
+            "INSERT INTO app_config (key, value, updated_at) VALUES ('next_search_index', ?, ?) " +
+            "ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at"
+          ).bind(String((searchIndex + 1) % queryRotation.length), observedAt)
+        ]);
       }
     }
 
@@ -192,8 +247,9 @@ async function runScan(env, source) {
         "INSERT INTO video_candidates " +
         "(video_id, source_platform, source_url, title, channel_id, channel_title, published_at, " +
         "first_seen_at, last_seen_at, view_count, like_count, comment_count, duration, source_license, " +
-        "views_per_minute, previous_views_per_minute, growth_ratio, growth_score, snapshot_count, trend_state, updated_at) " +
-        "VALUES (?, 'youtube', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
+        "views_per_minute, previous_views_per_minute, growth_ratio, growth_score, snapshot_count, trend_state, " +
+        "content_fit, language_hint, fit_reason, updated_at) " +
+        "VALUES (?, 'youtube', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
         "ON CONFLICT(video_id) DO UPDATE SET " +
         "source_url=excluded.source_url, title=excluded.title, channel_id=excluded.channel_id, " +
         "channel_title=excluded.channel_title, published_at=excluded.published_at, last_seen_at=excluded.last_seen_at, " +
@@ -201,12 +257,13 @@ async function runScan(env, source) {
         "duration=excluded.duration, source_license=excluded.source_license, views_per_minute=excluded.views_per_minute, " +
         "previous_views_per_minute=excluded.previous_views_per_minute, growth_ratio=excluded.growth_ratio, " +
         "growth_score=excluded.growth_score, snapshot_count=video_candidates.snapshot_count + 1, trend_state=excluded.trend_state, " +
+        "content_fit=excluded.content_fit, language_hint=excluded.language_hint, fit_reason=excluded.fit_reason, " +
         "updated_at=excluded.updated_at"
       ).bind(
         video.id, video.sourceUrl, video.title, video.channelId, video.channelTitle, video.publishedAt,
         observedAt, observedAt, video.views, video.likes, video.comments, video.duration, video.sourceLicense,
         score.currentRate, score.previousRate, score.growthRatio, score.growthScore, score.snapshotCount,
-        score.state, observedAt
+        score.state, video.contentFit, video.languageHint, video.fitReason, observedAt
       ));
     }
     if (candidateStatements.length) await env.DB.batch(candidateStatements);
@@ -449,15 +506,17 @@ export default {
         result = await env.DB.prepare(
           "SELECT video_id, source_url, title, channel_title, published_at, view_count, " +
           "views_per_minute, previous_views_per_minute, growth_ratio, growth_score, snapshot_count, " +
-          "trend_state, license_status, updated_at FROM video_candidates " +
-          "WHERE trend_state = ? ORDER BY growth_score DESC LIMIT ?"
+          "trend_state, content_fit, language_hint, fit_reason, license_status, updated_at FROM video_candidates " +
+          "WHERE trend_state = ? ORDER BY CASE content_fit WHEN 'persian_priority' THEN 0 " +
+          "WHEN 'language_neutral_candidate' THEN 1 ELSE 2 END, growth_score DESC LIMIT ?"
         ).bind(state, limit).all();
       } else {
         result = await env.DB.prepare(
           "SELECT video_id, source_url, title, channel_title, published_at, view_count, " +
           "views_per_minute, previous_views_per_minute, growth_ratio, growth_score, snapshot_count, " +
-          "trend_state, license_status, updated_at FROM video_candidates " +
-          "ORDER BY growth_score DESC, last_seen_at DESC LIMIT ?"
+          "trend_state, content_fit, language_hint, fit_reason, license_status, updated_at FROM video_candidates " +
+          "ORDER BY CASE content_fit WHEN 'persian_priority' THEN 0 " +
+          "WHEN 'language_neutral_candidate' THEN 1 ELSE 2 END, growth_score DESC, last_seen_at DESC LIMIT ?"
         ).bind(limit).all();
       }
       return json({ ok: true, count: (result.results || []).length, candidates: result.results || [] });
