@@ -3,8 +3,11 @@ name: Publish approved CC0 video to Filo (lazy uploader/auth diagnostics)
 on:
   workflow_dispatch:
   schedule:
-    # Eight local-independent daily slots, approximately one every three hours (UTC).
+    # Eight daily slots, approximately one every three hours (UTC).
     - cron: "13 */3 * * *"
+  push:
+    paths:
+      - "scripts/filo_publish_cc0.cjs"
 
 permissions:
   contents: write
