@@ -1,4 +1,4 @@
-name: Temporary Rubika publisher dry-run validation
+name: Temporary Rubika end-to-end publish validation
 
 on:
   push:
@@ -6,15 +6,21 @@ on:
       - "scripts/rubika_publish_cc0.cjs"
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: goushibaaz-rubika-e2e-validation
+  cancel-in-progress: false
 
 jobs:
-  dry-run:
-    if: contains(github.event.head_commit.message, 'RUN_RUBIKA_PUBLISHER_DRY_RUN')
+  publish-test:
+    if: contains(github.event.head_commit.message, 'RUN_RUBIKA_REAL_PUBLISH_TEST')
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -22,10 +28,23 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg
-      - name: Validate script syntax
+      - name: Validate Rubika publisher syntax
         run: node --check scripts/rubika_publish_cc0.cjs
-      - name: Discover, verify, download and convert an eligible video without posting
+      - name: Publish one eligible vertical short to verified channel and record its message ID
         env:
           RUBIKA_BOT_TOKEN: ${{ secrets.RUBIKA_BOT_TOKEN }}
-          DRY_RUN: "true"
+          DRY_RUN: "false"
         run: node scripts/rubika_publish_cc0.cjs
+      - name: Persist publication state to prevent duplicate publishing
+        if: always()
+        run: |
+          if [ -f state/rubika-published.json ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add state/rubika-published.json
+            if ! git diff --cached --quiet; then
+              git commit -m "Record Rubika publication result"
+              git pull --rebase origin main
+              git push origin HEAD:main
+            fi
+          fi
