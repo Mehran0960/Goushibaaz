@@ -1,0 +1,31 @@
+name: Temporary Rubika publisher dry-run validation
+
+on:
+  push:
+    paths:
+      - "scripts/rubika_publish_cc0.cjs"
+
+permissions:
+  contents: read
+
+jobs:
+  dry-run:
+    if: contains(github.event.head_commit.message, 'RUN_RUBIKA_PUBLISHER_DRY_RUN')
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+      - name: Validate script syntax
+        run: node --check scripts/rubika_publish_cc0.cjs
+      - name: Discover, verify, download and convert an eligible video without posting
+        env:
+          RUBIKA_BOT_TOKEN: ${{ secrets.RUBIKA_BOT_TOKEN }}
+          DRY_RUN: "true"
+        run: node scripts/rubika_publish_cc0.cjs
