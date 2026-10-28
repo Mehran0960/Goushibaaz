@@ -30,6 +30,7 @@ jobs:
         run: |
           npm init -y
           npm install --no-save playwright aparat.js
+          node -e "const {Aparat}=require('aparat.js'); if(typeof Aparat!=='function') process.exit(1)"
           node --check scripts/platform_scout.cjs
           node --check scripts/license_check.cjs
           npx playwright install --with-deps chromium
