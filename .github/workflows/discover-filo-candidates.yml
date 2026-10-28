@@ -305,126 +305,119 @@ jobs:
           for x in candidates[:20]:
               print(json.dumps({k:x.get(k) for k in ["title","youtube_url","source_channel","views","age_hours","views_per_hour_proxy","observed_views_per_hour","language_priority","format_fit","format_reason","license_status"]},ensure_ascii=False))
           PY
-      - name: Verify public reuse-license metadata for leading candidates
+      - name: Inspect public YouTube reuse-license metadata for leading candidates
         run: |
-          python -m pip install --disable-pip-version-check -q yt-dlp
-          python <<'PY'
-          import concurrent.futures, json, re, subprocess
-          from pathlib import Path
+          node <<'NODE'
+          const fs = require('fs');
+          const { chromium } = require('playwright');
 
-          report_path = Path("out/candidates.json")
-          if not report_path.exists():
-              raise SystemExit("Candidate report is missing; refusing license checks.")
-          report = json.loads(report_path.read_text(encoding="utf-8"))
-          candidates = [
-              x for x in report.get("candidates", [])
-              if x.get("youtube_url")
-              and x.get("format_fit") in ("persian_priority", "language_neutral_candidate")
-          ][:20]
+          const input = JSON.parse(fs.readFileSync('out/candidates.json', 'utf8'));
+          const candidates = (input.candidates || []).filter(x =>
+            x.youtube_url && ['persian_priority', 'language_neutral_candidate'].includes(x.format_fit)
+          ).slice(0, 20);
 
-          def classify_license(value):
-              v = (value or "").strip().lower()
-              if not v:
-                  return "unknown"
-              if "public domain" in v or v in ("cc0", "cc-zero"):
-                  return "public_domain_or_cc0"
-              if "creative commons" in v and "attribution" in v and "sharealike" in v:
-                  return "cc_by_sa"
-              if "creative commons" in v and ("attribution" in v or "cc by" in v):
-                  return "cc_by"
-              if "cc by-sa" in v:
-                  return "cc_by_sa"
-              if "cc by" in v:
-                  return "cc_by"
-              return "standard_or_other"
-
-          def inspect(item):
-              url = item["youtube_url"]
-              try:
-                  p = subprocess.run(
-                      ["yt-dlp", "--skip-download", "--no-warnings", "--no-playlist",
-                       "--socket-timeout", "15", "--retries", "1", "--extractor-retries", "1",
-                       "--dump-single-json", url],
-                      capture_output=True, text=True, timeout=35
-                  )
-                  if p.returncode != 0:
-                      return {
-                          "video_id": item.get("video_id"),
-                          "title": item.get("title"),
-                          "url": url,
-                          "format_fit": item.get("format_fit"),
-                          "license_status": "metadata_unavailable",
-                          "error_kind": "metadata_fetch_failed"
-                      }
-                  data = json.loads(p.stdout)
-                  license_value = data.get("license") or data.get("license_name") or ""
-                  classification = classify_license(license_value)
-                  return {
-                      "video_id": data.get("id") or item.get("video_id"),
-                      "title": data.get("title") or item.get("title"),
-                      "url": data.get("webpage_url") or url,
-                      "uploader": (data.get("uploader") or data.get("channel") or "")[:100],
-                      "upload_date": data.get("upload_date"),
-                      "duration_seconds": data.get("duration"),
-                      "view_count": data.get("view_count"),
-                      "license": license_value[:140],
-                      "license_status": classification,
-                      "format_fit": item.get("format_fit"),
-                      "format_reason": item.get("format_reason"),
-                      "note": "Metadata is only an initial signal; verify the uploader owns/controls all elements and that the license allows commercial reuse before publication."
-                  }
-              except subprocess.TimeoutExpired:
-                  return {
-                      "video_id": item.get("video_id"), "title": item.get("title"), "url": url,
-                      "format_fit": item.get("format_fit"), "license_status": "metadata_unavailable",
-                      "error_kind": "timeout"
-                  }
-              except Exception as exc:
-                  return {
-                      "video_id": item.get("video_id"), "title": item.get("title"), "url": url,
-                      "format_fit": item.get("format_fit"), "license_status": "metadata_unavailable",
-                      "error_kind": type(exc).__name__
-                  }
-
-          results = []
-          with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
-              futures = [pool.submit(inspect, item) for item in candidates]
-              for future in concurrent.futures.as_completed(futures):
-                  results.append(future.result())
-
-          results.sort(key=lambda x: (
-              x.get("license_status") not in ("cc_by", "cc_by_sa", "public_domain_or_cc0"),
-              x.get("format_fit") != "persian_priority",
-              -(x.get("view_count") or 0)
-          ))
-          confirmed_candidates = [
-              x for x in results
-              if x.get("license_status") in ("cc_by", "cc_by_sa", "public_domain_or_cc0")
-          ]
-          out = {
-              "generated_at": __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat(),
-              "checked_count": len(results),
-              "reusable_license_metadata_count": len(confirmed_candidates),
-              "note": "This is a first-pass license metadata screen only. No files were downloaded and no video was uploaded. A license label is not proof that the uploader owns every element or that third-party platform terms permit the intended operation.",
-              "results": results
+          function classifyLicense(value) {
+            const v = String(value || '').toLowerCase();
+            if (!v) return 'license_not_exposed';
+            if (v.includes('public domain') || v === 'cc0' || v === 'cc-zero') return 'public_domain_or_cc0';
+            if (v.includes('creative commons') && v.includes('sharealike')) return 'cc_by_sa';
+            if (v.includes('creative commons') && (v.includes('attribution') || v.includes('cc by'))) return 'cc_by';
+            if (v.includes('cc by-sa')) return 'cc_by_sa';
+            if (v.includes('cc by')) return 'cc_by';
+            return 'standard_or_other';
           }
-          Path("out/license-check.json").write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
-          print("LICENSE_SCAN_SUMMARY", json.dumps({
-              "checked": len(results),
-              "cc_or_public_domain_metadata": len(confirmed_candidates),
-              "metadata_unavailable": sum(x.get("license_status") == "metadata_unavailable" for x in results),
-              "license_values": {
-                  k: sum(x.get("license_status") == k for x in results)
-                  for k in sorted({x.get("license_status", "unknown") for x in results})
+
+          async function inspect(browser, item) {
+            const page = await browser.newPage({ locale: 'fa-IR' });
+            page.setDefaultNavigationTimeout(20000);
+            try {
+              const u = new URL(item.youtube_url);
+              const id = item.video_id || (u.pathname.match(/\/shorts\/([A-Za-z0-9_-]{11})/) || [])[1];
+              if (!id) return {title:item.title,url:item.youtube_url,format_fit:item.format_fit,license_status:'bad_video_id'};
+              const watchUrl = 'https://www.youtube.com/watch?v=' + encodeURIComponent(id);
+              const response = await page.goto(watchUrl, { waitUntil: 'domcontentloaded', timeout: 20000 }).catch(() => null);
+              await page.waitForTimeout(1400);
+              const pageData = await page.evaluate(() => {
+                const p = window.ytInitialPlayerResponse || null;
+                const d = p && p.videoDetails || {};
+                const m = p && p.microformat && p.microformat.playerMicroformatRenderer || {};
+                const status = p && p.playabilityStatus && p.playabilityStatus.status || '';
+                const title = d.title || document.title || '';
+                return {
+                  title: title.slice(0,160),
+                  channel: (d.author || m.ownerChannelName || '').slice(0,100),
+                  viewCount: Number(d.viewCount || 0) || null,
+                  durationSeconds: Number(d.lengthSeconds || 0) || null,
+                  license: String(m.license || d.license || '').slice(0,140),
+                  playabilityStatus: status,
+                  challenge: /unusual traffic|not a robot|captcha|sign in to confirm/i.test(document.body.innerText.slice(0,5000))
+                };
+              }).catch(() => ({}));
+              const classification = classifyLicense(pageData.license);
+              return {
+                video_id: id,
+                title: pageData.title || item.title,
+                url: watchUrl,
+                source_channel: pageData.channel || item.source_channel || '',
+                view_count: pageData.viewCount || item.views || null,
+                duration_seconds: pageData.durationSeconds || null,
+                license: pageData.license || '',
+                playability_status: pageData.playabilityStatus || '',
+                http_status: response && response.status() || null,
+                license_status: pageData.challenge ? 'metadata_blocked_by_challenge' : classification,
+                format_fit: item.format_fit,
+                note: 'License metadata is an initial signal, not proof that the uploader owns every element; verify commercial rights and Filo compliance before reuse.'
+              };
+            } catch (e) {
+              return {
+                title:item.title,url:item.youtube_url,format_fit:item.format_fit,
+                license_status:'metadata_unavailable',error_kind:String(e && e.name || 'Error').slice(0,40)
+              };
+            } finally {
+              await page.close().catch(() => {});
+            }
+          }
+
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+            const results = [];
+            let cursor = 0;
+            const workers = Array.from({ length: Math.min(3, candidates.length) }, async () => {
+              while (cursor < candidates.length) {
+                const item = candidates[cursor++];
+                results.push(await inspect(browser, item));
               }
-          }, ensure_ascii=False))
-          print("LICENSE_SCAN_TOP_RESULTS")
-          for x in results[:12]:
-              print(json.dumps({
-                  k: x.get(k) for k in
-                  ("title", "url", "uploader", "view_count", "license", "license_status", "format_fit", "error_kind")
-              }, ensure_ascii=False))
-          PY
+            });
+            await Promise.all(workers);
+            await browser.close();
+
+            results.sort((a,b) =>
+              Number(!['cc_by','cc_by_sa','public_domain_or_cc0'].includes(a.license_status)) -
+                Number(!['cc_by','cc_by_sa','public_domain_or_cc0'].includes(b.license_status)) ||
+              Number(a.format_fit !== 'persian_priority') - Number(b.format_fit !== 'persian_priority') ||
+              (b.view_count || 0) - (a.view_count || 0)
+            );
+            const eligible = results.filter(x => ['cc_by','cc_by_sa','public_domain_or_cc0'].includes(x.license_status));
+            const report = {
+              generated_at: new Date().toISOString(),
+              checked_count: results.length,
+              cc_or_public_domain_metadata_count: eligible.length,
+              note: 'Metadata-only. Nothing was downloaded or uploaded. A license label is not proof of rights to all elements or permission under third-party platform terms.',
+              results
+            };
+            fs.writeFileSync('out/license-check.json', JSON.stringify(report,null,2));
+            console.log('LICENSE_SCAN_SUMMARY', JSON.stringify({
+              checked: results.length,
+              cc_or_public_domain_metadata: eligible.length,
+              statuses: Object.fromEntries([...new Set(results.map(x=>x.license_status))].map(k=>[k,results.filter(x=>x.license_status===k).length]))
+            }));
+            console.log('LICENSE_SCAN_TOP_RESULTS');
+            for (const x of results.slice(0,12)) console.log(JSON.stringify({
+              title:x.title,url:x.url,source_channel:x.source_channel,view_count:x.view_count,
+              license:x.license,license_status:x.license_status,format_fit:x.format_fit,http_status:x.http_status
+            }));
+          })().catch(e => { console.error('LICENSE_SCAN_FAILED', String(e && e.name || 'Error')); process.exit(1); });
+          NODE
       - name: Commit trend snapshots
         run: |
           git config user.name "github-actions[bot]"
