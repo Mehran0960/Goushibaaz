@@ -1,6 +1,9 @@
 name: Rubika bot connection check (manual)
 
 on:
+  push:
+    paths:
+      - '.github/workflows/rubika-preflight.yml'
   workflow_dispatch:
     inputs:
       discover_recent_updates:
@@ -31,7 +34,7 @@ jobs:
           RUBIKA_BOT_TOKEN: ${{ secrets.RUBIKA_BOT_TOKEN }}
           RUBIKA_CHAT_ID: ${{ secrets.RUBIKA_CHAT_ID }}
           SEND_TEST_MESSAGE: ${{ inputs.send_test_message }}
-          DISCOVER_RECENT_UPDATES: ${{ inputs.discover_recent_updates }}
+          DISCOVER_RECENT_UPDATES: ${{ github.event_name == 'push' || inputs.discover_recent_updates }}
         run: |
           node <<'NODE'
           const token = process.env.RUBIKA_BOT_TOKEN || '';
