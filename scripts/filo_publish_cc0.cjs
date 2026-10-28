@@ -214,8 +214,15 @@ async function main() {
   fs.mkdirSync(path.dirname(STATE_PATH), { recursive: true });
   let state = { posts: [] };
   try { state = JSON.parse(fs.readFileSync(STATE_PATH, 'utf8')); } catch {}
-  if ((state.posts || []).some(x => x.sourcePage === COMMONS_PAGE && x.status === 'published')) {
-    console.log('FILO_PUBLISH_RESULT', JSON.stringify({ status: 'skipped_duplicate', source: COMMONS_PAGE }));
+  if ((state.posts || []).some(x => x.sourcePage === COMMONS_PAGE &&
+    ['published', 'submit_started', 'submitted_unconfirmed', 'upload_staged_unpublished'].includes(x.status))) {
+    const prior = state.posts.find(x => x.sourcePage === COMMONS_PAGE &&
+      ['published', 'submit_started', 'submitted_unconfirmed', 'upload_staged_unpublished'].includes(x.status));
+    console.log('FILO_PUBLISH_RESULT', JSON.stringify({
+      status: prior.status === 'published' ? 'skipped_duplicate' : 'skipped_existing_unconfirmed_attempt',
+      source: COMMONS_PAGE,
+      publishedUrl: prior.postUrl || null
+    }));
     return;
   }
 
@@ -248,6 +255,15 @@ async function main() {
   let result;
   try {
     await login(page);
+    // Snapshot existing uploads so a pre-existing video cannot be mistaken for the new publication.
+    const existingVideoUrls = new Set();
+    await page.goto(ACCOUNT + '/my/videos', { waitUntil: 'domcontentloaded', timeout: 30000 }).catch(() => {});
+    await sleep(1800);
+    const existingLinks = await page.locator('a[href*="/v/"], a[href*="/video/"]').evaluateAll(as => as.map(a => a.href)).catch(() => []);
+    for (const href of existingLinks) if (/^https?:\/\/(?:www\.)?ifilo\.net\/(?:v|video)\//i.test(href)) existingVideoUrls.add(href.split('?')[0]);
+    await page.goto(ACCOUNT + '/upload', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await sleep(1000);
+    const requestCountBeforeFile = observedRequests.length;
     const uploadFile = page.locator('#fileInput').first();
     const fallbackFile = page.locator('input[type="file"][accept*="video"]').first();
     let fileInput = await uploadFile.count().catch(() => 0) ? uploadFile : fallbackFile;
@@ -273,12 +289,21 @@ async function main() {
     }
 
     if (!titleField || !(await titleField.isVisible().catch(() => false))) {
+      const stageRequests = observedRequests.slice(requestCountBeforeFile);
+      if (stageRequests.some(x => x.method === 'POST' || x.method === 'PUT')) {
+        state.posts = [...(state.posts || []), {
+          sourcePage: COMMONS_PAGE, title: PERSIAN_TITLE, status: 'upload_staged_unpublished',
+          attemptedAt: new Date().toISOString(), note: 'File-selection request observed; final publish button was not clicked.'
+        }].slice(-500);
+        fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
+      }
       result = {
         status: 'not_published_form_needs_mapping',
         authenticated: true,
         uploadPage: pathOnly(page.url()),
         title: PERSIAN_TITLE,
         fileSelected: true,
+        stagingRequestObserved: stageRequests.some(x => x.method === 'POST' || x.method === 'PUT'),
         fields: fieldsAfterSelection,
         bodyText: (await page.locator('body').innerText().catch(() => '')).slice(0, 4000),
         requests: observedRequests.slice(-15),
@@ -316,11 +341,36 @@ async function main() {
       return;
     }
 
+    const preSubmitEntry = {
+      sourcePage: COMMONS_PAGE,
+      author: rights.author,
+      license: rights.licenseName,
+      licenseUrl: rights.licenseUrl,
+      title: PERSIAN_TITLE,
+      status: 'submit_started',
+      attemptedAt: new Date().toISOString()
+    };
+    state.posts = [...(state.posts || []), preSubmitEntry].slice(-500);
+    fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
+
     await publishButton.click();
     await sleep(10000);
 
     let bodyText = (await page.locator('body').innerText().catch(() => '')).slice(0, 6000);
-    let postUrl = await page.locator('a[href*="/v/"], a[href*="/video/"]').evaluateAll(as => as.map(a => a.href).find(h => /^https?:\/\/(?:www\.)?ifilo\.net\/(?:v|video)\//i.test(h)) || '').catch(() => '');
+    let postUrl = '';
+    if (/^https?:\/\/(?:www\.)?ifilo\.net\/(?:v|video)\//i.test(page.url()) &&
+        !existingVideoUrls.has(page.url().split('?')[0])) {
+      postUrl = page.url().split('?')[0];
+    }
+    if (!postUrl) {
+      postUrl = await page.locator('a[href*="/v/"], a[href*="/video/"]').evaluateAll(as => as.map(a => ({
+        href: a.href.split('?')[0],
+        text: cleanButtonText(a),
+        cardText: cleanButtonText(a.closest('article, li, [class*="video"], [class*="Video"]') || a)
+      })).filter(x => /^https?:\/\/(?:www\.)?ifilo\.net\/(?:v|video)\//i.test(x.href) &&
+        !existingVideoUrls.has(x.href) &&
+        /گربه|وقتی گربه|cat jumpscare/i.test(x.text + ' ' + x.cardText)).map(x => x.href)[0] || '').catch(() => '');
+    }
 
     if (!postUrl) {
       await page.goto(ACCOUNT + '/my/videos', { waitUntil: 'domcontentloaded', timeout: 30000 }).catch(() => {});
@@ -329,8 +379,12 @@ async function main() {
         href: a.href,
         text: (a.innerText || a.getAttribute('title') || '').trim().replace(/\s+/g,' ')
       }))).catch(() => []);
-      const match = links.find(x => cleanText(x.text).includes('گربه') || x.href.includes('/v/'));
-      if (match) postUrl = match.href;
+      const match = links.find(x =>
+        /^https?:\/\/(?:www\.)?ifilo\.net\/(?:v|video)\//i.test(x.href) &&
+        !existingVideoUrls.has(x.href.split('?')[0]) &&
+        /گربه|وقتی گربه|cat jumpscare/i.test(x.text)
+      );
+      if (match) postUrl = match.href.split('?')[0];
       bodyText = (await page.locator('body').innerText().catch(() => '')).slice(0, 6000);
     }
 
@@ -345,12 +399,20 @@ async function main() {
         status: 'published',
         publishedAt: new Date().toISOString()
       };
-      state.posts = [...(state.posts || []), entry].slice(-500);
+      state.posts = [...(state.posts || []).filter(x => !(x.sourcePage === COMMONS_PAGE && x.status === 'submit_started')), entry].slice(-500);
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
       result = { status: 'published', title: PERSIAN_TITLE, postUrl, sourcePage: COMMONS_PAGE, license: rights.licenseName, sourceBytes: rights.sourceBytes, convertedBytes: converted.outputBytes, requests: observedRequests.slice(-15), responses: observedResponses.slice(-15) };
     } else {
+      const updated = {
+        ...preSubmitEntry,
+        status: 'submitted_unconfirmed',
+        attemptedAt: preSubmitEntry.attemptedAt,
+        bodySignal: /با موفقیت|موفقیت آمیز|بارگذاری شد|ارسال شد|منتشر شد/i.test(bodyText) ? 'success_text_seen' : 'no_success_text_seen'
+      };
+      state.posts = [...(state.posts || []).filter(x => !(x.sourcePage === COMMONS_PAGE && x.status === 'submit_started')), updated].slice(-500);
+      fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
       result = {
-        status: /با موفقیت|موفقیت آمیز|بارگذاری شد|ارسال شد|منتشر شد/i.test(bodyText) ? 'submitted_no_public_url_found' : 'submit_result_unconfirmed',
+        status: updated.bodySignal === 'success_text_seen' ? 'submitted_no_public_url_found' : 'submit_result_unconfirmed',
         title: PERSIAN_TITLE,
         currentPath: pathOnly(page.url()),
         sourcePage: COMMONS_PAGE,
