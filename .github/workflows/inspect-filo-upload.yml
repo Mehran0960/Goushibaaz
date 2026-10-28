@@ -1,0 +1,249 @@
+name: Inspect Filo upload interface
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/inspect-filo-upload.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: filo-ui-inspection
+  cancel-in-progress: false
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Inspect login and upload UI without publishing
+        env:
+          FILO_USER: ${{ secrets.FILO_USER }}
+          FILO_PASS: ${{ secrets.FILO_PASS }}
+        run: |
+          npm init -y >/dev/null
+          npm install --no-save playwright >/dev/null
+          npx playwright install --with-deps chromium >/dev/null
+          node <<'NODE'
+          const { chromium } = require('playwright');
+
+          const sleep = ms => new Promise(r => setTimeout(r, ms));
+          const isVisible = async locator => {
+            try { return await locator.isVisible(); } catch { return false; }
+          };
+          const pathOnly = value => {
+            try {
+              const u = new URL(value);
+              return u.pathname;
+            } catch {
+              return '';
+            }
+          };
+
+          (async () => {
+            const report = {
+              target: 'ifilo.net',
+              credentialsPresent: Boolean(process.env.FILO_USER && process.env.FILO_PASS),
+              homeLoaded: false,
+              loginEntryFound: false,
+              loginFieldsFound: false,
+              loginOutcome: 'not_attempted',
+              challengeDetected: false,
+              uploadEntryFound: false,
+              uploadPageInspected: false,
+              fileInputFound: false,
+              uploadControlLabels: [],
+              note: 'Inspection only. No video file selected, no form submitted, no post created.'
+            };
+
+            if (!report.credentialsPresent) {
+              report.loginOutcome = 'missing_github_secrets';
+              console.log('FILO_UI_PROBE ' + JSON.stringify(report));
+              process.exit(0);
+            }
+
+            const browser = await chromium.launch({ headless: true });
+            const context = await browser.newContext({
+              locale: 'fa-IR',
+              userAgent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/129 Safari/537.36'
+            });
+            const page = await context.newPage();
+            page.setDefaultTimeout(8000);
+
+            try {
+              let loaded = false;
+              for (const base of ['https://ifilo.net/', 'https://www.ifilo.net/']) {
+                try {
+                  await page.goto(base, { waitUntil: 'domcontentloaded', timeout: 30000 });
+                  if (await page.locator('body').count()) {
+                    report.homeLoaded = true;
+                    loaded = true;
+                    break;
+                  }
+                } catch {}
+              }
+
+              if (!loaded) {
+                report.loginOutcome = 'site_unreachable_from_github_runner';
+                console.log('FILO_UI_PROBE ' + JSON.stringify(report));
+                await browser.close();
+                return;
+              }
+
+              const loginRegex = /(?:login|sign.?in|account|ورود|حساب کاربری)/i;
+              const links = await page.locator('a').evaluateAll(as => as.map(a => ({
+                text: (a.innerText || a.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 60),
+                href: a.href
+              })));
+              const loginLink = links.find(a => /login|sign.?in|ورود/i.test(a.text + ' ' + a.href)) ||
+                links.find(a => /account|حساب کاربری/i.test(a.text + ' ' + a.href));
+
+              if (loginLink) {
+                report.loginEntryFound = true;
+                try {
+                  await page.goto(loginLink.href, { waitUntil: 'domcontentloaded', timeout: 20000 });
+                } catch {}
+              }
+
+              async function findLoginFields() {
+                const password = page.locator('input[type="password"]').filter({ visible: true }).first();
+                if (!(await isVisible(password))) return null;
+                const usernameCandidates = [
+                  'input[autocomplete="username"]',
+                  'input[type="email"]',
+                  'input[name*="user" i]',
+                  'input[name*="email" i]',
+                  'input[name*="login" i]',
+                  'input[type="text"]'
+                ];
+                for (const selector of usernameCandidates) {
+                  const loc = page.locator(selector).filter({ visible: true }).first();
+                  if (await isVisible(loc)) return { username: loc, password };
+                }
+                return { username: null, password };
+              }
+
+              let fields = await findLoginFields();
+              if (!fields) {
+                for (const route of ['/login', '/account/login', '/user/login']) {
+                  try {
+                    await page.goto(new URL(route, page.url()).href, { waitUntil: 'domcontentloaded', timeout: 12000 });
+                    fields = await findLoginFields();
+                    if (fields) {
+                      report.loginEntryFound = true;
+                      break;
+                    }
+                  } catch {}
+                }
+              }
+
+              if (!fields) {
+                report.loginOutcome = 'login_form_not_found';
+              } else if (!fields.username) {
+                report.loginFieldsFound = true;
+                report.loginOutcome = 'username_field_not_found';
+              } else {
+                report.loginFieldsFound = true;
+                await fields.username.fill(process.env.FILO_USER);
+                await fields.password.fill(process.env.FILO_PASS);
+
+                const submitCandidates = [
+                  page.locator('button[type="submit"]').filter({ visible: true }).first(),
+                  page.locator('input[type="submit"]').filter({ visible: true }).first(),
+                  page.getByRole('button', { name: /ورود|login|sign in/i }).first()
+                ];
+                let submit = null;
+                for (const candidate of submitCandidates) {
+                  if (await isVisible(candidate)) { submit = candidate; break; }
+                }
+                if (!submit) {
+                  report.loginOutcome = 'login_submit_control_not_found';
+                } else {
+                  try { await submit.click(); } catch {}
+                  await sleep(4500);
+
+                  const bodyText = await page.locator('body').innerText().catch(() => '');
+                  const challenge = await page.locator('iframe[src*="captcha"], iframe[src*="recaptcha"], iframe[src*="hcaptcha"], .g-recaptcha, [class*="captcha"], [id*="captcha"]').count().catch(() => 0);
+                  report.challengeDetected = challenge > 0 || /کد تایید|کد تأیید|رمز یکبار مصرف|captcha|verify you are human/i.test(bodyText);
+                  const currentPassword = page.locator('input[type="password"]').filter({ visible: true }).first();
+                  const stillLogin = await isVisible(currentPassword);
+                  const postLinks = await page.locator('a').evaluateAll(as => as.map(a => ({
+                    text: (a.innerText || a.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 60),
+                    path: pathOnly(a.href),
+                    href: a.href
+                  })));
+                  const loggedOutLink = postLinks.some(a => /logout|log-out|sign.?out|خروج/i.test(a.text + ' ' + a.path));
+                  const profileLink = postLinks.some(a => /profile|dashboard|my.?account|پروفایل|حساب کاربری/i.test(a.text + ' ' + a.path));
+                  if (report.challengeDetected) report.loginOutcome = 'challenge_or_otp_required';
+                  else if (!stillLogin && (loggedOutLink || profileLink)) report.loginOutcome = 'authenticated';
+                  else if (stillLogin) report.loginOutcome = 'login_failed_or_form_still_visible';
+                  else report.loginOutcome = 'inconclusive_after_submit';
+                }
+              }
+
+              // Find a public or authenticated upload entry from rendered navigation only.
+              const currentLinks = await page.locator('a').evaluateAll(as => as.map(a => ({
+                text: (a.innerText || a.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 60),
+                href: a.href
+              })));
+              const uploadRegex = /upload|video.?add|add.?video|create.?video|بارگذاری|آپلود|افزودن ویدیو|ارسال ویدیو/i;
+              let upload = currentLinks.find(a => uploadRegex.test(a.text + ' ' + a.href));
+              if (upload) {
+                report.uploadEntryFound = true;
+                try {
+                  await page.goto(upload.href, { waitUntil: 'domcontentloaded', timeout: 20000 });
+                } catch {}
+              }
+
+              report.fileInputFound = await page.locator('input[type="file"]').count().then(n => n > 0).catch(() => false);
+              report.uploadPageInspected = report.fileInputFound || upload != null ||
+                uploadRegex.test((await page.title().catch(() => '')) + ' ' + page.url());
+
+              const controls = await page.locator('input:not([type="password"]), textarea, select, button, [role="button"]').evaluateAll(nodes => nodes
+                .filter(el => {
+                  const r = el.getBoundingClientRect();
+                  return r.width > 0 && r.height > 0;
+                })
+                .map(el => ({
+                  tag: el.tagName.toLowerCase(),
+                  type: (el.getAttribute('type') || '').toLowerCase(),
+                  label: (
+                    el.getAttribute('aria-label') ||
+                    el.getAttribute('placeholder') ||
+                    el.getAttribute('name') ||
+                    el.innerText ||
+                    ''
+                  ).trim().replace(/\s+/g, ' ').slice(0, 60),
+                  isFile: el.tagName === 'INPUT' && el.type === 'file',
+                  accept: el.tagName === 'INPUT' && el.type === 'file' ? (el.getAttribute('accept') || '') : ''
+                }))
+                .slice(0, 40));
+              report.uploadControlLabels = controls.filter(x =>
+                x.isFile || /title|caption|description|شرح|عنوان|توضیح|دسته|category|tag|برچسب|video|ویدیو/i.test(x.label)
+              ).slice(0, 20);
+
+              // Never report account names, entered values, cookies, headers, hidden fields, or page source.
+              await context.clearCookies();
+              console.log('FILO_UI_PROBE ' + JSON.stringify(report));
+            } catch (e) {
+              report.loginOutcome = report.loginOutcome === 'not_attempted' ? 'inspection_error' : report.loginOutcome;
+              report.errorClass = String(e && e.name || 'Error').slice(0, 40);
+              console.log('FILO_UI_PROBE ' + JSON.stringify(report));
+            } finally {
+              await browser.close().catch(() => {});
+            }
+          })().catch(e => {
+            console.log('FILO_UI_PROBE ' + JSON.stringify({
+              target:'ifilo.net',
+              fatalClass:String(e && e.name || 'Error').slice(0,40),
+              note:'No media uploaded or published.'
+            }));
+            process.exitCode = 1;
+          });
+          NODE
