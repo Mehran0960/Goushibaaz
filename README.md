@@ -16,9 +16,9 @@ The current discovery source is a signal, not a guarantee that a video will go v
 
 ## Scheduled Persian-first Shorts scout
 
-The GitHub Actions workflow `.github/workflows/discover-filo-candidates.yml` runs every two hours and can also be started manually. It renders public Shorts lists from fourteen MediaFarsi channel pages, collects public titles/view counts/posting age, records repeated snapshots in `state/trends.json`, and stores the current report as the `filo-candidate-discovery` workflow artifact. Persian-language titles rank first; videos that may work without speech (hidden-camera moments, visual comedy, animals, fails, satisfying clips) are a separate review category, not an automatic upload decision. Sources that render no Shorts cards are removed or replaced after a successful scan. A view-per-hour estimate from one scan is only a proxy; observed velocity is shown only after a sufficient interval between scans.
+The GitHub Actions workflow `.github/workflows/discover-filo-candidates.yml` runs every two hours and can also be started manually. It renders public Shorts lists from fourteen MediaFarsi channel pages and collects metadata-only leads from public Telegram channels, Aparat search results, and eight YouTube searches filtered by the public Creative Commons search option. The scouting output is stored in the `filo-candidate-discovery` workflow artifact; repeated view snapshots are maintained separately in `state/trends.json` and `state/platform-trends.json`. Persian-language content ranks first; hidden-camera moments, CCTV/dashcam clips, funny animals, visual comedy, and satisfying clips form a separate visual-first review category. Sources that do not yield video cards are reported and replaced after a successful scan. A view-per-hour estimate from one scan is only a proxy; observed velocity requires repeat observations after a sufficient interval.
 
-The scout prioritizes Persian-language entertainment and also flags mixed-language clips whose titles suggest the language may be less important. It excludes obvious political/sensitive headlines and stale clips from the shortlist. Public visibility and trend rank do **not** establish republication rights; all candidates remain ineligible for upload until license/permission and Filo compliance are verified.
+The scout prioritizes Persian-language entertainment and flags videos that may be language-neutral. YouTube Creative Commons-filtered results are a lead only, not final rights clearance: public pages often do not expose a verifiable license label, and third-party content may contain separately copyrighted music or clips. Public visibility, the Creative Commons search filter, and trend rank do **not** by themselves establish permission to commercialize every component. Candidates remain ineligible for upload until rights/permission and Filo compliance are verified. No discovery step downloads media or publishes a post.
 
 View the [latest scout runs](https://github.com/Mehran0960/Goushibaaz/actions/workflows/discover-filo-candidates.yml).
 
@@ -31,8 +31,9 @@ The target destinations are **Filo, Rubika, Bale, and Telegram**. Each destinati
 ## Repository layout
 
 - `cloudflare/src/index.js` — Worker API, scheduled scanning, scoring, and candidate endpoints.
+- `scripts/platform_scout.cjs` — public Telegram, Aparat, and YouTube Creative Commons-filtered metadata scouting.
 - `cloudflare/schema.sql` — full D1 schema.
-- `cloudflare/migrations/0001_init.sql` — initial D1 migration.
+- `cloudflare/migrations/0001_init.sql` and `0002_content_fit_preferences.sql` — D1 schema migrations.
 - `cloudflare/wrangler.jsonc` — Worker, Cron, and D1 binding configuration.
 - `.github/workflows/deploy-goushibaaz.yml` — manual deployment workflow.
 
