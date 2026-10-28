@@ -25,7 +25,7 @@ jobs:
           node-version: 22
       - name: Validate JavaScript syntax
         run: node --check scripts/filo_publish_cc0.cjs
-      - name: Test public CC0 video discovery (no upload)
+      - name: Test public commercial-license video discovery (no upload)
         run: |
           node <<'NODE'
           const queries = [
@@ -36,7 +36,7 @@ jobs:
           ];
           const clean = value => String(value || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
           (async () => {
-            let total = 0, videoWebm = 0, verifiedCc0Webm = 0, eligibleShorts = 0;
+            let total = 0, videoWebm = 0, verifiedCc0Webm = 0, verifiedCcBy4Webm = 0, verifiedCommercialWebm = 0, eligibleShorts = 0;
             const report = [];
             for (const query of queries) {
               const url = new URL('https://commons.wikimedia.org/w/api.php');
@@ -55,7 +55,7 @@ jobs:
               if (!response.ok) throw new Error('commons_http_' + response.status + '_' + query);
               const payload = await response.json();
               const pages = Object.values(payload.query && payload.query.pages || {});
-              let queryVideos = 0, queryCc0 = 0, queryEligible = 0;
+              let queryVideos = 0, queryCc0 = 0, queryCcBy4 = 0, queryEligible = 0;
               for (const page of pages) {
                 total++;
                 const info = page.imageinfo && page.imageinfo[0];
@@ -64,9 +64,14 @@ jobs:
                 const meta = info.extmetadata || {};
                 const licenseName = clean(meta.LicenseShortName && meta.LicenseShortName.value);
                 const licenseUrl = clean(meta.LicenseUrl && meta.LicenseUrl.value);
-                const cc0 = /\bCC0\b/i.test(licenseName) && /creativecommons\.org\/publicdomain\/zero\/1\.0/i.test(licenseUrl);
-                if (!cc0) continue;
-                verifiedCc0Webm++; queryCc0++;
+                const cc0 = /\bCC0\b/i.test(licenseName) && /creativecommons\.org\/publicdomain\/zero\/1\.0(?:\/|$)/i.test(licenseUrl);
+                const ccBy4 = /\bCC BY 4\.0\b/i.test(licenseName) &&
+                  /creativecommons\.org\/licenses\/by\/4\.0(?:\/|$)/i.test(licenseUrl) &&
+                  !/creativecommons\.org\/licenses\/by-(?:nc|nd|sa)(?:-|\/)/i.test(licenseUrl);
+                if (!cc0 && !ccBy4) continue;
+                verifiedCommercialWebm++;
+                if (cc0) { verifiedCc0Webm++; queryCc0++; }
+                if (ccBy4) { verifiedCcBy4Webm++; queryCcBy4++; }
                 if (!Number.isFinite(info.size) || info.size < 200000 || info.size > 45000000) continue;
                 const description = clean(meta.ImageDescription && meta.ImageDescription.value);
                 const text = (String(page.title || '') + ' ' + description).toLowerCase();
@@ -82,9 +87,9 @@ jobs:
                 if (duration !== null && (duration < 3 || duration > 180)) continue;
                 eligibleShorts++; queryEligible++;
               }
-              report.push({ query, renderedResults: pages.length, videoWebm: queryVideos, cc0Webm: queryCc0, eligibleAnimalShorts: queryEligible });
+              report.push({ query, renderedResults: pages.length, videoWebm: queryVideos, cc0Webm: queryCc0, ccBy4Webm: queryCcBy4, eligibleAnimalShorts: queryEligible });
             }
-            console.log('FILO_CC0_DISCOVERY_VALIDATION', JSON.stringify({totalMetadataResults:total, videoWebm, verifiedCc0Webm, eligibleShorts, report}));
+            console.log('FILO_COMMERCIAL_LICENSE_DISCOVERY_VALIDATION', JSON.stringify({totalMetadataResults:total, videoWebm, verifiedCc0Webm, verifiedCcBy4Webm, verifiedCommercialWebm, eligibleShorts, report}));
             if (total === 0) throw new Error('commons_search_returned_no_metadata');
           })().catch(err => { console.error('FILO_CC0_DISCOVERY_FAILED', String(err && err.message || err).slice(0,180)); process.exit(1); });
           NODE
