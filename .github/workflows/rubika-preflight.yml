@@ -1,4 +1,4 @@
-name: Rubika bot connection check (manual)
+name: Rubika bot connection check (automatic discovery + manual)
 
 on:
   push:
@@ -12,7 +12,7 @@ on:
         type: boolean
         default: false
       send_test_message:
-        description: "Send a visible test message to RUBIKA_CHAT_ID after the token check"
+        description: "Send a test only if getChat confirms the target is the public channel didobyn"
         required: true
         type: boolean
         default: false
@@ -29,16 +29,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
-      - name: Validate Rubika bot token and optionally test channel posting
+      - name: Validate bot, discover channel ID, and verify target before any test post
         env:
           RUBIKA_BOT_TOKEN: ${{ secrets.RUBIKA_BOT_TOKEN }}
-          RUBIKA_CHAT_ID: ${{ secrets.RUBIKA_CHAT_ID }}
           SEND_TEST_MESSAGE: ${{ inputs.send_test_message }}
           DISCOVER_RECENT_UPDATES: ${{ github.event_name == 'push' || inputs.discover_recent_updates }}
         run: |
           node <<'NODE'
           const token = process.env.RUBIKA_BOT_TOKEN || '';
-          const chatId = process.env.RUBIKA_CHAT_ID || '';
           if (!token) {
             console.error('RUBIKA_PREFLIGHT_FAILED: missing GitHub Actions secret RUBIKA_BOT_TOKEN');
             process.exit(1);
@@ -55,9 +53,8 @@ jobs:
             let data;
             try { data = JSON.parse(text); } catch { data = { raw: text.slice(0, 300) }; }
             if (!response.ok || data.status !== 'OK') {
-              const safe = { httpStatus: response.status, status: data.status || 'unknown', error: data.description || data.error || 'request_failed' };
-              console.error('RUBIKA_API_ERROR', JSON.stringify(safe));
-              process.exit(1);
+              const reason = data.description || data.error || data.status || 'request_failed';
+              throw new Error(method + ': HTTP ' + response.status + ' / ' + String(reason).slice(0, 120));
             }
             return data;
           }
@@ -68,6 +65,8 @@ jobs:
               botId: bot.bot_id || bot.id || null,
               botUsername: bot.username || bot.name || null
             }));
+
+            let verifiedTargets = [];
             if (process.env.DISCOVER_RECENT_UPDATES === 'true') {
               const result = await call('getUpdates', { limit: 10 });
               const updates = result.data?.updates || result.updates || [];
@@ -78,26 +77,58 @@ jobs:
                 hasNewMessage: Boolean(update.new_message)
               }));
               console.log('RUBIKA_RECENT_CHAT_IDS', JSON.stringify(summary));
+
+              const candidates = [...new Set(updates
+                .map(update => update.chat_id)
+                .filter(id => typeof id === 'string' && id.startsWith('c0')))];
+              for (const candidate of candidates) {
+                try {
+                  const lookup = await call('getChat', { chat_id: candidate });
+                  const chat = lookup.data?.chat || lookup.data?.channel || lookup.chat || lookup.data || {};
+                  const username = String(chat.username || chat.user_name || '').replace(/^@/, '').toLowerCase();
+                  const title = String(chat.title || chat.name || '').replace(/\s+/g, '').toLowerCase();
+                  const details = {
+                    chatId: chat.chat_id || chat.id || chat.guid || candidate,
+                    type: chat.type || chat.chat_type || null,
+                    title: chat.title || chat.name || null,
+                    username: chat.username || chat.user_name || null
+                  };
+                  console.log('RUBIKA_GETCHAT_RESULT', JSON.stringify(details));
+                  if (username === 'didobyn' || title === 'دیدوبین') verifiedTargets.push(candidate);
+                } catch (error) {
+                  console.log('RUBIKA_GETCHAT_LOOKUP_FAILED', JSON.stringify({
+                    chatId: candidate,
+                    reason: String(error.message || error).slice(0, 160)
+                  }));
+                }
+              }
+              verifiedTargets = [...new Set(verifiedTargets)];
               if (!summary.length) {
-                console.log('RUBIKA_NO_RECENT_UPDATES: Send a test message to the bot or post a channel message that mentions the bot, then run discovery again.');
+                console.log('RUBIKA_NO_RECENT_UPDATES');
               }
             }
-            if (process.env.SEND_TEST_MESSAGE === 'true') {
-              if (!chatId) {
-                console.error('RUBIKA_PREFLIGHT_FAILED: missing GitHub Actions secret RUBIKA_CHAT_ID');
-                process.exit(1);
-              }
+
+            const allowTest = process.env.SEND_TEST_MESSAGE === 'true' ||
+              process.env.DISCOVER_RECENT_UPDATES === 'true';
+            if (allowTest && verifiedTargets.length === 1) {
+              const target = verifiedTargets[0];
               const sent = await call('sendMessage', {
-                chat_id: chatId,
-                text: 'گوشی‌باز: پیام آزمایشی اتصال روبیکا. برای بررسی اتصال ارسال شده است.'
+                chat_id: target,
+                text: 'گوشی‌باز: پیام آزمایشی اتصال روبیکا؛ ارسال خودکار برای بررسی اتصال.'
               });
               const message = sent.data?.message || sent.data || {};
-              console.log('RUBIKA_TEST_MESSAGE_ACCEPTED', JSON.stringify({
+              console.log('RUBIKA_VERIFIED_CHANNEL_TEST_ACCEPTED', JSON.stringify({
                 messageId: message.message_id || message.id || null,
-                chatId: chatId
+                chatId: target,
+                username: 'didobyn'
+              }));
+            } else if (allowTest) {
+              console.log('RUBIKA_TEST_NOT_SENT', JSON.stringify({
+                reason: verifiedTargets.length === 0 ? 'Could not confirm a channel matching didobyn' : 'More than one matching target; avoiding an ambiguous post',
+                verifiedTargetCount: verifiedTargets.length
               }));
             } else {
-              console.log('RUBIKA_POST_TEST_SKIPPED: token checked only; no message was sent.');
+              console.log('RUBIKA_POST_TEST_SKIPPED');
             }
           })().catch(error => {
             console.error('RUBIKA_PREFLIGHT_FAILED', String(error.message || error).slice(0, 240));
