@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Inspect public Filo uploader bundle without login or upload
+      - name: Inspect public Filo uploader chunks without login or upload
         run: |
           node <<'NODE'
           const root = 'https://ifilo.net/';
@@ -26,61 +26,94 @@ jobs:
           const headers = { 'User-Agent': 'Mozilla/5.0 GoushibaazPublicUploaderInspector/1.0' };
 
           async function getText(url) {
-            const res = await fetch(url, {headers, signal:AbortSignal.timeout(20000)});
+            const res = await fetch(url, { headers, signal: AbortSignal.timeout(20000) });
             if (!res.ok) throw new Error('public_fetch_http_' + res.status);
             return await res.text();
           }
 
+          function collectSnippets(js, terms, perTerm = 4) {
+            const out = [];
+            for (const term of terms) {
+              let from = 0;
+              for (let i = 0; i < perTerm; i++) {
+                const idx = js.toLowerCase().indexOf(term.toLowerCase(), from);
+                if (idx < 0) break;
+                const left = Math.max(0, idx - 230);
+                const right = Math.min(js.length, idx + term.length + 360);
+                out.push({ term, context: js.slice(left, right).replace(/\\s+/g, ' ').slice(0, 620) });
+                from = idx + term.length;
+              }
+            }
+            return out;
+          }
+
           (async () => {
             const html = await getText(upload);
-            const scriptPaths = [...html.matchAll(/<script[^>]+src=["']([^"']+\.js(?:\?[^"']*)?)["']/gi)]
+            const scriptPaths = [...html.matchAll(/<script[^>]+src=["']([^"']+\\.js(?:\\?[^"']*)?)["']/gi)]
               .map(m => new URL(m[1], root).href);
-            const candidate = scriptPaths.find(x => /\/assets\/index-[^/]+\.js/.test(new URL(x).pathname)) ||
-              scriptPaths.find(x => /\/assets\//.test(new URL(x).pathname));
-            if (!candidate) {
+            const mainUrl = scriptPaths.find(x => /\\/assets\\/index-[^/]+\\.js/.test(new URL(x).pathname)) ||
+              scriptPaths.find(x => /\\/assets\\//.test(new URL(x).pathname));
+            if (!mainUrl) {
               console.log('FILO_BUNDLE_INSPECTION', JSON.stringify({
-                status:'bundle_not_found',
-                title:(html.match(/<title>([^<]*)<\/title>/i)||[])[1]||'',
-                scriptPaths:scriptPaths.map(x=>new URL(x).pathname).slice(0,30),
-                note:'No login, credentials, media upload, or publication was attempted.'
+                status: 'bundle_not_found',
+                title: (html.match(/<title>([^<]*)<\\/title>/i) || [])[1] || '',
+                scriptPaths: scriptPaths.map(x => new URL(x).pathname).slice(0, 30),
+                note: 'No login, credentials, media upload, or publication was attempted.'
               }));
               return;
             }
 
-            const js = await getText(candidate);
+            const main = await getText(mainUrl);
+            const assetPaths = [...new Set([...main.matchAll(/assets\\/[^"'\\\\\\s]+\\.js/g)].map(m => '/' + m[0]))];
+            const targetPaths = assetPaths.filter(x =>
+              /DorfakUploader|VideoSelector|EditVideo|UploadRules|VideoUpload|UploadVideo|MediaUpload|VideoMaker/i.test(x)
+            ).slice(0, 30);
+            const targets = [{ path: new URL(mainUrl).pathname, js: main }];
+            for (const p of targetPaths) {
+              try { targets.push({ path: p, js: await getText(new URL(p, root).href) }); }
+              catch (e) { targets.push({ path: p, error: String(e && e.name || 'Error') }); }
+            }
+
             const terms = [
-              'fileInput','sut','dut','FormData','multipart/form-data','FileReader',
-              'input[type=file]','/api/v1/','uploadVideo','uploadFile','video/upload',
-              'videoUpload','uploadUrl','presigned','upload','my/videos','video-status-list'
+              'fileInput', 'input[type=file]', 'onChange', 'FileReader', 'FormData',
+              'multipart/form-data', 'uploadFile', 'uploadVideo', 'DorfakUploader',
+              '/api/v1/video', '/api/v1/videos', '/api/v1/upload', '/api/v2/upload',
+              '/api/v1/my/videos', 'video/status', 'fileName', 'videoTitle',
+              'title', 'description', 'categoryId', 'duration', 'uploadProgress',
+              'media_id', 'file_id', 'uploadUrl', 'fileUpload'
             ];
-            const snippets = [];
-            for (const term of terms) {
-              let from = 0;
-              let count = 0;
-              while (count < 4) {
-                const idx = js.toLowerCase().indexOf(term.toLowerCase(), from);
-                if (idx < 0) break;
-                const left = Math.max(0, idx - 220);
-                const right = Math.min(js.length, idx + term.length + 320);
-                snippets.push({term, context:js.slice(left,right).replace(/\s+/g,' ').slice(0,600)});
-                from = idx + term.length;
-                count++;
+            const reports = [];
+            const endpoints = new Set();
+            for (const target of targets) {
+              if (target.error) {
+                reports.push({ path: target.path, errorKind: target.error });
+                continue;
+              }
+              for (const m of target.js.matchAll(/\\/api\\/v[0-9]+\\/[A-Za-z0-9_?=&/.-]+/g)) {
+                if (/upload|video|file|media|publish|my\\/videos|thumbnail|vod|category/i.test(m[0])) endpoints.add(m[0]);
+              }
+              const snippets = collectSnippets(target.js, terms, 3);
+              // Only retain useful uploader chunks or chunks with upload-related matches.
+              if (/DorfakUploader|VideoSelector|EditVideo|UploadRules|VideoUpload|UploadVideo|MediaUpload|VideoMaker/i.test(target.path) || snippets.length) {
+                reports.push({ path: target.path, bytes: target.js.length, snippets: snippets.slice(0, 55) });
               }
             }
+
             console.log('FILO_BUNDLE_INSPECTION', JSON.stringify({
-              status:'ok',
-              pageTitle:(html.match(/<title>([^<]*)<\/title>/i)||[])[1]||'',
-              bundlePath:new URL(candidate).pathname,
-              bundleBytes:js.length,
-              snippetCount:snippets.length,
-              snippets,
-              note:'Public static frontend code only. No login, credentials, media upload, or publication was attempted.'
+              status: 'ok',
+              pageTitle: (html.match(/<title>([^<]*)<\\/title>/i) || [])[1] || '',
+              mainBundlePath: new URL(mainUrl).pathname,
+              mainBundleBytes: main.length,
+              relevantChunkPaths: targetPaths,
+              endpointCandidates: [...endpoints].sort().slice(0, 120),
+              inspectedFiles: reports,
+              note: 'Public static frontend source only; no login, credentials, media upload, or publication was attempted.'
             }));
           })().catch(e => {
             console.log('FILO_BUNDLE_INSPECTION', JSON.stringify({
-              status:'error',
-              errorKind:String(e && e.name || 'Error').slice(0,60),
-              note:'No login or upload was attempted.'
+              status: 'error',
+              errorKind: String(e && e.name || 'Error').slice(0, 60),
+              note: 'No login or upload was attempted.'
             }));
             process.exit(1);
           });
