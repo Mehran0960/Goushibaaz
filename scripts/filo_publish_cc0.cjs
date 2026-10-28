@@ -11,7 +11,7 @@ const INPUT_FILE = path.join(VIDEO_DIR, 'source-video.webm');
 const OUTPUT_FILE = path.join(VIDEO_DIR, 'filo-video-fa.mp4');
 const COVER_FILE = path.join(VIDEO_DIR, 'filo-video-cover.jpg');
 const MAX_SOURCE_BYTES = 45_000_000;
-// Fail closed on reuse rights: only explicitly documented, commercially reusable CC0 sources are considered.
+// Fail closed on reuse rights: only explicit CC0 1.0 or CC BY 4.0 license metadata is accepted.
 const MAX_DURATION_SECONDS = 180;
 const ACTIVE_SOURCE_STATUSES = new Set([
   'published', 'submitted_pending_approval', 'submit_started',
@@ -191,7 +191,7 @@ async function discoverCommercialCandidates(state) {
   return [...found.values()].slice(0, 24);
 }
 
-async function downloadVerifiedCc0Source(candidate) {
+async function downloadVerifiedCommercialVideo(candidate) {
   if (!candidate || !candidate.fileUrl || !candidate.sourcePage || !candidate.fileTitle) {
     throw new Error('commons_candidate_missing_required_fields');
   }
@@ -531,7 +531,7 @@ async function main() {
     const result = {
       status: 'no_eligible_candidate',
       searchedQueries: 4,
-      note: 'No new short WebM candidate with an explicitly verified CC0 license was found. Nothing was published.'
+      note: 'No new short WebM candidate with a verified CC0 1.0 or CC BY 4.0 license was found. Nothing was published.'
     };
     console.log('FILO_PUBLISH_RESULT', JSON.stringify(result));
     return;
@@ -543,7 +543,7 @@ async function main() {
   const preparationErrors = [];
   for (const proposed of candidates.slice(0, 8)) {
     try {
-      const proposedRights = await downloadVerifiedCc0Source(proposed);
+      const proposedRights = await downloadVerifiedCommercialVideo(proposed);
       let duration = Number(proposedRights.durationSeconds);
       if (!Number.isFinite(duration) || duration <= 0) {
         const probe = execFileSync('ffprobe', [
@@ -580,7 +580,7 @@ async function main() {
       status: 'no_eligible_candidate',
       candidateCount: candidates.length,
       preparationFailures: preparationErrors.slice(0, 8),
-      note: 'No new CC0 video passed download and duration checks; nothing was published.'
+      note: 'No new commercially reusable video passed license, download, and duration checks; nothing was published.'
     };
     console.log('FILO_PUBLISH_RESULT', JSON.stringify(result));
     return;
