@@ -3,6 +3,11 @@ name: Rubika bot connection check (manual)
 on:
   workflow_dispatch:
     inputs:
+      discover_recent_updates:
+        description: "Read recent Rubika updates and print chat IDs only (no message text)"
+        required: true
+        type: boolean
+        default: false
       send_test_message:
         description: "Send a visible test message to RUBIKA_CHAT_ID after the token check"
         required: true
@@ -26,6 +31,7 @@ jobs:
           RUBIKA_BOT_TOKEN: ${{ secrets.RUBIKA_BOT_TOKEN }}
           RUBIKA_CHAT_ID: ${{ secrets.RUBIKA_CHAT_ID }}
           SEND_TEST_MESSAGE: ${{ inputs.send_test_message }}
+          DISCOVER_RECENT_UPDATES: ${{ inputs.discover_recent_updates }}
         run: |
           node <<'NODE'
           const token = process.env.RUBIKA_BOT_TOKEN || '';
@@ -59,6 +65,20 @@ jobs:
               botId: bot.bot_id || bot.id || null,
               botUsername: bot.username || bot.name || null
             }));
+            if (process.env.DISCOVER_RECENT_UPDATES === 'true') {
+              const result = await call('getUpdates', { limit: 10 });
+              const updates = result.data?.updates || result.updates || [];
+              const summary = updates.map(update => ({
+                type: update.type || null,
+                chatId: update.chat_id || null,
+                senderType: update.new_message?.sender_type || null,
+                hasNewMessage: Boolean(update.new_message)
+              }));
+              console.log('RUBIKA_RECENT_CHAT_IDS', JSON.stringify(summary));
+              if (!summary.length) {
+                console.log('RUBIKA_NO_RECENT_UPDATES: Send a test message to the bot or post a channel message that mentions the bot, then run discovery again.');
+              }
+            }
             if (process.env.SEND_TEST_MESSAGE === 'true') {
               if (!chatId) {
                 console.error('RUBIKA_PREFLIGHT_FAILED: missing GitHub Actions secret RUBIKA_CHAT_ID');
