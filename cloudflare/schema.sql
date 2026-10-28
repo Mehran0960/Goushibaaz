@@ -39,6 +39,9 @@ CREATE TABLE IF NOT EXISTS video_candidates (
   growth_score REAL NOT NULL DEFAULT 0,
   snapshot_count INTEGER NOT NULL DEFAULT 0,
   trend_state TEXT NOT NULL DEFAULT 'insufficient_history',
+  content_fit TEXT NOT NULL DEFAULT 'other_language_review',
+  language_hint TEXT NOT NULL DEFAULT 'unknown',
+  fit_reason TEXT,
   license_status TEXT NOT NULL DEFAULT 'unverified',
   updated_at TEXT NOT NULL
 );
@@ -60,6 +63,8 @@ CREATE INDEX IF NOT EXISTS idx_video_snapshots_time
   ON video_snapshots(observed_at DESC);
 CREATE INDEX IF NOT EXISTS idx_video_candidates_score
   ON video_candidates(growth_score DESC, last_seen_at DESC);
+CREATE INDEX IF NOT EXISTS idx_video_candidates_content_fit
+  ON video_candidates(content_fit, growth_score DESC, last_seen_at DESC);
 
 CREATE TABLE IF NOT EXISTS publication_authorizations (
   video_id TEXT PRIMARY KEY,
