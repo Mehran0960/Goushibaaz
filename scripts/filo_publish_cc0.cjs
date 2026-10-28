@@ -11,6 +11,7 @@ const INPUT_FILE = path.join(VIDEO_DIR, 'source-video.webm');
 const OUTPUT_FILE = path.join(VIDEO_DIR, 'filo-video-fa.mp4');
 const COVER_FILE = path.join(VIDEO_DIR, 'filo-video-cover.jpg');
 const MAX_SOURCE_BYTES = 45_000_000;
+// Fail closed on reuse rights: only explicitly documented, commercially reusable CC0 sources are considered.
 const MAX_DURATION_SECONDS = 180;
 const ACTIVE_SOURCE_STATUSES = new Set([
   'published', 'submitted_pending_approval', 'submit_started',
