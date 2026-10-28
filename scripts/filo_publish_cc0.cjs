@@ -103,7 +103,19 @@ async function visibleFirst(page, selectors) {
 
 async function login(page) {
   if (!process.env.FILO_USER || !process.env.FILO_PASS) throw new Error('filo_credentials_missing');
-  await page.goto(ACCOUNT + '/login', { waitUntil: 'domcontentloaded', timeout: 30000 });
+  // Start from the public home page first, matching the site's normal sign-in flow.
+  await page.goto(ACCOUNT + '/', { waitUntil: 'domcontentloaded', timeout: 30000 });
+  await sleep(700);
+  const signInHref = await page.locator('a[href]').evaluateAll(as => {
+    const match = as.find(a => {
+      let path = '';
+      try { path = new URL(a.href).pathname; } catch {}
+      const text = (a.innerText || a.getAttribute('aria-label') || '').trim();
+      return path === '/login' || /ورود به فیلو|ورود به حساب|login/i.test(text);
+    });
+    return match ? match.href : '';
+  }).catch(() => '');
+  await page.goto(signInHref || ACCOUNT + '/login', { waitUntil: 'domcontentloaded', timeout: 30000 });
   const password = page.locator('input[type="password"]').first();
   await password.waitFor({ state: 'visible', timeout: 15000 });
 
