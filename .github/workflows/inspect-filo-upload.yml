@@ -2,9 +2,6 @@ name: Inspect Filo upload interface
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - ".github/workflows/inspect-filo-upload.yml"
 
 permissions:
   contents: read
