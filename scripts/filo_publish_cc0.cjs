@@ -103,22 +103,22 @@ async function visibleFirst(page, selectors) {
 
 async function login(page) {
   if (!process.env.FILO_USER || !process.env.FILO_PASS) throw new Error('filo_credentials_missing');
-  // Start from the public home page first, matching the site's normal sign-in flow.
+  // Use the normal Filo home-to-login flow, then confirm authentication on the uploader itself.
   await page.goto(ACCOUNT + '/', { waitUntil: 'domcontentloaded', timeout: 30000 });
   await sleep(700);
   const signInHref = await page.locator('a[href]').evaluateAll(as => {
     const match = as.find(a => {
-      let path = '';
-      try { path = new URL(a.href).pathname; } catch {}
+      let p = '';
+      try { p = new URL(a.href).pathname; } catch {}
       const text = (a.innerText || a.getAttribute('aria-label') || '').trim();
-      return path === '/login' || /ورود به فیلو|ورود به حساب|login/i.test(text);
+      return p === '/login' || /ورود به فیلو|ورود به حساب|login/i.test(text);
     });
     return match ? match.href : '';
   }).catch(() => '');
-  await page.goto(signInHref || ACCOUNT + '/login', { waitUntil: 'domcontentloaded', timeout: 30000 });
+  await page.goto(signInHref || ACCOUNT + '/login?m=3&r=%2Fupload', { waitUntil: 'domcontentloaded', timeout: 30000 });
+
   const password = page.locator('input[type="password"]').first();
   await password.waitFor({ state: 'visible', timeout: 15000 });
-
   const username = await visibleFirst(page, [
     'input[autocomplete="username"]',
     'input[placeholder="شماره موبایل یا ایمیل"]',
@@ -133,42 +133,56 @@ async function login(page) {
 
   await username.fill(process.env.FILO_USER);
   await password.fill(process.env.FILO_PASS);
-  const submit = page.getByRole('button', { name: /^ورود$|^login$/i }).first();
-  if (!(await submit.isVisible().catch(() => false))) {
-    const fallback = page.locator('button[type="submit"]').first();
-    if (!(await fallback.isVisible().catch(() => false))) throw new Error('filo_login_submit_not_found');
-    await fallback.click();
-  } else {
-    await submit.click();
+  const submit = await visibleFirst(page, [
+    'button[type="submit"]',
+    'input[type="submit"]'
+  ]) || page.getByRole('button', { name: /^ورود$|^login$/i }).first();
+  if (!(await submit.isVisible().catch(() => false))) throw new Error('filo_login_submit_not_found');
+
+  const loginResponsePromise = page.waitForResponse(response => {
+    try {
+      const u = new URL(response.url());
+      return u.hostname === 'ifilo.net' && u.pathname === '/api/v1/users/login' &&
+        response.request().method() === 'POST';
+    } catch { return false; }
+  }, { timeout: 15000 }).catch(() => null);
+  await submit.click();
+  const loginResponse = await loginResponsePromise;
+  const loginHttpStatus = loginResponse ? loginResponse.status() : null;
+  let loginApiSignal = 'unavailable';
+  if (loginResponse) {
+    try {
+      let data = await loginResponse.json();
+      if (typeof data === 'string') {
+        try { data = JSON.parse(data); } catch {}
+      }
+      loginApiSignal = data && data.s ? 'success_flag_true' :
+        data && data.r ? 'error_flag_present' :
+        data && typeof data === 'object' ? 'response_without_success_flag' : 'non_json_response';
+      if (data && data.r && /رمز|نامعتبر|اشتباه|موبایل|ایمیل|کاربر|ورود/i.test(String(data.r))) {
+        // Do not echo server text, which might include account-identifying details.
+        loginApiSignal = 'server_rejected_login';
+      }
+    } catch {}
   }
 
-  // Some Filo login paths complete through client-side requests rather than a navigation.
-  await sleep(7500);
-  const body = (await page.locator('body').innerText().catch(() => '')).slice(0, 6000);
-  const challenge = /کد تایید|کد تأیید|رمز یکبار مصرف|captcha|verify you are human|تایید هویت/i.test(body);
-  if (challenge) throw new Error('filo_login_challenge_required');
-
-  const stillPassword = await password.isVisible().catch(() => false);
-  const links = await page.locator('a[href]').evaluateAll(as => as.map(a => ({
-    text: (a.innerText || a.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 60),
-    path: (() => { try { return new URL(a.href).pathname; } catch { return ''; } })()
-  }))).catch(() => []);
-  const loggedOutLink = links.some(a => /logout|log-out|sign.?out|خروج/i.test(a.text + ' ' + a.path));
-  const accountLink = links.some(a => /profile|dashboard|my.?account|پروفایل|حساب کاربری|ویدیوهای من/i.test(a.text + ' ' + a.path));
-
-  if (stillPassword || (!loggedOutLink && !accountLink && pathOnly(page.url()) === '/login')) {
-    const hint = body.split(/\n/).map(cleanText).filter(line =>
-      /اشتباه|صحیح|نامعتبر|رمز|ورود|خطا|مشکل|تلاش|مسدود|غیرفعال|کد|captcha|نام کاربری|موبایل|ایمیل/i.test(line)
-    ).slice(0, 8).map(line => line.replace(/\b\d{6,}\b/g, '[redacted-number]').slice(0, 120));
-    if (/اشتباه|نامعتبر|صحیح نیست|wrong password|invalid credentials/i.test(body)) {
-      throw new Error('filo_login_rejected_credentials' + (hint.length ? ':' + hint.join(' | ') : ''));
-    }
-    throw new Error('filo_login_not_confirmed' + (hint.length ? ':' + hint.join(' | ') : ''));
-  }
-
-  await page.goto(ACCOUNT + '/upload', { waitUntil: 'domcontentloaded', timeout: 30000 });
   await sleep(1600);
-  if (pathOnly(page.url()) === '/login') throw new Error('filo_upload_redirected_to_login');
+  const body = (await page.locator('body').innerText().catch(() => '')).slice(0, 4500);
+  if (/کد تایید|کد تأیید|رمز یکبار مصرف|captcha|verify you are human|تایید هویت/i.test(body)) {
+    throw new Error('filo_login_challenge_required');
+  }
+
+  // The login route can keep the old form rendered during client-side transitions,
+  // so the decisive test is whether the protected upload route remains accessible.
+  await page.goto(ACCOUNT + '/upload', { waitUntil: 'domcontentloaded', timeout: 30000 });
+  await sleep(1400);
+  if (pathOnly(page.url()) === '/login') {
+    const failureHint = loginApiSignal === 'server_rejected_login' ? 'server_rejected_login' :
+      loginHttpStatus ? 'login_http_' + loginHttpStatus : 'login_not_confirmed';
+    throw new Error('filo_upload_redirected_to_login:' + failureHint);
+  }
+  const videoInputCount = await page.locator('#fileInput').count().catch(() => 0);
+  if (!videoInputCount) throw new Error('filo_upload_page_missing_video_input');
 }
 async function visibleFieldReport(page) {
   return page.locator('input, textarea, select, [contenteditable="true"], button, [role="button"], label').evaluateAll(nodes =>
