@@ -49,9 +49,10 @@ jobs:
               {key:'khotan', url:'https://mediafarsi.com/channel/khotan?tab=shorts', language:'persian'},
               {key:'amootheory', url:'https://mediafarsi.com/channel/amootheory?tab=shorts', language:'persian'},
               {key:'kouman', url:'https://mediafarsi.com/channel/kouman?tab=shorts', language:'persian'},
-              {key:'dogm_nabash', url:'https://mediafarsi.com/channel/dogm-nabash?tab=shorts', language:'persian'},
               {key:'nikshah_zone', url:'https://mediafarsi.com/channel/nikshah-zone?tab=shorts', language:'persian'},
-              {key:'putak', url:'https://mediafarsi.com/channel/putak?tab=shorts', language:'persian'}
+              {key:'sahar_hoc', url:'https://mediafarsi.com/channel/sahar-hoc?tab=shorts', language:'persian'},
+              {key:'mehran_magnet', url:'https://mediafarsi.com/channel/mehran-magnet?tab=shorts', language:'mixed'},
+              {key:'nikshah', url:'https://mediafarsi.com/channel/nikshah?tab=shorts', language:'persian'}
             ];
             const browser = await chromium.launch({headless:true});
             const context = await browser.newContext({
@@ -191,7 +192,7 @@ jobs:
               if not short_id(vid) or not title:
                   continue
               # This is an entertainment-focused scout; skip politics, ethnicity, and overtly violent headlines.
-              excluded_topic = re.compile(r"توافق|جنگ|سیاست|سیاسی|انتخابات|قومیت|نژاد|خامنه|ترور|اعدام|قتل|اسلحه|سلاح|حمله به صنعت رپ", re.I)
+              excluded_topic = re.compile(r"توافق|جنگ|سیاست|سیاسی|انتخابات|قومیت|نژاد|خامنه|ترور|اعدام|قتل|اسلحه|سلاح|اختلاس|فساد|انقلاب|حمله به صنعت رپ", re.I)
               if excluded_topic.search(title):
                   continue
               card_text = norm(item.get("card_text"))
