@@ -297,11 +297,21 @@ async function main() {
     if (!(await fileInput.count().catch(() => 0))) throw new Error('filo_video_file_input_not_found');
 
     await fileInput.setInputFiles(OUTPUT_FILE);
-    await sleep(2500);
 
-    const fieldsAfterSelection = await visibleFieldReport(page);
-    let titleField = await findField(page, 'title');
-    let descriptionField = await findField(page, 'description');
+    // Upload widgets often expose metadata fields only after the media has been processed.
+    let fieldsAfterSelection = [];
+    let titleField = null;
+    let descriptionField = null;
+    for (let attempt = 0; attempt < 12; attempt++) {
+      await sleep(1500);
+      fieldsAfterSelection = await visibleFieldReport(page);
+      titleField = await findField(page, 'title');
+      descriptionField = await findField(page, 'description');
+      if (titleField && await titleField.isVisible().catch(() => false)) break;
+      if (/upload|بارگذاری|آپلود|processing|در حال پردازش/i.test(await page.locator('body').innerText().catch(() => ''))) {
+        // Keep waiting briefly for the uploader to reveal its metadata form.
+      }
+    }
 
     // Use a simple visible title/description input only when its labels identify the field.
     if (!titleField) {
