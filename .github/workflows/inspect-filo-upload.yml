@@ -182,7 +182,7 @@ jobs:
                   const stillLogin = await isVisible(currentPassword);
                   const postLinks = await page.locator('a').evaluateAll(as => as.map(a => ({
                     text: (a.innerText || a.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 60),
-                    path: pathOnly(a.href),
+                    path: (() => { try { return new URL(a.href).pathname; } catch { return ''; } })(),
                     href: a.href
                   })));
                   const loggedOutLink = postLinks.some(a => /logout|log-out|sign.?out|خروج/i.test(a.text + ' ' + a.path));
