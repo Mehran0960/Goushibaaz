@@ -2,17 +2,16 @@ name: Publish approved CC0 video to Filo (lazy uploader/auth diagnostics)
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - ".github/workflows/publish-approved-video-to-filo.yml"
-      - "scripts/filo_publish_cc0.cjs"
+  schedule:
+    # Eight local-independent daily slots, approximately one every three hours (UTC).
+    - cron: "13 */3 * * *"
 
 permissions:
   contents: write
 
 concurrency:
   group: filo-publish-approved-video
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   publish:
