@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: filo-trend-scout
+  group: filo-trend-scout-v2
   cancel-in-progress: false
 
 jobs:
