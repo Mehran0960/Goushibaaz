@@ -41,8 +41,8 @@ jobs:
           FILO_PASS: ${{ secrets.FILO_PASS }}
         run: node scripts/filo_publish_cc0.cjs
 
-      - name: Commit publication result for idempotency
-        if: success()
+      - name: Commit publication result for idempotency, including unconfirmed submissions
+        if: always()
         run: |
           if [ -f state/filo-published.json ]; then
             git config user.name "github-actions[bot]"
