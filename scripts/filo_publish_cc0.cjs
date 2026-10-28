@@ -352,7 +352,7 @@ async function uploadCoverThumbnail(page, coverPath) {
     }
     if (data && (data.s === true || data.s === 1 || data.s === '1')) apiSignal = 'success';
     else if (data && (data.s === false || data.s === 0 || data.s === '0')) apiSignal = 'rejected';
-    if (data && data.r) apiError = String(data.r).replace(/\s+/g, ' ').slice(0, 100);
+    if (data && data.r && apiSignal !== 'success') apiError = String(data.r).replace(/\s+/g, ' ').slice(0, 100);
   } catch {}
 
   if (status >= 400 || apiSignal === 'rejected' || apiError) {
