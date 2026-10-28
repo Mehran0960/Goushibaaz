@@ -242,9 +242,9 @@ async function main() {
   let state = { posts: [] };
   try { state = JSON.parse(fs.readFileSync(STATE_PATH, 'utf8')); } catch {}
   if ((state.posts || []).some(x => x.sourcePage === COMMONS_PAGE &&
-    ['published', 'submit_started', 'submitted_unconfirmed', 'upload_staged_unpublished'].includes(x.status))) {
+    ['published', 'submitted_pending_approval', 'submit_started', 'submitted_unconfirmed'].includes(x.status))) {
     const prior = state.posts.find(x => x.sourcePage === COMMONS_PAGE &&
-      ['published', 'submit_started', 'submitted_unconfirmed', 'upload_staged_unpublished'].includes(x.status));
+      ['published', 'submitted_pending_approval', 'submit_started', 'submitted_unconfirmed'].includes(x.status));
     console.log('FILO_PUBLISH_RESULT', JSON.stringify({
       status: prior.status === 'published' ? 'skipped_duplicate' : 'skipped_existing_unconfirmed_attempt',
       source: COMMONS_PAGE,
@@ -267,16 +267,24 @@ async function main() {
   const observedRequests = [];
   const observedResponses = [];
   page.on('request', req => {
-    const u = new URL(req.url());
-    if (u.hostname === 'ifilo.net' && req.method() !== 'GET') {
-      observedRequests.push({ method: req.method(), path: u.pathname, resourceType: req.resourceType() });
-    }
+    try {
+      const u = new URL(req.url());
+      const relevant = u.hostname === 'ifilo.net' ||
+        /uploadFromFile|video\/publish|\/api\/v1\/upload/i.test(u.pathname);
+      if (relevant && req.method() !== 'GET') {
+        observedRequests.push({ host: u.hostname, method: req.method(), path: u.pathname, resourceType: req.resourceType() });
+      }
+    } catch {}
   });
   page.on('response', res => {
-    const u = new URL(res.url());
-    if (u.hostname === 'ifilo.net' && res.request().method() !== 'GET') {
-      observedResponses.push({ method: res.request().method(), path: u.pathname, status: res.status() });
-    }
+    try {
+      const u = new URL(res.url());
+      const relevant = u.hostname === 'ifilo.net' ||
+        /uploadFromFile|video\/publish|\/api\/v1\/upload/i.test(u.pathname);
+      if (relevant && res.request().method() !== 'GET') {
+        observedResponses.push({ host: u.hostname, method: res.request().method(), path: u.pathname, status: res.status() });
+      }
+    } catch {}
   });
 
   let result;
@@ -296,22 +304,53 @@ async function main() {
     let fileInput = await uploadFile.count().catch(() => 0) ? uploadFile : fallbackFile;
     if (!(await fileInput.count().catch(() => 0))) throw new Error('filo_video_file_input_not_found');
 
-    await fileInput.setInputFiles(OUTPUT_FILE);
+    // Filo initializes its chunk uploader from the visible device-upload tile's click handler.
+    // Directly setting the hidden file input without this click only populates a DOM field;
+    // it does not bind the uploader or start the actual /uploadFromFile request.
+    const deviceOption = page.getByText(/از دستگاه.{0,8}ت/).first();
+    if (await deviceOption.isVisible().catch(() => false)) {
+      await deviceOption.click();
+      await sleep(500);
+    }
+    const visibleUploader = page.locator('#uploader').first();
+    let chooser = null;
+    if (await visibleUploader.isVisible().catch(() => false)) {
+      const chooserPromise = page.waitForEvent('filechooser', { timeout: 4500 }).catch(() => null);
+      await visibleUploader.click({ timeout: 8000 });
+      chooser = await chooserPromise;
+    }
+    if (chooser) {
+      await chooser.setFiles(OUTPUT_FILE);
+    } else {
+      // If the tile click only initializes the chunk uploader, assign the file now.
+      await fileInput.setInputFiles(OUTPUT_FILE);
+    }
 
-    // Upload widgets often expose metadata fields only after the media has been processed.
     let fieldsAfterSelection = [];
     let titleField = null;
     let descriptionField = null;
-    for (let attempt = 0; attempt < 12; attempt++) {
+    let uploadResponse = null;
+    const uploadResponsePromise = page.waitForResponse(response => {
+      try {
+        const u = new URL(response.url());
+        return response.request().method() !== 'GET' && /\/uploadFromFile$/i.test(u.pathname);
+      } catch { return false; }
+    }, { timeout: 150000 }).catch(() => null);
+
+    // Filo uploads in 1 MiB chunks and only then exposes its metadata form.
+    for (let attempt = 0; attempt < 100; attempt++) {
       await sleep(1500);
       fieldsAfterSelection = await visibleFieldReport(page);
       titleField = await findField(page, 'title');
       descriptionField = await findField(page, 'description');
       if (titleField && await titleField.isVisible().catch(() => false)) break;
-      if (/upload|بارگذاری|آپلود|processing|در حال پردازش/i.test(await page.locator('body').innerText().catch(() => ''))) {
-        // Keep waiting briefly for the uploader to reveal its metadata form.
-      }
+      const body = await page.locator('body').innerText().catch(() => '');
+      if (/خطا در بارگذاری|فایل بیش از حد مجاز|فرمت فایل نامعتبر|آپلود ناموفق/i.test(body)) break;
     }
+    uploadResponse = await Promise.race([
+      uploadResponsePromise,
+      sleep(0).then(() => null)
+    ]);
 
     // Use a simple visible title/description input only when its labels identify the field.
     if (!titleField) {
@@ -327,20 +366,28 @@ async function main() {
 
     if (!titleField || !(await titleField.isVisible().catch(() => false))) {
       const stageRequests = observedRequests.slice(requestCountBeforeFile);
-      if (stageRequests.some(x => x.method === 'POST' || x.method === 'PUT')) {
+      const actualUploadRequest = stageRequests.some(x => /uploadFromFile$/i.test(x.path));
+      const uploadResponseInfo = uploadResponse ? {
+        host: new URL(uploadResponse.url()).hostname,
+        path: new URL(uploadResponse.url()).pathname,
+        status: uploadResponse.status()
+      } : null;
+      if (actualUploadRequest && uploadResponseInfo && uploadResponseInfo.status >= 200 && uploadResponseInfo.status < 300) {
         state.posts = [...(state.posts || []), {
           sourcePage: COMMONS_PAGE, title: PERSIAN_TITLE, status: 'upload_staged_unpublished',
-          attemptedAt: new Date().toISOString(), note: 'File-selection request observed; final publish button was not clicked.'
+          attemptedAt: new Date().toISOString(),
+          note: 'Filo file transfer completed, but metadata/publish stage was not reached.'
         }].slice(-500);
         fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
       }
       result = {
-        status: 'not_published_form_needs_mapping',
+        status: actualUploadRequest ? 'upload_transfer_observed_but_not_published' : 'not_published_upload_not_started',
         authenticated: true,
         uploadPage: pathOnly(page.url()),
         title: PERSIAN_TITLE,
         fileSelected: true,
-        stagingRequestObserved: stageRequests.some(x => x.method === 'POST' || x.method === 'PUT'),
+        uploadRequestObserved: actualUploadRequest,
+        uploadResponse: uploadResponseInfo,
         fields: fieldsAfterSelection,
         bodyText: (await page.locator('body').innerText().catch(() => '')).slice(0, 4000),
         requests: observedRequests.slice(-15),
