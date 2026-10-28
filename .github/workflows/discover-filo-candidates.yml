@@ -335,7 +335,7 @@ jobs:
           // Review videos surfaced by the Creative Commons-filtered search first, then high-fit trend leads.
           for (const item of [...directCcCandidates, ...generalCandidates]) {
             const u = item.youtube_url ? new URL(item.youtube_url) : new URL(item.source_url);
-            const id = item.video_id || u.searchParams.get('v') || ((u.pathname.match(/\\/shorts\\/([A-Za-z0-9_-]{11})/) || [])[1]);
+            const id = item.video_id || u.searchParams.get('v') || ((u.pathname.match(/\/shorts\/([A-Za-z0-9_-]{11})/) || [])[1]);
             if (id && !unique.has(id)) unique.set(id, { ...item, video_id: id });
           }
           const candidates = [...unique.values()].slice(0, 30);
