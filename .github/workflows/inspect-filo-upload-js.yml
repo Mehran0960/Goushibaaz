@@ -65,9 +65,10 @@ jobs:
 
             const main = await getText(mainUrl);
             const assetPaths = [...new Set((main.match(/assets\/[^"'\s]+\.js/g) || []).map(s => '/' + s))];
+            const uploadRelatedAssets = assetPaths.filter(x => /upload|video|media|device|file|film/i.test(x)).slice(0, 80);
             const targetPaths = assetPaths.filter(x =>
               /DorfakUploader|VideoSelector|EditVideo|UploadRules|VideoUpload|UploadVideo|MediaUpload|VideoMaker/i.test(x)
-            ).slice(0, 30);
+            ).slice(0, 50);
             const targets = [{ path: new URL(mainUrl).pathname, js: main }];
             for (const p of targetPaths) {
               try { targets.push({ path: p, js: await getText(new URL(p, root).href) }); }
@@ -84,6 +85,16 @@ jobs:
             ];
             const reports = [];
             const endpoints = new Set();
+            const uploadRouteSnippets = [];
+            for (const term of ['path:`/upload`','path:"/upload"','/upload', 'fileInput', 'uploadVideo']) {
+              let from = 0;
+              for (let i = 0; i < 5; i++) {
+                const idx = main.toLowerCase().indexOf(term.toLowerCase(), from);
+                if (idx < 0) break;
+                uploadRouteSnippets.push({term, context:main.slice(Math.max(0,idx-320),Math.min(main.length,idx+520)).replace(/\\s+/g,' ').slice(0,850)});
+                from = idx + term.length;
+              }
+            }
             const endpointPattern = /\/api\/v[0-9]+\/[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_.-]+)*/g;
             for (const target of targets) {
               if (target.errorKind) {
@@ -105,6 +116,8 @@ jobs:
               mainBundlePath: new URL(mainUrl).pathname,
               mainBundleBytes: main.length,
               relevantChunkPaths: targetPaths,
+              uploadRelatedAssets,
+              uploadRouteSnippets,
               endpointCandidates: [...endpoints].sort().slice(0, 100),
               inspectedFiles: reports,
               note: 'Public static frontend source only; no login, credentials, media upload, or publication was attempted.'
