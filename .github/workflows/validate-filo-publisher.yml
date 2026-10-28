@@ -44,7 +44,7 @@ jobs:
               url.searchParams.set('format', 'json');
               url.searchParams.set('generator', 'search');
               url.searchParams.set('gsrnamespace', '6');
-              url.searchParams.set('gsrlimit', '18');
+              url.searchParams.set('gsrlimit', '50');
               url.searchParams.set('gsrsearch', query);
               url.searchParams.set('prop', 'imageinfo');
               url.searchParams.set('iiprop', 'url|mime|size|extmetadata|commonmetadata');
