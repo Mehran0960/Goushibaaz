@@ -1,0 +1,87 @@
+name: Inspect Filo public uploader frontend
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/inspect-filo-upload-js.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Inspect public Filo uploader bundle without login or upload
+        run: |
+          node <<'NODE'
+          const root = 'https://ifilo.net/';
+          const upload = 'https://ifilo.net/upload';
+          const headers = { 'User-Agent': 'Mozilla/5.0 GoushibaazPublicUploaderInspector/1.0' };
+
+          async function getText(url) {
+            const res = await fetch(url, {headers, signal:AbortSignal.timeout(20000)});
+            if (!res.ok) throw new Error('public_fetch_http_' + res.status);
+            return await res.text();
+          }
+
+          (async () => {
+            const html = await getText(upload);
+            const scriptPaths = [...html.matchAll(/<script[^>]+src=["']([^"']+\.js(?:\?[^"']*)?)["']/gi)]
+              .map(m => new URL(m[1], root).href);
+            const candidate = scriptPaths.find(x => /\/assets\/index-[^/]+\.js/.test(new URL(x).pathname)) ||
+              scriptPaths.find(x => /\/assets\//.test(new URL(x).pathname));
+            if (!candidate) {
+              console.log('FILO_BUNDLE_INSPECTION', JSON.stringify({
+                status:'bundle_not_found',
+                title:(html.match(/<title>([^<]*)<\/title>/i)||[])[1]||'',
+                scriptPaths:scriptPaths.map(x=>new URL(x).pathname).slice(0,30),
+                note:'No login, credentials, media upload, or publication was attempted.'
+              }));
+              return;
+            }
+
+            const js = await getText(candidate);
+            const terms = [
+              'fileInput','sut','dut','FormData','multipart/form-data','FileReader',
+              'input[type=file]','/api/v1/','uploadVideo','uploadFile','video/upload',
+              'videoUpload','uploadUrl','presigned','upload','my/videos','video-status-list'
+            ];
+            const snippets = [];
+            for (const term of terms) {
+              let from = 0;
+              let count = 0;
+              while (count < 4) {
+                const idx = js.toLowerCase().indexOf(term.toLowerCase(), from);
+                if (idx < 0) break;
+                const left = Math.max(0, idx - 220);
+                const right = Math.min(js.length, idx + term.length + 320);
+                snippets.push({term, context:js.slice(left,right).replace(/\s+/g,' ').slice(0,600)});
+                from = idx + term.length;
+                count++;
+              }
+            }
+            console.log('FILO_BUNDLE_INSPECTION', JSON.stringify({
+              status:'ok',
+              pageTitle:(html.match(/<title>([^<]*)<\/title>/i)||[])[1]||'',
+              bundlePath:new URL(candidate).pathname,
+              bundleBytes:js.length,
+              snippetCount:snippets.length,
+              snippets,
+              note:'Public static frontend code only. No login, credentials, media upload, or publication was attempted.'
+            }));
+          })().catch(e => {
+            console.log('FILO_BUNDLE_INSPECTION', JSON.stringify({
+              status:'error',
+              errorKind:String(e && e.name || 'Error').slice(0,60),
+              note:'No login or upload was attempted.'
+            }));
+            process.exit(1);
+          });
+          NODE
