@@ -59,6 +59,11 @@ jobs:
               uploadPageInspected: false,
               fileInputFound: false,
               uploadControlLabels: [],
+              uploadPagePath: '',
+              uploadPageTitle: '',
+              fileInputDetails: [],
+              formSummaries: [],
+              visibleButtonLabels: [],
               note: 'Inspection only. No video file selected, no form submitted, no post created.'
             };
 
@@ -210,7 +215,45 @@ jobs:
               }
 
               stage = 'inspect_upload_controls';
-              report.fileInputFound = await page.locator('input[type="file"]').count().then(n => n > 0).catch(() => false);
+              report.uploadPagePath = pathOnly(page.url());
+              report.uploadPageTitle = (await page.title().catch(() => '')).slice(0, 100);
+              report.fileInputDetails = await page.locator('input[type="file"]').evaluateAll(nodes => nodes.map(el => {
+                const rect = el.getBoundingClientRect();
+                const form = el.form;
+                return {
+                  id: el.id || '',
+                  name: el.name || '',
+                  accept: el.getAttribute('accept') || '',
+                  required: Boolean(el.required),
+                  multiple: Boolean(el.multiple),
+                  visible: rect.width > 0 && rect.height > 0,
+                  formActionPath: form ? (() => { try { return new URL(form.action, location.href).pathname; } catch { return ''; } })() : '',
+                  formMethod: form ? String(form.method || 'get').toLowerCase() : ''
+                };
+              }).slice(0, 5));
+              report.formSummaries = await page.locator('form').evaluateAll(forms => forms.slice(0, 8).map(form => {
+                const rect = form.getBoundingClientRect();
+                const controls = [...form.querySelectorAll('input, textarea, select, button')].slice(0, 30).map(el => {
+                  const r = el.getBoundingClientRect();
+                  return {
+                    tag: el.tagName.toLowerCase(),
+                    type: (el.getAttribute('type') || '').toLowerCase(),
+                    name: el.getAttribute('name') || '',
+                    id: el.id || '',
+                    label: (el.getAttribute('aria-label') || el.getAttribute('placeholder') || el.innerText || '').trim().replace(/\\s+/g, ' ').slice(0, 60),
+                    required: Boolean(el.required),
+                    visible: r.width > 0 && r.height > 0
+                  };
+                }).filter(el => el.visible || el.type === 'file');
+                let actionPath = '';
+                try { actionPath = new URL(form.action, location.href).pathname; } catch {}
+                return {actionPath, method: String(form.method || 'get').toLowerCase(), visible: rect.width > 0 && rect.height > 0, controls};
+              }));
+              report.visibleButtonLabels = await page.locator('button, [role="button"], input[type="submit"]').evaluateAll(nodes => nodes
+                .filter(el => { const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; })
+                .map(el => (el.getAttribute('aria-label') || el.innerText || el.getAttribute('value') || '').trim().replace(/\\s+/g, ' ').slice(0, 60))
+                .filter(Boolean).slice(0, 30));
+              report.fileInputFound = report.fileInputDetails.length > 0;
               report.uploadPageInspected = report.fileInputFound || upload != null ||
                 uploadRegex.test((await page.title().catch(() => '')) + ' ' + page.url());
 
