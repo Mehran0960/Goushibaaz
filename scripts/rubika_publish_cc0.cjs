@@ -136,7 +136,7 @@ function loadState() {
 
 async function discoverCandidates(state) {
   const used = new Set((state.posts || [])
-    .filter(item => ['published', 'send_started', 'submitted_unconfirmed'].includes(item.status))
+    .filter(item => ['published', 'submitted_unconfirmed'].includes(item.status))
     .map(item => item.sourcePage));
   const hits = new Map();
   for (let i = 0; i < 4; i++) {
@@ -229,7 +229,9 @@ function convertPortrait() {
     '-i', INPUT_FILE,
     '-vf', 'scale=608:1080:force_original_aspect_ratio=increase,crop=608:1080,scale=1080:1920,setsar=1',
     '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '28', '-pix_fmt', 'yuv420p',
-    '-c:a', 'aac', '-b:a', '64k', '-ac', '2',
+    // Rubika's Bot API upload endpoint times out on MP4s with an audio stream in our tests.
+    // Until that endpoint works with audio, deliver supported silent MP4 video instead.
+    '-an',
     '-maxrate', '1400k', '-bufsize', '2800k',
     '-movflags', '+faststart',
     OUTPUT_FILE
@@ -244,12 +246,15 @@ function convertPortrait() {
 }
 
 async function uploadVideo(filePath) {
+  const file = fs.readFileSync(filePath);
+  console.log('RUBIKA_VIDEO_UPLOAD_STARTED', JSON.stringify({ bytes: file.length, type: 'silent_mp4' }));
   const request = await rubika('requestSendFile', { type: 'Video' });
   const uploadUrl = request.upload_url || request.data?.upload_url;
   if (typeof uploadUrl !== 'string' || !/^https:\/\//i.test(uploadUrl)) {
     throw new Error('requestSendFile_missing_upload_url');
   }
-  const file = fs.readFileSync(filePath);
+  const endpoint = new URL(uploadUrl);
+  console.log('RUBIKA_VIDEO_UPLOAD_ENDPOINT', JSON.stringify({ hostname: endpoint.hostname }));
   const form = new FormData();
   form.append('file', new Blob([file], { type: 'video/mp4' }), 'didobyn-short.mp4');
   const response = await fetch(uploadUrl, {
@@ -266,6 +271,7 @@ async function uploadVideo(filePath) {
     const reason = String(data.description || data.error || data.status || 'file_id_missing').slice(0, 120);
     throw new Error('rubika_file_upload_failed_' + reason);
   }
+  console.log('RUBIKA_VIDEO_FILE_UPLOADED', JSON.stringify({ bytes: file.length }));
   return fileId;
 }
 
@@ -289,6 +295,17 @@ async function main() {
   }));
 
   const state = loadState();
+  let normalizedLegacyUpload = false;
+  for (const item of state.posts) {
+    if (item.status === 'send_started' && !item.messageId) {
+      item.status = 'upload_failed_retryable';
+      item.note = 'Previous attempt timed out during media upload before sendFile was called.';
+      item.normalizedAt = new Date().toISOString();
+      normalizedLegacyUpload = true;
+    }
+  }
+  if (normalizedLegacyUpload) persistState(state);
+
   const candidates = await discoverCandidates(state);
   if (!candidates.length) {
     console.log('RUBIKA_PUBLISH_RESULT', JSON.stringify({ status: 'no_eligible_candidate', dryRun: DRY_RUN }));
@@ -332,16 +349,31 @@ async function main() {
     return;
   }
 
-  // Record the attempt before posting. A later workflow failure should not silently republish this source.
+  // Track upload and message-sending separately so upload failures can be retried without risking duplicate posts.
   const entry = {
     ...resultSummary,
-    status: 'send_started',
+    status: 'upload_started',
     attemptedAt: new Date().toISOString()
   };
   state.posts.push(entry);
   persistState(state);
 
-  const fileId = await uploadVideo(OUTPUT_FILE);
+  let fileId;
+  try {
+    fileId = await uploadVideo(OUTPUT_FILE);
+  } catch (error) {
+    entry.status = 'upload_failed_retryable';
+    entry.uploadFailure = String(error && error.message || error).replace(/\s+/g, ' ').slice(0, 180);
+    entry.failedAt = new Date().toISOString();
+    persistState(state);
+    throw error;
+  }
+
+  // Once sendFile begins, keep the source in the dedupe set until the result is known.
+  entry.status = 'submitted_unconfirmed';
+  entry.uploadedAt = new Date().toISOString();
+  persistState(state);
+
   const sent = await rubika('sendFile', {
     chat_id: channel.chatId,
     file_id: fileId,
@@ -349,7 +381,11 @@ async function main() {
   });
   const message = sent.message || sent.data?.message || sent.data || sent;
   const messageId = message.message_id || message.id;
-  if (!messageId) throw new Error('sendFile_accepted_without_message_id');
+  if (!messageId) {
+    entry.sendFailure = 'sendFile_accepted_without_message_id';
+    persistState(state);
+    throw new Error('sendFile_accepted_without_message_id');
+  }
   entry.status = 'published';
   entry.messageId = String(messageId);
   entry.publishedAt = new Date().toISOString();
