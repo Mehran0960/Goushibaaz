@@ -213,7 +213,7 @@ async function findPublishButton(page) {
       return rect.width > 0 && rect.height > 0 && getComputedStyle(el).visibility !== 'hidden';
     })
     .map(el => ({
-      text: cleanButtonText(el),
+      text: String(el.getAttribute('aria-label') || el.innerText || el.getAttribute('value') || '').trim().replace(/\s+/g, ' ').slice(0, 90),
       disabled: Boolean(el.disabled),
       type: (el.getAttribute('type') || '').toLowerCase()
     })));
@@ -359,7 +359,7 @@ async function main() {
         descriptionFilled: Boolean(descriptionField),
         fields: await visibleFieldReport(page),
         bodyText: (await page.locator('body').innerText().catch(() => '')).slice(0, 4000),
-        buttons: await page.locator('button, [role="button"], input[type="submit"]').evaluateAll(nodes => nodes.map(cleanButtonText).filter(Boolean).slice(0, 40)),
+        buttons: await page.locator('button, [role="button"], input[type="submit"]').evaluateAll(nodes => nodes.map(el => String(el.getAttribute('aria-label') || el.innerText || el.getAttribute('value') || '').trim().replace(/\s+/g, ' ').slice(0, 90)).filter(Boolean).slice(0, 40)),
         requests: observedRequests.slice(-15),
         responses: observedResponses.slice(-15),
         reason: 'No unambiguous publish/upload button was found; no submit action was attempted.'
@@ -392,8 +392,8 @@ async function main() {
     if (!postUrl) {
       postUrl = await page.locator('a[href*="/v/"], a[href*="/video/"]').evaluateAll(as => as.map(a => ({
         href: a.href.split('?')[0],
-        text: cleanButtonText(a),
-        cardText: cleanButtonText(a.closest('article, li, [class*="video"], [class*="Video"]') || a)
+        text: String(a.innerText || a.getAttribute('title') || a.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 90),
+        cardText: String((a.closest('article, li, [class*="video"], [class*="Video"]') || a).innerText || '').trim().replace(/\s+/g, ' ').slice(0, 200)
       })).filter(x => /^https?:\/\/(?:www\.)?ifilo\.net\/(?:v|video)\//i.test(x.href) &&
         !existingVideoUrls.has(x.href) &&
         /گربه|وقتی گربه|cat jumpscare/i.test(x.text + ' ' + x.cardText)).map(x => x.href)[0] || '').catch(() => '');
