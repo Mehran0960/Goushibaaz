@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: filo-publish-approved-video
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   publish:
