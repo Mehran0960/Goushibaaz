@@ -237,6 +237,12 @@ jobs:
                 } catch {}
               }
 
+              stage = 'activate_device_upload_mode';
+              const deviceOption = page.getByText(/از دستگاه.{0,8}ت/).first();
+              if (await isVisible(deviceOption)) {
+                await deviceOption.click().catch(() => {});
+                await page.waitForTimeout(900);
+              }
               stage = 'inspect_upload_controls';
               report.bodyText = (await page.locator('body').innerText().catch(() => '')).slice(0, 5000);
               report.scriptPaths = (await page.locator('script[src]').evaluateAll(nodes => nodes.map(el => {
