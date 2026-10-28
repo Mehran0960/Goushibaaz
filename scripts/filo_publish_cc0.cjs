@@ -242,9 +242,9 @@ async function main() {
   let state = { posts: [] };
   try { state = JSON.parse(fs.readFileSync(STATE_PATH, 'utf8')); } catch {}
   if ((state.posts || []).some(x => x.sourcePage === COMMONS_PAGE &&
-    ['published', 'submitted_pending_approval', 'submit_started', 'submitted_unconfirmed'].includes(x.status))) {
+    ['published', 'submitted_pending_approval', 'submit_started', 'submitted_unconfirmed', 'upload_staged_unpublished'].includes(x.status))) {
     const prior = state.posts.find(x => x.sourcePage === COMMONS_PAGE &&
-      ['published', 'submitted_pending_approval', 'submit_started', 'submitted_unconfirmed'].includes(x.status));
+      ['published', 'submitted_pending_approval', 'submit_started', 'submitted_unconfirmed', 'upload_staged_unpublished'].includes(x.status));
     console.log('FILO_PUBLISH_RESULT', JSON.stringify({
       status: prior.status === 'published' ? 'skipped_duplicate' : 'skipped_existing_unconfirmed_attempt',
       source: COMMONS_PAGE,
