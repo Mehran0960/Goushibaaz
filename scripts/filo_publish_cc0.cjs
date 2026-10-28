@@ -322,19 +322,27 @@ async function main() {
     await page.goto(ACCOUNT + '/upload', { waitUntil: 'domcontentloaded', timeout: 30000 });
     await sleep(1000);
     const requestCountBeforeFile = observedRequests.length;
-    const uploadFile = page.locator('#fileInput').first();
-    const fallbackFile = page.locator('input[type="file"][accept*="video"]').first();
-    let fileInput = await uploadFile.count().catch(() => 0) ? uploadFile : fallbackFile;
-    if (!(await fileInput.count().catch(() => 0))) throw new Error('filo_video_file_input_not_found');
 
-    // Filo initializes its chunk uploader from the visible device-upload tile's click handler.
-    // Directly setting the hidden file input without this click only populates a DOM field;
-    // it does not bind the uploader or start the actual /uploadFromFile request.
+    // The file input is mounted lazily only after selecting the "from your device" method.
+    // Click the option first, then wait for Filo's hidden file input to appear.
     const deviceOption = page.getByText(/از دستگاه.{0,8}ت/).first();
     if (await deviceOption.isVisible().catch(() => false)) {
       await deviceOption.click();
-      await sleep(500);
+      await sleep(900);
     }
+    const uploadFile = page.locator('#fileInput').first();
+    const fallbackFile = page.locator('input[type="file"][accept*="video"]').first();
+    let fileInput = await uploadFile.count().catch(() => 0) ? uploadFile : fallbackFile;
+    if (!(await fileInput.count().catch(() => 0))) {
+      await page.locator('input[type="file"]').first().waitFor({ state: 'attached', timeout: 8000 }).catch(() => {});
+      fileInput = await uploadFile.count().catch(() => 0) ? uploadFile : fallbackFile;
+    }
+    if (!(await fileInput.count().catch(() => 0))) {
+      const visibleFields = await visibleFieldReport(page);
+      throw new Error('filo_video_file_input_not_found_after_device_choice:' +
+        visibleFields.filter(x => x.type === 'file').length + '_file_inputs');
+    }
+
     const visibleUploader = page.locator('#uploader').first();
     let chooser = null;
     if (await visibleUploader.isVisible().catch(() => false)) {
