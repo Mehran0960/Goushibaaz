@@ -1,18 +1,18 @@
-name: Rubika bot connection check (automatic discovery + manual)
+name: Rubika bot and channel preflight
 
 on:
   push:
     paths:
-      - '.github/workflows/rubika-preflight.yml'
+      - ".github/workflows/rubika-preflight.yml"
   workflow_dispatch:
     inputs:
       discover_recent_updates:
-        description: "Read recent Rubika updates and print chat IDs only (no message text)"
+        description: "Inspect recent update metadata (message text and private IDs are never printed)"
         required: true
         type: boolean
         default: false
       send_test_message:
-        description: "Send a test only if getChat confirms the target is the public channel didobyn"
+        description: "Send a brief test to didobyn and delete it immediately afterward"
         required: true
         type: boolean
         default: false
@@ -29,11 +29,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
-      - name: Validate bot, discover channel ID, and verify target before any test post
+      - name: Verify bot and resolve the public channel without relying on a stale chat-ID secret
         env:
           RUBIKA_BOT_TOKEN: ${{ secrets.RUBIKA_BOT_TOKEN }}
           SEND_TEST_MESSAGE: ${{ inputs.send_test_message }}
-          DISCOVER_RECENT_UPDATES: ${{ github.event_name == 'push' || inputs.discover_recent_updates }}
+          DISCOVER_RECENT_UPDATES: ${{ inputs.discover_recent_updates }}
         run: |
           node <<'NODE'
           const token = process.env.RUBIKA_BOT_TOKEN || '';
@@ -41,6 +41,7 @@ jobs:
             console.error('RUBIKA_PREFLIGHT_FAILED: missing GitHub Actions secret RUBIKA_BOT_TOKEN');
             process.exit(1);
           }
+
           const base = 'https://botapi.rubika.ir/v3/' + encodeURIComponent(token);
           async function call(method, body) {
             const response = await fetch(base + '/' + method, {
@@ -49,86 +50,80 @@ jobs:
               body: JSON.stringify(body || {}),
               signal: AbortSignal.timeout(20000)
             });
-            const text = await response.text();
-            let data;
-            try { data = JSON.parse(text); } catch { data = { raw: text.slice(0, 300) }; }
-            if (!response.ok || data.status !== 'OK') {
-              const reason = data.description || data.error || data.status || 'request_failed';
-              throw new Error(method + ': HTTP ' + response.status + ' / ' + String(reason).slice(0, 120));
+            const raw = await response.text();
+            let result;
+            try { result = JSON.parse(raw); }
+            catch { throw new Error(method + ': Rubika returned a non-JSON response (HTTP ' + response.status + ')'); }
+
+            if (!response.ok || result.status !== 'OK') {
+              const reason = result.description || result.error || result.status || 'request_failed';
+              throw new Error(method + ': HTTP ' + response.status + ' / ' + String(reason).slice(0, 140));
             }
-            return data;
+            return result;
           }
+
           (async () => {
-            const me = await call('getMe');
-            const bot = me.data?.bot || me.data || {};
+            const meResult = await call('getMe');
+            const bot = meResult.data?.bot || meResult.data || {};
             console.log('RUBIKA_TOKEN_VALID', JSON.stringify({
               botId: bot.bot_id || bot.id || null,
               botUsername: bot.username || bot.name || null
             }));
 
-            let verifiedTargets = [];
-            if (process.env.DISCOVER_RECENT_UPDATES === 'true') {
-              const result = await call('getUpdates', { limit: 10 });
-              const updates = result.data?.updates || result.updates || [];
-              const summary = updates.map(update => ({
-                type: update.type || null,
-                chatId: update.chat_id || null,
-                senderType: update.new_message?.sender_type || null,
-                hasNewMessage: Boolean(update.new_message)
-              }));
-              console.log('RUBIKA_RECENT_CHAT_IDS', JSON.stringify(summary));
+            // Resolve the public username through Rubika itself. Do not trust the old RUBIKA_CHAT_ID secret.
+            const chatResult = await call('getChat', { chat_id: '@didobyn' });
+            const chat = chatResult.data?.chat || chatResult.data?.channel || chatResult.data || {};
+            const channelId = chat.chat_id || chat.id || chat.guid || null;
+            const username = String(chat.username || chat.user_name || '').replace(/^@/, '').toLowerCase();
+            const title = String(chat.title || chat.name || '');
+            if (!channelId || (username !== 'didobyn' && title.replace(/\s+/g, '') !== 'دیدوبین')) {
+              throw new Error('getChat returned a target that could not be verified as the public channel didobyn.');
+            }
+            console.log('RUBIKA_CHANNEL_CONFIRMED', JSON.stringify({
+              chatId: channelId,
+              type: chat.type || chat.chat_type || null,
+              title: chat.title || chat.name || null,
+              username: chat.username || chat.user_name || null
+            }));
 
-              const candidates = [...new Set(updates
-                .map(update => update.chat_id)
-                .filter(id => typeof id === 'string' && id.startsWith('c0')))];
-              for (const candidate of candidates) {
-                try {
-                  const lookup = await call('getChat', { chat_id: candidate });
-                  const chat = lookup.data?.chat || lookup.data?.channel || lookup.chat || lookup.data || {};
-                  const username = String(chat.username || chat.user_name || '').replace(/^@/, '').toLowerCase();
-                  const title = String(chat.title || chat.name || '').replace(/\s+/g, '').toLowerCase();
-                  const details = {
-                    chatId: chat.chat_id || chat.id || chat.guid || candidate,
-                    type: chat.type || chat.chat_type || null,
-                    title: chat.title || chat.name || null,
-                    username: chat.username || chat.user_name || null
-                  };
-                  console.log('RUBIKA_GETCHAT_RESULT', JSON.stringify(details));
-                  if (username === 'didobyn' || title === 'دیدوبین') verifiedTargets.push(candidate);
-                } catch (error) {
-                  console.log('RUBIKA_GETCHAT_LOOKUP_FAILED', JSON.stringify({
-                    chatId: candidate,
-                    reason: String(error.message || error).slice(0, 160)
-                  }));
-                }
+            if (process.env.DISCOVER_RECENT_UPDATES === 'true') {
+              const updateResult = await call('getUpdates', { limit: 20 });
+              const updates = updateResult.data?.updates || updateResult.updates || [];
+              const types = {};
+              const kinds = { channel: 0, group: 0, privateChat: 0, other: 0 };
+              for (const update of updates) {
+                const type = String(update?.type || 'unknown');
+                types[type] = (types[type] || 0) + 1;
+                const id = String(update?.chat_id || update?.new_message?.chat_id || '');
+                if (id.startsWith('c0')) kinds.channel++;
+                else if (id.startsWith('g0')) kinds.group++;
+                else if (id.startsWith('b0')) kinds.privateChat++;
+                else if (id) kinds.other++;
               }
-              verifiedTargets = [...new Set(verifiedTargets)];
-              if (!summary.length) {
-                console.log('RUBIKA_NO_RECENT_UPDATES');
-              }
+              console.log('RUBIKA_UPDATE_METADATA', JSON.stringify({
+                updateCount: updates.length,
+                updateTypes: types,
+                chatKinds: kinds,
+                publicChannelFound: true
+              }));
             }
 
-            const allowTest = process.env.SEND_TEST_MESSAGE === 'true' ||
-              process.env.DISCOVER_RECENT_UPDATES === 'true';
-            if (allowTest && verifiedTargets.length === 1) {
-              const target = verifiedTargets[0];
+            if (process.env.SEND_TEST_MESSAGE === 'true') {
               const sent = await call('sendMessage', {
-                chat_id: target,
-                text: 'گوشی‌باز: پیام آزمایشی اتصال روبیکا؛ ارسال خودکار برای بررسی اتصال.'
+                chat_id: channelId,
+                text: 'گوشی‌باز | تست فنی اتصال روبیکا؛ این پیام به‌صورت خودکار حذف می‌شود.'
               });
               const message = sent.data?.message || sent.data || {};
-              console.log('RUBIKA_VERIFIED_CHANNEL_TEST_ACCEPTED', JSON.stringify({
-                messageId: message.message_id || message.id || null,
-                chatId: target,
-                username: 'didobyn'
-              }));
-            } else if (allowTest) {
-              console.log('RUBIKA_TEST_NOT_SENT', JSON.stringify({
-                reason: verifiedTargets.length === 0 ? 'Could not confirm a channel matching didobyn' : 'More than one matching target; avoiding an ambiguous post',
-                verifiedTargetCount: verifiedTargets.length
-              }));
+              const messageId = message.message_id || message.id || message.message?.message_id || null;
+              if (!messageId) {
+                throw new Error('sendMessage was accepted but no message_id was returned; automatic cleanup could not be confirmed.');
+              }
+              console.log('RUBIKA_CHANNEL_SEND_ACCEPTED', JSON.stringify({ messageId }));
+              await new Promise(resolve => setTimeout(resolve, 2000));
+              await call('deleteMessage', { chat_id: channelId, message_id: messageId });
+              console.log('RUBIKA_TEST_MESSAGE_DELETED', JSON.stringify({ messageId }));
             } else {
-              console.log('RUBIKA_POST_TEST_SKIPPED');
+              console.log('RUBIKA_POST_TEST_SKIPPED: no channel post sent by this run.');
             }
           })().catch(error => {
             console.error('RUBIKA_PREFLIGHT_FAILED', String(error.message || error).slice(0, 240));
