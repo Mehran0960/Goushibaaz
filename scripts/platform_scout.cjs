@@ -300,7 +300,7 @@ async function scrapeYouTubeCreativeCommons(browser, search) {
     await page.waitForSelector('ytd-video-renderer, ytd-rich-item-renderer', { timeout: 9000 }).catch(() => {});
     await page.waitForTimeout(500);
     const result = await page.evaluate(() => {
-      const clean = s => (s || '').replace(/\\s+/g, ' ').trim();
+      const clean = s => (s || '').replace(/\s+/g, ' ').trim();
       const nodes = [...document.querySelectorAll('ytd-video-renderer, ytd-rich-item-renderer')];
       const seen = new Set();
       const candidates = [];
@@ -309,7 +309,7 @@ async function scrapeYouTubeCreativeCommons(browser, search) {
         if (!anchor) continue;
         let href;
         try { href = new URL(anchor.getAttribute('href'), location.origin); } catch { continue; }
-        const id = href.searchParams.get('v') || ((href.pathname.match(/\\/shorts\\/([A-Za-z0-9_-]{11})/) || [])[1]);
+        const id = href.searchParams.get('v') || ((href.pathname.match(/\/shorts\/([A-Za-z0-9_-]{11})/) || [])[1]);
         if (!id || seen.has(id)) continue;
         seen.add(id);
         const title = clean(anchor.getAttribute('title') || anchor.getAttribute('aria-label') || anchor.innerText);
