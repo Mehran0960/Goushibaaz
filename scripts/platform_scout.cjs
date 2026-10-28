@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
+const { Aparat } = require('aparat.js');
 
 const NOW = new Date();
 const STATE_PATH = path.join('state', 'platform-trends.json');
@@ -214,76 +215,54 @@ async function scrapeTelegram(browser, source) {
   }
 }
 
-async function scrapeAparat(browser, search) {
-  const page = await browser.newPage({ locale: 'fa-IR' });
-  page.setDefaultTimeout(9000);
+async function scrapeAparat(aparat, search) {
   const url = 'https://www.aparat.com/result/' + encodeURIComponent(search.query);
   try {
-    const response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 25000 }).catch(() => null);
-    await page.waitForSelector('a[href*="/v/"]', { timeout: 8000 }).catch(() => {});
-    await page.waitForTimeout(700);
-    const cards = await page.evaluate(() => {
-      const clean = s => (s || '').replace(/\s+/g, ' ').trim();
-      const anchors = [...document.querySelectorAll('a[href*="/v/"]')];
-      const seen = new Set();
-      const output = [];
-      for (const a of anchors) {
-        let url;
-        try { url = new URL(a.getAttribute('href'), location.origin); } catch { continue; }
-        if (!/^\/v\/[a-z0-9]+/i.test(url.pathname)) continue;
-        url.search = '';
-        const canonical = url.href;
-        if (seen.has(canonical)) continue;
-        seen.add(canonical);
-        const card = a.closest('article, li, [class*="video"], [class*="Video"], [data-testid*="video"]') || a.parentElement?.parentElement || a;
-        const cardText = clean(card.innerText || a.innerText || '');
-        const image = a.querySelector('img') || card.querySelector('img');
-        const title = clean(a.getAttribute('title') || a.getAttribute('aria-label') || (image && image.alt) || a.innerText || '');
-        if (!title || title.length < 3) continue;
-        const timeNode = card.querySelector('time[datetime]');
-        const viewMatch = cardText.match(/[\d۰-۹٠-٩,.]+\s*(?:k|m|هزار|میلیون|میلیارد)?\s*(?:بازدید|views?|مشاهده)/i);
-        const ageMatch = cardText.match(/(?:\d+|[۰-۹٠-٩]+)\s*(?:دقیقه|ساعت|روز|هفته|ماه)\s*(?:پیش|قبل)/);
-        output.push({
-          url: canonical,
-          title: title.slice(0, 180),
-          cardText: cardText.slice(0, 500),
-          viewsText: viewMatch ? viewMatch[0] : '',
-          ageText: ageMatch ? ageMatch[0] : '',
-          postedAt: timeNode ? timeNode.getAttribute('datetime') : null,
-          thumbnail: image ? (image.getAttribute('src') || image.getAttribute('data-src') || '') : ''
-        });
-        if (output.length >= 60) break;
-      }
-      return { title: document.title, url: location.href, cards: output };
-    });
-    return {
-      status: cards.cards.length ? 'ok' : 'no_cards',
-      source: 'aparat:' + search.key,
-      label: 'آپارات · ' + search.query,
-      url,
-      http_status: response && response.status() || null,
-      candidates: cards.cards.map(item => ({
-        id: 'aparat:' + item.url.split('/v/')[1],
+    const videos = await aparat.video.search(search.query);
+    const candidates = (Array.isArray(videos) ? videos : []).map(item => {
+      const rawPublished = item.publish_at ? Date.parse(item.publish_at) : NaN;
+      const publishedAt = Number.isFinite(rawPublished) && rawPublished > Date.UTC(2000, 0, 1) && rawPublished <= NOW.getTime()
+        ? new Date(rawPublished).toISOString()
+        : null;
+      const canonicalUrl = String(item.url || '');
+      const hash = String(item.hash_id || (canonicalUrl.match(/\/v\/([A-Za-z0-9]+)/) || [])[1] || item.id || '');
+      const title = norm(item.title || '');
+      return {
+        id: 'aparat:' + hash,
         source_platform: 'aparat',
         source_channel: search.key,
         source_page: url,
-        source_url: item.url,
-        title: item.title,
-        description: item.cardText,
-        views: parseCount(item.viewsText, false),
-        views_text: item.viewsText,
-        posted_at: item.postedAt,
-        age_text: item.ageText,
-        thumbnail: item.thumbnail,
+        source_url: canonicalUrl,
+        title: title.slice(0, 180),
+        description: norm(item.description || '').slice(0, 800),
+        views: Number.isFinite(Number(item.views)) ? Number(item.views) : null,
+        views_text: '',
+        posted_at: publishedAt,
+        age_text: '',
+        duration_text: Number.isFinite(Number(item.duration)) ? String(item.duration) + 's' : '',
+        duration_seconds: Number.isFinite(Number(item.duration)) ? Number(item.duration) : null,
+        thumbnail: String(item.thumbnail || ''),
         media_type: 'video',
+        uploader: item.uploader && (item.uploader.username || item.uploader.name) || '',
         license_status: 'not_verified; lead_only'
-      })),
-      page_title: cards.title
+      };
+    }).filter(item => item.title && /^https?:\/\/(?:www\.)?aparat\.com\/v\//i.test(item.source_url));
+    return {
+      status: candidates.length ? 'ok' : 'no_cards',
+      source: 'aparat:' + search.key,
+      label: 'آپارات · ' + search.query,
+      url,
+      candidates
     };
   } catch (e) {
-    return { status: 'error', source: 'aparat:' + search.key, label: search.query, url, error_kind: String(e && e.name || 'Error').slice(0, 60), candidates: [] };
-  } finally {
-    await page.close().catch(() => {});
+    return {
+      status: 'error',
+      source: 'aparat:' + search.key,
+      label: search.query,
+      url,
+      error_kind: String(e && e.name || 'Error').slice(0, 60),
+      candidates: []
+    };
   }
 }
 
@@ -379,9 +358,10 @@ async function main() {
   state.youtube_cc ||= {};
 
   const browser = await chromium.launch({ headless: true });
+  const aparat = new Aparat();
   const pages = await Promise.all([
     ...TELEGRAM_SOURCES.map(source => scrapeTelegram(browser, source)),
-    ...APARAT_SEARCHES.map(search => scrapeAparat(browser, search)),
+    ...APARAT_SEARCHES.map(search => scrapeAparat(aparat, search)),
     ...YOUTUBE_CC_SEARCHES.map(search => scrapeYouTubeCreativeCommons(browser, search))
   ]);
   await browser.close();
