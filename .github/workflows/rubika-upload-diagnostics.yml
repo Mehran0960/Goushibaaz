@@ -51,7 +51,7 @@ jobs:
           }
           (async () => {
             await api('getMe');
-            const requested = await api('requestSendFile', { type: 'Video' });
+            const requested = await api('requestSendFile', { type: 'File' });
             const uploadUrl = requested.upload_url || requested.data?.upload_url;
             if (!uploadUrl) throw new Error('requestSendFile_missing_upload_url');
             const u = new URL(uploadUrl);
