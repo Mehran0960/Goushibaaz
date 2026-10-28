@@ -769,6 +769,7 @@ async function main() {
 
     let bodyText = (await page.locator('body').innerText().catch(() => '')).slice(0, 6000);
     let postUrl = '';
+    let targetCardText = '';
     if (/^https?:\/\/(?:www\.)?ifilo\.net\/(?:v|video)\//i.test(page.url()) &&
         !existingVideoUrls.has(page.url().split('?')[0])) {
       postUrl = page.url().split('?')[0];
@@ -777,50 +778,75 @@ async function main() {
       const firstPageLinks = await page.locator('a[href*="/v/"], a[href*="/video/"]').evaluateAll(as => as.map(a => ({
         href: a.href.split('?')[0],
         text: String(a.innerText || a.getAttribute('title') || a.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' '),
-        cardText: String((a.closest('article, li, [class*="video"], [class*="Video"]') || a).innerText || '').trim().replace(/\s+/g, ' ').slice(0, 240)
+        cardText: String((a.closest('article, li, [class*="item"], [class*="Item"], [class*="card"], [class*="Card"], [class*="video"], [class*="Video"]') || a.parentElement || a).innerText || '').trim().replace(/\s+/g, ' ').slice(0, 300)
       }))).catch(() => []);
       const firstPageFresh = firstPageLinks.filter(x =>
         /^https?:\/\/(?:www\.)?ifilo\.net\/(?:v|video)\//i.test(x.href) &&
         !existingVideoUrls.has(x.href)
       );
       const firstPageTitleMatch = firstPageFresh.find(x => titleMatchesContent(x.text + ' ' + x.cardText, PERSIAN_TITLE));
-      postUrl = firstPageTitleMatch ? firstPageTitleMatch.href :
-        firstPageFresh.length === 1 ? firstPageFresh[0].href : '';
+      const firstPageCandidate = firstPageTitleMatch || (firstPageFresh.length === 1 ? firstPageFresh[0] : null);
+      if (firstPageCandidate) {
+        postUrl = firstPageCandidate.href;
+        targetCardText = firstPageCandidate.cardText || firstPageCandidate.text || '';
+      }
     }
 
     if (!postUrl) {
       await page.goto(ACCOUNT + '/my/videos', { waitUntil: 'domcontentloaded', timeout: 30000 }).catch(() => {});
       await sleep(4000);
       const links = await page.locator('a[href*="/v/"], a[href*="/video/"]').evaluateAll(as => as.map(a => ({
-        href: a.href,
-        text: (a.innerText || a.getAttribute('title') || '').trim().replace(/\s+/g,' ')
+        href: a.href.split('?')[0],
+        text: String(a.innerText || a.getAttribute('title') || a.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' '),
+        cardText: String((a.closest('article, li, [class*="item"], [class*="Item"], [class*="card"], [class*="Card"], [class*="video"], [class*="Video"]') || a.parentElement || a).innerText || '').trim().replace(/\s+/g, ' ').slice(0, 300)
       }))).catch(() => []);
       const freshLinks = links.filter(x =>
         /^https?:\/\/(?:www\.)?ifilo\.net\/(?:v|video)\//i.test(x.href) &&
         !existingVideoUrls.has(x.href.split('?')[0])
       );
-      const match = freshLinks.find(x => titleMatchesContent(x.text, PERSIAN_TITLE));
-      if (match) postUrl = match.href.split('?')[0];
-      else if (freshLinks.length === 1) postUrl = freshLinks[0].href.split('?')[0];
+      const match = freshLinks.find(x => titleMatchesContent(x.text + ' ' + x.cardText, PERSIAN_TITLE));
+      const candidateLink = match || (freshLinks.length === 1 ? freshLinks[0] : null);
+      if (candidateLink) {
+        postUrl = candidateLink.href;
+        targetCardText = candidateLink.cardText || candidateLink.text || '';
+      }
       bodyText = (await page.locator('body').innerText().catch(() => '')).slice(0, 6000);
     }
 
     if (postUrl) {
+      const pendingStatusText = /در صف انتشار|در حال پردازش|در انتظار تایید|در انتظار تأیید|ارسال شده برای اصلاح|ارسال شده برای سانسور/i.test(targetCardText);
+      const activeStatusText = /(?:^|\s)فعال(?:\s|$)/.test(targetCardText) && !pendingStatusText;
+      const confirmedPublic = activeStatusText;
+      const finalStatus = confirmedPublic ? 'published' : 'submitted_pending_approval';
+      const now = new Date().toISOString();
       const entry = {
         sourcePage: COMMONS_PAGE,
+        sourceTitle: SOURCE_TITLE,
         author: rights.author,
         license: rights.licenseName,
         licenseUrl: rights.licenseUrl,
         title: PERSIAN_TITLE,
         postUrl,
-        status: 'published',
+        status: finalStatus,
         publishHttpStatus,
         publishApiAccepted,
-        publishedAt: new Date().toISOString()
+        sourceBytes: rights.sourceBytes,
+        durationSeconds: sourceDurationSeconds,
+        submittedAt: now,
+        publishedAt: confirmedPublic ? now : undefined,
+        reviewStatusText: String(targetCardText || '').slice(0, 300)
       };
       state.posts = [...(state.posts || []).filter(x => !(x.sourcePage === COMMONS_PAGE && x.status === 'submit_started')), entry].slice(-500);
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
-      result = { status: 'published', title: PERSIAN_TITLE, postUrl, sourcePage: COMMONS_PAGE, license: rights.licenseName, sourceBytes: rights.sourceBytes, convertedBytes: converted.outputBytes, coverBytes: cover.coverBytes, coverUpload, publishHttpStatus, publishApiAccepted, requests: observedRequests.slice(-20), responses: observedResponses.slice(-20) };
+      result = {
+        status: finalStatus, title: PERSIAN_TITLE, postUrl, sourcePage: COMMONS_PAGE,
+        sourceTitle: SOURCE_TITLE, license: rights.licenseName, sourceBytes: rights.sourceBytes,
+        convertedBytes: converted.outputBytes, coverBytes: cover.coverBytes, durationSeconds: sourceDurationSeconds,
+        coverUpload, publishHttpStatus, publishApiAccepted,
+        note: confirmedPublic ? 'Filo showed the new video as active.'
+          : 'Filo accepted the submission, but its public/active status was not confirmed; review may still be pending.',
+        requests: observedRequests.slice(-20), responses: observedResponses.slice(-20)
+      };
     } else {
       // The /my/videos page contains unrelated phrases such as "ارسال شده برای سانسور";
       // generic text matching is not evidence that the publish request was accepted.
