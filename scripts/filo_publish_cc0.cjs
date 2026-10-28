@@ -181,14 +181,29 @@ async function login(page) {
       loginHttpStatus ? 'login_http_' + loginHttpStatus : 'login_not_confirmed';
     throw new Error('filo_upload_redirected_to_login:' + failureHint);
   }
-  // The uploader is lazy-mounted after the authenticated app finishes loading.
-  await page.locator('#fileInput').waitFor({ state: 'attached', timeout: 15000 }).catch(() => {});
-  const videoInputCount = await page.locator('#fileInput').count().catch(() => 0);
+  // Filo mounts the actual file input only after its "from your device" mode is activated.
+  // Checking #fileInput before this click falsely reports an upload-page failure.
+  const deviceOption = page.getByText(/از دستگاه.{0,8}ت/).first();
+  if (await deviceOption.isVisible().catch(() => false)) {
+    await deviceOption.click().catch(() => {});
+    await sleep(900);
+  }
+  const videoInput = page.locator('#fileInput').first();
+  await videoInput.waitFor({ state: 'attached', timeout: 12000 }).catch(() => {});
+  let videoInputCount = await videoInput.count().catch(() => 0);
+  if (!videoInputCount) {
+    // Handle harmless route transitions and late component mounts before declaring failure.
+    await page.locator('input[type="file"][accept*="video"]').first()
+      .waitFor({ state: 'attached', timeout: 5000 }).catch(() => {});
+    videoInputCount = await page.locator('input[type="file"][accept*="video"]').count().catch(() => 0);
+  }
   if (!videoInputCount) {
     const body = (await page.locator('body').innerText().catch(() => '')).slice(0, 3000);
     const pageSignal = /اول باید به حساب کاربریت ورود کنی|ورود به فیلو|ورود به حساب/i.test(body)
       ? 'login_required_prompt'
-      : /برای انتخاب ویدیو کلیک کن/.test(body) ? 'uploader_shell_without_file_input' : 'unexpected_page_content';
+      : /برای انتخاب ویدیو کلیک کن/.test(body) ? 'uploader_shell_without_file_input'
+      : /از دستگاه/.test(body) ? 'device_choice_visible_but_input_not_mounted'
+      : 'unexpected_page_content';
     throw new Error('filo_upload_page_missing_video_input:api_' + loginApiSignal +
       ':http_' + String(loginHttpStatus || 'none') + ':' + pageSignal);
   }
