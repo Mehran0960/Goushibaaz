@@ -15,7 +15,7 @@ const MAX_SOURCE_BYTES = 45_000_000;
 const MAX_DURATION_SECONDS = 180;
 const ACTIVE_SOURCE_STATUSES = new Set([
   'published', 'submitted_pending_approval', 'submit_started',
-  'submitted_unconfirmed', 'upload_staged_unpublished'
+  'submitted_unconfirmed', 'submit_result_unconfirmed', 'upload_staged_unpublished', 'rejected_by_filo'
 ]);
 const COMMONS_SEARCHES = [
   { key: 'cats', query: 'filetype:video cat' },
@@ -121,7 +121,7 @@ async function discoverCc0Candidates(state) {
     api.searchParams.set('format', 'json');
     api.searchParams.set('generator', 'search');
     api.searchParams.set('gsrnamespace', '6');
-    api.searchParams.set('gsrlimit', '18');
+    api.searchParams.set('gsrlimit', '50');
     api.searchParams.set('gsrsearch', search.query);
     api.searchParams.set('prop', 'imageinfo');
     api.searchParams.set('iiprop', 'url|mime|size|extmetadata|commonmetadata');
