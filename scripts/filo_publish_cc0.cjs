@@ -181,8 +181,17 @@ async function login(page) {
       loginHttpStatus ? 'login_http_' + loginHttpStatus : 'login_not_confirmed';
     throw new Error('filo_upload_redirected_to_login:' + failureHint);
   }
+  // The uploader is lazy-mounted after the authenticated app finishes loading.
+  await page.locator('#fileInput').waitFor({ state: 'attached', timeout: 15000 }).catch(() => {});
   const videoInputCount = await page.locator('#fileInput').count().catch(() => 0);
-  if (!videoInputCount) throw new Error('filo_upload_page_missing_video_input');
+  if (!videoInputCount) {
+    const body = (await page.locator('body').innerText().catch(() => '')).slice(0, 3000);
+    const pageSignal = /اول باید به حساب کاربریت ورود کنی|ورود به فیلو|ورود به حساب/i.test(body)
+      ? 'login_required_prompt'
+      : /برای انتخاب ویدیو کلیک کن/.test(body) ? 'uploader_shell_without_file_input' : 'unexpected_page_content';
+    throw new Error('filo_upload_page_missing_video_input:api_' + loginApiSignal +
+      ':http_' + String(loginHttpStatus || 'none') + ':' + pageSignal);
+  }
 }
 async function visibleFieldReport(page) {
   return page.locator('input, textarea, select, [contenteditable="true"], button, [role="button"], label').evaluateAll(nodes =>
