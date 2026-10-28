@@ -12,7 +12,7 @@ const TELEGRAM_SOURCES = [
   { key: 'dmcam', url: 'https://t.me/s/dmcam', label: 'دوربین مخفی', kind: 'hidden-camera' },
   { key: 'doorbin_makhfy', url: 'https://t.me/s/doorbin_makhfy', label: 'دوربین مخفی ایرانی', kind: 'hidden-camera' },
   { key: 'khandbazar20', url: 'https://t.me/s/khandbazar20', label: 'خنده بازار', kind: 'persian-comedy' },
-  { key: 'fun_land12', url: 'https://t.me/s/Fun_land12', label: 'لحظات شاد', kind: 'persian-comedy' }
+  { key: 'insta_cllip', url: 'https://t.me/s/insta_cllip', label: 'کلیپ جوک و خنده', kind: 'persian-comedy' }
 ];
 
 const APARAT_SEARCHES = [
