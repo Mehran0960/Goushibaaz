@@ -22,11 +22,17 @@ The scout prioritizes Persian-language entertainment and flags videos that may b
 
 View the [latest scout runs](https://github.com/Mehran0960/Goushibaaz/actions/workflows/discover-filo-candidates.yml).
 
-## Publishing destinations
+## Scheduled Filo publishing
 
-The target destinations are **Filo, Rubika, Bale, and Telegram**. Each destination must use a separate adapter and independent retry/status state, so a failure at one platform does not block discovery or publishing to the others.
+The first working publishing adapter is Filo, implemented in `.github/workflows/publish-approved-video-to-filo.yml`. It runs on an automatic schedule every three hours (eight daily slots, UTC) and can also be started manually. Code edits alone do not trigger publication.
 
-**Important status:** the current deployed worker implements trend discovery and candidate tracking. Publishing adapters for the four destinations are not yet complete or confirmed active. The worker's scheduled scan also requires its API key and admin token to be configured as Cloudflare secrets.
+For each slot, the publisher searches Wikimedia Commons for a fresh, non-duplicate animal/visual-first short. It fails closed unless the file is a WebM video with explicit CC0 metadata, a plausible file size, and a duration of 3–180 seconds. It converts the clip to vertical 9:16 MP4, generates a cover frame, uploads and selects the cover, fills a Persian title/description with source attribution, then submits it to Filo. Published and pending items are tracked in `state/filo-published.json` to prevent duplicate uploads. If no fresh eligible source is found, the slot is skipped instead of reusing copyrighted or uncertain material.
+
+Filo may hold new videos in a moderation/approval queue for up to 72 hours. A successful upload request is **not** a guarantee of public approval, monetization, or income. The scheduled run therefore records submission/approval status separately from a confirmed public URL. Candidate discovery from YouTube, Telegram, and Aparat remains a trend signal only; it does not itself grant permission to republish those videos.
+
+## Other publishing destinations
+
+The planned destinations are **Rubika, Bale, and Telegram** as independent adapters. They are not yet active in this repository. They must each have isolated delivery, retry, and publication state so that one platform's failure never blocks another. The Cloudflare trend-scout Worker also requires its API key and admin token to be configured as Cloudflare secrets.
 
 ## Repository layout
 
