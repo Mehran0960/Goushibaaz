@@ -45,7 +45,13 @@ jobs:
               {key:'chizomiz', url:'https://mediafarsi.com/channel/chizomiz?tab=shorts', language:'persian'},
               {key:'fasteris', url:'https://mediafarsi.com/channel/fasteris?tab=shorts', language:'mixed'},
               {key:'mrnoon', url:'https://mediafarsi.com/channel/mrnoon?tab=shorts', language:'persian'},
-              {key:'tpm', url:'https://mediafarsi.com/channel/tpm-top-persian-movies?tab=shorts', language:'persian'}
+              {key:'tpm', url:'https://mediafarsi.com/channel/tpm-top-persian-movies?tab=shorts', language:'persian'},
+              {key:'khotan', url:'https://mediafarsi.com/channel/khotan?tab=shorts', language:'persian'},
+              {key:'amootheory', url:'https://mediafarsi.com/channel/amootheory?tab=shorts', language:'persian'},
+              {key:'kouman', url:'https://mediafarsi.com/channel/kouman?tab=shorts', language:'persian'},
+              {key:'dogm_nabash', url:'https://mediafarsi.com/channel/dogm-nabash?tab=shorts', language:'persian'},
+              {key:'nikshah_zone', url:'https://mediafarsi.com/channel/nikshah-zone?tab=shorts', language:'persian'},
+              {key:'putak', url:'https://mediafarsi.com/channel/putak?tab=shorts', language:'persian'}
             ];
             const browser = await chromium.launch({headless:true});
             const context = await browser.newContext({
@@ -156,7 +162,21 @@ jobs:
               if "امروز" in t: return 1
               return None
           def is_persian(s):
-              return bool(re.search(r"[\u0600-\u06FF]", s or ""))
+              # Prefer Persian-specific letters/wording over the broader Arabic-script range.
+              return bool(re.search(r"[پچژگکی]", s or "")) or bool(re.search(r"\b(چرا|وقتی|همه|خنده|دوربین|بامزه|میخواد|میکنی|نمی|شما|این|اون)\b", s or ""))
+          def classify_format(title, source_language):
+              t = norm(title).lower()
+              if is_persian(t):
+                  return "persian_priority", "Persian-specific text in title"
+              visual = re.compile(
+                  r"\b(cctv|dashcam|body ?cam|security camera|caught on camera|instant karma|near miss|epic fails?|funny moments|unexpected moments|oddly satisfying|satisfying|no talking|without talking|silent comedy|wordless|nonverbal|visual comedy|slapstick|animal fails?|funny animals?|cat|dog|rooster|optical illusion|magic trick|trust my eyes|can.t trust my eyes|perfect loop)\b",
+                  re.I
+              )
+              if visual.search(t):
+                  return "language_neutral_candidate", "Title signals visual-first/animal/camera content; verify actual speech and rights"
+              if source_language == "mixed":
+                  return "language_check_required", "Mixed-source clip without enough evidence that language is irrelevant"
+              return "language_unknown_review", "Language/visual dependence cannot be determined from the title alone"
           def short_id(s):
               return bool(re.fullmatch(r"[A-Za-z0-9_-]{11}", s or ""))
           
@@ -196,6 +216,7 @@ jobs:
                   except Exception:
                       elapsed = None
               v = dict(item)
+              format_fit, format_reason = classify_format(title, item.get("language_priority", "unknown"))
               v.update({
                   "title":title,
                   "views":views,
@@ -204,7 +225,9 @@ jobs:
                   "observed_view_delta":delta,
                   "observed_views_per_hour":rate,
                   "license_status":"not verified; do not reupload",
-                  "language_priority":"persian" if is_persian(title) else ("mixed / language may be irrelevant" if item.get("language_priority") == "mixed" else "unknown")
+                  "format_fit":format_fit,
+                  "format_reason":format_reason,
+                  "language_priority":"persian" if format_fit == "persian_priority" else ("language-neutral candidate" if format_fit == "language_neutral_candidate" else ("mixed / language check required" if item.get("language_priority") == "mixed" else "unknown"))
               })
               candidates.append(v)
               history = old.get("history", [])
@@ -231,10 +254,12 @@ jobs:
               # Only positive measured velocity counts as a live trend signal; a flat count must not outrank fresh clips.
               observed_signal = 1 if observed is not None and observed >= 300 else 0
               measured_velocity = observed if observed_signal else -1
+              format_priority = {"persian_priority":2,"language_neutral_candidate":1,"language_check_required":0,"language_unknown_review":0}.get(x.get("format_fit"), 0)
               return (
                   observed_signal,
                   measured_velocity,
                   freshness,
+                  format_priority,
                   persian,
                   topic,
                   proxy if proxy is not None else -1,
@@ -248,7 +273,7 @@ jobs:
               "generated_at":NOW.isoformat(),
               "source_errors":raw.get("source_errors",[]),
               "candidate_count":len(candidates),
-              "note":"Trend scout reports public metadata only. Views/hour from a single scan is a rough age-based proxy, not proof of growth. Only reupload after verifying permissions/license and Filo compliance.",
+              "note":"Trend scout reports public metadata only. Views/hour from a single scan is a rough age-based proxy, not proof of growth. Persian titles rank first; visual-first titles are only candidates and must be checked for speech. Only reupload after verifying permissions/license and Filo compliance.",
               "candidates":candidates[:100]
           }
           Path("out/candidates.json").write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding="utf-8")
@@ -258,7 +283,8 @@ jobs:
               "# Persian-first video trend leads", "",
               f"Generated: {NOW.isoformat()}", "",
               "**No media was downloaded or uploaded.** Rights are unverified for all trend leads.",
-              "Observed views/hour becomes available after repeated scans; the first scan uses only an age-based proxy.", "",
+              "Observed views/hour becomes available after repeated scans; the first scan uses only an age-based proxy.",
+              "Format labels: Persian-first, visual-first candidate (verify actual speech), or language review required.", "",
               "| Rank | Title | Views | Age (h) | Observed growth/h | Proxy/h | Source |",
               "|---:|---|---:|---:|---:|---:|---|"
           ]
@@ -276,7 +302,7 @@ jobs:
           print("SOURCES_WITH_ERRORS",len(raw.get("source_errors",[])))
           print("TOP_LEADS")
           for x in candidates[:20]:
-              print(json.dumps({k:x.get(k) for k in ["title","youtube_url","source_channel","views","age_hours","views_per_hour_proxy","observed_views_per_hour","language_priority","license_status"]},ensure_ascii=False))
+              print(json.dumps({k:x.get(k) for k in ["title","youtube_url","source_channel","views","age_hours","views_per_hour_proxy","observed_views_per_hour","language_priority","format_fit","format_reason","license_status"]},ensure_ascii=False))
           PY
       - name: Commit trend snapshots
         run: |
