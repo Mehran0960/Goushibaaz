@@ -305,6 +305,126 @@ jobs:
           for x in candidates[:20]:
               print(json.dumps({k:x.get(k) for k in ["title","youtube_url","source_channel","views","age_hours","views_per_hour_proxy","observed_views_per_hour","language_priority","format_fit","format_reason","license_status"]},ensure_ascii=False))
           PY
+      - name: Verify public reuse-license metadata for leading candidates
+        run: |
+          python -m pip install --disable-pip-version-check -q yt-dlp
+          python <<'PY'
+          import concurrent.futures, json, re, subprocess
+          from pathlib import Path
+
+          report_path = Path("out/candidates.json")
+          if not report_path.exists():
+              raise SystemExit("Candidate report is missing; refusing license checks.")
+          report = json.loads(report_path.read_text(encoding="utf-8"))
+          candidates = [
+              x for x in report.get("candidates", [])
+              if x.get("youtube_url")
+              and x.get("format_fit") in ("persian_priority", "language_neutral_candidate")
+          ][:20]
+
+          def classify_license(value):
+              v = (value or "").strip().lower()
+              if not v:
+                  return "unknown"
+              if "public domain" in v or v in ("cc0", "cc-zero"):
+                  return "public_domain_or_cc0"
+              if "creative commons" in v and "attribution" in v and "sharealike" in v:
+                  return "cc_by_sa"
+              if "creative commons" in v and ("attribution" in v or "cc by" in v):
+                  return "cc_by"
+              if "cc by-sa" in v:
+                  return "cc_by_sa"
+              if "cc by" in v:
+                  return "cc_by"
+              return "standard_or_other"
+
+          def inspect(item):
+              url = item["youtube_url"]
+              try:
+                  p = subprocess.run(
+                      ["yt-dlp", "--skip-download", "--no-warnings", "--no-playlist",
+                       "--socket-timeout", "15", "--retries", "1", "--extractor-retries", "1",
+                       "--dump-single-json", url],
+                      capture_output=True, text=True, timeout=35
+                  )
+                  if p.returncode != 0:
+                      return {
+                          "video_id": item.get("video_id"),
+                          "title": item.get("title"),
+                          "url": url,
+                          "format_fit": item.get("format_fit"),
+                          "license_status": "metadata_unavailable",
+                          "error_kind": "metadata_fetch_failed"
+                      }
+                  data = json.loads(p.stdout)
+                  license_value = data.get("license") or data.get("license_name") or ""
+                  classification = classify_license(license_value)
+                  return {
+                      "video_id": data.get("id") or item.get("video_id"),
+                      "title": data.get("title") or item.get("title"),
+                      "url": data.get("webpage_url") or url,
+                      "uploader": (data.get("uploader") or data.get("channel") or "")[:100],
+                      "upload_date": data.get("upload_date"),
+                      "duration_seconds": data.get("duration"),
+                      "view_count": data.get("view_count"),
+                      "license": license_value[:140],
+                      "license_status": classification,
+                      "format_fit": item.get("format_fit"),
+                      "format_reason": item.get("format_reason"),
+                      "note": "Metadata is only an initial signal; verify the uploader owns/controls all elements and that the license allows commercial reuse before publication."
+                  }
+              except subprocess.TimeoutExpired:
+                  return {
+                      "video_id": item.get("video_id"), "title": item.get("title"), "url": url,
+                      "format_fit": item.get("format_fit"), "license_status": "metadata_unavailable",
+                      "error_kind": "timeout"
+                  }
+              except Exception as exc:
+                  return {
+                      "video_id": item.get("video_id"), "title": item.get("title"), "url": url,
+                      "format_fit": item.get("format_fit"), "license_status": "metadata_unavailable",
+                      "error_kind": type(exc).__name__
+                  }
+
+          results = []
+          with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
+              futures = [pool.submit(inspect, item) for item in candidates]
+              for future in concurrent.futures.as_completed(futures):
+                  results.append(future.result())
+
+          results.sort(key=lambda x: (
+              x.get("license_status") not in ("cc_by", "cc_by_sa", "public_domain_or_cc0"),
+              x.get("format_fit") != "persian_priority",
+              -(x.get("view_count") or 0)
+          ))
+          confirmed_candidates = [
+              x for x in results
+              if x.get("license_status") in ("cc_by", "cc_by_sa", "public_domain_or_cc0")
+          ]
+          out = {
+              "generated_at": __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat(),
+              "checked_count": len(results),
+              "reusable_license_metadata_count": len(confirmed_candidates),
+              "note": "This is a first-pass license metadata screen only. No files were downloaded and no video was uploaded. A license label is not proof that the uploader owns every element or that third-party platform terms permit the intended operation.",
+              "results": results
+          }
+          Path("out/license-check.json").write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
+          print("LICENSE_SCAN_SUMMARY", json.dumps({
+              "checked": len(results),
+              "cc_or_public_domain_metadata": len(confirmed_candidates),
+              "metadata_unavailable": sum(x.get("license_status") == "metadata_unavailable" for x in results),
+              "license_values": {
+                  k: sum(x.get("license_status") == k for x in results)
+                  for k in sorted({x.get("license_status", "unknown") for x in results})
+              }
+          }, ensure_ascii=False))
+          print("LICENSE_SCAN_TOP_RESULTS")
+          for x in results[:12]:
+              print(json.dumps({
+                  k: x.get(k) for k in
+                  ("title", "url", "uploader", "view_count", "license", "license_status", "format_fit", "error_kind")
+              }, ensure_ascii=False))
+          PY
       - name: Commit trend snapshots
         run: |
           git config user.name "github-actions[bot]"
