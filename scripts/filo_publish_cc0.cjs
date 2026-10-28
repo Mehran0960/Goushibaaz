@@ -422,8 +422,30 @@ async function main() {
     state.posts = [...(state.posts || []), preSubmitEntry].slice(-500);
     fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
 
+    const publishResponsePromise = page.waitForResponse(response => {
+      try {
+        const u = new URL(response.url());
+        return u.hostname === 'ifilo.net' && u.pathname === '/api/v1/video/publish' &&
+          response.request().method() === 'POST';
+      } catch { return false; }
+    }, { timeout: 30000 }).catch(() => null);
     await publishButton.click();
-    await sleep(10000);
+    const publishResponse = await publishResponsePromise;
+    const publishHttpStatus = publishResponse ? publishResponse.status() : null;
+    let publishApiAccepted = false;
+    let publishApiError = '';
+    if (publishResponse) {
+      let responseData = null;
+      try { responseData = await publishResponse.json(); } catch {}
+      if (typeof responseData === 'string') {
+        try { responseData = JSON.parse(responseData); } catch {}
+      }
+      publishApiAccepted = Boolean(responseData && responseData.s);
+      publishApiError = responseData && responseData.r
+        ? String(responseData.r).replace(/\s+/g, ' ').slice(0, 140)
+        : '';
+    }
+    await sleep(5000);
 
     let bodyText = (await page.locator('body').innerText().catch(() => '')).slice(0, 6000);
     let postUrl = '';
@@ -466,26 +488,38 @@ async function main() {
         title: PERSIAN_TITLE,
         postUrl,
         status: 'published',
+        publishHttpStatus,
+        publishApiAccepted,
         publishedAt: new Date().toISOString()
       };
       state.posts = [...(state.posts || []).filter(x => !(x.sourcePage === COMMONS_PAGE && x.status === 'submit_started')), entry].slice(-500);
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
-      result = { status: 'published', title: PERSIAN_TITLE, postUrl, sourcePage: COMMONS_PAGE, license: rights.licenseName, sourceBytes: rights.sourceBytes, convertedBytes: converted.outputBytes, requests: observedRequests.slice(-15), responses: observedResponses.slice(-15) };
+      result = { status: 'published', title: PERSIAN_TITLE, postUrl, sourcePage: COMMONS_PAGE, license: rights.licenseName, sourceBytes: rights.sourceBytes, convertedBytes: converted.outputBytes, publishHttpStatus, publishApiAccepted, requests: observedRequests.slice(-20), responses: observedResponses.slice(-20) };
     } else {
+      const bodySignal = /با موفقیت|موفقیت آمیز|بارگذاری شد|ارسال شد|منتشر شد/i.test(bodyText) ? 'success_text_seen' : 'no_success_text_seen';
+      const accepted = publishApiAccepted || bodySignal === 'success_text_seen';
       const updated = {
         ...preSubmitEntry,
-        status: 'submitted_unconfirmed',
+        status: accepted ? 'submitted_pending_approval' : 'submitted_unconfirmed',
         attemptedAt: preSubmitEntry.attemptedAt,
-        bodySignal: /با موفقیت|موفقیت آمیز|بارگذاری شد|ارسال شد|منتشر شد/i.test(bodyText) ? 'success_text_seen' : 'no_success_text_seen'
+        publishHttpStatus,
+        publishApiAccepted,
+        bodySignal,
+        publishApiError: publishApiError || undefined
       };
       state.posts = [...(state.posts || []).filter(x => !(x.sourcePage === COMMONS_PAGE && x.status === 'submit_started')), updated].slice(-500);
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
       result = {
-        status: updated.bodySignal === 'success_text_seen' ? 'submitted_no_public_url_found' : 'submit_result_unconfirmed',
+        status: accepted ? 'submitted_pending_approval' : 'submit_result_unconfirmed',
         title: PERSIAN_TITLE,
         currentPath: pathOnly(page.url()),
         sourcePage: COMMONS_PAGE,
         license: rights.licenseName,
+        publishHttpStatus,
+        publishApiAccepted,
+        publishApiError: publishApiError || undefined,
+        bodySignal,
+        note: accepted ? 'Filo accepted the publish request, but a new public post URL was not confirmed; platform review may take up to 72 hours.' : 'No reliable acceptance response or fresh public post URL was found.',
         sourceBytes: rights.sourceBytes,
         convertedBytes: converted.outputBytes,
         bodyText,
@@ -499,7 +533,7 @@ async function main() {
   }
 
   console.log('FILO_PUBLISH_RESULT', JSON.stringify(result));
-  if (!['published', 'skipped_duplicate'].includes(result.status)) process.exitCode = 2;
+  if (!['published', 'submitted_pending_approval', 'skipped_duplicate'].includes(result.status)) process.exitCode = 2;
 }
 
 main().catch(error => {
