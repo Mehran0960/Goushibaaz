@@ -21,6 +21,17 @@ const APARAT_SEARCHES = [
   { key: 'dashcam', query: 'دوربین مداربسته تصادف' }
 ];
 
+const YOUTUBE_CC_SEARCHES = [
+  { key: 'fa-hidden-camera', query: 'دوربین مخفی' },
+  { key: 'fa-funny-clips', query: 'کلیپ خنده دار' },
+  { key: 'fa-funny-animals', query: 'حیوانات بامزه' },
+  { key: 'fa-strange-moments', query: 'لحظه عجیب دوربین' },
+  { key: 'visual-caught-camera', query: 'caught on camera funny moments' },
+  { key: 'visual-dashcam', query: 'dashcam near miss caught on camera' },
+  { key: 'visual-animals', query: 'funny animals without commentary' },
+  { key: 'visual-satisfying', query: 'oddly satisfying no talking' }
+];
+
 function normalizeDigits(value) {
   return String(value || '').replace(/[۰-۹٠-٩]/g, d => {
     const fa = '۰۱۲۳۴۵۶۷۸۹';
@@ -93,7 +104,7 @@ function loadState() {
   try {
     return JSON.parse(fs.readFileSync(STATE_PATH, 'utf8'));
   } catch {
-    return { updated_at: null, telegram: {}, aparat: {} };
+    return { updated_at: null, telegram: {}, aparat: {}, youtube_cc: {} };
   }
 }
 
@@ -276,17 +287,102 @@ async function scrapeAparat(browser, search) {
   }
 }
 
+async function scrapeYouTubeCreativeCommons(browser, search) {
+  const page = await browser.newPage({ locale: 'fa-IR' });
+  page.setDefaultTimeout(9000);
+  const url = new URL('https://www.youtube.com/results');
+  url.searchParams.set('search_query', search.query);
+  // YouTube's public search filter for Creative Commons. This is only a signal to review,
+  // not proof that every component of a video is cleared for commercial reuse.
+  url.searchParams.set('sp', 'EgIwAQ==');
+  try {
+    const response = await page.goto(url.toString(), { waitUntil: 'domcontentloaded', timeout: 25000 }).catch(() => null);
+    await page.waitForSelector('ytd-video-renderer, ytd-rich-item-renderer', { timeout: 9000 }).catch(() => {});
+    await page.waitForTimeout(500);
+    const result = await page.evaluate(() => {
+      const clean = s => (s || '').replace(/\\s+/g, ' ').trim();
+      const nodes = [...document.querySelectorAll('ytd-video-renderer, ytd-rich-item-renderer')];
+      const seen = new Set();
+      const candidates = [];
+      for (const node of nodes) {
+        const anchor = node.querySelector('a#video-title[href], a#video-title-link[href], a[href*="/watch?v="], a[href*="/shorts/"]');
+        if (!anchor) continue;
+        let href;
+        try { href = new URL(anchor.getAttribute('href'), location.origin); } catch { continue; }
+        const id = href.searchParams.get('v') || ((href.pathname.match(/\\/shorts\\/([A-Za-z0-9_-]{11})/) || [])[1]);
+        if (!id || seen.has(id)) continue;
+        seen.add(id);
+        const title = clean(anchor.getAttribute('title') || anchor.getAttribute('aria-label') || anchor.innerText);
+        if (!title) continue;
+        const text = clean(node.innerText || '');
+        const channelAnchor = node.querySelector('#channel-name a, ytd-channel-name a, a.yt-simple-endpoint[href*="/@"]');
+        const metadata = [...node.querySelectorAll('#metadata-line span, ytd-video-meta-block span')].map(el => clean(el.innerText)).filter(Boolean);
+        const durationNode = node.querySelector('ytd-thumbnail-overlay-time-status-renderer, .ytd-thumbnail-overlay-time-status-renderer');
+        const durationText = clean(durationNode ? durationNode.innerText : '');
+        const descriptionNode = node.querySelector('#description-text, .metadata-snippet-text, yt-formatted-string#description-text');
+        const a = new URL('https://www.youtube.com/watch');
+        a.searchParams.set('v', id);
+        candidates.push({
+          video_id: id,
+          title: title.slice(0, 180),
+          url: a.toString(),
+          channel: clean(channelAnchor ? channelAnchor.innerText : ''),
+          card_text: text.slice(0, 700),
+          description: clean(descriptionNode ? descriptionNode.innerText : '').slice(0, 400),
+          metadata,
+          duration_text: durationText,
+          is_short: href.pathname.startsWith('/shorts/'),
+        });
+        if (candidates.length >= 30) break;
+      }
+      return { pageTitle: document.title, candidates };
+    });
+    return {
+      status: result.candidates.length ? 'ok' : 'no_cards',
+      source: 'youtube_cc:' + search.key,
+      label: search.query,
+      url: url.toString(),
+      http_status: response && response.status() || null,
+      candidates: result.candidates.map(item => ({
+        id: 'youtube_cc:' + item.video_id,
+        video_id: item.video_id,
+        source_platform: 'youtube_cc',
+        source_channel: search.key,
+        source_page: url.toString(),
+        source_url: item.url,
+        title: item.title,
+        description: item.description,
+        views: parseCount(item.card_text, false),
+        views_text: item.metadata.join(' · '),
+        posted_at: null,
+        age_text: item.metadata.find(x => /ago|پیش|قبل|day|hour|week|month/i.test(x)) || '',
+        duration_text: item.duration_text,
+        is_short: item.is_short,
+        media_type: 'video',
+        cc_search_filter: true,
+        license_status: 'cc_search_filter_signal_only'
+      }))
+    };
+  } catch (e) {
+    return { status: 'error', source: 'youtube_cc:' + search.key, label: search.query, url: url.toString(), error_kind: String(e && e.name || 'Error').slice(0, 60), candidates: [] };
+  } finally {
+    await page.close().catch(() => {});
+  }
+}
+
 async function main() {
   fs.mkdirSync('out', { recursive: true });
   fs.mkdirSync('state', { recursive: true });
   const state = loadState();
   state.telegram ||= {};
   state.aparat ||= {};
+  state.youtube_cc ||= {};
 
   const browser = await chromium.launch({ headless: true });
   const pages = await Promise.all([
     ...TELEGRAM_SOURCES.map(source => scrapeTelegram(browser, source)),
-    ...APARAT_SEARCHES.map(search => scrapeAparat(browser, search))
+    ...APARAT_SEARCHES.map(search => scrapeAparat(browser, search)),
+    ...YOUTUBE_CC_SEARCHES.map(search => scrapeYouTubeCreativeCommons(browser, search))
   ]);
   await browser.close();
 
@@ -306,7 +402,7 @@ async function main() {
     }
     for (const item of (page.candidates || [])) {
       if (!item.title || !item.source_url) continue;
-      const oldMap = item.source_platform === 'telegram' ? state.telegram : state.aparat;
+      const oldMap = item.source_platform === 'telegram' ? state.telegram : item.source_platform === 'youtube_cc' ? state.youtube_cc : state.aparat;
       const scored = scoreCandidate(item, oldMap);
       const age = scored.age_hours;
       if (age !== null && age > 720) continue;
@@ -333,8 +429,9 @@ async function main() {
 
   const telegram = sortCandidates(all.filter(x => x.source_platform === 'telegram')).slice(0, 80);
   const aparat = sortCandidates(all.filter(x => x.source_platform === 'aparat')).slice(0, 80);
+  const youtubeCc = sortCandidates(all.filter(x => x.source_platform === 'youtube_cc')).slice(0, 100);
   state.updated_at = NOW.toISOString();
-  for (const name of ['telegram', 'aparat']) {
+  for (const name of ['telegram', 'aparat', 'youtube_cc']) {
     const entries = Object.entries(state[name] || {}).sort((a,b) => (b[1].last_seen_at || '').localeCompare(a[1].last_seen_at || ''));
     state[name] = Object.fromEntries(entries.slice(0, 1500));
   }
@@ -347,7 +444,8 @@ async function main() {
     source_errors: errors,
     telegram_count: telegram.length,
     aparat_count: aparat.length,
-    candidates: [...telegram, ...aparat]
+    youtube_cc_count: youtubeCc.length,
+    candidates: [...telegram, ...aparat, ...youtubeCc]
   };
   fs.writeFileSync(OUT_PATH, JSON.stringify(report, null, 2), 'utf8');
 
@@ -361,7 +459,7 @@ async function main() {
   for (const source of sourceResults) {
     lines.push('| ' + source.source + ' | ' + source.status + (source.http_status ? ' (HTTP ' + source.http_status + ')' : '') + (source.error_kind ? ' — ' + source.error_kind : '') + ' | ' + source.count + ' |');
   }
-  for (const [title, list] of [['Telegram', telegram], ['Aparat', aparat]]) {
+  for (const [title, list] of [['Telegram', telegram], ['Aparat', aparat], ['YouTube Creative Commons search-filter leads', youtubeCc]]) {
     lines.push('', '## ' + title, '', '| Rank | Title | Views | Age (h) | Observed growth/h | Format | Source |', '|---:|---|---:|---:|---:|---|---|');
     for (const [index, item] of list.slice(0, 40).entries()) {
       const views = Number.isFinite(item.views) ? item.views.toLocaleString('en-US') : '—';
@@ -377,6 +475,8 @@ async function main() {
   console.log('PLATFORM_CANDIDATE_SUMMARY', JSON.stringify({
     telegram: telegram.length,
     aparat: aparat.length,
+    youtube_cc: youtubeCc.length,
+    cc_search_filter_signals: youtubeCc.length,
     source_errors: errors.length,
     language_neutral: all.filter(x => x.format_fit === 'language_neutral_candidate').length,
     persian_priority: all.filter(x => x.format_fit === 'persian_priority').length
