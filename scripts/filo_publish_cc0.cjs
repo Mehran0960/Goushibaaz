@@ -300,12 +300,13 @@ async function uploadCoverThumbnail(page, coverPath) {
   const responsePromise = page.waitForResponse(response => {
     try {
       const url = new URL(response.url());
-      return response.request().method() === 'POST' && /uploadVideoThumb/i.test(url.pathname);
+      return response.request().method() === 'POST' && /upload(?:VideoThumb|EditorImageVideo)/i.test(url.pathname);
     } catch { return false; }
   }, { timeout: 30000 }).catch(() => null);
 
   const inputSelectors = [
     '#uploadVideoThumb input[type="file"]',
+    'input[type="file"]#dut',
     'input[type="file"][name="dut"]',
     'input[type="file"][accept*="image"]',
     'input[type="file"][accept*=".jpg"]'
@@ -322,7 +323,7 @@ async function uploadCoverThumbnail(page, coverPath) {
   if (fileInput) {
     await fileInput.setInputFiles(coverPath);
   } else {
-    const uploadButton = page.locator('#uploadVideoThumb a[title="آپلود تصویر"], #uploadVideoThumb button[title="آپلود تصویر"], a[title="آپلود تصویر"]').first();
+    const uploadButton = page.locator('#uploadVideoThumb button, #uploadVideoThumb a[title*="آپلود تصویر"], #uploadVideoThumb button[title*="تصویر"], a[title="آپلود تصویر"]').first();
     if (!(await uploadButton.isVisible().catch(() => false))) {
       const fields = await visibleFieldReport(page);
       throw new Error('filo_thumbnail_file_control_not_found:' +
@@ -360,19 +361,13 @@ async function uploadCoverThumbnail(page, coverPath) {
       (apiError ? ':' + apiError : ''));
   }
 
-  const tileHeading = tile.locator('h3').first();
-  if (await tileHeading.isVisible().catch(() => false)) {
-    await tileHeading.click().catch(() => {});
-  } else {
-    await tile.click({ position: { x: 18, y: 18 } }).catch(() => {});
-  }
   await sleep(700);
-  const tileClass = await tile.getAttribute('class').catch(() => '');
+  const imageSrc = await tile.locator('img').first().getAttribute('src').catch(() => '');
   return {
     status,
     apiSignal,
-    tileSelected: /\bselected\b/.test(tileClass || ''),
-    tileClass: String(tileClass || '').slice(0, 100)
+    imageChanged: Boolean(imageSrc && !imageSrc.includes('/content/image-site/upload-video-thumb.png')),
+    imagePath: (() => { try { return new URL(imageSrc, 'https://ifilo.net').pathname.slice(0, 140); } catch { return ''; } })()
   };
 }
 
