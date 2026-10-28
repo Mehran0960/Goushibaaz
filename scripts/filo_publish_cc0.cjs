@@ -464,14 +464,18 @@ async function uploadCoverThumbnail(page, coverPath) {
       (apiError ? ':' + apiError : ''));
   }
 
+  // Uploading a cover is not enough: Filo requires the uploaded thumbnail to be selected.
+  const tileHeading = tile.locator('h3').first();
+  if (await tileHeading.isVisible().catch(() => false)) {
+    await tileHeading.click().catch(() => {});
+  } else {
+    await tile.click({ position: { x: 18, y: 18 } }).catch(() => {});
+  }
   await sleep(700);
-  const imageSrc = await tile.locator('img').first().getAttribute('src').catch(() => '');
-  return {
-    status,
-    apiSignal,
-    imageChanged: Boolean(imageSrc && !imageSrc.includes('/content/image-site/upload-video-thumb.png')),
-    imagePath: (() => { try { return new URL(imageSrc, 'https://ifilo.net').pathname.slice(0, 140); } catch { return ''; } })()
-  };
+  const tileClass = await tile.getAttribute('class').catch(() => '');
+  const tileSelected = /\bselected\b/.test(tileClass || '');
+  if (!tileSelected) throw new Error('filo_cover_uploaded_but_not_selected');
+  return { status, apiSignal, tileSelected: true, tileClass: String(tileClass || '').slice(0, 100) };
 }
 
 async function main() {
