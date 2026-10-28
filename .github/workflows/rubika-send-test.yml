@@ -1,0 +1,73 @@
+name: One-time Rubika channel send test
+
+on:
+  push:
+    paths:
+      - ".github/workflows/rubika-send-test.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test-channel-send:
+    if: contains(github.event.head_commit.message, 'RUN_RUBIKA_SEND_TEST')
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Verify channel, send and delete a test message
+        env:
+          RUBIKA_BOT_TOKEN: ${{ secrets.RUBIKA_BOT_TOKEN }}
+        run: |
+          node <<'NODE'
+          const token = process.env.RUBIKA_BOT_TOKEN || '';
+          if (!token) throw new Error('Missing RUBIKA_BOT_TOKEN');
+          const channelId = 'c0EHrgB0fb431bf54ac2552d95d29b86';
+          const base = 'https://botapi.rubika.ir/v3/' + encodeURIComponent(token);
+          async function call(method, body) {
+            const response = await fetch(base + '/' + method, {
+              method: 'POST',
+              headers: { 'content-type': 'application/json' },
+              body: JSON.stringify(body || {}),
+              signal: AbortSignal.timeout(20000)
+            });
+            const raw = await response.text();
+            let data;
+            try { data = JSON.parse(raw); } catch { data = { raw: raw.slice(0, 200) }; }
+            if (!response.ok || data.status !== 'OK') {
+              throw new Error(method + ' failed: HTTP ' + response.status + ', status=' + String(data.status || 'unknown') + ', reason=' + String(data.description || data.error || 'request_failed').slice(0, 140));
+            }
+            return data;
+          }
+          (async () => {
+            const lookup = await call('getChat', { chat_id: channelId });
+            const chat = lookup.data?.chat || lookup.data?.channel || lookup.data || {};
+            const username = String(chat.username || chat.user_name || '').replace(/^@/, '').toLowerCase();
+            const title = String(chat.title || chat.name || '');
+            if (username !== 'didobyn' && title.replace(/\s+/g, '') !== 'دیدوبین') {
+              throw new Error('Resolved chat did not match the expected public channel; refusing to post.');
+            }
+            console.log('CHANNEL_ID_CONFIRMED', JSON.stringify({ type: chat.type || chat.chat_type || null, title: chat.title || chat.name || null, username: chat.username || chat.user_name || null }));
+            const sent = await call('sendMessage', {
+              chat_id: channelId,
+              text: 'گوشی‌باز | تست فنی اتصال روبیکا؛ این پیام به‌صورت خودکار حذف می‌شود.'
+            });
+            const message = sent.data?.message || sent.data || {};
+            const messageId = message.message_id || message.id || message.message?.message_id || null;
+            if (!messageId) {
+              console.log('SEND_ACCEPTED_BUT_MESSAGE_ID_MISSING', JSON.stringify({ responseKeys: Object.keys(sent.data || {}) }));
+              return;
+            }
+            console.log('CHANNEL_SEND_ACCEPTED', JSON.stringify({ messageId }));
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            try {
+              await call('deleteMessage', { chat_id: channelId, message_id: messageId });
+              console.log('TEST_MESSAGE_DELETED', JSON.stringify({ messageId }));
+            } catch (error) {
+              console.error('TEST_MESSAGE_DELETE_FAILED', JSON.stringify({ messageId, reason: String(error.message || error).slice(0, 180) }));
+              process.exitCode = 2;
+            }
+          })().catch(error => {
+            console.error('RUBIKA_CHANNEL_SEND_TEST_FAILED', String(error.message || error).slice(0, 240));
+            process.exitCode = 1;
+          });
+          NODE
