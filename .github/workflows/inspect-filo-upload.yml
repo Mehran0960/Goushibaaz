@@ -75,6 +75,7 @@ jobs:
             });
             const page = await context.newPage();
             page.setDefaultTimeout(8000);
+            let stage = 'open_home';
 
             try {
               let loaded = false;
@@ -96,6 +97,7 @@ jobs:
                 return;
               }
 
+              stage = 'find_login_entry';
               const loginRegex = /(?:login|sign.?in|account|ورود|حساب کاربری)/i;
               const links = await page.locator('a').evaluateAll(as => as.map(a => ({
                 text: (a.innerText || a.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 60),
@@ -106,6 +108,7 @@ jobs:
 
               if (loginLink) {
                 report.loginEntryFound = true;
+                stage = 'navigate_login';
                 try {
                   await page.goto(loginLink.href, { waitUntil: 'domcontentloaded', timeout: 20000 });
                 } catch {}
@@ -129,6 +132,7 @@ jobs:
                 return { username: null, password };
               }
 
+              stage = 'locate_login_fields';
               let fields = await findLoginFields();
               if (!fields) {
                 for (const route of ['/login', '/account/login', '/user/login']) {
@@ -150,6 +154,7 @@ jobs:
                 report.loginOutcome = 'username_field_not_found';
               } else {
                 report.loginFieldsFound = true;
+                stage = 'fill_login_fields';
                 await fields.username.fill(process.env.FILO_USER);
                 await fields.password.fill(process.env.FILO_PASS);
 
@@ -165,7 +170,9 @@ jobs:
                 if (!submit) {
                   report.loginOutcome = 'login_submit_control_not_found';
                 } else {
+                  stage = 'submit_login';
                   try { await submit.click(); } catch {}
+                  stage = 'inspect_post_login';
                   await sleep(4500);
 
                   const bodyText = await page.locator('body').innerText().catch(() => '');
@@ -188,6 +195,7 @@ jobs:
               }
 
               // Find a public or authenticated upload entry from rendered navigation only.
+              stage = 'find_upload_entry';
               const currentLinks = await page.locator('a').evaluateAll(as => as.map(a => ({
                 text: (a.innerText || a.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 60),
                 href: a.href
@@ -201,6 +209,7 @@ jobs:
                 } catch {}
               }
 
+              stage = 'inspect_upload_controls';
               report.fileInputFound = await page.locator('input[type="file"]').count().then(n => n > 0).catch(() => false);
               report.uploadPageInspected = report.fileInputFound || upload != null ||
                 uploadRegex.test((await page.title().catch(() => '')) + ' ' + page.url());
@@ -233,7 +242,14 @@ jobs:
               console.log('FILO_UI_PROBE ' + JSON.stringify(report));
             } catch (e) {
               report.loginOutcome = report.loginOutcome === 'not_attempted' ? 'inspection_error' : report.loginOutcome;
-              report.errorClass = String(e && e.name || 'Error').slice(0, 40);
+              report.errorStage = stage;
+              const message = String(e && e.message || '');
+              report.errorKind = /timeout/i.test(message) ? 'timeout' :
+                /not attached|detached/i.test(message) ? 'element_detached' :
+                /not enabled|disabled/i.test(message) ? 'control_disabled' :
+                /strict mode/i.test(message) ? 'multiple_matching_elements' :
+                /unsupported/i.test(message) ? 'unsupported_locator_option' :
+                String(e && e.name || 'Error').slice(0, 40);
               console.log('FILO_UI_PROBE ' + JSON.stringify(report));
             } finally {
               await browser.close().catch(() => {});
