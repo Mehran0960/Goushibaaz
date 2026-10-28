@@ -3,6 +3,7 @@ const path = require('node:path');
 const { execFileSync } = require('node:child_process');
 
 const TOKEN = process.env.RUBIKA_BOT_TOKEN || '';
+// One-time live-channel validation is controlled only by the workflow environment; the scheduled workflow publishes normally.
 const DRY_RUN = /^(1|true|yes)$/i.test(process.env.DRY_RUN || '');
 const CHANNEL_HANDLE = '@didobyn';
 const API_ROOT = 'https://botapi.rubika.ir/v3/';
