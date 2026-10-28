@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - ".github/workflows/publish-approved-video-to-filo.yml"
+      - "scripts/filo_publish_cc0.cjs"
 
 permissions:
   contents: write
