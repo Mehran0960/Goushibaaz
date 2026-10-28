@@ -408,7 +408,7 @@ async function main() {
   }
 
   const telegram = sortCandidates(all.filter(x => x.source_platform === 'telegram')).slice(0, 80);
-  const aparat = sortCandidates(all.filter(x => x.source_platform === 'aparat')).slice(0, 80);
+  const aparatCandidates = sortCandidates(all.filter(x => x.source_platform === 'aparat')).slice(0, 80);
   const youtubeCc = sortCandidates(all.filter(x => x.source_platform === 'youtube_cc')).slice(0, 100);
   state.updated_at = NOW.toISOString();
   for (const name of ['telegram', 'aparat', 'youtube_cc']) {
@@ -423,9 +423,9 @@ async function main() {
     source_results: sourceResults,
     source_errors: errors,
     telegram_count: telegram.length,
-    aparat_count: aparat.length,
+    aparat_count: aparatCandidates.length,
     youtube_cc_count: youtubeCc.length,
-    candidates: [...telegram, ...aparat, ...youtubeCc]
+    candidates: [...telegram, ...aparatCandidates, ...youtubeCc]
   };
   fs.writeFileSync(OUT_PATH, JSON.stringify(report, null, 2), 'utf8');
 
@@ -439,7 +439,7 @@ async function main() {
   for (const source of sourceResults) {
     lines.push('| ' + source.source + ' | ' + source.status + (source.http_status ? ' (HTTP ' + source.http_status + ')' : '') + (source.error_kind ? ' — ' + source.error_kind : '') + ' | ' + source.count + ' |');
   }
-  for (const [title, list] of [['Telegram', telegram], ['Aparat', aparat], ['YouTube Creative Commons search-filter leads', youtubeCc]]) {
+  for (const [title, list] of [['Telegram', telegram], ['Aparat', aparatCandidates], ['YouTube Creative Commons search-filter leads', youtubeCc]]) {
     lines.push('', '## ' + title, '', '| Rank | Title | Views | Age (h) | Observed growth/h | Format | Source |', '|---:|---|---:|---:|---:|---|---|');
     for (const [index, item] of list.slice(0, 40).entries()) {
       const views = Number.isFinite(item.views) ? item.views.toLocaleString('en-US') : '—';
