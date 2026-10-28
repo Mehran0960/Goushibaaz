@@ -1,4 +1,4 @@
-name: Publish approved CC0 video to Filo (lazy uploader/auth diagnostics)
+name: Scheduled CC0 short-video publisher for Filo
 
 on:
   workflow_dispatch:
@@ -35,7 +35,7 @@ jobs:
           npx playwright install --with-deps chromium >/dev/null
           node --check scripts/filo_publish_cc0.cjs
 
-      - name: Verify CC0 source, prepare vertical MP4, and publish on Filo (fixed UI callback)
+      - name: Discover a fresh CC0 short, prepare vertical video and cover, publish to Filo
         env:
           FILO_USER: ${{ secrets.FILO_USER }}
           FILO_PASS: ${{ secrets.FILO_PASS }}
