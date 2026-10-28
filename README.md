@@ -34,7 +34,7 @@ Filo may hold new videos in a moderation/approval queue for up to 72 hours. A su
 
 ## Other publishing destinations
 
-The planned destinations are **Rubika, Bale, and Telegram** as independent adapters. They are not yet active in this repository. They must each have isolated delivery, retry, and publication state so that one platform's failure never blocks another. The Cloudflare trend-scout Worker also requires its API key and admin token to be configured as Cloudflare secrets.
+The planned destinations are **Rubika, Bale, and Telegram** as independent adapters. Rubika is the next integration. A manual preflight workflow at `.github/workflows/rubika-preflight.yml` validates `RUBIKA_BOT_TOKEN` with the official Bot API `getMe` method; an optional manual input sends one clearly labeled test message to `RUBIKA_CHAT_ID`. Configure both as GitHub Actions secrets before running it. This is a connection test only, not the automated video publisher yet. After the bot token and channel delivery are confirmed, implement the Rubika video-upload adapter and isolated retry/state handling, then proceed to Bale and Telegram one at a time. A failure at one destination must never block the others. The Cloudflare trend-scout Worker also requires its API key and admin token to be configured as Cloudflare secrets.
 
 ## Repository layout
 
