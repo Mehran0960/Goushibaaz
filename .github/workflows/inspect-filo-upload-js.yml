@@ -67,8 +67,8 @@ jobs:
             const assetPaths = [...new Set((main.match(/assets\/[^"'\s]+\.js/g) || []).map(s => '/' + s))];
             const uploadRelatedAssets = assetPaths.filter(x => /upload|video|media|device|file|film/i.test(x)).slice(0, 80);
             const targetPaths = assetPaths.filter(x =>
-              /DorfakUploader|VideoSelector|EditVideo|UploadRules|VideoUpload|UploadVideo|MediaUpload|VideoMaker/i.test(x)
-            ).slice(0, 50);
+              /DorfakUploader|VideoSelector|EditVideo|UploadRules|VideoUpload|UploadVideo|MediaUpload|VideoMaker|UploadView|VideoInfoForm|VideoEditorView|SelectEditor/i.test(x)
+            ).slice(0, 70);
             const targets = [{ path: new URL(mainUrl).pathname, js: main }];
             for (const p of targetPaths) {
               try { targets.push({ path: p, js: await getText(new URL(p, root).href) }); }
