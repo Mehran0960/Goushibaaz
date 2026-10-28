@@ -4,24 +4,30 @@ const { execFileSync } = require('child_process');
 const { chromium } = require('playwright');
 
 const ACCOUNT = 'https://ifilo.net';
-const COMMONS_PAGE = 'https://commons.wikimedia.org/wiki/File:Cat_Jumpscare.webm';
 const CC0_LICENSE_URL = 'https://creativecommons.org/publicdomain/zero/1.0/';
-const SOURCE_TITLE = 'File:Cat_Jumpscare.webm';
-const PERSIAN_TITLE = 'وقتی گربه یهو میاد جلوی دوربین 😂';
-const PERSIAN_DESCRIPTION = [
-  'یک لحظهٔ کوتاه و غافلگیرکننده؛ بدون نیاز به زبان 😹',
-  '',
-  'منبع: Cat Jumpscare — اثر Panini! در Wikimedia Commons',
-  'مجوز: CC0 1.0 (دامنهٔ عمومی)',
-  COMMONS_PAGE,
-  CC0_LICENSE_URL
-].join('\n');
-
 const STATE_PATH = path.join('state', 'filo-published.json');
 const VIDEO_DIR = path.join(process.cwd(), 'work', 'filo-publish');
-const INPUT_FILE = path.join(VIDEO_DIR, 'Cat_Jumpscare.webm');
-const OUTPUT_FILE = path.join(VIDEO_DIR, 'cat-jumpscare-fa.mp4');
-const COVER_FILE = path.join(VIDEO_DIR, 'cat-jumpscare-cover.jpg');
+const INPUT_FILE = path.join(VIDEO_DIR, 'source-video.webm');
+const OUTPUT_FILE = path.join(VIDEO_DIR, 'filo-video-fa.mp4');
+const COVER_FILE = path.join(VIDEO_DIR, 'filo-video-cover.jpg');
+const MAX_SOURCE_BYTES = 45_000_000;
+const MAX_DURATION_SECONDS = 180;
+const ACTIVE_SOURCE_STATUSES = new Set([
+  'published', 'submitted_pending_approval', 'submit_started',
+  'submitted_unconfirmed', 'upload_staged_unpublished'
+]);
+const COMMONS_SEARCHES = [
+  { key: 'cats', query: 'filetype:video cat' },
+  { key: 'dogs', query: 'filetype:video dog' },
+  { key: 'pets', query: 'filetype:video pet' },
+  { key: 'birds', query: 'filetype:video bird' },
+  { key: 'squirrels', query: 'filetype:video squirrel' },
+  { key: 'monkeys', query: 'filetype:video monkey' },
+  { key: 'animals', query: 'filetype:video animal' },
+  { key: 'persian-cats', query: 'filetype:video گربه' },
+  { key: 'persian-animals', query: 'filetype:video حیوانات بامزه' },
+  { key: 'camera-moments', query: 'filetype:video caught camera animal' }
+];
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const cleanText = value => String(value || '').replace(/\s+/g, ' ').trim();
@@ -29,53 +35,149 @@ const pathOnly = value => {
   try { return new URL(value).pathname; } catch { return ''; }
 };
 
-async function downloadVerifiedCc0Source() {
-  const api = new URL('https://commons.wikimedia.org/w/api.php');
-  api.searchParams.set('action', 'query');
-  api.searchParams.set('titles', SOURCE_TITLE);
-  api.searchParams.set('prop', 'imageinfo');
-  api.searchParams.set('iiprop', 'url|mime|size|extmetadata');
-  api.searchParams.set('format', 'json');
+function plainMetadata(value) {
+  return cleanText(String(value || '')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&amp;/g, '&').replace(/&quot;/g, '"')
+    .replace(/&#0*39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>'));
+}
 
-  const metadataResponse = await fetch(api, {
-    headers: { 'User-Agent': 'GoushibaazFiloPublisher/1.0 (public metadata; source CC0)' },
-    signal: AbortSignal.timeout(20000)
-  });
-  if (!metadataResponse.ok) throw new Error('commons_metadata_http_' + metadataResponse.status);
-  const json = await metadataResponse.json();
-  const page = Object.values(json.query && json.query.pages || {})[0];
-  const info = page && page.imageinfo && page.imageinfo[0];
-  if (!info || !info.url) throw new Error('commons_source_file_missing');
+function titleForCandidate(candidate) {
+  const text = (candidate.fileTitle + ' ' + candidate.description).toLowerCase();
+  if (/\b(cat|cats|kitten|kittens|feline)\b|گربه/.test(text)) return 'لحظه‌ای غیرمنتظره از دنیای گربه‌ها 😹';
+  if (/\b(dog|dogs|puppy|puppies)\b|سگ/.test(text)) return 'یک حرکت بامزه از دنیای سگ‌ها 🐶';
+  if (/\b(bird|birds|parrot|parrots|pigeon)\b|پرنده/.test(text)) return 'لحظه‌ای تماشایی از دنیای پرندگان 🐦';
+  if (/\b(squirrel|squirrels|monkey|monkeys|rabbit|rabbits)\b/.test(text)) return 'رفتار جالب یک حیوان در چند ثانیه 🐾';
+  if (/\b(caught on camera|surprise|jumpscare|unexpected|funny|playful|playing|fail)\b/.test(text)) return 'یک لحظه غیرمنتظره که ارزش دیدن دارد 😮';
+  return 'لحظه‌ای دیدنی از دنیای حیوانات 🐾';
+}
 
-  const metadata = info.extmetadata || {};
-  const licenseName = cleanText(metadata.LicenseShortName && metadata.LicenseShortName.value);
-  const licenseUrl = cleanText(metadata.LicenseUrl && metadata.LicenseUrl.value);
-  const description = cleanText(metadata.ImageDescription && metadata.ImageDescription.value);
-  const authorHtml = metadata.Artist && metadata.Artist.value || '';
-  const author = cleanText(authorHtml.replace(/<[^>]*>/g, ''));
-  const explicitlyCc0 = /CC0/i.test(licenseName) || /publicdomain\/zero\/1\.0/i.test(licenseUrl);
+function descriptionForCandidate(candidate) {
+  return [
+    'یک ویدئوی کوتاه و تصویری؛ بدون نیاز به زبان 🐾',
+    '',
+    'منبع: ' + candidate.fileTitle.replace(/^File:/i, ''),
+    'پدیدآورنده: ' + (candidate.author || 'طبق اطلاعات صفحهٔ منبع'),
+    'مجوز: CC0 1.0 (دامنهٔ عمومی)',
+    candidate.sourcePage,
+    candidate.licenseUrl || CC0_LICENSE_URL,
+    '',
+    'اگر این کلیپ لبخندت را آورد، با دوستت هم به اشتراک بگذار.'
+  ].join('\n');
+}
+
+function parsedDurationSeconds(info) {
+  const items = Array.isArray(info && info.commonmetadata) ? info.commonmetadata : [];
+  for (const item of items) {
+    if (!/duration|length|runtime|run time/i.test(String(item.name || ''))) continue;
+    const value = String(item.value || '');
+    const iso = value.match(/PT(?:(\d+(?:\.\d+)?)H)?(?:(\d+(?:\.\d+)?)M)?(?:(\d+(?:\.\d+)?)S)?/i);
+    if (iso) return Number(iso[1] || 0) * 3600 + Number(iso[2] || 0) * 60 + Number(iso[3] || 0);
+    const clock = value.match(/(?:(\d+):)?(\d+):(\d+(?:\.\d+)?)/);
+    if (clock) return Number(clock[1] || 0) * 3600 + Number(clock[2]) * 60 + Number(clock[3]);
+    const seconds = value.match(/(\d+(?:\.\d+)?)\s*(?:s|sec|seconds)/i);
+    if (seconds) return Number(seconds[1]);
+  }
+  return null;
+}
+
+function classifyCandidate(candidate) {
+  const text = (candidate.fileTitle + ' ' + candidate.description).toLowerCase();
+  if (/\b(cat|cats|kitten|kittens|feline|dog|dogs|puppy|puppies|pet|pets|bird|birds|parrot|pigeon|squirrel|monkey|rabbit|animal|wildlife)\b|گربه|سگ|حیوان|پرنده/.test(text)) {
+    return true;
+  }
+  return /caught on camera|jumpscare|unexpected|surprise|funny|playful|playing|fail|visual comedy|oddly satisfying/.test(text);
+}
+
+async function discoverCc0Candidates(state) {
+  const used = new Set((state.posts || [])
+    .filter(item => ACTIVE_SOURCE_STATUSES.has(item.status) || item.status === 'ineligible_source')
+    .map(item => item.sourcePage));
+  const publishedCount = (state.posts || []).filter(item => item.status === 'published').length;
+  const queryCount = 4;
+  const searches = Array.from({ length: queryCount }, (_, offset) =>
+    COMMONS_SEARCHES[(publishedCount * 2 + offset) % COMMONS_SEARCHES.length]);
+  const found = new Map();
+
+  for (const search of searches) {
+    const api = new URL('https://commons.wikimedia.org/w/api.php');
+    api.searchParams.set('action', 'query');
+    api.searchParams.set('format', 'json');
+    api.searchParams.set('generator', 'search');
+    api.searchParams.set('gsrnamespace', '6');
+    api.searchParams.set('gsrlimit', '18');
+    api.searchParams.set('gsrsearch', search.query);
+    api.searchParams.set('prop', 'imageinfo');
+    api.searchParams.set('iiprop', 'url|mime|size|extmetadata|commonmetadata');
+    const response = await fetch(api, {
+      headers: { 'User-Agent': 'GoushibaazFiloPublisher/1.0 (CC0 reuse verification)' },
+      signal: AbortSignal.timeout(20000)
+    });
+    if (!response.ok) {
+      console.log('COMMONS_SEARCH', JSON.stringify({ query: search.key, status: response.status }));
+      continue;
+    }
+    const payload = await response.json();
+    const pages = Object.values(payload.query && payload.query.pages || {});
+    console.log('COMMONS_SEARCH', JSON.stringify({ query: search.key, results: pages.length }));
+    for (const page of pages) {
+      const info = page.imageinfo && page.imageinfo[0];
+      if (!info || !info.url || info.mime !== 'video/webm') continue;
+      if (!Number.isFinite(info.size) || info.size < 200000 || info.size > MAX_SOURCE_BYTES) continue;
+      const meta = info.extmetadata || {};
+      const licenseName = plainMetadata(meta.LicenseShortName && meta.LicenseShortName.value);
+      const licenseUrl = plainMetadata(meta.LicenseUrl && meta.LicenseUrl.value);
+      const explicitlyCc0 = /\bCC0\b/i.test(licenseName) &&
+        /creativecommons\.org\/publicdomain\/zero\/1\.0/i.test(licenseUrl);
+      if (!explicitlyCc0) continue;
+      const description = plainMetadata(meta.ImageDescription && meta.ImageDescription.value);
+      const author = plainMetadata(meta.Artist && meta.Artist.value);
+      const fileTitle = String(page.title || '');
+      const sourcePage = info.descriptionurl || ('https://commons.wikimedia.org/wiki/' + encodeURIComponent(fileTitle.replace(/ /g, '_')));
+      if (used.has(sourcePage) || !classifyCandidate({ fileTitle, description })) continue;
+      const duration = parsedDurationSeconds(info);
+      if (duration !== null && (duration < 3 || duration > MAX_DURATION_SECONDS)) continue;
+      const candidate = {
+        fileTitle, sourcePage, fileUrl: info.url, mime: info.mime, size: info.size,
+        durationSeconds: duration, licenseName, licenseUrl, description, author
+      };
+      candidate.title = titleForCandidate(candidate);
+      candidate.descriptionText = descriptionForCandidate(candidate);
+      found.set(sourcePage, candidate);
+    }
+    await sleep(250);
+  }
+  return [...found.values()].slice(0, 24);
+}
+
+async function downloadVerifiedCc0Source(candidate) {
+  if (!candidate || !candidate.fileUrl || !candidate.sourcePage || !candidate.fileTitle) {
+    throw new Error('commons_candidate_missing_required_fields');
+  }
+  const explicitlyCc0 = /\bCC0\b/i.test(candidate.licenseName || '') &&
+    /creativecommons\.org\/publicdomain\/zero\/1\.0/i.test(candidate.licenseUrl || '');
   if (!explicitlyCc0) throw new Error('commons_license_not_verified_as_cc0');
-
+  if (candidate.mime !== 'video/webm' || candidate.size > MAX_SOURCE_BYTES) {
+    throw new Error('commons_video_type_or_size_not_allowed');
+  }
   fs.mkdirSync(VIDEO_DIR, { recursive: true });
-  const fileResponse = await fetch(info.url, {
+  const fileResponse = await fetch(candidate.fileUrl, {
     headers: { 'User-Agent': 'GoushibaazFiloPublisher/1.0 (CC0 video reuse)' },
     signal: AbortSignal.timeout(45000)
   });
   if (!fileResponse.ok) throw new Error('commons_video_download_http_' + fileResponse.status);
   const bytes = Buffer.from(await fileResponse.arrayBuffer());
-  if (bytes.length < 200000 || bytes.length > 80000000) throw new Error('commons_video_size_out_of_expected_range');
+  if (bytes.length < 200000 || bytes.length > MAX_SOURCE_BYTES) throw new Error('commons_video_size_out_of_expected_range');
   if (!(bytes[0] === 0x1a && bytes[1] === 0x45 && bytes[2] === 0xdf && bytes[3] === 0xa3)) {
     throw new Error('commons_file_not_webm');
   }
   fs.writeFileSync(INPUT_FILE, bytes);
   return {
-    sourcePage: COMMONS_PAGE,
-    directFilePath: pathOnly(info.url),
-    licenseName,
-    licenseUrl,
-    author: author.slice(0, 100),
-    sourceBytes: bytes.length,
-    sourceDescription: description.slice(0, 180)
+    sourcePage: candidate.sourcePage, sourceTitle: candidate.fileTitle,
+    directFilePath: pathOnly(candidate.fileUrl), licenseName: candidate.licenseName,
+    licenseUrl: candidate.licenseUrl, author: String(candidate.author || 'Not identified on the source page').slice(0, 100),
+    sourceBytes: bytes.length, sourceDescription: candidate.description.slice(0, 180),
+    durationSeconds: candidate.durationSeconds
   };
 }
 
@@ -375,19 +477,72 @@ async function main() {
   fs.mkdirSync(path.dirname(STATE_PATH), { recursive: true });
   let state = { posts: [] };
   try { state = JSON.parse(fs.readFileSync(STATE_PATH, 'utf8')); } catch {}
-  if ((state.posts || []).some(x => x.sourcePage === COMMONS_PAGE &&
-    ['published', 'submitted_pending_approval', 'submit_started', 'submitted_unconfirmed', 'upload_staged_unpublished'].includes(x.status))) {
-    const prior = state.posts.find(x => x.sourcePage === COMMONS_PAGE &&
-      ['published', 'submitted_pending_approval', 'submit_started', 'submitted_unconfirmed', 'upload_staged_unpublished'].includes(x.status));
-    console.log('FILO_PUBLISH_RESULT', JSON.stringify({
-      status: prior.status === 'published' ? 'skipped_duplicate' : 'skipped_existing_unconfirmed_attempt',
-      source: COMMONS_PAGE,
-      publishedUrl: prior.postUrl || null
-    }));
+  if (!Array.isArray(state.posts)) state.posts = [];
+
+  const candidates = await discoverCc0Candidates(state);
+  if (!candidates.length) {
+    const result = {
+      status: 'no_eligible_candidate',
+      searchedQueries: 4,
+      note: 'No new short WebM candidate with an explicitly verified CC0 license was found. Nothing was published.'
+    };
+    console.log('FILO_PUBLISH_RESULT', JSON.stringify(result));
     return;
   }
 
-  const rights = await downloadVerifiedCc0Source();
+  let candidate = null;
+  let rights = null;
+  let sourceDurationSeconds = null;
+  const preparationErrors = [];
+  for (const proposed of candidates.slice(0, 8)) {
+    try {
+      const proposedRights = await downloadVerifiedCc0Source(proposed);
+      let duration = Number(proposedRights.durationSeconds);
+      if (!Number.isFinite(duration) || duration <= 0) {
+        const probe = execFileSync('ffprobe', [
+          '-v', 'error', '-show_entries', 'format=duration',
+          '-of', 'default=noprint_wrappers=1:nokey=1', INPUT_FILE
+        ], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 15000 }).trim();
+        duration = Number(probe);
+      }
+      if (!Number.isFinite(duration) || duration < 3 || duration > MAX_DURATION_SECONDS) {
+        state.posts.push({
+          sourcePage: proposed.sourcePage, sourceTitle: proposed.fileTitle,
+          status: 'ineligible_source', checkedAt: new Date().toISOString(),
+          note: 'Source duration was unavailable or outside Filo short-video limits.'
+        });
+        preparationErrors.push({ source: proposed.sourcePage, reason: 'duration_not_eligible' });
+        continue;
+      }
+      candidate = proposed;
+      rights = proposedRights;
+      sourceDurationSeconds = Math.round(duration * 100) / 100;
+      break;
+    } catch (error) {
+      preparationErrors.push({
+        source: proposed.sourcePage,
+        reason: String(error && error.message || 'source_prepare_failed').slice(0, 120)
+      });
+    }
+  }
+
+  if (!candidate || !rights) {
+    state.posts = state.posts.slice(-500);
+    fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
+    const result = {
+      status: 'no_eligible_candidate',
+      candidateCount: candidates.length,
+      preparationFailures: preparationErrors.slice(0, 8),
+      note: 'No new CC0 video passed download and duration checks; nothing was published.'
+    };
+    console.log('FILO_PUBLISH_RESULT', JSON.stringify(result));
+    return;
+  }
+
+  const COMMONS_PAGE = candidate.sourcePage;
+  const SOURCE_TITLE = candidate.fileTitle;
+  const PERSIAN_TITLE = candidate.title;
+  const PERSIAN_DESCRIPTION = candidate.descriptionText;
   const converted = convertToPortraitMp4();
   const cover = extractCoverFrame();
 
@@ -616,7 +771,7 @@ async function main() {
       const match = links.find(x =>
         /^https?:\/\/(?:www\.)?ifilo\.net\/(?:v|video)\//i.test(x.href) &&
         !existingVideoUrls.has(x.href.split('?')[0]) &&
-        /گربه|وقتی گربه|cat jumpscare/i.test(x.text)
+        x.text.toLowerCase().includes(PERSIAN_TITLE.toLowerCase())
       );
       if (match) postUrl = match.href.split('?')[0];
       bodyText = (await page.locator('body').innerText().catch(() => '')).slice(0, 6000);
@@ -685,7 +840,7 @@ async function main() {
   }
 
   console.log('FILO_PUBLISH_RESULT', JSON.stringify(result));
-  if (!['published', 'submitted_pending_approval', 'skipped_duplicate'].includes(result.status)) process.exitCode = 2;
+  if (!['published', 'submitted_pending_approval', 'skipped_duplicate', 'no_eligible_candidate', 'skipped_existing_unconfirmed_attempt'].includes(result.status)) process.exitCode = 2;
 }
 
 main().catch(error => {
