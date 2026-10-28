@@ -63,48 +63,54 @@ jobs:
             });
             const results = [];
             const errors = [];
-            for (const src of sources) {
-              const page = await context.newPage();
-              page.setDefaultTimeout(12000);
-              try {
-                await page.goto(src.url, {waitUntil:'domcontentloaded', timeout:45000});
-                await page.waitForSelector('article.rd-video-card.is-short', {timeout:10000}).catch(()=>{});
-                await page.waitForTimeout(800);
-                const data = await page.evaluate(() => {
-                  const norm = s => (s || '').replace(/\s+/g,' ').trim();
-                  const cards = [...document.querySelectorAll('article.rd-video-card.is-short')];
-                  return {
-                    pageTitle: document.title,
-                    pageUrl: location.href,
-                    pageText: document.body.innerText.slice(0,1000),
-                    cards: cards.map(card => {
-                      const a = card.querySelector('a.rd-thumb-link[href*="/shorts/"]') || card.querySelector('a[href*="/shorts/"]');
-                      const href = a ? a.href.split('?')[0] : '';
-                      const match = href.match(/\/shorts\/([A-Za-z0-9_-]{11})(?:\/|$)/);
-                      const img = card.querySelector('img');
-                      const title = norm((a && a.getAttribute('aria-label')) || (img && img.getAttribute('alt')) || (a && a.innerText) || '');
-                      return {video_id: match ? match[1] : '', title, href, card_text: norm(card.innerText), thumbnail: img ? img.src : ''};
-                    }).filter(x => x.video_id && x.title)
-                  };
-                });
-                for (const card of data.cards) results.push({
-                  ...card,
-                  source_channel:src.key,
-                  source_page:src.url,
-                  language_priority:src.language,
-                  youtube_url:'https://www.youtube.com/shorts/' + card.video_id
-                });
-                console.log('SOURCE_RESULT', JSON.stringify({
-                  source:src.key, status:'ok', cards:data.cards.length, pageTitle:data.pageTitle, finalUrl:data.pageUrl
-                }));
-                if (!data.cards.length) errors.push({source:src.key, error:'No rendered Shorts cards detected'});
-              } catch (e) {
-                errors.push({source:src.key, error:String(e.message || e).slice(0,240)});
-                console.log('SOURCE_RESULT', JSON.stringify({source:src.key, error:String(e.message || e).slice(0,240)}));
-              } finally {
-                await page.close();
+            const queue = [...sources];
+            async function scanWorker() {
+              while (queue.length) {
+                const src = queue.shift();
+                if (!src) continue;
+                const page = await context.newPage();
+                page.setDefaultTimeout(10000);
+                try {
+                  await page.goto(src.url, {waitUntil:'domcontentloaded', timeout:25000});
+                  await page.waitForSelector('article.rd-video-card.is-short', {timeout:7000}).catch(()=>{});
+                  await page.waitForTimeout(300);
+                  const data = await page.evaluate(() => {
+                    const norm = s => (s || '').replace(/\s+/g,' ').trim();
+                    const cards = [...document.querySelectorAll('article.rd-video-card.is-short')];
+                    return {
+                      pageTitle: document.title,
+                      pageUrl: location.href,
+                      pageText: document.body.innerText.slice(0,1000),
+                      cards: cards.map(card => {
+                        const a = card.querySelector('a.rd-thumb-link[href*="/shorts/"]') || card.querySelector('a[href*="/shorts/"]');
+                        const href = a ? a.href.split('?')[0] : '';
+                        const match = href.match(/\/shorts\/([A-Za-z0-9_-]{11})(?:\/|$)/);
+                        const img = card.querySelector('img');
+                        const title = norm((a && a.getAttribute('aria-label')) || (img && img.getAttribute('alt')) || (a && a.innerText) || '');
+                        return {video_id: match ? match[1] : '', title, href, card_text: norm(card.innerText), thumbnail: img ? img.src : ''};
+                      }).filter(x => x.video_id && x.title)
+                    };
+                  });
+                  for (const card of data.cards) results.push({
+                    ...card,
+                    source_channel:src.key,
+                    source_page:src.url,
+                    language_priority:src.language,
+                    youtube_url:'https://www.youtube.com/shorts/' + card.video_id
+                  });
+                  console.log('SOURCE_RESULT', JSON.stringify({
+                    source:src.key, status:'ok', cards:data.cards.length, pageTitle:data.pageTitle, finalUrl:data.pageUrl
+                  }));
+                  if (!data.cards.length) errors.push({source:src.key, error:'No rendered Shorts cards detected'});
+                } catch (e) {
+                  errors.push({source:src.key, error:String(e.message || e).slice(0,240)});
+                  console.log('SOURCE_RESULT', JSON.stringify({source:src.key, error:String(e.message || e).slice(0,240)}));
+                } finally {
+                  await page.close().catch(()=>{});
+                }
               }
             }
+            await Promise.all(Array.from({length:Math.min(4,sources.length)}, () => scanWorker()));
             await browser.close();
             const unique = new Map();
             for (const x of results) {
