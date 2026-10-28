@@ -27,10 +27,9 @@ jobs:
         run: |
           set -e
           ffmpeg -hide_banner -loglevel error -y \
-            -f lavfi -i color=c=black:s=360x640:r=15 \
-            -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 \
-            -t 2 -c:v libx264 -preset ultrafast -crf 35 -pix_fmt yuv420p \
-            -c:a aac -b:a 32k -movflags +faststart /tmp/rubika-upload-probe.mp4
+            -f lavfi -i testsrc2=size=1080x1920:rate=30 \
+            -t 10 -c:v libx264 -preset veryfast -crf 28 -pix_fmt yuv420p \
+            -an -movflags +faststart /tmp/rubika-upload-probe.mp4
           node <<'NODE'
           const fs = require('node:fs');
           const token = process.env.RUBIKA_BOT_TOKEN || '';
