@@ -329,13 +329,6 @@ async function main() {
     let fieldsAfterSelection = [];
     let titleField = null;
     let descriptionField = null;
-    let uploadResponse = null;
-    const uploadResponsePromise = page.waitForResponse(response => {
-      try {
-        const u = new URL(response.url());
-        return response.request().method() !== 'GET' && /\/uploadFromFile$/i.test(u.pathname);
-      } catch { return false; }
-    }, { timeout: 150000 }).catch(() => null);
 
     // Filo uploads in 1 MiB chunks and only then exposes its metadata form.
     for (let attempt = 0; attempt < 100; attempt++) {
@@ -347,10 +340,7 @@ async function main() {
       const body = await page.locator('body').innerText().catch(() => '');
       if (/خطا در بارگذاری|فایل بیش از حد مجاز|فرمت فایل نامعتبر|آپلود ناموفق/i.test(body)) break;
     }
-    uploadResponse = await Promise.race([
-      uploadResponsePromise,
-      sleep(0).then(() => null)
-    ]);
+    const uploadResponseInfo = observedResponses.filter(x => /\/uploadFromFile$/i.test(x.path)).slice(-1)[0] || null;
 
     // Use a simple visible title/description input only when its labels identify the field.
     if (!titleField) {
@@ -367,11 +357,6 @@ async function main() {
     if (!titleField || !(await titleField.isVisible().catch(() => false))) {
       const stageRequests = observedRequests.slice(requestCountBeforeFile);
       const actualUploadRequest = stageRequests.some(x => /uploadFromFile$/i.test(x.path));
-      const uploadResponseInfo = uploadResponse ? {
-        host: new URL(uploadResponse.url()).hostname,
-        path: new URL(uploadResponse.url()).pathname,
-        status: uploadResponse.status()
-      } : null;
       if (actualUploadRequest && uploadResponseInfo && uploadResponseInfo.status >= 200 && uploadResponseInfo.status < 300) {
         state.posts = [...(state.posts || []), {
           sourcePage: COMMONS_PAGE, title: PERSIAN_TITLE, status: 'upload_staged_unpublished',
