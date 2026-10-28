@@ -109,10 +109,12 @@ async function discoverCc0Candidates(state) {
   const used = new Set((state.posts || [])
     .filter(item => ACTIVE_SOURCE_STATUSES.has(item.status) || item.status === 'ineligible_source')
     .map(item => item.sourcePage));
-  const publishedCount = (state.posts || []).filter(item => item.status === 'published').length;
+  // Rotate by distinct sources already attempted/queued, not just approved posts;
+  // moderation can take days, and pending items should still advance category variety.
+  const rotationCount = used.size;
   const queryCount = 4;
   const searches = Array.from({ length: queryCount }, (_, offset) =>
-    COMMONS_SEARCHES[(publishedCount * 2 + offset) % COMMONS_SEARCHES.length]);
+    COMMONS_SEARCHES[(rotationCount * 2 + offset) % COMMONS_SEARCHES.length]);
   const found = new Map();
 
   for (const search of searches) {
