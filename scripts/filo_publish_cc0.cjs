@@ -168,8 +168,8 @@ async function discoverCommercialCandidates(state) {
     .map(item => item.sourcePage));
   // Always scan Persian/Iranian searches first; then keep a broad licensed fallback so a slot can still run when local open-license clips are scarce.
   const searches = [
-    ...COMMONS_SEARCHES.filter(item => item.localPriority),
-    ...COMMONS_SEARCHES.filter(item => !item.localPriority)
+    ...COMMONS_SEARCHES.filter(item => item.localPriority).slice(0, 5),
+    ...COMMONS_SEARCHES.filter(item => !item.localPriority).slice(0, 4)
   ];
   const found = new Map();
 
