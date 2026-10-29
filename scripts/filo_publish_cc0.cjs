@@ -182,7 +182,7 @@ function titleForCandidate(candidate) {
   if (/\\b(magic|dancing|dance|music performance|musician|singing|instrument|juggling)\\b|شعبده|جادو|رقص|نوازندگی|موسیقی|خوانندگی|آکروبات/.test(text)) return 'یک اجرای دیدنی و متفاوت 🎭';
   if (/\\b(nature|landscape|weather phenomenon|ocean|volcano|waterfall|space footage)\\b|طبیعت|آبشار|اقیانوس|پدیده جوی|آتشفشان|منظره|فضا/.test(text)) return 'یک لحظه تماشایی از طبیعت 🌍';
   if (/\\b(travel|tourism|street life|local culture|traditional|architecture)\\b|سفر|گردشگری|فرهنگ|سنتی|معماری|ایرانگردی/.test(text)) return 'یک گوشه دیدنی از دنیا 🌎';
-  if (/hidden camera|prank|comedy|humou?r|funny|reaction|meme|sketch|fail|sorprise|unexpected|چالش|طنز|خنده|بامزه|سوتی|دوربین مخفی|واکنش/.test(text)) return 'یک کلیپ سرگرم‌کننده که ارزش دیدن داره 😄';
+  if (/hidden camera|prank|comedy|humou?r|funny|reaction|meme|sketch|fail|surprise|unexpected|چالش|طنز|خنده|بامزه|سوتی|دوربین مخفی|واکنش/.test(text)) return 'یک کلیپ سرگرم‌کننده که ارزش دیدن داره 😄';
   if (/iranian|tehran|shiraz|ایران|ایرانی|تهران|شیراز|اصفهان/.test(text)) return 'یه لحظه دیدنی از ایران 🇮🇷';
   if (/\\b(caught on camera|surprise|jumpscare|unexpected|funny|playful|playing|fail)\\b/.test(text)) return 'یک لحظه غیرمنتظره که ارزش دیدن دارد 😮';
   return 'یک ویدئوی کوتاه و جالب 🎬';
