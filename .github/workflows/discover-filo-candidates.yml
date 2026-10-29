@@ -200,7 +200,7 @@ jobs:
             const rotatingSources = rotatingPool.length ? Array.from({length:Math.min(sourceWindow,rotatingPool.length)},(_,i)=>rotatingPool[(rotationStart+i)%rotatingPool.length]) : [];
             const sourceUnique = new Map();
             for (const source of [...coreSources,...rotatingSources]) sourceUnique.set(source.base.toLowerCase(), source);
-            const sources = [...sourceUnique.values()].slice(0,260).map(source => ({
+            const sources = [...sourceUnique.values()].slice(0,320).map(source => ({
               key:source.key,
               url:source.base+'?tab=shorts',
               language:'persian',
