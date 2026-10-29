@@ -312,31 +312,46 @@ function convertPortrait() {
 async function uploadVideo(filePath) {
   const file = fs.readFileSync(filePath);
   console.log('RUBIKA_VIDEO_UPLOAD_STARTED', JSON.stringify({ bytes: file.length, type: 'silent_mp4' }));
-  const request = await rubika('requestSendFile', { type: 'Video' });
-  const uploadUrl = request.upload_url || request.data?.upload_url;
-  if (typeof uploadUrl !== 'string' || !/^https:\/\//i.test(uploadUrl)) {
-    throw new Error('requestSendFile_missing_upload_url');
+  let lastError;
+  // A timed-out upload never reaches sendFile, so retrying with a fresh upload URL cannot create a duplicate public post.
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      const request = await rubika('requestSendFile', { type: 'Video' });
+      const uploadUrl = request.upload_url || request.data?.upload_url;
+      if (typeof uploadUrl !== 'string' || !/^https:\/\//i.test(uploadUrl)) {
+        throw new Error('requestSendFile_missing_upload_url');
+      }
+      const endpoint = new URL(uploadUrl);
+      console.log('RUBIKA_VIDEO_UPLOAD_ENDPOINT', JSON.stringify({ hostname: endpoint.hostname, attempt }));
+      const form = new FormData();
+      form.append('file', new Blob([file], { type: 'video/mp4' }), 'didobyn-short.mp4');
+      const response = await fetch(uploadUrl, {
+        method: 'POST',
+        body: form,
+        signal: AbortSignal.timeout(180000)
+      });
+      const raw = await response.text();
+      let data;
+      try { data = JSON.parse(raw); } catch { data = { raw: raw.slice(0, 120) }; }
+      if (!response.ok) throw new Error('rubika_file_upload_http_' + response.status);
+      const fileId = data.data?.file_id || data.file_id || data.data?.file?.file_id;
+      if (!fileId) {
+        const reason = String(data.description || data.error || data.status || 'file_id_missing').slice(0, 120);
+        throw new Error('rubika_file_upload_failed_' + reason);
+      }
+      console.log('RUBIKA_VIDEO_FILE_UPLOADED', JSON.stringify({ bytes: file.length, attempt }));
+      return fileId;
+    } catch (error) {
+      lastError = error;
+      console.warn('RUBIKA_VIDEO_UPLOAD_ATTEMPT_FAILED', JSON.stringify({
+        attempt,
+        reason: String(error && error.message || error).replace(/\\s+/g, ' ').slice(0, 150)
+      }));
+      if (attempt >= 2) break;
+      await pause(5000);
+    }
   }
-  const endpoint = new URL(uploadUrl);
-  console.log('RUBIKA_VIDEO_UPLOAD_ENDPOINT', JSON.stringify({ hostname: endpoint.hostname }));
-  const form = new FormData();
-  form.append('file', new Blob([file], { type: 'video/mp4' }), 'didobyn-short.mp4');
-  const response = await fetch(uploadUrl, {
-    method: 'POST',
-    body: form,
-    signal: AbortSignal.timeout(90000)
-  });
-  const raw = await response.text();
-  let data;
-  try { data = JSON.parse(raw); } catch { data = { raw: raw.slice(0, 120) }; }
-  if (!response.ok) throw new Error('rubika_file_upload_http_' + response.status);
-  const fileId = data.data?.file_id || data.file_id || data.data?.file?.file_id;
-  if (!fileId) {
-    const reason = String(data.description || data.error || data.status || 'file_id_missing').slice(0, 120);
-    throw new Error('rubika_file_upload_failed_' + reason);
-  }
-  console.log('RUBIKA_VIDEO_FILE_UPLOADED', JSON.stringify({ bytes: file.length }));
-  return fileId;
+  throw lastError || new Error('rubika_video_upload_failed');
 }
 
 function persistState(state) {
