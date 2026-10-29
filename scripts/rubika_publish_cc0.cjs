@@ -13,6 +13,11 @@ const INPUT_FILE = path.join(WORK_DIR, 'source-video.webm');
 const OUTPUT_FILE = path.join(WORK_DIR, 'didobyn-short.mp4');
 const MAX_SOURCE_BYTES = 30_000_000;
 const MAX_OUTPUT_BYTES = 48_000_000;
+const CONTENT_POLICY = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'config', 'content-policy.json'), 'utf8'));
+const TARGET_WIDTH = Number(CONTENT_POLICY.vertical_video.output_width) || 1080;
+const TARGET_HEIGHT = Number(CONTENT_POLICY.vertical_video.output_height) || 1920;
+const WORK_HEIGHT = 1080;
+const WORK_WIDTH = Math.round(WORK_HEIGHT * TARGET_WIDTH / TARGET_HEIGHT);
 const MIN_DURATION_SECONDS = 3;
 const MAX_DURATION_SECONDS = 180;
 const LICENSES = {
@@ -20,11 +25,16 @@ const LICENSES = {
   ccby: 'https://creativecommons.org/licenses/by/4.0/'
 };
 const SEARCHES = [
-  { key: 'cats', query: 'filetype:video cat' },
+  { key: 'iranian-persian-animals', query: 'filetype:video ایران حیوانات', localPriority: true },
+  { key: 'persian-funny-animals', query: 'filetype:video حیوانات بامزه فارسی', localPriority: true },
+  { key: 'iranian-hidden-camera', query: 'filetype:video ایران دوربین مخفی', localPriority: true },
+  { key: 'persian-cats', query: 'filetype:video گربه فارسی', localPriority: true },
+  { key: 'iranian-comedy', query: 'filetype:video طنز ایرانی', localPriority: true },
+  { key: 'iran', query: 'filetype:video Iran', localPriority: true },
+  { key: 'tehran', query: 'filetype:video Tehran', localPriority: true },
   { key: 'dogs', query: 'filetype:video dog' },
   { key: 'birds', query: 'filetype:video bird' },
   { key: 'funny-animals', query: 'filetype:video funny animal' },
-  { key: 'persian-cats', query: 'filetype:video گربه' },
   { key: 'camera-moments', query: 'filetype:video caught on camera animal' }
 ];
 
@@ -66,8 +76,26 @@ function durationFromMetadata(info) {
 }
 
 function looksRelevant(fileTitle, description) {
-  return /\b(cat|cats|kitten|dog|dogs|puppy|bird|birds|parrot|squirrel|monkey|rabbit|animal|pet|wildlife|funny|unexpected|surprise|caught on camera|playing|fail)\b|گربه|سگ|حیوان|پرنده|بامزه/i
+  return /\b(cat|cats|kitten|dog|dogs|puppy|bird|birds|parrot|squirrel|monkey|rabbit|animal|pet|wildlife|funny|unexpected|surprise|caught on camera|playing|fail)\b|گربه|سگ|حیوان|پرنده|بامزه|ایران|ایرانی|تهران|فارسی|طنز|خنده|دوربین مخفی|سوتی|کلیپ/i
     .test(fileTitle + ' ' + description);
+}
+
+function candidateContentPriority(candidate) {
+  const text = [candidate.fileTitle, candidate.description, candidate.author].join(' ').toLowerCase();
+  const persian = /[پچژگکی]/.test(text) || /persian|farsi|فارسی|زبان فارسی/.test(text);
+  const iranian = /iran|iranian|tehran|shiraz|esfahan|isfahan|tabriz|mashhad|ایران|ایرانی|تهران|شیراز|اصفهان|تبریز|مشهد/.test(text);
+  return iranian && persian ? 4 : persian ? 3 : iranian ? 2 : 0;
+}
+
+function sourceVerticalScore(width, height) {
+  const w = Number(width || 0);
+  const h = Number(height || 0);
+  if (!(w > 0 && h > 0)) return 1;
+  const ratio = w / h;
+  if (ratio >= 0.50 && ratio <= 0.64) return 3;
+  if (ratio < 0.50 && ratio > 0.40) return 2;
+  if (ratio > 0.72) return 0;
+  return 1;
 }
 
 function persianTitle(fileTitle, description) {
@@ -76,6 +104,8 @@ function persianTitle(fileTitle, description) {
   if (/\b(dog|dogs|puppy)\b|سگ/.test(text)) return 'این حرکت سگ‌ها همیشه دیدنیه 🐶';
   if (/\b(bird|birds|parrot)\b|پرنده/.test(text)) return 'یه لحظه تماشایی از دنیای پرنده‌ها 🐦';
   if (/\b(squirrel|monkey|rabbit)\b/.test(text)) return 'رفتار جالبی که ارزش دیدن داره 🐾';
+  if (/iranian|tehran|shiraz|ایران|ایرانی|تهران|شیراز|اصفهان/.test(text)) return 'یه لحظه دیدنی از ایران 🇮🇷';
+  if (/persian|farsi|فارسی|طنز|خنده|دوربین مخفی|سوتی/.test(text)) return 'یه کلیپ فارسی که ارزش دیدن داره 😄';
   if (/\b(caught on camera|unexpected|surprise|funny|fail)\b/.test(text)) return 'این اتفاق غیرمنتظره رو از دست نده 😮';
   return 'یه لحظه دیدنی از دنیای حیوانات 🐾';
 }
@@ -139,8 +169,12 @@ async function discoverCandidates(state) {
     .filter(item => ['published', 'submitted_unconfirmed'].includes(item.status))
     .map(item => item.sourcePage));
   const hits = new Map();
-  for (let i = 0; i < 4; i++) {
-    const search = SEARCHES[(used.size + i) % SEARCHES.length];
+  // Search all Persian/Iranian targets first, then fallback to broadly useful licensed clips.
+  const orderedSearches = [
+    ...SEARCHES.filter(item => item.localPriority),
+    ...SEARCHES.filter(item => !item.localPriority)
+  ];
+  for (const search of orderedSearches) {
     const url = new URL('https://commons.wikimedia.org/w/api.php');
     url.searchParams.set('action', 'query');
     url.searchParams.set('format', 'json');
@@ -187,14 +221,35 @@ async function discoverCandidates(state) {
         durationSeconds,
         license,
         author: htmlText(meta.Artist?.value),
-        description
+        description,
+        sourceWidth: Number(info.width) > 0 ? Number(info.width) : null,
+        sourceHeight: Number(info.height) > 0 ? Number(info.height) : null,
+        sourceAspectRatio: Number(info.width) > 0 && Number(info.height) > 0
+          ? Math.round((Number(info.width) / Number(info.height)) * 1000) / 1000 : null
       };
+      candidate.contentLocaleScore = candidateContentPriority(candidate);
+      candidate.sourceVerticalScore = sourceVerticalScore(candidate.sourceWidth, candidate.sourceHeight);
       candidate.title = persianTitle(fileTitle, description);
-      hits.set(sourcePage, candidate);
+      const previousCandidate = hits.get(sourcePage);
+      if (!previousCandidate || candidate.contentLocaleScore > previousCandidate.contentLocaleScore ||
+          (candidate.contentLocaleScore === previousCandidate.contentLocaleScore && candidate.sourceVerticalScore > previousCandidate.sourceVerticalScore)) {
+        hits.set(sourcePage, candidate);
+      }
     }
     await pause(250);
   }
-  return [...hits.values()];
+  const ranked = [...hits.values()].sort((a, b) =>
+    (b.contentLocaleScore - a.contentLocaleScore) ||
+    (b.sourceVerticalScore - a.sourceVerticalScore) ||
+    (Number(b.durationSeconds || 0) - Number(a.durationSeconds || 0))
+  );
+  console.log('RUBIKA_CONTENT_PRIORITY', JSON.stringify({
+    localPersianOrIranian: ranked.filter(item => item.contentLocaleScore >= 2).length,
+    portraitSourceCandidates: ranked.filter(item => item.sourceVerticalScore >= 2).length,
+    eligibleLicensedCandidates: ranked.length,
+    targetAspectRatio: CONTENT_POLICY.vertical_video.aspect_ratio
+  }));
+  return ranked;
 }
 
 async function downloadSource(candidate) {
@@ -227,7 +282,7 @@ function convertPortrait() {
   execFileSync('ffmpeg', [
     '-hide_banner', '-loglevel', 'error', '-y',
     '-i', INPUT_FILE,
-    '-vf', 'scale=608:1080:force_original_aspect_ratio=increase,crop=608:1080,scale=1080:1920,setsar=1',
+    '-vf', `scale=${WORK_WIDTH}:${WORK_HEIGHT}:force_original_aspect_ratio=increase,crop=${WORK_WIDTH}:${WORK_HEIGHT},scale=${TARGET_WIDTH}:${TARGET_HEIGHT},setsar=1`,
     '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '28', '-pix_fmt', 'yuv420p',
     // Rubika's Bot API upload endpoint times out on MP4s with an audio stream in our tests.
     // Until that endpoint works with audio, deliver supported silent MP4 video instead.
@@ -340,6 +395,12 @@ async function main() {
     license: candidate.license.type,
     sourceBytes: sourceInfo.bytes,
     outputBytes: converted.bytes,
+    sourceWidth: candidate.sourceWidth || null,
+    sourceHeight: candidate.sourceHeight || null,
+    sourceAspectRatio: candidate.sourceAspectRatio || null,
+    targetAspectRatio: CONTENT_POLICY.vertical_video.aspect_ratio,
+    contentLocaleScore: candidate.contentLocaleScore || 0,
+    sourceVerticalScore: candidate.sourceVerticalScore || 1,
     durationSeconds: sourceInfo.durationSeconds
   };
   if (DRY_RUN) {
