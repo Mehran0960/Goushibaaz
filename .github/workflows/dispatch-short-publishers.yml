@@ -1,11 +1,6 @@
 name: Dispatch scheduled Filo and Rubika publishers
 
 on:
-  # Temporary smoke test: one push triggers a Rubika retry; remove after confirmation.
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/dispatch-short-publishers.yml"
   schedule:
     # Filo: every 30 minutes at :07 and :37 UTC.
     - cron: "7,37 * * * *"
@@ -46,7 +41,7 @@ jobs:
           echo "Filo publisher dispatch accepted by GitHub."
 
   dispatch-rubika:
-    if: github.event.schedule == '22,52 * * * *' || github.event_name == 'push'
+    if: github.event.schedule == '22,52 * * * *'
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
