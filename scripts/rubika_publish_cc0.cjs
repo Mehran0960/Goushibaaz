@@ -117,9 +117,7 @@ function captionFor(candidate) {
     'منبع: ' + candidate.fileTitle.replace(/^File:/i, ''),
     'پدیدآورنده: ' + (candidate.author || 'طبق اطلاعات صفحه منبع'),
     'مجوز: ' + candidate.license.type,
-    ...(candidate.license.type === 'CC BY 4.0'
-      ? ['تغییرات: برش و تبدیل ویدئو به قالب عمودی ۹:۱۶.']
-      : []),
+    'تغییرات: تبدیل خروجی به قالب عمودی ۹:۱۶ و حذف صدا برای سازگاری بارگذاری روبیکا.',
     candidate.sourcePage,
     candidate.license.url
   ];
