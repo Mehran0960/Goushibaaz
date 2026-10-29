@@ -177,8 +177,8 @@ async function discoverCandidates(state) {
   const hits = new Map();
   // Search all Persian/Iranian targets first, then fallback to broadly useful licensed clips.
   const orderedSearches = [
-    ...SEARCHES.filter(item => item.localPriority),
-    ...SEARCHES.filter(item => !item.localPriority)
+    ...SEARCHES.filter(item => item.localPriority).slice(0, 5),
+    ...SEARCHES.filter(item => !item.localPriority).slice(0, 4)
   ];
   for (const search of orderedSearches) {
     const url = new URL('https://commons.wikimedia.org/w/api.php');
