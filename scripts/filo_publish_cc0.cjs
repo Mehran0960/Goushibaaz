@@ -911,6 +911,8 @@ async function main() {
       searchedQueries: COMMONS_SEARCHES.length + ARCHIVE_SEARCH_TERMS.length * ARCHIVE_LICENSE_FILTERS.length,
       note: 'No new short WebM candidate with a verified CC0 1.0 or CC BY 4.0 license was found. Nothing was published.'
     };
+    state.lastOutcome = { status: result.status, checkedAt: new Date().toISOString() };
+    fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
     console.log('FILO_PUBLISH_RESULT', JSON.stringify(result));
     return;
   }
@@ -953,6 +955,7 @@ async function main() {
 
   if (!candidate || !rights) {
     state.posts = state.posts.slice(-500);
+    state.lastOutcome = { status: 'no_eligible_candidate', checkedAt: new Date().toISOString() };
     fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
     const result = {
       status: 'no_eligible_candidate',
@@ -964,6 +967,8 @@ async function main() {
     return;
   }
 
+  state.lastOutcome = { status: 'candidate_ready', checkedAt: new Date().toISOString(), sourcePage: candidate.sourcePage };
+  fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
   const COMMONS_PAGE = candidate.sourcePage;
   const SOURCE_TITLE = candidate.fileTitle;
   const PERSIAN_TITLE = candidate.title;
@@ -1263,6 +1268,7 @@ async function main() {
         reviewStatusText: String(targetCardText || '').slice(0, 300)
       };
       state.posts = [...(state.posts || []).filter(x => !(x.sourcePage === COMMONS_PAGE && x.status === 'submit_started')), entry].slice(-500);
+      state.lastOutcome = { status: finalStatus, checkedAt: now, sourcePage: COMMONS_PAGE, postUrl: postUrl || null };
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
       result = {
         status: finalStatus, title: PERSIAN_TITLE, postUrl, sourcePage: COMMONS_PAGE,
@@ -1290,6 +1296,7 @@ async function main() {
         publishApiError: publishApiError || undefined
       };
       state.posts = [...(state.posts || []).filter(x => !(x.sourcePage === COMMONS_PAGE && x.status === 'submit_started')), updated].slice(-500);
+      state.lastOutcome = { status: finalStatus, checkedAt: new Date().toISOString(), sourcePage: COMMONS_PAGE, postUrl: null };
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
       result = {
         status: finalStatus,
