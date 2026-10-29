@@ -14,18 +14,37 @@ const TELEGRAM_SOURCES = [
   { key: 'dmcam', url: 'https://t.me/s/dmcam', label: 'دوربین مخفی', kind: 'hidden-camera' },
   { key: 'doorbin_makhfy', url: 'https://t.me/s/doorbin_makhfy', label: 'دوربین مخفی ایرانی', kind: 'hidden-camera' },
   { key: 'khandbazar20', url: 'https://t.me/s/khandbazar20', label: 'خنده بازار', kind: 'persian-comedy' },
-  { key: 'insta_cllip', url: 'https://t.me/s/insta_cllip', label: 'کلیپ جوک و خنده', kind: 'persian-comedy' }
+  { key: 'insta_cllip', url: 'https://t.me/s/insta_cllip', label: 'کلیپ جوک و خنده', kind: 'persian-comedy' },
+  { key: 'funirn', url: 'https://t.me/s/funirn', label: 'کلیپ خنده دار فان ایرانی', kind: 'persian-comedy' },
+  { key: 'iranJoke_ir', url: 'https://t.me/s/IranJoke_ir', label: 'لطیفه‌های ایرانی و دوربین مخفی', kind: 'persian-comedy' },
+  { key: 'trendemovies', url: 'https://t.me/s/trendemovies', label: 'کلیپ کوتاه و چالش', kind: 'persian-comedy' }
 ];
 
 const APARAT_SEARCHES = [
-  { key: 'iranian-comedy', query: 'طنز ایرانی' },
+  { key: 'iranian-comedy', query: 'طنز ایرانی کوتاه' },
   { key: 'iranian-viral-clips', query: 'کلیپ وایرال ایرانی' },
   { key: 'iranian-challenges', query: 'چالش خنده دار ایرانی' },
   { key: 'hidden-camera', query: 'دوربین مخفی ایرانی' },
+  { key: 'persian-pranks', query: 'پرنک فارسی' },
   { key: 'funny-clips', query: 'کلیپ خنده دار فارسی' },
+  { key: 'persian-memes', query: 'میم فارسی و ایرانی' },
+  { key: 'comedy-sketch', query: 'نمایش طنز کوتاه ایرانی' },
+  { key: 'reaction-videos', query: 'ری اکشن خنده دار فارسی' },
+  { key: 'challenge-videos', query: 'چالش یوتیوب فارسی' },
   { key: 'funny-animals', query: 'حیوانات بامزه' },
+  { key: 'persian-cats', query: 'گربه بامزه فارسی' },
+  { key: 'persian-pets', query: 'حیوان خانگی بامزه ایرانی' },
   { key: 'street-moments', query: 'لحظه های جالب خیابان ایران' },
-  { key: 'dashcam', query: 'دوربین مداربسته تصادف' }
+  { key: 'daily-life-persian', query: 'اتفاقات بامزه روزمره ایرانی' },
+  { key: 'iranian-family-comedy', query: 'طنز خانوادگی ایرانی' },
+  { key: 'persian-life-hacks', query: 'ترفند جالب فارسی' },
+  { key: 'iranian-food-challenge', query: 'چالش غذای ایرانی' },
+  { key: 'iranian-facts', query: 'دانستنی جالب ایران' },
+  { key: 'satisfying-clips', query: 'ویدیو رضایت بخش کوتاه' },
+  { key: 'unexpected-moments', query: 'لحظه غیرمنتظره دوربین' },
+  { key: 'dashcam', query: 'دوربین مداربسته تصادف' },
+  { key: 'iranian-gaming-fun', query: 'گیمینگ فارسی لحظات خنده دار' },
+  { key: 'short-science', query: 'آزمایش علمی جالب کوتاه' }
 ];
 
 const YOUTUBE_CC_SEARCHES = [
@@ -35,10 +54,26 @@ const YOUTUBE_CC_SEARCHES = [
   { key: 'fa-funny-clips', query: 'کلیپ خنده دار فارسی' },
   { key: 'fa-challenge', query: 'چالش خنده دار فارسی' },
   { key: 'fa-funny-animals', query: 'حیوانات بامزه فارسی' },
-  { key: 'fa-iran-street', query: 'لحظه عجیب در خیابان ایران' },
-  { key: 'fa-strange-moments', query: 'لحظه عجیب دوربین' },
+  { key: 'fa-iran-street', query: 'لحظه جالب در خیابان ایران' },
+  { key: 'fa-pranks', query: 'پرنک ایرانی فارسی' },
+  { key: 'fa-comedy-sketch', query: 'طنز کوتاه فارسی اسکچ' },
+  { key: 'fa-reactions', query: 'ری اکشن خنده دار فارسی' },
+  { key: 'fa-memes', query: 'میم خنده دار ایرانی فارسی' },
+  { key: 'fa-life-hacks', query: 'ترفند جالب فارسی کوتاه' },
+  { key: 'fa-food-challenge', query: 'چالش غذای ایرانی' },
+  { key: 'fa-daily-life', query: 'اتفاق خنده دار روزمره ایرانی' },
+  { key: 'fa-gaming-fun', query: 'گیمینگ فارسی لحظات خنده دار' },
+  { key: 'fa-iranian-animals', query: 'حیوانات ایران کلیپ کوتاه فارسی' },
+  { key: 'fa-iranian-facts', query: 'دانستنی جالب ایران فارسی' },
+  { key: 'fa-satisfying', query: 'ویدیو رضایت بخش کوتاه بدون حرف' },
+  { key: 'fa-odd-moments', query: 'اتفاق عجیب بامزه فارسی' },
+  { key: 'fa-science-experiments', query: 'آزمایش علمی جالب کوتاه فارسی' },
   { key: 'visual-caught-camera', query: 'caught on camera funny moments' },
-  { key: 'visual-animals', query: 'funny animals without commentary' }
+  { key: 'visual-dashcam', query: 'dashcam unexpected moments' },
+  { key: 'visual-animals', query: 'funny animals without commentary' },
+  { key: 'visual-satisfying', query: 'oddly satisfying short video no talking' },
+  { key: 'visual-pranks', query: 'prank reaction funny short' },
+  { key: 'visual-sports-fails', query: 'funny sports fails short video' }
 ];
 
 function normalizeDigits(value) {
