@@ -38,7 +38,7 @@ jobs:
           node --check scripts/merge_short_candidates.cjs
           sed -n "/^          node <<'NODE'$/,/^          NODE$/p" .github/workflows/dispatch-short-publishers.yml | sed '1d;$d;s/^          //' > /tmp/goushibaaz-scheduler.js
           node --check /tmp/goushibaaz-scheduler.js
-          grep -Fq '    - cron: "*/5 * * * *"' .github/workflows/dispatch-short-publishers.yml
+          grep -Fq '    - cron: "2-57/5 * * * *"' .github/workflows/dispatch-short-publishers.yml
           grep -Fq 'const INTERVALS = [7, 17, 27];' .github/workflows/dispatch-short-publishers.yml
           grep -Fq 'const MAX_TOTAL_PER_UTC_DAY = 96;' .github/workflows/dispatch-short-publishers.yml
           grep -Fq 'const MAX_PER_PLATFORM_PER_UTC_DAY = 48;' .github/workflows/dispatch-short-publishers.yml
