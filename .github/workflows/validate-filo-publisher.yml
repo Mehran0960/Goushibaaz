@@ -8,6 +8,7 @@ on:
       - "scripts/filo_publish_cc0.cjs"
       - "scripts/platform_scout.cjs"
       - "scripts/rubika_publish_cc0.cjs"
+      - "scripts/synchronized_scheduler.cjs"
       - ".github/workflows/discover-filo-candidates.yml"
       - ".github/workflows/publish-approved-video-to-filo.yml"
       - ".github/workflows/publish-approved-video-to-rubika.yml"
@@ -33,19 +34,19 @@ jobs:
         run: |
           node --check scripts/filo_publish_cc0.cjs
           node --check scripts/rubika_publish_cc0.cjs
+          node --check scripts/synchronized_scheduler.cjs
           node --check scripts/platform_scout.cjs
           node --check scripts/license_check.cjs
           node --check scripts/merge_short_candidates.cjs
-          sed -n "/^          node <<'NODE'$/,/^          NODE$/p" .github/workflows/dispatch-short-publishers.yml | sed '1d;$d;s/^          //' > /tmp/goushibaaz-scheduler.js
-          node --check /tmp/goushibaaz-scheduler.js
           grep -Fq '    - cron: "2-57/5 * * * *"' .github/workflows/dispatch-short-publishers.yml
-          grep -Fq 'const INTERVALS = [7, 17, 27];' .github/workflows/dispatch-short-publishers.yml
-          grep -Fq 'const MAX_TOTAL_PER_UTC_DAY = 96;' .github/workflows/dispatch-short-publishers.yml
-          grep -Fq 'const MAX_PER_PLATFORM_PER_UTC_DAY = 48;' .github/workflows/dispatch-short-publishers.yml
+          grep -Fq 'const INTERVALS = [7, 17, 27, 37, 47, 57, 77, 97' scripts/synchronized_scheduler.cjs
+          grep -Fq 'const MAX_DESTINATION_STARTS_PER_UTC_DAY = 900;' scripts/synchronized_scheduler.cjs
+          grep -Fq 'const FUTURE_PLATFORM_RESERVE = 2;' scripts/synchronized_scheduler.cjs
+          grep -Fq 'Promise.all(planned.map(dispatchOne))' scripts/synchronized_scheduler.cjs
           grep -Fq 'actions/cache/restore@v4' .github/workflows/dispatch-short-publishers.yml
           grep -Fq 'actions/cache/save@v4' .github/workflows/dispatch-short-publishers.yml
-          grep -Fq 'publish-approved-video-to-filo.yml' .github/workflows/dispatch-short-publishers.yml
-          grep -Fq 'publish-approved-video-to-rubika.yml' .github/workflows/dispatch-short-publishers.yml
+          grep -Fq 'publish-approved-video-to-filo.yml' scripts/synchronized_scheduler.cjs
+          grep -Fq 'publish-approved-video-to-rubika.yml' scripts/synchronized_scheduler.cjs
           node -e "const p=require('./config/content-policy.json'); if(p.vertical_video.aspect_ratio!=='9:16'||p.vertical_video.output_width!==1080||p.vertical_video.output_height!==1920) process.exit(1)"
       - name: Test public commercial-license video discovery (no upload)
         run: |
