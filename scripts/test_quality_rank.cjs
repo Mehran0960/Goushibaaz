@@ -42,6 +42,34 @@ assert.ok(
   'recent repetition should make a different eligible topic more competitive'
 );
 
+// Generated Persian captions must not manufacture "strong hook" points.
+const genericCaption = {
+  fileTitle: 'File:Cute Bird Drinking Water from Bottle Cap.webm',
+  description: 'A bird drinks water from a bottle cap offered by a woman.',
+  title: 'یه لحظه تماشایی از دنیای پرنده‌ها 🐦',
+  durationSeconds: 12,
+  sourceAspectRatio: 0.5625
+};
+const genericRanking = scoreCandidate(genericCaption);
+assert.equal(genericRanking.topic, 'pets_animals');
+assert.equal(
+  genericRanking.reasons.some(reason => reason.startsWith('strong_hook:')),
+  false,
+  'generic generated captions such as "تماشایی" must not count as source-content hooks'
+);
+
+const sourceHook = {
+  fileTitle: 'File:Unexpected cat reaction caught on camera.webm',
+  description: 'An unexpected reaction when a toy suddenly appears.',
+  title: 'یه لحظه بامزه از دنیای گربه‌ها 😹',
+  durationSeconds: 12,
+  sourceAspectRatio: 0.5625
+};
+assert.ok(
+  scoreCandidate(sourceHook).reasons.some(reason => reason.startsWith('strong_hook:')),
+  'specific source-title/description hook signals should still be rewarded'
+);
+
 const now = Date.now();
 const trends = buildTrendWeights({
   updated_at: new Date(now).toISOString(),
