@@ -1,0 +1,43 @@
+name: Temporary publisher dry-run for Persian 9:16 candidates
+
+on:
+  push:
+    paths:
+      - "scripts/filo_publish_cc0.cjs"
+      - "scripts/rubika_publish_cc0.cjs"
+      - "config/content-policy.json"
+      - ".github/workflows/publisher-dry-run-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  dry-run:
+    if: contains(github.event.head_commit.message, 'RUN_PUBLISHER_DRY_RUN')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install FFmpeg and Filo script dependency
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          npm init -y >/dev/null
+          npm install --no-save playwright >/dev/null
+      - name: Validate publisher syntax and shared policy
+        run: |
+          node -e "const p=require('./config/content-policy.json'); if(p.vertical_video.aspect_ratio!=='9:16') process.exit(1)"
+          node --check scripts/filo_publish_cc0.cjs
+          node --check scripts/rubika_publish_cc0.cjs
+      - name: Dry-run Filo source search, license gate, and 9:16 transcode (no login/upload)
+        env:
+          DRY_RUN: "true"
+        run: node scripts/filo_publish_cc0.cjs
+      - name: Dry-run Rubika source search, license gate, and 9:16 transcode (no post)
+        env:
+          RUBIKA_BOT_TOKEN: ${{ secrets.RUBIKA_BOT_TOKEN }}
+          DRY_RUN: "true"
+        run: node scripts/rubika_publish_cc0.cjs
