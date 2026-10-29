@@ -11,6 +11,11 @@ const INPUT_FILE = path.join(VIDEO_DIR, 'source-video.webm');
 const OUTPUT_FILE = path.join(VIDEO_DIR, 'filo-video-fa.mp4');
 const COVER_FILE = path.join(VIDEO_DIR, 'filo-video-cover.jpg');
 const MAX_SOURCE_BYTES = 45_000_000;
+const CONTENT_POLICY = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'config', 'content-policy.json'), 'utf8'));
+const TARGET_WIDTH = Number(CONTENT_POLICY.vertical_video.output_width) || 1080;
+const TARGET_HEIGHT = Number(CONTENT_POLICY.vertical_video.output_height) || 1920;
+const WORK_HEIGHT = 1080;
+const WORK_WIDTH = Math.round(WORK_HEIGHT * TARGET_WIDTH / TARGET_HEIGHT);
 // Fail closed on reuse rights: only explicit CC0 1.0 or CC BY 4.0 license metadata is accepted.
 const MAX_DURATION_SECONDS = 180;
 const ACTIVE_SOURCE_STATUSES = new Set([
@@ -18,15 +23,20 @@ const ACTIVE_SOURCE_STATUSES = new Set([
   'submitted_unconfirmed', 'submit_result_unconfirmed', 'upload_staged_unpublished', 'rejected_by_filo'
 ]);
 const COMMONS_SEARCHES = [
-  { key: 'cats', query: 'filetype:video cat' },
+  { key: 'iranian-persian-animals', query: 'filetype:video ایران حیوانات', localPriority: true },
+  { key: 'persian-funny-animals', query: 'filetype:video حیوانات بامزه فارسی', localPriority: true },
+  { key: 'iranian-hidden-camera', query: 'filetype:video ایران دوربین مخفی', localPriority: true },
+  { key: 'persian-cats', query: 'filetype:video گربه فارسی', localPriority: true },
+  { key: 'iranian-comedy', query: 'filetype:video طنز ایرانی', localPriority: true },
+  { key: 'iran', query: 'filetype:video Iran', localPriority: true },
+  { key: 'tehran', query: 'filetype:video Tehran', localPriority: true },
+  { key: 'persian-pets', query: 'filetype:video گربه', localPriority: true },
   { key: 'dogs', query: 'filetype:video dog' },
   { key: 'pets', query: 'filetype:video pet' },
   { key: 'birds', query: 'filetype:video bird' },
   { key: 'squirrels', query: 'filetype:video squirrel' },
   { key: 'monkeys', query: 'filetype:video monkey' },
   { key: 'animals', query: 'filetype:video animal' },
-  { key: 'persian-cats', query: 'filetype:video گربه' },
-  { key: 'persian-animals', query: 'filetype:video حیوانات بامزه' },
   { key: 'camera-moments', query: 'filetype:video caught camera animal' }
 ];
 
@@ -79,6 +89,8 @@ function titleForCandidate(candidate) {
   if (/\b(bird|birds|parrot|parrots|pigeon)\b|پرنده/.test(text)) return 'لحظه‌ای تماشایی از دنیای پرندگان 🐦';
   if (/\b(mouse|mice|hamster|hamsters|gerbil|gerbils)\b/.test(text)) return 'لحظه‌های بامزه از دنیای موش‌های خانگی 🐭';
   if (/\b(squirrel|squirrels|monkey|monkeys|rabbit|rabbits)\b/.test(text)) return 'رفتار جالب یک حیوان در چند ثانیه 🐾';
+  if (/iranian|tehran|shiraz|ایران|ایرانی|تهران|شیراز|اصفهان/.test(text)) return 'یه لحظه دیدنی از ایران 🇮🇷';
+  if (/persian|farsi|فارسی|طنز|خنده|دوربین مخفی|سوتی/.test(text)) return 'یه کلیپ فارسی که ارزش دیدن داره 😄';
   if (/\b(caught on camera|surprise|jumpscare|unexpected|funny|playful|playing|fail)\b/.test(text)) return 'یک لحظه غیرمنتظره که ارزش دیدن دارد 😮';
   return 'لحظه‌ای دیدنی از دنیای حیوانات 🐾';
 }
@@ -120,22 +132,37 @@ function parsedDurationSeconds(info) {
 
 function classifyCandidate(candidate) {
   const text = (candidate.fileTitle + ' ' + candidate.description).toLowerCase();
-  if (/\b(cat|cats|kitten|kittens|feline|dog|dogs|puppy|puppies|pet|pets|bird|birds|parrot|pigeon|squirrel|monkey|rabbit|animal|wildlife)\b|گربه|سگ|حیوان|پرنده/.test(text)) {
-    return true;
-  }
-  return /caught on camera|jumpscare|unexpected|surprise|funny|playful|playing|fail|visual comedy|oddly satisfying/.test(text);
+  if (/\b(cat|cats|kitten|kittens|feline|dog|dogs|puppy|puppies|pet|pets|bird|birds|parrot|pigeon|squirrel|monkey|rabbit|animal|wildlife)\b|گربه|سگ|حیوان|پرنده/.test(text)) return true;
+  return /caught on camera|jumpscare|unexpected|surprise|funny|playful|playing|fail|visual comedy|oddly satisfying|persian|farsi|iranian|tehran|shiraz|iran|فارسی|ایرانی|ایران|تهران|شیراز|طنز|خنده|دوربین مخفی|سوتی/.test(text);
+}
+
+function candidateContentPriority(candidate) {
+  const text = [candidate.fileTitle, candidate.description, candidate.author].join(' ').toLowerCase();
+  const persian = /[پچژگکی]/.test(text) || /persian|farsi|فارسی|زبان فارسی/.test(text);
+  const iranian = /iran|iranian|tehran|shiraz|esfahan|isfahan|tabriz|mashhad|ایران|ایرانی|تهران|شیراز|اصفهان|تبریز|مشهد/.test(text);
+  return iranian && persian ? 4 : persian ? 3 : iranian ? 2 : 0;
+}
+
+function sourceVerticalScore(width, height) {
+  const w = Number(width || 0);
+  const h = Number(height || 0);
+  if (!(w > 0 && h > 0)) return 1;
+  const ratio = w / h;
+  if (ratio >= 0.50 && ratio <= 0.64) return 3;
+  if (ratio < 0.50 && ratio > 0.40) return 2;
+  if (ratio > 0.72) return 0;
+  return 1;
 }
 
 async function discoverCommercialCandidates(state) {
   const used = new Set((state.posts || [])
     .filter(item => ACTIVE_SOURCE_STATUSES.has(item.status) || item.status === 'ineligible_source')
     .map(item => item.sourcePage));
-  // Rotate by distinct sources already attempted/queued, not just approved posts;
-  // moderation can take days, and pending items should still advance category variety.
-  const rotationCount = used.size;
-  const queryCount = 4;
-  const searches = Array.from({ length: queryCount }, (_, offset) =>
-    COMMONS_SEARCHES[(rotationCount * 2 + offset) % COMMONS_SEARCHES.length]);
+  // Always scan Persian/Iranian searches first; then keep a broad licensed fallback so a slot can still run when local open-license clips are scarce.
+  const searches = [
+    ...COMMONS_SEARCHES.filter(item => item.localPriority),
+    ...COMMONS_SEARCHES.filter(item => !item.localPriority)
+  ];
   const found = new Map();
 
   for (const search of searches) {
@@ -180,15 +207,36 @@ async function discoverCommercialCandidates(state) {
       const candidate = {
         fileTitle, sourcePage, fileUrl: info.url, mime: info.mime, size: info.size,
         durationSeconds: duration, licenseName, licenseUrl, licenseType: licenseProfile.type,
-        description, author
+        description, author,
+        sourceWidth: Number(info.width) > 0 ? Number(info.width) : null,
+        sourceHeight: Number(info.height) > 0 ? Number(info.height) : null,
+        sourceAspectRatio: Number(info.width) > 0 && Number(info.height) > 0
+          ? Math.round((Number(info.width) / Number(info.height)) * 1000) / 1000 : null
       };
+      candidate.contentLocaleScore = candidateContentPriority(candidate);
+      candidate.sourceVerticalScore = sourceVerticalScore(candidate.sourceWidth, candidate.sourceHeight);
       candidate.title = titleForCandidate(candidate);
       candidate.descriptionText = descriptionForCandidate(candidate);
-      found.set(sourcePage, candidate);
+      const previousCandidate = found.get(sourcePage);
+      if (!previousCandidate || candidate.contentLocaleScore > previousCandidate.contentLocaleScore ||
+          (candidate.contentLocaleScore === previousCandidate.contentLocaleScore && candidate.sourceVerticalScore > previousCandidate.sourceVerticalScore)) {
+        found.set(sourcePage, candidate);
+      }
     }
     await sleep(250);
   }
-  return [...found.values()].slice(0, 24);
+  const ranked = [...found.values()].sort((a, b) =>
+    (b.contentLocaleScore - a.contentLocaleScore) ||
+    (b.sourceVerticalScore - a.sourceVerticalScore) ||
+    (Number(b.durationSeconds || 0) - Number(a.durationSeconds || 0))
+  );
+  console.log('FILO_CONTENT_PRIORITY', JSON.stringify({
+    localPersianOrIranian: ranked.filter(item => item.contentLocaleScore >= 2).length,
+    portraitSourceCandidates: ranked.filter(item => item.sourceVerticalScore >= 2).length,
+    eligibleLicensedCandidates: ranked.length,
+    targetAspectRatio: CONTENT_POLICY.vertical_video.aspect_ratio
+  }));
+  return ranked.slice(0, 48);
 }
 
 async function downloadVerifiedCommercialVideo(candidate) {
@@ -228,7 +276,7 @@ function convertToPortraitMp4() {
   execFileSync('ffmpeg', [
     '-hide_banner', '-loglevel', 'error', '-y',
     '-i', INPUT_FILE,
-    '-vf', 'scale=608:1080:force_original_aspect_ratio=increase,crop=608:1080,scale=1080:1920',
+    '-vf', `scale=${WORK_WIDTH}:${WORK_HEIGHT}:force_original_aspect_ratio=increase,crop=${WORK_WIDTH}:${WORK_HEIGHT},scale=${TARGET_WIDTH}:${TARGET_HEIGHT},setsar=1`,
     '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '25', '-pix_fmt', 'yuv420p',
     '-c:a', 'aac', '-b:a', '96k', '-ac', '2',
     '-movflags', '+faststart',
@@ -530,7 +578,7 @@ async function main() {
   if (!candidates.length) {
     const result = {
       status: 'no_eligible_candidate',
-      searchedQueries: 4,
+      searchedQueries: COMMONS_SEARCHES.length,
       note: 'No new short WebM candidate with a verified CC0 1.0 or CC BY 4.0 license was found. Nothing was published.'
     };
     console.log('FILO_PUBLISH_RESULT', JSON.stringify(result));
