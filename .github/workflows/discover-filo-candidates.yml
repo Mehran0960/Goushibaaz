@@ -164,10 +164,10 @@ jobs:
               return outputs;
             }
             const firstLevel = await inspectSourcesWithLimit(INDEX_PAGES, 7, inspectIndexPage);
-            const firstSitemapTargets = [...new Set(firstLevel.flatMap(result => (result.sitemapLinks || []).map(item => item.url)))].slice(0,30);
+            const firstSitemapTargets = [...new Set(firstLevel.flatMap(result => (result.sitemapLinks || []).map(item => item.url)))].slice(0,50);
             const sitemapLevelOne = await inspectSourcesWithLimit(firstSitemapTargets, 8, inspectIndexPage);
             const secondSitemapTargets = [...new Set(sitemapLevelOne.flatMap(result => (result.sitemapLinks || []).map(item => item.url)))]
-              .filter(url => !firstSitemapTargets.includes(url) && !INDEX_PAGES.includes(url)).slice(0,45);
+              .filter(url => !firstSitemapTargets.includes(url) && !INDEX_PAGES.includes(url)).slice(0,70);
             const sitemapLevelTwo = await inspectSourcesWithLimit(secondSitemapTargets, 8, inspectIndexPage);
             const indexResults = [...firstLevel, ...sitemapLevelOne, ...sitemapLevelTwo];
             const categoryMap = new Map();
@@ -183,7 +183,7 @@ jobs:
                 }
               }
             }
-            const categoryPages = [...categoryMap.values()].sort((a,b)=>sourcePriority(b)-sourcePriority(a)).slice(0,60);
+            const categoryPages = [...categoryMap.values()].sort((a,b)=>sourcePriority(b)-sourcePriority(a)).slice(0,70);
             const secondLevel = await inspectSourcesWithLimit(categoryPages, 10, category => inspectIndexPage(category.url));
             for (const result of secondLevel) {
               for (const source of result.channelLinks || []) {
@@ -194,13 +194,13 @@ jobs:
             const allSources = [...channelMap.values()].sort((a,b)=>sourcePriority(b)-sourcePriority(a) || a.key.localeCompare(b.key));
             const coreSources = allSources.slice(0,80);
             const rotatingPool = allSources.slice(80);
-            const sourceWindow = 240;
+            const sourceWindow = 720;
             const wave = rotatingPool.length ? Math.floor(Date.now()/(2*60*60*1000)) % Math.max(1,Math.ceil(rotatingPool.length/sourceWindow)) : 0;
             const rotationStart = rotatingPool.length ? (wave*sourceWindow)%rotatingPool.length : 0;
             const rotatingSources = rotatingPool.length ? Array.from({length:Math.min(sourceWindow,rotatingPool.length)},(_,i)=>rotatingPool[(rotationStart+i)%rotatingPool.length]) : [];
             const sourceUnique = new Map();
             for (const source of [...coreSources,...rotatingSources]) sourceUnique.set(source.base.toLowerCase(), source);
-            const sources = [...sourceUnique.values()].slice(0,320).map(source => ({
+            const sources = [...sourceUnique.values()].slice(0,800).map(source => ({
               key:source.key,
               url:source.base+'?tab=shorts',
               language:'persian',
@@ -222,6 +222,34 @@ jobs:
               rotation_wave:wave,
               source_errors:[...indexResults,...secondLevel].filter(x=>x.error).map(x=>({url:x.url,error:x.error})).slice(0,15)
             }));
+            fs.writeFileSync('out/mediafarsi-source-catalog.json', JSON.stringify({
+              generated_at: new Date().toISOString(),
+              coverage: {
+                index_pages: INDEX_PAGES,
+                index_pages_ok: firstLevel.filter(x => !x.error).length,
+                sitemap_pages_scanned: sitemapLevelOne.length + sitemapLevelTwo.length,
+                category_pages_discovered: categoryMap.size,
+                category_pages_scanned: secondLevel.length,
+                unique_channels_discovered: allSources.length,
+                channel_sources_selected_for_this_run: sources.length,
+                rotating_window_size: sourceWindow,
+                rotation_wave: wave
+              },
+              all_sources: allSources.map(source => ({
+                key: source.key,
+                url: source.base,
+                label: source.label || source.key,
+                context: source.context || '',
+                source_priority: sourcePriority(source),
+                discovery_origin: source.sourceIndex || source.indexPage || 'mediafarsi_index'
+              })),
+              selected_sources: sources.map(source => ({
+                key: source.key,
+                url: source.url,
+                source_priority: source.source_priority,
+                source_index: source.source_index
+              }))
+            }, null, 2), 'utf8');
 
             const results = [];
             const errors = [];
@@ -277,7 +305,7 @@ jobs:
                 }
               }
             }
-            await Promise.all(Array.from({length:Math.min(12,sources.length)}, () => scanWorker()));
+            await Promise.all(Array.from({length:Math.min(16,sources.length)}, () => scanWorker()));
             await browser.close();
             const unique = new Map();
             for (const x of results) {
