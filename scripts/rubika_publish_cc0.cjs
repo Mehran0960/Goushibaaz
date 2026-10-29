@@ -26,26 +26,32 @@ const LICENSES = {
   ccby: 'https://creativecommons.org/licenses/by/4.0/'
 };
 const SEARCHES = [
+  // Preserve Iranian/Persian discovery, but allocate these slots to comedy, reactions,
+  // challenges, sports and food rather than letting animal searches dominate.
   { key: 'iranian-hidden-camera', query: 'filetype:video Iran hidden camera funny', localPriority: true },
-  { key: 'persian-funny-animals', query: 'filetype:video حیوانات بامزه فارسی', localPriority: true },
   { key: 'iranian-comedy', query: 'filetype:video طنز ایرانی دوربین مخفی', localPriority: true },
   { key: 'persian-reactions', query: 'filetype:video واکنش خنده دار ایرانی', localPriority: true },
   { key: 'iranian-street-comedy', query: 'filetype:video طنز خیابانی فارسی', localPriority: true },
   { key: 'persian-challenges', query: 'filetype:video چالش خنده دار فارسی', localPriority: true },
-  { key: 'persian-cats', query: 'filetype:video گربه بامزه فارسی', localPriority: true },
   { key: 'iranian-sports-skills', query: 'filetype:video Iran football skill trick shot', localPriority: true },
   { key: 'persian-food', query: 'filetype:video آشپزی خلاقانه ایرانی', localPriority: true },
   { key: 'persian-satisfying', query: 'filetype:video ساختنی رضایت بخش فارسی', localPriority: true },
-  { key: 'funny-pets', query: 'filetype:video funny pets unexpected reaction' },
+
+  // Hook-first broad searches: search for a surprising payoff, skill or reveal
+  // instead of relying chiefly on general animal footage.
   { key: 'caught-on-camera', query: 'filetype:video caught on camera unexpected funny' },
+  { key: 'surprise-reveal', query: 'filetype:video unexpected reveal surprising reaction twist' },
+  { key: 'amazing-one-take-skills', query: 'filetype:video incredible one take skill impossible trick shot' },
+  { key: 'visual-puzzle', query: 'filetype:video optical illusion brain teaser puzzle reveal' },
+  { key: 'clever-invention-lifehack', query: 'filetype:video clever invention life hack unusual mechanism' },
+  { key: 'transformation-payoff', query: 'filetype:video before after transformation restoration satisfying' },
   { key: 'sports-skill', query: 'filetype:video sports skill trick shot fail' },
   { key: 'science-experiments', query: 'filetype:video fun science experiment optical illusion' },
-  { key: 'satisfying-restoration', query: 'filetype:video oddly satisfying restoration before after' },
-  { key: 'creative-crafts', query: 'filetype:video craft process woodworking pottery' },
+  { key: 'funny-pets', query: 'filetype:video funny pets unexpected reaction' },
   { key: 'food-cooking', query: 'filetype:video cooking recipe food art' },
   { key: 'magic-performance', query: 'filetype:video magic trick juggling performance' },
-  { key: 'wildlife-moments', query: 'filetype:video unusual animal behavior wildlife' },
-  { key: 'nature-wonders', query: 'filetype:video nature wonders weather phenomenon' },
+  { key: 'wholesome-moments', query: 'filetype:video wholesome kindness unexpected reunion' },
+  { key: 'nature-wonders', query: 'filetype:video nature wonders unusual animal behavior' },
   { key: 'travel-culture', query: 'filetype:video Iran travel culture street life' },
 ];
 
@@ -194,8 +200,8 @@ async function discoverCandidates(state) {
   const hits = new Map();
   // Search all Persian/Iranian targets first, then fallback to broadly useful licensed clips.
   const orderedSearches = [
-    ...SEARCHES.filter(item => item.localPriority).slice(0, 6),
-    ...SEARCHES.filter(item => !item.localPriority).slice(0, 10)
+    ...SEARCHES.filter(item => item.localPriority).slice(0, 8),
+    ...SEARCHES.filter(item => !item.localPriority).slice(0, 14)
   ];
   for (const search of orderedSearches) {
     const url = new URL('https://commons.wikimedia.org/w/api.php');
