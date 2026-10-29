@@ -7,6 +7,8 @@ const NOW = new Date();
 const STATE_PATH = path.join('state', 'platform-trends.json');
 const OUT_PATH = path.join('out', 'platform-candidates.json');
 const MD_PATH = path.join('out', 'platform-candidates.md');
+const POLICY_PATH = path.join(__dirname, '..', 'config', 'content-policy.json');
+const CONTENT_POLICY = JSON.parse(fs.readFileSync(POLICY_PATH, 'utf8'));
 
 const TELEGRAM_SOURCES = [
   { key: 'dmcam', url: 'https://t.me/s/dmcam', label: 'دوربین مخفی', kind: 'hidden-camera' },
@@ -16,21 +18,27 @@ const TELEGRAM_SOURCES = [
 ];
 
 const APARAT_SEARCHES = [
-  { key: 'hidden-camera', query: 'دوربین مخفی' },
-  { key: 'funny-clips', query: 'کلیپ خنده دار' },
+  { key: 'iranian-comedy', query: 'طنز ایرانی' },
+  { key: 'iranian-viral-clips', query: 'کلیپ وایرال ایرانی' },
+  { key: 'iranian-challenges', query: 'چالش خنده دار ایرانی' },
+  { key: 'hidden-camera', query: 'دوربین مخفی ایرانی' },
+  { key: 'funny-clips', query: 'کلیپ خنده دار فارسی' },
   { key: 'funny-animals', query: 'حیوانات بامزه' },
+  { key: 'street-moments', query: 'لحظه های جالب خیابان ایران' },
   { key: 'dashcam', query: 'دوربین مداربسته تصادف' }
 ];
 
 const YOUTUBE_CC_SEARCHES = [
-  { key: 'fa-hidden-camera', query: 'دوربین مخفی' },
-  { key: 'fa-funny-clips', query: 'کلیپ خنده دار' },
-  { key: 'fa-funny-animals', query: 'حیوانات بامزه' },
+  { key: 'fa-iranian-comedy', query: 'طنز ایرانی کوتاه' },
+  { key: 'fa-iranian-viral', query: 'کلیپ وایرال ایرانی' },
+  { key: 'fa-hidden-camera', query: 'دوربین مخفی ایرانی' },
+  { key: 'fa-funny-clips', query: 'کلیپ خنده دار فارسی' },
+  { key: 'fa-challenge', query: 'چالش خنده دار فارسی' },
+  { key: 'fa-funny-animals', query: 'حیوانات بامزه فارسی' },
+  { key: 'fa-iran-street', query: 'لحظه عجیب در خیابان ایران' },
   { key: 'fa-strange-moments', query: 'لحظه عجیب دوربین' },
   { key: 'visual-caught-camera', query: 'caught on camera funny moments' },
-  { key: 'visual-dashcam', query: 'dashcam near miss caught on camera' },
-  { key: 'visual-animals', query: 'funny animals without commentary' },
-  { key: 'visual-satisfying', query: 'oddly satisfying no talking' }
+  { key: 'visual-animals', query: 'funny animals without commentary' }
 ];
 
 function normalizeDigits(value) {
@@ -91,14 +99,28 @@ function ageHours(postedAt, text) {
 
 function classifyFormat(title, description = '') {
   const text = (String(title || '') + ' ' + String(description || '')).toLowerCase();
+  // Preserve Persian priority even when a clip also mentions cats, cameras, or visual comedy.
+  if (/[پچژگکی]/.test(text) || /فارسی|ایرانی|ایران|تهران|طنز|خنده|دوربین مخفی|شکار لحظه|سوتی|کلیپ|چالش|فان|بامزه|غافلگیر|اتفاق عجیب|ویدیو/.test(text)) {
+    return { fit: 'persian_priority', reason: 'Persian-language/local-market signal in public metadata' };
+  }
   const visual = /cctv|dashcam|دوربین مداربسته|دوربین ماشین|دوربین خودرو|تسلا|تصادف عجیب|لحظه برخورد|حیوانات بامزه|حیوان بامزه|گربه|سگ بامزه|oddly satisfying|without talking|no talking|wordless|nonverbal|visual comedy|instant karma|caught on camera|unexpected moments|funny animals|animal fails|optical illusion|magic trick/i;
   if (visual.test(text)) {
     return { fit: 'language_neutral_candidate', reason: 'Visual-first/camera/animal signal; speech and rights still require review' };
   }
-  if (/[پچژگکی]/.test(text) || /طنز|خنده|دوربین مخفی|شکار لحظه|سوتی|کلیپ|چالش|فان|بامزه|غافلگیر|اتفاق عجیب|ویدیو/.test(text)) {
-    return { fit: 'persian_priority', reason: 'Persian-script or Persian entertainment signal' };
+  return { fit: 'language_check_required', reason: 'Language/locality not established from public metadata' };
+}
+
+function verticalEvidence(item) {
+  const width = Number(item.video_width || item.width || 0);
+  const height = Number(item.video_height || item.height || 0);
+  if (width > 0 && height > 0) {
+    const ratio = width / height;
+    if (ratio >= 0.48 && ratio <= 0.68) return { fit: 'portrait_9_16_candidate', score: 3, ratio: Math.round(ratio * 1000) / 1000, evidence: 'source_dimensions' };
+    if (ratio < 0.48) return { fit: 'portrait_other_ratio', score: 2, ratio: Math.round(ratio * 1000) / 1000, evidence: 'source_dimensions' };
+    return { fit: 'landscape_or_square', score: 0, ratio: Math.round(ratio * 1000) / 1000, evidence: 'source_dimensions' };
   }
-  return { fit: 'language_check_required', reason: 'No reliable language-neutral signal in public metadata' };
+  if (item.is_short === true) return { fit: 'shorts_vertical_candidate', score: 2, ratio: null, evidence: 'shorts_url_or_short-form-list; not exact ratio verification' };
+  return { fit: 'unknown', score: 1, ratio: null, evidence: 'no_reliable_dimensions' };
 }
 
 function loadState() {
@@ -122,7 +144,11 @@ function scoreCandidate(item, oldMap) {
     }
   }
   const age = ageHours(item.posted_at, item.age_text);
+  const combined = [item.title, item.description, item.uploader, item.source_channel].filter(Boolean).join(' ');
   const fit = classifyFormat(item.title, item.description);
+  const vertical = verticalEvidence(item);
+  const persianSignal = /[پچژگکی]/.test(combined) || /فارسی|طنز|خنده|دوربین مخفی|سوتی|کلیپ|چالش|فان|بامزه/.test(combined);
+  const iranSignal = /ایران|ایرانی|تهران|شیراز|اصفهان|تبریز|مشهد|کرج|اهواز|رشت|کرمانشاه/.test(combined);
   item.age_hours = age === null ? null : Math.round(age * 100) / 100;
   item.views_per_hour_proxy = item.views !== null && age && age > 0
     ? Math.round(item.views / age * 10) / 10
@@ -131,18 +157,28 @@ function scoreCandidate(item, oldMap) {
   item.observed_views_per_hour = rate;
   item.format_fit = fit.fit;
   item.format_reason = fit.reason;
+  item.content_language_priority = persianSignal ? 'persian' : (fit.fit === 'language_neutral_candidate' ? 'language_neutral' : 'unknown');
+  item.content_locality = iranSignal ? 'iran_signal_in_metadata' : (item.source_platform === 'aparat' ? 'iranian_platform_not_creator_proof' : 'unconfirmed');
+  item.local_content_score = iranSignal && persianSignal ? 3 : (iranSignal || persianSignal ? 2 : 0);
+  item.vertical_fit = vertical.fit;
+  item.vertical_score = vertical.score;
+  item.source_aspect_ratio = vertical.ratio;
+  item.vertical_evidence = vertical.evidence;
+  item.target_aspect_ratio = CONTENT_POLICY.vertical_video.aspect_ratio;
   item.license_status = 'not_verified; lead_only';
+  item.republication_eligible = false;
   return item;
 }
 
 function sortCandidates(items) {
   return items.sort((a, b) => {
+    // Editorial fit outranks raw popularity: local/Persian and portrait-ready leads come first.
+    if ((b.local_content_score || 0) !== (a.local_content_score || 0)) return (b.local_content_score || 0) - (a.local_content_score || 0);
+    if ((b.vertical_score || 0) !== (a.vertical_score || 0)) return (b.vertical_score || 0) - (a.vertical_score || 0);
     const as = a.observed_views_per_hour !== null && a.observed_views_per_hour >= 100;
     const bs = b.observed_views_per_hour !== null && b.observed_views_per_hour >= 100;
     if (as !== bs) return Number(bs) - Number(as);
-    if (as && bs && a.observed_views_per_hour !== b.observed_views_per_hour) {
-      return b.observed_views_per_hour - a.observed_views_per_hour;
-    }
+    if (as && bs && a.observed_views_per_hour !== b.observed_views_per_hour) return b.observed_views_per_hour - a.observed_views_per_hour;
     const freshA = a.age_hours !== null && a.age_hours <= 48 ? 2 : a.age_hours !== null && a.age_hours <= 168 ? 1 : 0;
     const freshB = b.age_hours !== null && b.age_hours <= 48 ? 2 : b.age_hours !== null && b.age_hours <= 168 ? 1 : 0;
     if (freshA !== freshB) return freshB - freshA;
@@ -172,6 +208,9 @@ async function scrapeTelegram(browser, source) {
         const description = clean(textNode ? textNode.innerText : '');
         const videoNode = message.querySelector('video, .tgme_widget_message_video, .tgme_widget_message_video_wrap, .tgme_widget_message_roundvideo');
         if (!videoNode) return null;
+        const rawVideo = message.querySelector('video');
+        const videoWidth = Number(rawVideo && (rawVideo.videoWidth || rawVideo.getAttribute('width'))) || null;
+        const videoHeight = Number(rawVideo && (rawVideo.videoHeight || rawVideo.getAttribute('height'))) || null;
         const viewsNode = message.querySelector('.tgme_widget_message_views');
         const timeNode = message.querySelector('time[datetime]');
         const title = description.split(/\n/).map(clean).find(x => x && !/^@\w+/.test(x)) || '';
@@ -182,7 +221,10 @@ async function scrapeTelegram(browser, source) {
           description: description.slice(0, 500),
           viewsText: clean(viewsNode ? viewsNode.innerText : ''),
           postedAt: timeNode ? timeNode.getAttribute('datetime') : null,
-          durationText: clean((message.querySelector('.tgme_widget_message_video_duration') || {}).innerText || '')
+          durationText: clean((message.querySelector('.tgme_widget_message_video_duration') || {}).innerText || ''),
+          videoWidth,
+          videoHeight,
+          isVertical: videoWidth && videoHeight ? videoWidth / videoHeight <= 0.68 : null
         };
       }).filter(x => x && x.postUrl && x.title);
     });
@@ -204,6 +246,9 @@ async function scrapeTelegram(browser, source) {
         posted_at: m.postedAt,
         age_text: '',
         duration_text: m.durationText,
+        video_width: m.videoWidth,
+        video_height: m.videoHeight,
+        is_vertical: m.isVertical,
         media_type: 'video',
         license_status: 'not_verified; lead_only'
       }))
@@ -241,6 +286,10 @@ async function scrapeAparat(aparat, search) {
         age_text: '',
         duration_text: Number.isFinite(Number(item.duration)) ? String(item.duration) + 's' : '',
         duration_seconds: Number.isFinite(Number(item.duration)) ? Number(item.duration) : null,
+        video_width: Number(item.width || item.video_width) > 0 ? Number(item.width || item.video_width) : null,
+        video_height: Number(item.height || item.video_height) > 0 ? Number(item.height || item.video_height) : null,
+        is_vertical: Number(item.width || item.video_width) > 0 && Number(item.height || item.video_height) > 0
+          ? Number(item.width || item.video_width) / Number(item.height || item.video_height) <= 0.68 : null,
         thumbnail: String(item.thumbnail || ''),
         media_type: 'video',
         uploader: item.uploader && (item.uploader.username || item.uploader.name) || '',
@@ -337,6 +386,8 @@ async function scrapeYouTubeCreativeCommons(browser, search) {
         age_text: item.metadata.find(x => /ago|پیش|قبل|day|hour|week|month/i.test(x)) || '',
         duration_text: item.duration_text,
         is_short: item.is_short,
+        vertical_fit: item.is_short ? 'shorts_vertical_candidate' : 'unknown',
+        vertical_evidence: item.is_short ? 'shorts_url_candidate_not_exact_ratio' : 'no_reliable_dimensions',
         media_type: 'video',
         cc_search_filter: true,
         license_status: 'cc_search_filter_signal_only'
@@ -419,7 +470,14 @@ async function main() {
 
   const report = {
     generated_at: NOW.toISOString(),
-    note: 'Public Telegram and Aparat metadata only. No media downloaded or uploaded. Public availability and view counts do not grant redistribution rights.',
+    content_policy: {
+      language: CONTENT_POLICY.content_focus.primary_language,
+      market: CONTENT_POLICY.content_focus.primary_market,
+      target_aspect_ratio: CONTENT_POLICY.vertical_video.aspect_ratio,
+      ranking_order: CONTENT_POLICY.ranking_order,
+      rights_gate: CONTENT_POLICY.rights_gate
+    },
+    note: 'Discovery only. Persian/Iranian and source-portrait signals rank first; a Shorts URL or public card is not exact aspect-ratio proof. No media was downloaded/uploaded, and every lead remains rights-unverified unless separately cleared.',
     source_results: sourceResults,
     source_errors: errors,
     telegram_count: telegram.length,
@@ -454,12 +512,15 @@ async function main() {
   console.log('PLATFORM_SOURCE_RESULTS', JSON.stringify(sourceResults));
   console.log('PLATFORM_CANDIDATE_SUMMARY', JSON.stringify({
     telegram: telegram.length,
-    aparat: aparat.length,
+    aparat: aparatCandidates.length,
     youtube_cc: youtubeCc.length,
     cc_search_filter_signals: youtubeCc.length,
     source_errors: errors.length,
     language_neutral: all.filter(x => x.format_fit === 'language_neutral_candidate').length,
-    persian_priority: all.filter(x => x.format_fit === 'persian_priority').length
+    persian_priority: all.filter(x => x.format_fit === 'persian_priority').length,
+    vertical_candidates: all.filter(x => (x.vertical_score || 0) >= 2).length,
+    local_signals: all.filter(x => (x.local_content_score || 0) >= 2).length,
+    publishable_from_metadata_alone: 0
   }));
   for (const item of sortCandidates(all).slice(0, 20)) {
     console.log('PLATFORM_LEAD', JSON.stringify({
