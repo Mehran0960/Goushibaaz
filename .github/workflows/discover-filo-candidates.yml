@@ -7,6 +7,10 @@ on:
   push:
     paths:
       - ".github/workflows/discover-filo-candidates.yml"
+      - "scripts/platform_scout.cjs"
+      - "scripts/merge_short_candidates.cjs"
+      - "scripts/license_check.cjs"
+      - "config/content-policy.json"
 
 permissions:
   contents: write
