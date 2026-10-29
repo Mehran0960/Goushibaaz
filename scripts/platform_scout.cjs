@@ -17,7 +17,19 @@ const TELEGRAM_SOURCES = [
   { key: 'insta_cllip', url: 'https://t.me/s/insta_cllip', label: 'کلیپ جوک و خنده', kind: 'persian-comedy' },
   { key: 'funirn', url: 'https://t.me/s/funirn', label: 'کلیپ خنده دار فان ایرانی', kind: 'persian-comedy' },
   { key: 'iranJoke_ir', url: 'https://t.me/s/IranJoke_ir', label: 'لطیفه‌های ایرانی و دوربین مخفی', kind: 'persian-comedy' },
-  { key: 'trendemovies', url: 'https://t.me/s/trendemovies', label: 'کلیپ کوتاه و چالش', kind: 'persian-comedy' }
+  { key: 'trendemovies', url: 'https://t.me/s/trendemovies', label: 'کلیپ کوتاه و چالش', kind: 'persian-comedy' },
+  { key: 'funnyvideo_ir', url: 'https://t.me/s/funnyvideo_ir', label: 'کلیپ خنده دار فارسی', kind: 'persian-comedy' },
+  { key: 'clipfun', url: 'https://t.me/s/clipfun', label: 'کلیپ سرگرمی', kind: 'persian-comedy' },
+  { key: 'funnyclip', url: 'https://t.me/s/funnyclip', label: 'کلیپ طنز', kind: 'persian-comedy' },
+  { key: 'iranfun', url: 'https://t.me/s/iranfun', label: 'سرگرمی ایرانی', kind: 'persian-comedy' },
+  { key: 'hidden_camera_fa', url: 'https://t.me/s/hidden_camera_fa', label: 'دوربین مخفی فارسی', kind: 'hidden-camera' },
+  { key: 'funny_animals_fa', url: 'https://t.me/s/funny_animals_fa', label: 'حیوانات بامزه', kind: 'funny-animals' },
+  { key: 'viralclip_ir', url: 'https://t.me/s/viralclip_ir', label: 'کلیپ‌های وایرال ایرانی', kind: 'persian-comedy' },
+  { key: 'challenge_fa', url: 'https://t.me/s/challenge_fa', label: 'چالش‌های سرگرمی', kind: 'persian-comedy' },
+  { key: 'shortfun_ir', url: 'https://t.me/s/shortfun_ir', label: 'کلیپ کوتاه سرگرمی', kind: 'persian-comedy' },
+  { key: 'dubbing_fun', url: 'https://t.me/s/dubbing_fun', label: 'دوبله طنز', kind: 'persian-comedy' },
+  { key: 'iranian_memes', url: 'https://t.me/s/iranian_memes', label: 'میم و طنز ایرانی', kind: 'persian-comedy' },
+  { key: 'dailyfun_fa', url: 'https://t.me/s/dailyfun_fa', label: 'سرگرمی روزانه فارسی', kind: 'persian-comedy' }
 ];
 
 const APARAT_SEARCHES = [
