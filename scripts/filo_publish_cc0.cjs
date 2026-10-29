@@ -170,15 +170,22 @@ function commercialLicenseProfile(licenseName, licenseUrl) {
 
 function titleForCandidate(candidate) {
   const text = (candidate.fileTitle + ' ' + candidate.description).toLowerCase();
-  if (/\b(cat|cats|kitten|kittens|feline)\b|گربه/.test(text)) return 'لحظه‌ای غیرمنتظره از دنیای گربه‌ها 😹';
-  if (/\b(dog|dogs|puppy|puppies)\b|سگ/.test(text)) return 'یک حرکت بامزه از دنیای سگ‌ها 🐶';
-  if (/\b(bird|birds|parrot|parrots|pigeon)\b|پرنده/.test(text)) return 'لحظه‌ای تماشایی از دنیای پرندگان 🐦';
-  if (/\b(mouse|mice|hamster|hamsters|gerbil|gerbils)\b/.test(text)) return 'لحظه‌های بامزه از دنیای موش‌های خانگی 🐭';
-  if (/\b(squirrel|squirrels|monkey|monkeys|rabbit|rabbits)\b/.test(text)) return 'رفتار جالب یک حیوان در چند ثانیه 🐾';
+  if (/\\b(cat|cats|kitten|kittens|feline)\\b|گربه/.test(text)) return 'لحظه‌ای غیرمنتظره از دنیای گربه‌ها 😹';
+  if (/\\b(dog|dogs|puppy|puppies)\\b|سگ/.test(text)) return 'یک حرکت بامزه از دنیای سگ‌ها 🐶';
+  if (/\\b(bird|birds|parrot|parrots|pigeon)\\b|پرنده/.test(text)) return 'لحظه‌ای تماشایی از دنیای پرندگان 🐦';
+  if (/\\b(mouse|mice|hamster|hamsters|gerbil|gerbils)\\b/.test(text)) return 'لحظه‌های بامزه از دنیای موش‌های خانگی 🐭';
+  if (/\\b(squirrel|squirrels|monkey|monkeys|rabbit|rabbits)\\b/.test(text)) return 'رفتار جالب یک حیوان در چند ثانیه 🐾';
+  if (/\\b(football|soccer|basketball|trick shot|parkour|freestyle|sports? skill|goal|dunk)\\b|فوتبال|بسکتبال|ورزش|دریبل|حرکت نمایشی/.test(text)) return 'یک مهارت ورزشی دیدنی در چند ثانیه 🏆';
+  if (/\\b(science experiment|invention|technology demo|optical illusion|brain teaser|puzzle)\\b|آزمایش علمی|اختراع|فناوری|خطای دید|معما/.test(text)) return 'این آزمایش یا خطای دید رو ببین! 🧠';
+  if (/\\b(oddly satisfying|satisfying|restoration|woodworking|pottery|craft|miniature|before and after|transformation)\\b|رضایت.?بخش|کاردستی|نجاری|سفال|مرمت|بازسازی|قبل و بعد/.test(text)) return 'یک تغییر یا ساختنی رضایت‌بخش ✨';
+  if (/\\b(cooking|recipe|food art|food hack|kitchen|baking|street food)\\b|آشپزی|غذا|خوراکی|شیرینی|آشپزخانه/.test(text)) return 'یک ایده جالب از دنیای غذا 🍳';
+  if (/\\b(magic|dancing|dance|music performance|musician|singing|instrument|juggling)\\b|شعبده|جادو|رقص|نوازندگی|موسیقی|خوانندگی|آکروبات/.test(text)) return 'یک اجرای دیدنی و متفاوت 🎭';
+  if (/\\b(nature|landscape|weather phenomenon|ocean|volcano|waterfall|space footage)\\b|طبیعت|آبشار|اقیانوس|پدیده جوی|آتشفشان|منظره|فضا/.test(text)) return 'یک لحظه تماشایی از طبیعت 🌍';
+  if (/\\b(travel|tourism|street life|local culture|traditional|architecture)\\b|سفر|گردشگری|فرهنگ|سنتی|معماری|ایرانگردی/.test(text)) return 'یک گوشه دیدنی از دنیا 🌎';
+  if (/hidden camera|prank|comedy|humou?r|funny|reaction|meme|sketch|fail|sorprise|unexpected|چالش|طنز|خنده|بامزه|سوتی|دوربین مخفی|واکنش/.test(text)) return 'یک کلیپ سرگرم‌کننده که ارزش دیدن داره 😄';
   if (/iranian|tehran|shiraz|ایران|ایرانی|تهران|شیراز|اصفهان/.test(text)) return 'یه لحظه دیدنی از ایران 🇮🇷';
-  if (/persian|farsi|فارسی|طنز|خنده|دوربین مخفی|سوتی/.test(text)) return 'یه کلیپ فارسی که ارزش دیدن داره 😄';
-  if (/\b(caught on camera|surprise|jumpscare|unexpected|funny|playful|playing|fail)\b/.test(text)) return 'یک لحظه غیرمنتظره که ارزش دیدن دارد 😮';
-  return 'لحظه‌ای دیدنی از دنیای حیوانات 🐾';
+  if (/\\b(caught on camera|surprise|jumpscare|unexpected|funny|playful|playing|fail)\\b/.test(text)) return 'یک لحظه غیرمنتظره که ارزش دیدن دارد 😮';
+  return 'یک ویدئوی کوتاه و جالب 🎬';
 }
 
 function descriptionForCandidate(candidate) {
@@ -188,7 +195,7 @@ function descriptionForCandidate(candidate) {
     : CC0_LICENSE_URL);
   const changeNote = 'تغییرات: تبدیل به قالب عمودی ۹:۱۶، برش/مقیاس‌دهی تصویر و فشرده‌سازی برای انتشار.';
   return [
-    'یک ویدئوی کوتاه و تصویری؛ بدون نیاز به زبان 🐾',
+    'یک ویدئوی کوتاه و منتخب از محتوای سرگرمی',
     '',
     'منبع: ' + candidate.fileTitle.replace(/^File:/i, ''),
     'پدیدآورنده: ' + (candidate.author || 'طبق اطلاعات صفحهٔ منبع'),
