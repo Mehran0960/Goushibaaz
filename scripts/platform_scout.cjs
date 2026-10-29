@@ -29,7 +29,17 @@ const TELEGRAM_SOURCES = [
   { key: 'shortfun_ir', url: 'https://t.me/s/shortfun_ir', label: 'کلیپ کوتاه سرگرمی', kind: 'persian-comedy' },
   { key: 'dubbing_fun', url: 'https://t.me/s/dubbing_fun', label: 'دوبله طنز', kind: 'persian-comedy' },
   { key: 'iranian_memes', url: 'https://t.me/s/iranian_memes', label: 'میم و طنز ایرانی', kind: 'persian-comedy' },
-  { key: 'dailyfun_fa', url: 'https://t.me/s/dailyfun_fa', label: 'سرگرمی روزانه فارسی', kind: 'persian-comedy' }
+  { key: 'dailyfun_fa', url: 'https://t.me/s/dailyfun_fa', label: 'سرگرمی روزانه فارسی', kind: 'persian-comedy' },
+  // Additional high-interest Persian entertainment feeds mirrored from TrendsUpLoader's source research.
+  { key: 'gizmiztel', url: 'https://t.me/s/gizmiztel', label: 'گلچین کلیپ‌های وایرال فارسی', kind: 'persian-comedy' },
+  { key: 'regaplus', url: 'https://t.me/s/regaplus', label: 'کلیپ‌های سرگرمی پرطرفدار', kind: 'persian-comedy' },
+  { key: 'insta_clip85', url: 'https://t.me/s/insta_clip85', label: 'کلیپ‌های کوتاه سرگرمی', kind: 'persian-comedy' },
+  { key: 'comedi', url: 'https://t.me/s/comedi', label: 'طنز و لحظات خنده‌دار', kind: 'persian-comedy' },
+  { key: 'khandehabadd', url: 'https://t.me/s/khandehabadd', label: 'خنده و سرگرمی فارسی', kind: 'persian-comedy' },
+  { key: 'vaybabamumad', url: 'https://t.me/s/vaybabamumad', label: 'کلیپ‌های غافلگیرکننده', kind: 'persian-comedy' },
+  { key: 'bikhiyalbaba', url: 'https://t.me/s/bikhiyalbaba', label: 'سرگرمی و طنز کوتاه', kind: 'persian-comedy' },
+  { key: 'kafeh_khande', url: 'https://t.me/s/kafeh_khande', label: 'طنز و خنده فارسی', kind: 'persian-comedy' },
+  { key: 'pishiha', url: 'https://t.me/s/pishiha', label: 'ویدئوهای گربه و حیوانات بامزه', kind: 'funny-animals' }
 ];
 
 const APARAT_SEARCHES = [
