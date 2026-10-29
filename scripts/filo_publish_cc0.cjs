@@ -131,10 +131,17 @@ function parsedDurationSeconds(info) {
   return null;
 }
 
+function isExcludedEditorialContent(text) {
+  // Do not mistake Iranian/political event footage for entertainment just because a place name appears.
+  return /\b(protests?|protesters?|demonstrations?|riot|riots|war|missile|military|army|weapon|weapons|election|politics|political|parliament|government|police crackdown)\b|اعتراضات?|تظاهرات|اغتشاش|جنگ|موشک|پهپاد|بمب|نظامی|تسلیحات|سلاح|انتخابات|سیاست|سیاسی|مجلس|دولت|درگیری|سرکوب/.test(String(text || '').toLowerCase());
+}
+
 function classifyCandidate(candidate) {
   const text = (candidate.fileTitle + ' ' + candidate.description).toLowerCase();
-  if (/\b(cat|cats|kitten|kittens|feline|dog|dogs|puppy|puppies|pet|pets|bird|birds|parrot|pigeon|squirrel|monkey|rabbit|animal|wildlife)\b|گربه|سگ|حیوان|پرنده/.test(text)) return true;
-  return /caught on camera|jumpscare|unexpected|surprise|funny|playful|playing|fail|visual comedy|oddly satisfying|persian|farsi|iranian|tehran|shiraz|iran|فارسی|ایرانی|ایران|تهران|شیراز|طنز|خنده|دوربین مخفی|سوتی/.test(text);
+  if (isExcludedEditorialContent(text)) return false;
+  const topical = /\b(cat|cats|kitten|kittens|feline|dog|dogs|puppy|puppies|pet|pets|bird|birds|parrot|pigeon|squirrel|monkey|rabbit|animal|wildlife|funny|unexpected|surprise|caught on camera|playing|playful|fail|visual comedy|oddly satisfying|hidden camera|prank|comedy|comedic|humor|funny moments)\b|گربه|سگ|حیوان|پرنده|بامزه|طنز|خنده|دوربین مخفی|سوتی|پرنک|چالش/.test(text);
+  const localLanguage = /persian|farsi|فارسی|ایرانی|ایران|تهران|شیراز|اصفهان/.test(text);
+  return topical && (localLanguage || topical);
 }
 
 function candidateContentPriority(candidate) {
@@ -201,6 +208,8 @@ async function discoverCommercialCandidates(state) {
       const description = plainMetadata(meta.ImageDescription && meta.ImageDescription.value);
       const author = plainMetadata(meta.Artist && meta.Artist.value);
       const fileTitle = String(page.title || '');
+      const editorialText = (fileTitle + ' ' + description).toLowerCase();
+      if (isExcludedEditorialContent(editorialText)) continue;
       const sourcePage = info.descriptionurl || ('https://commons.wikimedia.org/wiki/' + encodeURIComponent(fileTitle.replace(/ /g, '_')));
       if (used.has(sourcePage) || !classifyCandidate({ fileTitle, description })) continue;
       const duration = parsedDurationSeconds(info);
