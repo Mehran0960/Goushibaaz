@@ -6,6 +6,8 @@ on:
     paths:
       - ".github/workflows/validate-filo-publisher.yml"
       - "scripts/filo_publish_cc0.cjs"
+      - "scripts/platform_scout.cjs"
+      - ".github/workflows/discover-filo-candidates.yml"
 
 permissions:
   contents: read
