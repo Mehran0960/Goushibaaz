@@ -47,6 +47,12 @@ const APARAT_SEARCHES = [
   { key: 'short-science', query: 'آزمایش علمی جالب کوتاه' }
 ];
 
+const TELEGRAM_DIRECTORY_SEARCHES = [
+  { key: 'socialbook-comedy', url: 'https://t.me/s/socialbook_ir?q=%23%D8%B7%D9%86%D8%B2' },
+  { key: 'socialbook-entertainment', url: 'https://t.me/s/socialbook_ir?q=%23%D8%B3%D8%B1%DA%AF%D8%B1%D9%85%DB%8C' },
+  { key: 'socialbook-video', url: 'https://t.me/s/socialbook_ir?q=%23%D9%88%DB%8C%D8%AF%DB%8C%D9%88' }
+];
+
 const YOUTUBE_CC_SEARCHES = [
   { key: 'fa-iranian-comedy', query: 'طنز ایرانی کوتاه' },
   { key: 'fa-iranian-viral', query: 'کلیپ وایرال ایرانی' },
@@ -222,6 +228,90 @@ function sortCandidates(items) {
     if (fitA !== fitB) return fitB - fitA;
     return (b.views_per_hour_proxy || -1) - (a.views_per_hour_proxy || -1);
   });
+}
+
+async function discoverTelegramSources(browser) {
+  const found = new Map();
+  const exclude = new Set([
+    's', 'joinchat', 'addstickers', 'share', 'proxy', 'iv', 'c', 'login', 'setlanguage',
+    'blog', 'faq', 'apps', 'privacy', 'tos', 'jobs', 'confirmphone', 'switchinline',
+    'socialbook_ir', 'telegram', 'telegramtips', 'durov', 'premiumbot'
+  ]);
+  const relevant = /طنز|سرگرمی|خنده|ویدیو|کلیپ|فان|چالش|دوربین.?مخفی|حیوان|گربه|سگ|بامزه|کمدی|prank|funny|comedy|entertainment/i;
+  const queue = [...TELEGRAM_DIRECTORY_SEARCHES];
+  const outputs = [];
+  async function worker() {
+    while (queue.length) {
+      const directory = queue.shift();
+      if (!directory) continue;
+      const page = await browser.newPage({ locale: 'fa-IR' });
+      page.setDefaultTimeout(8000);
+      try {
+        await page.goto(directory.url, { waitUntil: 'domcontentloaded', timeout: 15000 });
+        await page.waitForSelector('.tgme_widget_message_wrap', { timeout: 6000 }).catch(() => {});
+        const items = await page.evaluate(() => {
+          const clean = value => String(value || '').replace(/\\s+/g, ' ').trim();
+          const wraps = [...document.querySelectorAll('.tgme_widget_message_wrap')];
+          const rows = [];
+          for (const wrap of wraps) {
+            const message = wrap.querySelector('.tgme_widget_message');
+            if (!message) continue;
+            const body = clean((message.querySelector('.tgme_widget_message_text') || {}).innerText);
+            const links = [...message.querySelectorAll('a[href]')].map(a => ({ href: a.href, label: clean(a.innerText || a.getAttribute('aria-label') || '') }));
+            rows.push({ body: body.slice(0, 900), links });
+          }
+          return rows;
+        });
+        for (const row of items) {
+          if (!relevant.test(row.body || '')) continue;
+          for (const link of row.links || []) {
+            let url;
+            try { url = new URL(link.href); } catch { continue; }
+            if (!/^(?:www\\.)?t\\.me$/i.test(url.hostname)) continue;
+            const parts = url.pathname.split('/').filter(Boolean);
+            if (!parts.length) continue;
+            let username = parts[0] === 's' ? parts[1] : parts[0];
+            if (!username || !/^[A-Za-z0-9_]{4,32}$/.test(username) || exclude.has(username.toLowerCase())) continue;
+            if (/^\d+$/.test(username) || username.startsWith('+')) continue;
+            if (!found.has(username.toLowerCase())) {
+              found.set(username.toLowerCase(), {
+                key: 'directory-' + username,
+                url: 'https://t.me/s/' + username,
+                label: cleanText(link.label || username),
+                kind: 'directory-discovered',
+                directory_source: directory.key,
+                directory_context: row.body.slice(0, 240)
+              });
+            }
+          }
+        }
+        outputs.push({ source: directory.key, status: 'ok', discovered_links: found.size });
+      } catch (error) {
+        outputs.push({ source: directory.key, status: 'error', error_kind: String(error && error.name || 'Error').slice(0, 60) });
+      } finally {
+        await page.close().catch(() => {});
+      }
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(3, queue.length) }, () => worker()));
+  const existing = new Set(TELEGRAM_SOURCES.map(item => item.key.toLowerCase()));
+  const dynamic = [...found.values()]
+    .filter(item => !existing.has(item.key.replace(/^directory-/, '').toLowerCase()))
+    .slice(0, 24)
+    .map(item => ({
+      key: item.key,
+      url: item.url,
+      label: item.label,
+      kind: item.kind,
+      discovery_source: item.directory_source
+    }));
+  console.log('TELEGRAM_DIRECTORY_DISCOVERY', JSON.stringify({
+    directory_pages: TELEGRAM_DIRECTORY_SEARCHES.length,
+    directory_results: outputs,
+    dynamic_channels_found: found.size,
+    dynamic_channels_scanned: dynamic.length
+  }));
+  return dynamic;
 }
 
 async function scrapeTelegram(browser, source) {
@@ -444,9 +534,17 @@ async function main() {
   state.youtube_cc ||= {};
 
   const browser = await chromium.launch({ headless: true });
+  const dynamicTelegramSources = await discoverTelegramSources(browser);
+  const telegramSources = [...TELEGRAM_SOURCES, ...dynamicTelegramSources];
   const aparat = new Aparat();
+  console.log('PLATFORM_DISCOVERY_SOURCE_COUNTS', JSON.stringify({
+    telegram_fixed: TELEGRAM_SOURCES.length,
+    telegram_directory_discovered: dynamicTelegramSources.length,
+    aparat_searches: APARAT_SEARCHES.length,
+    youtube_cc_searches: YOUTUBE_CC_SEARCHES.length
+  }));
   const pages = await Promise.all([
-    ...TELEGRAM_SOURCES.map(source => scrapeTelegram(browser, source)),
+    ...telegramSources.map(source => scrapeTelegram(browser, source)),
     ...APARAT_SEARCHES.map(search => scrapeAparat(aparat, search)),
     ...YOUTUBE_CC_SEARCHES.map(search => scrapeYouTubeCreativeCommons(browser, search))
   ]);
