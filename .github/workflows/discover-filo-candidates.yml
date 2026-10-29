@@ -206,7 +206,7 @@ jobs:
               if not short_id(vid) or not title:
                   continue
               # This is an entertainment-focused scout; skip politics, ethnicity, and overtly violent headlines.
-              excluded_topic = re.compile(r"توافق|جنگ|سیاست|سیاسی|انتخابات|قومیت|نژاد|خامنه|ترور|اعدام|قتل|اسلحه|سلاح|اختلاس|فساد|انقلاب|حمله به صنعت رپ", re.I)
+              excluded_topic = re.compile(r"توافق|جنگ|سیاست|سیاسی|انتخابات|قومیت|نژاد|خامنه|ترور|اعدام|قتل|اسلحه|سلاح|موشک|سجیل|پهپاد|بمب|نظامی|تسلیحاتی|حمله|درگیری|اختلاس|فساد|انقلاب|حمله به صنعت رپ", re.I)
               if excluded_topic.search(title):
                   continue
               card_text = norm(item.get("card_text"))
