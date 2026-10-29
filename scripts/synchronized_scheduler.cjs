@@ -123,7 +123,7 @@ function outcomeFresh(outcome, now) {
   return Number.isFinite(age) && age <= now && now - age <= OUTCOME_FRESH_MS;
 }
 
-function intervalForPressure({ accountActive, recentRuns, remaining, outcomesComplete, outcomes, budgetedPlatforms }) {
+function intervalForPressure({ accountActive, recentRuns, remaining, outcomes, budgetedPlatforms }) {
   let floor = 7;
   // Conservative estimate against the lowest standard GitHub-hosted runner concurrency tier.
   const projectedConcurrency = accountActive + ACTIVE_PLATFORMS.length + FUTURE_PLATFORM_RESERVE;
@@ -134,11 +134,11 @@ function intervalForPressure({ accountActive, recentRuns, remaining, outcomesCom
   else if (projectedConcurrency >= 8) floor = Math.max(floor, 17);
 
   // Recent runs are a pressure signal, not a claim about exact billing or remaining minutes.
-  if (recentRuns >= 90) floor = Math.max(floor, 97);
-  else if (recentRuns >= 70) floor = Math.max(floor, 57);
-  else if (recentRuns >= 50) floor = Math.max(floor, 37);
-  else if (recentRuns >= 30) floor = Math.max(floor, 27);
-  else if (recentRuns >= 18) floor = Math.max(floor, 17);
+  if (recentRuns >= 400) floor = Math.max(floor, 97);
+  else if (recentRuns >= 300) floor = Math.max(floor, 57);
+  else if (recentRuns >= 200) floor = Math.max(floor, 37);
+  else if (recentRuns >= 140) floor = Math.max(floor, 27);
+  else if (recentRuns >= 100) floor = Math.max(floor, 17);
 
   // GITHUB_TOKEN's actual response headers are authoritative for this repository's API quota.
   if (remaining !== null) {
@@ -149,7 +149,6 @@ function intervalForPressure({ accountActive, recentRuns, remaining, outcomesCom
     else if (remaining <= 400) floor = Math.max(floor, 27);
     else if (remaining <= 600) floor = Math.max(floor, 17);
   }
-  if (!outcomesComplete) floor = Math.max(floor, 17);
 
   const fresh = outcomes.filter(x => outcomeFresh(x, Date.now()));
   const noCandidates = fresh.filter(x => x.status === 'no_eligible_candidate').length;
@@ -219,7 +218,6 @@ async function readOnlyDiagnostics(now) {
     accountActive,
     recentRuns,
     remaining: Number.isFinite(remaining) ? remaining : null,
-    outcomesComplete: outcomeResults.every(Boolean),
     outcomes: outcomeResults.filter(Boolean),
     budgetedPlatforms: ACTIVE_PLATFORMS.length + FUTURE_PLATFORM_RESERVE
   });
@@ -317,12 +315,10 @@ async function main() {
   const recentRuns = observedRecentRuns + (externalComplete ? 0 : 30);
 
   const outcomeResults = await Promise.all(ACTIVE_PLATFORMS.map(p => readOutcome(p.stateFile)));
-  const outcomesComplete = outcomeResults.every(Boolean);
   const cadence = intervalForPressure({
     accountActive,
     recentRuns,
     remaining: Number.isFinite(remaining) ? remaining : null,
-    outcomesComplete,
     outcomes: outcomeResults.filter(Boolean),
     budgetedPlatforms
   });
