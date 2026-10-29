@@ -194,8 +194,64 @@ async function dispatchOne(platform) {
   }
 }
 
+async function readOnlyDiagnostics(now) {
+  const runsResponse = await api('https://api.github.com/repos/' + CURRENT_REPO + '/actions/runs?per_page=100');
+  const remainingHeader = runsResponse.headers.get('x-ratelimit-remaining');
+  const remaining = remainingHeader === null ? null : Number(remainingHeader);
+  if (!runsResponse.ok) {
+    log('SCHEDULER_DRY_RUN_FAILED', { phase: 'current_repo_runs', status: runsResponse.status, remaining });
+    return;
+  }
+  const currentPayload = await runsResponse.json();
+  const currentRuns = currentPayload.workflow_runs || [];
+  const externalResults = await Promise.all(OTHER_PUBLIC_REPOS.map(publicRuns));
+  const externalComplete = externalResults.every(x => x.ok);
+  const allObservedRuns = [...currentRuns, ...externalResults.flatMap(x => x.runs)];
+  const observedActive = allObservedRuns.filter(run => ['queued', 'in_progress'].includes(run.status)).length;
+  const observedRecentRuns = allObservedRuns.filter(run => {
+    const created = Date.parse(run.created_at || '');
+    return Number.isFinite(created) && created >= now - RECENT_WINDOW_MS;
+  }).length;
+  const accountActive = observedActive + (externalComplete ? 0 : 6);
+  const recentRuns = observedRecentRuns + (externalComplete ? 0 : 30);
+  const outcomeResults = await Promise.all(ACTIVE_PLATFORMS.map(p => readOutcome(p.stateFile)));
+  const cadence = intervalForPressure({
+    accountActive,
+    recentRuns,
+    remaining: Number.isFinite(remaining) ? remaining : null,
+    outcomesComplete: outcomeResults.every(Boolean),
+    outcomes: outcomeResults.filter(Boolean),
+    budgetedPlatforms: ACTIVE_PLATFORMS.length + FUTURE_PLATFORM_RESERVE
+  });
+  const publishersActive = currentRuns.filter(run =>
+    ACTIVE_PLATFORMS.some(p => run.path === '.github/workflows/' + p.workflow) &&
+    ['queued', 'in_progress'].includes(run.status)
+  );
+  log('SCHEDULER_READ_ONLY_DIAGNOSTICS', {
+    dispatchPerformed: false,
+    activePublisherRuns: publishersActive.map(run => ({ id: run.id, path: run.path, status: run.status })),
+    accountLoad: { activeRuns: accountActive, recentRunsLastHour: recentRuns, externalMetricsComplete: externalComplete },
+    apiQuota: { remaining, limit: runsResponse.headers.get('x-ratelimit-limit'), reset: runsResponse.headers.get('x-ratelimit-reset') },
+    availabilityOutcomes: outcomeResults.map((outcome, i) => ({
+      platform: ACTIVE_PLATFORMS[i].key,
+      status: outcome && outcome.status || 'unknown',
+      checkedAt: outcome && outcome.checkedAt || null
+    })),
+    chosenIntervalMinutes: Math.max(cadence.selected, externalComplete ? 7 : 27),
+    dailyStartCap: MAX_DESTINATION_STARTS_PER_UTC_DAY,
+    budgetedPlatformsIncludingFutureReserve: ACTIVE_PLATFORMS.length + FUTURE_PLATFORM_RESERVE,
+    projectedDailyStartsAtSelectedInterval: cadence.projectedStartsAtSelected
+  });
+}
+
 async function main() {
   const now = Date.now();
+  if (process.env.GITHUB_EVENT_NAME !== 'schedule') {
+    await readOnlyDiagnostics(now);
+    output('state_changed', 'false');
+    log('SCHEDULER_NOOP', { reason: 'manual and push events are diagnostics only; no platforms were dispatched' });
+    return;
+  }
   fs.mkdirSync(STATE_DIR, { recursive: true });
   let state;
   try { state = JSON.parse(fs.readFileSync(STATE_PATH, 'utf8')); } catch { state = freshState(now); }
@@ -203,11 +259,6 @@ async function main() {
   state = normalizeState(state, now);
   let changed = oldDay !== state.utcDay || !fs.existsSync(STATE_PATH);
 
-  if (process.env.GITHUB_EVENT_NAME !== 'schedule') {
-    log('SCHEDULER_NOOP', { reason: 'manual run is read-only; cron owns the cadence' });
-    if (changed) await persist(state, true); else output('state_changed', 'false');
-    return;
-  }
   if (state.nextDueAt && Number.isFinite(Date.parse(state.nextDueAt)) && now < Date.parse(state.nextDueAt)) {
     log('SCHEDULER_NOT_DUE', { now: iso(now), nextDueAt: state.nextDueAt, daily: state.daily });
     if (changed) await persist(state, true); else output('state_changed', 'false');
