@@ -7,7 +7,7 @@ on:
     # Rubika: every 30 minutes, staggered 15 minutes after Filo.
     - cron: "22,52 * * * *"
     # Temporary no-upload schedule smoke test; remove after the next tick.
-    - cron: "*/5 * * * *"
+    - cron: "4/5 * * * *"
 
 permissions:
   actions: write
@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   schedule-smoke:
-    if: github.event.schedule == '*/5 * * * *'
+    if: github.event.schedule == '4/5 * * * *'
     runs-on: ubuntu-latest
     timeout-minutes: 1
     steps:
