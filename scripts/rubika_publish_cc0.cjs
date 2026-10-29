@@ -387,6 +387,8 @@ async function main() {
 
   const candidates = await discoverCandidates(state);
   if (!candidates.length) {
+    state.lastOutcome = { status: 'no_eligible_candidate', checkedAt: new Date().toISOString() };
+    persistState(state);
     console.log('RUBIKA_PUBLISH_RESULT', JSON.stringify({ status: 'no_eligible_candidate', dryRun: DRY_RUN }));
     return;
   }
@@ -404,6 +406,8 @@ async function main() {
     }
   }
   if (!candidate) {
+    state.lastOutcome = { status: 'no_eligible_candidate', checkedAt: new Date().toISOString() };
+    persistState(state);
     console.log('RUBIKA_PUBLISH_RESULT', JSON.stringify({
       status: 'no_eligible_candidate', dryRun: DRY_RUN, candidatesChecked: Math.min(candidates.length, 8),
       preparationFailures: failures
@@ -411,6 +415,8 @@ async function main() {
     return;
   }
 
+  state.lastOutcome = { status: 'candidate_ready', checkedAt: new Date().toISOString(), sourcePage: candidate.sourcePage };
+  persistState(state);
   const converted = convertPortrait();
   const resultSummary = {
     title: candidate.title,
@@ -428,6 +434,8 @@ async function main() {
     durationSeconds: sourceInfo.durationSeconds
   };
   if (DRY_RUN) {
+    state.lastOutcome = { status: 'dry_run_ready_no_post_sent', checkedAt: new Date().toISOString(), sourcePage: candidate.sourcePage };
+    persistState(state);
     console.log('RUBIKA_PUBLISH_RESULT', JSON.stringify({
       status: 'dry_run_ready_no_post_sent', dryRun: true, ...resultSummary
     }));
@@ -450,6 +458,7 @@ async function main() {
     entry.status = 'upload_failed_retryable';
     entry.uploadFailure = String(error && error.message || error).replace(/\s+/g, ' ').slice(0, 180);
     entry.failedAt = new Date().toISOString();
+    state.lastOutcome = { status: 'upload_failed_retryable', checkedAt: entry.failedAt, sourcePage: entry.sourcePage };
     persistState(state);
     throw error;
   }
@@ -474,6 +483,7 @@ async function main() {
   entry.status = 'published';
   entry.messageId = String(messageId);
   entry.publishedAt = new Date().toISOString();
+  state.lastOutcome = { status: 'published', checkedAt: entry.publishedAt, sourcePage: entry.sourcePage, messageId: entry.messageId };
   persistState(state);
   console.log('RUBIKA_PUBLISH_RESULT', JSON.stringify({
     status: entry.status, messageId: entry.messageId, title: entry.title,
