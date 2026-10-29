@@ -23,8 +23,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate JavaScript syntax
-        run: node --check scripts/filo_publish_cc0.cjs
+      - name: Validate JavaScript syntax for all discovery and publisher scripts
+        run: |
+          node --check scripts/filo_publish_cc0.cjs
+          node --check scripts/rubika_publish_cc0.cjs
+          node --check scripts/platform_scout.cjs
+          node --check scripts/license_check.cjs
+          node --check scripts/merge_short_candidates.cjs
+          node -e "const p=require('./config/content-policy.json'); if(p.vertical_video.aspect_ratio!=='9:16'||p.vertical_video.output_width!==1080||p.vertical_video.output_height!==1920) process.exit(1)"
       - name: Test public commercial-license video discovery (no upload)
         run: |
           node <<'NODE'
