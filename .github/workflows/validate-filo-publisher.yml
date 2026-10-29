@@ -43,7 +43,7 @@ jobs:
           node --check scripts/platform_scout.cjs
           node --check scripts/license_check.cjs
           node --check scripts/merge_short_candidates.cjs
-          grep -Fq '    - cron: "3-58/5 * * * *"' .github/workflows/dispatch-short-publishers.yml
+          grep -Fq '    - cron: "*/5 * * * *"' .github/workflows/dispatch-short-publishers.yml
           grep -Fq 'const INTERVALS = [7, 17, 27, 37, 47, 57, 77, 97' scripts/synchronized_scheduler.cjs
           grep -Fq 'const MAX_DESTINATION_STARTS_PER_UTC_DAY = 900;' scripts/synchronized_scheduler.cjs
           grep -Fq 'const FUTURE_PLATFORM_RESERVE = 2;' scripts/synchronized_scheduler.cjs
