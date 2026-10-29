@@ -145,9 +145,7 @@ const APARAT_SEARCHES = [
 const TELEGRAM_DIRECTORY_SEARCHES = [
   { key: 'socialbook-comedy', url: 'https://t.me/s/socialbook_ir?q=%23%D8%B7%D9%86%D8%B2' },
   { key: 'socialbook-entertainment', url: 'https://t.me/s/socialbook_ir?q=%23%D8%B3%D8%B1%DA%AF%D8%B1%D9%85%DB%8C' },
-  { key: 'socialbook-video', url: 'https://t.me/s/socialbook_ir?q=%23%D9%88%DB%8C%D8%AF%DB%8C%D9%88' }
-
-  ,
+  { key: 'socialbook-video', url: 'https://t.me/s/socialbook_ir?q=%23%D9%88%DB%8C%D8%AF%DB%8C%D9%88' },
   { key: 'socialbook-fun', url: 'https://t.me/s/socialbook_ir?q=%23%D9%81%D8%A7%D9%86' },
   { key: 'socialbook-comedy-short', url: 'https://t.me/s/socialbook_ir?q=%23%DA%A9%D9%84%DB%8C%D9%BE_%D8%B7%D9%86%D8%B2' },
   { key: 'socialbook-hidden-camera', url: 'https://t.me/s/socialbook_ir?q=%23%D8%AF%D9%88%D8%B1%D8%A8%DB%8C%D9%86_%D9%85%D8%AE%D9%81%DB%8C' },
