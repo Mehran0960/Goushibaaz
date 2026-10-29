@@ -223,9 +223,11 @@ async function discoverCandidates(state) {
         sourceWidth: Number(info.width) > 0 ? Number(info.width) : null,
         sourceHeight: Number(info.height) > 0 ? Number(info.height) : null,
         sourceAspectRatio: Number(info.width) > 0 && Number(info.height) > 0
-          ? Math.round((Number(info.width) / Number(info.height)) * 1000) / 1000 : null
+          ? Math.round((Number(info.width) / Number(info.height)) * 1000) / 1000 : null,
+        discoveryQuery: search.key,
+        localPriorityQuery: Boolean(search.localPriority)
       };
-      candidate.contentLocaleScore = candidateContentPriority(candidate);
+      candidate.contentLocaleScore = Math.max(candidateContentPriority(candidate), search.localPriority ? 1 : 0);
       candidate.sourceVerticalScore = sourceVerticalScore(candidate.sourceWidth, candidate.sourceHeight);
       candidate.title = persianTitle(fileTitle, description);
       const previousCandidate = hits.get(sourcePage);
