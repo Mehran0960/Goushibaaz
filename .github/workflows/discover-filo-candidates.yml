@@ -81,7 +81,9 @@ jobs:
               'https://mediafarsi.com/top-youtubers',
               'https://mediafarsi.com/most-viewed',
               'https://mediafarsi.com/new-channels',
-              'https://mediafarsi.com/persian-youtube-statistics'
+              'https://mediafarsi.com/persian-youtube-statistics',
+              'https://mediafarsi.com/sitemap.xml',
+              'https://mediafarsi.com/sitemap_index.xml'
             ];
             const browser = await chromium.launch({headless:true});
             const context = await browser.newContext({
@@ -108,27 +110,41 @@ jobs:
                   const clean = s => (s || '').replace(/\s+/g,' ').trim();
                   const channelLinks = [];
                   const categoryLinks = [];
+                  const sitemapLinks = [];
                   const seenChannels = new Set();
                   const seenCategories = new Set();
-                  for (const a of document.querySelectorAll('a[href]')) {
+                  const seenSitemaps = new Set();
+                  function collectUrl(rawUrl, label, context) {
                     let u;
-                    try { u = new URL(a.href, location.origin); } catch { continue; }
-                    if (u.hostname !== 'mediafarsi.com' && u.hostname !== 'www.mediafarsi.com') continue;
+                    try { u = new URL(rawUrl, location.origin); } catch { return; }
+                    if (u.hostname !== 'mediafarsi.com' && u.hostname !== 'www.mediafarsi.com') return;
                     const href = u.pathname.replace(/\/$/,'');
-                    const label = clean(a.innerText || a.getAttribute('aria-label') || (a.querySelector('img') || {}).alt || '');
-                    const card = a.closest('tr, article, li, [class*="card"], [class*="item"]') || a.parentElement?.parentElement || a;
-                    const context = clean(card.innerText || label).slice(0,800);
+                    const cleanLabel = clean(label || href.split('/').filter(Boolean).pop() || '');
+                    const cleanContext = clean(context || cleanLabel).slice(0,800);
                     const match = href.match(/^\/channel\/([A-Za-z0-9_-]+)$/i);
                     if (match && !seenChannels.has(match[1].toLowerCase())) {
                       seenChannels.add(match[1].toLowerCase());
-                      channelLinks.push({key:match[1], base:'https://mediafarsi.com'+href, label, context, language:'persian', indexPage:location.href});
+                      channelLinks.push({key:match[1], base:'https://mediafarsi.com'+href, label:cleanLabel, context:cleanContext, language:'persian', indexPage:location.href});
                     }
-                    if (/^\/(?:categories?|category)\//i.test(href) && !seenCategories.has(href)) {
-                      seenCategories.add(href);
-                      categoryLinks.push({url:'https://mediafarsi.com'+href, label, context});
+                    if (/^\/(?:categories?|category)\//i.test(href) || /category|categories/i.test(u.search)) {
+                      if (!seenCategories.has(u.toString())) {
+                        seenCategories.add(u.toString());
+                        categoryLinks.push({url:u.toString(), label:cleanLabel, context:cleanContext});
+                      }
+                    }
+                    if (/sitemap[^/]*\.xml$/i.test(u.pathname) && u.toString() !== location.href && !seenSitemaps.has(u.toString())) {
+                      seenSitemaps.add(u.toString());
+                      sitemapLinks.push({url:u.toString(), label:cleanLabel, context:cleanContext});
                     }
                   }
-                  return {url:location.href, title:document.title, channelLinks, categoryLinks};
+                  for (const a of document.querySelectorAll('a[href]')) {
+                    const label = clean(a.innerText || a.getAttribute('aria-label') || (a.querySelector('img') || {}).alt || '');
+                    const card = a.closest('tr, article, li, [class*="card"], [class*="item"]') || a.parentElement?.parentElement || a;
+                    collectUrl(a.href, label, clean(card.innerText || label));
+                  }
+                  // XML sitemaps expose all-channel URLs as <loc> elements instead of anchors.
+                  for (const loc of document.querySelectorAll('loc')) collectUrl(loc.textContent, loc.textContent, 'MediaFarsi sitemap');
+                  return {url:location.href, title:document.title, channelLinks, categoryLinks, sitemapLinks};
                 });
               } catch (error) {
                 return {url, error:String(error.message || error).slice(0,150), channelLinks:[], categoryLinks:[]};
@@ -147,10 +163,16 @@ jobs:
               await Promise.all(Array.from({length:Math.min(limit,items.length)}, () => worker()));
               return outputs;
             }
-            const firstLevel = await inspectSourcesWithLimit(INDEX_PAGES, 5, inspectIndexPage);
+            const firstLevel = await inspectSourcesWithLimit(INDEX_PAGES, 7, inspectIndexPage);
+            const firstSitemapTargets = [...new Set(firstLevel.flatMap(result => (result.sitemapLinks || []).map(item => item.url)))].slice(0,30);
+            const sitemapLevelOne = await inspectSourcesWithLimit(firstSitemapTargets, 8, inspectIndexPage);
+            const secondSitemapTargets = [...new Set(sitemapLevelOne.flatMap(result => (result.sitemapLinks || []).map(item => item.url)))]
+              .filter(url => !firstSitemapTargets.includes(url) && !INDEX_PAGES.includes(url)).slice(0,45);
+            const sitemapLevelTwo = await inspectSourcesWithLimit(secondSitemapTargets, 8, inspectIndexPage);
+            const indexResults = [...firstLevel, ...sitemapLevelOne, ...sitemapLevelTwo];
             const categoryMap = new Map();
             const channelMap = new Map(MANUAL_SOURCES.map(source => [source.base.toLowerCase(), {...source, sourceIndex:'manual-seed'}]));
-            for (const result of firstLevel) {
+            for (const result of indexResults) {
               for (const source of result.channelLinks || []) {
                 const old = channelMap.get(source.base.toLowerCase());
                 if (!old || sourcePriority(source) > sourcePriority(old)) channelMap.set(source.base.toLowerCase(), source);
@@ -161,8 +183,8 @@ jobs:
                 }
               }
             }
-            const categoryPages = [...categoryMap.values()].sort((a,b)=>sourcePriority(b)-sourcePriority(a)).slice(0,36);
-            const secondLevel = await inspectSourcesWithLimit(categoryPages, 8, category => inspectIndexPage(category.url));
+            const categoryPages = [...categoryMap.values()].sort((a,b)=>sourcePriority(b)-sourcePriority(a)).slice(0,60);
+            const secondLevel = await inspectSourcesWithLimit(categoryPages, 10, category => inspectIndexPage(category.url));
             for (const result of secondLevel) {
               for (const source of result.channelLinks || []) {
                 const old = channelMap.get(source.base.toLowerCase());
@@ -172,7 +194,7 @@ jobs:
             const allSources = [...channelMap.values()].sort((a,b)=>sourcePriority(b)-sourcePriority(a) || a.key.localeCompare(b.key));
             const coreSources = allSources.slice(0,80);
             const rotatingPool = allSources.slice(80);
-            const sourceWindow = 180;
+            const sourceWindow = 240;
             const wave = rotatingPool.length ? Math.floor(Date.now()/(2*60*60*1000)) % Math.max(1,Math.ceil(rotatingPool.length/sourceWindow)) : 0;
             const rotationStart = rotatingPool.length ? (wave*sourceWindow)%rotatingPool.length : 0;
             const rotatingSources = rotatingPool.length ? Array.from({length:Math.min(sourceWindow,rotatingPool.length)},(_,i)=>rotatingPool[(rotationStart+i)%rotatingPool.length]) : [];
@@ -189,13 +211,16 @@ jobs:
             console.log('MEDIAFARSI_SOURCE_COVERAGE', JSON.stringify({
               index_pages:INDEX_PAGES.length,
               index_pages_ok:firstLevel.filter(x=>!x.error).length,
+              sitemap_pages_scanned:sitemapLevelOne.length+sitemapLevelTwo.length,
+              sitemap_page_errors:[...sitemapLevelOne,...sitemapLevelTwo].filter(x=>x.error).length,
               category_pages_found:categoryMap.size,
               category_pages_scanned:secondLevel.length,
               category_pages_ok:secondLevel.filter(x=>!x.error).length,
               unique_channel_sources:allSources.length,
               selected_channel_sources:sources.length,
+              rotating_window_size:sourceWindow,
               rotation_wave:wave,
-              source_errors:[...firstLevel,...secondLevel].filter(x=>x.error).map(x=>({url:x.url,error:x.error})).slice(0,10)
+              source_errors:[...indexResults,...secondLevel].filter(x=>x.error).map(x=>({url:x.url,error:x.error})).slice(0,15)
             }));
 
             const results = [];
@@ -252,7 +277,7 @@ jobs:
                 }
               }
             }
-            await Promise.all(Array.from({length:Math.min(10,sources.length)}, () => scanWorker()));
+            await Promise.all(Array.from({length:Math.min(12,sources.length)}, () => scanWorker()));
             await browser.close();
             const unique = new Map();
             for (const x of results) {
@@ -262,7 +287,7 @@ jobs:
             const out = {
               generated_at:new Date().toISOString(),
               source:'Dynamic MediaFarsi source-index crawl plus public channel Shorts metadata',
-              source_coverage: { selected_channel_sources:sources.length, attempted_channel_sources:results.length, source_errors:errors.length },
+              source_coverage: { selected_channel_sources:sources.length, attempted_channel_sources:results.length, discovered_channels:allSources.length, source_errors:errors.length },
               note:'Discovery only: public metadata does not grant republication rights. Nothing was downloaded or uploaded.',
               candidate_count:unique.size,
               source_errors:errors,
