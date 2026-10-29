@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "project": "Goushibaaz / گوشی‌باز",
+  "content_focus": {
+    "primary_language": "Persian (fa)",
+    "primary_market": "Iran",
+    "preferred_topics": ["Persian and Iranian entertainment", "local creators", "social comedy", "hidden-camera", "funny moments", "animals", "visual comedy"],
+    "prioritize_original_or_creator_authorized_material": true
+  },
+  "vertical_video": {
+    "output_width": 1080,
+    "output_height": 1920,
+    "aspect_ratio": "9:16",
+    "aspect_ratio_numeric": 0.5625,
+    "prefer_source_portrait": true,
+    "accept_unknown_source_dimensions_for_discovery": true,
+    "transcode_all_published_videos_to_output_ratio": true
+  },
+  "ranking_order": [
+    "persian_or_iranian_content",
+    "source_already_portrait_or_short_form",
+    "observed_growth",
+    "freshness",
+    "category_diversity"
+  ],
+  "rights_gate": {
+    "require_verified_republication_rights": true,
+    "accepted_licenses": ["CC0 1.0", "CC BY 4.0"],
+    "explicit_creator_permission_also_allowed": true,
+    "public_visibility_or_cc_search_filter_alone_is_permission": false,
+    "unverified_sources_are_discovery_only": true
+  }
+}
