@@ -75,9 +75,17 @@ function durationFromMetadata(info) {
   return null;
 }
 
+function isExcludedEditorialContent(text) {
+  // Locality alone is not an entertainment category: reject protests, politics, weapons and military footage.
+  return /\b(protests?|protesters?|demonstrations?|riot|riots|war|missile|military|army|weapon|weapons|election|politics|political|parliament|government|police crackdown)\b|اعتراضات?|تظاهرات|اغتشاش|جنگ|موشک|پهپاد|بمب|نظامی|تسلیحات|سلاح|انتخابات|سیاست|سیاسی|مجلس|دولت|درگیری|سرکوب/.test(String(text || '').toLowerCase());
+}
+
 function looksRelevant(fileTitle, description) {
-  return /\b(cat|cats|kitten|dog|dogs|puppy|bird|birds|parrot|squirrel|monkey|rabbit|animal|pet|wildlife|funny|unexpected|surprise|caught on camera|playing|fail)\b|گربه|سگ|حیوان|پرنده|بامزه|ایران|ایرانی|تهران|فارسی|طنز|خنده|دوربین مخفی|سوتی|کلیپ/i
-    .test(fileTitle + ' ' + description);
+  const text = (fileTitle + ' ' + description).toLowerCase();
+  if (isExcludedEditorialContent(text)) return false;
+  // Keep the pool anchored in comedy, animals and other visual entertainment rather than arbitrary local footage.
+  return /\b(cat|cats|kitten|dog|dogs|puppy|bird|birds|parrot|squirrel|monkey|rabbit|animal|pet|wildlife|funny|unexpected|surprise|caught on camera|playing|playful|fail|visual comedy|oddly satisfying|hidden camera|prank|comedy|humor|funny moments)\b|گربه|سگ|حیوان|پرنده|بامزه|طنز|خنده|دوربین مخفی|سوتی|پرنک|چالش/i
+    .test(text);
 }
 
 function candidateContentPriority(candidate) {
@@ -205,7 +213,8 @@ async function discoverCandidates(state) {
       if (!license) continue;
       const description = htmlText(meta.ImageDescription?.value);
       const fileTitle = String(page.title || '');
-      if (!looksRelevant(fileTitle, description)) continue;
+      const editorialText = (fileTitle + ' ' + description).toLowerCase();
+      if (isExcludedEditorialContent(editorialText) || !looksRelevant(fileTitle, description)) continue;
       const sourcePage = info.descriptionurl || ('https://commons.wikimedia.org/wiki/' + encodeURIComponent(fileTitle.replace(/ /g, '_')));
       if (used.has(sourcePage)) continue;
       const durationSeconds = durationFromMetadata(info);
