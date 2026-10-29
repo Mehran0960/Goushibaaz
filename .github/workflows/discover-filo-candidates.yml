@@ -18,7 +18,7 @@ concurrency:
 jobs:
   discover:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with:
@@ -41,27 +41,163 @@ jobs:
           const fs = require('fs');
           const { chromium } = require('playwright');
           (async () => {
-            const sources = [
-              {key:'memento', url:'https://mediafarsi.com/channel/memento-studios?tab=shorts', language:'persian'},
-              {key:'mikikalafe', url:'https://mediafarsi.com/channel/mikikalafe?tab=shorts', language:'mixed'},
-              {key:'mehdi_jahaan', url:'https://mediafarsi.com/channel/mehdi-jahaan?tab=shorts', language:'persian'},
-              {key:'chizomiz', url:'https://mediafarsi.com/channel/chizomiz?tab=shorts', language:'persian'},
-              {key:'fasteris', url:'https://mediafarsi.com/channel/fasteris?tab=shorts', language:'mixed'},
-              {key:'mrnoon', url:'https://mediafarsi.com/channel/mrnoon?tab=shorts', language:'persian'},
-              {key:'tpm', url:'https://mediafarsi.com/channel/tpm-top-persian-movies?tab=shorts', language:'persian'},
-              {key:'khotan', url:'https://mediafarsi.com/channel/khotan?tab=shorts', language:'persian'},
-              {key:'amootheory', url:'https://mediafarsi.com/channel/amootheory?tab=shorts', language:'persian'},
-              {key:'kouman', url:'https://mediafarsi.com/channel/kouman?tab=shorts', language:'persian'},
-              {key:'nikshah_zone', url:'https://mediafarsi.com/channel/nikshah-zone?tab=shorts', language:'persian'},
-              {key:'sahar_hoc', url:'https://mediafarsi.com/channel/sahar-hoc?tab=shorts', language:'persian'},
-              {key:'mehran_magnet', url:'https://mediafarsi.com/channel/mehran-magnet?tab=shorts', language:'mixed'},
-              {key:'nikshah', url:'https://mediafarsi.com/channel/nikshah?tab=shorts', language:'persian'}
+            const MANUAL_SOURCES = [
+              {key:'memento-studios', base:'https://mediafarsi.com/channel/memento-studios', language:'persian', context:'ولاگ و سرگرمی'},
+              {key:'mikikalafe', base:'https://mediafarsi.com/channel/mikikalafe', language:'persian', context:'سرگرمی و طنز'},
+              {key:'mehdi-jahaan', base:'https://mediafarsi.com/channel/mehdi-jahaan', language:'persian', context:'سرگرمی و طنز'},
+              {key:'chizomiz', base:'https://mediafarsi.com/channel/chizomiz', language:'persian', context:'پادکست و سرگرمی'},
+              {key:'fasteris', base:'https://mediafarsi.com/channel/fasteris', language:'persian', context:'سرگرمی و چالش'},
+              {key:'mrnoon', base:'https://mediafarsi.com/channel/mrnoon', language:'persian', context:'گیمینگ فارسی'},
+              {key:'tpm-top-persian-movies', base:'https://mediafarsi.com/channel/tpm-top-persian-movies', language:'persian', context:'فیلم و سریال فارسی'},
+              {key:'khotan', base:'https://mediafarsi.com/channel/khotan', language:'persian', context:'لایف استایل و ولاگ'},
+              {key:'amootheory', base:'https://mediafarsi.com/channel/amootheory', language:'persian', context:'سرگرمی و طنز'},
+              {key:'kouman', base:'https://mediafarsi.com/channel/kouman', language:'persian', context:'سرگرمی و طنز'},
+              {key:'nikshah-zone', base:'https://mediafarsi.com/channel/nikshah-zone', language:'persian', context:'لایف استایل'},
+              {key:'sahar-hoc', base:'https://mediafarsi.com/channel/sahar-hoc', language:'persian', context:'لایف استایل و طنز'},
+              {key:'mehran-magnet', base:'https://mediafarsi.com/channel/mehran-magnet', language:'persian', context:'سرگرمی'},
+              {key:'nikshah', base:'https://mediafarsi.com/channel/nikshah', language:'persian', context:'لایف استایل'},
+              {key:'loco', base:'https://mediafarsi.com/channel/loco', language:'persian', context:'سرگرمی و طنز و چالش'},
+              {key:'hamed-shahanii', base:'https://mediafarsi.com/channel/hamed-shahanii', language:'persian', context:'طنز و چالش'},
+              {key:'amirhoseynghiasi', base:'https://mediafarsi.com/channel/amirhoseynghiasi', language:'persian', context:'سرگرمی و طنز'},
+              {key:'pouyan-nr', base:'https://mediafarsi.com/channel/pouyan-nr', language:'persian', context:'سرگرمی و طنز'},
+              {key:'farshad-silent', base:'https://mediafarsi.com/channel/farshad-silent', language:'persian', context:'سرگرمی و طنز'},
+              {key:'sogang', base:'https://mediafarsi.com/channel/sogang', language:'persian', context:'سرگرمی و طنز'},
+              {key:'poriya-west', base:'https://mediafarsi.com/channel/poriya-west', language:'persian', context:'سرگرمی و طنز'},
+              {key:'madgal', base:'https://mediafarsi.com/channel/madgal', language:'persian', context:'سرگرمی و طنز'},
+              {key:'the-beniamin', base:'https://mediafarsi.com/channel/the-beniamin', language:'persian', context:'سرگرمی و طنز'},
+              {key:'benyamin-be', base:'https://mediafarsi.com/channel/benyamin-be', language:'persian', context:'لایف استایل'},
+              {key:'vigiland', base:'https://mediafarsi.com/channel/vigiland', language:'persian', context:'چالش'},
+              {key:'serna-amini', base:'https://mediafarsi.com/channel/serna-amini', language:'persian', context:'طنز و کمدی'},
+              {key:'amirgzed', base:'https://mediafarsi.com/channel/amirgzed', language:'persian', context:'سرگرمی'},
+              {key:'itsnilu', base:'https://mediafarsi.com/channel/itsnilu', language:'persian', context:'سرگرمی'},
+              {key:'farhadxray', base:'https://mediafarsi.com/channel/farhadxray', language:'persian', context:'ولاگ'},
+              {key:'digcheh', base:'https://mediafarsi.com/channel/digcheh', language:'persian', context:'آشپزی'},
+              {key:'sooriland', base:'https://mediafarsi.com/channel/sooriland', language:'persian', context:'انیمیشن و طنز'},
+              {key:'zigzalplus', base:'https://mediafarsi.com/channel/zigzalplus', language:'persian', context:'کلیپ کوتاه و سرگرمی'},
+              {key:'film-bin', base:'https://mediafarsi.com/channel/film-binz', language:'persian', context:'کلیپ طنز و سریال'}
+            ];
+            const INDEX_PAGES = [
+              'https://mediafarsi.com/',
+              'https://mediafarsi.com/top-youtubers',
+              'https://mediafarsi.com/most-viewed',
+              'https://mediafarsi.com/new-channels',
+              'https://mediafarsi.com/persian-youtube-statistics'
             ];
             const browser = await chromium.launch({headless:true});
             const context = await browser.newContext({
               userAgent:'Mozilla/5.0 (compatible; GoushibaazTrendScout/1.0; public-metadata-only)',
               locale:'fa-IR'
             });
+            const cleanIndexText = value => String(value || '').replace(/\\s+/g,' ').trim();
+            const sourcePriority = source => {
+              const text = cleanIndexText([source.key, source.context, source.label].join(' ')).toLowerCase();
+              let score = 0;
+              if (/سرگرمی|طنز|کمدی|خنده|چالش|واکنش|ری.?اکشن|دوربین مخفی|prank|comedy|entertainment/.test(text)) score += 12;
+              if (/حیوان|گربه|سگ|آشپزی|غذا|سفر|دانستنی|فکت|علم|ترفند|گیمینگ|بازی|ورزش|خودرو|تکنولوژی|گجت|life.?style|gaming|food|travel|facts|animals/.test(text)) score += 4;
+              if (/موسیقی|آهنگ|مداحی|خبر|سیاست|سیاسی|جنگ|انتخابات|music|news|politic/.test(text)) score -= 5;
+              if (/کانال|فارسی|ایرانی|ایران/.test(text)) score += 2;
+              return score;
+            };
+            async function inspectIndexPage(url) {
+              const page = await context.newPage();
+              page.setDefaultTimeout(7000);
+              try {
+                await page.goto(url, {waitUntil:'domcontentloaded', timeout:15000});
+                await page.waitForTimeout(120);
+                return await page.evaluate(() => {
+                  const clean = s => (s || '').replace(/\\s+/g,' ').trim();
+                  const channelLinks = [];
+                  const categoryLinks = [];
+                  const seenChannels = new Set();
+                  const seenCategories = new Set();
+                  for (const a of document.querySelectorAll('a[href]')) {
+                    let u;
+                    try { u = new URL(a.href, location.origin); } catch { continue; }
+                    if (u.hostname !== 'mediafarsi.com' && u.hostname !== 'www.mediafarsi.com') continue;
+                    const href = u.pathname.replace(/\\/$/,'');
+                    const label = clean(a.innerText || a.getAttribute('aria-label') || (a.querySelector('img') || {}).alt || '');
+                    const card = a.closest('tr, article, li, [class*="card"], [class*="item"]') || a.parentElement?.parentElement || a;
+                    const context = clean(card.innerText || label).slice(0,800);
+                    const match = href.match(/^\\/channel\\/([A-Za-z0-9_-]+)$/i);
+                    if (match && !seenChannels.has(match[1].toLowerCase())) {
+                      seenChannels.add(match[1].toLowerCase());
+                      channelLinks.push({key:match[1], base:'https://mediafarsi.com'+href, label, context, language:'persian', indexPage:location.href});
+                    }
+                    if (/^\\/(?:categories?|category)\\//i.test(href) && !seenCategories.has(href)) {
+                      seenCategories.add(href);
+                      categoryLinks.push({url:'https://mediafarsi.com'+href, label, context});
+                    }
+                  }
+                  return {url:location.href, title:document.title, channelLinks, categoryLinks};
+                });
+              } catch (error) {
+                return {url, error:String(error.message || error).slice(0,150), channelLinks:[], categoryLinks:[]};
+              } finally { await page.close().catch(()=>{}); }
+            }
+            async function inspectSourcesWithLimit(items, limit, fn) {
+              const queue = [...items];
+              const outputs = [];
+              async function worker() {
+                while (queue.length) {
+                  const item = queue.shift();
+                  if (!item) continue;
+                  outputs.push(await fn(item));
+                }
+              }
+              await Promise.all(Array.from({length:Math.min(limit,items.length)}, () => worker()));
+              return outputs;
+            }
+            const firstLevel = await inspectSourcesWithLimit(INDEX_PAGES, 5, inspectIndexPage);
+            const categoryMap = new Map();
+            const channelMap = new Map(MANUAL_SOURCES.map(source => [source.base.toLowerCase(), {...source, sourceIndex:'manual-seed'}]));
+            for (const result of firstLevel) {
+              for (const source of result.channelLinks || []) {
+                const old = channelMap.get(source.base.toLowerCase());
+                if (!old || sourcePriority(source) > sourcePriority(old)) channelMap.set(source.base.toLowerCase(), source);
+              }
+              for (const category of result.categoryLinks || []) {
+                if (/طنز|سرگرمی|کمدی|چالش|گیم|غذا|آشپزی|حیوان|فکت|دانش|سفر|ویدیو|entertain|comedy|gaming|food|animal|fact|travel/i.test(category.label+' '+category.context+' '+category.url)) {
+                  categoryMap.set(category.url, category);
+                }
+              }
+            }
+            const categoryPages = [...categoryMap.values()].sort((a,b)=>sourcePriority(b)-sourcePriority(a)).slice(0,36);
+            const secondLevel = await inspectSourcesWithLimit(categoryPages, 8, category => inspectIndexPage(category.url));
+            for (const result of secondLevel) {
+              for (const source of result.channelLinks || []) {
+                const old = channelMap.get(source.base.toLowerCase());
+                if (!old || sourcePriority(source) > sourcePriority(old)) channelMap.set(source.base.toLowerCase(), source);
+              }
+            }
+            const allSources = [...channelMap.values()].sort((a,b)=>sourcePriority(b)-sourcePriority(a) || a.key.localeCompare(b.key));
+            const coreSources = allSources.slice(0,80);
+            const rotatingPool = allSources.slice(80);
+            const sourceWindow = 180;
+            const wave = rotatingPool.length ? Math.floor(Date.now()/(2*60*60*1000)) % Math.max(1,Math.ceil(rotatingPool.length/sourceWindow)) : 0;
+            const rotationStart = rotatingPool.length ? (wave*sourceWindow)%rotatingPool.length : 0;
+            const rotatingSources = rotatingPool.length ? Array.from({length:Math.min(sourceWindow,rotatingPool.length)},(_,i)=>rotatingPool[(rotationStart+i)%rotatingPool.length]) : [];
+            const sourceUnique = new Map();
+            for (const source of [...coreSources,...rotatingSources]) sourceUnique.set(source.base.toLowerCase(), source);
+            const sources = [...sourceUnique.values()].slice(0,260).map(source => ({
+              key:source.key,
+              url:source.base+'?tab=shorts',
+              language:'persian',
+              source_priority:sourcePriority(source),
+              source_label:source.label || source.key,
+              source_index:source.sourceIndex || source.indexPage || 'mediafarsi_index'
+            }));
+            console.log('MEDIAFARSI_SOURCE_COVERAGE', JSON.stringify({
+              index_pages:INDEX_PAGES.length,
+              index_pages_ok:firstLevel.filter(x=>!x.error).length,
+              category_pages_found:categoryMap.size,
+              category_pages_scanned:secondLevel.length,
+              category_pages_ok:secondLevel.filter(x=>!x.error).length,
+              unique_channel_sources:allSources.length,
+              selected_channel_sources:sources.length,
+              rotation_wave:wave,
+              source_errors:[...firstLevel,...secondLevel].filter(x=>x.error).map(x=>({url:x.url,error:x.error})).slice(0,10)
+            }));
+
             const results = [];
             const errors = [];
             const queue = [...sources];
@@ -70,11 +206,11 @@ jobs:
                 const src = queue.shift();
                 if (!src) continue;
                 const page = await context.newPage();
-                page.setDefaultTimeout(10000);
+                page.setDefaultTimeout(7000);
                 try {
-                  await page.goto(src.url, {waitUntil:'domcontentloaded', timeout:25000});
-                  await page.waitForSelector('article.rd-video-card.is-short', {timeout:7000}).catch(()=>{});
-                  await page.waitForTimeout(300);
+                  await page.goto(src.url, {waitUntil:'domcontentloaded', timeout:15000});
+                  await page.waitForSelector('article.rd-video-card.is-short', {timeout:4500}).catch(()=>{});
+                  await page.waitForTimeout(120);
                   const data = await page.evaluate(() => {
                     const norm = s => (s || '').replace(/\s+/g,' ').trim();
                     const cards = [...document.querySelectorAll('article.rd-video-card.is-short')];
@@ -116,7 +252,7 @@ jobs:
                 }
               }
             }
-            await Promise.all(Array.from({length:Math.min(4,sources.length)}, () => scanWorker()));
+            await Promise.all(Array.from({length:Math.min(10,sources.length)}, () => scanWorker()));
             await browser.close();
             const unique = new Map();
             for (const x of results) {
@@ -125,7 +261,8 @@ jobs:
             }
             const out = {
               generated_at:new Date().toISOString(),
-              source:'Rendered public metadata from MediaFarsi channel Shorts lists',
+              source:'Dynamic MediaFarsi source-index crawl plus public channel Shorts metadata',
+              source_coverage: { selected_channel_sources:sources.length, attempted_channel_sources:results.length, source_errors:errors.length },
               note:'Discovery only: public metadata does not grant republication rights. Nothing was downloaded or uploaded.',
               candidate_count:unique.size,
               source_errors:errors,
