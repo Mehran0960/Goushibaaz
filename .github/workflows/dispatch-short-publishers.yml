@@ -3,7 +3,7 @@ name: Jittered short-video publisher scheduler
 on:
   schedule:
     # Lightweight polling only. A publisher is dispatched only when the persisted next-due time arrives.
-    - cron: "*/5 * * * *"
+    - cron: "2-57/5 * * * *"
   workflow_dispatch:
 
 permissions:
