@@ -13,8 +13,8 @@ const TOPICS = [
   { key: 'persian_comedy', base: 25, patterns: [/hidden camera|prank|comedy|comed(y|ic)|humou?r|funny|reaction|meme|sketch|fail|caught on camera|unexpected|surprise/i, /طنز|خنده|بامزه|سوتی|دوربین مخفی|دوبله|میم|چالش|واکنش|اتفاق غیرمنتظره|غافلگیر/i] },
 ];
 const HOOKS = [
-  /unexpected|surprise|caught on camera|reaction|fail|prank|challenge|before and after|transformation|trick shot|impossible|unbelievable|oddly satisfying|close call|plot twist/i,
-  /غیرمنتظره|غافلگیر|واکنش|سوتی|دوربین مخفی|چالش|قبل و بعد|تغییر|حرکت عجیب|باورنکردنی|دیدنی|رضایت بخش|رضایت‌بخش|آخرش|باور نمی کنی|باور نمی‌کنی/i,
+  /unexpected|surprise|caught on camera|reaction|fail|prank|challenge|before and after|transformation|trick shot|impossible|unbelievable|oddly satisfying|close call|plot twist|reveal|mystery|wait until|one take/i,
+  /غیرمنتظره|غافلگیر|واکنش|سوتی|دوربین مخفی|چالش|قبل و بعد|تغییر شگفت|حرکت عجیب|باورنکردنی|نتیجه نهایی|آخرش|باور نمی کنی|باور نمی‌کنی|ناگهان|راز|معمای تصویری|خطای دید|مهارت خارق|یک ضرب|بدون برش/i,
 ];
 const LOCAL = /فارسی|ایرانی|ایران|تهران|شیراز|اصفهان|تبریز|مشهد|کرج|اهواز|یزد|رشت|persian|farsi|iranian|tehran|shiraz|isfahan|tabriz|mashhad/i;
 
@@ -31,10 +31,13 @@ function cleanText(value) {
 
 function candidateText(candidate) {
   const c = candidate || {};
-  return cleanText([
-    c.fileTitle, c.sourceTitle, c.description, c.sourceDescription,
-    c.title, c.caption, c.name, c.discoveryQuery, c.query
-  ].filter(Boolean).join(' '));
+  // Rank what the source actually contains, not our own generated Persian caption
+  // or the search query that found it. Otherwise generic captions like
+  // "a lovely/interesting moment" manufacture hook points for weak clips.
+  const sourceTitle = c.fileTitle || c.sourceTitle || c.originalTitle || c.source_title ||
+    c.title || c.caption || c.name;
+  const sourceDescription = c.description || c.sourceDescription || c.source_description || '';
+  return cleanText([sourceTitle, sourceDescription].filter(Boolean).join(' '));
 }
 
 function categoryFor(value) {
