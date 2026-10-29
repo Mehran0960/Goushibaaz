@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 const { chromium } = require('playwright');
+const { rankCandidates, buildTrendWeights } = require('./quality_rank.cjs');
 
 const ACCOUNT = 'https://ifilo.net';
 const CC0_LICENSE_URL = 'https://creativecommons.org/publicdomain/zero/1.0/';
@@ -18,6 +19,7 @@ const TARGET_HEIGHT = Number(CONTENT_POLICY.vertical_video.output_height) || 192
 const WORK_HEIGHT = 1080;
 const WORK_WIDTH = Math.round(WORK_HEIGHT * TARGET_WIDTH / TARGET_HEIGHT);
 // Fail closed on reuse rights: only explicit CC0 1.0 or CC BY 4.0 license metadata is accepted.
+const MIN_DURATION_SECONDS = 8;
 const MAX_DURATION_SECONDS = 180;
 const ACTIVE_SOURCE_STATUSES = new Set([
   'published', 'submitted_pending_approval', 'submit_started',
@@ -222,9 +224,8 @@ function isExcludedEditorialContent(text) {
 function classifyCandidate(candidate) {
   const text = (candidate.fileTitle + ' ' + candidate.description).toLowerCase();
   if (isExcludedEditorialContent(text)) return false;
-  const topical = /\b(cat|cats|kitten|kittens|feline|dog|dogs|puppy|puppies|pet|pets|bird|birds|parrot|pigeon|squirrel|monkey|rabbit|animal|wildlife|funny|unexpected|surprise|caught on camera|playing|playful|fail|visual comedy|oddly satisfying|hidden camera|prank|comedy|comedic|humor|funny moments)\b|گربه|سگ|حیوان|پرنده|بامزه|طنز|خنده|دوربین مخفی|سوتی|پرنک|چالش/.test(text);
-  const localLanguage = /persian|farsi|فارسی|ایرانی|ایران|تهران|شیراز|اصفهان/.test(text);
-  return topical && (localLanguage || topical);
+  // Admit a wider variety of short entertainment formats; rights checks remain independent.
+  return /\b(cat|cats|kitten|kittens|feline|dog|dogs|puppy|puppies|pet|pets|bird|birds|parrot|pigeon|squirrel|monkey|rabbit|animal|wildlife|funny|unexpected|surprise|caught on camera|playing|playful|fail|visual comedy|oddly satisfying|satisfying|hidden camera|prank|comedy|comed(y|ic)|humou?r|funny moments|football|soccer|basketball|skateboard|parkour|trick shot|science experiment|invention|optical illusion|puzzle|cooking|recipe|food art|woodworking|pottery|craft|restoration|dance|music performance|juggling|nature|waterfall|travel|culture|architecture)\b|گربه|سگ|حیوان|پرنده|بامزه|طنز|خنده|دوربین مخفی|سوتی|پرنک|چالش|فوتبال|بسکتبال|ورزش|حرکت نمایشی|آزمایش علمی|اختراع|فناوری|خطای دید|معما|آشپزی|غذا|خوراکی|کاردستی|نجاری|سفال|رضایت.?بخش|بازسازی|رقص|نوازندگی|موسیقی|طبیعت|آبشار|سفر|گردشگری|فرهنگ|معماری/.test(text);
 }
 
 function candidateContentPriority(candidate) {
@@ -300,7 +301,7 @@ async function discoverCommercialCandidates(state) {
       const sourcePage = info.descriptionurl || ('https://commons.wikimedia.org/wiki/' + encodeURIComponent(fileTitle.replace(/ /g, '_')));
       if (used.has(sourcePage) || !classifyCandidate({ fileTitle, description })) continue;
       const duration = parsedDurationSeconds(info);
-      if (duration !== null && (duration < 3 || duration > MAX_DURATION_SECONDS)) continue;
+      if (duration !== null && (duration < MIN_DURATION_SECONDS || duration > MAX_DURATION_SECONDS)) continue;
       const candidate = {
         fileTitle, sourcePage, fileUrl: info.url, mime: info.mime, size: info.size,
         durationSeconds: duration, licenseName, licenseUrl, licenseType: licenseProfile.type,
@@ -381,11 +382,7 @@ const ARCHIVE_SEARCH_TERMS = [
   { key: 'family-friendly', term: 'family friendly' },
   { key: 'sports-fun', term: 'funny sports' }
 ];
-const ARCHIVE_LICENSE_FILTERS = [
-  { key: 'cc0', query: 'licenseurl:http*publicdomain/zero/1.0*' },
-  { key: 'cc-by-4', query: 'licenseurl:http*licenses/by/4.0*' }
-];
-
+// License is verified against each archive item's actual metadata after discovery.
 function internetArchiveLicense(rawUrl) {
   const url = String(rawUrl || '').toLowerCase().replace(/&amp;/g, '&').replace(/\/+$/, '');
   if (/creativecommons\.org\/publicdomain\/zero\/1\.0$/.test(url)) {
@@ -402,11 +399,8 @@ async function discoverInternetArchiveCandidates(state) {
   const used = new Set((state.posts || [])
     .filter(item => ACTIVE_SOURCE_STATUSES.has(item.status) || item.status === 'ineligible_source')
     .map(item => item.sourcePage));
-  const searches = ARCHIVE_SEARCH_TERMS.flatMap(term => ARCHIVE_LICENSE_FILTERS.map(license => ({
-    key: term.key + ':' + license.key,
-    term,
-    license
-  })));
+  // Searching by licenseurl returned no results; broaden discovery then verify actual item licenses.
+  const searches = ARCHIVE_SEARCH_TERMS.map(term => ({ key: term.key, term }));
   const discovered = new Map();
   const queue = [...searches];
 
@@ -415,7 +409,7 @@ async function discoverInternetArchiveCandidates(state) {
       const search = queue.shift();
       if (!search) continue;
       const api = new URL('https://archive.org/advancedsearch.php');
-      api.searchParams.set('q', 'mediatype:movies AND ' + search.license.query + ' AND ' + search.term.term);
+      api.searchParams.set('q', 'mediatype:movies AND ' + search.term.term);
       api.searchParams.set('fl[]', 'identifier');
       api.searchParams.append('fl[]', 'title');
       api.searchParams.append('fl[]', 'creator');
@@ -893,14 +887,29 @@ async function main() {
       uniqueCandidates.set(candidate.sourcePage, candidate);
     }
   }
-  const candidates = [...uniqueCandidates.values()].sort((a, b) =>
-    ((b.contentLocaleScore || 0) - (a.contentLocaleScore || 0)) ||
-    ((b.sourceVerticalScore || 0) - (a.sourceVerticalScore || 0)) ||
-    (Number(b.durationSeconds || 0) - Number(a.durationSeconds || 0))
-  );
+  let trendSnapshot = {};
+  try {
+    trendSnapshot = JSON.parse(fs.readFileSync(path.join('state', 'platform-trends.json'), 'utf8'));
+  } catch {}
+  const trendWeights = buildTrendWeights(trendSnapshot);
+  const candidates = rankCandidates([...uniqueCandidates.values()], {
+    trendWeights,
+    recentPosts: state.posts || []
+  });
+  console.log('FILO_EDITORIAL_RANKING', JSON.stringify({
+    trendWeights,
+    topCandidates: candidates.slice(0, 8).map(item => ({
+      title: item.title,
+      sourceTitle: item.fileTitle,
+      topic: item.editorialTopic,
+      score: item.editorialScore,
+      durationSeconds: item.durationSeconds,
+      reasons: item.editorialReasons
+    }))
+  }));
   console.log('FILO_DISCOVERY_SOURCE_COVERAGE', JSON.stringify({
     wikimedia_commons_queries: COMMONS_SEARCHES.length,
-    internet_archive_queries: ARCHIVE_SEARCH_TERMS.length * ARCHIVE_LICENSE_FILTERS.length,
+    internet_archive_queries: ARCHIVE_SEARCH_TERMS.length,
     eligible_commons: commonsCandidates.length,
     eligible_internet_archive: archiveCandidates.length,
     unique_eligible_sources: candidates.length
@@ -908,7 +917,7 @@ async function main() {
   if (!candidates.length) {
     const result = {
       status: 'no_eligible_candidate',
-      searchedQueries: COMMONS_SEARCHES.length + ARCHIVE_SEARCH_TERMS.length * ARCHIVE_LICENSE_FILTERS.length,
+      searchedQueries: COMMONS_SEARCHES.length + ARCHIVE_SEARCH_TERMS.length,
       note: 'No new short WebM candidate with a verified CC0 1.0 or CC BY 4.0 license was found. Nothing was published.'
     };
     state.lastOutcome = { status: result.status, checkedAt: new Date().toISOString() };
@@ -932,7 +941,7 @@ async function main() {
         ], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 15000 }).trim();
         duration = Number(probe);
       }
-      if (!Number.isFinite(duration) || duration < 3 || duration > MAX_DURATION_SECONDS) {
+      if (!Number.isFinite(duration) || duration < MIN_DURATION_SECONDS || duration > MAX_DURATION_SECONDS) {
         state.posts.push({
           sourcePage: proposed.sourcePage, sourceTitle: proposed.fileTitle,
           status: 'ineligible_source', checkedAt: new Date().toISOString(),
