@@ -42,8 +42,8 @@ jobs:
           grep -Fq 'const MAX_PER_PLATFORM_PER_UTC_DAY = 48;' .github/workflows/dispatch-short-publishers.yml
           grep -Fq 'actions/cache/restore@v4' .github/workflows/dispatch-short-publishers.yml
           grep -Fq 'actions/cache/save@v4' .github/workflows/dispatch-short-publishers.yml
-          grep -Fq 'publish-approved-video-to-filo.yml/dispatches' .github/workflows/dispatch-short-publishers.yml
-          grep -Fq 'publish-approved-video-to-rubika.yml/dispatches' .github/workflows/dispatch-short-publishers.yml
+          grep -Fq 'publish-approved-video-to-filo.yml' .github/workflows/dispatch-short-publishers.yml
+          grep -Fq 'publish-approved-video-to-rubika.yml' .github/workflows/dispatch-short-publishers.yml
           node -e "const p=require('./config/content-policy.json'); if(p.vertical_video.aspect_ratio!=='9:16'||p.vertical_video.output_width!==1080||p.vertical_video.output_height!==1920) process.exit(1)"
       - name: Test public commercial-license video discovery (no upload)
         run: |
