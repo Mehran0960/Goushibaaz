@@ -253,7 +253,7 @@ async function discoverCommercialCandidates(state) {
   const searches = COMMONS_SEARCHES;
   const found = new Map();
 
-  async function scanCommonsSearch(search) {
+  async function scanCommonsSearch(search, retryAttempt = 0) {
     const api = new URL('https://commons.wikimedia.org/w/api.php');
     api.searchParams.set('action', 'query');
     api.searchParams.set('format', 'json');
@@ -267,6 +267,13 @@ async function discoverCommercialCandidates(state) {
       headers: { 'User-Agent': 'GoushibaazFiloPublisher/1.0 (CC0 and CC BY 4.0 verified reuse)' },
       signal: AbortSignal.timeout(20000)
     });
+    if (response.status === 429 && retryAttempt < 2) {
+      const retryAfter = Number(response.headers.get('retry-after') || 0);
+      const delayMs = Math.max(2500, Math.min(30000, retryAfter > 0 ? retryAfter * 1000 : (retryAttempt + 1) * 5000));
+      console.log('COMMONS_RATE_LIMIT_RETRY', JSON.stringify({ query: search.key, attempt: retryAttempt + 1, delayMs }));
+      await sleep(delayMs);
+      return scanCommonsSearch(search, retryAttempt + 1);
+    }
     if (!response.ok) {
       console.log('COMMONS_SEARCH', JSON.stringify({ query: search.key, status: response.status }));
       return;
@@ -315,7 +322,7 @@ async function discoverCommercialCandidates(state) {
         found.set(sourcePage, candidate);
       }
     }
-    await sleep(250);
+    await sleep(1000);
   }
   const searchQueue = [...searches];
   async function commonsWorker() {
@@ -332,7 +339,7 @@ async function discoverCommercialCandidates(state) {
       }
     }
   }
-  await Promise.all(Array.from({ length: Math.min(5, searchQueue.length) }, () => commonsWorker()));
+  await Promise.all(Array.from({ length: Math.min(2, searchQueue.length) }, () => commonsWorker()));
   const ranked = [...found.values()].sort((a, b) =>
     (b.contentLocaleScore - a.contentLocaleScore) ||
     (b.sourceVerticalScore - a.sourceVerticalScore) ||
