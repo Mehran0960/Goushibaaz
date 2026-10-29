@@ -105,6 +105,13 @@ function scoreCandidate(candidate, options = {}) {
     reasons.push('persian_or_iran_signal');
   }
 
+  const localeScore = safeNumber(c.contentLocaleScore ?? c.content_locality_score);
+  if (localeScore !== null && localeScore > 0) {
+    const bonus = Math.min(6, localeScore * 1.5);
+    score += bonus;
+    reasons.push('source_locale_priority:' + bonus);
+  }
+
   const verticalScore = getVerticalScore(c);
   score += verticalScore;
   reasons.push('source_format:' + verticalScore);
