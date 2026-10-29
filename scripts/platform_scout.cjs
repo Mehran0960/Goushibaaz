@@ -250,7 +250,7 @@ async function discoverTelegramSources(browser) {
         await page.goto(directory.url, { waitUntil: 'domcontentloaded', timeout: 15000 });
         await page.waitForSelector('.tgme_widget_message_wrap', { timeout: 6000 }).catch(() => {});
         const items = await page.evaluate(() => {
-          const clean = value => String(value || '').replace(/\\s+/g, ' ').trim();
+          const clean = value => String(value || '').replace(/\s+/g, ' ').trim();
           const wraps = [...document.querySelectorAll('.tgme_widget_message_wrap')];
           const rows = [];
           for (const wrap of wraps) {
@@ -267,7 +267,7 @@ async function discoverTelegramSources(browser) {
           for (const link of row.links || []) {
             let url;
             try { url = new URL(link.href); } catch { continue; }
-            if (!/^(?:www\\.)?t\\.me$/i.test(url.hostname)) continue;
+            if (!/^(?:www\.)?t\.me$/i.test(url.hostname)) continue;
             const parts = url.pathname.split('/').filter(Boolean);
             if (!parts.length) continue;
             let username = parts[0] === 's' ? parts[1] : parts[0];
@@ -277,7 +277,7 @@ async function discoverTelegramSources(browser) {
               found.set(username.toLowerCase(), {
                 key: 'directory-' + username,
                 url: 'https://t.me/s/' + username,
-                label: cleanText(link.label || username),
+                label: norm(link.label || username),
                 kind: 'directory-discovered',
                 directory_source: directory.key,
                 directory_context: row.body.slice(0, 240)
