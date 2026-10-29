@@ -12,6 +12,7 @@ const OUTPUT_FILE = path.join(VIDEO_DIR, 'filo-video-fa.mp4');
 const COVER_FILE = path.join(VIDEO_DIR, 'filo-video-cover.jpg');
 const MAX_SOURCE_BYTES = 45_000_000;
 const CONTENT_POLICY = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'config', 'content-policy.json'), 'utf8'));
+const DRY_RUN = /^(1|true|yes)$/i.test(process.env.DRY_RUN || '');
 const TARGET_WIDTH = Number(CONTENT_POLICY.vertical_video.output_width) || 1080;
 const TARGET_HEIGHT = Number(CONTENT_POLICY.vertical_video.output_height) || 1920;
 const WORK_HEIGHT = 1080;
@@ -640,6 +641,29 @@ async function main() {
   const PERSIAN_DESCRIPTION = candidate.descriptionText;
   const converted = convertToPortraitMp4();
   const cover = extractCoverFrame();
+
+  if (DRY_RUN) {
+    console.log('FILO_PUBLISH_RESULT', JSON.stringify({
+      status: 'dry_run_ready_no_post_sent',
+      dryRun: true,
+      title: PERSIAN_TITLE,
+      sourcePage: COMMONS_PAGE,
+      sourceTitle: SOURCE_TITLE,
+      license: rights.licenseName,
+      sourceBytes: rights.sourceBytes,
+      sourceAspectRatio: candidate.sourceAspectRatio || null,
+      targetAspectRatio: CONTENT_POLICY.vertical_video.aspect_ratio,
+      targetWidth: TARGET_WIDTH,
+      targetHeight: TARGET_HEIGHT,
+      durationSeconds: sourceDurationSeconds,
+      convertedBytes: converted.outputBytes,
+      coverBytes: cover.coverBytes,
+      contentLocaleScore: candidate.contentLocaleScore || 0,
+      sourceVerticalScore: candidate.sourceVerticalScore || 1,
+      note: 'No login, upload or publication attempted.'
+    }));
+    return;
+  }
 
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({
