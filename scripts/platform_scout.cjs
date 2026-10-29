@@ -437,7 +437,7 @@ async function main() {
       const scored = scoreCandidate(item, oldMap);
       const age = scored.age_hours;
       if (age !== null && age > 720) continue;
-      if (/جنگ|سیاست|سیاسی|انتخابات|قومیت|نژاد|خامنه|ترور|اعدام|قتل|اسلحه|سلاح|اختلاس|فساد|انقلاب/.test(scored.title)) continue;
+      if (/جنگ|سیاست|سیاسی|انتخابات|قومیت|نژاد|خامنه|ترور|اعدام|قتل|اسلحه|سلاح|موشک|سجیل|پهپاد|بمب|نظامی|تسلیحاتی|حمله|درگیری|اختلاس|فساد|انقلاب/.test(scored.title)) continue;
       all.push(scored);
       const previous = oldMap[item.id] || {};
       const history = Array.isArray(previous.history) ? previous.history : [];
