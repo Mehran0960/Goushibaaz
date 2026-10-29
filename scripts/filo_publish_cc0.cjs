@@ -38,7 +38,90 @@ const COMMONS_SEARCHES = [
   { key: 'squirrels', query: 'filetype:video squirrel' },
   { key: 'monkeys', query: 'filetype:video monkey' },
   { key: 'animals', query: 'filetype:video animal' },
-  { key: 'camera-moments', query: 'filetype:video caught camera animal' }
+  { key: 'camera-moments', query: 'filetype:video caught camera animal' },
+
+  ...[
+    ['iranian-pet-moments', 'filetype:video Iran pet', true],
+    ['persian-cat-video', 'filetype:video Persian cat', true],
+    ['iranian-dog-video', 'filetype:video Iran dog', true],
+    ['iranian-birds', 'filetype:video Iran birds', true],
+    ['iranian-wildlife', 'filetype:video Iran wildlife', true],
+    ['iranian-nature', 'filetype:video Iran nature', true],
+    ['iranian-countryside', 'filetype:video Iran village', true],
+    ['persian-culture', 'filetype:video Persian culture', true],
+    ['iranian-travel', 'filetype:video Iran travel', true],
+    ['tehran-street-life', 'filetype:video Tehran street', true],
+    ['iranian-food', 'filetype:video Iranian food', true],
+    ['iranian-crafts', 'filetype:video Iran crafts', true],
+    ['iranian-farming', 'filetype:video Iran farming', true],
+    ['iranian-family', 'filetype:video Iranian family', true],
+    ['persian-comedy-visual', 'filetype:video Persian comedy', true],
+    ['iranian-sports', 'filetype:video Iran sports', true],
+    ['persian-garden', 'filetype:video Persian garden', true],
+    ['iranian-markets', 'filetype:video Iran market', true],
+    ['iranian-insects', 'filetype:video Iran insects', true],
+    ['iranian-waterways', 'filetype:video Iran river', true],
+    ['funny-puppies', 'filetype:video funny puppies'],
+    ['playful-dogs', 'filetype:video playful dogs'],
+    ['funny-kittens', 'filetype:video funny kittens'],
+    ['cats-playing', 'filetype:video cats playing'],
+    ['cats-camera', 'filetype:video cats caught camera'],
+    ['dogs-camera', 'filetype:video dogs caught camera'],
+    ['pets-unexpected', 'filetype:video unexpected pets'],
+    ['funny-parrots', 'filetype:video funny parrots'],
+    ['funny-birds', 'filetype:video funny birds'],
+    ['squirrels-playing', 'filetype:video squirrels playing'],
+    ['monkeys-playing', 'filetype:video monkeys playing'],
+    ['rabbits-playing', 'filetype:video rabbits playing'],
+    ['farm-animals', 'filetype:video funny farm animals'],
+    ['wildlife-behavior', 'filetype:video unusual animal behavior'],
+    ['animal-rescue', 'filetype:video animal rescue'],
+    ['animal-friendship', 'filetype:video animal friendship'],
+    ['funny-wildlife', 'filetype:video funny wildlife'],
+    ['visual-comedy', 'filetype:video visual comedy'],
+    ['slapstick', 'filetype:video slapstick comedy'],
+    ['silent-comedy', 'filetype:video silent comedy'],
+    ['unexpected-reactions', 'filetype:video unexpected reaction'],
+    ['caught-on-camera', 'filetype:video caught on camera funny'],
+    ['harmless-pranks', 'filetype:video harmless prank'],
+    ['street-moments', 'filetype:video funny street moments'],
+    ['oddly-satisfying', 'filetype:video oddly satisfying'],
+    ['satisfying-process', 'filetype:video satisfying process'],
+    ['creative-builds', 'filetype:video creative build process'],
+    ['craft-process', 'filetype:video craft process'],
+    ['woodworking', 'filetype:video woodworking process'],
+    ['pottery-process', 'filetype:video pottery process'],
+    ['cooking-process', 'filetype:video cooking process'],
+    ['cooking-fails', 'filetype:video cooking fail'],
+    ['food-art', 'filetype:video food art'],
+    ['science-experiments', 'filetype:video fun science experiment'],
+    ['optical-illusions', 'filetype:video optical illusion'],
+    ['magic-tricks', 'filetype:video magic trick'],
+    ['simple-inventions', 'filetype:video simple invention'],
+    ['life-hacks', 'filetype:video practical life hack'],
+    ['sports-fails', 'filetype:video funny sports fail'],
+    ['football-skills', 'filetype:video football skills'],
+    ['skateboard-fails', 'filetype:video skateboard fail'],
+    ['cycling-moments', 'filetype:video funny cycling'],
+    ['water-sports', 'filetype:video funny water sports'],
+    ['nature-wonders', 'filetype:video nature wonders'],
+    ['tiny-world', 'filetype:video macro nature insects'],
+    ['weather-wonders', 'filetype:video unusual weather phenomenon'],
+    ['machine-process', 'filetype:video satisfying machine process'],
+    ['restoration', 'filetype:video satisfying restoration'],
+    ['recycling-crafts', 'filetype:video creative recycling craft'],
+    ['miniature-builds', 'filetype:video miniature building'],
+    ['public-domain-animation', 'filetype:video public domain animation'],
+    ['family-friendly-animation', 'filetype:video short animation'],
+    ['daily-life-moments', 'filetype:video funny daily life'],
+    ['pets-and-people', 'filetype:video pets people funny'],
+    ['birds-feeding', 'filetype:video birds feeding'],
+    ['farm-life', 'filetype:video funny farm life'],
+    ['puppies-and-kittens', 'filetype:video puppies kittens'],
+    ['visual-mishaps', 'filetype:video harmless funny mishap'],
+    ['human-ingenuity', 'filetype:video human ingenuity invention']
+  ].map(([key, query, localPriority = false]) => ({ key, query, localPriority }))
+
 ];
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -167,13 +250,10 @@ async function discoverCommercialCandidates(state) {
     .filter(item => ACTIVE_SOURCE_STATUSES.has(item.status) || item.status === 'ineligible_source')
     .map(item => item.sourcePage));
   // Always scan Persian/Iranian searches first; then keep a broad licensed fallback so a slot can still run when local open-license clips are scarce.
-  const searches = [
-    ...COMMONS_SEARCHES.filter(item => item.localPriority).slice(0, 5),
-    ...COMMONS_SEARCHES.filter(item => !item.localPriority).slice(0, 4)
-  ];
+  const searches = COMMONS_SEARCHES;
   const found = new Map();
 
-  for (const search of searches) {
+  async function scanCommonsSearch(search) {
     const api = new URL('https://commons.wikimedia.org/w/api.php');
     api.searchParams.set('action', 'query');
     api.searchParams.set('format', 'json');
@@ -189,7 +269,7 @@ async function discoverCommercialCandidates(state) {
     });
     if (!response.ok) {
       console.log('COMMONS_SEARCH', JSON.stringify({ query: search.key, status: response.status }));
-      continue;
+      return;
     }
     const payload = await response.json();
     const pages = Object.values(payload.query && payload.query.pages || {});
@@ -237,6 +317,22 @@ async function discoverCommercialCandidates(state) {
     }
     await sleep(250);
   }
+  const searchQueue = [...searches];
+  async function commonsWorker() {
+    while (searchQueue.length) {
+      const search = searchQueue.shift();
+      if (!search) continue;
+      try {
+        await scanCommonsSearch(search);
+      } catch (error) {
+        console.log('COMMONS_SEARCH_ERROR', JSON.stringify({
+          query: search.key,
+          error: String(error && error.name || 'Error').slice(0, 40)
+        }));
+      }
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(5, searchQueue.length) }, () => commonsWorker()));
   const ranked = [...found.values()].sort((a, b) =>
     (b.contentLocaleScore - a.contentLocaleScore) ||
     (b.sourceVerticalScore - a.sourceVerticalScore) ||
@@ -248,7 +344,200 @@ async function discoverCommercialCandidates(state) {
     eligibleLicensedCandidates: ranked.length,
     targetAspectRatio: CONTENT_POLICY.vertical_video.aspect_ratio
   }));
-  return ranked.slice(0, 48);
+  return ranked.slice(0, 80);
+}
+
+
+const ARCHIVE_SEARCH_TERMS = [
+  { key: 'iran', term: 'Iran', localPriority: true },
+  { key: 'persian', term: 'Persian', localPriority: true },
+  { key: 'tehran', term: 'Tehran', localPriority: true },
+  { key: 'iranian-animals', term: 'Iran animals', localPriority: true },
+  { key: 'persian-cats', term: 'Persian cat', localPriority: true },
+  { key: 'iranian-nature', term: 'Iran nature', localPriority: true },
+  { key: 'iranian-life', term: 'Iran daily life', localPriority: true },
+  { key: 'funny-animals', term: 'funny animals' },
+  { key: 'cats', term: 'cats' },
+  { key: 'dogs', term: 'dogs' },
+  { key: 'pets', term: 'pets' },
+  { key: 'birds', term: 'birds' },
+  { key: 'wildlife', term: 'wildlife' },
+  { key: 'comedy', term: 'visual comedy' },
+  { key: 'silent-comedy', term: 'silent comedy' },
+  { key: 'satisfying', term: 'satisfying' },
+  { key: 'crafts', term: 'craft process' },
+  { key: 'cooking', term: 'cooking' },
+  { key: 'science', term: 'science experiment' },
+  { key: 'street-moments', term: 'street moments' },
+  { key: 'inventions', term: 'inventions' },
+  { key: 'nature', term: 'nature' },
+  { key: 'family-friendly', term: 'family friendly' },
+  { key: 'sports-fun', term: 'funny sports' }
+];
+const ARCHIVE_LICENSE_FILTERS = [
+  { key: 'cc0', query: 'licenseurl:http*publicdomain/zero/1.0*' },
+  { key: 'cc-by-4', query: 'licenseurl:http*licenses/by/4.0*' }
+];
+
+function internetArchiveLicense(rawUrl) {
+  const url = String(rawUrl || '').toLowerCase().replace(/&amp;/g, '&').replace(/\/+$/, '');
+  if (/creativecommons\.org\/publicdomain\/zero\/1\.0$/.test(url)) {
+    return { type: 'CC0 1.0', url: 'https://creativecommons.org/publicdomain/zero/1.0/' };
+  }
+  if (/creativecommons\.org\/licenses\/by\/4\.0$/.test(url) &&
+      !/creativecommons\.org\/licenses\/by-(?:nc|nd|sa)(?:-|\/)/.test(url)) {
+    return { type: 'CC BY 4.0', url: 'https://creativecommons.org/licenses/by/4.0/' };
+  }
+  return null;
+}
+
+async function discoverInternetArchiveCandidates(state) {
+  const used = new Set((state.posts || [])
+    .filter(item => ACTIVE_SOURCE_STATUSES.has(item.status) || item.status === 'ineligible_source')
+    .map(item => item.sourcePage));
+  const searches = ARCHIVE_SEARCH_TERMS.flatMap(term => ARCHIVE_LICENSE_FILTERS.map(license => ({
+    key: term.key + ':' + license.key,
+    term,
+    license
+  })));
+  const discovered = new Map();
+  const queue = [...searches];
+
+  async function searchWorker() {
+    while (queue.length) {
+      const search = queue.shift();
+      if (!search) continue;
+      const api = new URL('https://archive.org/advancedsearch.php');
+      api.searchParams.set('q', 'mediatype:movies AND ' + search.license.query + ' AND ' + search.term.term);
+      api.searchParams.set('fl[]', 'identifier');
+      api.searchParams.append('fl[]', 'title');
+      api.searchParams.append('fl[]', 'creator');
+      api.searchParams.append('fl[]', 'licenseurl');
+      api.searchParams.append('fl[]', 'description');
+      api.searchParams.set('rows', '25');
+      api.searchParams.set('page', '1');
+      api.searchParams.set('output', 'json');
+      try {
+        const response = await fetch(api, {
+          headers: { 'User-Agent': 'GoushibaazFiloPublisher/1.0 (public metadata and reuse-license verification)' },
+          signal: AbortSignal.timeout(10000)
+        });
+        if (!response.ok) {
+          console.log('ARCHIVE_SEARCH', JSON.stringify({ query: search.key, status: response.status }));
+          continue;
+        }
+        const payload = await response.json();
+        const docs = payload.response && Array.isArray(payload.response.docs) ? payload.response.docs : [];
+        for (const doc of docs.slice(0, 12)) {
+          if (!doc.identifier) continue;
+          const previous = discovered.get(String(doc.identifier));
+          const entry = { identifier: String(doc.identifier), search, indexed: doc };
+          if (!previous || (search.term.localPriority && !previous.search.term.localPriority)) {
+            discovered.set(entry.identifier, entry);
+          }
+        }
+      } catch (error) {
+        console.log('ARCHIVE_SEARCH_ERROR', JSON.stringify({
+          query: search.key,
+          error: String(error && error.name || 'Error').slice(0, 40)
+        }));
+      }
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(5, queue.length) }, () => searchWorker()));
+
+  const metadataQueue = [...discovered.values()]
+    .sort((a, b) => Number(Boolean(b.search.term.localPriority)) - Number(Boolean(a.search.term.localPriority)))
+    .slice(0, 120);
+  const candidateQueue = [...metadataQueue];
+  const found = [];
+  let metadataErrors = 0;
+
+  async function metadataWorker() {
+    while (candidateQueue.length) {
+      const entry = candidateQueue.shift();
+      if (!entry) continue;
+      try {
+        const endpoint = 'https://archive.org/metadata/' + encodeURIComponent(entry.identifier);
+        const response = await fetch(endpoint, {
+          headers: { 'User-Agent': 'GoushibaazFiloPublisher/1.0 (public metadata and reuse-license verification)' },
+          signal: AbortSignal.timeout(12000)
+        });
+        if (!response.ok) { metadataErrors++; continue; }
+        const body = await response.json();
+        const meta = body.metadata || {};
+        const licenseProfile = internetArchiveLicense(meta.licenseurl || entry.indexed.licenseurl);
+        if (!licenseProfile) continue;
+        const files = Array.isArray(body.files) ? body.files : [];
+        const videoFiles = files.filter(file => {
+          const name = String(file.name || '');
+          const size = Number(file.size);
+          return /\.webm$/i.test(name) && file.private !== 'true' &&
+            Number.isFinite(size) && size >= 200000 && size <= MAX_SOURCE_BYTES;
+        }).sort((a, b) => Number(a.size) - Number(b.size));
+        for (const file of videoFiles.slice(0, 2)) {
+          const sourcePage = 'https://archive.org/details/' + entry.identifier;
+          if (used.has(sourcePage)) continue;
+          const fileUrl = 'https://archive.org/download/' + encodeURIComponent(entry.identifier) + '/' +
+            String(file.name).split('/').map(part => encodeURIComponent(part)).join('/');
+          const title = plainMetadata(meta.title || entry.indexed.title || entry.identifier).slice(0, 180);
+          const description = plainMetadata(meta.description || entry.indexed.description || '').slice(0, 1800);
+          const author = plainMetadata(meta.creator || entry.indexed.creator || '').slice(0, 300);
+          const editorial = { fileTitle: title, description, author };
+          if (isExcludedEditorialContent(title + ' ' + description) || !classifyCandidate(editorial)) continue;
+          const durationRaw = meta.runtime || meta.duration || meta.length || '';
+          const durationSeconds = parsedDurationSeconds({ commonmetadata: [{ name: 'duration', value: durationRaw }] });
+          if (durationSeconds !== null && (durationSeconds < 3 || durationSeconds > MAX_DURATION_SECONDS)) continue;
+          const candidate = {
+            fileTitle: title,
+            sourcePage,
+            fileUrl,
+            mime: 'video/webm',
+            size: Number(file.size),
+            durationSeconds,
+            licenseName: licenseProfile.type,
+            licenseUrl: licenseProfile.url,
+            licenseType: licenseProfile.type,
+            description,
+            author,
+            sourceWidth: Number(file.width || meta.width) > 0 ? Number(file.width || meta.width) : null,
+            sourceHeight: Number(file.height || meta.height) > 0 ? Number(file.height || meta.height) : null,
+            sourceAspectRatio: Number(file.width || meta.width) > 0 && Number(file.height || meta.height) > 0
+              ? Math.round((Number(file.width || meta.width) / Number(file.height || meta.height)) * 1000) / 1000 : null,
+            discoveryQuery: entry.search.key,
+            localPriorityQuery: Boolean(entry.search.term.localPriority),
+            archiveIdentifier: entry.identifier
+          };
+          candidate.contentLocaleScore = Math.max(candidateContentPriority(candidate), candidate.localPriorityQuery ? 1 : 0);
+          candidate.sourceVerticalScore = sourceVerticalScore(candidate.sourceWidth, candidate.sourceHeight);
+          candidate.title = titleForCandidate(candidate);
+          candidate.descriptionText = descriptionForCandidate(candidate);
+          found.push(candidate);
+          break;
+        }
+      } catch (error) {
+        metadataErrors++;
+      }
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(5, candidateQueue.length) }, () => metadataWorker()));
+  const unique = new Map();
+  for (const candidate of found) {
+    if (!unique.has(candidate.sourcePage)) unique.set(candidate.sourcePage, candidate);
+  }
+  const ranked = [...unique.values()].sort((a, b) =>
+    (b.contentLocaleScore - a.contentLocaleScore) ||
+    (b.sourceVerticalScore - a.sourceVerticalScore) ||
+    (Number(b.durationSeconds || 0) - Number(a.durationSeconds || 0))
+  );
+  console.log('INTERNET_ARCHIVE_SOURCE_COVERAGE', JSON.stringify({
+    search_queries: searches.length,
+    unique_items_discovered: discovered.size,
+    items_checked_for_file_metadata: metadataQueue.length,
+    eligible_webm_candidates: ranked.length,
+    metadata_errors: metadataErrors
+  }));
+  return ranked.slice(0, 60);
 }
 
 async function downloadVerifiedCommercialVideo(candidate) {
@@ -586,11 +875,33 @@ async function main() {
   try { state = JSON.parse(fs.readFileSync(STATE_PATH, 'utf8')); } catch {}
   if (!Array.isArray(state.posts)) state.posts = [];
 
-  const candidates = await discoverCommercialCandidates(state);
+  const [commonsCandidates, archiveCandidates] = await Promise.all([
+    discoverCommercialCandidates(state),
+    discoverInternetArchiveCandidates(state)
+  ]);
+  const uniqueCandidates = new Map();
+  for (const candidate of [...commonsCandidates, ...archiveCandidates]) {
+    const old = uniqueCandidates.get(candidate.sourcePage);
+    if (!old || (candidate.contentLocaleScore || 0) > (old.contentLocaleScore || 0)) {
+      uniqueCandidates.set(candidate.sourcePage, candidate);
+    }
+  }
+  const candidates = [...uniqueCandidates.values()].sort((a, b) =>
+    ((b.contentLocaleScore || 0) - (a.contentLocaleScore || 0)) ||
+    ((b.sourceVerticalScore || 0) - (a.sourceVerticalScore || 0)) ||
+    (Number(b.durationSeconds || 0) - Number(a.durationSeconds || 0))
+  );
+  console.log('FILO_DISCOVERY_SOURCE_COVERAGE', JSON.stringify({
+    wikimedia_commons_queries: COMMONS_SEARCHES.length,
+    internet_archive_queries: ARCHIVE_SEARCH_TERMS.length * ARCHIVE_LICENSE_FILTERS.length,
+    eligible_commons: commonsCandidates.length,
+    eligible_internet_archive: archiveCandidates.length,
+    unique_eligible_sources: candidates.length
+  }));
   if (!candidates.length) {
     const result = {
       status: 'no_eligible_candidate',
-      searchedQueries: COMMONS_SEARCHES.length,
+      searchedQueries: COMMONS_SEARCHES.length + ARCHIVE_SEARCH_TERMS.length * ARCHIVE_LICENSE_FILTERS.length,
       note: 'No new short WebM candidate with a verified CC0 1.0 or CC BY 4.0 license was found. Nothing was published.'
     };
     console.log('FILO_PUBLISH_RESULT', JSON.stringify(result));
