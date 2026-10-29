@@ -88,7 +88,7 @@ jobs:
               userAgent:'Mozilla/5.0 (compatible; GoushibaazTrendScout/1.0; public-metadata-only)',
               locale:'fa-IR'
             });
-            const cleanIndexText = value => String(value || '').replace(/\\s+/g,' ').trim();
+            const cleanIndexText = value => String(value || '').replace(/\s+/g,' ').trim();
             const sourcePriority = source => {
               const text = cleanIndexText([source.key, source.context, source.label].join(' ')).toLowerCase();
               let score = 0;
@@ -105,7 +105,7 @@ jobs:
                 await page.goto(url, {waitUntil:'domcontentloaded', timeout:15000});
                 await page.waitForTimeout(120);
                 return await page.evaluate(() => {
-                  const clean = s => (s || '').replace(/\\s+/g,' ').trim();
+                  const clean = s => (s || '').replace(/\s+/g,' ').trim();
                   const channelLinks = [];
                   const categoryLinks = [];
                   const seenChannels = new Set();
@@ -114,16 +114,16 @@ jobs:
                     let u;
                     try { u = new URL(a.href, location.origin); } catch { continue; }
                     if (u.hostname !== 'mediafarsi.com' && u.hostname !== 'www.mediafarsi.com') continue;
-                    const href = u.pathname.replace(/\\/$/,'');
+                    const href = u.pathname.replace(/\/$/,'');
                     const label = clean(a.innerText || a.getAttribute('aria-label') || (a.querySelector('img') || {}).alt || '');
                     const card = a.closest('tr, article, li, [class*="card"], [class*="item"]') || a.parentElement?.parentElement || a;
                     const context = clean(card.innerText || label).slice(0,800);
-                    const match = href.match(/^\\/channel\\/([A-Za-z0-9_-]+)$/i);
+                    const match = href.match(/^\/channel\/([A-Za-z0-9_-]+)$/i);
                     if (match && !seenChannels.has(match[1].toLowerCase())) {
                       seenChannels.add(match[1].toLowerCase());
                       channelLinks.push({key:match[1], base:'https://mediafarsi.com'+href, label, context, language:'persian', indexPage:location.href});
                     }
-                    if (/^\\/(?:categories?|category)\\//i.test(href) && !seenCategories.has(href)) {
+                    if (/^\/(?:categories?|category)\//i.test(href) && !seenCategories.has(href)) {
                       seenCategories.add(href);
                       categoryLinks.push({url:'https://mediafarsi.com'+href, label, context});
                     }
