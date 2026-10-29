@@ -256,11 +256,14 @@ async function main() {
   const externalResults = await Promise.all(OTHER_PUBLIC_REPOS.map(publicRuns));
   const externalComplete = externalResults.every(x => x.ok);
   const allObservedRuns = [...currentRuns, ...externalResults.flatMap(x => x.runs)];
-  const accountActive = allObservedRuns.filter(run => ['queued', 'in_progress'].includes(run.status)).length;
-  const recentRuns = allObservedRuns.filter(run => {
+  // If an external public Actions endpoint is rate-limited, reserve extra headroom instead of treating its load as zero.
+  const observedActive = allObservedRuns.filter(run => ['queued', 'in_progress'].includes(run.status)).length;
+  const observedRecentRuns = allObservedRuns.filter(run => {
     const created = Date.parse(run.created_at || '');
     return Number.isFinite(created) && created >= now - RECENT_WINDOW_MS;
   }).length;
+  const accountActive = observedActive + (externalComplete ? 0 : 6);
+  const recentRuns = observedRecentRuns + (externalComplete ? 0 : 30);
 
   const outcomeResults = await Promise.all(ACTIVE_PLATFORMS.map(p => readOutcome(p.stateFile)));
   const outcomesComplete = outcomeResults.every(Boolean);
