@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { execFileSync } = require('node:child_process');
+const { rankCandidates, buildTrendWeights } = require('./quality_rank.cjs');
 
 const TOKEN = process.env.RUBIKA_BOT_TOKEN || '';
 // RUN_RUBIKA_REAL_PUBLISH_TEST validation: publish one verified-license silent vertical MP4, then persist its ID.
@@ -18,24 +19,34 @@ const TARGET_WIDTH = Number(CONTENT_POLICY.vertical_video.output_width) || 1080;
 const TARGET_HEIGHT = Number(CONTENT_POLICY.vertical_video.output_height) || 1920;
 const WORK_HEIGHT = 1080;
 const WORK_WIDTH = Math.round(WORK_HEIGHT * TARGET_WIDTH / TARGET_HEIGHT);
-const MIN_DURATION_SECONDS = 3;
+const MIN_DURATION_SECONDS = 8;
 const MAX_DURATION_SECONDS = 180;
 const LICENSES = {
   cc0: 'https://creativecommons.org/publicdomain/zero/1.0/',
   ccby: 'https://creativecommons.org/licenses/by/4.0/'
 };
 const SEARCHES = [
-  { key: 'iranian-persian-animals', query: 'filetype:video ایران حیوانات', localPriority: true },
+  { key: 'iranian-hidden-camera', query: 'filetype:video Iran hidden camera funny', localPriority: true },
   { key: 'persian-funny-animals', query: 'filetype:video حیوانات بامزه فارسی', localPriority: true },
-  { key: 'iranian-hidden-camera', query: 'filetype:video ایران دوربین مخفی', localPriority: true },
-  { key: 'persian-cats', query: 'filetype:video گربه فارسی', localPriority: true },
-  { key: 'iranian-comedy', query: 'filetype:video طنز ایرانی', localPriority: true },
-  { key: 'iran', query: 'filetype:video Iran', localPriority: true },
-  { key: 'tehran', query: 'filetype:video Tehran', localPriority: true },
-  { key: 'dogs', query: 'filetype:video dog' },
-  { key: 'birds', query: 'filetype:video bird' },
-  { key: 'funny-animals', query: 'filetype:video funny animal' },
-  { key: 'camera-moments', query: 'filetype:video caught on camera animal' }
+  { key: 'iranian-comedy', query: 'filetype:video طنز ایرانی دوربین مخفی', localPriority: true },
+  { key: 'persian-reactions', query: 'filetype:video واکنش خنده دار ایرانی', localPriority: true },
+  { key: 'iranian-street-comedy', query: 'filetype:video طنز خیابانی فارسی', localPriority: true },
+  { key: 'persian-challenges', query: 'filetype:video چالش خنده دار فارسی', localPriority: true },
+  { key: 'persian-cats', query: 'filetype:video گربه بامزه فارسی', localPriority: true },
+  { key: 'iranian-sports-skills', query: 'filetype:video Iran football skill trick shot', localPriority: true },
+  { key: 'persian-food', query: 'filetype:video آشپزی خلاقانه ایرانی', localPriority: true },
+  { key: 'persian-satisfying', query: 'filetype:video ساختنی رضایت بخش فارسی', localPriority: true },
+  { key: 'funny-pets', query: 'filetype:video funny pets unexpected reaction' },
+  { key: 'caught-on-camera', query: 'filetype:video caught on camera unexpected funny' },
+  { key: 'sports-skill', query: 'filetype:video sports skill trick shot fail' },
+  { key: 'science-experiments', query: 'filetype:video fun science experiment optical illusion' },
+  { key: 'satisfying-restoration', query: 'filetype:video oddly satisfying restoration before after' },
+  { key: 'creative-crafts', query: 'filetype:video craft process woodworking pottery' },
+  { key: 'food-cooking', query: 'filetype:video cooking recipe food art' },
+  { key: 'magic-performance', query: 'filetype:video magic trick juggling performance' },
+  { key: 'wildlife-moments', query: 'filetype:video unusual animal behavior wildlife' },
+  { key: 'nature-wonders', query: 'filetype:video nature wonders weather phenomenon' },
+  { key: 'travel-culture', query: 'filetype:video Iran travel culture street life' },
 ];
 
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -83,9 +94,8 @@ function isExcludedEditorialContent(text) {
 function looksRelevant(fileTitle, description) {
   const text = (fileTitle + ' ' + description).toLowerCase();
   if (isExcludedEditorialContent(text)) return false;
-  // Keep the pool anchored in comedy, animals and other visual entertainment rather than arbitrary local footage.
-  return /\b(cat|cats|kitten|dog|dogs|puppy|bird|birds|parrot|squirrel|monkey|rabbit|animal|pet|wildlife|funny|unexpected|surprise|caught on camera|playing|playful|fail|visual comedy|oddly satisfying|hidden camera|prank|comedy|humor|funny moments)\b|گربه|سگ|حیوان|پرنده|بامزه|طنز|خنده|دوربین مخفی|سوتی|پرنک|چالش/i
-    .test(text);
+  // Diverse visual-entertainment categories: the ranking selects the strongest candidates later.
+  return /\\b(cat|cats|kitten|dog|dogs|puppy|bird|birds|parrot|squirrel|monkey|rabbit|animal|pet|wildlife|funny|unexpected|surprise|caught on camera|playing|playful|fail|visual comedy|oddly satisfying|satisfying|hidden camera|prank|comedy|humou?r|reaction|football|soccer|basketball|skateboard|parkour|trick shot|science experiment|invention|optical illusion|puzzle|cooking|recipe|food art|woodworking|pottery|craft|restoration|dance|music performance|juggling|nature|waterfall|travel|culture|architecture)\\b|گربه|سگ|حیوان|پرنده|بامزه|طنز|خنده|دوربین مخفی|سوتی|پرنک|چالش|فوتبال|بسکتبال|ورزش|حرکت نمایشی|آزمایش علمی|اختراع|فناوری|خطای دید|معما|آشپزی|غذا|خوراکی|کاردستی|نجاری|سفال|رضایت.?بخش|بازسازی|رقص|نوازندگی|موسیقی|طبیعت|آبشار|سفر|گردشگری|فرهنگ|معماری/.test(text);
 }
 
 function candidateContentPriority(candidate) {
@@ -177,8 +187,8 @@ async function discoverCandidates(state) {
   const hits = new Map();
   // Search all Persian/Iranian targets first, then fallback to broadly useful licensed clips.
   const orderedSearches = [
-    ...SEARCHES.filter(item => item.localPriority).slice(0, 5),
-    ...SEARCHES.filter(item => !item.localPriority).slice(0, 4)
+    ...SEARCHES.filter(item => item.localPriority).slice(0, 6),
+    ...SEARCHES.filter(item => !item.localPriority).slice(0, 10)
   ];
   for (const search of orderedSearches) {
     const url = new URL('https://commons.wikimedia.org/w/api.php');
@@ -247,16 +257,29 @@ async function discoverCandidates(state) {
     }
     await pause(250);
   }
-  const ranked = [...hits.values()].sort((a, b) =>
-    (b.contentLocaleScore - a.contentLocaleScore) ||
-    (b.sourceVerticalScore - a.sourceVerticalScore) ||
-    (Number(b.durationSeconds || 0) - Number(a.durationSeconds || 0))
-  );
+  let trendSnapshot = {};
+  try {
+    trendSnapshot = JSON.parse(fs.readFileSync(path.join('state', 'platform-trends.json'), 'utf8'));
+  } catch {}
+  const trendWeights = buildTrendWeights(trendSnapshot);
+  const ranked = rankCandidates([...hits.values()], {
+    trendWeights,
+    recentPosts: state.posts || []
+  });
   console.log('RUBIKA_CONTENT_PRIORITY', JSON.stringify({
     localPersianOrIranian: ranked.filter(item => item.contentLocaleScore >= 2).length,
     portraitSourceCandidates: ranked.filter(item => item.sourceVerticalScore >= 2).length,
     eligibleLicensedCandidates: ranked.length,
-    targetAspectRatio: CONTENT_POLICY.vertical_video.aspect_ratio
+    targetAspectRatio: CONTENT_POLICY.vertical_video.aspect_ratio,
+    trendWeights,
+    topCandidates: ranked.slice(0, 8).map(item => ({
+      title: item.title,
+      sourceTitle: item.fileTitle,
+      topic: item.editorialTopic,
+      score: item.editorialScore,
+      durationSeconds: item.durationSeconds,
+      reasons: item.editorialReasons
+    }))
   }));
   return ranked;
 }
