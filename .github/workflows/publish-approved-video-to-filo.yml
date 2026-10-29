@@ -2,14 +2,6 @@ name: Scheduled CC0 short-video publisher for Filo
 
 on:
   workflow_dispatch:
-  # Recovery trigger: run a real publisher attempt when this schedule is changed.
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/publish-approved-video-to-filo.yml"
-  schedule:
-    # Two independent publication attempts per hour (every 30 minutes, UTC).
-    - cron: "7,37 * * * *"
 
 permissions:
   contents: write
