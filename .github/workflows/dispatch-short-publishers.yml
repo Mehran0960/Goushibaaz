@@ -3,7 +3,7 @@ name: Synchronized adaptive short-video publisher scheduler
 on:
   schedule:
     # GitHub polls every five minutes; the persisted cadence decides whether all publishers start.
-    - cron: "2-57/5 * * * *"
+    - cron: "3-58/5 * * * *"
   workflow_dispatch:
   # Push/manual events only report capacity diagnostics; they never publish.
   push:
