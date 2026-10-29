@@ -1,24 +1,27 @@
-name: Jittered short-video publisher scheduler
+name: Synchronized adaptive short-video publisher scheduler
 
 on:
   schedule:
-    # Lightweight polling only. A publisher is dispatched only when the persisted next-due time arrives.
+    # GitHub polls every five minutes; the persisted cadence decides whether all publishers start.
     - cron: "2-57/5 * * * *"
   workflow_dispatch:
 
 permissions:
   actions: write
+  contents: read
 
 concurrency:
-  group: goushibaaz-jittered-publisher-scheduler
+  group: goushibaaz-synchronized-publisher-scheduler
   cancel-in-progress: false
 
 jobs:
   schedule:
     runs-on: ubuntu-latest
-    timeout-minutes: 2
+    timeout-minutes: 3
     steps:
-      - name: Restore tiny scheduler state
+      - uses: actions/checkout@v4
+
+      - name: Restore scheduler state
         id: restore
         uses: actions/cache/restore@v4
         with:
@@ -27,224 +30,15 @@ jobs:
           restore-keys: |
             goushibaaz-publisher-schedule-
 
-      - name: Dispatch one platform only when due and under daily caps
+      - name: Evaluate quota, video availability, and dispatch all enabled platforms together
         id: tick
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-        run: |
-          node <<'NODE'
-          const fs = require('node:fs');
-          const path = require('node:path');
-          const crypto = require('node:crypto');
+        run: node scripts/synchronized_scheduler.cjs
 
-          const STATE_DIR = '.scheduler-state';
-          const STATE_PATH = path.join(STATE_DIR, 'state.json');
-          const INTERVALS = [7, 17, 27];
-          // Preserve or reduce the prior upper bound (48 attempts/platform/day; 96 total).
-          const MAX_TOTAL_PER_UTC_DAY = 96;
-          const MAX_PER_PLATFORM_PER_UTC_DAY = 48;
-          const MIN_RETRY_MINUTES = 7;
-          const API_VERSION = '2022-11-28';
-          const repo = process.env.GITHUB_REPOSITORY;
-          const token = process.env.GH_TOKEN;
-
-          const output = (key, value) => {
-            fs.appendFileSync(process.env.GITHUB_OUTPUT, key + '=' + String(value) + '\n');
-          };
-          const log = (event, details = {}) => console.log(event, JSON.stringify(details));
-          const iso = value => new Date(value).toISOString();
-
-          function utcDay(ms) {
-            return new Date(ms).toISOString().slice(0, 10);
-          }
-
-          function nextUtcMidnight(ms) {
-            const d = new Date(ms);
-            return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() + 1, 0, 2, 0);
-          }
-
-          function freshState(now) {
-            return {
-              schema: 1,
-              utcDay: utcDay(now),
-              daily: { total: 0, filo: 0, rubika: 0 },
-              lastDestination: 'rubika',
-              lastIntervalMinutes: null,
-              lastDispatchAt: null,
-              nextDueAt: null,
-              lastDecision: 'initialized'
-            };
-          }
-
-          function normalizeState(state, now) {
-            if (!state || state.schema !== 1) state = freshState(now);
-            if (!state.daily || typeof state.daily !== 'object') state.daily = { total: 0, filo: 0, rubika: 0 };
-            for (const k of ['total', 'filo', 'rubika']) {
-              const n = Number(state.daily[k]);
-              state.daily[k] = Number.isFinite(n) && n >= 0 ? Math.floor(n) : 0;
-            }
-            if (state.utcDay !== utcDay(now)) {
-              state.utcDay = utcDay(now);
-              state.daily = { total: 0, filo: 0, rubika: 0 };
-              state.lastDecision = 'daily_counters_reset';
-            }
-            if (!['filo', 'rubika'].includes(state.lastDestination)) state.lastDestination = 'rubika';
-            if (![7, 17, 27, null].includes(state.lastIntervalMinutes)) state.lastIntervalMinutes = null;
-            return state;
-          }
-
-          async function githubApi(url, options = {}) {
-            if (!token) throw new Error('GITHUB_TOKEN_unavailable');
-            return fetch(url, {
-              ...options,
-              headers: {
-                accept: 'application/vnd.github+json',
-                authorization: 'Bearer ' + token,
-                'x-github-api-version': API_VERSION,
-                ...(options.headers || {})
-              },
-              signal: AbortSignal.timeout(15000)
-            });
-          }
-
-          async function persist(state, changed) {
-            fs.mkdirSync(STATE_DIR, { recursive: true });
-            fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
-            output('state_changed', changed ? 'true' : 'false');
-          }
-
-          async function main() {
-            const now = Date.now();
-            fs.mkdirSync(STATE_DIR, { recursive: true });
-
-            let state;
-            try {
-              state = JSON.parse(fs.readFileSync(STATE_PATH, 'utf8'));
-            } catch {
-              state = freshState(now);
-            }
-            const oldDay = state.utcDay;
-            state = normalizeState(state, now);
-            let changed = oldDay !== state.utcDay || !fs.existsSync(STATE_PATH);
-
-            if (process.env.GITHUB_EVENT_NAME !== 'schedule') {
-              log('SCHEDULER_NOOP', { reason: 'manual run is read-only; cron owns the cadence' });
-              await persist(state, changed);
-              return;
-            }
-
-            if (state.nextDueAt && Number.isFinite(Date.parse(state.nextDueAt)) && now < Date.parse(state.nextDueAt)) {
-              log('SCHEDULER_NOT_DUE', { now: iso(now), nextDueAt: state.nextDueAt, daily: state.daily });
-              if (changed) await persist(state, true);
-              else output('state_changed', 'false');
-              return;
-            }
-
-            if (state.daily.total >= MAX_TOTAL_PER_UTC_DAY ||
-                (state.daily.filo >= MAX_PER_PLATFORM_PER_UTC_DAY && state.daily.rubika >= MAX_PER_PLATFORM_PER_UTC_DAY)) {
-              state.nextDueAt = iso(nextUtcMidnight(now));
-              state.lastDecision = 'daily_cap_reached';
-              changed = true;
-              await persist(state, changed);
-              log('SCHEDULER_DAILY_CAP', {
-                caps: { total: MAX_TOTAL_PER_UTC_DAY, perPlatform: MAX_PER_PLATFORM_PER_UTC_DAY },
-                daily: state.daily, nextDueAt: state.nextDueAt
-              });
-              return;
-            }
-
-            // Never start another uploader while either destination workflow is queued or running.
-            const runsResponse = await githubApi('https://api.github.com/repos/' + repo + '/actions/runs?per_page=100');
-            if (!runsResponse.ok) {
-              state.nextDueAt = iso(now + MIN_RETRY_MINUTES * 60000);
-              state.lastDecision = 'workflow_status_check_failed_http_' + runsResponse.status;
-              await persist(state, true);
-              log('SCHEDULER_STATUS_CHECK_FAILED', { status: runsResponse.status, nextDueAt: state.nextDueAt });
-              process.exitCode = 1;
-              return;
-            }
-            const runsPayload = await runsResponse.json();
-            const publisherPaths = new Set([
-              '.github/workflows/publish-approved-video-to-filo.yml',
-              '.github/workflows/publish-approved-video-to-rubika.yml'
-            ]);
-            const active = (runsPayload.workflow_runs || []).filter(run =>
-              publisherPaths.has(run.path) && ['queued', 'in_progress'].includes(run.status)
-            );
-            if (active.length) {
-              state.nextDueAt = iso(now + MIN_RETRY_MINUTES * 60000);
-              state.lastDecision = 'deferred_for_active_publisher';
-              await persist(state, true);
-              log('SCHEDULER_DEFER_ACTIVE_PUBLISHER', {
-                active: active.map(run => ({ path: run.path, status: run.status, id: run.id })),
-                nextDueAt: state.nextDueAt
-              });
-              return;
-            }
-
-            // One destination per slot, alternated to keep the combined cadence lively without doubling source-search load.
-            let destination = state.lastDestination === 'filo' ? 'rubika' : 'filo';
-            if (state.daily[destination] >= MAX_PER_PLATFORM_PER_UTC_DAY) {
-              const alternative = destination === 'filo' ? 'rubika' : 'filo';
-              if (state.daily[alternative] < MAX_PER_PLATFORM_PER_UTC_DAY) destination = alternative;
-            }
-            if (state.daily[destination] >= MAX_PER_PLATFORM_PER_UTC_DAY) {
-              state.nextDueAt = iso(nextUtcMidnight(now));
-              state.lastDecision = 'both_platform_caps_reached';
-              await persist(state, true);
-              log('SCHEDULER_PLATFORM_CAPS', { daily: state.daily, nextDueAt: state.nextDueAt });
-              return;
-            }
-
-            const workflow = destination === 'filo'
-              ? 'publish-approved-video-to-filo.yml'
-              : 'publish-approved-video-to-rubika.yml';
-            const url = 'https://api.github.com/repos/' + repo + '/actions/workflows/' + workflow + '/dispatches';
-            const response = await githubApi(url, {
-              method: 'POST',
-              headers: { 'content-type': 'application/json' },
-              body: JSON.stringify({ ref: 'main' })
-            });
-            if (response.status !== 204) {
-              const errorBody = (await response.text()).slice(0, 500);
-              state.nextDueAt = iso(now + MIN_RETRY_MINUTES * 60000);
-              state.lastDecision = 'dispatch_failed_' + response.status;
-              await persist(state, true);
-              log('SCHEDULER_DISPATCH_FAILED', { destination, status: response.status, error: errorBody, nextDueAt: state.nextDueAt });
-              process.exitCode = 1;
-              return;
-            }
-
-            const available = INTERVALS.filter(n => n !== state.lastIntervalMinutes);
-            const intervalMinutes = available[crypto.randomInt(0, available.length)];
-            state.daily.total += 1;
-            state.daily[destination] += 1;
-            state.lastDestination = destination;
-            state.lastIntervalMinutes = intervalMinutes;
-            state.lastDispatchAt = iso(now);
-            state.nextDueAt = iso(now + intervalMinutes * 60000);
-            state.lastDecision = 'dispatch_accepted';
-            await persist(state, true);
-            log('SCHEDULER_DISPATCH_ACCEPTED', {
-              destination,
-              workflow,
-              nextIntervalMinutes: intervalMinutes,
-              nextDueAt: state.nextDueAt,
-              daily: state.daily,
-              dailyCaps: { total: MAX_TOTAL_PER_UTC_DAY, perPlatform: MAX_PER_PLATFORM_PER_UTC_DAY }
-            });
-          }
-
-          main().catch(async error => {
-            console.error('SCHEDULER_ERROR', String(error && error.message || error).slice(0, 400));
-            output('state_changed', 'false');
-            process.exitCode = 1;
-          });
-          NODE
-
-      - name: Save updated scheduler state only when it changed
+      - name: Save scheduler state only when updated
         if: always() && steps.tick.outputs.state_changed == 'true'
         uses: actions/cache/save@v4
         with:
