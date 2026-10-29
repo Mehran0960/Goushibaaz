@@ -1,0 +1,55 @@
+name: Temporary Persian 9:16 policy validation
+
+on:
+  push:
+    paths:
+      - "config/content-policy.json"
+      - "scripts/platform_scout.cjs"
+      - "scripts/filo_publish_cc0.cjs"
+      - "scripts/rubika_publish_cc0.cjs"
+      - "scripts/merge_short_candidates.cjs"
+      - ".github/workflows/content-policy-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    if: contains(github.event.head_commit.message, 'RUN_CONTENT_POLICY_VALIDATION')
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate policy and script syntax
+        run: |
+          node -e "const p=require('./config/content-policy.json'); if(p.vertical_video.aspect_ratio!=='9:16'||p.vertical_video.output_width!==1080||p.vertical_video.output_height!==1920) process.exit(1)"
+          node --check scripts/platform_scout.cjs
+          node --check scripts/filo_publish_cc0.cjs
+          node --check scripts/rubika_publish_cc0.cjs
+          node --check scripts/merge_short_candidates.cjs
+      - name: Smoke-test shared shortlist ranking and rights gate
+        run: |
+          mkdir -p out
+          cat > out/candidates.json <<'JSON'
+          {"candidates":[
+            {"video_id":"aaaaaaa0001","title":"Funny cats compilation","youtube_url":"https://www.youtube.com/shorts/aaaaaaa0001","views":10000000,"age_hours":10,"is_short":true,"language_priority":"unknown","license_status":"unverified"},
+            {"video_id":"bbbbbbb0002","title":"کلیپ بامزه ایرانی","youtube_url":"https://www.youtube.com/shorts/bbbbbbb0002","views":1000,"age_hours":24,"is_short":true,"language_priority":"persian","license_status":"unverified"}
+          ]}
+          JSON
+          cat > out/platform-candidates.json <<'JSON'
+          {"candidates":[]}
+          JSON
+          cat > out/license-check.json <<'JSON'
+          {"results":[]}
+          JSON
+          node scripts/merge_short_candidates.cjs
+          node - <<'NODE'
+          const r = require('./out/shorts-priority.json');
+          if (!r.candidates.length) throw new Error('empty shortlist');
+          if (!r.candidates[0].title.includes('ایرانی')) throw new Error('Persian candidate did not outrank raw views');
+          if (r.candidates.some(x => x.republish_eligible)) throw new Error('unverified lead marked publishable');
+          console.log('SHORTLIST_SMOKE_TEST_OK', JSON.stringify(r.summary));
+          NODE
