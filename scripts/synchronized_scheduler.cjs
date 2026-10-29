@@ -152,9 +152,8 @@ function intervalForPressure({ accountActive, recentRuns, remaining, outcomes, b
 
   const fresh = outcomes.filter(x => outcomeFresh(x, Date.now()));
   const noCandidates = fresh.filter(x => x.status === 'no_eligible_candidate').length;
-  const positive = fresh.some(x => KNOWN_ELIGIBLE.has(x.status));
-  if (!positive && noCandidates >= ACTIVE_PLATFORMS.length) floor = Math.max(floor, 27);
-  else if (!positive && noCandidates > 0) floor = Math.max(floor, 17);
+  if (noCandidates >= ACTIVE_PLATFORMS.length) floor = Math.max(floor, 27);
+  else if (noCandidates > 0) floor = Math.max(floor, 17);
 
   // The daily cap includes the two future-platform slots in its forecast.
   const choices = INTERVALS.filter(n =>
