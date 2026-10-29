@@ -95,13 +95,78 @@ const APARAT_SEARCHES = [
   { key: 'persian-magic-tricks', query: 'ترفند شعبده بازی جالب کوتاه' },
   { key: 'iranian-games', query: 'بازی و سرگرمی خانوادگی ایرانی' },
   { key: 'persian-reaction-shorts', query: 'ری اکشن طنز ایرانی کوتاه' },
-  { key: 'persian-animation-comedy', query: 'انیمیشن طنز فارسی کوتاه' }
+  { key: 'persian-animation-comedy', query: 'انیمیشن طنز فارسی کوتاه' },
+
+  ...[
+    ['iranian-animal-moments', 'لحظات بامزه حیوانات ایران'],
+    ['persian-pet-rescue', 'نجات حیوانات ویدیو کوتاه'],
+    ['persian-bird-fun', 'پرنده بازیگوش کلیپ کوتاه'],
+    ['iranian-nature-wonders', 'شگفتی طبیعت ایران کلیپ'],
+    ['persian-rural-life', 'زندگی روستایی ایران لحظه جالب'],
+    ['persian-market-moments', 'اتفاقات جالب بازار ایران'],
+    ['iranian-street-reactions', 'واکنش مردم ایران ویدیو کوتاه'],
+    ['persian-visual-comedy', 'کمدی تصویری بدون دیالوگ'],
+    ['iranian-silent-comedy', 'طنز بی کلام ایرانی'],
+    ['persian-puzzle', 'معمای تصویری جالب کوتاه'],
+    ['persian-optical-illusion', 'خطای دید و ترفند تصویری'],
+    ['iranian-science-demo', 'آزمایش علمی سرگرم کننده کوتاه'],
+    ['persian-restoration', 'بازسازی و تعمیر رضایت بخش'],
+    ['persian-maker-project', 'ساخت وسیله خلاقانه کوتاه'],
+    ['persian-miniature-craft', 'ساخت ماکت و کاردستی'],
+    ['persian-gardening', 'باغبانی و رشد گیاه ویدیو کوتاه'],
+    ['persian-cooking-process', 'فرایند آشپزی رضایت بخش'],
+    ['persian-food-art', 'هنر با غذا و تزئین خوراکی'],
+    ['persian-sports-highlights', 'لحظات جالب ورزش کوتاه'],
+    ['persian-football-skills', 'مهارت فوتبال نمایشی'],
+    ['persian-funny-fails', 'سوتی بامزه بدون آسیب'],
+    ['visual-animals-no-speech', 'funny animals no talking'],
+    ['visual-cats-playing', 'cats playing funny short video'],
+    ['visual-dog-tricks', 'dogs doing clever tricks short'],
+    ['visual-birds', 'funny birds short video'],
+    ['visual-wildlife', 'unexpected wildlife moments'],
+    ['visual-satisfying-crafts', 'satisfying craft process video'],
+    ['visual-restoration', 'satisfying restoration process'],
+    ['visual-science', 'fun science experiments short'],
+    ['visual-optical-illusions', 'optical illusion short video'],
+    ['visual-inventions', 'clever inventions short video'],
+    ['visual-food-process', 'satisfying food preparation video'],
+    ['visual-machine-process', 'satisfying machines process'],
+    ['visual-nature', 'amazing nature short video'],
+    ['visual-family-fun', 'family friendly funny moments'],
+    ['visual-street-moments', 'unexpected street moments short'],
+    ['visual-sports-moments', 'funny sports moments short'],
+    ['visual-miniature-builds', 'miniature building process short'],
+    ['visual-garden-growth', 'plant growth time lapse short'],
+    ['visual-creative-recycling', 'creative recycling project short']
+  ].map(([key, query]) => ({ key, query }))
+
 ];
 
 const TELEGRAM_DIRECTORY_SEARCHES = [
   { key: 'socialbook-comedy', url: 'https://t.me/s/socialbook_ir?q=%23%D8%B7%D9%86%D8%B2' },
   { key: 'socialbook-entertainment', url: 'https://t.me/s/socialbook_ir?q=%23%D8%B3%D8%B1%DA%AF%D8%B1%D9%85%DB%8C' },
   { key: 'socialbook-video', url: 'https://t.me/s/socialbook_ir?q=%23%D9%88%DB%8C%D8%AF%DB%8C%D9%88' }
+
+  ,
+  { key: 'socialbook-fun', url: 'https://t.me/s/socialbook_ir?q=%23%D9%81%D8%A7%D9%86' },
+  { key: 'socialbook-comedy-short', url: 'https://t.me/s/socialbook_ir?q=%23%DA%A9%D9%84%DB%8C%D9%BE_%D8%B7%D9%86%D8%B2' },
+  { key: 'socialbook-hidden-camera', url: 'https://t.me/s/socialbook_ir?q=%23%D8%AF%D9%88%D8%B1%D8%A8%DB%8C%D9%86_%D9%85%D8%AE%D9%81%DB%8C' },
+  { key: 'socialbook-animals', url: 'https://t.me/s/socialbook_ir?q=%23%D8%AD%DB%8C%D9%88%D8%A7%D9%86%D8%A7%D8%AA' },
+  { key: 'socialbook-cats', url: 'https://t.me/s/socialbook_ir?q=%23%DA%AF%D8%B1%D8%A8%D9%87' },
+  { key: 'socialbook-dogs', url: 'https://t.me/s/socialbook_ir?q=%23%D8%B3%DA%AF' },
+  { key: 'socialbook-challenge', url: 'https://t.me/s/socialbook_ir?q=%23%DA%86%D8%A7%D9%84%D8%B4' },
+  { key: 'socialbook-meme', url: 'https://t.me/s/socialbook_ir?q=%23%D9%85%DB%8C%D9%85' },
+  { key: 'socialbook-game', url: 'https://t.me/s/socialbook_ir?q=%23%DA%AF%DB%8C%D9%85' },
+  { key: 'socialbook-cooking', url: 'https://t.me/s/socialbook_ir?q=%23%D8%A2%D8%B4%D9%BE%D8%B2%DB%8C' },
+  { key: 'socialbook-food', url: 'https://t.me/s/socialbook_ir?q=%23%D8%BA%D8%B0%D8%A7' },
+  { key: 'socialbook-facts', url: 'https://t.me/s/socialbook_ir?q=%23%D8%AF%D8%A7%D9%86%D8%B3%D8%AA%D9%86%DB%8C' },
+  { key: 'socialbook-life-hacks', url: 'https://t.me/s/socialbook_ir?q=%23%D8%AA%D8%B1%D9%81%D9%86%D8%AF' },
+  { key: 'socialbook-satisfying', url: 'https://t.me/s/socialbook_ir?q=%23%D8%B1%D8%B6%D8%A7%DB%8C%D8%AA_%D8%A8%D8%AE%D8%B4' },
+  { key: 'socialbook-travel', url: 'https://t.me/s/socialbook_ir?q=%23%D8%B3%D9%81%D8%B1' },
+  { key: 'socialbook-sports', url: 'https://t.me/s/socialbook_ir?q=%23%D9%88%D8%B1%D8%B2%D8%B4' },
+  { key: 'socialbook-science', url: 'https://t.me/s/socialbook_ir?q=%23%D8%B9%D9%84%D9%85' },
+  { key: 'socialbook-technology', url: 'https://t.me/s/socialbook_ir?q=%23%D8%AA%DA%A9%D9%86%D9%88%D9%84%D9%88%DA%98%DB%8C' }
+
 ];
 
 const YOUTUBE_CC_SEARCHES = [
@@ -163,7 +228,41 @@ const YOUTUBE_CC_SEARCHES = [
   { key: 'visual-sports-moments', query: 'funny sports moments short video' },
   { key: 'visual-pet-rescue', query: 'animal rescue wholesome short video' },
   { key: 'visual-craft-process', query: 'satisfying craft process vertical video' },
-  { key: 'visual-life-hacks', query: 'useful life hacks short video' }
+  { key: 'visual-life-hacks', query: 'useful life hacks short video' },
+
+  ...[
+    ['fa-iranian-pets', 'حیوانات خانگی بامزه ایرانی کوتاه'],
+    ['fa-bird-moments', 'پرنده های بامزه کلیپ فارسی'],
+    ['fa-rural-life', 'زندگی روستایی ایران ویدیو کوتاه'],
+    ['fa-nature-wonders', 'شگفتی طبیعت ایران کلیپ کوتاه'],
+    ['fa-visual-comedy', 'کمدی تصویری بی کلام فارسی'],
+    ['fa-silent-comedy', 'طنز بی کلام کوتاه ایرانی'],
+    ['fa-optical-illusion', 'خطای دید ترفند تصویری کوتاه'],
+    ['fa-science-demo', 'آزمایش علمی سرگرم کننده کوتاه'],
+    ['fa-restoration', 'ویدیو بازسازی رضایت بخش کوتاه'],
+    ['fa-craft-process', 'فرایند ساخت کاردستی کوتاه فارسی'],
+    ['fa-gardening', 'رشد گیاه تایم لپس کوتاه'],
+    ['fa-food-art', 'هنر با غذا ویدیو کوتاه'],
+    ['fa-sport-skills', 'مهارت ورزشی نمایشی کوتاه'],
+    ['fa-harmless-fails', 'سوتی بامزه بی خطر ویدیو کوتاه'],
+    ['visual-funny-birds', 'funny birds short video'],
+    ['visual-playful-pets', 'playful pets short video'],
+    ['visual-wildlife-moments', 'unexpected wildlife moments short'],
+    ['visual-puzzle', 'visual puzzle short video'],
+    ['visual-optical-illusion', 'optical illusion short video'],
+    ['visual-quick-science', 'quick fun science experiments'],
+    ['visual-restoration', 'satisfying restoration short video'],
+    ['visual-maker-project', 'creative maker project short video'],
+    ['visual-food-art', 'creative food art short video'],
+    ['visual-garden-growth', 'plant growth time lapse short'],
+    ['visual-machine-process', 'satisfying machine process short'],
+    ['visual-miniature-builds', 'miniature build process short'],
+    ['visual-family-safe-fails', 'family friendly harmless fails short'],
+    ['visual-pet-training', 'clever pet training short video'],
+    ['visual-nature-time-lapse', 'beautiful nature time lapse short'],
+    ['visual-creative-recycling', 'creative recycling project short']
+  ].map(([key, query]) => ({ key, query }))
+
 ];
 
 function normalizeDigits(value) {
@@ -381,7 +480,7 @@ async function discoverTelegramSources(browser) {
   const existing = new Set(TELEGRAM_SOURCES.map(item => item.key.toLowerCase()));
   const dynamic = [...found.values()]
     .filter(item => !existing.has(item.key.replace(/^directory-/, '').toLowerCase()))
-    .slice(0, 24)
+    .slice(0, 180)
     .map(item => ({
       key: item.key,
       url: item.url,
@@ -609,6 +708,32 @@ async function scrapeYouTubeCreativeCommons(browser, search) {
   }
 }
 
+
+async function runTasksWithConcurrency(tasks, limit) {
+  const results = new Array(tasks.length);
+  let cursor = 0;
+  async function worker() {
+    while (true) {
+      const index = cursor++;
+      if (index >= tasks.length) return;
+      const task = tasks[index];
+      try {
+        results[index] = await task.run();
+      } catch (error) {
+        results[index] = {
+          status: 'error',
+          source: task.source,
+          url: task.url || '',
+          error_kind: String(error && error.name || 'Error').slice(0, 60),
+          candidates: []
+        };
+      }
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(Math.max(1, limit), tasks.length) }, () => worker()));
+  return results;
+}
+
 async function main() {
   fs.mkdirSync('out', { recursive: true });
   fs.mkdirSync('state', { recursive: true });
@@ -627,11 +752,23 @@ async function main() {
     aparat_searches: APARAT_SEARCHES.length,
     youtube_cc_searches: YOUTUBE_CC_SEARCHES.length
   }));
-  const pages = await Promise.all([
-    ...telegramSources.map(source => scrapeTelegram(browser, source)),
-    ...APARAT_SEARCHES.map(search => scrapeAparat(aparat, search)),
-    ...YOUTUBE_CC_SEARCHES.map(search => scrapeYouTubeCreativeCommons(browser, search))
-  ]);
+  const tasks = [
+    ...telegramSources.map(source => ({
+      source: 'telegram:' + source.key, url: source.url,
+      run: () => scrapeTelegram(browser, source)
+    })),
+    ...APARAT_SEARCHES.map(search => ({
+      source: 'aparat:' + search.key,
+      url: 'https://www.aparat.com/result/' + encodeURIComponent(search.query),
+      run: () => scrapeAparat(aparat, search)
+    })),
+    ...YOUTUBE_CC_SEARCHES.map(search => ({
+      source: 'youtube_cc:' + search.key,
+      url: 'https://www.youtube.com/results?search_query=' + encodeURIComponent(search.query),
+      run: () => scrapeYouTubeCreativeCommons(browser, search)
+    }))
+  ];
+  const pages = await runTasksWithConcurrency(tasks, 8);
   await browser.close();
 
   const all = [];
@@ -675,13 +812,13 @@ async function main() {
     }
   }
 
-  const telegram = sortCandidates(all.filter(x => x.source_platform === 'telegram')).slice(0, 80);
-  const aparatCandidates = sortCandidates(all.filter(x => x.source_platform === 'aparat')).slice(0, 80);
-  const youtubeCc = sortCandidates(all.filter(x => x.source_platform === 'youtube_cc')).slice(0, 100);
+  const telegram = sortCandidates(all.filter(x => x.source_platform === 'telegram')).slice(0, 160);
+  const aparatCandidates = sortCandidates(all.filter(x => x.source_platform === 'aparat')).slice(0, 160);
+  const youtubeCc = sortCandidates(all.filter(x => x.source_platform === 'youtube_cc')).slice(0, 200);
   state.updated_at = NOW.toISOString();
   for (const name of ['telegram', 'aparat', 'youtube_cc']) {
     const entries = Object.entries(state[name] || {}).sort((a,b) => (b[1].last_seen_at || '').localeCompare(a[1].last_seen_at || ''));
-    state[name] = Object.fromEntries(entries.slice(0, 1500));
+    state[name] = Object.fromEntries(entries.slice(0, 5000));
   }
   fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
 
