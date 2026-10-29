@@ -6,6 +6,8 @@ on:
     - cron: "7,37 * * * *"
     # Rubika: every 30 minutes, staggered 15 minutes after Filo.
     - cron: "22,52 * * * *"
+    # Temporary no-upload schedule smoke test; remove after the next tick.
+    - cron: "*/5 * * * *"
 
 permissions:
   actions: write
@@ -15,6 +17,14 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  schedule-smoke:
+    if: github.event.schedule == '*/5 * * * *'
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+      - name: Confirm scheduled event delivery without publishing
+        run: echo "Central scheduler received its temporary cron event; no publisher was dispatched."
+
   dispatch-filo:
     if: github.event.schedule == '7,37 * * * *'
     runs-on: ubuntu-latest
