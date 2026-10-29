@@ -118,14 +118,21 @@ function sourceVerticalScore(width, height) {
 
 function persianTitle(fileTitle, description) {
   const text = (fileTitle + ' ' + description).toLowerCase();
-  if (/\b(cat|cats|kitten)\b|گربه/.test(text)) return 'یه لحظه بامزه از دنیای گربه‌ها 😹';
-  if (/\b(dog|dogs|puppy)\b|سگ/.test(text)) return 'این حرکت سگ‌ها همیشه دیدنیه 🐶';
-  if (/\b(bird|birds|parrot)\b|پرنده/.test(text)) return 'یه لحظه تماشایی از دنیای پرنده‌ها 🐦';
-  if (/\b(squirrel|monkey|rabbit)\b/.test(text)) return 'رفتار جالبی که ارزش دیدن داره 🐾';
+  if (/\\b(cat|cats|kitten)\\b|گربه/.test(text)) return 'یه لحظه بامزه از دنیای گربه‌ها 😹';
+  if (/\\b(dog|dogs|puppy)\\b|سگ/.test(text)) return 'این حرکت سگ‌ها همیشه دیدنیه 🐶';
+  if (/\\b(bird|birds|parrot)\\b|پرنده/.test(text)) return 'یه لحظه تماشایی از دنیای پرنده‌ها 🐦';
+  if (/\\b(squirrel|monkey|rabbit)\\b/.test(text)) return 'رفتار جالبی که ارزش دیدن داره 🐾';
+  if (/\\b(football|soccer|basketball|trick shot|parkour|freestyle|sports? skill|goal|dunk)\\b|فوتبال|بسکتبال|ورزش|دریبل|حرکت نمایشی/.test(text)) return 'یه مهارت ورزشی دیدنی 🏆';
+  if (/\\b(science experiment|invention|technology demo|optical illusion|brain teaser|puzzle)\\b|آزمایش علمی|اختراع|فناوری|خطای دید|معما/.test(text)) return 'این آزمایش یا خطای دید رو ببین! 🧠';
+  if (/\\b(oddly satisfying|satisfying|restoration|woodworking|pottery|craft|miniature|before and after|transformation)\\b|رضایت.?بخش|کاردستی|نجاری|سفال|مرمت|بازسازی|قبل و بعد/.test(text)) return 'یه تغییر یا ساختنی رضایت‌بخش ✨';
+  if (/\\b(cooking|recipe|food art|food hack|kitchen|baking|street food)\\b|آشپزی|غذا|خوراکی|شیرینی|آشپزخانه/.test(text)) return 'یه ایده جالب از دنیای غذا 🍳';
+  if (/\\b(magic|dancing|dance|music performance|musician|singing|instrument|juggling)\\b|شعبده|جادو|رقص|نوازندگی|موسیقی|خوانندگی|آکروبات/.test(text)) return 'یه اجرای دیدنی و متفاوت 🎭';
+  if (/\\b(nature|landscape|weather phenomenon|ocean|volcano|waterfall|space footage)\\b|طبیعت|آبشار|اقیانوس|پدیده جوی|آتشفشان|منظره|فضا/.test(text)) return 'یه لحظه تماشایی از طبیعت 🌍';
+  if (/\\b(travel|tourism|street life|local culture|traditional|architecture)\\b|سفر|گردشگری|فرهنگ|سنتی|معماری|ایرانگردی/.test(text)) return 'یه گوشه دیدنی از دنیا 🌎';
   if (/iranian|tehran|shiraz|ایران|ایرانی|تهران|شیراز|اصفهان/.test(text)) return 'یه لحظه دیدنی از ایران 🇮🇷';
-  if (/persian|farsi|فارسی|طنز|خنده|دوربین مخفی|سوتی/.test(text)) return 'یه کلیپ فارسی که ارزش دیدن داره 😄';
-  if (/\b(caught on camera|unexpected|surprise|funny|fail)\b/.test(text)) return 'این اتفاق غیرمنتظره رو از دست نده 😮';
-  return 'یه لحظه دیدنی از دنیای حیوانات 🐾';
+  if (/persian|farsi|فارسی|طنز|خنده|دوربین مخفی|سوتی|پرنک|چالش|واکنش/.test(text)) return 'یه کلیپ فارسی که ارزش دیدن داره 😄';
+  if (/\\b(caught on camera|unexpected|surprise|funny|fail)\\b/.test(text)) return 'این اتفاق غیرمنتظره رو از دست نده 😮';
+  return 'یه کلیپ کوتاه و جالب 🎬';
 }
 
 function captionFor(candidate) {
