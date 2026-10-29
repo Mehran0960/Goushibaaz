@@ -96,7 +96,12 @@ jobs:
                     ...card,
                     source_channel:src.key,
                     source_page:src.url,
+                    source_language_priority:src.language,
                     language_priority:src.language,
+                    is_short:true,
+                    vertical_fit:'shorts_vertical_candidate',
+                    vertical_evidence:'MediaFarsi Shorts list; source ratio still requires metadata verification',
+                    target_aspect_ratio:'9:16',
                     youtube_url:'https://www.youtube.com/shorts/' + card.video_id
                   });
                   console.log('SOURCE_RESULT', JSON.stringify({
@@ -176,8 +181,8 @@ jobs:
               return bool(re.search(r"[پچژگکی]", s or "")) or bool(re.search(r"\b(چرا|وقتی|همه|خنده|دوربین|بامزه|میخواد|میکنی|نمی|شما|این|اون)\b", s or ""))
           def classify_format(title, source_language):
               t = norm(title).lower()
-              if is_persian(t):
-                  return "persian_priority", "Persian-specific text in title"
+              if is_persian(t) or source_language == "persian":
+                  return "persian_priority", "Persian-script/title or Persian-first source channel"
               visual = re.compile(
                   r"\b(cctv|dashcam|body ?cam|security camera|caught on camera|instant karma|near miss|epic fails?|funny moments|unexpected moments|oddly satisfying|satisfying|no talking|without talking|silent comedy|wordless|nonverbal|visual comedy|slapstick|animal fails?|funny animals?|cat|dog|rooster|optical illusion|magic trick|trust my eyes|can.t trust my eyes|perfect loop)\b",
                   re.I
@@ -227,6 +232,9 @@ jobs:
                       elapsed = None
               v = dict(item)
               format_fit, format_reason = classify_format(title, item.get("language_priority", "unknown"))
+              source_language = item.get("source_language_priority", item.get("language_priority", "unknown"))
+              iranian_signal = bool(re.search(r"ایران|ایرانی|تهران|شیراز|اصفهان|تبریز|مشهد|Iran|Iranian|Tehran|Shiraz|Isfahan|Tabriz|Mashhad", title + " " + norm(item.get("source_channel","")), re.I))
+              local_score = 4 if iranian_signal and (source_language == "persian" or is_persian(title)) else (3 if source_language == "persian" or is_persian(title) else (2 if iranian_signal else 0))
               v.update({
                   "title":title,
                   "views":views,
@@ -237,7 +245,14 @@ jobs:
                   "license_status":"not verified; do not reupload",
                   "format_fit":format_fit,
                   "format_reason":format_reason,
-                  "language_priority":"persian" if format_fit == "persian_priority" else ("language-neutral candidate" if format_fit == "language_neutral_candidate" else ("mixed / language check required" if item.get("language_priority") == "mixed" else "unknown"))
+                  "source_language_priority":source_language,
+                  "content_locality_score":local_score,
+                  "vertical_fit":"shorts_vertical_candidate" if item.get("is_short") else "unknown",
+                  "vertical_evidence":item.get("vertical_evidence","shorts_source_candidate; exact ratio not confirmed"),
+                  "target_aspect_ratio":"9:16",
+                  "license_status":"not verified; do not reupload",
+                  "republish_eligible":False,
+                  "language_priority":"persian" if (source_language == "persian" or format_fit == "persian_priority") else ("mixed / language check required" if source_language == "mixed" else ("language-neutral candidate" if format_fit == "language_neutral_candidate" else "unknown"))
               })
               candidates.append(v)
               history = old.get("history", [])
@@ -259,18 +274,22 @@ jobs:
               proxy = x.get("views_per_hour_proxy")
               age = x.get("age_hours")
               freshness = 2 if age is not None and age <= 48 else 1 if age is not None and age <= 168 else 0
-              persian = 2 if x.get("language_priority") == "persian" else 1 if x.get("language_priority") == "mixed / language may be irrelevant" else 0
+              persian = 3 if x.get("language_priority") == "persian" else 2 if x.get("language_priority") == "mixed / language check required" else 1 if x.get("format_fit") == "language_neutral_candidate" else 0
+              vertical = 2 if x.get("vertical_fit") == "shorts_vertical_candidate" else 1
+              local = x.get("content_locality_score") or 0
               topic = 1 if keywords.search(x.get("title","")) else 0
-              # Only positive measured velocity counts as a live trend signal; a flat count must not outrank fresh clips.
+              # Editorial fit leads; observed velocity breaks ties among Persian/local and portrait candidates.
               observed_signal = 1 if observed is not None and observed >= 300 else 0
               measured_velocity = observed if observed_signal else -1
               format_priority = {"persian_priority":2,"language_neutral_candidate":1,"language_check_required":0,"language_unknown_review":0}.get(x.get("format_fit"), 0)
               return (
+                  local,
+                  persian,
+                  vertical,
+                  format_priority,
                   observed_signal,
                   measured_velocity,
                   freshness,
-                  format_priority,
-                  persian,
                   topic,
                   proxy if proxy is not None else -1,
                   x.get("views") or -1
@@ -283,18 +302,19 @@ jobs:
               "generated_at":NOW.isoformat(),
               "source_errors":raw.get("source_errors",[]),
               "candidate_count":len(candidates),
-              "note":"Trend scout reports public metadata only. Views/hour from a single scan is a rough age-based proxy, not proof of growth. Persian titles rank first; visual-first titles are only candidates and must be checked for speech. Only reupload after verifying permissions/license and Filo compliance.",
+              "content_policy":{"language":"Persian (fa)","market":"Iran (only when metadata gives a signal; creator location is not assumed)","target_aspect_ratio":"9:16","ranking_order":["Iran/Persian signal","Shorts/portrait evidence","measured growth","freshness"],"rights_gate":"metadata-only leads are not publishable unless reuse rights are independently verified"},
+              "note":"Trend scout reports public metadata only. Persian/Iran-related signals and Shorts/portrait evidence rank ahead of raw velocity. A Shorts listing is not exact ratio verification; every published output is transcoded to 9:16. Public visibility or a Creative Commons search filter alone does not grant republication rights.",
               "candidates":candidates[:100]
           }
           Path("out/candidates.json").write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding="utf-8")
           def esc(s):
               return str(s or "").replace("|","\\|").replace("\n"," ")[:130]
           md = [
-              "# Persian-first video trend leads", "",
+              "# Persian/Iran-first vertical video trend leads", "",
               f"Generated: {NOW.isoformat()}", "",
               "**No media was downloaded or uploaded.** Rights are unverified for all trend leads.",
-              "Observed views/hour becomes available after repeated scans; the first scan uses only an age-based proxy.",
-              "Format labels: Persian-first, visual-first candidate (verify actual speech), or language review required.", "",
+              "Priority: Persian/iran-related signals first, Shorts/portrait candidates second, observed growth third. Final output target for publishers is 1080×1920 (9:16).",
+              "A source marked Shorts is not proof of exact dimensions, and no trend lead may be republished without verified reuse rights.", "",
               "| Rank | Title | Views | Age (h) | Observed growth/h | Proxy/h | Source |",
               "|---:|---|---:|---:|---:|---:|---|"
           ]
