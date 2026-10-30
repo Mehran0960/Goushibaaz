@@ -51,14 +51,14 @@ The project now uses a **single shared licensed-video preparation pipeline**. Th
 - Rights-cleared discovery rotates bounded Wikimedia Commons and Internet Archive query batches on each five-minute shared-preparation slot. Each slot also adds a search derived from a currently observed, fast-growing entertainment title. NASA/institutional public-media footage is deliberately disabled for this entertainment publisher. Every downloaded source is rechecked against its own CC0 1.0 or CC BY 4.0 metadata, public media URL, size, duration and audio-track presence before conversion.
 - Editorial ranking follows the `TrendsUpLoader`-style Persian audience lanes, observed trend momentum, clear hooks and payoffs, freshness, local relevance and category diversity. Current-affairs, promotional, sensitive and weapons/military content is excluded from automated entertainment publishing; roundups are penalized. Scores never grant publication rights.
 - Shared preparation and cross-destination dedupe: `scripts/rubika_publish_cc0.cjs`, `state/shared-publications.json`, and artifact `goushibaaz-shared-candidate`.
-- Independent Iranian-platform adapters: `scripts/rubika_publish_shared.cjs` and `scripts/bale_publish.cjs`, with common transport/validation in `scripts/platform_publish.cjs`.
-- Destination state: `state/rubika-published.json` and `state/bale-published.json`.
+- Independent Iranian-platform adapters: `scripts/telegram_publish.cjs`, `scripts/rubika_publish_shared.cjs` and `scripts/bale_publish.cjs`, with shared Telegram/Bale transport and validation in `scripts/platform_publish.cjs`.
+- Destination state: `state/telegram-published.json`, `state/rubika-published.json` and `state/bale-published.json`.
 - The scheduler checks every five minutes (GitHub Actions' minimum scheduled interval) and aims to start the next shared preparation at that cadence. It can intentionally lengthen the interval when runner concurrency, GitHub API quota, missing external capacity data or repeated no-candidate outcomes make faster starts unreliable. An active preparation is rechecked after five minutes. GitHub may delay scheduled workflow starts, so this is a best-effort cadence rather than a real-time SLA. A slow or failed destination never blocks fresh discovery slots; only that destination's own workflow queue/retry path is affected. The capacity model budgets for preparation plus three destination runs.
 - Public sending is explicitly enabled for Telegram, Bale and Rubika: each destination workflow sets its own `GOUSHIBAAZ_PUBLIC_PUBLISH_ENABLED=true` and `GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED=true`. This removes dependence on a shared repository variable. Each destination still resolves and validates its own bot/channel at send time, keeps its own idempotency ledger and concurrency group, and records success/failure independently.
 - Telegram, Bale and Rubika each resolve and validate the intended channel at execution time and use the numeric ID returned by their own platform APIs; stale or missing stored numeric channel IDs do not block channel resolution.
 - The first real public post still requires explicit approval. The no-send integration test exercises all three destination adapters against one identical artifact.
 
-Filo remains independently scheduled every five minutes and does not block the shared Rubika/Bale publisher scheduler. Both publishing paths use bounded rotating source queries plus a trend-title search lead; their actual publication rate remains conditional on rights-cleared media supply, job completion and destination acceptance.
+Filo remains independently scheduled every five minutes and does not block the shared Telegram/Rubika/Bale publisher scheduler. Both publishing paths use bounded rotating source queries plus a trend-title search lead; their actual publication rate remains conditional on rights-cleared media supply, job completion and destination acceptance.
 
 ### Destination availability
 
@@ -74,6 +74,7 @@ YouTube and Aparat are currently **discovery sources only**, not upload destinat
 - `scripts/media_format.cjs` — shared full-frame 9:16 conversion, blurred background, source-audio validation and AAC preservation.
 - `scripts/trend_discovery.cjs` — observed-trend title extraction, rotating five-minute archive query batches and Iranian-audience lane weighting.
 - `scripts/test_media_format.cjs` — regression tests for full-frame vertical output and retained audio.
+- `.github/workflows/publish-shared-video-to-telegram.yml` — Telegram artifact fan-out, independent delivery and publication-state persistence.
 - `.github/workflows/publish-approved-video-to-rubika.yml` — Rubika manual dispatch and independent publication-state persistence.
 - `.github/workflows/dispatch-short-publishers.yml` — synchronized central cron runner and cache-backed scheduler-state persistence.
 - `scripts/synchronized_scheduler.cjs` — adaptive five-minute minimum shared preparation cadence, concurrent destination fan-out, account-load/API feedback, and a 1,200-start daily safety ceiling.
