@@ -47,7 +47,7 @@ concurrency:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -57,36 +57,40 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg fonts-noto-core
-      - name: Validate JavaScript syntax and active destination configuration
+      - name: Validate JavaScript and shell syntax
         run: |
           node --check scripts/filo_publish_cc0.cjs
           node --check scripts/editorial_content.cjs
           node --check scripts/test_editorial_content.cjs
           node --check scripts/filo_endcard.cjs
           node --check scripts/test_filo_endcard.cjs
-          node scripts/test_editorial_content.cjs
-          node scripts/test_filo_endcard.cjs
           node --check scripts/platform_publish.cjs
           node --check scripts/telegram_publish.cjs
           node --check scripts/bale_publish.cjs
           node --check scripts/rubika_publish_shared.cjs
           node --check scripts/test_shared_publish.cjs
-          node scripts/test_shared_publish.cjs
           node --check scripts/media_format.cjs
-          node scripts/test_media_format.cjs
           node --check scripts/rubika_publish_cc0.cjs
           node --check scripts/import_trend_intelligence.cjs
           node --check scripts/synchronized_scheduler.cjs
-          bash -n scripts/persist_state_file.sh
           node --check scripts/quality_rank.cjs
           node --check scripts/test_quality_rank.cjs
-          node scripts/test_quality_rank.cjs
           node --check scripts/trend_discovery.cjs
           node --check scripts/test_trend_discovery.cjs
-          node scripts/test_trend_discovery.cjs
           node --check scripts/platform_scout.cjs
           node --check scripts/license_check.cjs
           node --check scripts/merge_short_candidates.cjs
+          bash -n scripts/persist_state_file.sh
+      - name: Run JavaScript regression tests
+        run: |
+          node scripts/test_editorial_content.cjs
+          node scripts/test_filo_endcard.cjs
+          node scripts/test_shared_publish.cjs
+          node scripts/test_media_format.cjs
+          node scripts/test_quality_rank.cjs
+          node scripts/test_trend_discovery.cjs
+      - name: Validate destination wiring and publishing-policy invariants
+        run: |
           grep -Fq '    - cron: "*/5 * * * *"' .github/workflows/dispatch-short-publishers.yml
           grep -Fq 'const INTERVALS = [5, 10, 15, 20, 25, 30' scripts/synchronized_scheduler.cjs
           grep -Fq 'const MAX_DESTINATION_STARTS_PER_UTC_DAY = 1200;' scripts/synchronized_scheduler.cjs
