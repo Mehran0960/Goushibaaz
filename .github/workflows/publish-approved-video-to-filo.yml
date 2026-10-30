@@ -1,4 +1,4 @@
-name: Scheduled CC0 short-video publisher for Filo
+name: Scheduled licensed short-video publisher for Filo
 
 on:
   workflow_dispatch:
@@ -36,7 +36,7 @@ jobs:
           node --check scripts/editorial_content.cjs
           node scripts/test_editorial_content.cjs
 
-      - name: Discover a fresh CC0 short, prepare vertical video and cover, publish to Filo
+      - name: Discover a fresh rights-cleared short, prepare 720p vertical video and cover, publish to Filo
         env:
           FILO_USER: ${{ secrets.FILO_USER }}
           FILO_PASS: ${{ secrets.FILO_PASS }}
