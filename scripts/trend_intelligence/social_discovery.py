@@ -1270,7 +1270,6 @@ def main(force_fallback=False, _quota_ledger=None, _previous_payload=None):
                 "query": qidx,
             })
         results.extend(discover_youtube_with_budget(now, quota_ledger))
-    results.extend(discover_youtube_global_charts(now))
         results.extend(discover_youtube_global_charts(now))
         previous = []
         try:
@@ -1407,6 +1406,7 @@ def main(force_fallback=False, _quota_ledger=None, _previous_payload=None):
     telegram_found = telegram_repost_candidates()
     results.extend(normalize_native_telegram_candidates(telegram_found, now))
     results.extend(discover_youtube_with_budget(now, quota_ledger))
+    results.extend(discover_youtube_global_charts(now))
     OUT.parent.mkdir(parents=True, exist_ok=True)
     previous = []
     try:
