@@ -4,6 +4,7 @@ const { execFileSync } = require('child_process');
 const { chromium } = require('playwright');
 const { rankCandidates, buildTrendWeights } = require('./quality_rank.cjs');
 const { buildTrendSearches, rotateSearchBatch } = require('./trend_discovery.cjs');
+const { probeMedia, convertToPortrait } = require('./media_format.cjs');
 const { looksRelevant, persianTitle } = require('./editorial_content.cjs');
 const { appendFiloEndCard } = require('./filo_endcard.cjs');
 const ACCOUNT = 'https://ifilo.net';
@@ -211,7 +212,7 @@ function descriptionForCandidate(candidate) {
     : CC0_LICENSE_URL);
   const title = candidate.title || persianTitle(candidate.fileTitle, candidate.description);
   const topic = persianTopicLabel(candidate);
-  const changeNote = 'تغییرات انجام‌شده: تبدیل به قالب عمودی ۹:۱۶، برش و مقیاس‌دهی تصویر، فشرده‌سازی و افزودن کارت پایانی معرفی گوشی‌باز در فیلو.';
+  const changeNote = 'تغییرات انجام‌شده: قاب‌بندی عمودی ۹:۱۶ بدون برش تصویر اصلی، حفظ صدای موجود و افزودن کارت پایانی معرفی گوشی‌باز در فیلو.';
   return [
     title + '؛ یک کلیپ کوتاه درباره ' + topic + '.',
     'برای دیدن ویدئوهای بیشتر از این مجموعه، گوشی‌باز را در فیلو دنبال کنید.',
@@ -371,7 +372,9 @@ async function discoverCommercialCandidates(state) {
         localPriorityQuery: Boolean(search.localPriority),
         trendSearchTitle: search.trendTitle || undefined,
         trendSearchUrl: search.trendUrl || undefined,
-        trendSearchVelocity: search.trendVelocity || undefined
+        trendSearchVelocity: search.trendVelocity || undefined,
+        trendSearchLane: search.trendLane || undefined,
+        trendSearchLocalPriority: Boolean(search.localPriority)
       };
       candidate.contentLocaleScore = Math.max(candidateContentPriority(candidate), search.localPriority ? 1 : 0);
       candidate.sourceVerticalScore = sourceVerticalScore(candidate.sourceWidth, candidate.sourceHeight);
@@ -584,6 +587,8 @@ async function discoverInternetArchiveCandidates(state) {
             trendSearchTitle: entry.search.term.trendTitle || undefined,
             trendSearchUrl: entry.search.term.trendUrl || undefined,
             trendSearchVelocity: entry.search.term.trendVelocity || undefined,
+            trendSearchLane: entry.search.term.trendLane || undefined,
+            trendSearchLocalPriority: Boolean(entry.search.term.localPriority),
             archiveIdentifier: entry.identifier
           };
           candidate.contentLocaleScore = Math.max(candidateContentPriority(candidate), candidate.localPriorityQuery ? 1 : 0);
@@ -641,29 +646,36 @@ async function downloadVerifiedCommercialVideo(candidate) {
     throw new Error('commons_file_not_webm');
   }
   fs.writeFileSync(INPUT_FILE, bytes);
+  const media = probeMedia(INPUT_FILE);
+  if (!media.audio) throw new Error('source_audio_track_missing');
+  if (!Number.isFinite(media.durationSeconds) ||
+      media.durationSeconds < MIN_DURATION_SECONDS || media.durationSeconds > MAX_DURATION_SECONDS) {
+    throw new Error('source_duration_out_of_range_or_unavailable');
+  }
   return {
     sourcePage: candidate.sourcePage, sourceTitle: candidate.fileTitle,
     directFilePath: pathOnly(candidate.fileUrl), licenseName: candidate.licenseName,
     licenseUrl: licenseProfile.url, licenseType: licenseProfile.type,
     author: String(candidate.author || 'Not identified on the source page').slice(0, 100),
     sourceBytes: bytes.length, sourceDescription: candidate.description.slice(0, 180),
-    durationSeconds: candidate.durationSeconds
+    durationSeconds: Math.round(media.durationSeconds * 100) / 100,
+    sourceAudio: media.audio,
+    sourceWidth: media.width,
+    sourceHeight: media.height
   };
 }
 
 function convertToPortraitMp4() {
-  execFileSync('ffmpeg', [
-    '-hide_banner', '-loglevel', 'error', '-y',
-    '-i', INPUT_FILE,
-    '-vf', `scale=${WORK_WIDTH}:${WORK_HEIGHT}:force_original_aspect_ratio=increase,crop=${WORK_WIDTH}:${WORK_HEIGHT},scale=${TARGET_WIDTH}:${TARGET_HEIGHT},setsar=1`,
-    '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '25', '-pix_fmt', 'yuv420p',
-    '-c:a', 'aac', '-b:a', '96k', '-ac', '2',
-    '-movflags', '+faststart',
-    OUTPUT_FILE
-  ], { stdio: 'pipe', timeout: 120000 });
-  const stat = fs.statSync(OUTPUT_FILE);
-  if (stat.size < 100000 || stat.size > 80000000) throw new Error('converted_video_size_out_of_range');
-  return { outputBytes: stat.size, outputPath: OUTPUT_FILE };
+  return convertToPortrait(INPUT_FILE, OUTPUT_FILE, {
+    width: TARGET_WIDTH,
+    height: TARGET_HEIGHT,
+    crf: 25,
+    maxrate: '1100k',
+    bufsize: '2200k',
+    audioBitrate: '96k',
+    maxBytes: 80_000_000,
+    timeoutMs: 180000
+  });
 }
 
 function extractCoverFrame(seekSeconds = 1.0) {
@@ -1069,6 +1081,8 @@ async function main() {
     durationSeconds: Number(FILO_PROFILE.end_card_seconds) || 1.6
   });
   fs.renameSync(OUTPUT_FILE + '.endcard.mp4', OUTPUT_FILE);
+  const finalMedia = probeMedia(OUTPUT_FILE);
+  if (!finalMedia.audio) throw new Error('final_filo_video_audio_track_missing');
   const cover = extractCoverFrame(candidate.contentOrigin === 'original_goushibaaz' ? (candidate.coverSeekSeconds || 3) : 1);
 
   if (DRY_RUN) {
@@ -1086,6 +1100,8 @@ async function main() {
       targetWidth: TARGET_WIDTH,
       targetHeight: TARGET_HEIGHT,
       durationSeconds: sourceDurationSeconds,
+      audioCodec: finalMedia.audio.codec,
+      framingMode: 'fit_foreground_with_blurred_background',
       convertedBytes: converted.outputBytes,
       coverBytes: cover.coverBytes,
       endCard,
