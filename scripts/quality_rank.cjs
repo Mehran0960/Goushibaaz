@@ -51,7 +51,7 @@ function candidateText(candidate) {
 
 function categoryFor(value) {
   if (value && typeof value === 'object') {
-    const lane = String(value.lane || value.editorialTopic || value.topic || '').toLowerCase();
+    const lane = String(value.content_lane || value.lane || value.editorialTopic || value.topic || '').toLowerCase();
     const laneMap = {
       comedy: 'persian_comedy', animals: 'pets_animals',
       surprise_or_reveal: 'surprise_reveal',
