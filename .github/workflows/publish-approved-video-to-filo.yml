@@ -3,7 +3,7 @@ name: Scheduled verified-license short-video publisher for Filo
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/30 * * * *" # continuous half-hour attempts; the publisher enforces the same minimum gap
+    - cron: "*/5 * * * *" # five-minute best-effort attempts; job runtime and Filo review can extend the actual gap
 
 permissions:
   contents: write
