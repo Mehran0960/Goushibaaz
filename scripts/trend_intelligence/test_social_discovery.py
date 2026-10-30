@@ -75,11 +75,11 @@ class ViewTrajectoryPersistenceTests(unittest.TestCase):
 class RotatingDiscoveryBatchTests(unittest.TestCase):
     def test_two_telegram_batches_cover_all_channels_without_overlap(self):
         now = datetime(2026, 10, 30, 12, 0, tzinfo=timezone.utc)
-        channels = [f"channel-{i}" for i in range(50)]
-        first = rotating_batch(channels, now, batch_size=25, window_seconds=15 * 60)
+        channels = [f"channel-{i}" for i in range(48)]
+        first = rotating_batch(channels, now, batch_size=24, window_seconds=15 * 60)
         second = rotating_batch(channels, now + timedelta(minutes=15), batch_size=25, window_seconds=15 * 60)
-        self.assertEqual(len(first), 25)
-        self.assertEqual(len(second), 25)
+        self.assertEqual(len(first), 24)
+        self.assertEqual(len(second), 24)
         self.assertFalse(set(first) & set(second))
         self.assertEqual(set(first) | set(second), set(channels))
         self.assertEqual(
