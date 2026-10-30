@@ -1,14 +1,20 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const crypto = require('node:crypto');
 const { execFileSync } = require('node:child_process');
 const { rankCandidates, buildTrendWeights } = require('./quality_rank.cjs');
 
 const TOKEN = process.env.RUBIKA_BOT_TOKEN || '';
 // RUN_RUBIKA_REAL_PUBLISH_TEST validation: publish one verified-license silent vertical MP4, then persist its ID.
 const DRY_RUN = /^(1|true|yes)$/i.test(process.env.DRY_RUN || '');
+const PREPARE_ONLY = /^(1|true|yes)$/i.test(process.env.PREPARE_ONLY || '');
 const CHANNEL_HANDLE = '@didobyn';
 const API_ROOT = 'https://botapi.rubika.ir/v3/';
 const STATE_PATH = path.join('state', 'rubika-published.json');
+const SHARED_STATE_PATH = path.join('state', 'shared-publications.json');
+const SHARED_WORK_DIR = path.join(process.cwd(), 'work', 'shared-publish');
+const SHARED_VIDEO_PATH = path.join(SHARED_WORK_DIR, 'video.mp4');
+const SHARED_MANIFEST_PATH = path.join(SHARED_WORK_DIR, 'manifest.json');
 const WORK_DIR = path.join(process.cwd(), 'work', 'rubika-publish');
 const INPUT_FILE = path.join(WORK_DIR, 'source-video.webm');
 const OUTPUT_FILE = path.join(WORK_DIR, 'didobyn-short.mp4');
@@ -193,9 +199,31 @@ function loadState() {
   return { schemaVersion: 1, posts: [] };
 }
 
+function loadSharedState() {
+  try {
+    const state = JSON.parse(fs.readFileSync(SHARED_STATE_PATH, 'utf8'));
+    if (state && Array.isArray(state.posts)) return state;
+  } catch {}
+  return { schemaVersion: 1, posts: [] };
+}
+
+function persistSharedState(state) {
+  fs.mkdirSync(path.dirname(SHARED_STATE_PATH), { recursive: true });
+  state.posts = (state.posts || []).slice(-600);
+  fs.writeFileSync(SHARED_STATE_PATH, JSON.stringify(state, null, 2) + '\\n', 'utf8');
+}
+
+function writeSharedManifest(manifest) {
+  fs.mkdirSync(SHARED_WORK_DIR, { recursive: true });
+  fs.writeFileSync(SHARED_MANIFEST_PATH, JSON.stringify(manifest, null, 2) + '\\n', 'utf8');
+}
+
 async function discoverCandidates(state) {
-  const used = new Set((state.posts || [])
-    .filter(item => ['published', 'submitted_unconfirmed'].includes(item.status))
+  const shared = loadSharedState();
+  const used = new Set([
+    ...(state.posts || []),
+    ...(shared.posts || [])
+  ].filter(item => ['published', 'submitted_unconfirmed', 'prepared'].includes(item.status))
     .map(item => item.sourcePage));
   const hits = new Map();
   // Search all Persian/Iranian targets first, then fallback to broadly useful licensed clips.
@@ -423,9 +451,11 @@ async function main() {
 
   const candidates = await discoverCandidates(state);
   if (!candidates.length) {
-    state.lastOutcome = { status: 'no_eligible_candidate', checkedAt: new Date().toISOString() };
+    const checkedAt = new Date().toISOString();
+    state.lastOutcome = { status: 'no_eligible_candidate', checkedAt };
     persistState(state);
-    console.log('RUBIKA_PUBLISH_RESULT', JSON.stringify({ status: 'no_eligible_candidate', dryRun: DRY_RUN }));
+    if (PREPARE_ONLY) writeSharedManifest({ schemaVersion: 1, status: 'no_eligible_candidate', checkedAt });
+    console.log('RUBIKA_PUBLISH_RESULT', JSON.stringify({ status: 'no_eligible_candidate', dryRun: DRY_RUN, prepareOnly: PREPARE_ONLY }));
     return;
   }
 
@@ -442,10 +472,12 @@ async function main() {
     }
   }
   if (!candidate) {
-    state.lastOutcome = { status: 'no_eligible_candidate', checkedAt: new Date().toISOString() };
+    const checkedAt = new Date().toISOString();
+    state.lastOutcome = { status: 'no_eligible_candidate', checkedAt };
     persistState(state);
+    if (PREPARE_ONLY) writeSharedManifest({ schemaVersion: 1, status: 'no_eligible_candidate', checkedAt, preparationFailures: failures });
     console.log('RUBIKA_PUBLISH_RESULT', JSON.stringify({
-      status: 'no_eligible_candidate', dryRun: DRY_RUN, candidatesChecked: Math.min(candidates.length, 8),
+      status: 'no_eligible_candidate', dryRun: DRY_RUN, prepareOnly: PREPARE_ONLY, candidatesChecked: Math.min(candidates.length, 8),
       preparationFailures: failures
     }));
     return;
@@ -469,6 +501,39 @@ async function main() {
     sourceVerticalScore: candidate.sourceVerticalScore || 1,
     durationSeconds: sourceInfo.durationSeconds
   };
+  if (PREPARE_ONLY) {
+    if (!DRY_RUN) throw new Error('PREPARE_ONLY_requires_DRY_RUN');
+    fs.mkdirSync(SHARED_WORK_DIR, { recursive: true });
+    fs.copyFileSync(OUTPUT_FILE, SHARED_VIDEO_PATH);
+    const videoBytes = fs.readFileSync(SHARED_VIDEO_PATH);
+    const sha256 = crypto.createHash('sha256').update(videoBytes).digest('hex');
+    const checkedAt = new Date().toISOString();
+    const manifest = {
+      schemaVersion: 1, status: 'prepared', preparedAt: checkedAt,
+      ...resultSummary, sha256, fileName: 'video.mp4',
+      caption: captionFor(candidate).slice(0, 1000),
+      sourcePage: candidate.sourcePage, licenseUrl: candidate.license.url,
+      author: candidate.author || ''
+    };
+    writeSharedManifest(manifest);
+    const shared = loadSharedState();
+    shared.posts.push({
+      sourcePage: candidate.sourcePage, title: candidate.title,
+      sourceTitle: candidate.fileTitle, license: candidate.license.type,
+      licenseUrl: candidate.license.url, sha256, preparedAt: checkedAt,
+      status: 'prepared', destinations: {}
+    });
+    shared.lastOutcome = { status: 'shared_candidate_prepared', checkedAt, sourcePage: candidate.sourcePage, sha256 };
+    persistSharedState(shared);
+    state.lastOutcome = { status: 'shared_candidate_prepared', checkedAt, sourcePage: candidate.sourcePage, sha256 };
+    persistState(state);
+    console.log('SHARED_CANDIDATE_PREPARED', JSON.stringify({
+      title: manifest.title, sourcePage: manifest.sourcePage,
+      license: manifest.license, durationSeconds: manifest.durationSeconds,
+      bytes: videoBytes.length, sha256
+    }));
+    return;
+  }
   if (DRY_RUN) {
     state.lastOutcome = { status: 'dry_run_ready_no_post_sent', checkedAt: new Date().toISOString(), sourcePage: candidate.sourcePage };
     persistState(state);
