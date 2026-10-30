@@ -48,6 +48,14 @@ jobs:
           PREPARE_ONLY: "true"
           DRY_RUN: "true"
         run: node scripts/rubika_publish_cc0.cjs
+      - name: Upload the same prepared video and manifest for all destinations
+        if: ${{ success() && hashFiles('work/shared-publish/manifest.json') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: goushibaaz-shared-candidate
+          path: work/shared-publish/*
+          if-no-files-found: error
+          retention-days: 2
       - name: Persist shared deduplication and preparation outcome
         if: ${{ always() && hashFiles('state/shared-publications.json') != '' }}
         run: |
@@ -58,16 +66,8 @@ jobs:
           git commit -m "Record shared licensed video preparation"
           for attempt in 1 2 3 4; do
             git fetch origin main
-            git rebase origin/main
+            git rebase --autostash origin/main
             if git push origin HEAD:main; then exit 0; fi
             sleep "$attempt"
           done
           exit 1
-      - name: Upload the same prepared video and manifest for all destinations
-        if: ${{ success() && hashFiles('work/shared-publish/manifest.json') != '' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: goushibaaz-shared-candidate
-          path: work/shared-publish/*
-          if-no-files-found: error
-          retention-days: 2
