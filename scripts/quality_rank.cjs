@@ -5,7 +5,7 @@ const CONTENT_POLICY = require('../config/content-policy.json');
 const AUDIENCE_WEIGHTS = CONTENT_POLICY.audience_priority_weights || {};
 
 const CONTENT_EXCLUSIONS = [
-  { key: 'institutional_or_current_affairs', pattern: /\\bNASA\\b|National Aeronautics and Space Administration|\n    / /\\bwar\\b|\\bexplosion\\b|\\bmissile\\b|\\bshooting\\b|\\bkilled\\b|\\binjured\\b|\\belection\\b|\\bpresident\\b|politic|protest|government|sanction|geopolitical|russia|ukraine|israel|\bamerica\b|جنگ|انفجار|موشک|تیراندازی|کشته|مجروح|انتخابات|رئیس.?جمهور|سیاست|اعتراض|تحریم|درگیری|روسیه|اوکراین|اسرائیل|آمریکا/i },
+  { key: 'institutional_or_current_affairs', pattern: /\\bNASA\\b|National Aeronautics and Space Administration|\\bwar\\b|\\bexplosion\\b|\\bmissile\\b|\\bshooting\\b|\\bkilled\\b|\\binjured\\b|\\belection\\b|\\bpresident\\b|politic|protest|government|sanction|geopolitical|russia|ukraine|israel|\\bamerica\\b|جنگ|انفجار|موشک|تیراندازی|کشته|مجروح|انتخابات|رئیس.?جمهور|سیاست|اعتراض|تحریم|درگیری|روسیه|اوکراین|اسرائیل|آمریکا/i },
   { key: 'sensitive_or_graphic_content', pattern: /gore|graphic violence|self.?harm|suicide|porn|explicit sexual|rape|blood|قتل|خون|قطع عضو|خودکشی|پورن|جنسی صریح|تجاوز جنسی/i },
   { key: 'promotional_content', pattern: /sponsored|affiliate|discount code|buy now|shop now|sign up now|link in bio|use my code|limited offer|promo code|visit our website|تبلیغات|اسپانسر|تخفیف|کد تخفیف|برای خرید|لینک خرید|ثبت.?نام کنید|لینک در بیو|فروش ویژه/i },
   { key: 'weapon_or_military_safety_review', pattern: /\bweapon\b|\bfirearm\b|\bgun\b|military training|سلاح|اسلحه|تفنگ|جنگ.?افزار|آموزش.?های.?نظامی/i }
