@@ -116,6 +116,10 @@ jobs:
           grep -Fq 'buildTrendSearches()' scripts/filo_publish_cc0.cjs
           grep -Fq 'rotateSearchBatch' scripts/rubika_publish_cc0.cjs
           grep -Fq 'observed_trend_title_overlap' scripts/quality_rank.cjs
+          ! grep -Fq 'licenseurl:http*creativecommons.org/publicdomain/zero/1.0*' scripts/filo_publish_cc0.cjs
+          ! grep -Fq 'licenseurl:http*creativecommons.org/publicdomain/zero/1.0*' scripts/rubika_publish_cc0.cjs
+          grep -Fq 'internetArchiveLicense(meta.licenseurl || entry.indexed.licenseurl)' scripts/filo_publish_cc0.cjs
+          grep -Fq 'internetArchiveLicense(meta.licenseurl || entry.indexed.licenseurl)' scripts/rubika_publish_cc0.cjs
       - name: Test public commercial-license video discovery (no upload)
         run: |
           node <<'NODE'
