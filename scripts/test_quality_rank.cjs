@@ -7,6 +7,9 @@ assert.equal(categoryFor('Persian hidden camera prank reaction'), 'persian_comed
 assert.equal(categoryFor('football trick shot and basketball dunk'), 'sports_skill');
 assert.equal(categoryFor('oddly satisfying restoration before and after'), 'satisfying_craft');
 assert.equal(categoryFor('آشپزی و ترفندهای غذایی'), 'food_cooking');
+assert.equal(categoryFor('unexpected final reveal and plot twist'), 'surprise_reveal');
+assert.equal(categoryFor('ترفند کاربردی و راه حل ساده خانه'), 'life_hacks');
+assert.equal(categoryFor({ content_lane: 'human_reaction_or_relatable', title: 'لحظه جالب' }), 'human_reaction');
 
 const short = scoreCandidate({ fileTitle: 'funny cat', durationSeconds: 5 });
 assert.equal(short.eligible, false, 'clips under 8 seconds must be excluded');
@@ -27,6 +30,8 @@ const weak = {
   sourceAspectRatio: 1.777,
   views: 500
 };
+assert.ok(scoreCandidate(strong).reasons.some(reason => reason.startsWith('retention_arc:')),
+  'curiosity plus payoff signals should improve watch-time retention potential');
 assert.ok(scoreCandidate(strong).score > scoreCandidate(weak).score,
   'fresh, vertical, hook-rich and fast-growing clips should outrank long generic landscape clips');
 
