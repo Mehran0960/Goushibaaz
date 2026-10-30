@@ -25,11 +25,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Restore scheduler state
         id: restore
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: .scheduler-state
           key: goushibaaz-publisher-schedule-v2-${{ github.run_id }}-${{ github.run_attempt }}
@@ -46,7 +46,7 @@ jobs:
 
       - name: Save scheduler state only when updated
         if: always() && steps.tick.outputs.state_changed == 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: .scheduler-state
           key: goushibaaz-publisher-schedule-${{ github.run_id }}-${{ github.run_attempt }}

@@ -18,10 +18,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
+          package-manager-cache: false
       - name: Inspect login and upload UI without publishing
         env:
           FILO_USER: ${{ secrets.FILO_USER }}

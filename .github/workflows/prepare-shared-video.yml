@@ -27,12 +27,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: main
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
+          package-manager-cache: false
       - name: Ensure FFmpeg is available
         run: |
           if ! command -v ffmpeg >/dev/null 2>&1; then
@@ -54,7 +55,7 @@ jobs:
         run: node scripts/rubika_publish_cc0.cjs
       - name: Upload the same prepared video and manifest for Telegram, Rubika and Bale
         if: ${{ success() && hashFiles('work/shared-publish/manifest.json') != '' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: goushibaaz-shared-candidate
           path: work/shared-publish/*
