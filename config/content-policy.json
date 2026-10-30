@@ -1,19 +1,28 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "project": "Goushibaaz / گوشی‌باز",
   "content_focus": {
     "primary_language": "Persian (fa)",
     "primary_market": "Iran",
     "preferred_topics": [
-      "Persian and Iranian entertainment",
-      "local creators",
-      "social comedy",
-      "hidden-camera",
-      "funny moments",
-      "animals",
-      "visual comedy"
+      "Iranian and Persian social comedy",
+      "hidden-camera and harmless funny moments",
+      "surprise, reveal and clear visual payoff",
+      "human reactions and relatable everyday moments",
+      "sports skills, tricks and spectacular performances",
+      "technology demonstrations and practical life hacks",
+      "satisfying transformations and creative making",
+      "food and cooking",
+      "pets and animal behavior",
+      "music, dance and heartwarming moments"
     ],
-    "prioritize_original_or_creator_authorized_material": true
+    "prioritize_original_or_creator_authorized_material": true,
+    "deprioritized_topics": [
+      "generic space and institutional science footage",
+      "long-form explainers and documentaries",
+      "multi-clip compilations and recycled roundups",
+      "promotional and affiliate-style videos"
+    ]
   },
   "vertical_video": {
     "output_width": 1080,
@@ -25,10 +34,12 @@
     "transcode_all_published_videos_to_output_ratio": true
   },
   "ranking_order": [
-    "persian_or_iranian_content",
-    "source_already_portrait_or_short_form",
-    "observed_growth",
+    "iranian_audience_content_fit",
+    "strong_hook_and_clear_payoff",
+    "measured_recent_growth",
+    "persian_language_and_local_relevance",
     "freshness",
+    "portrait_source_quality_without_foreground_crop",
     "category_diversity"
   ],
   "rights_gate": {
@@ -52,5 +63,42 @@
       "end_card_seconds": 1.6,
       "end_card_message": "For more videos, follow Goushibaaz on Filo"
     }
+  },
+  "audience_priority_weights": {
+    "persian_comedy": 32,
+    "surprise_reveal": 30,
+    "human_reaction": 29,
+    "sports_skill": 27,
+    "satisfying_craft": 26,
+    "life_hacks": 25,
+    "science_tech": 23,
+    "performance_magic": 24,
+    "food_cooking": 24,
+    "heartwarming": 23,
+    "diy_creativity": 22,
+    "pets_animals": 21,
+    "home_cleaning": 19,
+    "travel_culture": 18,
+    "fashion_culture": 17,
+    "nature_wildlife": 14,
+    "general_entertainment": 6
+  },
+  "video_processing": {
+    "output_mode": "9:16",
+    "aspect_fill_mode": "fit_foreground_with_blurred_background",
+    "never_crop_foreground": true,
+    "require_source_audio": true,
+    "preserve_source_audio": true,
+    "audio_codec": "AAC",
+    "audio_bitrate": "96k"
+  },
+  "source_policy": {
+    "nasa_public_media_enabled_for_public_entertainment": false,
+    "external_reuse_requires_item_level_license": true,
+    "accepted_licenses": [
+      "CC0 1.0",
+      "CC BY 4.0"
+    ],
+    "trend_source_is_discovery_only": true
   }
 }
