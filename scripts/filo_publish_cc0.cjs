@@ -34,21 +34,23 @@ const ACTIVE_SOURCE_STATUSES = new Set([
   'submitted_unconfirmed', 'submit_result_unconfirmed', 'upload_staged_unpublished', 'rejected_by_filo'
 ]);
 const COMMONS_SEARCHES = [
-  { key: 'iranian-persian-animals', query: 'filetype:video ایران حیوانات', localPriority: true },
-  { key: 'persian-funny-animals', query: 'filetype:video حیوانات بامزه فارسی', localPriority: true },
+  // Persian-first entertainment discovery mirrors the useful content lanes surfaced by TrendsUpLoader.
   { key: 'iranian-hidden-camera', query: 'filetype:video ایران دوربین مخفی', localPriority: true },
-  { key: 'persian-cats', query: 'filetype:video گربه فارسی', localPriority: true },
-  { key: 'iranian-comedy', query: 'filetype:video طنز ایرانی', localPriority: true },
-  { key: 'iran', query: 'filetype:video Iran', localPriority: true },
-  { key: 'tehran', query: 'filetype:video Tehran', localPriority: true },
-  { key: 'persian-pets', query: 'filetype:video گربه', localPriority: true },
-  { key: 'dogs', query: 'filetype:video dog' },
-  { key: 'pets', query: 'filetype:video pet' },
-  { key: 'birds', query: 'filetype:video bird' },
-  { key: 'squirrels', query: 'filetype:video squirrel' },
-  { key: 'monkeys', query: 'filetype:video monkey' },
-  { key: 'animals', query: 'filetype:video animal' },
-  { key: 'camera-moments', query: 'filetype:video caught camera animal' },
+  { key: 'iranian-comedy', query: 'filetype:video طنز ایرانی خنده دار', localPriority: true },
+  { key: 'persian-reactions', query: 'filetype:video واکنش خنده دار فارسی', localPriority: true },
+  { key: 'iranian-street-comedy', query: 'filetype:video طنز خیابانی فارسی', localPriority: true },
+  { key: 'persian-challenges', query: 'filetype:video چالش خنده دار فارسی', localPriority: true },
+  { key: 'iranian-sports-skills', query: 'filetype:video مهارت ورزشی ایران فوتبال', localPriority: true },
+  { key: 'persian-food', query: 'filetype:video آشپزی خلاقانه فارسی', localPriority: true },
+  { key: 'persian-tech-lifehack', query: 'filetype:video ترفند کاربردی فناوری فارسی', localPriority: true },
+  { key: 'visual-comedy', query: 'filetype:video visual comedy' },
+  { key: 'unexpected-reactions', query: 'filetype:video unexpected reaction' },
+  { key: 'caught-on-camera', query: 'filetype:video caught on camera funny' },
+  { key: 'harmless-pranks', query: 'filetype:video harmless prank' },
+  { key: 'street-moments', query: 'filetype:video funny street moments' },
+  { key: 'sports-fails', query: 'filetype:video funny sports fail' },
+  { key: 'technology-demos', query: 'filetype:video surprising technology demo' },
+  { key: 'food-cooking', query: 'filetype:video food cooking unexpected' },
 
   ...[
     ['iranian-pet-moments', 'filetype:video Iran pet', true],
