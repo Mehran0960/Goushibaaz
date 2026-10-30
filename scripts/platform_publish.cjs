@@ -11,13 +11,13 @@ const ENABLED = /^true$/i.test(process.env.GOUSHIBAAZ_PUBLIC_PUBLISH_ENABLED || 
 const CONFIG = {
   telegram: {
     token: process.env.TELEGRAM_BOT_TOKEN || '',
-    chatId: process.env.TELEGRAM_CHAT_ID || '',
+    chatId: process.env.TELEGRAM_CHAT_ID || '@didobyn',
     apiRoot: 'https://api.telegram.org',
     statePath: path.join('state', 'telegram-published.json')
   },
   bale: {
     token: process.env.BALE_BOT_TOKEN || '',
-    chatId: process.env.BALE_CHANNEL_ID || '',
+    chatId: process.env.BALE_CHANNEL_ID || '@didobyn',
     apiRoot: 'https://tapi.bale.ai',
     statePath: path.join('state', 'bale-published.json')
   }
@@ -37,6 +37,34 @@ function resultMessageId(payload) {
   const result = payload && (payload.result || payload.data || payload);
   const message = result && (result.message || result);
   return message && (message.message_id || message.messageId || message.id);
+}
+
+async function resolveChannel(platform, config) {
+  if (!config.token) throw new Error(platform + '_bot_token_missing');
+  const response = await fetch(config.apiRoot + '/bot' + config.token + '/getChat', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ chat_id: '@didobyn' }),
+    signal: AbortSignal.timeout(25000)
+  });
+  const raw = await response.text();
+  let payload;
+  try { payload = JSON.parse(raw); }
+  catch { throw new Error(platform + '_getChat_non_json_http_' + response.status); }
+  if (!response.ok || payload.ok !== true) {
+    throw new Error(platform + '_getChat_failed_http_' + response.status + '_' +
+      clean(payload.description || payload.error_code || 'request_failed'));
+  }
+  const chat = payload.result || {};
+  const username = String(chat.username || '').replace(/^@/, '').toLowerCase();
+  if (!chat.id || chat.type !== 'channel' || username !== 'didobyn') {
+    throw new Error(platform + '_channel_identity_check_failed');
+  }
+  const configured = String(config.chatId || '').trim();
+  if (configured && configured !== '@didobyn' && configured !== String(chat.id)) {
+    console.warn(platform + '_configured_channel_id_differs_from_verified_handle; using @didobyn');
+  }
+  return String(chat.id);
 }
 
 async function publish(platform) {
@@ -85,7 +113,7 @@ async function publish(platform) {
     }));
     return;
   }
-  if (!config.token || !config.chatId) throw new Error(platform + '_credentials_or_channel_id_missing');
+  const resolvedChatId = await resolveChannel(platform, config);
 
   // Persist before sending so an ambiguous timeout cannot cause an automatic duplicate.
   entry.status = 'send_started';
@@ -94,7 +122,7 @@ async function publish(platform) {
   writeJson(config.statePath, state);
 
   const form = new FormData();
-  form.append('chat_id', String(config.chatId));
+  form.append('chat_id', resolvedChatId);
   form.append('caption', String(manifest.caption).slice(0, 1000));
   form.append('supports_streaming', 'true');
   form.append('video', new Blob([video], { type: 'video/mp4' }), 'goushibaaz-short.mp4');
@@ -130,7 +158,7 @@ async function publish(platform) {
     };
     writeJson(config.statePath, state);
     console.log('DESTINATION_PUBLISHED', JSON.stringify({
-      platform, messageId: entry.messageId, title: entry.title, sha256
+      platform, messageId: entry.messageId, title: entry.title, sha256, chatId: resolvedChatId
     }));
   } catch (error) {
     if (entry.status === 'send_started') {
