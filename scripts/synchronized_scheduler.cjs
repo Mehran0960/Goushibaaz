@@ -5,12 +5,12 @@ const path = require('node:path');
 
 const STATE_DIR = '.scheduler-state';
 const STATE_PATH = path.join(STATE_DIR, 'state.json');
-// Dispatch one shared preparation run; its completion fans the same artifact out to three isolated destination workflows.
+// Dispatch one shared preparation run; its completion fans the same artifact out to the two Iranian destination workflows.
 const ACTIVE_PLATFORMS = [
   { key: 'shared', workflow: 'prepare-shared-video.yml', stateFile: 'state/shared-publications.json' }
 ];
-// Budget for the preparation workflow plus Rubika, Telegram and Bale destination runs.
-const FUTURE_PLATFORM_RESERVE = 3;
+// Budget for the preparation workflow plus Rubika and Bale destination runs.
+const FUTURE_PLATFORM_RESERVE = 2;
 const MAX_DESTINATION_STARTS_PER_UTC_DAY = 1200;
 const INTERVALS = [5, 10, 15, 20, 25, 30, 40, 50, 60, 90, 120, 180, 240, 360, 480, 720, 960, 1200, 1440];
 const API_VERSION = '2022-11-28';
@@ -222,8 +222,7 @@ async function readOnlyDiagnostics(now) {
   const observedPublisherPaths = new Set([
     '.github/workflows/prepare-shared-video.yml',
     '.github/workflows/publish-shared-video-to-rubika.yml',
-    '.github/workflows/publish-shared-video-to-telegram.yml',
-    '.github/workflows/publish-shared-video-to-bale.yml'
+        '.github/workflows/publish-shared-video-to-bale.yml'
   ]);
   const publishersActive = currentRuns.filter(run => observedPublisherPaths.has(run.path) &&
     ['queued', 'in_progress'].includes(run.status));
@@ -237,7 +236,7 @@ async function readOnlyDiagnostics(now) {
       status: outcome && outcome.status || 'unknown',
       checkedAt: outcome && outcome.checkedAt || null
     })),
-    chosenIntervalMinutes: Math.max(cadence.selected, externalComplete ? 7 : 27),
+    chosenIntervalMinutes: Math.max(cadence.selected, externalComplete ? 5 : 30),
     dailyStartCap: MAX_DESTINATION_STARTS_PER_UTC_DAY,
     budgetedPlatformsIncludingFutureReserve: ACTIVE_PLATFORMS.length + FUTURE_PLATFORM_RESERVE,
     projectedDailyStartsAtSelectedInterval: cadence.projectedStartsAtSelected
@@ -291,7 +290,7 @@ async function main() {
   const currentPayload = await runsResponse.json();
   const currentRuns = currentPayload.workflow_runs || [];
   // Only an in-flight preparation blocks the next candidate. Destination runs are isolated;
-  // slow Telegram/Bale/Rubika delivery must never freeze fresh discovery slots.
+  // slow Bale/Rubika delivery must never freeze fresh discovery slots.
   const publisherPathSet = new Set([
     '.github/workflows/prepare-shared-video.yml'
   ]);
