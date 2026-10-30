@@ -4,7 +4,15 @@
   "content_focus": {
     "primary_language": "Persian (fa)",
     "primary_market": "Iran",
-    "preferred_topics": ["Persian and Iranian entertainment", "local creators", "social comedy", "hidden-camera", "funny moments", "animals", "visual comedy"],
+    "preferred_topics": [
+      "Persian and Iranian entertainment",
+      "local creators",
+      "social comedy",
+      "hidden-camera",
+      "funny moments",
+      "animals",
+      "visual comedy"
+    ],
     "prioritize_original_or_creator_authorized_material": true
   },
   "vertical_video": {
@@ -25,9 +33,22 @@
   ],
   "rights_gate": {
     "require_verified_republication_rights": true,
-    "accepted_licenses": ["CC0 1.0", "CC BY 4.0"],
+    "accepted_licenses": [
+      "CC0 1.0",
+      "CC BY 4.0"
+    ],
     "explicit_creator_permission_also_allowed": true,
     "public_visibility_or_cc_search_filter_alone_is_permission": false,
     "unverified_sources_are_discovery_only": true
+  },
+  "platform_profiles": {
+    "filo": {
+      "output_width": 720,
+      "output_height": 1280,
+      "cover_width": 720,
+      "cover_height": 1280,
+      "recommended_resolution": "720p",
+      "rationale": "Filo's creator guidance recommends 720p video and a relevant, high-quality cover."
+    }
   }
 }
