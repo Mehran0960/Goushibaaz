@@ -3,8 +3,7 @@ name: Scheduled licensed and original short-video publisher for Filo
 on:
   workflow_dispatch:
   schedule:
-    - cron: "30 4,14,17 * * *" # Iran time: 08:00, 18:00 and 21:00
-    - cron: "0 9 * * *" # Iran time: 12:30
+    - cron: "0 0,6,12,18 * * *" # Iran time: 03:30, 09:30, 15:30 and 21:30; evenly spaced six-hour slots
 
 permissions:
   contents: write
