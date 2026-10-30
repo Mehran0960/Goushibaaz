@@ -1,15 +1,19 @@
 name: Publish Shared Video to Telegram
+
 on:
   workflow_run:
     workflows: ["Prepare Shared Licensed Short Video"]
     types: [completed]
     branches: [main]
+
 permissions:
   actions: read
   contents: write
+
 concurrency:
   group: goushibaaz-telegram-destination
   cancel-in-progress: false
+
 jobs:
   publish:
     if: ${{ github.event.workflow_run.conclusion != 'cancelled' }}
@@ -37,11 +41,23 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GOUSHIBAAZ_PUBLIC_PUBLISH_ENABLED: "true"
-          GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true" # publication explicitly enabled by the channel owner
+          GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true" # explicitly approved by the channel owner
         run: |
           node --check scripts/platform_publish.cjs
           node --check scripts/telegram_publish.cjs
           node scripts/telegram_publish.cjs
       - name: Persist Telegram-only publication state
         if: ${{ always() && steps.artifact.outcome == 'success' && hashFiles('state/telegram-published.json') != '' }}
-        run: bash scripts/persist_state_file.sh state/telegram-published.json "Record Telegram destination result"
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state/telegram-published.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Record Telegram destination result"
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
