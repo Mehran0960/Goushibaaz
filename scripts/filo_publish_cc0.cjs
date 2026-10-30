@@ -203,7 +203,6 @@ function descriptionForCandidate(candidate) {
       'گزینه‌ها: ' + optionLine,
       '',
       'تولید اختصاصی گوشی‌باز؛ متن، روایت فارسی و تصویرسازی این ویدئو برای این کانال ساخته شده است.',
-      ORIGINAL_PUZZLE_SOURCE_BASE + candidate.puzzleId,
       '',
       'برای دیدن چالش‌های بعدی، گوشی‌باز را در فیلو دنبال کن.'
     ].join('\n');
@@ -275,7 +274,7 @@ function selectOriginalPuzzle(state, now = new Date()) {
     .map(item => item.topic);
   if (unused.length) return unused.find(item => !recentTopics.includes(item.topic)) || unused[0];
 
-  const cooldownMs = 14 * 24 * 60 * 60 * 1000;
+  const cooldownMs = 5 * 24 * 60 * 60 * 1000;
   const reusable = puzzles
     .filter(item => uses.has(item.id) && now.getTime() - (uses.get(item.id) || 0) >= cooldownMs)
     .sort((a, b) => (uses.get(a.id) || 0) - (uses.get(b.id) || 0));
@@ -287,7 +286,7 @@ function prepareOriginalPuzzleFallback(state) {
   if (!puzzle) {
     console.log('FILO_ORIGINAL_CONTENT_UNAVAILABLE', JSON.stringify({
       bankSize: Array.isArray(ORIGINAL_PUZZLES.puzzles) ? ORIGINAL_PUZZLES.puzzles.length : 0,
-      reason: 'All original puzzles were used within the 14-day reuse window.'
+      reason: 'All original puzzles were used within the 5-day reuse window.'
     }));
     return null;
   }
