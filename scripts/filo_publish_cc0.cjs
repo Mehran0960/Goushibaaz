@@ -5,7 +5,6 @@ const { chromium } = require('playwright');
 const { rankCandidates, buildTrendWeights } = require('./quality_rank.cjs');
 const { looksRelevant, persianTitle } = require('./editorial_content.cjs');
 const { appendFiloEndCard } = require('./filo_endcard.cjs');
-remove original video importremove original puzzle bank
 const ACCOUNT = 'https://ifilo.net';
 const CC0_LICENSE_URL = 'https://creativecommons.org/publicdomain/zero/1.0/';
 const STATE_PATH = path.join('state', 'filo-published.json');
@@ -24,9 +23,9 @@ const COVER_HEIGHT = Number(FILO_PROFILE.cover_height) || 1280;
 const WORK_HEIGHT = 1080;
 const WORK_WIDTH = Math.round(WORK_HEIGHT * TARGET_WIDTH / TARGET_HEIGHT);
 // Fail closed on reuse rights: only explicit CC0 1.0 or CC BY 4.0 license metadata is accepted.
-raise Filo attempt ceiling to 48/day
-set Filo 30-minute minimum gap
-remove original source baseconst MIN_DURATION_SECONDS = 8;
+const MAX_DAILY_PUBLICATIONS = 48;
+const MIN_PUBLICATION_GAP_MS = 30 * 60 * 1000;
+const MIN_DURATION_SECONDS = 8;
 const MAX_DURATION_SECONDS = 180;
 const ACTIVE_SOURCE_STATUSES = new Set([
   'published', 'submitted_pending_approval', 'submit_started',
