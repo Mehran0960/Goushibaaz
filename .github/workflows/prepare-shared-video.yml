@@ -6,6 +6,7 @@ on:
     paths:
       - "scripts/rubika_publish_cc0.cjs"
       - "scripts/quality_rank.cjs"
+      - "scripts/media_format.cjs"
       - "scripts/editorial_content.cjs"
       - "scripts/test_editorial_content.cjs"
       - "config/content-policy.json"
@@ -42,7 +43,9 @@ jobs:
       - name: Validate shared preparation and editorial selection
         run: |
           node --check scripts/rubika_publish_cc0.cjs
+          node --check scripts/media_format.cjs
           node --check scripts/editorial_content.cjs
+          node scripts/test_media_format.cjs
           node scripts/test_editorial_content.cjs
       - name: Discover, verify rights and prepare one shared vertical video
         env:
