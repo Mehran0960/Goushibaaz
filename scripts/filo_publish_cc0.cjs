@@ -3,6 +3,7 @@ const path = require('path');
 const { execFileSync } = require('child_process');
 const { chromium } = require('playwright');
 const { rankCandidates, buildTrendWeights } = require('./quality_rank.cjs');
+const { looksRelevant, persianTitle } = require('./editorial_content.cjs');
 
 const ACCOUNT = 'https://ifilo.net';
 const CC0_LICENSE_URL = 'https://creativecommons.org/publicdomain/zero/1.0/';
@@ -14,8 +15,11 @@ const COVER_FILE = path.join(VIDEO_DIR, 'filo-video-cover.jpg');
 const MAX_SOURCE_BYTES = 45_000_000;
 const CONTENT_POLICY = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'config', 'content-policy.json'), 'utf8'));
 const DRY_RUN = /^(1|true|yes)$/i.test(process.env.DRY_RUN || '');
-const TARGET_WIDTH = Number(CONTENT_POLICY.vertical_video.output_width) || 1080;
-const TARGET_HEIGHT = Number(CONTENT_POLICY.vertical_video.output_height) || 1920;
+const FILO_PROFILE = CONTENT_POLICY.platform_profiles && CONTENT_POLICY.platform_profiles.filo || {};
+const TARGET_WIDTH = Number(FILO_PROFILE.output_width) || Number(CONTENT_POLICY.vertical_video.output_width) || 1080;
+const TARGET_HEIGHT = Number(FILO_PROFILE.output_height) || Number(CONTENT_POLICY.vertical_video.output_height) || 1920;
+const COVER_WIDTH = Number(FILO_PROFILE.cover_width) || 720;
+const COVER_HEIGHT = Number(FILO_PROFILE.cover_height) || 1280;
 const WORK_HEIGHT = 1080;
 const WORK_WIDTH = Math.round(WORK_HEIGHT * TARGET_WIDTH / TARGET_HEIGHT);
 // Fail closed on reuse rights: only explicit CC0 1.0 or CC BY 4.0 license metadata is accepted.
@@ -168,26 +172,6 @@ function commercialLicenseProfile(licenseName, licenseUrl) {
   return null;
 }
 
-function titleForCandidate(candidate) {
-  const text = (candidate.fileTitle + ' ' + candidate.description).toLowerCase();
-  if (/\\b(cat|cats|kitten|kittens|feline)\\b|گربه/.test(text)) return 'لحظه‌ای غیرمنتظره از دنیای گربه‌ها 😹';
-  if (/\\b(dog|dogs|puppy|puppies)\\b|سگ/.test(text)) return 'یک حرکت بامزه از دنیای سگ‌ها 🐶';
-  if (/\\b(bird|birds|parrot|parrots|pigeon)\\b|پرنده/.test(text)) return 'لحظه‌ای تماشایی از دنیای پرندگان 🐦';
-  if (/\\b(mouse|mice|hamster|hamsters|gerbil|gerbils)\\b/.test(text)) return 'لحظه‌های بامزه از دنیای موش‌های خانگی 🐭';
-  if (/\\b(squirrel|squirrels|monkey|monkeys|rabbit|rabbits)\\b/.test(text)) return 'رفتار جالب یک حیوان در چند ثانیه 🐾';
-  if (/\\b(football|soccer|basketball|trick shot|parkour|freestyle|sports? skill|goal|dunk)\\b|فوتبال|بسکتبال|ورزش|دریبل|حرکت نمایشی/.test(text)) return 'یک مهارت ورزشی دیدنی در چند ثانیه 🏆';
-  if (/\\b(science experiment|invention|technology demo|optical illusion|brain teaser|puzzle)\\b|آزمایش علمی|اختراع|فناوری|خطای دید|معما/.test(text)) return 'این آزمایش یا خطای دید رو ببین! 🧠';
-  if (/\\b(oddly satisfying|satisfying|restoration|woodworking|pottery|craft|miniature|before and after|transformation)\\b|رضایت.?بخش|کاردستی|نجاری|سفال|مرمت|بازسازی|قبل و بعد/.test(text)) return 'یک تغییر یا ساختنی رضایت‌بخش ✨';
-  if (/\\b(cooking|recipe|food art|food hack|kitchen|baking|street food)\\b|آشپزی|غذا|خوراکی|شیرینی|آشپزخانه/.test(text)) return 'یک ایده جالب از دنیای غذا 🍳';
-  if (/\\b(magic|dancing|dance|music performance|musician|singing|instrument|juggling)\\b|شعبده|جادو|رقص|نوازندگی|موسیقی|خوانندگی|آکروبات/.test(text)) return 'یک اجرای دیدنی و متفاوت 🎭';
-  if (/\\b(nature|landscape|weather phenomenon|ocean|volcano|waterfall|space footage)\\b|طبیعت|آبشار|اقیانوس|پدیده جوی|آتشفشان|منظره|فضا/.test(text)) return 'یک لحظه تماشایی از طبیعت 🌍';
-  if (/\\b(travel|tourism|street life|local culture|traditional|architecture)\\b|سفر|گردشگری|فرهنگ|سنتی|معماری|ایرانگردی/.test(text)) return 'یک گوشه دیدنی از دنیا 🌎';
-  if (/hidden camera|prank|comedy|humou?r|funny|reaction|meme|sketch|fail|surprise|unexpected|چالش|طنز|خنده|بامزه|سوتی|دوربین مخفی|واکنش/.test(text)) return 'یک کلیپ سرگرم‌کننده که ارزش دیدن داره 😄';
-  if (/iranian|tehran|shiraz|ایران|ایرانی|تهران|شیراز|اصفهان/.test(text)) return 'یه لحظه دیدنی از ایران 🇮🇷';
-  if (/\\b(caught on camera|surprise|jumpscare|unexpected|funny|playful|playing|fail)\\b/.test(text)) return 'یک لحظه غیرمنتظره که ارزش دیدن دارد 😮';
-  return 'یک ویدئوی کوتاه و جالب 🎬';
-}
-
 function descriptionForCandidate(candidate) {
   const licenseType = candidate.licenseType || commercialLicenseProfile(candidate.licenseName, candidate.licenseUrl)?.type || 'CC0 1.0';
   const licenseUrl = candidate.licenseUrl || (licenseType === 'CC BY 4.0'
@@ -204,7 +188,7 @@ function descriptionForCandidate(candidate) {
     candidate.sourcePage,
     licenseUrl,
     '',
-    'اگر این کلیپ لبخندت را آورد، با دوستت هم به اشتراک بگذار.'
+    'برای دیدن کلیپ‌های بیشتر، گوشی‌باز را دنبال کنید.'
   ].join('\n');
 }
 
@@ -229,10 +213,7 @@ function isExcludedEditorialContent(text) {
 }
 
 function classifyCandidate(candidate) {
-  const text = (candidate.fileTitle + ' ' + candidate.description).toLowerCase();
-  if (isExcludedEditorialContent(text)) return false;
-  // Admit a wider variety of short entertainment formats; rights checks remain independent.
-  return /\b(cat|cats|kitten|kittens|feline|dog|dogs|puppy|puppies|pet|pets|bird|birds|parrot|pigeon|squirrel|monkey|rabbit|animal|wildlife|funny|unexpected|surprise|caught on camera|playing|playful|fail|visual comedy|oddly satisfying|satisfying|hidden camera|prank|comedy|comed(y|ic)|humou?r|funny moments|football|soccer|basketball|skateboard|parkour|trick shot|science experiment|invention|optical illusion|puzzle|cooking|recipe|food art|woodworking|pottery|craft|restoration|dance|music performance|juggling|nature|waterfall|travel|culture|architecture)\b|گربه|سگ|حیوان|پرنده|بامزه|طنز|خنده|دوربین مخفی|سوتی|پرنک|چالش|فوتبال|بسکتبال|ورزش|حرکت نمایشی|آزمایش علمی|اختراع|فناوری|خطای دید|معما|آشپزی|غذا|خوراکی|کاردستی|نجاری|سفال|رضایت.?بخش|بازسازی|رقص|نوازندگی|موسیقی|طبیعت|آبشار|سفر|گردشگری|فرهنگ|معماری/.test(text);
+  return looksRelevant(candidate && candidate.fileTitle, candidate && candidate.description);
 }
 
 function candidateContentPriority(candidate) {
@@ -322,7 +303,7 @@ async function discoverCommercialCandidates(state) {
       };
       candidate.contentLocaleScore = Math.max(candidateContentPriority(candidate), search.localPriority ? 1 : 0);
       candidate.sourceVerticalScore = sourceVerticalScore(candidate.sourceWidth, candidate.sourceHeight);
-      candidate.title = titleForCandidate(candidate);
+      candidate.title = persianTitle(candidate.fileTitle, candidate.description);
       candidate.descriptionText = descriptionForCandidate(candidate);
       const previousCandidate = found.get(sourcePage);
       if (!previousCandidate || candidate.contentLocaleScore > previousCandidate.contentLocaleScore ||
@@ -518,7 +499,7 @@ async function discoverInternetArchiveCandidates(state) {
           };
           candidate.contentLocaleScore = Math.max(candidateContentPriority(candidate), candidate.localPriorityQuery ? 1 : 0);
           candidate.sourceVerticalScore = sourceVerticalScore(candidate.sourceWidth, candidate.sourceHeight);
-          candidate.title = titleForCandidate(candidate);
+          candidate.title = persianTitle(candidate.fileTitle, candidate.description);
           candidate.descriptionText = descriptionForCandidate(candidate);
           found.push(candidate);
           break;
@@ -601,7 +582,7 @@ function extractCoverFrame() {
     '-hide_banner', '-loglevel', 'error', '-y',
     '-ss', '00:00:01.0', '-i', OUTPUT_FILE,
     '-frames:v', '1',
-    '-vf', 'scale=576:1024:force_original_aspect_ratio=decrease,pad=576:1024:(ow-iw)/2:(oh-ih)/2,setsar=1',
+    '-vf', `scale=${COVER_WIDTH}:${COVER_HEIGHT}:force_original_aspect_ratio=decrease,pad=${COVER_WIDTH}:${COVER_HEIGHT}:(ow-iw)/2:(oh-ih)/2,setsar=1`,
     '-q:v', '2',
     COVER_FILE
   ], { stdio: 'pipe', timeout: 30000 });
@@ -609,7 +590,7 @@ function extractCoverFrame() {
   if (bytes.length < 10000 || bytes.length > 10000000 || bytes[0] !== 0xff || bytes[1] !== 0xd8) {
     throw new Error('cover_frame_generation_failed');
   }
-  return { coverBytes: bytes.length, coverPath: COVER_FILE, width: 576, height: 1024 };
+  return { coverBytes: bytes.length, coverPath: COVER_FILE, width: COVER_WIDTH, height: COVER_HEIGHT };
 }
 
 async function visibleFirst(page, selectors) {
