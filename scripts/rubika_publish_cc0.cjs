@@ -4,10 +4,11 @@ const crypto = require('node:crypto');
 const { execFileSync } = require('node:child_process');
 const { rankCandidates, buildTrendWeights } = require('./quality_rank.cjs');
 const { buildTrendSearches, rotateSearchBatch } = require('./trend_discovery.cjs');
+const { probeMedia, convertToPortrait } = require('./media_format.cjs');
 const { looksRelevant, persianTitle } = require('./editorial_content.cjs');
 
 const TOKEN = process.env.RUBIKA_BOT_TOKEN || '';
-// RUN_RUBIKA_REAL_PUBLISH_TEST validation: publish one verified-license silent vertical MP4, then persist its ID.
+// Shared preparation creates an audio-preserving 9:16 video with a full, uncropped foreground.
 const DRY_RUN = /^(1|true|yes)$/i.test(process.env.DRY_RUN || '');
 const PREPARE_ONLY = /^(1|true|yes)$/i.test(process.env.PREPARE_ONLY || '');
 const CHANNEL_HANDLE = '@didobyn';
@@ -346,6 +347,8 @@ async function discoverInternetArchiveCandidates(used) {
             trendSearchTitle: entry.search.term.trendTitle || undefined,
             trendSearchUrl: entry.search.term.trendUrl || undefined,
             trendSearchVelocity: entry.search.term.trendVelocity || undefined,
+            trendSearchLane: entry.search.term.trendLane || undefined,
+            trendSearchLocalPriority: Boolean(entry.search.term.localPriority),
             archiveIdentifier: entry.identifier
           };
           candidate.contentLocaleScore = Math.max(candidateContentPriority(candidate), candidate.localPriorityQuery ? 1 : 0);
@@ -618,7 +621,9 @@ async function discoverCandidates(state) {
         localPriorityQuery: Boolean(search.localPriority),
         trendSearchTitle: search.trendTitle || undefined,
         trendSearchUrl: search.trendUrl || undefined,
-        trendSearchVelocity: search.trendVelocity || undefined
+        trendSearchVelocity: search.trendVelocity || undefined,
+        trendSearchLane: search.trendLane || undefined,
+        trendSearchLocalPriority: Boolean(search.localPriority)
       };
       candidate.contentLocaleScore = Math.max(candidateContentPriority(candidate), search.localPriority ? 1 : 0);
       candidate.sourceVerticalScore = sourceVerticalScore(candidate.sourceWidth, candidate.sourceHeight);
@@ -632,8 +637,10 @@ async function discoverCandidates(state) {
     await pause(1000);
   }
   const archiveCandidates = await discoverInternetArchiveCandidates(used);
-  const nasaCandidates = await discoverNasaCandidates(used);
-  for (const candidate of [...archiveCandidates, ...nasaCandidates]) {
+  // NASA/institutional footage is intentionally not a public entertainment source for this channel.
+  // Trend discovery and licensed creator-style entertainment sources take precedence.
+  console.log('NASA_PUBLIC_MEDIA_SKIPPED_FOR_ENTERTAINMENT_FIT');
+  for (const candidate of archiveCandidates) {
     const previous = hits.get(candidate.sourcePage);
     if (!previous || candidate.contentLocaleScore > previous.contentLocaleScore ||
         (candidate.contentLocaleScore === previous.contentLocaleScore && candidate.sourceVerticalScore > previous.sourceVerticalScore)) {
@@ -643,7 +650,7 @@ async function discoverCandidates(state) {
   console.log('COMBINED_LICENSED_SOURCE_COVERAGE', JSON.stringify({
     wikimediaAndArchiveCandidates: hits.size,
     archiveCandidates: archiveCandidates.length,
-    nasaCandidates: nasaCandidates.length
+    nasaCandidates: 0, nasaPublicMediaEnabled: false
   }));
   let trendSnapshot = {};
   try {
@@ -674,18 +681,7 @@ async function discoverCandidates(state) {
 
 async function downloadSource(candidate) {
   const standardLicense = candidate.license && [LICENSES.cc0, LICENSES.ccby].includes(candidate.license.url);
-  let nasaLicense = false;
-  if (candidate.source === 'nasa_public_domain_video' && candidate.license && candidate.license.url === NASA_POLICY_URL &&
-      candidate.rightsScreen && candidate.rightsScreen.approved === true) {
-    try {
-      const u = new URL(candidate.fileUrl);
-      nasaLicense = u.protocol === 'https:' && u.hostname === 'images-assets.nasa.gov' &&
-        u.pathname.startsWith('/video/') && /\.mp4$/i.test(u.pathname);
-    } catch {}
-  }
-  if (!standardLicense && !nasaLicense) {
-    throw new Error('source_license_not_verified_for_commercial_reuse');
-  }
+  if (!standardLicense) throw new Error('source_license_not_verified_for_commercial_reuse');
   fs.mkdirSync(WORK_DIR, { recursive: true });
   const response = await fetch(candidate.fileUrl, {
     headers: { 'User-Agent': 'GoushibaazRubikaPublisher/1.0 (verified commercial reuse)' },
@@ -698,44 +694,37 @@ async function downloadSource(candidate) {
   const isIsoBmff = bytes.toString('ascii', 4, 8) === 'ftyp';
   if (!isWebm && !isIsoBmff) throw new Error('source_container_not_supported');
   fs.writeFileSync(INPUT_FILE, bytes);
-  const probe = execFileSync('ffprobe', [
-    '-v', 'error',
-    '-show_entries', 'format=duration',
-    '-of', 'default=noprint_wrappers=1:nokey=1',
-    INPUT_FILE
-  ], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 20000 }).trim();
-  const durationSeconds = Number(probe);
-  if (!Number.isFinite(durationSeconds) || durationSeconds < MIN_DURATION_SECONDS || durationSeconds > MAX_DURATION_SECONDS) {
+  const media = probeMedia(INPUT_FILE);
+  if (!media.audio) throw new Error('source_audio_track_missing');
+  if (!Number.isFinite(media.durationSeconds) ||
+      media.durationSeconds < MIN_DURATION_SECONDS || media.durationSeconds > MAX_DURATION_SECONDS) {
     throw new Error('source_duration_out_of_range_or_unavailable');
   }
-  return { bytes: bytes.length, durationSeconds: Math.round(durationSeconds * 100) / 100 };
+  return {
+    bytes: bytes.length,
+    durationSeconds: Math.round(media.durationSeconds * 100) / 100,
+    sourceWidth: media.width,
+    sourceHeight: media.height,
+    sourceAudio: media.audio
+  };
 }
 
 function convertPortrait() {
-  execFileSync('ffmpeg', [
-    '-hide_banner', '-loglevel', 'error', '-y',
-    '-i', INPUT_FILE,
-    '-vf', `scale=${WORK_WIDTH}:${WORK_HEIGHT}:force_original_aspect_ratio=increase,crop=${WORK_WIDTH}:${WORK_HEIGHT},scale=${TARGET_WIDTH}:${TARGET_HEIGHT},setsar=1`,
-    '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '28', '-pix_fmt', 'yuv420p',
-    // Rubika's Bot API upload endpoint times out on MP4s with an audio stream in our tests.
-    // Until that endpoint works with audio, deliver supported silent MP4 video instead.
-    '-an',
-    '-maxrate', '1400k', '-bufsize', '2800k',
-    '-movflags', '+faststart',
-    OUTPUT_FILE
-  ], { stdio: 'pipe', timeout: 180000 });
-  const stat = fs.statSync(OUTPUT_FILE);
-  if (stat.size < 100_000 || stat.size > MAX_OUTPUT_BYTES) throw new Error('converted_mp4_size_out_of_range');
-  const header = Buffer.alloc(12);
-  const fd = fs.openSync(OUTPUT_FILE, 'r');
-  try { fs.readSync(fd, header, 0, header.length, 0); } finally { fs.closeSync(fd); }
-  if (header.toString('ascii', 4, 8) !== 'ftyp') throw new Error('converted_file_is_not_mp4');
-  return { bytes: stat.size };
+  return convertToPortrait(INPUT_FILE, OUTPUT_FILE, {
+    width: TARGET_WIDTH,
+    height: TARGET_HEIGHT,
+    crf: 27,
+    maxrate: '1100k',
+    bufsize: '2200k',
+    audioBitrate: '96k',
+    maxBytes: MAX_OUTPUT_BYTES,
+    timeoutMs: 240000
+  });
 }
 
 async function uploadVideo(filePath) {
   const file = fs.readFileSync(filePath);
-  console.log('RUBIKA_VIDEO_UPLOAD_STARTED', JSON.stringify({ bytes: file.length, type: 'silent_mp4' }));
+  console.log('RUBIKA_VIDEO_UPLOAD_STARTED', JSON.stringify({ bytes: file.length, type: 'audio_preserving_mp4' }));
   let lastError;
   // A timed-out upload never reaches sendFile, so retrying with a fresh upload URL cannot create a duplicate public post.
   for (let attempt = 1; attempt <= 2; attempt++) {
@@ -867,7 +856,10 @@ async function main() {
     sourceTitle: candidate.fileTitle,
     license: candidate.license.type,
     sourceBytes: sourceInfo.bytes,
-    outputBytes: converted.bytes,
+    sourceAudio: sourceInfo.sourceAudio,
+    outputBytes: converted.outputBytes,
+    outputAudioCodec: converted.audioCodec,
+    framingMode: 'fit_foreground_with_blurred_background',
     sourceWidth: candidate.sourceWidth || null,
     sourceHeight: candidate.sourceHeight || null,
     sourceAspectRatio: candidate.sourceAspectRatio || null,
@@ -905,6 +897,7 @@ async function main() {
     console.log('SHARED_CANDIDATE_PREPARED', JSON.stringify({
       title: manifest.title, sourcePage: manifest.sourcePage,
       license: manifest.license, durationSeconds: manifest.durationSeconds,
+      audioCodec: manifest.outputAudioCodec, framingMode: manifest.framingMode,
       bytes: videoBytes.length, sha256
     }));
     return;
