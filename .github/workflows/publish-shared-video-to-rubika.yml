@@ -1,0 +1,55 @@
+name: Publish Shared Video to Rubika
+on:
+  workflow_run:
+    workflows: ["Prepare Shared Licensed Short Video"]
+    types: [completed]
+    branches: [main]
+permissions:
+  actions: read
+  contents: write
+concurrency:
+  group: goushibaaz-rubika-destination
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Download the exact shared candidate artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: goushibaaz-shared-candidate
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: work/shared-publish
+      - name: Validate and independently publish to Rubika
+        env:
+          RUBIKA_BOT_TOKEN: ${{ secrets.RUBIKA_BOT_TOKEN }}
+          RUBIKA_CHAT_ID: ${{ secrets.RUBIKA_CHAT_ID }}
+          GOUSHIBAAZ_PUBLIC_PUBLISH_ENABLED: ${{ vars.GOUSHIBAAZ_PUBLIC_PUBLISH_ENABLED }}
+          GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: ${{ vars.GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED }}
+        run: |
+          node --check scripts/rubika_publish_shared.cjs
+          node scripts/rubika_publish_shared.cjs
+      - name: Persist Rubika-only publication state
+        if: ${{ always() && hashFiles('state/rubika-published.json') != '' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state/rubika-published.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Record Rubika destination result"
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
