@@ -1,0 +1,87 @@
+name: Telegram and Bale channel preflight
+
+on:
+  push:
+    paths:
+      - ".github/workflows/telegram-bale-preflight.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: goushibaaz-messaging-preflight
+  cancel-in-progress: false
+
+jobs:
+  resolve-channels:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Validate bot tokens and resolve @didobyn in both platforms
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          BALE_BOT_TOKEN: ${{ secrets.BALE_BOT_TOKEN }}
+        run: |
+          node <<'NODE'
+          const configs = [
+            { platform: 'TELEGRAM', token: process.env.TELEGRAM_BOT_TOKEN, base: 'https://api.telegram.org' },
+            { platform: 'BALE', token: process.env.BALE_BOT_TOKEN, base: 'https://tapi.bale.ai' }
+          ];
+
+          async function call(config, method, payload) {
+            const response = await fetch(`${config.base}/bot${config.token}/${method}`, {
+              method: 'POST',
+              headers: { 'content-type': 'application/json' },
+              body: JSON.stringify(payload || {}),
+              signal: AbortSignal.timeout(20000)
+            });
+            let data;
+            try { data = await response.json(); }
+            catch { throw new Error(`${config.platform}_${method}: non-JSON response (HTTP ${response.status})`); }
+            if (!response.ok || data.ok !== true) {
+              const reason = String(data.description || data.error_code || 'request_failed').slice(0, 160);
+              throw new Error(`${config.platform}_${method}: HTTP ${response.status}: ${reason}`);
+            }
+            return data.result;
+          }
+
+          (async () => {
+            const failures = [];
+            for (const config of configs) {
+              if (!config.token) {
+                console.log(`${config.platform}_FAILED: missing repository secret ${config.platform === 'TELEGRAM' ? 'TELEGRAM_BOT_TOKEN' : 'BALE_BOT_TOKEN'}`);
+                failures.push(config.platform);
+                continue;
+              }
+              try {
+                const bot = await call(config, 'getMe');
+                console.log(`${config.platform}_BOT_OK ${JSON.stringify({
+                  id: bot.id,
+                  username: bot.username,
+                  firstName: bot.first_name
+                })}`);
+
+                const chat = await call(config, 'getChat', { chat_id: '@didobyn' });
+                console.log(`${config.platform}_CHANNEL_OK ${JSON.stringify({
+                  chatId: chat.id,
+                  title: chat.title || chat.first_name || null,
+                  username: chat.username || null,
+                  type: chat.type || null
+                })}`);
+
+                if (!chat.id || chat.type !== 'channel') {
+                  throw new Error('Resolved target is not a channel or has no numeric chat ID.');
+                }
+              } catch (error) {
+                console.log(`${config.platform}_FAILED: ${String(error.message || error).slice(0, 220)}`);
+                failures.push(config.platform);
+              }
+            }
+            if (failures.length) process.exit(1);
+            console.log('PREFLIGHT_SUCCESS: both bots authenticated and both @didobyn channel IDs resolved. No messages were sent.');
+          })().catch(error => {
+            console.error('PREFLIGHT_FATAL', String(error.message || error).slice(0, 220));
+            process.exit(1);
+          });
+          NODE
