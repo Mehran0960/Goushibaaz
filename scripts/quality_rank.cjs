@@ -10,6 +10,13 @@ const TOPICS = [
   { key: 'performance_magic', base: 21, patterns: [/magic|illusion|dancing|dance|music performance|musician|singing|instrument|juggling/i, /شعبده|جادو|رقص|نوازندگی|موسیقی|خوانندگی|اجرای زنده|هنرنمایی|آکروبات/i] },
   { key: 'nature_wildlife', base: 17, patterns: [/nature|landscape|weather phenomenon|wildlife|ocean|volcano|waterfall|space footage/i, /طبیعت|حیات وحش|آبشار|اقیانوس|آسمان|پدیده جوی|شفق|آتشفشان|منظره|فضا/i] },
   { key: 'travel_culture', base: 16, patterns: [/travel|tourism|street life|local culture|traditional|architecture|iranian market/i, /سفر|گردشگری|فرهنگ|سنتی|بازار|خیابان|معماری|ایرانگردی|جاذبه دیدنی|زندگی روزمره/i] },
+  { key: 'human_reaction', base: 23, patterns: [/human reaction|people react|street interview|relatable moment|caught on camera/i, /واکنش مردم|مصاحبه خیابانی|اتفاق روزمره|لحظه آشنا|عکس.?العمل/i] },
+  { key: 'surprise_reveal', base: 24, patterns: [/unexpected|surprise|plot twist|reveal|mystery|wait until|final result|hidden result/i, /غیرمنتظره|غافلگیر|آخرش|نتیجه نهایی|راز|معما|ناگهان|باور نمی.?کنی/i] },
+  { key: 'life_hacks', base: 22, patterns: [/life hack|useful tip|everyday hack|home hack|simple solution|how to/i, /ترفند کاربردی|ترفند روزمره|هک زندگی|راه حل ساده|نکته مفید|روش ساده/i] },
+  { key: 'heartwarming', base: 22, patterns: [/heartwarming|wholesome|kindness|reunion|feel.?good|animal rescue|family moment/i, /مهربانی|کمک غیرمنتظره|دیدار دوباره|لحظه احساسی|نجات حیوان|خانواده/i] },
+  { key: 'diy_creativity', base: 21, patterns: [/DIY|craft|woodworking|pottery|handmade|creative process|miniature build/i, /کاردستی|نجاری|سفالگری|ساخت دست.?ساز|خلاقانه|ساخت ماکت/i] },
+  { key: 'home_cleaning', base: 20, patterns: [/cleaning|deep clean|home organization|declutter|organizing|tidying/i, /تمیزکاری|نظم.?دهی|مرتب.?سازی|پاکسازی|سازماندهی خانه/i] },
+  { key: 'fashion_culture', base: 18, patterns: [/fashion show|runway|pageant|traditional dress|national costume/i, /فشن شو|مدلینگ|لباس سنتی|لباس ملی|مسابقه زیبایی/i] },
   { key: 'persian_comedy', base: 25, patterns: [/hidden camera|prank|comedy|comed(y|ic)|humou?r|funny|reaction|meme|sketch|fail|caught on camera|unexpected|surprise/i, /طنز|خنده|بامزه|سوتی|دوربین مخفی|دوبله|میم|چالش|واکنش|اتفاق غیرمنتظره|غافلگیر/i] },
 ];
 const HOOKS = [
@@ -17,6 +24,8 @@ const HOOKS = [
   /غیرمنتظره|غافلگیر|واکنش|سوتی|دوربین مخفی|چالش|قبل و بعد|تغییر شگفت|حرکت عجیب|باورنکردنی|نتیجه نهایی|آخرش|باور نمی کنی|باور نمی‌کنی|ناگهان|راز|معمای تصویری|خطای دید|مهارت خارق|یک ضرب|بدون برش/i,
 ];
 const LOCAL = /فارسی|ایرانی|ایران|تهران|شیراز|اصفهان|تبریز|مشهد|کرج|اهواز|یزد|رشت|persian|farsi|iranian|tehran|shiraz|isfahan|tabriz|mashhad/i;
+const OPEN_LOOP = /unexpected|surprise|mystery|reveal|plot twist|wait until|before and after|قبل و بعد|غافلگیر|غیرمنتظره|آخرش|راز|معما/i;
+const PAYOFF = /final result|transformation|restoration|trick shot|impossible|reveal|result|payoff|نتیجه نهایی|تغییر|بازسازی|حرکت نمایشی|ترفند|آخر کار/i;
 
 function cleanText(value) {
   return String(value || '')
@@ -128,6 +137,16 @@ function scoreCandidate(candidate, options = {}) {
   else durationScore = -Math.min(18, 4 + (duration - 60) * 0.25);
   score += durationScore;
   reasons.push('duration:' + durationScore);
+
+  // A modest retention-arc bonus favors curiosity followed by a visible payoff.
+  const hasOpenLoop = OPEN_LOOP.test(text);
+  const hasPayoff = PAYOFF.test(text);
+  let retentionScore = (hasOpenLoop ? 2 : 0) + (hasPayoff ? 2 : 0) + (hasOpenLoop && hasPayoff ? 2 : 0);
+  if (duration !== null && duration > 60 && !hasOpenLoop) retentionScore -= 2;
+  if (retentionScore) {
+    score += retentionScore;
+    reasons.push('retention_arc:' + retentionScore);
+  }
 
   const age = ageHours(c);
   if (age !== null) {
