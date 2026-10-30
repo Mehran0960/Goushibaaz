@@ -347,6 +347,10 @@ def telegram_repost_candidates():
     # native engagement and the media-quality gates still decide what can publish.
     channels = [
         "gizmiztel",
+        "dmcam", "doorbin_makhfy", "insta_cllip", "funirn", "iranJoke_ir",
+        "trendemovies", "funnyvideo_ir", "clipfun", "funnyclip", "iranfun",
+        "hidden_camera_fa", "funny_animals_fa", "viralclip_ir", "challenge_fa",
+        "shortfun_ir", "dubbing_fun", "iranian_memes", "dailyfun_fa",
         "regaplus",
         "insta_clip85",
         "comedi",
