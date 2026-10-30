@@ -5,9 +5,7 @@ const { chromium } = require('playwright');
 const { rankCandidates, buildTrendWeights } = require('./quality_rank.cjs');
 const { looksRelevant, persianTitle } = require('./editorial_content.cjs');
 const { appendFiloEndCard } = require('./filo_endcard.cjs');
-const { buildOriginalPuzzleVideo } = require('./original_puzzle_video.cjs');
-const ORIGINAL_PUZZLES = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'content', 'original-puzzle-bank.json'), 'utf8'));
-
+remove original video importremove original puzzle bank
 const ACCOUNT = 'https://ifilo.net';
 const CC0_LICENSE_URL = 'https://creativecommons.org/publicdomain/zero/1.0/';
 const STATE_PATH = path.join('state', 'filo-published.json');
@@ -26,10 +24,9 @@ const COVER_HEIGHT = Number(FILO_PROFILE.cover_height) || 1280;
 const WORK_HEIGHT = 1080;
 const WORK_WIDTH = Math.round(WORK_HEIGHT * TARGET_WIDTH / TARGET_HEIGHT);
 // Fail closed on reuse rights: only explicit CC0 1.0 or CC BY 4.0 license metadata is accepted.
-const MAX_DAILY_PUBLICATIONS = 4;
-const MIN_PUBLICATION_GAP_MS = 3 * 60 * 60 * 1000;
-const ORIGINAL_PUZZLE_SOURCE_BASE = 'https://github.com/Mehran0960/Goushibaaz/blob/main/content/original-puzzle-bank.json#';
-const MIN_DURATION_SECONDS = 8;
+raise Filo attempt ceiling to 48/day
+set Filo 30-minute minimum gap
+remove original source baseconst MIN_DURATION_SECONDS = 8;
 const MAX_DURATION_SECONDS = 180;
 const ACTIVE_SOURCE_STATUSES = new Set([
   'published', 'submitted_pending_approval', 'submit_started',
@@ -253,85 +250,6 @@ function publicationCadenceDecision(state, now = new Date()) {
     };
   }
   return { allowed: true, todayCount, maxDaily: MAX_DAILY_PUBLICATIONS };
-}
-
-function selectOriginalPuzzle(state, now = new Date()) {
-  const puzzles = Array.isArray(ORIGINAL_PUZZLES.puzzles) ? ORIGINAL_PUZZLES.puzzles : [];
-  if (!puzzles.length) return null;
-  const uses = new Map();
-  for (const item of state.posts || []) {
-    if (!String(item.sourcePage || '').startsWith(ORIGINAL_PUZZLE_SOURCE_BASE)) continue;
-    const id = String(item.sourcePage).slice(ORIGINAL_PUZZLE_SOURCE_BASE.length);
-    const ts = Date.parse(item.submittedAt || item.attemptedAt || item.publishedAt || item.checkedAt || '');
-    if (!uses.has(id) || (Number.isFinite(ts) && ts > uses.get(id))) uses.set(id, Number.isFinite(ts) ? ts : 0);
-  }
-  const unused = puzzles.filter(item => !uses.has(item.id));
-  const recentTopics = (state.posts || [])
-    .filter(item => String(item.sourcePage || '').startsWith(ORIGINAL_PUZZLE_SOURCE_BASE))
-    .sort((a, b) => Date.parse(b.submittedAt || b.attemptedAt || b.publishedAt || '') -
-                    Date.parse(a.submittedAt || a.attemptedAt || a.publishedAt || ''))
-    .slice(0, 3)
-    .map(item => item.topic);
-  if (unused.length) return unused.find(item => !recentTopics.includes(item.topic)) || unused[0];
-
-  const cooldownMs = 5 * 24 * 60 * 60 * 1000;
-  const reusable = puzzles
-    .filter(item => uses.has(item.id) && now.getTime() - (uses.get(item.id) || 0) >= cooldownMs)
-    .sort((a, b) => (uses.get(a.id) || 0) - (uses.get(b.id) || 0));
-  return reusable[0] || null;
-}
-
-function prepareOriginalPuzzleFallback(state) {
-  const puzzle = selectOriginalPuzzle(state);
-  if (!puzzle) {
-    console.log('FILO_ORIGINAL_CONTENT_UNAVAILABLE', JSON.stringify({
-      bankSize: Array.isArray(ORIGINAL_PUZZLES.puzzles) ? ORIGINAL_PUZZLES.puzzles.length : 0,
-      reason: 'All original puzzles were used within the 5-day reuse window.'
-    }));
-    return null;
-  }
-  const generated = buildOriginalPuzzleVideo(puzzle, {
-    outputPath: INPUT_FILE,
-    workDir: VIDEO_DIR,
-    width: TARGET_WIDTH,
-    height: TARGET_HEIGHT
-  });
-  const sourcePage = ORIGINAL_PUZZLE_SOURCE_BASE + puzzle.id;
-  const candidate = {
-    contentOrigin: 'original_goushibaaz',
-    puzzleId: puzzle.id,
-    fileTitle: puzzle.title,
-    sourcePage,
-    title: puzzle.title,
-    topic: puzzle.topic,
-    question: puzzle.question,
-    options: puzzle.options,
-    description: puzzle.question,
-    author: 'گوشی‌باز',
-    durationSeconds: generated.durationSeconds,
-    coverSeekSeconds: generated.coverSeekSeconds,
-    descriptionText: ''
-  };
-  candidate.descriptionText = descriptionForCandidate(candidate);
-  const rights = {
-    sourcePage,
-    author: 'گوشی‌باز',
-    licenseName: 'Original Goushibaaz Content',
-    licenseUrl: sourcePage,
-    sourceBytes: generated.sourceBytes,
-    durationSeconds: generated.durationSeconds,
-    contentOrigin: 'original_goushibaaz'
-  };
-  console.log('FILO_ORIGINAL_CONTENT_READY', JSON.stringify({
-    puzzleId: puzzle.id,
-    title: puzzle.title,
-    topic: puzzle.topic,
-    durationSeconds: generated.durationSeconds,
-    sourceBytes: generated.sourceBytes,
-    audio: generated.audio,
-    reusePolicy: 'Once per 14 days after all 24 unique originals have been used.'
-  }));
-  return { candidate, rights, sourceDurationSeconds: generated.durationSeconds, generated };
 }
 
 function parsedDurationSeconds(info) {
@@ -1094,34 +1012,16 @@ async function main() {
     }
   }
 
-  let originalFallback = null;
-  if (!candidate || !rights) {
-    try {
-      originalFallback = prepareOriginalPuzzleFallback(state);
-      if (originalFallback) {
-        candidate = originalFallback.candidate;
-        rights = originalFallback.rights;
-        sourceDurationSeconds = originalFallback.sourceDurationSeconds;
-      }
-    } catch (error) {
-      preparationErrors.push({
-        source: 'goushibaaz-original-content',
-        reason: String(error && error.message || 'original_video_generation_failed').slice(0, 180)
-      });
-    }
-  }
-
   if (!candidate || !rights) {
     state.posts = state.posts.slice(-500);
-    const status = candidates.length ? 'no_prepared_external_or_original_candidate' : 'no_eligible_external_or_original_candidate';
+    const status = candidates.length ? 'no_prepared_licensed_candidate' : 'no_eligible_licensed_candidate';
     state.lastOutcome = { status, checkedAt: new Date().toISOString() };
     fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
     const result = {
       status,
       candidateCount: candidates.length,
-      originalPuzzleCount: Array.isArray(ORIGINAL_PUZZLES.puzzles) ? ORIGINAL_PUZZLES.puzzles.length : 0,
       preparationFailures: preparationErrors.slice(0, 8),
-      note: 'No reusable external video passed validation and no unused original puzzle could be rendered; nothing was published.'
+      note: 'No externally sourced video passed publication-rights, media and duration checks; nothing was published.'
     };
     console.log('FILO_PUBLISH_RESULT', JSON.stringify(result));
     return;
