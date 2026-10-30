@@ -70,6 +70,7 @@ jobs:
           grep -Fq 'actions/cache/save@v4' .github/workflows/dispatch-short-publishers.yml
           ! grep -Fq 'publish-approved-video-to-filo.yml' scripts/synchronized_scheduler.cjs
           grep -Fq 'prepare-shared-video.yml' scripts/synchronized_scheduler.cjs
+          grep -Fq 'slow Telegram/Bale/Rubika delivery must never freeze fresh discovery slots' scripts/synchronized_scheduler.cjs
           ! grep -Fq 'publish-approved-video-to-rubika.yml' scripts/synchronized_scheduler.cjs
           grep -Fq 'publish-shared-video-to-telegram.yml' .github/workflows/validate-filo-publisher.yml
           grep -Fq 'workflow_run:' .github/workflows/publish-shared-video-to-rubika.yml
