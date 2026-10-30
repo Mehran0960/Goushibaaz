@@ -297,7 +297,9 @@ def retention_potential(item, text=""):
         else:
             score -= min(3.0, 0.5 + (seconds - 60.0) / 40.0)
 
-    source_text = str(text or "").lower()
+    source_text = str(text or " ".join([
+        str(row.get("title") or ""), str(row.get("description") or "")
+    ])).lower()
     open_loop = bool(re.search(
         r"wait until|watch till|watch to the end|last second|final reveal|plot twist|"
         r"before and after|before-after|unexpected ending|نتیجه نهایی|آخرش|تا آخر|"
