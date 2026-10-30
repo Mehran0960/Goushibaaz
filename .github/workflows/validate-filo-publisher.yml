@@ -36,6 +36,7 @@ on:
       - ".github/workflows/publish-shared-video-to-bale.yml"
       - ".github/workflows/trend-intelligence.yml"
       - ".github/workflows/dispatch-short-publishers.yml"
+      - ".github/workflows/deploy-goushibaaz.yml"
 
 permissions:
   contents: read
@@ -134,6 +135,7 @@ jobs:
           check_contains scripts/rubika_publish_shared.cjs 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED'
           check_contains .github/workflows/publish-shared-video-to-rubika.yml 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true"'
           check_contains .github/workflows/publish-shared-video-to-bale.yml 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true"'
+          check_contains .github/workflows/deploy-goushibaaz.yml 'cloudflare/wrangler-action@v4'
           check_contains scripts/filo_publish_cc0.cjs 'const MIN_DURATION_SECONDS = 8;'
           check_contains scripts/rubika_publish_cc0.cjs 'const MIN_DURATION_SECONDS = 8;'
           check_contains scripts/filo_publish_cc0.cjs 'FILO_EDITORIAL_RANKING'
