@@ -106,7 +106,7 @@ jobs:
           node -e "const p=require('./config/content-policy.json'); const f=p.platform_profiles&&p.platform_profiles.filo; if(p.vertical_video.aspect_ratio!=='9:16'||p.vertical_video.output_width!==1080||p.vertical_video.output_height!==1920||!f||f.output_width!==720||f.output_height!==1280||f.cover_width!==720||f.cover_height!==1280||f.end_card_seconds!==1.6) process.exit(1)"
           grep -Fq 'cron: "*/30 * * * *"' .github/workflows/publish-approved-video-to-filo.yml
           grep -Fq 'continuous half-hour attempts' .github/workflows/publish-approved-video-to-filo.yml
-          grep -Fq 'MAX_DAILY_PUBLICATIONS = 488' scripts/filo_publish_cc0.cjs
+          grep -Fq 'MAX_DAILY_PUBLICATIONS = 48' scripts/filo_publish_cc0.cjs
           grep -Fq 'MIN_PUBLICATION_GAP_MS = 30 * 60 * 1000' scripts/filo_publish_cc0.cjs
       - name: Test public commercial-license video discovery (no upload)
         run: |
