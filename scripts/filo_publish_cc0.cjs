@@ -173,23 +173,40 @@ function commercialLicenseProfile(licenseName, licenseUrl) {
   return null;
 }
 
+function persianTopicLabel(candidate) {
+  const text = [candidate.fileTitle, candidate.description].join(' ').toLowerCase();
+  if (/\b(cat|cats|kitten|kittens|feline)\b|گربه/.test(text)) return 'گربه‌ها و رفتار حیوانات';
+  if (/\b(dog|dogs|puppy|puppies)\b|سگ/.test(text)) return 'سگ‌ها و حیوانات خانگی';
+  if (/\b(bird|birds|parrot|parrots|pigeon)\b|پرنده/.test(text)) return 'پرندگان و رفتار جالب آن‌ها';
+  if (/\b(football|soccer|basketball|trick shot|parkour|freestyle|sports? skill|goal|dunk|skateboard)\b|فوتبال|بسکتبال|ورزش|حرکت نمایشی/.test(text)) return 'مهارت‌های ورزشی و حرکت‌های نمایشی';
+  if (/\b(cooking|recipe|food art|food hack|kitchen|baking|street food)\b|آشپزی|غذا|خوراکی/.test(text)) return 'آشپزی و ایده‌های غذایی';
+  if (/\b(woodworking|pottery|craft|restoration|miniature|transformation|satisfying)\b|کاردستی|نجاری|سفال|بازسازی|رضایت.?بخش/.test(text)) return 'ساختنی‌ها و فرایندهای جذاب';
+  if (/\b(science experiment|invention|technology demo|optical illusion|brain teaser|puzzle)\b|آزمایش علمی|اختراع|فناوری|خطای دید|معما/.test(text)) return 'آزمایش‌های علمی، فناوری و خطای دید';
+  if (/\b(magic|dance|music performance|musician|singing|instrument|juggling)\b|شعبده|رقص|نوازندگی|موسیقی|خوانندگی/.test(text)) return 'اجراهای هنری و مهارت‌های متفاوت';
+  if (/\b(nature|landscape|weather phenomenon|ocean|volcano|waterfall|space footage)\b|طبیعت|آبشار|اقیانوس|پدیده جوی|آتشفشان|منظره|فضا/.test(text)) return 'طبیعت و پدیده‌های دیدنی';
+  if (/\b(travel|tourism|street life|local culture|traditional|architecture)\b|سفر|گردشگری|فرهنگ|سنتی|معماری|ایرانگردی/.test(text)) return 'سفر، فرهنگ و معماری';
+  if (/hidden camera|prank|comedy|humou?r|funny|reaction|meme|sketch|fail|surprise|unexpected|چالش|طنز|خنده|بامزه|سوتی|دوربین مخفی|واکنش/.test(text)) return 'طنز و لحظه‌های غیرمنتظره';
+  return 'سرگرمی و اتفاق‌های دیدنی';
+}
+
 function descriptionForCandidate(candidate) {
   const licenseType = candidate.licenseType || commercialLicenseProfile(candidate.licenseName, candidate.licenseUrl)?.type || 'CC0 1.0';
   const licenseUrl = candidate.licenseUrl || (licenseType === 'CC BY 4.0'
     ? 'https://creativecommons.org/licenses/by/4.0/'
     : CC0_LICENSE_URL);
-  const changeNote = 'تغییرات: تبدیل به قالب عمودی ۹:۱۶، برش/مقیاس‌دهی تصویر و فشرده‌سازی برای انتشار.';
+  const title = candidate.title || persianTitle(candidate.fileTitle, candidate.description);
+  const topic = persianTopicLabel(candidate);
+  const changeNote = 'تغییرات انجام‌شده: تبدیل به قالب عمودی ۹:۱۶، برش و مقیاس‌دهی تصویر، فشرده‌سازی و افزودن کارت پایانی معرفی گوشی‌باز در فیلو.';
   return [
-    'یک ویدئوی کوتاه و منتخب از محتوای سرگرمی',
+    title + '؛ یک کلیپ کوتاه درباره ' + topic + '.',
+    'برای دیدن ویدئوهای بیشتر از این مجموعه، گوشی‌باز را در فیلو دنبال کنید.',
     '',
     'منبع: ' + candidate.fileTitle.replace(/^File:/i, ''),
     'پدیدآورنده: ' + (candidate.author || 'طبق اطلاعات صفحهٔ منبع'),
     'مجوز: ' + licenseType,
     ...(licenseType === 'CC BY 4.0' ? [changeNote] : []),
     candidate.sourcePage,
-    licenseUrl,
-    '',
-    'برای دیدن کلیپ‌های بیشتر، گوشی‌باز را دنبال کنید.'
+    licenseUrl
   ].join('\n');
 }
 
