@@ -77,14 +77,14 @@ class RotatingDiscoveryBatchTests(unittest.TestCase):
         now = datetime(2026, 10, 30, 12, 0, tzinfo=timezone.utc)
         channels = [f"channel-{i}" for i in range(48)]
         first = rotating_batch(channels, now, batch_size=24, window_seconds=15 * 60)
-        second = rotating_batch(channels, now + timedelta(minutes=15), batch_size=25, window_seconds=15 * 60)
+        second = rotating_batch(channels, now + timedelta(minutes=15), batch_size=24, window_seconds=15 * 60)
         self.assertEqual(len(first), 24)
         self.assertEqual(len(second), 24)
         self.assertFalse(set(first) & set(second))
         self.assertEqual(set(first) | set(second), set(channels))
         self.assertEqual(
             first,
-            rotating_batch(channels, now + timedelta(minutes=30), batch_size=25, window_seconds=15 * 60)
+            rotating_batch(channels, now + timedelta(minutes=30), batch_size=24, window_seconds=15 * 60)
         )
 
     def test_two_chart_batches_cover_all_region_category_pairs(self):
