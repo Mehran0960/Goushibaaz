@@ -36,7 +36,7 @@ function main() {
   fs.mkdirSync(path.dirname(OUTPUT),{recursive:true});
   fs.writeFileSync(OUTPUT,JSON.stringify(next,null,2)+'\n');
   const topics={};
-  for(const item of ranked){const key=categoryFor(item.title||'');topics[key]=(topics[key]||0)+1;}
+  for(const item of ranked){const key=categoryFor(item);topics[key]=(topics[key]||0)+1;}
   console.log('TREND_INTELLIGENCE_IMPORTED',JSON.stringify({
     inputItems:feed.items.length,retained:['telegram','aparat','youtube_cc'].reduce((n,k)=>n+Object.keys(next[k]).length,0),
     measuredVelocity:ranked.filter(x=>x.views_velocity_kind==='observed').length,
