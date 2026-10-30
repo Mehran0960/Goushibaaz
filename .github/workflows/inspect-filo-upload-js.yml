@@ -49,14 +49,25 @@ jobs:
           }
 
           (async () => {
-            const html = await getText(upload);
-            const scriptPaths = [...html.matchAll(/<script[^>]+src=["']([^"']+\.js(?:\?[^"']*)?)["']/gi)]
+            const html = await getText(root);
+            let uploadHtml = '';
+            let uploadRouteStatus = 'available';
+            try {
+              uploadHtml = await getText(upload);
+            } catch (error) {
+              const message = String(error && error.message || error);
+              const status = message.match(/public_fetch_http_(\d{3})/);
+              uploadRouteStatus = status ? `http_${status[1]}` : 'unavailable';
+            }
+            const combinedHtml = html + '\n' + uploadHtml;
+            const scriptPaths = [...combinedHtml.matchAll(/<script[^>]+src=["']([^"']+\.js(?:\?[^"']*)?)["']/gi)]
               .map(m => new URL(m[1], root).href);
             const mainUrl = scriptPaths.find(x => new URL(x).pathname.includes('/assets/index-')) ||
               scriptPaths.find(x => new URL(x).pathname.includes('/assets/'));
             if (!mainUrl) {
               console.log('FILO_BUNDLE_INSPECTION', JSON.stringify({
                 status: 'bundle_not_found',
+                uploadRouteStatus,
                 title: (html.match(/<title>([^<]*)<\/title>/i) || [])[1] || '',
                 scriptPaths: scriptPaths.map(x => new URL(x).pathname).slice(0, 30),
                 note: 'No login, credentials, media upload, or publication was attempted.'
@@ -113,6 +124,7 @@ jobs:
 
             console.log('FILO_BUNDLE_INSPECTION', JSON.stringify({
               status: 'ok',
+              uploadRouteStatus,
               pageTitle: (html.match(/<title>([^<]*)<\/title>/i) || [])[1] || '',
               mainBundlePath: new URL(mainUrl).pathname,
               mainBundleBytes: main.length,
@@ -127,6 +139,7 @@ jobs:
             console.log('FILO_BUNDLE_INSPECTION', JSON.stringify({
               status: 'error',
               errorKind: String(e && e.name || 'Error').slice(0, 60),
+              errorDetail: String(e && e.message || e).replace(/\s+/g, ' ').slice(0, 180),
               note: 'No login or upload was attempted.'
             }));
             process.exit(1);
