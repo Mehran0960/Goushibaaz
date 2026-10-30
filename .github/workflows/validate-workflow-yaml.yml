@@ -1,0 +1,21 @@
+name: Validate publisher workflow YAML syntax
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/validate-filo-publisher.yml"
+      - ".github/workflows/validate-workflow-yaml.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse the main publisher validation workflow
+        run: |
+          ruby -e 'require "yaml"; d = YAML.load_file(".github/workflows/validate-filo-publisher.yml", aliases: true); abort "missing jobs.validate" unless d.is_a?(Hash) && d["jobs"].is_a?(Hash) && d["jobs"]["validate"].is_a?(Hash); puts "PUBLISHER_WORKFLOW_YAML_PARSE_OK"'
