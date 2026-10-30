@@ -24,7 +24,7 @@ function main() {
       last_seen_at:String(item.metrics_observed_at||item.discovered_at||feed.updated_at||new Date().toISOString()),
       last_views:Math.max(safeNumber(item.views),safeNumber(item.telegram_repost_views),safeNumber(item.telegram_post_views)),
       history:history.map(row=>({at:String(row.observed_at||row.at||''),views:safeNumber(row.views)})).filter(row=>row.at&&row.views>0).slice(-8),
-      source:String(item.source||''),platform:String(item.platform||''),lane:String(item.lane||''),
+      source:String(item.source||''),platform:String(item.platform||''),lane:String(item.content_lane||item.lane||''),
       velocity_per_hour:safeNumber(item.views_velocity_per_hour),velocity_kind:String(item.views_velocity_kind||'unknown'),
       acceleration_per_hour2:Number(item.views_acceleration_per_hour2||0)
     };
