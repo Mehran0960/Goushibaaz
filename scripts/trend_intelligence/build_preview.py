@@ -4,11 +4,20 @@
 Discovery intelligence only: this script never downloads, edits, or publishes media.
 """
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 STATE = ROOT / "state" / "trend-intelligence.json"
 OUTPUT = ROOT / "reports" / "latest-trend-preview.md"
+UNSUITABLE = re.compile(
+    r"🔞|18\s*\+|\bnsfw\b|\bporn\b|\bsex(?:ual)?\b|سکسی|پورن|جنسی|"
+    r"شمخانی|نماینده|مجلس|انتخابات|سیاست|سیاسی|رئیس.?جمهور|دعوای|"
+    r"جنگ|حمله|کشته|قتل|درگیری|تصادف|مرگ|"
+    r"\b(?:sale|promo|sponsored|affiliate)\b|تخفیف|فروشگاه|"
+    r"https?://",
+    re.IGNORECASE,
+)
 
 
 def number(value, digits=0):
@@ -53,6 +62,14 @@ def main():
         and x.get("candidate_action") in {
             "prioritize_for_visual_and_rights_review", "manual_review"
         }
+        and float(x.get("follow_growth_score") or 0) >= 45
+        and not any(bool(x.get(flag)) for flag in (
+            "news_risk_signal", "sensitive_risk_signal", "safety_review_signal",
+            "promotional_signal", "compilation_signal", "stale_signal",
+        ))
+        and not UNSUITABLE.search(" ".join((
+            str(x.get("title") or ""), str(x.get("description") or "")
+        )))
     ]
     observed.sort(
         key=lambda x: (
@@ -68,7 +85,7 @@ def main():
         x for x in items
         if x.get("platform") == "youtube"
         and x.get("source") == "youtube_global_chart"
-        and float(x.get("age_hours") or 999999) <= 72
+        and float(x.get("age_hours") or 999999) <= 48
     ]
     chart_rows.sort(
         key=lambda x: (
