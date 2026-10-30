@@ -38,7 +38,7 @@ function main() {
   const topics={};
   for(const item of ranked){const key=categoryFor(item.title||'');topics[key]=(topics[key]||0)+1;}
   console.log('TREND_INTELLIGENCE_IMPORTED',JSON.stringify({
-    inputItems:feed.items.length,retained:Object.values(next).reduce((n,g)=>n+Object.keys(g).length,0),
+    inputItems:feed.items.length,retained:['telegram','aparat','youtube_cc'].reduce((n,k)=>n+Object.keys(next[k]).length,0),
     measuredVelocity:ranked.filter(x=>x.views_velocity_kind==='observed').length,
     estimatedVelocity:ranked.filter(x=>x.views_velocity_kind==='estimated_from_lifetime_views').length,
     topicSignals:topics
