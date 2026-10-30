@@ -3,6 +3,7 @@ const path = require('path');
 const { execFileSync } = require('child_process');
 const { chromium } = require('playwright');
 const { rankCandidates, buildTrendWeights } = require('./quality_rank.cjs');
+const { buildTrendSearches, rotateSearchBatch } = require('./trend_discovery.cjs');
 const { looksRelevant, persianTitle } = require('./editorial_content.cjs');
 const { appendFiloEndCard } = require('./filo_endcard.cjs');
 const ACCOUNT = 'https://ifilo.net';
@@ -23,8 +24,8 @@ const COVER_HEIGHT = Number(FILO_PROFILE.cover_height) || 1280;
 const WORK_HEIGHT = 1080;
 const WORK_WIDTH = Math.round(WORK_HEIGHT * TARGET_WIDTH / TARGET_HEIGHT);
 // Fail closed on reuse rights: only explicit CC0 1.0 or CC BY 4.0 license metadata is accepted.
-const MAX_DAILY_PUBLICATIONS = 48;
-const MIN_PUBLICATION_GAP_MS = 30 * 60 * 1000;
+const MAX_DAILY_PUBLICATIONS = 288;
+const MIN_PUBLICATION_GAP_MS = 5 * 60 * 1000;
 const MIN_DURATION_SECONDS = 8;
 const MAX_DURATION_SECONDS = 180;
 const ACTIVE_SOURCE_STATUSES = new Set([
@@ -297,8 +298,17 @@ async function discoverCommercialCandidates(state) {
   const used = new Set((state.posts || [])
     .filter(item => ACTIVE_SOURCE_STATUSES.has(item.status) || item.status === 'ineligible_source')
     .map(item => item.sourcePage));
-  // Always scan Persian/Iranian searches first; then keep a broad licensed fallback so a slot can still run when local open-license clips are scarce.
-  const searches = COMMONS_SEARCHES;
+  // Each five-minute attempt rotates a small, balanced batch to avoid hammering public archives.
+  // One additional query is built from an actually observed high-velocity entertainment trend.
+  const trendSearches = buildTrendSearches();
+  const localSearches = rotateSearchBatch(COMMONS_SEARCHES.filter(item => item.localPriority), 3);
+  const broadSearches = rotateSearchBatch(COMMONS_SEARCHES.filter(item => !item.localPriority), 5);
+  const searches = [...localSearches, ...broadSearches, ...trendSearches];
+  console.log('FILO_ROTATING_DISCOVERY_BATCH', JSON.stringify({
+    localCommonsQueries: localSearches.length,
+    broadCommonsQueries: broadSearches.length,
+    observedTrendTitleQueries: trendSearches.map(item => item.trendTitle)
+  }));
   const found = new Map();
 
   async function scanCommonsSearch(search, retryAttempt = 0) {
@@ -358,7 +368,10 @@ async function discoverCommercialCandidates(state) {
         sourceAspectRatio: Number(info.width) > 0 && Number(info.height) > 0
           ? Math.round((Number(info.width) / Number(info.height)) * 1000) / 1000 : null,
         discoveryQuery: search.key,
-        localPriorityQuery: Boolean(search.localPriority)
+        localPriorityQuery: Boolean(search.localPriority),
+        trendSearchTitle: search.trendTitle || undefined,
+        trendSearchUrl: search.trendUrl || undefined,
+        trendSearchVelocity: search.trendVelocity || undefined
       };
       candidate.contentLocaleScore = Math.max(candidateContentPriority(candidate), search.localPriority ? 1 : 0);
       candidate.sourceVerticalScore = sourceVerticalScore(candidate.sourceWidth, candidate.sourceHeight);
@@ -446,8 +459,22 @@ async function discoverInternetArchiveCandidates(state) {
   const used = new Set((state.posts || [])
     .filter(item => ACTIVE_SOURCE_STATUSES.has(item.status) || item.status === 'ineligible_source')
     .map(item => item.sourcePage));
-  // Searching by licenseurl returned no results; broaden discovery then verify actual item licenses.
-  const searches = ARCHIVE_SEARCH_TERMS.map(term => ({ key: term.key, term }));
+  // Rotate a bounded set of archive queries; metadata is still checked per item before download.
+  const trendSearches = buildTrendSearches();
+  const localSearches = rotateSearchBatch(ARCHIVE_SEARCH_TERMS.filter(term => term.localPriority), 2);
+  const broadSearches = rotateSearchBatch(ARCHIVE_SEARCH_TERMS.filter(term => !term.localPriority), 2);
+  const searches = [
+    ...localSearches.map(term => ({ key: term.key, term })),
+    ...broadSearches.map(term => ({ key: term.key, term })),
+    ...trendSearches.map(item => ({ key: item.key, term: {
+      term: item.searchTerms.join(' '), localPriority: item.localPriority,
+      trendTitle: item.trendTitle, trendUrl: item.trendUrl, trendVelocity: item.trendVelocity
+    }}))
+  ];
+  console.log('FILO_ARCHIVE_ROTATING_BATCH', JSON.stringify({
+    localQueries: localSearches.length, broadQueries: broadSearches.length,
+    observedTrendTitleQueries: trendSearches.map(item => item.trendTitle)
+  }));
   const discovered = new Map();
   const queue = [...searches];
 
@@ -554,6 +581,9 @@ async function discoverInternetArchiveCandidates(state) {
               ? Math.round((Number(file.width || meta.width) / Number(file.height || meta.height)) * 1000) / 1000 : null,
             discoveryQuery: entry.search.key,
             localPriorityQuery: Boolean(entry.search.term.localPriority),
+            trendSearchTitle: entry.search.term.trendTitle || undefined,
+            trendSearchUrl: entry.search.term.trendUrl || undefined,
+            trendSearchVelocity: entry.search.term.trendVelocity || undefined,
             archiveIdentifier: entry.identifier
           };
           candidate.contentLocaleScore = Math.max(candidateContentPriority(candidate), candidate.localPriorityQuery ? 1 : 0);
@@ -932,7 +962,7 @@ async function main() {
       todayCount: cadence.todayCount,
       maxDaily: cadence.maxDaily,
       nextAllowedAt: cadence.nextAllowedAt || null,
-      note: 'Filo cadence is limited to four spaced publication attempts per UTC day to protect quality and account health.'
+      note: 'Filo permits at most 288 spaced attempts per UTC day; this is a ceiling, not a target. Only eligible verified-license media is submitted.'
     }));
     return;
   }
