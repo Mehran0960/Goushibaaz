@@ -5,6 +5,8 @@ const { chromium } = require('playwright');
 const { rankCandidates, buildTrendWeights } = require('./quality_rank.cjs');
 const { looksRelevant, persianTitle } = require('./editorial_content.cjs');
 const { appendFiloEndCard } = require('./filo_endcard.cjs');
+const { buildOriginalPuzzleVideo } = require('./original_puzzle_video.cjs');
+const ORIGINAL_PUZZLES = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'content', 'original-puzzle-bank.json'), 'utf8'));
 
 const ACCOUNT = 'https://ifilo.net';
 const CC0_LICENSE_URL = 'https://creativecommons.org/publicdomain/zero/1.0/';
@@ -24,6 +26,9 @@ const COVER_HEIGHT = Number(FILO_PROFILE.cover_height) || 1280;
 const WORK_HEIGHT = 1080;
 const WORK_WIDTH = Math.round(WORK_HEIGHT * TARGET_WIDTH / TARGET_HEIGHT);
 // Fail closed on reuse rights: only explicit CC0 1.0 or CC BY 4.0 license metadata is accepted.
+const MAX_DAILY_PUBLICATIONS = 4;
+const MIN_PUBLICATION_GAP_MS = 3 * 60 * 60 * 1000;
+const ORIGINAL_PUZZLE_SOURCE_BASE = 'https://github.com/Mehran0960/Goushibaaz/blob/main/content/original-puzzle-bank.json#';
 const MIN_DURATION_SECONDS = 8;
 const MAX_DURATION_SECONDS = 180;
 const ACTIVE_SOURCE_STATUSES = new Set([
@@ -190,6 +195,20 @@ function persianTopicLabel(candidate) {
 }
 
 function descriptionForCandidate(candidate) {
+  if (candidate.contentOrigin === 'original_goushibaaz') {
+    const optionLine = candidate.options.map((value, i) => ['۱', '۲', '۳'][i] + ') ' + value).join(' | ');
+    return [
+      candidate.title + '؛ یک معمای هوش و چالش فکری کوتاه درباره ' + candidate.topic + '.',
+      'قبل از دیدن پاسخ، سؤال را حل کن و جواب خودت را در دیدگاه‌ها بنویس.',
+      'گزینه‌ها: ' + optionLine,
+      '',
+      'تولید اختصاصی گوشی‌باز؛ متن، روایت فارسی و تصویرسازی این ویدئو برای این کانال ساخته شده است.',
+      ORIGINAL_PUZZLE_SOURCE_BASE + candidate.puzzleId,
+      '',
+      'برای دیدن چالش‌های بعدی، گوشی‌باز را در فیلو دنبال کن.'
+    ].join('\n');
+  }
+
   const licenseType = candidate.licenseType || commercialLicenseProfile(candidate.licenseName, candidate.licenseUrl)?.type || 'CC0 1.0';
   const licenseUrl = candidate.licenseUrl || (licenseType === 'CC BY 4.0'
     ? 'https://creativecommons.org/licenses/by/4.0/'
@@ -208,6 +227,112 @@ function descriptionForCandidate(candidate) {
     candidate.sourcePage,
     licenseUrl
   ].join('\n');
+}
+
+function publicationCadenceDecision(state, now = new Date()) {
+  const eligibleStatuses = new Set([
+    'published', 'submitted_pending_approval', 'submit_started',
+    'submitted_unconfirmed', 'submit_result_unconfirmed',
+    'upload_staged_unpublished', 'rejected_by_filo'
+  ]);
+  const attempts = (state.posts || [])
+    .filter(item => eligibleStatuses.has(item.status))
+    .map(item => Date.parse(item.submittedAt || item.attemptedAt || item.publishedAt || item.checkedAt || ''))
+    .filter(Number.isFinite)
+    .sort((a, b) => b - a);
+  const today = now.toISOString().slice(0, 10);
+  const todayCount = attempts.filter(ts => new Date(ts).toISOString().slice(0, 10) === today).length;
+  if (todayCount >= MAX_DAILY_PUBLICATIONS) {
+    return { allowed: false, status: 'daily_limit_reached', todayCount, maxDaily: MAX_DAILY_PUBLICATIONS };
+  }
+  if (attempts.length && now.getTime() - attempts[0] < MIN_PUBLICATION_GAP_MS) {
+    return {
+      allowed: false,
+      status: 'publication_cooldown',
+      todayCount,
+      nextAllowedAt: new Date(attempts[0] + MIN_PUBLICATION_GAP_MS).toISOString()
+    };
+  }
+  return { allowed: true, todayCount, maxDaily: MAX_DAILY_PUBLICATIONS };
+}
+
+function selectOriginalPuzzle(state, now = new Date()) {
+  const puzzles = Array.isArray(ORIGINAL_PUZZLES.puzzles) ? ORIGINAL_PUZZLES.puzzles : [];
+  if (!puzzles.length) return null;
+  const uses = new Map();
+  for (const item of state.posts || []) {
+    if (!String(item.sourcePage || '').startsWith(ORIGINAL_PUZZLE_SOURCE_BASE)) continue;
+    const id = String(item.sourcePage).slice(ORIGINAL_PUZZLE_SOURCE_BASE.length);
+    const ts = Date.parse(item.submittedAt || item.attemptedAt || item.publishedAt || item.checkedAt || '');
+    if (!uses.has(id) || (Number.isFinite(ts) && ts > uses.get(id))) uses.set(id, Number.isFinite(ts) ? ts : 0);
+  }
+  const unused = puzzles.filter(item => !uses.has(item.id));
+  const recentTopics = (state.posts || [])
+    .filter(item => String(item.sourcePage || '').startsWith(ORIGINAL_PUZZLE_SOURCE_BASE))
+    .sort((a, b) => Date.parse(b.submittedAt || b.attemptedAt || b.publishedAt || '') -
+                    Date.parse(a.submittedAt || a.attemptedAt || a.publishedAt || ''))
+    .slice(0, 3)
+    .map(item => item.topic);
+  if (unused.length) return unused.find(item => !recentTopics.includes(item.topic)) || unused[0];
+
+  const cooldownMs = 14 * 24 * 60 * 60 * 1000;
+  const reusable = puzzles
+    .filter(item => uses.has(item.id) && now.getTime() - (uses.get(item.id) || 0) >= cooldownMs)
+    .sort((a, b) => (uses.get(a.id) || 0) - (uses.get(b.id) || 0));
+  return reusable[0] || null;
+}
+
+function prepareOriginalPuzzleFallback(state) {
+  const puzzle = selectOriginalPuzzle(state);
+  if (!puzzle) {
+    console.log('FILO_ORIGINAL_CONTENT_UNAVAILABLE', JSON.stringify({
+      bankSize: Array.isArray(ORIGINAL_PUZZLES.puzzles) ? ORIGINAL_PUZZLES.puzzles.length : 0,
+      reason: 'All original puzzles were used within the 14-day reuse window.'
+    }));
+    return null;
+  }
+  const generated = buildOriginalPuzzleVideo(puzzle, {
+    outputPath: INPUT_FILE,
+    workDir: VIDEO_DIR,
+    width: TARGET_WIDTH,
+    height: TARGET_HEIGHT
+  });
+  const sourcePage = ORIGINAL_PUZZLE_SOURCE_BASE + puzzle.id;
+  const candidate = {
+    contentOrigin: 'original_goushibaaz',
+    puzzleId: puzzle.id,
+    fileTitle: puzzle.title,
+    sourcePage,
+    title: puzzle.title,
+    topic: puzzle.topic,
+    question: puzzle.question,
+    options: puzzle.options,
+    description: puzzle.question,
+    author: 'گوشی‌باز',
+    durationSeconds: generated.durationSeconds,
+    coverSeekSeconds: generated.coverSeekSeconds,
+    descriptionText: ''
+  };
+  candidate.descriptionText = descriptionForCandidate(candidate);
+  const rights = {
+    sourcePage,
+    author: 'گوشی‌باز',
+    licenseName: 'Original Goushibaaz Content',
+    licenseUrl: sourcePage,
+    sourceBytes: generated.sourceBytes,
+    durationSeconds: generated.durationSeconds,
+    contentOrigin: 'original_goushibaaz'
+  };
+  console.log('FILO_ORIGINAL_CONTENT_READY', JSON.stringify({
+    puzzleId: puzzle.id,
+    title: puzzle.title,
+    topic: puzzle.topic,
+    durationSeconds: generated.durationSeconds,
+    sourceBytes: generated.sourceBytes,
+    audio: generated.audio,
+    reusePolicy: 'Once per 14 days after all 24 unique originals have been used.'
+  }));
+  return { candidate, rights, sourceDurationSeconds: generated.durationSeconds, generated };
 }
 
 function parsedDurationSeconds(info) {
@@ -595,10 +720,10 @@ function convertToPortraitMp4() {
   return { outputBytes: stat.size, outputPath: OUTPUT_FILE };
 }
 
-function extractCoverFrame() {
+function extractCoverFrame(seekSeconds = 1.0) {
   execFileSync('ffmpeg', [
     '-hide_banner', '-loglevel', 'error', '-y',
-    '-ss', '00:00:01.0', '-i', OUTPUT_FILE,
+    '-ss', String(Math.max(0.5, Number(seekSeconds) || 1.0)), '-i', OUTPUT_FILE,
     '-frames:v', '1',
     '-vf', `scale=${COVER_WIDTH}:${COVER_HEIGHT}:force_original_aspect_ratio=decrease,pad=${COVER_WIDTH}:${COVER_HEIGHT}:(ow-iw)/2:(oh-ih)/2,setsar=1`,
     '-q:v', '2',
@@ -882,6 +1007,20 @@ async function main() {
   try { state = JSON.parse(fs.readFileSync(STATE_PATH, 'utf8')); } catch {}
   if (!Array.isArray(state.posts)) state.posts = [];
 
+  const cadence = publicationCadenceDecision(state);
+  if (!cadence.allowed) {
+    state.lastOutcome = { status: cadence.status, checkedAt: new Date().toISOString(), ...cadence };
+    fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
+    console.log('FILO_PUBLISH_RESULT', JSON.stringify({
+      status: cadence.status,
+      todayCount: cadence.todayCount,
+      maxDaily: cadence.maxDaily,
+      nextAllowedAt: cadence.nextAllowedAt || null,
+      note: 'Filo cadence is limited to four spaced publication attempts per UTC day to protect quality and account health.'
+    }));
+    return;
+  }
+
   const [commonsCandidates, archiveCandidates] = await Promise.all([
     discoverCommercialCandidates(state),
     discoverInternetArchiveCandidates(state)
@@ -920,18 +1059,6 @@ async function main() {
     eligible_internet_archive: archiveCandidates.length,
     unique_eligible_sources: candidates.length
   }));
-  if (!candidates.length) {
-    const result = {
-      status: 'no_eligible_candidate',
-      searchedQueries: COMMONS_SEARCHES.length + ARCHIVE_SEARCH_TERMS.length,
-      note: 'No new short WebM candidate with a verified CC0 1.0 or CC BY 4.0 license was found. Nothing was published.'
-    };
-    state.lastOutcome = { status: result.status, checkedAt: new Date().toISOString() };
-    fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
-    console.log('FILO_PUBLISH_RESULT', JSON.stringify(result));
-    return;
-  }
-
   let candidate = null;
   let rights = null;
   let sourceDurationSeconds = null;
@@ -968,15 +1095,34 @@ async function main() {
     }
   }
 
+  let originalFallback = null;
+  if (!candidate || !rights) {
+    try {
+      originalFallback = prepareOriginalPuzzleFallback(state);
+      if (originalFallback) {
+        candidate = originalFallback.candidate;
+        rights = originalFallback.rights;
+        sourceDurationSeconds = originalFallback.sourceDurationSeconds;
+      }
+    } catch (error) {
+      preparationErrors.push({
+        source: 'goushibaaz-original-content',
+        reason: String(error && error.message || 'original_video_generation_failed').slice(0, 180)
+      });
+    }
+  }
+
   if (!candidate || !rights) {
     state.posts = state.posts.slice(-500);
-    state.lastOutcome = { status: 'no_eligible_candidate', checkedAt: new Date().toISOString() };
+    const status = candidates.length ? 'no_prepared_external_or_original_candidate' : 'no_eligible_external_or_original_candidate';
+    state.lastOutcome = { status, checkedAt: new Date().toISOString() };
     fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
     const result = {
-      status: 'no_eligible_candidate',
+      status,
       candidateCount: candidates.length,
+      originalPuzzleCount: Array.isArray(ORIGINAL_PUZZLES.puzzles) ? ORIGINAL_PUZZLES.puzzles.length : 0,
       preparationFailures: preparationErrors.slice(0, 8),
-      note: 'No new commercially reusable video passed license, download, and duration checks; nothing was published.'
+      note: 'No reusable external video passed validation and no unused original puzzle could be rendered; nothing was published.'
     };
     console.log('FILO_PUBLISH_RESULT', JSON.stringify(result));
     return;
@@ -995,7 +1141,7 @@ async function main() {
     durationSeconds: Number(FILO_PROFILE.end_card_seconds) || 1.6
   });
   fs.renameSync(OUTPUT_FILE + '.endcard.mp4', OUTPUT_FILE);
-  const cover = extractCoverFrame();
+  const cover = extractCoverFrame(candidate.contentOrigin === 'original_goushibaaz' ? (candidate.coverSeekSeconds || 3) : 1);
 
   if (DRY_RUN) {
     console.log('FILO_PUBLISH_RESULT', JSON.stringify({
@@ -1004,6 +1150,7 @@ async function main() {
       title: PERSIAN_TITLE,
       sourcePage: COMMONS_PAGE,
       sourceTitle: SOURCE_TITLE,
+      sourceType: candidate.contentOrigin || 'licensed_external',
       license: rights.licenseName,
       sourceBytes: rights.sourceBytes,
       sourceAspectRatio: candidate.sourceAspectRatio || null,
@@ -1276,6 +1423,7 @@ async function main() {
       const entry = {
         sourcePage: COMMONS_PAGE,
         sourceTitle: SOURCE_TITLE,
+        sourceType: candidate.contentOrigin || 'licensed_external',
         author: rights.author,
         license: rights.licenseName,
         licenseUrl: rights.licenseUrl,
