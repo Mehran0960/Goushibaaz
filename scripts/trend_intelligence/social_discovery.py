@@ -1065,7 +1065,7 @@ def attach_view_trajectory(results, previous_items, now):
         ident = str(item.get("id") or item.get("url") or "")
         old = old_by_id.get(ident) or {}
         history = []
-        old_history = old.get("views_history", [])
+        old_history = old.get("views_history") or old.get("history") or []
         for row in old_history if isinstance(old_history, list) else []:
             if not isinstance(row, dict):
                 continue
