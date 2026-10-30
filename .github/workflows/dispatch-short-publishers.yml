@@ -32,9 +32,9 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: .scheduler-state
-          key: goushibaaz-publisher-schedule-${{ github.run_id }}-${{ github.run_attempt }}
+          key: goushibaaz-publisher-schedule-v2-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
-            goushibaaz-publisher-schedule-
+            goushibaaz-publisher-schedule-v2-
 
       - name: Evaluate quota, video availability, and dispatch all enabled platforms together
         id: tick
