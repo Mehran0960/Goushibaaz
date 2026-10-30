@@ -307,6 +307,9 @@ async function discoverInternetArchiveCandidates(used) {
   const pending = [...metadataQueue];
   const found = [];
   let metadataErrors = 0;
+  let licenseRejected = 0;
+  let itemsWithoutSupportedVideo = 0;
+  const fileTypeCounts = {};
   async function metadataWorker() {
     while (pending.length) {
       const entry = pending.shift();
@@ -320,14 +323,16 @@ async function discoverInternetArchiveCandidates(used) {
         const body = await response.json();
         const meta = body.metadata || {};
         const license = internetArchiveLicense(meta.licenseurl || entry.indexed.licenseurl);
-        if (!license) continue;
+        if (!license) { licenseRejected++; continue; }
         const files = Array.isArray(body.files) ? body.files : [];
+        for (const item of files) { const ext = path.extname(String(item.name || '')).toLowerCase() || '[none]'; fileTypeCounts[ext] = (fileTypeCounts[ext] || 0) + 1; }
         const videoFiles = files.filter(file => {
           const name = String(file.name || '');
           const size = Number(file.size);
           return /\.(?:webm|mp4|m4v|mov)$/i.test(name) && file.private !== 'true' && file.private !== true &&
             Number.isFinite(size) && size >= 200000 && size <= MAX_SOURCE_BYTES;
         }).sort((a,b) => Number(a.size) - Number(b.size));
+        if (!videoFiles.length) itemsWithoutSupportedVideo++;
         for (const file of videoFiles.slice(0, 2)) {
           const sourcePage = 'https://archive.org/details/' + entry.identifier;
           if (used.has(sourcePage)) continue;
@@ -369,7 +374,8 @@ async function discoverInternetArchiveCandidates(used) {
   );
   console.log('INTERNET_ARCHIVE_SOURCE_COVERAGE', JSON.stringify({
     searchQueries: searches.length, uniqueItemsDiscovered: discovered.size,
-    itemsCheckedForMetadata: metadataQueue.length, eligibleWebmCandidates: ranked.length, metadataErrors
+    itemsCheckedForMetadata: metadataQueue.length, eligibleVideoCandidates: ranked.length,
+    licenseRejected, itemsWithoutSupportedVideo, fileTypeCounts, metadataErrors
   }));
   return ranked.slice(0, 60);
 }
