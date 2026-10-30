@@ -1102,10 +1102,18 @@ def attach_view_trajectory(results, previous_items, now):
         measured_rate = measured_delta = measured_interval = None
         parsed = [(_observation_time(row["observed_at"]), int(row["views"])) for row in history]
         if len(parsed) >= 2:
-            older_at, older_views = parsed[-2]
+            # A rapid second scan can append a snapshot less than six minutes
+            # after the previous one. Do not discard older usable history:
+            # compare the newest sample with the nearest prior sample that
+            # still satisfies the minimum measurement interval.
             newer_at, newer_views = parsed[-1]
-            interval = (newer_at - older_at).total_seconds() / 3600.0
-            if interval >= 0.10:
+            eligible_older = [
+                (stamp, count) for stamp, count in parsed[:-1]
+                if (newer_at - stamp).total_seconds() / 3600.0 >= 0.10
+            ]
+            if eligible_older:
+                older_at, older_views = eligible_older[-1]
+                interval = (newer_at - older_at).total_seconds() / 3600.0
                 measured_delta = newer_views - older_views
                 measured_interval = round(interval, 3)
                 measured_rate = round(measured_delta / interval, 2)
