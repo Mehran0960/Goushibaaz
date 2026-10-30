@@ -4,7 +4,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from social_discovery import attach_view_trajectory
+from social_discovery import attach_view_trajectory, rotating_batch, youtube_search_due
 
 
 class ViewTrajectoryPersistenceTests(unittest.TestCase):
@@ -70,6 +70,37 @@ class ViewTrajectoryPersistenceTests(unittest.TestCase):
         self.assertEqual(result["views_velocity_kind"], "observed")
         self.assertEqual(result["views_delta_last_interval"], -100)
         self.assertLess(result["views_velocity_per_hour"], 0)
+
+
+class RotatingDiscoveryBatchTests(unittest.TestCase):
+    def test_two_telegram_batches_cover_all_channels_without_overlap(self):
+        now = datetime(2026, 10, 30, 12, 0, tzinfo=timezone.utc)
+        channels = [f"channel-{i}" for i in range(50)]
+        first = rotating_batch(channels, now, batch_size=25, window_seconds=15 * 60)
+        second = rotating_batch(channels, now + timedelta(minutes=15), batch_size=25, window_seconds=15 * 60)
+        self.assertEqual(len(first), 25)
+        self.assertEqual(len(second), 25)
+        self.assertFalse(set(first) & set(second))
+        self.assertEqual(set(first) | set(second), set(channels))
+        self.assertEqual(
+            first,
+            rotating_batch(channels, now + timedelta(minutes=30), batch_size=25, window_seconds=15 * 60)
+        )
+
+    def test_two_chart_batches_cover_all_region_category_pairs(self):
+        now = datetime(2026, 10, 30, 12, 0, tzinfo=timezone.utc)
+        buckets = [(region, category) for region in ["US", "GB", "CA", "IN", "BR", "DE", "TR", "AU"]
+                   for category in ["15", "17", "23", "24", "26", "28"]]
+        first = rotating_batch(buckets, now, batch_size=24, window_seconds=15 * 60)
+        second = rotating_batch(buckets, now + timedelta(minutes=15), batch_size=24, window_seconds=15 * 60)
+        self.assertFalse(set(first) & set(second))
+        self.assertEqual(set(first) | set(second), set(buckets))
+
+    def test_youtube_search_budget_is_spread_across_the_day(self):
+        now = datetime(2026, 10, 30, 12, 0, tzinfo=timezone.utc)
+        ledger = {"youtube_search_last_at": (now - timedelta(minutes=40)).isoformat()}
+        self.assertFalse(youtube_search_due(ledger, now))
+        self.assertTrue(youtube_search_due(ledger, now + timedelta(minutes=8)))
 
 
 if __name__ == "__main__":
