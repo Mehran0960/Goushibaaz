@@ -312,7 +312,7 @@ async function discoverCommercialCandidates(state) {
     api.searchParams.set('prop', 'imageinfo');
     api.searchParams.set('iiprop', 'url|mime|size|extmetadata|commonmetadata');
     const response = await fetch(api, {
-      headers: { 'User-Agent': 'GoushibaazFiloPublisher/1.0 (CC0 and CC BY 4.0 verified reuse)' },
+      headers: { 'User-Agent': 'GoushibaazPublisher/1.1 (https://github.com/Mehran0960/Goushibaaz; CC0 and CC BY 4.0 verification)' },
       signal: AbortSignal.timeout(20000)
     });
     if (response.status === 429 && retryAttempt < 2) {
@@ -456,7 +456,7 @@ async function discoverInternetArchiveCandidates(state) {
       const search = queue.shift();
       if (!search) continue;
       const api = new URL('https://archive.org/advancedsearch.php');
-      api.searchParams.set('q', 'mediatype:movies AND ' + search.term.term);
+      api.searchParams.set('q', 'mediatype:movies AND (' + search.term.term + ') AND (licenseurl:http*creativecommons.org/publicdomain/zero/1.0* OR licenseurl:http*creativecommons.org/licenses/by/4.0*)');
       api.searchParams.set('fl[]', 'identifier');
       api.searchParams.append('fl[]', 'title');
       api.searchParams.append('fl[]', 'creator');
@@ -467,7 +467,7 @@ async function discoverInternetArchiveCandidates(state) {
       api.searchParams.set('output', 'json');
       try {
         const response = await fetch(api, {
-          headers: { 'User-Agent': 'GoushibaazFiloPublisher/1.0 (public metadata and reuse-license verification)' },
+          headers: { 'User-Agent': 'GoushibaazPublisher/1.1 (https://github.com/Mehran0960/Goushibaaz; public metadata and reuse-license verification)' },
           signal: AbortSignal.timeout(10000)
         });
         if (!response.ok) {
@@ -492,7 +492,7 @@ async function discoverInternetArchiveCandidates(state) {
       }
     }
   }
-  await Promise.all(Array.from({ length: Math.min(5, queue.length) }, () => searchWorker()));
+  await Promise.all(Array.from({ length: Math.min(3, queue.length) }, () => searchWorker()));
 
   const metadataQueue = [...discovered.values()]
     .sort((a, b) => Number(Boolean(b.search.term.localPriority)) - Number(Boolean(a.search.term.localPriority)))
@@ -568,7 +568,7 @@ async function discoverInternetArchiveCandidates(state) {
       }
     }
   }
-  await Promise.all(Array.from({ length: Math.min(5, candidateQueue.length) }, () => metadataWorker()));
+  await Promise.all(Array.from({ length: Math.min(3, candidateQueue.length) }, () => metadataWorker()));
   const unique = new Map();
   for (const candidate of found) {
     if (!unique.has(candidate.sourcePage)) unique.set(candidate.sourcePage, candidate);
@@ -601,7 +601,7 @@ async function downloadVerifiedCommercialVideo(candidate) {
   }
   fs.mkdirSync(VIDEO_DIR, { recursive: true });
   const fileResponse = await fetch(candidate.fileUrl, {
-    headers: { 'User-Agent': 'GoushibaazFiloPublisher/1.0 (verified commercial-reuse license)' },
+    headers: { 'User-Agent': 'GoushibaazPublisher/1.1 (https://github.com/Mehran0960/Goushibaaz; verified commercial-reuse license)' },
     signal: AbortSignal.timeout(45000)
   });
   if (!fileResponse.ok) throw new Error('commons_video_download_http_' + fileResponse.status);
