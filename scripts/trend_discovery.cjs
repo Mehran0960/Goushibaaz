@@ -16,6 +16,19 @@ const SAFE_LANES = new Set([
   'life_hacks', 'heartwarming', 'diy_creativity', 'home_cleaning',
   'fashion_culture', 'persian_comedy'
 ]);
+const LANE_PRIORITY = {
+  comedy: 12, surprise_or_reveal: 11, human_reaction_or_relatable: 10,
+  skill_or_spectacle: 9, sports_or_athletic_skill: 9, technology_demo: 9,
+  transformation_or_satisfying: 8, practical_tips_or_life_hacks: 8,
+  food_cooking: 8, wholesome_or_heartwarming: 7, diy_and_creativity: 7,
+  music_or_dance: 6, animals: 5, pets_animals: 5,
+  home_organization_or_cleaning: 5, travel_and_places: 4, nature_and_wildlife: 3,
+  science_curiosity: 3, fashion_or_cultural_showcase: 3,
+  surprise_reveal: 11, human_reaction: 10, sports_skill: 9, science_tech: 7,
+  satisfying_craft: 8, life_hacks: 8, food_cooking: 8, heartwarming: 7,
+  diy_creativity: 7, performance_magic: 7, home_cleaning: 5,
+  travel_culture: 4, nature_wildlife: 3, fashion_culture: 3
+};
 const STOP_WORDS = new Set([
   'the','and','this','that','when','where','what','which','who','with','from','into',
   'about','how','why','are','was','were','his','her','their','they','them','he','she',
@@ -81,7 +94,8 @@ function buildTrendSearches(snapshot = readTrendSnapshot(), options = {}) {
       const searchTerms = [...new Set(tokens(item.title))].slice(0, 6);
       if (searchTerms.length < 2) continue;
       const ageHours = Math.max(0, (nowMs - seenAt) / 3600000);
-      const priority = Math.log10(velocity + 1) * 2 + Math.max(0, 1 - ageHours / 36);
+      const audienceBonus = Number(LANE_PRIORITY[lane]) || 0;
+      const priority = Math.log10(velocity + 1) * 2 + Math.max(0, 1 - ageHours / 36) + audienceBonus;
       leads.push({
         id: String(id),
         group,
