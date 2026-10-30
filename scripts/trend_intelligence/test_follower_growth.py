@@ -26,6 +26,27 @@ class RetentionPotentialTests(unittest.TestCase):
             retention_potential({"duration_seconds": 20, "title": "Simple clip"}),
         )
 
+    def test_cross_region_youtube_chart_signal_increases_priority(self):
+        base = {
+            "url": "https://www.youtube.com/watch?v=example",
+            "title": "Amazing science demonstration",
+            "description": "A short visual science experiment",
+            "platform": "youtube",
+            "source": "youtube_global_chart",
+            "age_hours": 2,
+            "views": 50000,
+            "likes": 2000,
+            "comments": 100,
+            "views_velocity_per_hour": 5000,
+            "views_velocity_kind": "observed",
+            "duration_seconds": 20,
+            "chart_rank": 2,
+        }
+        one_region = annotate_candidate({**base, "chart_region_count": 1})
+        four_regions = annotate_candidate({**base, "chart_region_count": 4})
+        self.assertGreater(four_regions["youtube_chart_signal_score"], one_region["youtube_chart_signal_score"])
+        self.assertGreater(four_regions["follow_growth_score"], one_region["follow_growth_score"])
+
     def test_annotated_score_does_not_claim_measured_watch_time(self):
         result = annotate_candidate({
             "url": "https://t.me/example/123",
