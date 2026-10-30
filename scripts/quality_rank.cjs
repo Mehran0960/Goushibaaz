@@ -50,6 +50,23 @@ function candidateText(candidate) {
 }
 
 function categoryFor(value) {
+  if (value && typeof value === 'object') {
+    const lane = String(value.lane || value.editorialTopic || value.topic || '').toLowerCase();
+    const laneMap = {
+      comedy: 'persian_comedy', animals: 'pets_animals',
+      surprise_or_reveal: 'surprise_reveal',
+      transformation_or_satisfying: 'satisfying_craft',
+      skill_or_spectacle: 'sports_skill', technology_demo: 'science_tech',
+      human_reaction_or_relatable: 'human_reaction',
+      food_cooking: 'food_cooking', practical_tips_or_life_hacks: 'life_hacks',
+      wholesome_or_heartwarming: 'heartwarming', sports_or_athletic_skill: 'sports_skill',
+      nature_and_wildlife: 'nature_wildlife', science_curiosity: 'science_tech',
+      diy_and_creativity: 'diy_creativity', home_organization_or_cleaning: 'home_cleaning',
+      music_or_dance: 'performance_magic', fashion_or_cultural_showcase: 'fashion_culture',
+      travel_and_places: 'travel_culture'
+    };
+    if (laneMap[lane]) return laneMap[lane];
+  }
   const text = typeof value === 'string' ? cleanText(value) : candidateText(value);
   let best = { key: 'general_entertainment', count: 0 };
   for (const topic of TOPICS) {
@@ -211,7 +228,7 @@ function buildTrendWeights(snapshot, nowMs = Date.now()) {
       if (!item || typeof item !== 'object') continue;
       const seenAt = Date.parse(item.last_seen_at || item.updated_at || '');
       if (!Number.isFinite(seenAt) || nowMs - seenAt > 48 * 3600000 || seenAt > nowMs + 5 * 60000) continue;
-      const topic = categoryFor(item.title || '');
+      const topic = categoryFor(item);
       if (topic === 'general_entertainment') continue;
       const history = Array.isArray(item.history) ? item.history : [];
       let growthWeight = 0;
