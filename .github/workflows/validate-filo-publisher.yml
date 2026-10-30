@@ -113,7 +113,7 @@ jobs:
           grep -Fq 'cron: "0 9 * * *"' .github/workflows/publish-approved-video-to-filo.yml
           grep -Fq 'MAX_DAILY_PUBLICATIONS = 4' scripts/filo_publish_cc0.cjs
           grep -Fq 'MIN_PUBLICATION_GAP_MS = 3 * 60 * 60 * 1000' scripts/filo_publish_cc0.cjs
-          grep -Fq 'Independent Filo delivery' .github/workflows/publish-approved-video-to-filo.yml
+          grep -Fq 'Iran time: 08:00, 18:00 and 21:00' .github/workflows/publish-approved-video-to-filo.yml
       - name: Test public commercial-license video discovery (no upload)
         run: |
           node <<'NODE'
