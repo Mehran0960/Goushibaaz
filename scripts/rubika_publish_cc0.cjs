@@ -241,12 +241,21 @@ async function discoverCandidates(state) {
     url.searchParams.set('gsrsearch', search.query);
     url.searchParams.set('prop', 'imageinfo');
     url.searchParams.set('iiprop', 'url|mime|size|extmetadata|commonmetadata');
-    const response = await fetch(url, {
-      headers: { 'User-Agent': 'GoushibaazRubikaPublisher/1.0 (verified commercial reuse)' },
-      signal: AbortSignal.timeout(25000)
-    });
-    if (!response.ok) {
-      console.log('COMMONS_SEARCH', JSON.stringify({ category: search.key, httpStatus: response.status }));
+    let response = null;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      response = await fetch(url, {
+        headers: { 'User-Agent': 'GoushibaazRubikaPublisher/1.0 (verified commercial reuse)' },
+        signal: AbortSignal.timeout(25000)
+      });
+      if (response.status !== 429 && response.status < 500) break;
+      if (attempt >= 2) break;
+      const retryAfter = Number(response.headers.get('retry-after') || 0);
+      const delayMs = Math.max(3000, Math.min(20000, retryAfter > 0 ? retryAfter * 1000 : (attempt + 1) * 5000));
+      console.warn('COMMONS_RATE_LIMIT_RETRY', JSON.stringify({ category: search.key, status: response.status, attempt: attempt + 1, delayMs }));
+      await pause(delayMs);
+    }
+    if (!response || !response.ok) {
+      console.log('COMMONS_SEARCH', JSON.stringify({ category: search.key, httpStatus: response && response.status }));
       continue;
     }
     const payload = await response.json();
@@ -296,7 +305,7 @@ async function discoverCandidates(state) {
         hits.set(sourcePage, candidate);
       }
     }
-    await pause(250);
+    await pause(1000);
   }
   let trendSnapshot = {};
   try {
@@ -452,13 +461,13 @@ async function main() {
       normalizedLegacyUpload = true;
     }
   }
-  if (normalizedLegacyUpload) persistState(state);
+  if (normalizedLegacyUpload && !PREPARE_ONLY) persistState(state);
 
   const candidates = await discoverCandidates(state);
   if (!candidates.length) {
     const checkedAt = new Date().toISOString();
     state.lastOutcome = { status: 'no_eligible_candidate', checkedAt };
-    persistState(state);
+    if (!PREPARE_ONLY) persistState(state);
     if (PREPARE_ONLY) {
       writeSharedManifest({ schemaVersion: 1, status: 'no_eligible_candidate', checkedAt });
       const shared = loadSharedState();
@@ -499,7 +508,7 @@ async function main() {
   }
 
   state.lastOutcome = { status: 'candidate_ready', checkedAt: new Date().toISOString(), sourcePage: candidate.sourcePage };
-  persistState(state);
+  if (!PREPARE_ONLY) persistState(state);
   const converted = convertPortrait();
   const resultSummary = {
     title: candidate.title,
