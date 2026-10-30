@@ -457,10 +457,17 @@ async function nasaAssetUrl(nasaId) {
     try{
       const u=new URL(href);
       return u.protocol==='https:' && u.hostname==='images-assets.nasa.gov' &&
-        u.pathname.startsWith('/video/'+nasaId+'/') && /\.mp4$/i.test(u.pathname) &&
+        u.pathname.startsWith('/video/') && /\.mp4$/i.test(u.pathname) &&
         !u.username && !u.password;
     }catch{return false;}
   });
+  if(!urls.length){
+    const samples=rows.slice(0,5).map(x=>{
+      try{const u=new URL(String(x && x.href || ''));return u.protocol+'//'+u.hostname+u.pathname.slice(0,180);}
+      catch{return String(x && x.href || '').slice(0,180);}
+    });
+    console.log('NASA_ASSET_MANIFEST_NO_MP4',JSON.stringify({nasaId,itemCount:rows.length,samples}));
+  }
   const preference=['~small.mp4','~medium.mp4','~large.mp4','~orig.mp4'];
   for(const suffix of preference){
     const found=urls.find(url=>url.toLowerCase().endsWith(suffix));
