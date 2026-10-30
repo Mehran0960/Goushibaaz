@@ -325,7 +325,7 @@ async function discoverInternetArchiveCandidates(used) {
         const videoFiles = files.filter(file => {
           const name = String(file.name || '');
           const size = Number(file.size);
-          return /\.webm$/i.test(name) && file.private !== 'true' &&
+          return /\.webm$/i.test(name) && file.private !== 'true' && file.private !== true &&
             Number.isFinite(size) && size >= 200000 && size <= MAX_SOURCE_BYTES;
         }).sort((a,b) => Number(a.size) - Number(b.size));
         for (const file of videoFiles.slice(0, 2)) {
@@ -502,6 +502,9 @@ async function discoverCandidates(state) {
 }
 
 async function downloadSource(candidate) {
+  if (!candidate.license || ![LICENSES.cc0, LICENSES.ccby].includes(candidate.license.url)) {
+    throw new Error('source_license_not_verified_for_commercial_reuse');
+  }
   fs.mkdirSync(WORK_DIR, { recursive: true });
   const response = await fetch(candidate.fileUrl, {
     headers: { 'User-Agent': 'GoushibaazRubikaPublisher/1.0 (verified commercial reuse)' },
