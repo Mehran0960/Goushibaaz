@@ -44,16 +44,4 @@ jobs:
           node scripts/bale_publish.cjs
       - name: Persist Bale-only publication state
         if: ${{ always() && steps.artifact.outcome == 'success' && hashFiles('state/bale-published.json') != '' }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add state/bale-published.json
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Record Bale destination result"
-          for attempt in 1 2 3 4; do
-            git fetch origin main
-            git rebase origin/main
-            if git push origin HEAD:main; then exit 0; fi
-            sleep "$attempt"
-          done
-          exit 1
+        run: bash scripts/persist_state_file.sh state/bale-published.json "Record Bale destination result"
