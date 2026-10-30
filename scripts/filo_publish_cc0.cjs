@@ -483,7 +483,7 @@ async function discoverInternetArchiveCandidates(state) {
       const search = queue.shift();
       if (!search) continue;
       const api = new URL('https://archive.org/advancedsearch.php');
-      api.searchParams.set('q', 'mediatype:movies AND (' + search.term.term + ') AND (licenseurl:http*creativecommons.org/publicdomain/zero/1.0* OR licenseurl:http*creativecommons.org/licenses/by/4.0*)');
+      api.searchParams.set('q', 'mediatype:movies AND (' + search.term.term + ') ');
       api.searchParams.set('fl[]', 'identifier');
       api.searchParams.append('fl[]', 'title');
       api.searchParams.append('fl[]', 'creator');
