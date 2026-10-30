@@ -5,7 +5,7 @@ const CONTENT_POLICY = require('../config/content-policy.json');
 const AUDIENCE_WEIGHTS = CONTENT_POLICY.audience_priority_weights || {};
 
 const CONTENT_EXCLUSIONS = [
-  { key: 'current_affairs_or_politics', pattern: /\\bwar\\b|\\bexplosion\\b|\\bmissile\\b|\\bshooting\\b|\\bkilled\\b|\\binjured\\b|\\belection\\b|\\bpresident\\b|politic|protest|government|sanction|geopolitical|russia|ukraine|israel|\bamerica\b|جنگ|انفجار|موشک|تیراندازی|کشته|مجروح|انتخابات|رئیس.?جمهور|سیاست|اعتراض|تحریم|درگیری|روسیه|اوکراین|اسرائیل|آمریکا/i },
+  { key: 'institutional_or_current_affairs', pattern: /\\bNASA\\b|National Aeronautics and Space Administration|\n    / /\\bwar\\b|\\bexplosion\\b|\\bmissile\\b|\\bshooting\\b|\\bkilled\\b|\\binjured\\b|\\belection\\b|\\bpresident\\b|politic|protest|government|sanction|geopolitical|russia|ukraine|israel|\bamerica\b|جنگ|انفجار|موشک|تیراندازی|کشته|مجروح|انتخابات|رئیس.?جمهور|سیاست|اعتراض|تحریم|درگیری|روسیه|اوکراین|اسرائیل|آمریکا/i },
   { key: 'sensitive_or_graphic_content', pattern: /gore|graphic violence|self.?harm|suicide|porn|explicit sexual|rape|blood|قتل|خون|قطع عضو|خودکشی|پورن|جنسی صریح|تجاوز جنسی/i },
   { key: 'promotional_content', pattern: /sponsored|affiliate|discount code|buy now|shop now|sign up now|link in bio|use my code|limited offer|promo code|visit our website|تبلیغات|اسپانسر|تخفیف|کد تخفیف|برای خرید|لینک خرید|ثبت.?نام کنید|لینک در بیو|فروش ویژه/i },
   { key: 'weapon_or_military_safety_review', pattern: /\bweapon\b|\bfirearm\b|\bgun\b|military training|سلاح|اسلحه|تفنگ|جنگ.?افزار|آموزش.?های.?نظامی/i }
@@ -15,7 +15,8 @@ const MULTI_CLIP_RISK = /\b(compilation|roundup|recap|best of|top\s*\d+|ranking|
 // Editorial ranking only. A score never grants permission to republish a video.
 const TOPICS = [
   { key: 'sports_skill', base: 23, patterns: [/football|soccer|basketball|skateboard|parkour|trick shot|freestyle|sports? skill|goal|dunk/i, /فوتبال|بسکتبال|والیبال|ورزش|گل زیبا|حرکت نمایشی|دریبل|اسکیت|مهارت عجیب/i] },
-  { key: 'science_tech', base: 22, patterns: [/science experiment|experiment|invention|technology demo|optical illusion|magic trick|brain teaser|puzzle/i, /آزمایش علمی|علمی|اختراع|فناوری|ترفند تکنولوژی|خطای دید|معما|حقه|تجربه جالب/i] },
+  { key: 'technology_demo', base: 24, patterns: [/technology demo|AI demo|robot demo|smart device|gadget demo|new technology|invention demo/i, /هوش مصنوعی|فناوری|تکنولوژی|ربات|گجت|دستگاه هوشمند|دموی فناوری|ابزار جدید/i] },
+  { key: 'science_tech', base: 16, patterns: [/science experiment|experiment|optical illusion|brain teaser|puzzle|physics|astronomy|space footage|planetary science/i, /آزمایش علمی|علمی|خطای دید|معما|فیزیک|نجوم|کهکشان|سیاره|فضا|پدیده علمی/i] },
   { key: 'satisfying_craft', base: 24, patterns: [/oddly satisfying|satisfying|restoration|woodworking|pottery|craft|miniature|before and after|transformation/i, /رضایت بخش|رضایت‌بخش|ساختنی|کاردستی|نجاری|سفال|مرمت|بازسازی|قبل و بعد|تغییر شگفت انگیز/i] },
   { key: 'food_cooking', base: 21, patterns: [/cooking|recipe|food art|food hack|kitchen|baking|street food/i, /آشپزی|غذا|دستور پخت|خوراکی|شیرینی|نان پزی|نان‌پزی|آشپزخانه|غذای خیابانی|ترفند غذایی/i] },
   { key: 'pets_animals', base: 19, patterns: [/cats?|kittens?|felines?|dogs?|pupp(y|ies)|pets?|birds?|parrots?|squirrels?|monkeys?|rabbits?|animals?|wildlife|hamsters?/i, /گربه|سگ|توله|حیوان|جانور|پرنده|طوطی|میمون|خرگوش|سنجاب|حیات وحش|حیوان خانگی/i] },
@@ -65,25 +66,39 @@ function categoryFor(value) {
   if (value && typeof value === 'object') {
     const lane = String(value.content_lane || value.lane || value.editorialTopic || value.topic || '').toLowerCase();
     const laneMap = {
-      comedy: 'persian_comedy', animals: 'pets_animals',
+      comedy: 'persian_comedy',
+      animals: 'pets_animals',
       surprise_or_reveal: 'surprise_reveal',
       transformation_or_satisfying: 'satisfying_craft',
-      skill_or_spectacle: 'sports_skill', technology_demo: 'science_tech',
+      skill_or_spectacle: 'sports_skill',
+      technology_demo: 'technology_demo',
       human_reaction_or_relatable: 'human_reaction',
-      food_cooking: 'food_cooking', practical_tips_or_life_hacks: 'life_hacks',
-      wholesome_or_heartwarming: 'heartwarming', sports_or_athletic_skill: 'sports_skill',
-      nature_and_wildlife: 'nature_wildlife', science_curiosity: 'science_tech',
-      diy_and_creativity: 'diy_creativity', home_organization_or_cleaning: 'home_cleaning',
-      music_or_dance: 'performance_magic', fashion_or_cultural_showcase: 'fashion_culture',
-      travel_and_places: 'travel_culture', puzzles_and_visual_illusions: 'science_tech',
-      nostalgia_and_then_now: 'human_reaction', comedy: 'persian_comedy',
-      skill_or_spectacle: 'sports_skill', technology_demo: 'science_tech',
-      human_reaction_or_relatable: 'human_reaction', practical_tips_or_life_hacks: 'life_hacks',
-      wholesome_or_heartwarming: 'heartwarming', sports_or_athletic_skill: 'sports_skill',
-      nature_and_wildlife: 'nature_wildlife', science_curiosity: 'science_tech',
-      diy_and_creativity: 'diy_creativity', home_organization_or_cleaning: 'home_cleaning',
-      surprise_or_reveal: 'surprise_reveal', transformation_or_satisfying: 'satisfying_craft',
-      food_cooking: 'food_cooking', animals: 'pets_animals'
+      food_cooking: 'food_cooking',
+      practical_tips_or_life_hacks: 'life_hacks',
+      wholesome_or_heartwarming: 'heartwarming',
+      sports_or_athletic_skill: 'sports_skill',
+      nature_and_wildlife: 'nature_wildlife',
+      science_curiosity: 'science_tech',
+      diy_and_creativity: 'diy_creativity',
+      home_organization_or_cleaning: 'home_cleaning',
+      music_or_dance: 'performance_magic',
+      fashion_or_cultural_showcase: 'fashion_culture',
+      travel_and_places: 'travel_culture',
+      puzzles_and_visual_illusions: 'science_tech',
+      nostalgia_and_then_now: 'human_reaction',
+      pets_animals: 'pets_animals',
+      sports_skill: 'sports_skill',
+      science_tech: 'science_tech',
+      satisfying_craft: 'satisfying_craft',
+      performance_magic: 'performance_magic',
+      nature_wildlife: 'nature_wildlife',
+      travel_culture: 'travel_culture',
+      human_reaction: 'human_reaction',
+      life_hacks: 'life_hacks',
+      heartwarming: 'heartwarming',
+      diy_creativity: 'diy_creativity',
+      home_cleaning: 'home_cleaning',
+      fashion_culture: 'fashion_culture'
     };
     if (laneMap[lane]) return laneMap[lane];
   }
