@@ -92,6 +92,57 @@ const trends = buildTrendWeights({
 }, now);
 assert.ok(trends.persian_comedy > 0, 'fresh view growth should produce a topic trend hint');
 
+
+const audienceComedy = {
+  fileTitle: 'File:Persian hidden camera prank with a funny reaction.webm',
+  description: 'A harmless single-event comedy clip with a clear payoff.',
+  durationSeconds: 18,
+  sourceAspectRatio: 0.5625,
+  age_hours: 2,
+  views_velocity_per_hour: 12000
+};
+const institutionalSpace = {
+  fileTitle: 'NASA Mars rover footage',
+  description: 'Space science and a long institutional research clip.',
+  durationSeconds: 40,
+  sourceAspectRatio: 1.777,
+  age_hours: 2
+};
+assert.ok(scoreCandidate(audienceComedy).score > scoreCandidate(institutionalSpace).score,
+  'Iranian-audience comedy should outrank generic institutional/science footage');
+
+const trendLaneMatch = scoreCandidate({
+  fileTitle: 'Unexpected athletic trick shot with a surprising payoff',
+  description: 'One continuous sports skill clip.',
+  durationSeconds: 16,
+  sourceAspectRatio: 0.5625,
+  trendSearchTitle: 'Unexpected athletic skill trick shot',
+  trendSearchLane: 'skill_or_spectacle'
+});
+assert.equal(trendLaneMatch.topic, 'sports_skill',
+  'a closely matched observed trend lane should guide the licensed clip topic');
+
+assert.equal(scoreCandidate({
+  fileTitle: 'Election campaign and political rally footage',
+  description: 'A current affairs clip.',
+  durationSeconds: 20
+}).eligible, false, 'political/current-affairs footage must not pass the entertainment publisher');
+
+assert.equal(scoreCandidate({
+  fileTitle: 'A sponsored product discount code and buy now promotion',
+  description: 'Use my code to shop now.',
+  durationSeconds: 20
+}).eligible, false, 'promotional content must not enter the audience channel');
+
+const roundup = scoreCandidate({
+  fileTitle: 'Compilation of the best funny moments',
+  description: 'Top 10 viral moments roundup.',
+  durationSeconds: 30
+});
+assert.equal(roundup.eligible, true);
+assert.ok(roundup.reasons.includes('multi_clip_roundup:-20'),
+  'multi-clip roundups should be deprioritized in favour of one clear event');
+
 const ranked = rankCandidates([weak, strong]);
 assert.equal(ranked[0].fileTitle, strong.fileTitle);
 assert.ok(ranked[0].editorialScore > 0);
