@@ -1,5 +1,7 @@
 'use strict';
 
+const { scoreTrendTitleOverlap } = require('./trend_discovery.cjs');
+
 // Editorial ranking only. A score never grants permission to republish a video.
 const TOPICS = [
   { key: 'sports_skill', base: 23, patterns: [/football|soccer|basketball|skateboard|parkour|trick shot|freestyle|sports? skill|goal|dunk/i, /فوتبال|بسکتبال|والیبال|ورزش|گل زیبا|حرکت نمایشی|دریبل|اسکیت|مهارت عجیب/i] },
@@ -185,6 +187,14 @@ function scoreCandidate(candidate, options = {}) {
   const trendBonus = Math.min(10, Math.max(0, safeNumber(trendWeights[topic]) || 0));
   score += trendBonus;
   if (trendBonus) reasons.push('recent_topic_momentum:' + trendBonus);
+
+  // A small title/description overlap bonus promotes licensed archive matches to
+  // observed trends; it is a relevance hint, never proof that two clips are identical.
+  const trendMatchBonus = scoreTrendTitleOverlap(text, c.trendSearchTitle);
+  if (trendMatchBonus > 0) {
+    score += trendMatchBonus;
+    reasons.push('observed_trend_title_overlap:' + trendMatchBonus);
+  }
 
   const recentPosts = Array.isArray(options.recentPosts) ? options.recentPosts : [];
   const previousSameTopic = recentPosts.slice(-8).filter(post => {
