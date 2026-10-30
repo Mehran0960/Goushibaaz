@@ -34,7 +34,9 @@ jobs:
         run: |
           python -m py_compile scripts/trend_intelligence/follower_growth.py scripts/trend_intelligence/social_discovery.py scripts/trend_intelligence/run_discovery.py
           node --check scripts/import_trend_intelligence.cjs
-      - name: Scan public Telegram video feeds and rotating web searches
+      - name: Scan public Telegram feeds, rotating web searches and optional YouTube API
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: python scripts/trend_intelligence/run_discovery.py
       - name: Convert observed trend history into editorial topic weights
         run: node scripts/import_trend_intelligence.cjs
