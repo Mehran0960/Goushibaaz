@@ -246,12 +246,12 @@ const ARCHIVE_SEARCH_TERMS = [
 ];
 
 function internetArchiveLicense(rawUrl) {
-  const url = String(rawUrl || '').toLowerCase().replace(/&amp;/g, '&').replace(/\\/+$/, '');
-  if (/creativecommons\\.org\\/publicdomain\\/zero\\/1\\.0$/.test(url)) {
+  const url = String(rawUrl || '').toLowerCase().replace(/&amp;/g, '&').replace(/\/+$/, '');
+  if (/creativecommons\.org\/publicdomain\/zero\/1\.0$/.test(url)) {
     return { type: 'CC0 1.0', url: LICENSES.cc0 };
   }
-  if (/creativecommons\\.org\\/licenses\\/by\\/4\\.0$/.test(url) &&
-      !/creativecommons\\.org\\/licenses\\/by-(?:nc|nd|sa)(?:-|\\/)/.test(url)) {
+  if (/creativecommons\.org\/licenses\/by\/4\.0$/.test(url) &&
+      !/creativecommons\.org\/licenses\/by-(?:nc|nd|sa)(?:-|\/)/.test(url)) {
     return { type: 'CC BY 4.0', url: LICENSES.ccby };
   }
   return null;
@@ -325,7 +325,7 @@ async function discoverInternetArchiveCandidates(used) {
         const videoFiles = files.filter(file => {
           const name = String(file.name || '');
           const size = Number(file.size);
-          return /\\.webm$/i.test(name) && file.private !== 'true' &&
+          return /\.webm$/i.test(name) && file.private !== 'true' &&
             Number.isFinite(size) && size >= 200000 && size <= MAX_SOURCE_BYTES;
         }).sort((a,b) => Number(a.size) - Number(b.size));
         for (const file of videoFiles.slice(0, 2)) {
