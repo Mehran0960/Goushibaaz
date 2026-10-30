@@ -468,8 +468,13 @@ def annotate_candidate(item):
 
     native_platform_fit = 2.0 if platform in PLATFORMS else 0.0
     retention_score = retention_potential(x, text)
+    chart_regions = _int(x.get("chart_region_count"))
+    chart_rank = _int(x.get("chart_rank"))
+    chart_signal_score = 0.0
+    if source == "youtube_global_chart":
+        chart_signal_score = min(8.0, chart_regions * 0.8 + max(0, 9 - chart_rank) * 0.25)
     score = (_freshness(age) + demand + velocity + hook + engagement + repost_signal
-             + native_platform_fit + language_score_bonus + retention_score)
+             + native_platform_fit + language_score_bonus + retention_score + chart_signal_score)
     if is_news:
         score -= 15.0
     if is_sensitive:
@@ -544,6 +549,7 @@ def annotate_candidate(item):
         "language_priority_bonus": language_priority_bonus,
         "follow_growth_score": score,
         "retention_potential_score": retention_score,
+        "youtube_chart_signal_score": round(chart_signal_score, 1),
         "retention_evidence_basis": "metadata_proxy_not_measured_watch_time",
         "watch_time_observed": False,
         "score_confidence": confidence,
