@@ -1,6 +1,17 @@
 name: Prepare Shared Licensed Short Video
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/rubika_publish_cc0.cjs"
+      - "scripts/quality_rank.cjs"
+      - "config/content-policy.json"
+      - "scripts/rubika_publish_shared.cjs"
+      - "scripts/platform_publish.cjs"
+      - "scripts/telegram_publish.cjs"
+      - "scripts/bale_publish.cjs"
+      - ".github/workflows/prepare-shared-video.yml"
 permissions:
   contents: write
   actions: read
