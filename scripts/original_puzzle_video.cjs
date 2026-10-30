@@ -91,6 +91,36 @@ function drawBox(y, height, start, end, fill = '0x26364F@0.96') {
     ":t=fill:enable='" + enable + "'";
 }
 
+function visualTheme(puzzle) {
+  const topic = String(puzzle.topic || '');
+  if (/کلامی|لغز|معمای کلامی/.test(topic)) {
+    return {
+      background: '0x21170F', border: '0x9A6B36@0.8', panel: '0x3A2818@0.96',
+      option: '0x4A3420@0.96', answer: '0x53351F@0.96', accent: '0xFFD18A',
+      header: 'گوشی‌باز | معمای کلامی', intro: 'یک معمای کلامی برای تو.'
+    };
+  }
+  if (/منطقی|منطق/.test(topic)) {
+    return {
+      background: '0x171327', border: '0x65558F@0.8', panel: '0x272044@0.96',
+      option: '0x352A58@0.96', answer: '0x382B64@0.96', accent: '0xD7B7FF',
+      header: 'گوشی‌باز | آزمون منطق', intro: 'یک چالش منطقی برای تو.'
+    };
+  }
+  if (/دیداری/.test(topic)) {
+    return {
+      background: '0x0B2022', border: '0x3D8B83@0.8', panel: '0x133B3A@0.96',
+      option: '0x1B4B4A@0.96', answer: '0x164F49@0.96', accent: '0x87F0D0',
+      header: 'گوشی‌باز | چالش دیداری', intro: 'یک چالش دیداری برای تو.'
+    };
+  }
+  return {
+    background: '0x0D1727', border: '0x40516B@0.8', panel: '0x17263D@0.96',
+    option: '0x26364F@0.96', answer: '0x163E4A@0.96', accent: '0x83E7D4',
+    header: 'گوشی‌باز | چالش عددی', intro: 'یک چالش عددی برای تو.'
+  };
+}
+
 function makeAudioSegment(espeakBin, filePath, text) {
   run(espeakBin, [
     '-v', 'fa', '-s', '145', '-a', '165', '-p', '48',
@@ -125,9 +155,10 @@ function buildOriginalPuzzleVideo(puzzle, options = {}) {
   fs.rmSync(audioDir, { recursive: true, force: true });
   fs.mkdirSync(audioDir, { recursive: true });
 
+  const theme = visualTheme(puzzle);
   const optionLabels = ['گزینه اول', 'گزینه دوم', 'گزینه سوم'];
   const segments = [
-    'یک چالش هوش برای تو.',
+    theme.intro,
     puzzle.question,
     puzzle.options.map((value, i) => optionLabels[i] + ': ' + value).join('. '),
     'سه... دو... یک...',
@@ -178,35 +209,35 @@ function buildOriginalPuzzleVideo(puzzle, options = {}) {
   const explanationLines = wrapWords(puzzle.explanation, 31);
 
   const filters = [
-    'drawbox=x=15:y=15:w=690:h=1250:color=0x40516B@0.8:t=3',
-    'drawbox=x=35:y=205:w=650:h=300:color=0x17263D@0.96:t=fill',
-    drawText('گوشی‌باز  |  چالش هوش', 64, 34, '0x83E7D4', 0, end),
+    'drawbox=x=15:y=15:w=690:h=1250:color=' + theme.border + ':t=3',
+    'drawbox=x=35:y=205:w=650:h=300:color=' + theme.panel + ':t=fill',
+    drawText(theme.header, 64, 34, theme.accent, 0, end),
     drawText('قبل از جواب، خودت حلش کن!', 145, 32, 'white', 0, answerStart),
     ...questionLines.map((line, i) =>
       drawText(line, 280 + i * 62, 39, 'white', questionStart, answerStart)),
     ...puzzle.options.map((option, i) => {
       const y = 570 + i * 135;
       return [
-        drawBox(y, 94, optionsStart, optionsEnd, '0x26364F@0.96'),
+        drawBox(y, 94, optionsStart, optionsEnd, theme.option),
         drawText((i + 1) + ') ' + option, y + 27, 38, 'white', optionsStart, optionsEnd)
       ].join(',');
     }),
     drawText('جوابت رو حدس بزن و کامنت کن', 1000, 29, '0xB9C7D9', optionsStart, optionsEnd),
-    drawText('۳', 955, 84, '0x83E7D4', countdownStart, countdownStart + Math.max(0.4, countdownDur / 3)),
-    drawText('۲', 955, 84, '0x83E7D4', countdownStart + countdownDur / 3, countdownStart + (countdownDur * 2 / 3)),
-    drawText('۱', 955, 84, '0x83E7D4', countdownStart + (countdownDur * 2 / 3), answerStart),
-    "drawbox=x=54:y=425:w=612:h=180:color=0x163E4A@0.96:t=fill:enable='between(t," + answerStart.toFixed(3) + "," + end.toFixed(3) + ")'",
-    drawText('پاسخ درست', 465, 40, '0x83E7D4', answerStart, end),
+    drawText('۳', 955, 84, theme.accent, countdownStart, countdownStart + Math.max(0.4, countdownDur / 3)),
+    drawText('۲', 955, 84, theme.accent, countdownStart + countdownDur / 3, countdownStart + (countdownDur * 2 / 3)),
+    drawText('۱', 955, 84, theme.accent, countdownStart + (countdownDur * 2 / 3), answerStart),
+    "drawbox=x=54:y=425:w=612:h=180:color=' + theme.answer + ':t=fill:enable='between(t," + answerStart.toFixed(3) + "," + end.toFixed(3) + ")'",
+    drawText('پاسخ درست', 465, 40, theme.accent, answerStart, end),
     drawText(puzzle.options[puzzle.answerIndex], 545, 58, 'white', answerStart, end),
     ...explanationLines.map((line, i) =>
       drawText(line, 700 + i * 60, 30, '0xE7EDF5', explanationStart, end, regularFont)),
-    drawText('جوابت درست بود؟ در دیدگاه بنویس', 1050, 27, '0x83E7D4', ctaStart, end, regularFont)
+    drawText('جوابت درست بود؟ در دیدگاه بنویس', 1050, 27, theme.accent, ctaStart, end, regularFont)
   ];
   const videoFilter = 'fps=30,' + filters.join(',') + ',format=yuv420p';
 
   run('ffmpeg', [
     '-hide_banner', '-loglevel', 'error', '-y',
-    '-f', 'lavfi', '-i', 'color=c=0x0D1727:s=' + width + 'x' + height + ':r=30:d=' + end.toFixed(3),
+    '-f', 'lavfi', '-i', 'color=c=' + theme.background + ':s=' + width + 'x' + height + ':r=30:d=' + end.toFixed(3),
     '-i', audioPath,
     '-vf', videoFilter,
     '-map', '0:v:0', '-map', '1:a:0',
