@@ -6,6 +6,8 @@ on:
     paths:
       - "scripts/rubika_publish_cc0.cjs"
       - "scripts/quality_rank.cjs"
+      - "scripts/editorial_content.cjs"
+      - "scripts/test_editorial_content.cjs"
       - "config/content-policy.json"
       - "scripts/rubika_publish_shared.cjs"
       - "scripts/platform_publish.cjs"
@@ -36,8 +38,11 @@ jobs:
             sudo apt-get install -y -qq ffmpeg
           fi
           ffmpeg -version | head -n 1
-      - name: Validate shared preparation engine
-        run: node --check scripts/rubika_publish_cc0.cjs
+      - name: Validate shared preparation and editorial selection
+        run: |
+          node --check scripts/rubika_publish_cc0.cjs
+          node --check scripts/editorial_content.cjs
+          node scripts/test_editorial_content.cjs
       - name: Discover, verify rights and prepare one shared vertical video
         env:
           PREPARE_ONLY: "true"
