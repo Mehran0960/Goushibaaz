@@ -241,7 +241,7 @@ async function discoverInternetArchiveCandidates(used) {
       const search = queue.shift();
       if (!search) continue;
       const endpoint = new URL('https://archive.org/advancedsearch.php');
-      endpoint.searchParams.set('q', 'mediatype:movies AND ' + search.term.term);
+      endpoint.searchParams.set('q', 'mediatype:movies AND (' + search.term.term + ') AND (licenseurl:http*creativecommons.org/publicdomain/zero/1.0* OR licenseurl:http*creativecommons.org/licenses/by/4.0*)');
       for (const field of ['identifier', 'title', 'creator', 'licenseurl', 'description']) endpoint.searchParams.append('fl[]', field);
       endpoint.searchParams.set('rows', '25');
       endpoint.searchParams.set('page', '1');
@@ -250,7 +250,7 @@ async function discoverInternetArchiveCandidates(used) {
         let response = null;
         for (let attempt = 0; attempt < 2; attempt++) {
           response = await fetch(endpoint, {
-            headers: { 'User-Agent': 'GoushibaazPublisher/1.0 (public metadata and reuse-license verification)' },
+            headers: { 'User-Agent': 'GoushibaazPublisher/1.1 (https://github.com/Mehran0960/Goushibaaz; public metadata and reuse-license verification)' },
             signal: AbortSignal.timeout(12000)
           });
           if (response.status !== 429 && response.status < 500) break;
