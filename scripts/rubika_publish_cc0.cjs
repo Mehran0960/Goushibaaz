@@ -493,7 +493,7 @@ async function main() {
   if (!candidate) {
     const checkedAt = new Date().toISOString();
     state.lastOutcome = { status: 'no_eligible_candidate', checkedAt };
-    persistState(state);
+    if (!PREPARE_ONLY) persistState(state);
     if (PREPARE_ONLY) {
       writeSharedManifest({ schemaVersion: 1, status: 'no_eligible_candidate', checkedAt, preparationFailures: failures });
       const shared = loadSharedState();
