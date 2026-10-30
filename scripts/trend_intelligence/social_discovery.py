@@ -899,7 +899,7 @@ def discover_youtube_global_charts(now=None, limit_per_bucket=8):
         print("YOUTUBE_GLOBAL_CHARTS_SKIPPED_NO_KEY_OR_DISABLED")
         return []
     now = now or datetime.now(timezone.utc)
-    regions = ["IR", "US", "GB", "CA", "IN", "BR", "DE", "TR"]
+    regions = ["US", "GB", "CA", "IN", "BR", "DE", "TR", "AU"]
     categories = ["15", "17", "23", "24", "26", "28"]
     category_names = {
         "15": "animals", "17": "sports", "23": "comedy",
