@@ -41,8 +41,12 @@ FIRECRAWL_MONTHLY_CREDIT_BUDGET = 800
 FIRECRAWL_CREDITS_PER_SEARCH = 2
 FIRECRAWL_SEARCHES_PER_RUN = 2
 BING_FALLBACK_SEARCHES_PER_RUN = 3
-YOUTUBE_SEARCHES_PER_RUN = 3
+YOUTUBE_SEARCHES_PER_RUN = 1
+YOUTUBE_SEARCH_INTERVAL_SECONDS = 48 * 60
 YOUTUBE_DAILY_SEARCH_BUDGET = 30
+TELEGRAM_CHANNELS_PER_SCAN = 25
+YOUTUBE_CHART_BUCKETS_PER_SCAN = 24
+TREND_SCAN_WINDOW_SECONDS = 15 * 60
 # One-time conservative estimate for quota already spent before the ledger existed.
 # The saved ledger carries forward afterward; the estimate is only used if no ledger exists.
 QUOTA_BOOTSTRAP_MONTH = "2026-10"
@@ -115,6 +119,33 @@ def safe_quota_count(value):
         return 0
 
 
+def rotating_batch(items, now, batch_size, window_seconds=TREND_SCAN_WINDOW_SECONDS):
+    """Rotate bounded source batches so a faster schedule does not multiply total polling."""
+    rows = list(items or [])
+    size = max(1, int(batch_size))
+    if len(rows) <= size:
+        return rows
+    slots = (len(rows) + size - 1) // size
+    slot = int(now.timestamp() // max(1, int(window_seconds))) % slots
+    start = slot * size
+    return rows[start:start + size]
+
+
+def youtube_search_due(quota_ledger, now, minimum_interval_seconds=YOUTUBE_SEARCH_INTERVAL_SECONDS):
+    """Spread the reserved daily YouTube search calls across the full day."""
+    raw = str((quota_ledger or {}).get("youtube_search_last_at") or "").strip()
+    if not raw:
+        return True
+    try:
+        previous = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+        if previous.tzinfo is None:
+            previous = previous.replace(tzinfo=timezone.utc)
+        return now >= previous + timedelta(seconds=max(1, int(minimum_interval_seconds)))
+    except (TypeError, ValueError):
+        # A malformed timestamp must not permanently block discovery.
+        return True
+
+
 def quota_ledger_for_run(previous_payload, now):
     """Load persisted request counts, resetting only the provider's actual time window."""
     prior = (previous_payload or {}).get("quota_ledger", {})
@@ -146,25 +177,36 @@ def quota_ledger_for_run(previous_payload, now):
         "youtube_search_calls_used": youtube_used,
         "youtube_daily_search_budget": YOUTUBE_DAILY_SEARCH_BUDGET,
         "youtube_searches_per_run": YOUTUBE_SEARCHES_PER_RUN,
+        "youtube_search_interval_seconds": YOUTUBE_SEARCH_INTERVAL_SECONDS,
+        "youtube_search_last_at": str(prior.get("youtube_search_last_at") or ""),
         "updated_at": now.isoformat(),
     }
 
 
 def discover_youtube_with_budget(now, quota_ledger):
-    """Spend only a reserved, persisted number of YouTube search.list calls."""
+    """Spend a small daily search budget steadily instead of exhausting it early."""
     if not YOUTUBE_KEY or not YOUTUBE_API_ENABLED:
         return discover_youtube_public_candidates(now)
     used = safe_quota_count(quota_ledger.get("youtube_search_calls_used"))
     remaining = max(0, YOUTUBE_DAILY_SEARCH_BUDGET - used)
-    count = min(YOUTUBE_SEARCHES_PER_RUN, remaining)
-    if count <= 0:
+    if remaining <= 0:
         print("YOUTUBE_PUBLIC_API_SKIPPED_DAILY_BUDGET", json.dumps({
             "used": used,
             "daily_budget": YOUTUBE_DAILY_SEARCH_BUDGET,
         }, ensure_ascii=False))
         return []
+    if not youtube_search_due(quota_ledger, now):
+        print("YOUTUBE_PUBLIC_API_SKIPPED_SPREAD_INTERVAL", json.dumps({
+            "used": used,
+            "daily_budget": YOUTUBE_DAILY_SEARCH_BUDGET,
+            "minimum_interval_seconds": YOUTUBE_SEARCH_INTERVAL_SECONDS,
+            "last_search_at": quota_ledger.get("youtube_search_last_at") or None,
+        }, ensure_ascii=False))
+        return []
+    count = min(YOUTUBE_SEARCHES_PER_RUN, remaining)
     # Charge attempts before the network call; failed responses may still consume quota.
     quota_ledger["youtube_search_calls_used"] = used + count
+    quota_ledger["youtube_search_last_at"] = now.isoformat()
     quota_ledger["updated_at"] = now.isoformat()
     return discover_youtube_public_candidates(now, max_search_calls=count)
 
@@ -390,10 +432,19 @@ def telegram_repost_candidates():
         r"(?:https?://)?(?:(?:www\.)|dd)?instagram\.com/(?:reel|reels|p|tv)/[A-Za-z0-9_-]+",
         re.I,
     )
+    selected_channels = rotating_batch(
+        channels, datetime.now(timezone.utc), TELEGRAM_CHANNELS_PER_SCAN,
+        window_seconds=TREND_SCAN_WINDOW_SECONDS
+    )
+    print("TELEGRAM_CHANNEL_ROTATION", json.dumps({
+        "selected": len(selected_channels), "total": len(channels),
+        "poll_window_seconds": TREND_SCAN_WINDOW_SECONDS,
+        "batch_size": TELEGRAM_CHANNELS_PER_SCAN
+    }, ensure_ascii=False))
     out = []
     seen = set()
     by_url = {}
-    for channel in channels:
+    for channel in selected_channels:
         try:
             r = requests.get(
                 "https://t.me/s/" + channel,
@@ -923,11 +974,16 @@ def discover_youtube_global_charts(now=None, limit_per_bucket=8):
             details = youtube_api_error_context(exc)
             return region, category_id, {"items": []}, details
 
+    all_buckets = [(region, category_id) for region in regions for category_id in categories]
+    buckets = rotating_batch(
+        all_buckets, now, YOUTUBE_CHART_BUCKETS_PER_SCAN,
+        window_seconds=TREND_SCAN_WINDOW_SECONDS
+    )
     raw = []
     with ThreadPoolExecutor(max_workers=6) as pool:
         futures = [
             pool.submit(fetch_bucket, region, category_id)
-            for region in regions for category_id in categories
+            for region, category_id in buckets
         ]
         for future in as_completed(futures):
             region, category_id, payload, error = future.result()
@@ -991,7 +1047,8 @@ def discover_youtube_global_charts(now=None, limit_per_bucket=8):
     ), reverse=True)
     print("YOUTUBE_GLOBAL_CHART_SUMMARY", json.dumps({
         "regions": len(regions), "categories": len(categories),
-        "buckets_requested": len(regions) * len(categories),
+        "buckets_total": len(all_buckets), "buckets_requested": len(buckets),
+        "scan_window_seconds": TREND_SCAN_WINDOW_SECONDS,
         "raw_chart_rows": len(raw), "unique_videos": len(results),
         "videos_in_multiple_regions": sum(1 for x in results if x["chart_region_count"] > 1),
     }, ensure_ascii=False))
@@ -1231,7 +1288,7 @@ def main(force_fallback=False, _quota_ledger=None, _previous_payload=None):
         # This is discovery-only; media acquisition still happens downstream.
         # Rotate by scheduled four-hour windows. A half-hour index combined
         # with a four-hour schedule would repeat the same query every run.
-        qidx = (int(now.timestamp() // 3600) * FIRECRAWL_SEARCHES_PER_RUN) % len(QUERIES)
+        qidx = (int(now.timestamp() // TREND_SCAN_WINDOW_SECONDS) * FIRECRAWL_SEARCHES_PER_RUN) % len(QUERIES)
         query_variants = [
             'site:instagram.com/reel/ (خنده OR طنز OR سوتی OR واکنش انسانی OR بامزه OR غافلگیر OR احساسی OR مهربانی)',
             'site:instagram.com/reel/ (آشپزی OR دستور پخت OR ترفند کاربردی OR تمیزکاری OR قبل و بعد OR دست ساز)',
@@ -1245,7 +1302,7 @@ def main(force_fallback=False, _quota_ledger=None, _previous_payload=None):
         # Rotate a small free-search batch too, to reduce rate-limit risk when
         # Firecrawl is unavailable or its monthly budget is reached.
         fallback_queries = select_language_weighted_queries(
-            query_variants, now, BING_FALLBACK_SEARCHES_PER_RUN, window_seconds=3600
+            query_variants, now, BING_FALLBACK_SEARCHES_PER_RUN, window_seconds=TREND_SCAN_WINDOW_SECONDS
         )
         for q in fallback_queries:
             try:
