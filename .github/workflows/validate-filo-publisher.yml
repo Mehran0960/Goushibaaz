@@ -66,6 +66,12 @@ jobs:
           node --check scripts/test_filo_endcard.cjs
           node scripts/test_editorial_content.cjs
           node scripts/test_filo_endcard.cjs
+          node --check scripts/platform_publish.cjs
+          node --check scripts/telegram_publish.cjs
+          node --check scripts/bale_publish.cjs
+          node --check scripts/rubika_publish_shared.cjs
+          node --check scripts/test_shared_publish.cjs
+          node scripts/test_shared_publish.cjs
           node --check scripts/media_format.cjs
           node scripts/test_media_format.cjs
           node --check scripts/rubika_publish_cc0.cjs
