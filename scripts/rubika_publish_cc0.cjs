@@ -425,17 +425,22 @@ function persistState(state) {
 }
 
 async function main() {
-  if (!TOKEN) throw new Error('missing_RUBIKA_BOT_TOKEN');
-  const me = await rubika('getMe');
-  const bot = me.bot || me.data?.bot || me.data || {};
-  console.log('RUBIKA_BOT_AUTHENTICATED', JSON.stringify({
-    botId: bot.bot_id || bot.id || null,
-    botUsername: bot.username || bot.name || null
-  }));
-  const channel = await resolveChannel();
-  console.log('RUBIKA_CHANNEL_CONFIRMED', JSON.stringify({
-    chatId: channel.chatId, title: channel.title, username: channel.username, type: channel.type
-  }));
+  let channel = null;
+  if (!PREPARE_ONLY) {
+    if (!TOKEN) throw new Error('missing_RUBIKA_BOT_TOKEN');
+    const me = await rubika('getMe');
+    const bot = me.bot || me.data?.bot || me.data || {};
+    console.log('RUBIKA_BOT_AUTHENTICATED', JSON.stringify({
+      botId: bot.bot_id || bot.id || null,
+      botUsername: bot.username || bot.name || null
+    }));
+    channel = await resolveChannel();
+    console.log('RUBIKA_CHANNEL_CONFIRMED', JSON.stringify({
+      chatId: channel.chatId, title: channel.title, username: channel.username, type: channel.type
+    }));
+  } else {
+    console.log('SHARED_PREPARATION_MODE: destination API checks skipped; licensed media selection only.');
+  }
 
   const state = loadState();
   let normalizedLegacyUpload = false;
@@ -454,7 +459,12 @@ async function main() {
     const checkedAt = new Date().toISOString();
     state.lastOutcome = { status: 'no_eligible_candidate', checkedAt };
     persistState(state);
-    if (PREPARE_ONLY) writeSharedManifest({ schemaVersion: 1, status: 'no_eligible_candidate', checkedAt });
+    if (PREPARE_ONLY) {
+      writeSharedManifest({ schemaVersion: 1, status: 'no_eligible_candidate', checkedAt });
+      const shared = loadSharedState();
+      shared.lastOutcome = { status: 'no_eligible_candidate', checkedAt };
+      persistSharedState(shared);
+    }
     console.log('RUBIKA_PUBLISH_RESULT', JSON.stringify({ status: 'no_eligible_candidate', dryRun: DRY_RUN, prepareOnly: PREPARE_ONLY }));
     return;
   }
@@ -475,7 +485,12 @@ async function main() {
     const checkedAt = new Date().toISOString();
     state.lastOutcome = { status: 'no_eligible_candidate', checkedAt };
     persistState(state);
-    if (PREPARE_ONLY) writeSharedManifest({ schemaVersion: 1, status: 'no_eligible_candidate', checkedAt, preparationFailures: failures });
+    if (PREPARE_ONLY) {
+      writeSharedManifest({ schemaVersion: 1, status: 'no_eligible_candidate', checkedAt, preparationFailures: failures });
+      const shared = loadSharedState();
+      shared.lastOutcome = { status: 'no_eligible_candidate', checkedAt };
+      persistSharedState(shared);
+    }
     console.log('RUBIKA_PUBLISH_RESULT', JSON.stringify({
       status: 'no_eligible_candidate', dryRun: DRY_RUN, prepareOnly: PREPARE_ONLY, candidatesChecked: Math.min(candidates.length, 8),
       preparationFailures: failures
