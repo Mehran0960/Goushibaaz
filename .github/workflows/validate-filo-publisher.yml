@@ -10,9 +10,6 @@ on:
       - "scripts/test_editorial_content.cjs"
       - "scripts/filo_endcard.cjs"
       - "scripts/test_filo_endcard.cjs"
-      - "scripts/original_puzzle_video.cjs"
-      - "scripts/test_original_puzzle_video.cjs"
-      - "content/original-puzzle-bank.json"
       - "scripts/platform_scout.cjs"
       - "scripts/rubika_publish_cc0.cjs"
       - "scripts/rubika_publish_shared.cjs"
@@ -20,6 +17,7 @@ on:
       - "scripts/telegram_publish.cjs"
       - "scripts/bale_publish.cjs"
       - "scripts/test_shared_publish.cjs"
+      - "scripts/persist_state_file.sh"
       - "scripts/import_trend_intelligence.cjs"
       - "scripts/trend_intelligence/**"
       - "scripts/synchronized_scheduler.cjs"
@@ -54,7 +52,7 @@ jobs:
       - name: Install FFmpeg and Persian fonts for end-card regression
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg fonts-noto-core espeak-ng
+          sudo apt-get install -y -qq ffmpeg fonts-noto-core
       - name: Validate JavaScript syntax and active destination configuration
         run: |
           node --check scripts/filo_publish_cc0.cjs
@@ -62,12 +60,8 @@ jobs:
           node --check scripts/test_editorial_content.cjs
           node --check scripts/filo_endcard.cjs
           node --check scripts/test_filo_endcard.cjs
-          node --check scripts/original_puzzle_video.cjs
-          node --check scripts/test_original_puzzle_video.cjs
           node scripts/test_editorial_content.cjs
           node scripts/test_filo_endcard.cjs
-          node scripts/test_original_puzzle_video.cjs
-          node -e "const p=require(\"./content/original-puzzle-bank.json\"); if(!Array.isArray(p.puzzles)||p.puzzles.length!==24||new Set(p.puzzles.map(x=>x.id)).size!==24||p.puzzles.some(x=>!x.question||!Array.isArray(x.options)||x.options.length!==3||!Number.isInteger(x.answerIndex)||x.answerIndex<0||x.answerIndex>2)) process.exit(1)"
           node --check scripts/rubika_publish_cc0.cjs
           node --check scripts/rubika_publish_shared.cjs
           node --check scripts/platform_publish.cjs
@@ -77,6 +71,7 @@ jobs:
           node --check scripts/import_trend_intelligence.cjs
           node scripts/test_shared_publish.cjs
           node --check scripts/synchronized_scheduler.cjs
+          bash -n scripts/persist_state_file.sh
           node --check scripts/quality_rank.cjs
           node --check scripts/test_quality_rank.cjs
           node scripts/test_quality_rank.cjs
@@ -86,21 +81,21 @@ jobs:
           grep -Fq '    - cron: "*/5 * * * *"' .github/workflows/dispatch-short-publishers.yml
           grep -Fq 'const INTERVALS = [5, 10, 15, 20, 25, 30' scripts/synchronized_scheduler.cjs
           grep -Fq 'const MAX_DESTINATION_STARTS_PER_UTC_DAY = 1200;' scripts/synchronized_scheduler.cjs
-          grep -Fq 'const FUTURE_PLATFORM_RESERVE = 3;' scripts/synchronized_scheduler.cjs
+          grep -Fq 'const FUTURE_PLATFORM_RESERVE = 2;' scripts/synchronized_scheduler.cjs
           grep -Fq 'Promise.all(planned.map(dispatchOne))' scripts/synchronized_scheduler.cjs
           grep -Fq 'actions/cache/restore@v4' .github/workflows/dispatch-short-publishers.yml
           grep -Fq 'actions/cache/save@v4' .github/workflows/dispatch-short-publishers.yml
           ! grep -Fq 'publish-approved-video-to-filo.yml' scripts/synchronized_scheduler.cjs
           grep -Fq 'prepare-shared-video.yml' scripts/synchronized_scheduler.cjs
-          grep -Fq 'slow Telegram/Bale/Rubika delivery must never freeze fresh discovery slots' scripts/synchronized_scheduler.cjs
+          grep -Fq 'slow Bale/Rubika delivery must never freeze fresh discovery slots' scripts/synchronized_scheduler.cjs
           ! grep -Fq 'publish-approved-video-to-rubika.yml' scripts/synchronized_scheduler.cjs
-          grep -Fq 'publish-shared-video-to-telegram.yml' .github/workflows/validate-filo-publisher.yml
+          grep -Fq 'Telegram publishing is disabled by project policy' .github/workflows/publish-shared-video-to-telegram.yml
+          ! grep -Fq 'workflow_run:' .github/workflows/publish-shared-video-to-telegram.yml
           grep -Fq 'workflow_run:' .github/workflows/publish-shared-video-to-rubika.yml
           grep -Fq 'actions/download-artifact@v4' .github/workflows/publish-shared-video-to-bale.yml
           grep -Fq 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED' scripts/platform_publish.cjs
           grep -Fq 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED' scripts/rubika_publish_shared.cjs
           grep -Fq 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true"' .github/workflows/publish-shared-video-to-rubika.yml
-          grep -Fq 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true"' .github/workflows/publish-shared-video-to-telegram.yml
           grep -Fq 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true"' .github/workflows/publish-shared-video-to-bale.yml
           python -m py_compile scripts/trend_intelligence/follower_growth.py scripts/trend_intelligence/social_discovery.py scripts/trend_intelligence/run_discovery.py
           python -m unittest scripts/trend_intelligence/test_follower_growth.py
@@ -111,7 +106,7 @@ jobs:
           node -e "const p=require('./config/content-policy.json'); const f=p.platform_profiles&&p.platform_profiles.filo; if(p.vertical_video.aspect_ratio!=='9:16'||p.vertical_video.output_width!==1080||p.vertical_video.output_height!==1920||!f||f.output_width!==720||f.output_height!==1280||f.cover_width!==720||f.cover_height!==1280||f.end_card_seconds!==1.6) process.exit(1)"
           grep -Fq 'cron: "*/30 * * * *"' .github/workflows/publish-approved-video-to-filo.yml
           grep -Fq 'continuous half-hour attempts' .github/workflows/publish-approved-video-to-filo.yml
-          grep -Fq 'MAX_DAILY_PUBLICATIONS = 48' scripts/filo_publish_cc0.cjs
+          grep -Fq 'MAX_DAILY_PUBLICATIONS = 488' scripts/filo_publish_cc0.cjs
           grep -Fq 'MIN_PUBLICATION_GAP_MS = 30 * 60 * 1000' scripts/filo_publish_cc0.cjs
       - name: Test public commercial-license video discovery (no upload)
         run: |
