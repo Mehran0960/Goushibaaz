@@ -12,6 +12,7 @@ on:
       - "scripts/platform_publish.cjs"
       - "scripts/telegram_publish.cjs"
       - "scripts/bale_publish.cjs"
+      - "scripts/test_shared_publish.cjs"
       - "scripts/synchronized_scheduler.cjs"
       - "scripts/quality_rank.cjs"
       - "scripts/test_quality_rank.cjs"
@@ -49,6 +50,8 @@ jobs:
           node --check scripts/platform_publish.cjs
           node --check scripts/telegram_publish.cjs
           node --check scripts/bale_publish.cjs
+          node --check scripts/test_shared_publish.cjs
+          node scripts/test_shared_publish.cjs
           node --check scripts/synchronized_scheduler.cjs
           node --check scripts/quality_rank.cjs
           node --check scripts/test_quality_rank.cjs
@@ -67,6 +70,10 @@ jobs:
           grep -Fq 'prepare-shared-video.yml' scripts/synchronized_scheduler.cjs
           ! grep -Fq 'publish-approved-video-to-rubika.yml' scripts/synchronized_scheduler.cjs
           grep -Fq 'publish-shared-video-to-telegram.yml' .github/workflows/validate-filo-publisher.yml
+          grep -Fq 'workflow_run:' .github/workflows/publish-shared-video-to-rubika.yml
+          grep -Fq 'actions/download-artifact@v4' .github/workflows/publish-shared-video-to-bale.yml
+          grep -Fq 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED' scripts/platform_publish.cjs
+          grep -Fq 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED' scripts/rubika_publish_shared.cjs
           python -m py_compile scripts/trend_intelligence/follower_growth.py scripts/trend_intelligence/social_discovery.py scripts/trend_intelligence/run_discovery.py
           grep -Fq 'const MIN_DURATION_SECONDS = 8;' scripts/filo_publish_cc0.cjs
           grep -Fq 'const MIN_DURATION_SECONDS = 8;' scripts/rubika_publish_cc0.cjs
