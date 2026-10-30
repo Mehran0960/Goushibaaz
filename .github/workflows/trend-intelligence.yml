@@ -41,6 +41,17 @@ jobs:
         run: python scripts/trend_intelligence/run_discovery.py
       - name: Convert observed trend history into editorial topic weights
         run: node scripts/import_trend_intelligence.cjs
+      - name: Build human-readable trend preview
+        if: ${{ always() && hashFiles('state/trend-intelligence.json') != '' }}
+        run: python scripts/trend_intelligence/build_preview.py
+      - name: Upload trend preview artifact
+        if: ${{ always() && hashFiles('reports/latest-trend-preview.md') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: goushibaaz-trend-preview
+          path: reports/latest-trend-preview.md
+          if-no-files-found: warn
+          retention-days: 7
       - name: Persist trend intelligence independently
         if: ${{ always() && hashFiles('state/trend-intelligence.json') != '' }}
         run: |
