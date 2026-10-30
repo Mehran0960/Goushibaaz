@@ -91,55 +91,72 @@ jobs:
           node scripts/test_trend_discovery.cjs
       - name: Validate destination wiring and publishing-policy invariants
         run: |
-          grep -Fq '    - cron: "*/5 * * * *"' .github/workflows/dispatch-short-publishers.yml
-          grep -Fq 'const INTERVALS = [5, 10, 15, 20, 25, 30' scripts/synchronized_scheduler.cjs
-          grep -Fq 'const MAX_DESTINATION_STARTS_PER_UTC_DAY = 1200;' scripts/synchronized_scheduler.cjs
-          grep -Fq 'const FUTURE_PLATFORM_RESERVE = 3;' scripts/synchronized_scheduler.cjs
-          grep -Fq 'Promise.all(planned.map(dispatchOne))' scripts/synchronized_scheduler.cjs
-          grep -Fq 'actions/cache/restore@v4' .github/workflows/dispatch-short-publishers.yml
-          grep -Fq 'actions/cache/save@v4' .github/workflows/dispatch-short-publishers.yml
-          ! grep -Fq 'publish-approved-video-to-filo.yml' scripts/synchronized_scheduler.cjs
-          grep -Fq 'prepare-shared-video.yml' scripts/synchronized_scheduler.cjs
-          grep -Fq 'slow Telegram/Bale/Rubika delivery must never freeze fresh discovery slots' scripts/synchronized_scheduler.cjs
-          ! grep -Fq 'publish-approved-video-to-rubika.yml' scripts/synchronized_scheduler.cjs
-          grep -Fq 'workflow_run:' .github/workflows/publish-shared-video-to-telegram.yml
-          grep -Fq 'actions/download-artifact@v4' .github/workflows/publish-shared-video-to-telegram.yml
-          grep -Fq 'TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}' .github/workflows/publish-shared-video-to-telegram.yml
-          grep -Fq 'GOUSHIBAAZ_PUBLIC_PUBLISH_ENABLED: "true"' .github/workflows/publish-shared-video-to-telegram.yml
-          grep -Fq 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true"' .github/workflows/publish-shared-video-to-telegram.yml
-          grep -Fq 'bash scripts/persist_state_file.sh state/telegram-published.json' .github/workflows/publish-shared-video-to-telegram.yml
-          ! grep -Fq 'Telegram publishing is disabled by project policy' .github/workflows/publish-shared-video-to-telegram.yml
-          grep -Fq 'workflow_run:' .github/workflows/publish-shared-video-to-rubika.yml
-          grep -Fq 'actions/download-artifact@v4' .github/workflows/publish-shared-video-to-bale.yml
-          grep -Fq 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED' scripts/platform_publish.cjs
-          grep -Fq 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED' scripts/rubika_publish_shared.cjs
-          grep -Fq 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true"' .github/workflows/publish-shared-video-to-rubika.yml
-          grep -Fq 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true"' .github/workflows/publish-shared-video-to-bale.yml
-          grep -Fq 'const MIN_DURATION_SECONDS = 8;' scripts/filo_publish_cc0.cjs
-          grep -Fq 'const MIN_DURATION_SECONDS = 8;' scripts/rubika_publish_cc0.cjs
-          grep -Fq 'FILO_EDITORIAL_RANKING' scripts/filo_publish_cc0.cjs
-          grep -Fq 'RUBIKA_CONTENT_PRIORITY' scripts/rubika_publish_cc0.cjs
-          node -e "const p=require('./config/content-policy.json'); const f=p.platform_profiles&&p.platform_profiles.filo; if(p.vertical_video.aspect_ratio!=='9:16'||p.vertical_video.output_width!==1080||p.vertical_video.output_height!==1920||!f||f.output_width!==720||f.output_height!==1280||f.cover_width!==720||f.cover_height!==1280||f.end_card_seconds!==1.6) process.exit(1)"
-          grep -Fq 'cron: "*/5 * * * *"' .github/workflows/publish-approved-video-to-filo.yml
-          grep -Fq 'five-minute best-effort attempts' .github/workflows/publish-approved-video-to-filo.yml
-          grep -Fq 'MAX_DAILY_PUBLICATIONS = 288' scripts/filo_publish_cc0.cjs
-          grep -Fq 'MIN_PUBLICATION_GAP_MS = 5 * 60 * 1000' scripts/filo_publish_cc0.cjs
-          grep -Fq 'buildTrendSearches()' scripts/filo_publish_cc0.cjs
-          grep -Fq 'rotateSearchBatch' scripts/rubika_publish_cc0.cjs
-          grep -Fq 'observed_trend_title_overlap' scripts/quality_rank.cjs
-          grep -Fq 'never_crop_foreground' config/content-policy.json
-          grep -Fq 'nasa_public_media_enabled_for_public_entertainment' config/content-policy.json
-          grep -Fq 'technology_demo' scripts/quality_rank.cjs
-          grep -Fq 'source_audio_track_missing' scripts/media_format.cjs
-          grep -Fq 'fit_foreground_with_blurred_background' scripts/rubika_publish_cc0.cjs
-          grep -Fq 'fit_foreground_with_blurred_background' scripts/filo_publish_cc0.cjs
-          ! grep -Fq 'const nasaCandidates = await discoverNasaCandidates(used)' scripts/rubika_publish_cc0.cjs
-          grep -Fq 'NASA_PUBLIC_MEDIA_SKIPPED_FOR_ENTERTAINMENT_FIT' scripts/rubika_publish_cc0.cjs
-          ! grep -Fq "'-an'" scripts/rubika_publish_cc0.cjs
-          ! grep -Fq 'licenseurl:http*creativecommons.org/publicdomain/zero/1.0*' scripts/filo_publish_cc0.cjs
-          ! grep -Fq 'licenseurl:http*creativecommons.org/publicdomain/zero/1.0*' scripts/rubika_publish_cc0.cjs
-          grep -Fq 'internetArchiveLicense(meta.licenseurl || entry.indexed.licenseurl)' scripts/filo_publish_cc0.cjs
-          grep -Fq 'internetArchiveLicense(meta.licenseurl || entry.indexed.licenseurl)' scripts/rubika_publish_cc0.cjs
+          set -euo pipefail
+          check_contains() {
+            local file="$1"; local expected="$2"
+            if ! grep -Fq -- "$expected" "$file"; then
+              echo "::error file=$file::Missing expected text: $expected"
+              exit 1
+            fi
+            echo "CHECK_OK contains $file :: $expected"
+          }
+          check_absent() {
+            local file="$1"; local forbidden="$2"
+            if grep -Fq -- "$forbidden" "$file"; then
+              echo "::error file=$file::Forbidden text still present: $forbidden"
+              exit 1
+            fi
+            echo "CHECK_OK absent $file :: $forbidden"
+          }
+          check_contains .github/workflows/dispatch-short-publishers.yml '    - cron: "*/5 * * * *"'
+          check_contains scripts/synchronized_scheduler.cjs 'const INTERVALS = [5, 10, 15, 20, 25, 30'
+          check_contains scripts/synchronized_scheduler.cjs 'const MAX_DESTINATION_STARTS_PER_UTC_DAY = 1200;'
+          check_contains scripts/synchronized_scheduler.cjs 'const FUTURE_PLATFORM_RESERVE = 3;'
+          check_contains scripts/synchronized_scheduler.cjs 'Promise.all(planned.map(dispatchOne))'
+          check_contains .github/workflows/dispatch-short-publishers.yml 'actions/cache/restore@v4'
+          check_contains .github/workflows/dispatch-short-publishers.yml 'actions/cache/save@v4'
+          check_absent scripts/synchronized_scheduler.cjs 'publish-approved-video-to-filo.yml'
+          check_contains scripts/synchronized_scheduler.cjs 'prepare-shared-video.yml'
+          check_contains scripts/synchronized_scheduler.cjs 'slow Telegram/Bale/Rubika delivery must never freeze fresh discovery slots'
+          check_absent scripts/synchronized_scheduler.cjs 'publish-approved-video-to-rubika.yml'
+          check_contains .github/workflows/publish-shared-video-to-telegram.yml 'workflow_run:'
+          check_contains .github/workflows/publish-shared-video-to-telegram.yml 'actions/download-artifact@v4'
+          check_contains .github/workflows/publish-shared-video-to-telegram.yml 'TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}'
+          check_contains .github/workflows/publish-shared-video-to-telegram.yml 'GOUSHIBAAZ_PUBLIC_PUBLISH_ENABLED: "true"'
+          check_contains .github/workflows/publish-shared-video-to-telegram.yml 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true"'
+          check_contains .github/workflows/publish-shared-video-to-telegram.yml 'bash scripts/persist_state_file.sh state/telegram-published.json'
+          check_absent .github/workflows/publish-shared-video-to-telegram.yml 'Telegram publishing is disabled by project policy'
+          check_contains .github/workflows/publish-shared-video-to-rubika.yml 'workflow_run:'
+          check_contains .github/workflows/publish-shared-video-to-bale.yml 'actions/download-artifact@v4'
+          check_contains scripts/platform_publish.cjs 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED'
+          check_contains scripts/rubika_publish_shared.cjs 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED'
+          check_contains .github/workflows/publish-shared-video-to-rubika.yml 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true"'
+          check_contains .github/workflows/publish-shared-video-to-bale.yml 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true"'
+          check_contains scripts/filo_publish_cc0.cjs 'const MIN_DURATION_SECONDS = 8;'
+          check_contains scripts/rubika_publish_cc0.cjs 'const MIN_DURATION_SECONDS = 8;'
+          check_contains scripts/filo_publish_cc0.cjs 'FILO_EDITORIAL_RANKING'
+          check_contains scripts/rubika_publish_cc0.cjs 'RUBIKA_CONTENT_PRIORITY'
+          node -e "const p=require('./config/content-policy.json'); const f=p.platform_profiles&&p.platform_profiles.filo; if(p.vertical_video.aspect_ratio!=='9:16'||p.vertical_video.output_width!==1080||p.vertical_video.output_height!==1920||!f||f.output_width!==720||f.output_height!==1280||f.cover_width!==720||f.cover_height!==1280||f.end_card_seconds!==1.6) process.exit(1); console.log('CONTENT_POLICY_CHECK_OK')"
+          check_contains .github/workflows/publish-approved-video-to-filo.yml 'cron: "*/5 * * * *"'
+          check_contains .github/workflows/publish-approved-video-to-filo.yml 'five-minute best-effort attempts'
+          check_contains scripts/filo_publish_cc0.cjs 'MAX_DAILY_PUBLICATIONS = 288'
+          check_contains scripts/filo_publish_cc0.cjs 'MIN_PUBLICATION_GAP_MS = 5 * 60 * 1000'
+          check_contains scripts/filo_publish_cc0.cjs 'buildTrendSearches()'
+          check_contains scripts/rubika_publish_cc0.cjs 'rotateSearchBatch'
+          check_contains scripts/quality_rank.cjs 'observed_trend_title_overlap'
+          check_contains config/content-policy.json 'never_crop_foreground'
+          check_contains config/content-policy.json 'nasa_public_media_enabled_for_public_entertainment'
+          check_contains scripts/quality_rank.cjs 'technology_demo'
+          check_contains scripts/media_format.cjs 'source_audio_track_missing'
+          check_contains scripts/rubika_publish_cc0.cjs 'fit_foreground_with_blurred_background'
+          check_contains scripts/filo_publish_cc0.cjs 'fit_foreground_with_blurred_background'
+          check_absent scripts/rubika_publish_cc0.cjs 'const nasaCandidates = await discoverNasaCandidates(used)'
+          check_contains scripts/rubika_publish_cc0.cjs 'NASA_PUBLIC_MEDIA_SKIPPED_FOR_ENTERTAINMENT_FIT'
+          check_absent scripts/rubika_publish_cc0.cjs "'-an'"
+          check_absent scripts/filo_publish_cc0.cjs 'licenseurl:http*creativecommons.org/publicdomain/zero/1.0*'
+          check_absent scripts/rubika_publish_cc0.cjs 'licenseurl:http*creativecommons.org/publicdomain/zero/1.0*'
+          check_contains scripts/filo_publish_cc0.cjs 'internetArchiveLicense(meta.licenseurl || entry.indexed.licenseurl)'
+          check_contains scripts/rubika_publish_cc0.cjs 'internetArchiveLicense(meta.licenseurl || entry.indexed.licenseurl)'
       - name: Validate Python trend-intelligence modules and scoring tests
         run: |
           python --version
