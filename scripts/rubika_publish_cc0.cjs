@@ -210,12 +210,12 @@ function loadSharedState() {
 function persistSharedState(state) {
   fs.mkdirSync(path.dirname(SHARED_STATE_PATH), { recursive: true });
   state.posts = (state.posts || []).slice(-600);
-  fs.writeFileSync(SHARED_STATE_PATH, JSON.stringify(state, null, 2) + '\\n', 'utf8');
+  fs.writeFileSync(SHARED_STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
 }
 
 function writeSharedManifest(manifest) {
   fs.mkdirSync(SHARED_WORK_DIR, { recursive: true });
-  fs.writeFileSync(SHARED_MANIFEST_PATH, JSON.stringify(manifest, null, 2) + '\\n', 'utf8');
+  fs.writeFileSync(SHARED_MANIFEST_PATH, JSON.stringify(manifest, null, 2) + '\n', 'utf8');
 }
 
 async function discoverCandidates(state) {
