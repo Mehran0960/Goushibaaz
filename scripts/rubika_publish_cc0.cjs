@@ -3,6 +3,7 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const { execFileSync } = require('node:child_process');
 const { rankCandidates, buildTrendWeights } = require('./quality_rank.cjs');
+const { looksRelevant, persianTitle } = require('./editorial_content.cjs');
 
 const TOKEN = process.env.RUBIKA_BOT_TOKEN || '';
 // RUN_RUBIKA_REAL_PUBLISH_TEST validation: publish one verified-license silent vertical MP4, then persist its ID.
@@ -103,13 +104,6 @@ function isExcludedEditorialContent(text) {
   return /\b(protests?|protesters?|demonstrations?|riot|riots|war|missile|military|army|weapon|weapons|election|politics|political|parliament|government|police crackdown)\b|اعتراضات?|تظاهرات|اغتشاش|جنگ|موشک|پهپاد|بمب|نظامی|تسلیحات|سلاح|انتخابات|سیاست|سیاسی|مجلس|دولت|درگیری|سرکوب/.test(String(text || '').toLowerCase());
 }
 
-function looksRelevant(fileTitle, description) {
-  const text = (fileTitle + ' ' + description).toLowerCase();
-  if (isExcludedEditorialContent(text)) return false;
-  // Diverse visual-entertainment categories: the ranking selects the strongest candidates later.
-  return /\\b(cat|cats|kitten|dog|dogs|puppy|bird|birds|parrot|squirrel|monkey|rabbit|animal|pet|wildlife|funny|unexpected|surprise|caught on camera|playing|playful|fail|visual comedy|oddly satisfying|satisfying|hidden camera|prank|comedy|humou?r|reaction|football|soccer|basketball|skateboard|parkour|trick shot|science experiment|invention|optical illusion|puzzle|cooking|recipe|food art|woodworking|pottery|craft|restoration|dance|music performance|juggling|nature|waterfall|travel|culture|architecture)\\b|گربه|سگ|حیوان|پرنده|بامزه|طنز|خنده|دوربین مخفی|سوتی|پرنک|چالش|فوتبال|بسکتبال|ورزش|حرکت نمایشی|آزمایش علمی|اختراع|فناوری|خطای دید|معما|آشپزی|غذا|خوراکی|کاردستی|نجاری|سفال|رضایت.?بخش|بازسازی|رقص|نوازندگی|موسیقی|طبیعت|آبشار|سفر|گردشگری|فرهنگ|معماری/.test(text);
-}
-
 function candidateContentPriority(candidate) {
   const text = [candidate.fileTitle, candidate.description, candidate.author].join(' ').toLowerCase();
   const persian = /[پچژگکی]/.test(text) || /persian|farsi|فارسی|زبان فارسی/.test(text);
@@ -126,25 +120,6 @@ function sourceVerticalScore(width, height) {
   if (ratio < 0.50 && ratio > 0.40) return 2;
   if (ratio > 0.72) return 0;
   return 1;
-}
-
-function persianTitle(fileTitle, description) {
-  const text = (fileTitle + ' ' + description).toLowerCase();
-  if (/\\b(cat|cats|kitten)\\b|گربه/.test(text)) return 'یه لحظه بامزه از دنیای گربه‌ها 😹';
-  if (/\\b(dog|dogs|puppy)\\b|سگ/.test(text)) return 'این حرکت سگ‌ها همیشه دیدنیه 🐶';
-  if (/\\b(bird|birds|parrot)\\b|پرنده/.test(text)) return 'یه لحظه تماشایی از دنیای پرنده‌ها 🐦';
-  if (/\\b(squirrel|monkey|rabbit)\\b/.test(text)) return 'رفتار جالبی که ارزش دیدن داره 🐾';
-  if (/\\b(football|soccer|basketball|trick shot|parkour|freestyle|sports? skill|goal|dunk)\\b|فوتبال|بسکتبال|ورزش|دریبل|حرکت نمایشی/.test(text)) return 'یه مهارت ورزشی دیدنی 🏆';
-  if (/\\b(science experiment|invention|technology demo|optical illusion|brain teaser|puzzle)\\b|آزمایش علمی|اختراع|فناوری|خطای دید|معما/.test(text)) return 'این آزمایش یا خطای دید رو ببین! 🧠';
-  if (/\\b(oddly satisfying|satisfying|restoration|woodworking|pottery|craft|miniature|before and after|transformation)\\b|رضایت.?بخش|کاردستی|نجاری|سفال|مرمت|بازسازی|قبل و بعد/.test(text)) return 'یه تغییر یا ساختنی رضایت‌بخش ✨';
-  if (/\\b(cooking|recipe|food art|food hack|kitchen|baking|street food)\\b|آشپزی|غذا|خوراکی|شیرینی|آشپزخانه/.test(text)) return 'یه ایده جالب از دنیای غذا 🍳';
-  if (/\\b(magic|dancing|dance|music performance|musician|singing|instrument|juggling)\\b|شعبده|جادو|رقص|نوازندگی|موسیقی|خوانندگی|آکروبات/.test(text)) return 'یه اجرای دیدنی و متفاوت 🎭';
-  if (/\\b(nature|landscape|weather phenomenon|ocean|volcano|waterfall|space footage)\\b|طبیعت|آبشار|اقیانوس|پدیده جوی|آتشفشان|منظره|فضا/.test(text)) return 'یه لحظه تماشایی از طبیعت 🌍';
-  if (/\\b(travel|tourism|street life|local culture|traditional|architecture)\\b|سفر|گردشگری|فرهنگ|سنتی|معماری|ایرانگردی/.test(text)) return 'یه گوشه دیدنی از دنیا 🌎';
-  if (/iranian|tehran|shiraz|ایران|ایرانی|تهران|شیراز|اصفهان/.test(text)) return 'یه لحظه دیدنی از ایران 🇮🇷';
-  if (/persian|farsi|فارسی|طنز|خنده|دوربین مخفی|سوتی|پرنک|چالش|واکنش/.test(text)) return 'یه کلیپ فارسی که ارزش دیدن داره 😄';
-  if (/\\b(caught on camera|unexpected|surprise|funny|fail)\\b/.test(text)) return 'این اتفاق غیرمنتظره رو از دست نده 😮';
-  return 'یه کلیپ کوتاه و جالب 🎬';
 }
 
 function captionFor(candidate) {
@@ -678,7 +653,7 @@ async function downloadSource(candidate) {
     try {
       const u = new URL(candidate.fileUrl);
       nasaLicense = u.protocol === 'https:' && u.hostname === 'images-assets.nasa.gov' &&
-        u.pathname.startsWith('/video/') && /\\.mp4$/i.test(u.pathname);
+        u.pathname.startsWith('/video/') && /\.mp4$/i.test(u.pathname);
     } catch {}
   }
   if (!standardLicense && !nasaLicense) {
