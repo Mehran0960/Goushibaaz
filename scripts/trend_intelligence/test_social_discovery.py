@@ -4,7 +4,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from social_discovery import attach_view_trajectory, rotating_batch, youtube_search_due
+from social_discovery import attach_view_trajectory, rotating_batch, rotating_query_index, youtube_search_due
 
 
 class ViewTrajectoryPersistenceTests(unittest.TestCase):
@@ -101,6 +101,14 @@ class RotatingDiscoveryBatchTests(unittest.TestCase):
         ledger = {"youtube_search_last_at": (now - timedelta(minutes=40)).isoformat()}
         self.assertFalse(youtube_search_due(ledger, now))
         self.assertTrue(youtube_search_due(ledger, now + timedelta(minutes=8)))
+
+    def test_full_web_query_pool_rotates_without_skipping_entries(self):
+        now = datetime(2026, 10, 30, 12, 0, tzinfo=timezone.utc)
+        indexes = {
+            rotating_query_index(now + timedelta(minutes=15 * slot), query_count=22)
+            for slot in range(22)
+        }
+        self.assertEqual(indexes, set(range(22)))
 
 
 if __name__ == "__main__":
