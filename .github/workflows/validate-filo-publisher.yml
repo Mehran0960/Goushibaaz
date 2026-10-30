@@ -81,6 +81,7 @@ jobs:
           grep -Fq 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "false"' .github/workflows/publish-shared-video-to-telegram.yml
           grep -Fq 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "false"' .github/workflows/publish-shared-video-to-bale.yml
           python -m py_compile scripts/trend_intelligence/follower_growth.py scripts/trend_intelligence/social_discovery.py scripts/trend_intelligence/run_discovery.py
+          python -m unittest scripts/trend_intelligence/test_follower_growth.py
           grep -Fq 'const MIN_DURATION_SECONDS = 8;' scripts/filo_publish_cc0.cjs
           grep -Fq 'const MIN_DURATION_SECONDS = 8;' scripts/rubika_publish_cc0.cjs
           grep -Fq 'FILO_EDITORIAL_RANKING' scripts/filo_publish_cc0.cjs
