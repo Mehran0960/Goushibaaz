@@ -1,9 +1,10 @@
-name: Scheduled licensed short-video publisher for Filo
+name: Scheduled licensed and original short-video publisher for Filo
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/30 * * * *" # Independent Filo delivery; no dependency on Telegram/Bale/Rubika.
+    - cron: "30 4,14,17 * * *" # Iran time: 08:00, 18:00 and 21:00
+    - cron: "0 9 * * *" # Iran time: 12:30
 
 permissions:
   contents: write
@@ -28,17 +29,19 @@ jobs:
       - name: Install browser and video tools
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg fonts-noto-core
+          sudo apt-get install -y -qq ffmpeg fonts-noto-core espeak-ng
           npm init -y >/dev/null
           npm install --no-save playwright >/dev/null
           npx playwright install --with-deps chromium >/dev/null
           node --check scripts/filo_publish_cc0.cjs
           node --check scripts/editorial_content.cjs
           node --check scripts/filo_endcard.cjs
+          node --check scripts/original_puzzle_video.cjs
           node scripts/test_editorial_content.cjs
           node scripts/test_filo_endcard.cjs
+          node scripts/test_original_puzzle_video.cjs
 
-      - name: Discover a fresh rights-cleared short, prepare 720p vertical video and cover, publish to Filo
+      - name: Prefer a verified licensed trend; otherwise generate a Persian original puzzle, prepare 720p vertical video and cover, publish to Filo
         env:
           FILO_USER: ${{ secrets.FILO_USER }}
           FILO_PASS: ${{ secrets.FILO_PASS }}
