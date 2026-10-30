@@ -33,8 +33,8 @@ jobs:
         env:
           BALE_BOT_TOKEN: ${{ secrets.BALE_BOT_TOKEN }}
           BALE_CHANNEL_ID: ${{ secrets.BALE_CHANNEL_ID }}
-          GOUSHIBAAZ_PUBLIC_PUBLISH_ENABLED: ${{ vars.GOUSHIBAAZ_PUBLIC_PUBLISH_ENABLED }}
-          GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "false" # keep first public post blocked until explicit approval
+          GOUSHIBAAZ_PUBLIC_PUBLISH_ENABLED: "true"
+          GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true" # explicitly opened by the channel owner
         run: |
           node --check scripts/platform_publish.cjs
           node --check scripts/bale_publish.cjs
