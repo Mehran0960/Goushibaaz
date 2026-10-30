@@ -4,6 +4,7 @@ const { execFileSync } = require('child_process');
 const { chromium } = require('playwright');
 const { rankCandidates, buildTrendWeights } = require('./quality_rank.cjs');
 const { looksRelevant, persianTitle } = require('./editorial_content.cjs');
+const { appendFiloEndCard } = require('./filo_endcard.cjs');
 
 const ACCOUNT = 'https://ifilo.net';
 const CC0_LICENSE_URL = 'https://creativecommons.org/publicdomain/zero/1.0/';
@@ -971,6 +972,12 @@ async function main() {
   const PERSIAN_TITLE = candidate.title;
   const PERSIAN_DESCRIPTION = candidate.descriptionText;
   const converted = convertToPortraitMp4();
+  const endCard = appendFiloEndCard(OUTPUT_FILE, OUTPUT_FILE + '.endcard.mp4', {
+    width: TARGET_WIDTH,
+    height: TARGET_HEIGHT,
+    durationSeconds: Number(FILO_PROFILE.end_card_seconds) || 1.6
+  });
+  fs.renameSync(OUTPUT_FILE + '.endcard.mp4', OUTPUT_FILE);
   const cover = extractCoverFrame();
 
   if (DRY_RUN) {
@@ -989,6 +996,8 @@ async function main() {
       durationSeconds: sourceDurationSeconds,
       convertedBytes: converted.outputBytes,
       coverBytes: cover.coverBytes,
+      endCard,
+      finalVideoBytes: endCard.outputBytes,
       contentLocaleScore: candidate.contentLocaleScore || 0,
       sourceVerticalScore: candidate.sourceVerticalScore || 1,
       note: 'No login, upload or publication attempted.'
@@ -1270,7 +1279,8 @@ async function main() {
       result = {
         status: finalStatus, title: PERSIAN_TITLE, postUrl, sourcePage: COMMONS_PAGE,
         sourceTitle: SOURCE_TITLE, license: rights.licenseName, sourceBytes: rights.sourceBytes,
-        convertedBytes: converted.outputBytes, coverBytes: cover.coverBytes, durationSeconds: sourceDurationSeconds,
+        convertedBytes: converted.outputBytes, finalVideoBytes: endCard.outputBytes,
+        coverBytes: cover.coverBytes, endCardSeconds: endCard.endCardSeconds, durationSeconds: sourceDurationSeconds,
         coverUpload, publishHttpStatus, publishApiAccepted,
         note: confirmedPublic ? 'Filo showed the new video as active.'
           : 'Filo accepted the submission, but its public/active status was not confirmed; review may still be pending.',
@@ -1312,7 +1322,9 @@ async function main() {
             : 'The publish response was not conclusive; a new public post URL could not be confirmed.',
         sourceBytes: rights.sourceBytes,
         convertedBytes: converted.outputBytes,
+        finalVideoBytes: endCard.outputBytes,
         coverBytes: cover.coverBytes,
+        endCardSeconds: endCard.endCardSeconds,
         bodyText: bodyText.slice(0, 1200),
         requests: observedRequests.slice(-20),
         responses: observedResponses.slice(-20)
