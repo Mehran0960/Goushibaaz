@@ -40,6 +40,14 @@ CC BY 4.0 permits commercial reuse and adaptation subject to attribution, source
 
 Filo may hold new videos in a moderation/approval queue for up to 72 hours. A successful upload request is **not** a guarantee of public approval, monetization, or income. The scheduled run therefore records submission/approval status separately from a confirmed public URL. Candidate discovery from YouTube, Telegram, and Aparat remains a trend signal only; it does not itself grant permission to republish those videos.
 
+## Multi-source trend intelligence
+
+- A separate, free trend-intelligence workflow scans 48 curated public Persian Telegram video feeds (including Gizmiz-style sources), rotates broad Bing-indexed searches across Instagram, TikTok, YouTube, Aparat and other public video platforms, and uses the official YouTube Data API only when `YOUTUBE_API_KEY` is configured. YouTube search usage is internally capped at 30 calls/day; paid Firecrawl search is disabled in this adapter.
+- The scan refreshes twice hourly and stores a bounded candidate/history ledger in `state/trend-intelligence.json`. It tracks observed view-count snapshots, views/hour and acceleration when enough time-separated measurements exist. First-seen lifetime-view rates remain explicitly marked as estimates.
+- Topic momentum is converted into `state/platform-trends.json`, which the existing editorial ranker already reads to adjust the next licensed-media selection. This makes viral demand a ranking signal rather than a shortcut around rights checks.
+- Public-channel and social-platform candidates are discovery signals only. Their public availability, view counts, or source popularity do not grant permission to download or republish. Public publishing continues to require the existing verified CC0 / CC BY 4.0 or explicit creator-permission gate.
+- A successful first scan collected more than 200 fresh candidate records from Telegram feeds in one pass. Search engines and optional API lanes can return zero results or be unavailable; each source is best-effort and no single source is a hard dependency.
+
 ## Current publishing focus: Rubika, Telegram and Bale
 
 The project focus is now three destinations: **Rubika, Telegram and Bale**. The Rubika publisher is already implemented and has completed a real native video post. It remains the only active scheduled publishing adapter today. Telegram and Bale are the next independent adapters to build; they are not yet implemented or being dispatched by this repository. Each must have its own workflow, credentials, publication state, retries and failure reporting so a problem on one platform never blocks the others.
