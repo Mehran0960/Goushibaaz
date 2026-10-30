@@ -131,6 +131,15 @@ def rotating_batch(items, now, batch_size, window_seconds=TREND_SCAN_WINDOW_SECO
     return rows[start:start + size]
 
 
+def rotating_query_index(now, query_count, step=BING_FALLBACK_SEARCHES_PER_RUN,
+                         window_seconds=TREND_SCAN_WINDOW_SECONDS):
+    """Advance through the entire query pool without repeatedly favoring one subset."""
+    count = max(1, int(query_count))
+    stride = max(1, int(step))
+    slot = int(now.timestamp() // max(1, int(window_seconds)))
+    return (slot * stride) % count
+
+
 def youtube_search_due(quota_ledger, now, minimum_interval_seconds=YOUTUBE_SEARCH_INTERVAL_SECONDS):
     """Spread the reserved daily YouTube search calls across the full day."""
     raw = str((quota_ledger or {}).get("youtube_search_last_at") or "").strip()
@@ -1286,9 +1295,9 @@ def main(force_fallback=False, _quota_ledger=None, _previous_payload=None):
         # Use Bing only if Firecrawl's keyless/API request actually fails.
         # Firecrawl keyless currently provides a free monthly search allowance.
         # This is discovery-only; media acquisition still happens downstream.
-        # Rotate by scheduled four-hour windows. A half-hour index combined
-        # with a four-hour schedule would repeat the same query every run.
-        qidx = (int(now.timestamp() // TREND_SCAN_WINDOW_SECONDS) * FIRECRAWL_SEARCHES_PER_RUN) % len(QUERIES)
+        # Rotate the base query every 15-minute scan using the actual Bing batch
+        # width as the step, so the complete query pool is covered over time.
+        qidx = rotating_query_index(now, len(QUERIES))
         query_variants = [
             'site:instagram.com/reel/ (خنده OR طنز OR سوتی OR واکنش انسانی OR بامزه OR غافلگیر OR احساسی OR مهربانی)',
             'site:instagram.com/reel/ (آشپزی OR دستور پخت OR ترفند کاربردی OR تمیزکاری OR قبل و بعد OR دست ساز)',
