@@ -13,6 +13,7 @@ on:
       - "scripts/telegram_publish.cjs"
       - "scripts/bale_publish.cjs"
       - "scripts/test_shared_publish.cjs"
+      - "scripts/import_trend_intelligence.cjs"
       - "scripts/synchronized_scheduler.cjs"
       - "scripts/quality_rank.cjs"
       - "scripts/test_quality_rank.cjs"
@@ -51,6 +52,7 @@ jobs:
           node --check scripts/telegram_publish.cjs
           node --check scripts/bale_publish.cjs
           node --check scripts/test_shared_publish.cjs
+          node --check scripts/import_trend_intelligence.cjs
           node scripts/test_shared_publish.cjs
           node --check scripts/synchronized_scheduler.cjs
           node --check scripts/quality_rank.cjs
