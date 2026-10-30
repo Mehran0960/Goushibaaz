@@ -16,9 +16,9 @@ const SHARED_WORK_DIR = path.join(process.cwd(), 'work', 'shared-publish');
 const SHARED_VIDEO_PATH = path.join(SHARED_WORK_DIR, 'video.mp4');
 const SHARED_MANIFEST_PATH = path.join(SHARED_WORK_DIR, 'manifest.json');
 const WORK_DIR = path.join(process.cwd(), 'work', 'rubika-publish');
-const INPUT_FILE = path.join(WORK_DIR, 'source-video.webm');
+const INPUT_FILE = path.join(WORK_DIR, 'source-video.bin');
 const OUTPUT_FILE = path.join(WORK_DIR, 'didobyn-short.mp4');
-const MAX_SOURCE_BYTES = 30_000_000;
+const MAX_SOURCE_BYTES = 45_000_000;
 const MAX_OUTPUT_BYTES = 48_000_000;
 const CONTENT_POLICY = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'config', 'content-policy.json'), 'utf8'));
 const TARGET_WIDTH = Number(CONTENT_POLICY.vertical_video.output_width) || 1080;
@@ -325,7 +325,7 @@ async function discoverInternetArchiveCandidates(used) {
         const videoFiles = files.filter(file => {
           const name = String(file.name || '');
           const size = Number(file.size);
-          return /\.webm$/i.test(name) && file.private !== 'true' && file.private !== true &&
+          return /\.(?:webm|mp4|m4v|mov)$/i.test(name) && file.private !== 'true' && file.private !== true &&
             Number.isFinite(size) && size >= 200000 && size <= MAX_SOURCE_BYTES;
         }).sort((a,b) => Number(a.size) - Number(b.size));
         for (const file of videoFiles.slice(0, 2)) {
@@ -344,6 +344,7 @@ async function discoverInternetArchiveCandidates(used) {
           const height = Number(file.height || meta.height) || null;
           const candidate = {
             fileTitle, sourcePage, fileUrl, size: Number(file.size), durationSeconds,
+            mediaExtension: path.extname(String(file.name || '')).toLowerCase(),
             license, author, description, sourceWidth: width, sourceHeight: height,
             sourceAspectRatio: width && height ? Math.round((width / height) * 1000) / 1000 : null,
             discoveryQuery: entry.search.key, localPriorityQuery: Boolean(entry.search.term.localPriority),
@@ -513,9 +514,9 @@ async function downloadSource(candidate) {
   if (!response.ok) throw new Error('commons_download_http_' + response.status);
   const bytes = Buffer.from(await response.arrayBuffer());
   if (bytes.length < 200_000 || bytes.length > MAX_SOURCE_BYTES) throw new Error('source_size_out_of_range');
-  if (!(bytes[0] === 0x1a && bytes[1] === 0x45 && bytes[2] === 0xdf && bytes[3] === 0xa3)) {
-    throw new Error('source_file_is_not_webm');
-  }
+  const isWebm = bytes[0] === 0x1a && bytes[1] === 0x45 && bytes[2] === 0xdf && bytes[3] === 0xa3;
+  const isIsoBmff = bytes.toString('ascii', 4, 8) === 'ftyp';
+  if (!isWebm && !isIsoBmff) throw new Error('source_container_not_supported');
   fs.writeFileSync(INPUT_FILE, bytes);
   const probe = execFileSync('ffprobe', [
     '-v', 'error',
