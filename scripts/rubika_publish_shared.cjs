@@ -34,7 +34,7 @@ async function uploadVideo(bytes){
   const uploadUrl=request.upload_url||request.data?.upload_url;
   if(typeof uploadUrl!=='string'||!/^https:\/\//i.test(uploadUrl))throw new Error('requestSendFile_missing_upload_url');
   const form=new FormData();form.append('file',new Blob([bytes],{type:'video/mp4'}),'goushibaaz-short.mp4');
-  const response=await fetch(uploadUrl,{method:'POST',body:form,signal:AbortSignal.timeout(180000)});
+  const response=await fetch(uploadUrl,{method:'POST',body:form,signal:AbortSignal.timeout(300000)});
   const raw=await response.text();let data;try{data=JSON.parse(raw);}catch{data={};}
   if(!response.ok)throw new Error('rubika_file_upload_http_'+response.status);
   const fileId=data.data?.file_id||data.file_id||data.data?.file?.file_id;
