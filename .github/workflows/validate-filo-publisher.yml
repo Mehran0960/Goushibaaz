@@ -77,6 +77,9 @@ jobs:
           grep -Fq 'actions/download-artifact@v4' .github/workflows/publish-shared-video-to-bale.yml
           grep -Fq 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED' scripts/platform_publish.cjs
           grep -Fq 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED' scripts/rubika_publish_shared.cjs
+          grep -Fq 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "false"' .github/workflows/publish-shared-video-to-rubika.yml
+          grep -Fq 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "false"' .github/workflows/publish-shared-video-to-telegram.yml
+          grep -Fq 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "false"' .github/workflows/publish-shared-video-to-bale.yml
           python -m py_compile scripts/trend_intelligence/follower_growth.py scripts/trend_intelligence/social_discovery.py scripts/trend_intelligence/run_discovery.py
           grep -Fq 'const MIN_DURATION_SECONDS = 8;' scripts/filo_publish_cc0.cjs
           grep -Fq 'const MIN_DURATION_SECONDS = 8;' scripts/rubika_publish_cc0.cjs
