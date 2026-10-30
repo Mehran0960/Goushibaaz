@@ -32,7 +32,7 @@ jobs:
         run: pip install --disable-pip-version-check requests
       - name: Validate discovery and ranking code
         run: |
-          python -m py_compile scripts/trend_intelligence/follower_growth.py scripts/trend_intelligence/social_discovery.py scripts/trend_intelligence/run_discovery.py
+          python -m py_compile scripts/trend_intelligence/follower_growth.py scripts/trend_intelligence/social_discovery.py scripts/trend_intelligence/run_discovery.py scripts/trend_intelligence/build_preview.py scripts/trend_intelligence/test_social_discovery.py
           python -m unittest scripts/trend_intelligence/test_social_discovery.py
           node --check scripts/import_trend_intelligence.cjs
       - name: Scan public Telegram feeds, rotating web searches and optional YouTube API
