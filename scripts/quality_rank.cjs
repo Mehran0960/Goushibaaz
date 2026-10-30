@@ -1,6 +1,16 @@
 'use strict';
 
 const { scoreTrendTitleOverlap } = require('./trend_discovery.cjs');
+const CONTENT_POLICY = require('../config/content-policy.json');
+const AUDIENCE_WEIGHTS = CONTENT_POLICY.audience_priority_weights || {};
+
+const CONTENT_EXCLUSIONS = [
+  { key: 'current_affairs_or_politics', pattern: /war|explosion|missile|shooting|killed|injured|election|president|politic|protest|government|sanction|geopolitical|russia|ukraine|israel|\bamerica\b|جنگ|انفجار|موشک|تیراندازی|کشته|مجروح|انتخابات|رئیس.?جمهور|سیاست|اعتراض|تحریم|درگیری|روسیه|اوکراین|اسرائیل|آمریکا/i },
+  { key: 'sensitive_or_graphic_content', pattern: /gore|graphic violence|self.?harm|suicide|porn|explicit sexual|rape|blood|قتل|خون|قطع عضو|خودکشی|پورن|جنسی صریح|تجاوز جنسی/i },
+  { key: 'promotional_content', pattern: /sponsored|affiliate|discount code|buy now|shop now|sign up now|link in bio|use my code|limited offer|promo code|visit our website|تبلیغات|اسپانسر|تخفیف|کد تخفیف|برای خرید|لینک خرید|ثبت.?نام کنید|لینک در بیو|فروش ویژه/i },
+  { key: 'weapon_or_military_safety_review', pattern: /\bweapon\b|\bfirearm\b|\bgun\b|military training|سلاح|اسلحه|تفنگ|جنگ.?افزار|آموزش.?های.?نظامی/i }
+];
+const MULTI_CLIP_RISK = /\b(compilation|roundup|recap|best of|top\s*\d+|ranking|highlights|viral moments|top moments)\b|[0-9۰-۹]+\s*تا\s*(?:فان|کلیپ|اتفاق|لحظه|ویدیو|ویدئو)|(?:چندتا|چند)\s*(?:کلیپ|اتفاق|لحظه|ویدیو|ویدئو|فان)|گلچین|گزیده|مجموعه(?:ای)? از|تاپ\s*\d+|برترین لحظات|بهترین لحظات|گلچین لحظات/i;
 
 // Editorial ranking only. A score never grants permission to republish a video.
 const TOPICS = [
@@ -65,7 +75,15 @@ function categoryFor(value) {
       nature_and_wildlife: 'nature_wildlife', science_curiosity: 'science_tech',
       diy_and_creativity: 'diy_creativity', home_organization_or_cleaning: 'home_cleaning',
       music_or_dance: 'performance_magic', fashion_or_cultural_showcase: 'fashion_culture',
-      travel_and_places: 'travel_culture'
+      travel_and_places: 'travel_culture', puzzles_and_visual_illusions: 'science_tech',
+      nostalgia_and_then_now: 'human_reaction', comedy: 'persian_comedy',
+      skill_or_spectacle: 'sports_skill', technology_demo: 'science_tech',
+      human_reaction_or_relatable: 'human_reaction', practical_tips_or_life_hacks: 'life_hacks',
+      wholesome_or_heartwarming: 'heartwarming', sports_or_athletic_skill: 'sports_skill',
+      nature_and_wildlife: 'nature_wildlife', science_curiosity: 'science_tech',
+      diy_and_creativity: 'diy_creativity', home_organization_or_cleaning: 'home_cleaning',
+      surprise_or_reveal: 'surprise_reveal', transformation_or_satisfying: 'satisfying_craft',
+      food_cooking: 'food_cooking', animals: 'pets_animals'
     };
     if (laneMap[lane]) return laneMap[lane];
   }
@@ -116,15 +134,23 @@ function ageHours(candidate, nowMs = Date.now()) {
 function scoreCandidate(candidate, options = {}) {
   const c = candidate || {};
   const text = candidateText(c);
-  const topic = categoryFor(text);
+  const trendMatchBonus = scoreTrendTitleOverlap(text, c.trendSearchTitle);
+  const trendTopic = c.trendSearchLane ? categoryFor({ content_lane: c.trendSearchLane }) : 'general_entertainment';
+  const detectedTopic = categoryFor(text);
+  const topic = trendTopic !== 'general_entertainment' && trendMatchBonus >= 4 ? trendTopic : detectedTopic;
   const topicInfo = TOPICS.find(item => item.key === topic);
   const duration = getDuration(c);
   const reasons = [];
+  const exclusion = CONTENT_EXCLUSIONS.find(item => item.pattern.test(text));
+  if (exclusion) {
+    return { eligible: false, score: -1000, topic, durationSeconds: duration, reasons: ['excluded:' + exclusion.key] };
+  }
   if (duration !== null && duration < 8) {
     return { eligible: false, score: -1000, topic, durationSeconds: duration, reasons: ['duration_under_8_seconds'] };
   }
-  let score = topicInfo ? topicInfo.base : 8;
-  reasons.push('topic:' + topic);
+  const configuredBase = safeNumber(AUDIENCE_WEIGHTS[topic]);
+  let score = configuredBase !== null ? configuredBase : (topicInfo ? topicInfo.base : 6);
+  reasons.push('iranian_audience_topic:' + topic);
 
   const hookCount = HOOKS.reduce((sum, pattern) => sum + (pattern.test(text) ? 1 : 0), 0);
   const hookScore = Math.min(16, hookCount * 8);
@@ -190,10 +216,17 @@ function scoreCandidate(candidate, options = {}) {
 
   // A small title/description overlap bonus promotes licensed archive matches to
   // observed trends; it is a relevance hint, never proof that two clips are identical.
-  const trendMatchBonus = scoreTrendTitleOverlap(text, c.trendSearchTitle);
   if (trendMatchBonus > 0) {
     score += trendMatchBonus;
     reasons.push('observed_trend_title_overlap:' + trendMatchBonus);
+  }
+  if (MULTI_CLIP_RISK.test(text)) {
+    score -= 20;
+    reasons.push('multi_clip_roundup:-20');
+  }
+  if (c.trendSearchLocalPriority === true) {
+    score += 3;
+    reasons.push('persian_trend_search_priority:3');
   }
 
   const recentPosts = Array.isArray(options.recentPosts) ? options.recentPosts : [];
