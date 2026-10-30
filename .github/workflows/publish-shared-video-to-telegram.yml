@@ -1,14 +1,47 @@
-name: Telegram destination disabled — discovery only
-
+name: Publish Shared Video to Telegram
 on:
-  workflow_dispatch:
-
+  workflow_run:
+    workflows: ["Prepare Shared Licensed Short Video"]
+    types: [completed]
+    branches: [main]
 permissions:
-  contents: read
-
+  actions: read
+  contents: write
+concurrency:
+  group: goushibaaz-telegram-destination
+  cancel-in-progress: false
 jobs:
-  disabled:
+  publish:
+    if: ${{ github.event.workflow_run.conclusion != 'cancelled' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - name: Confirm destination policy
-        run: echo "Telegram publishing is disabled by project policy; Telegram may remain a public-metadata discovery source only."
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Download the exact shared candidate artifact
+        id: artifact
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: goushibaaz-shared-candidate
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: work/shared-publish
+      - name: Validate and independently publish to Telegram
+        if: steps.artifact.outcome == 'success'
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GOUSHIBAAZ_PUBLIC_PUBLISH_ENABLED: "true"
+          GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true" # publication explicitly enabled by the channel owner
+        run: |
+          node --check scripts/platform_publish.cjs
+          node --check scripts/telegram_publish.cjs
+          node scripts/telegram_publish.cjs
+      - name: Persist Telegram-only publication state
+        if: ${{ always() && steps.artifact.outcome == 'success' && hashFiles('state/telegram-published.json') != '' }}
+        run: bash scripts/persist_state_file.sh state/telegram-published.json "Record Telegram destination result"
