@@ -11,8 +11,8 @@ const ACTIVE_PLATFORMS = [
 ];
 // Budget for the preparation workflow plus Rubika, Telegram and Bale destination runs.
 const FUTURE_PLATFORM_RESERVE = 3;
-const MAX_DESTINATION_STARTS_PER_UTC_DAY = 900;
-const INTERVALS = [7, 17, 27, 37, 47, 57, 77, 97, 127, 157, 187, 217, 247, 277, 337, 397, 457, 517, 637, 757, 877, 997, 1117, 1237, 1357];
+const MAX_DESTINATION_STARTS_PER_UTC_DAY = 1200;
+const INTERVALS = [5, 10, 15, 20, 25, 30, 40, 50, 60, 90, 120, 180, 240, 360, 480, 720, 960, 1200, 1440];
 const API_VERSION = '2022-11-28';
 const TOKEN = process.env.GH_TOKEN;
 const CURRENT_REPO = process.env.GITHUB_REPOSITORY;
@@ -123,36 +123,36 @@ function outcomeFresh(outcome, now) {
 }
 
 function intervalForPressure({ accountActive, recentRuns, remaining, outcomes, budgetedPlatforms }) {
-  let floor = 7;
+  let floor = 5;
   // Conservative estimate against the lowest standard GitHub-hosted runner concurrency tier.
   const projectedConcurrency = accountActive + ACTIVE_PLATFORMS.length + FUTURE_PLATFORM_RESERVE;
-  if (projectedConcurrency >= 20) floor = Math.max(floor, 97);
-  else if (projectedConcurrency >= 17) floor = Math.max(floor, 57);
-  else if (projectedConcurrency >= 14) floor = Math.max(floor, 37);
-  else if (projectedConcurrency >= 11) floor = Math.max(floor, 27);
-  else if (projectedConcurrency >= 8) floor = Math.max(floor, 17);
+  if (projectedConcurrency >= 20) floor = Math.max(floor, 90);
+  else if (projectedConcurrency >= 17) floor = Math.max(floor, 50);
+  else if (projectedConcurrency >= 14) floor = Math.max(floor, 30);
+  else if (projectedConcurrency >= 11) floor = Math.max(floor, 20);
+  else if (projectedConcurrency >= 8) floor = Math.max(floor, 10);
 
   // Recent runs are a pressure signal, not a claim about exact billing or remaining minutes.
-  if (recentRuns >= 400) floor = Math.max(floor, 97);
-  else if (recentRuns >= 300) floor = Math.max(floor, 57);
-  else if (recentRuns >= 200) floor = Math.max(floor, 37);
-  else if (recentRuns >= 140) floor = Math.max(floor, 27);
-  else if (recentRuns >= 100) floor = Math.max(floor, 17);
+  if (recentRuns >= 400) floor = Math.max(floor, 90);
+  else if (recentRuns >= 300) floor = Math.max(floor, 50);
+  else if (recentRuns >= 200) floor = Math.max(floor, 30);
+  else if (recentRuns >= 140) floor = Math.max(floor, 20);
+  else if (recentRuns >= 100) floor = Math.max(floor, 10);
 
   // GITHUB_TOKEN's actual response headers are authoritative for this repository's API quota.
   if (remaining !== null) {
-    if (remaining <= 25) floor = Math.max(floor, 1357);
-    else if (remaining <= 75) floor = Math.max(floor, 97);
-    else if (remaining <= 150) floor = Math.max(floor, 57);
-    else if (remaining <= 250) floor = Math.max(floor, 37);
-    else if (remaining <= 400) floor = Math.max(floor, 27);
-    else if (remaining <= 600) floor = Math.max(floor, 17);
+    if (remaining <= 25) floor = Math.max(floor, 1440);
+    else if (remaining <= 75) floor = Math.max(floor, 120);
+    else if (remaining <= 150) floor = Math.max(floor, 90);
+    else if (remaining <= 250) floor = Math.max(floor, 60);
+    else if (remaining <= 400) floor = Math.max(floor, 40);
+    else if (remaining <= 600) floor = Math.max(floor, 20);
   }
 
   const fresh = outcomes.filter(x => outcomeFresh(x, Date.now()));
   const noCandidates = fresh.filter(x => x.status === 'no_eligible_candidate').length;
-  if (noCandidates >= ACTIVE_PLATFORMS.length) floor = Math.max(floor, 27);
-  else if (noCandidates > 0) floor = Math.max(floor, 17);
+  if (noCandidates >= ACTIVE_PLATFORMS.length) floor = Math.max(floor, 15);
+  else if (noCandidates > 0) floor = Math.max(floor, 10);
 
   // The daily cap includes the two future-platform slots in its forecast.
   const choices = INTERVALS.filter(n =>
@@ -297,7 +297,7 @@ async function main() {
   ]);
   const activePublishers = currentRuns.filter(run => publisherPathSet.has(run.path) && ['queued', 'in_progress'].includes(run.status));
   if (activePublishers.length) {
-    state.nextDueAt = iso(now + 7 * 60000);
+    state.nextDueAt = iso(now + 5 * 60000);
     state.lastDecision = 'wait_for_previous_synchronized_publishers';
     await persist(state, true);
     log('SCHEDULER_DEFER_ACTIVE_PUBLISHER', {
@@ -329,7 +329,7 @@ async function main() {
     budgetedPlatforms
   });
   let selectedInterval = cadence.selected;
-  if (!externalComplete) selectedInterval = Math.max(selectedInterval, 27);
+  if (!externalComplete) selectedInterval = Math.max(selectedInterval, 30);
 
   const planned = state.pendingDestinations.length
     ? ACTIVE_PLATFORMS.filter(p => state.pendingDestinations.includes(p.key))
