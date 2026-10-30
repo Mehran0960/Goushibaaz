@@ -226,7 +226,7 @@ function buildOriginalPuzzleVideo(puzzle, options = {}) {
     drawText('۳', 955, 84, theme.accent, countdownStart, countdownStart + Math.max(0.4, countdownDur / 3)),
     drawText('۲', 955, 84, theme.accent, countdownStart + countdownDur / 3, countdownStart + (countdownDur * 2 / 3)),
     drawText('۱', 955, 84, theme.accent, countdownStart + (countdownDur * 2 / 3), answerStart),
-    "drawbox=x=54:y=425:w=612:h=180:color=' + theme.answer + ':t=fill:enable='between(t," + answerStart.toFixed(3) + "," + end.toFixed(3) + ")'",
+    "drawbox=x=54:y=425:w=612:h=180:color=" + theme.answer + ":t=fill:enable='between(t," + answerStart.toFixed(3) + "," + end.toFixed(3) + ")'",
     drawText('پاسخ درست', 465, 40, theme.accent, answerStart, end),
     drawText(puzzle.options[puzzle.answerIndex], 545, 58, 'white', answerStart, end),
     ...explanationLines.map((line, i) =>
