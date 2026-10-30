@@ -1,4 +1,4 @@
-name: Validate Filo scheduled publisher
+name: Validate Goushibaaz discovery and publishers
 
 on:
   workflow_dispatch:
@@ -20,7 +20,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: filo-publisher-validation
+  group: goushibaaz-publisher-validation
   cancel-in-progress: true
 
 jobs:
@@ -32,7 +32,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate JavaScript syntax for all discovery and publisher scripts
+      - name: Validate JavaScript syntax and active destination configuration
         run: |
           node --check scripts/filo_publish_cc0.cjs
           node --check scripts/rubika_publish_cc0.cjs
@@ -50,7 +50,7 @@ jobs:
           grep -Fq 'Promise.all(planned.map(dispatchOne))' scripts/synchronized_scheduler.cjs
           grep -Fq 'actions/cache/restore@v4' .github/workflows/dispatch-short-publishers.yml
           grep -Fq 'actions/cache/save@v4' .github/workflows/dispatch-short-publishers.yml
-          grep -Fq 'publish-approved-video-to-filo.yml' scripts/synchronized_scheduler.cjs
+          ! grep -Fq 'publish-approved-video-to-filo.yml' scripts/synchronized_scheduler.cjs
           grep -Fq 'publish-approved-video-to-rubika.yml' scripts/synchronized_scheduler.cjs
           grep -Fq 'const MIN_DURATION_SECONDS = 8;' scripts/filo_publish_cc0.cjs
           grep -Fq 'const MIN_DURATION_SECONDS = 8;' scripts/rubika_publish_cc0.cjs
