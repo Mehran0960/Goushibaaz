@@ -560,7 +560,7 @@ async function discoverCandidates(state) {
     console.log('COMMONS_SEARCH', JSON.stringify({ category: search.key, results: pages.length }));
     for (const page of pages) {
       const info = page.imageinfo?.[0];
-      if (!info?.url || info.mime !== 'video/webm') continue;
+      if (!info?.url || !['video/webm', 'video/mp4'].includes(info.mime)) continue;
       if (!Number.isFinite(info.size) || info.size < 200_000 || info.size > MAX_SOURCE_BYTES) continue;
       const meta = info.extmetadata || {};
       const license = licenseProfile(
