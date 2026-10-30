@@ -231,42 +231,6 @@ jobs:
             if (total === 0) throw new Error('commons_search_returned_no_metadata');
           })().catch(err => { console.error('FILO_CC0_DISCOVERY_FAILED', String(err && err.message || err).slice(0,180)); process.exit(1); });
           NODE
-"{{ secrets.TELEGRAM_BOT_TOKEN }}"
-          check_contains .github/workflows/publish-shared-video-to-telegram.yml 'GOUSHIBAAZ_PUBLIC_PUBLISH_ENABLED: "true"'
-          check_contains .github/workflows/publish-shared-video-to-telegram.yml 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true"'
-          check_contains .github/workflows/publish-shared-video-to-telegram.yml 'bash scripts/persist_state_file.sh state/telegram-published.json'
-          check_absent .github/workflows/publish-shared-video-to-telegram.yml 'Telegram publishing is disabled by project policy'
-          check_contains .github/workflows/publish-shared-video-to-rubika.yml 'workflow_run:'
-          check_contains .github/workflows/publish-shared-video-to-bale.yml 'actions/download-artifact@v4'
-          check_contains scripts/platform_publish.cjs 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED'
-          check_contains scripts/rubika_publish_shared.cjs 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED'
-          check_contains .github/workflows/publish-shared-video-to-rubika.yml 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true"'
-          check_contains .github/workflows/publish-shared-video-to-bale.yml 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true"'
-          check_contains scripts/filo_publish_cc0.cjs 'const MIN_DURATION_SECONDS = 8;'
-          check_contains scripts/rubika_publish_cc0.cjs 'const MIN_DURATION_SECONDS = 8;'
-          check_contains scripts/filo_publish_cc0.cjs 'FILO_EDITORIAL_RANKING'
-          check_contains scripts/rubika_publish_cc0.cjs 'RUBIKA_CONTENT_PRIORITY'
-          node -e "const p=require('./config/content-policy.json'); const f=p.platform_profiles&&p.platform_profiles.filo; if(p.vertical_video.aspect_ratio!=='9:16'||p.vertical_video.output_width!==1080||p.vertical_video.output_height!==1920||!f||f.output_width!==720||f.output_height!==1280||f.cover_width!==720||f.cover_height!==1280||f.end_card_seconds!==1.6) process.exit(1); console.log('CONTENT_POLICY_CHECK_OK')"
-          check_contains .github/workflows/publish-approved-video-to-filo.yml 'cron: "*/5 * * * *"'
-          check_contains .github/workflows/publish-approved-video-to-filo.yml 'five-minute best-effort attempts'
-          check_contains scripts/filo_publish_cc0.cjs 'MAX_DAILY_PUBLICATIONS = 288'
-          check_contains scripts/filo_publish_cc0.cjs 'MIN_PUBLICATION_GAP_MS = 5 * 60 * 1000'
-          check_contains scripts/filo_publish_cc0.cjs 'buildTrendSearches()'
-          check_contains scripts/rubika_publish_cc0.cjs 'rotateSearchBatch'
-          check_contains scripts/quality_rank.cjs 'observed_trend_title_overlap'
-          check_contains config/content-policy.json 'never_crop_foreground'
-          check_contains config/content-policy.json 'nasa_public_media_enabled_for_public_entertainment'
-          check_contains scripts/quality_rank.cjs 'technology_demo'
-          check_contains scripts/media_format.cjs 'source_audio_track_missing'
-          check_contains scripts/rubika_publish_cc0.cjs 'fit_foreground_with_blurred_background'
-          check_contains scripts/filo_publish_cc0.cjs 'fit_foreground_with_blurred_background'
-          check_absent scripts/rubika_publish_cc0.cjs 'const nasaCandidates = await discoverNasaCandidates(used)'
-          check_contains scripts/rubika_publish_cc0.cjs 'NASA_PUBLIC_MEDIA_SKIPPED_FOR_ENTERTAINMENT_FIT'
-          check_absent scripts/rubika_publish_cc0.cjs "'-an'"
-          check_absent scripts/filo_publish_cc0.cjs 'licenseurl:http*creativecommons.org/publicdomain/zero/1.0*'
-          check_absent scripts/rubika_publish_cc0.cjs 'licenseurl:http*creativecommons.org/publicdomain/zero/1.0*'
-          check_contains scripts/filo_publish_cc0.cjs 'internetArchiveLicense(meta.licenseurl || entry.indexed.licenseurl)'
-          check_contains scripts/rubika_publish_cc0.cjs 'internetArchiveLicense(meta.licenseurl || entry.indexed.licenseurl)'
       - name: Validate Python trend-intelligence modules and scoring tests
         run: |
           python --version

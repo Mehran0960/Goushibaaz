@@ -1,11 +1,10 @@
-name: Validate publisher workflow YAML syntax
+name: Validate all GitHub Actions workflow YAML
 
 on:
   push:
     branches: [main]
     paths:
-      - ".github/workflows/validate-filo-publisher.yml"
-      - ".github/workflows/validate-workflow-yaml.yml"
+      - ".github/workflows/**"
   workflow_dispatch:
 
 permissions:
@@ -16,6 +15,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Parse the main publisher validation workflow
+      - name: Parse every workflow YAML file
         run: |
-          ruby -e 'require "yaml"; d = YAML.load_file(".github/workflows/validate-filo-publisher.yml", aliases: true); abort "missing jobs.validate" unless d.is_a?(Hash) && d["jobs"].is_a?(Hash) && d["jobs"]["validate"].is_a?(Hash); puts "PUBLISHER_WORKFLOW_YAML_PARSE_OK"'
+          ruby <<'RUBY'
+          require "yaml"
+
+          files = Dir.glob(".github/workflows/*.{yml,yaml}").sort
+          abort "No GitHub Actions workflow YAML files found" if files.empty?
+
+          files.each do |path|
+            begin
+              document = YAML.load_file(path, aliases: true)
+            rescue Psych::SyntaxError => error
+              warn "::error file=#{path}::#{error.message}"
+              exit 1
+            end
+
+            unless document.is_a?(Hash) && document["jobs"].is_a?(Hash) && !document["jobs"].empty?
+              abort "::error file=#{path}::Expected a workflow mapping with at least one job"
+            end
+
+            puts "WORKFLOW_YAML_OK #{path}"
+          end
+          RUBY

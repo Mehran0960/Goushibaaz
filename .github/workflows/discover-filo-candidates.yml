@@ -16,8 +16,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: filo-trend-scout
-  cancel-in-progress: true
+  group: goushibaaz-trend-state-writers
+  cancel-in-progress: false
 
 jobs:
   discover:
@@ -548,9 +548,21 @@ jobs:
           if ! git diff --cached --quiet; then
             git commit -m "Update Persian-first Shorts trend snapshots"
           fi
-          # Another workflow or edit can update main while the browser scan runs; rebase instead of losing the snapshot.
-          git pull --rebase origin main
-          git push origin HEAD:main
+          # This workflow shares a concurrency group with trend-intelligence because both update platform-trends.json.
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              sleep "$attempt"
+              continue
+            fi
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$attempt"
+          done
+          echo "Unable to persist trend snapshots after four attempts." >&2
+          exit 1
       - name: Save candidate report artifact
         uses: actions/upload-artifact@v4
         with:
