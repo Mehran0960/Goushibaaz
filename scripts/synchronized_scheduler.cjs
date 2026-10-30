@@ -7,7 +7,8 @@ const STATE_DIR = '.scheduler-state';
 const STATE_PATH = path.join(STATE_DIR, 'state.json');
 // Register every active publisher here. Each one is dispatched concurrently in the same publication slot.
 const ACTIVE_PLATFORMS = [
-  { key: 'filo', workflow: 'publish-approved-video-to-filo.yml', stateFile: 'state/filo-published.json' },
+  // Filo is intentionally parked until its uploader is compatible with the current site.
+  // Keep this list limited to healthy destinations so one broken adapter cannot block others.
   { key: 'rubika', workflow: 'publish-approved-video-to-rubika.yml', stateFile: 'state/rubika-published.json' }
 ];
 // Reserve quota for two planned future platform adapters.
@@ -38,9 +39,9 @@ function nextUtcMidnight(ms) {
 
 function freshState(now) {
   return {
-    schema: 2,
+    schema: 3,
     utcDay: utcDay(now),
-    daily: { total: 0, filo: 0, rubika: 0 },
+    daily: { total: 0, rubika: 0 },
     lastIntervalMinutes: null,
     lastDispatchAt: null,
     nextDueAt: null,
@@ -50,7 +51,7 @@ function freshState(now) {
 }
 
 function normalizeState(state, now) {
-  if (!state || state.schema !== 2) {
+  if (!state || state.schema !== 3) {
     const priorDue = state && state.nextDueAt;
     const priorInterval = state && state.lastIntervalMinutes;
     state = freshState(now);
