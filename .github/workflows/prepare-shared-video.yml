@@ -1,0 +1,57 @@
+name: Prepare Shared Licensed Short Video
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: goushibaaz-shared-video-preparation
+  cancel-in-progress: false
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Ensure FFmpeg is available
+        run: |
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg
+          fi
+          ffmpeg -version | head -n 1
+      - name: Validate shared preparation engine
+        run: node --check scripts/rubika_publish_cc0.cjs
+      - name: Discover, verify rights and prepare one shared vertical video
+        env:
+          PREPARE_ONLY: "true"
+          DRY_RUN: "true"
+        run: node scripts/rubika_publish_cc0.cjs
+      - name: Persist shared deduplication and preparation outcome
+        if: ${{ always() && hashFiles('state/shared-publications.json') != '' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state/shared-publications.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Record shared licensed video preparation"
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git rebase origin/main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          exit 1
+      - name: Upload the same prepared video and manifest for all destinations
+        if: ${{ success() && hashFiles('work/shared-publish/manifest.json') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: goushibaaz-shared-candidate
+          path: work/shared-publish/*
+          if-no-files-found: error
+          retention-days: 2
