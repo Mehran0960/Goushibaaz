@@ -290,11 +290,10 @@ async function main() {
   }
   const currentPayload = await runsResponse.json();
   const currentRuns = currentPayload.workflow_runs || [];
+  // Only an in-flight preparation blocks the next candidate. Destination runs are isolated;
+  // slow Telegram/Bale/Rubika delivery must never freeze fresh discovery slots.
   const publisherPathSet = new Set([
-    '.github/workflows/prepare-shared-video.yml',
-    '.github/workflows/publish-shared-video-to-rubika.yml',
-    '.github/workflows/publish-shared-video-to-telegram.yml',
-    '.github/workflows/publish-shared-video-to-bale.yml'
+    '.github/workflows/prepare-shared-video.yml'
   ]);
   const activePublishers = currentRuns.filter(run => publisherPathSet.has(run.path) && ['queued', 'in_progress'].includes(run.status));
   if (activePublishers.length) {
