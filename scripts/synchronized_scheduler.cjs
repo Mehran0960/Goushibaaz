@@ -5,14 +5,12 @@ const path = require('node:path');
 
 const STATE_DIR = '.scheduler-state';
 const STATE_PATH = path.join(STATE_DIR, 'state.json');
-// Register every active publisher here. Each one is dispatched concurrently in the same publication slot.
+// Dispatch one shared preparation run; its completion fans the same artifact out to three isolated destination workflows.
 const ACTIVE_PLATFORMS = [
-  // Filo is intentionally parked until its uploader is compatible with the current site.
-  // Keep this list limited to healthy destinations so one broken adapter cannot block others.
-  { key: 'rubika', workflow: 'publish-approved-video-to-rubika.yml', stateFile: 'state/rubika-published.json' }
+  { key: 'shared', workflow: 'prepare-shared-video.yml', stateFile: 'state/shared-publications.json' }
 ];
-// Reserve quota for two planned future platform adapters.
-const FUTURE_PLATFORM_RESERVE = 2;
+// Budget for the preparation workflow plus Rubika, Telegram and Bale destination runs.
+const FUTURE_PLATFORM_RESERVE = 3;
 const MAX_DESTINATION_STARTS_PER_UTC_DAY = 900;
 const INTERVALS = [7, 17, 27, 37, 47, 57, 77, 97, 127, 157, 187, 217, 247, 277, 337, 397, 457, 517, 637, 757, 877, 997, 1117, 1237, 1357];
 const API_VERSION = '2022-11-28';
@@ -41,7 +39,7 @@ function freshState(now) {
   return {
     schema: 3,
     utcDay: utcDay(now),
-    daily: { total: 0, rubika: 0 },
+    daily: { total: 0, shared: 0 },
     lastIntervalMinutes: null,
     lastDispatchAt: null,
     nextDueAt: null,
@@ -221,10 +219,14 @@ async function readOnlyDiagnostics(now) {
     outcomes: outcomeResults.filter(Boolean),
     budgetedPlatforms: ACTIVE_PLATFORMS.length + FUTURE_PLATFORM_RESERVE
   });
-  const publishersActive = currentRuns.filter(run =>
-    ACTIVE_PLATFORMS.some(p => run.path === '.github/workflows/' + p.workflow) &&
-    ['queued', 'in_progress'].includes(run.status)
-  );
+  const observedPublisherPaths = new Set([
+    '.github/workflows/prepare-shared-video.yml',
+    '.github/workflows/publish-shared-video-to-rubika.yml',
+    '.github/workflows/publish-shared-video-to-telegram.yml',
+    '.github/workflows/publish-shared-video-to-bale.yml'
+  ]);
+  const publishersActive = currentRuns.filter(run => observedPublisherPaths.has(run.path) &&
+    ['queued', 'in_progress'].includes(run.status));
   log('SCHEDULER_READ_ONLY_DIAGNOSTICS', {
     dispatchPerformed: false,
     activePublisherRuns: publishersActive.map(run => ({ id: run.id, path: run.path, status: run.status })),
@@ -288,7 +290,12 @@ async function main() {
   }
   const currentPayload = await runsResponse.json();
   const currentRuns = currentPayload.workflow_runs || [];
-  const publisherPathSet = new Set(ACTIVE_PLATFORMS.map(p => '.github/workflows/' + p.workflow));
+  const publisherPathSet = new Set([
+    '.github/workflows/prepare-shared-video.yml',
+    '.github/workflows/publish-shared-video-to-rubika.yml',
+    '.github/workflows/publish-shared-video-to-telegram.yml',
+    '.github/workflows/publish-shared-video-to-bale.yml'
+  ]);
   const activePublishers = currentRuns.filter(run => publisherPathSet.has(run.path) && ['queued', 'in_progress'].includes(run.status));
   if (activePublishers.length) {
     state.nextDueAt = iso(now + 7 * 60000);
