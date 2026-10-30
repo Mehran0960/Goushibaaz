@@ -121,7 +121,8 @@ jobs:
           check_absent scripts/synchronized_scheduler.cjs 'publish-approved-video-to-rubika.yml'
           check_contains .github/workflows/publish-shared-video-to-telegram.yml 'workflow_run:'
           check_contains .github/workflows/publish-shared-video-to-telegram.yml 'actions/download-artifact@v4'
-          check_contains .github/workflows/publish-shared-video-to-telegram.yml 'TELEGRAM_BOT_TOKEN: 
+          check_contains .github/workflows/publish-shared-video-to-telegram.yml 'TELEGRAM_BOT_TOKEN:'
+          check_contains .github/workflows/publish-shared-video-to-telegram.yml 'secrets.TELEGRAM_BOT_TOKEN'
           check_contains .github/workflows/publish-shared-video-to-telegram.yml 'GOUSHIBAAZ_PUBLIC_PUBLISH_ENABLED: "true"'
           check_contains .github/workflows/publish-shared-video-to-telegram.yml 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true"'
           check_contains .github/workflows/publish-shared-video-to-telegram.yml 'bash scripts/persist_state_file.sh state/telegram-published.json'
