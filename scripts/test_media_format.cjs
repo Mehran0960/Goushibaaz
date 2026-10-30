@@ -14,8 +14,8 @@ try {
   // A landscape source with a visible edge marker and a real audio tone.
   execFileSync('ffmpeg', [
     '-hide_banner', '-loglevel', 'error', '-y',
-    '-f', 'lavfi', '-i', 'color=c=0x304050:s=320x180:d=3:r=30',
-    '-f', 'lavfi', '-i', 'sine=frequency=440:sample_rate=48000:duration=3',
+    '-f', 'lavfi', '-i', 'testsrc2=size=320x180:rate=30:duration=5',
+    '-f', 'lavfi', '-i', 'sine=frequency=440:sample_rate=48000:duration=5',
     '-vf', 'drawbox=x=0:y=0:w=18:h=180:color=red:t=fill',
     '-c:v', 'libx264', '-pix_fmt', 'yuv420p',
     '-c:a', 'aac', '-b:a', '96k',
@@ -44,7 +44,7 @@ try {
   assert.equal(result.width, 180);
   assert.equal(result.height, 320);
   assert.equal(result.audioCodec, 'aac');
-  assert.ok(result.durationSeconds >= 2.8);
+  assert.ok(result.durationSeconds >= 4.8);
   assert.ok(result.outputBytes > 1000);
 
   const noAudio = path.join(dir, 'silent-source.mp4');
