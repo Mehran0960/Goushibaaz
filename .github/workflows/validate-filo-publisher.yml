@@ -10,6 +10,9 @@ on:
       - "scripts/test_editorial_content.cjs"
       - "scripts/filo_endcard.cjs"
       - "scripts/test_filo_endcard.cjs"
+      - "scripts/original_puzzle_video.cjs"
+      - "scripts/test_original_puzzle_video.cjs"
+      - "content/original-puzzle-bank.json"
       - "scripts/platform_scout.cjs"
       - "scripts/rubika_publish_cc0.cjs"
       - "scripts/rubika_publish_shared.cjs"
@@ -51,7 +54,7 @@ jobs:
       - name: Install FFmpeg and Persian fonts for end-card regression
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg fonts-noto-core
+          sudo apt-get install -y -qq ffmpeg fonts-noto-core espeak-ng
       - name: Validate JavaScript syntax and active destination configuration
         run: |
           node --check scripts/filo_publish_cc0.cjs
@@ -59,8 +62,12 @@ jobs:
           node --check scripts/test_editorial_content.cjs
           node --check scripts/filo_endcard.cjs
           node --check scripts/test_filo_endcard.cjs
+          node --check scripts/original_puzzle_video.cjs
+          node --check scripts/test_original_puzzle_video.cjs
           node scripts/test_editorial_content.cjs
           node scripts/test_filo_endcard.cjs
+          node scripts/test_original_puzzle_video.cjs
+          node -e "const p=require(\"./content/original-puzzle-bank.json\"); if(!Array.isArray(p.puzzles)||p.puzzles.length!==24||new Set(p.puzzles.map(x=>x.id)).size!==24||p.puzzles.some(x=>!x.question||!Array.isArray(x.options)||x.options.length!==3||!Number.isInteger(x.answerIndex)||x.answerIndex<0||x.answerIndex>2)) process.exit(1)"
           node --check scripts/rubika_publish_cc0.cjs
           node --check scripts/rubika_publish_shared.cjs
           node --check scripts/platform_publish.cjs
@@ -102,7 +109,10 @@ jobs:
           grep -Fq 'FILO_EDITORIAL_RANKING' scripts/filo_publish_cc0.cjs
           grep -Fq 'RUBIKA_CONTENT_PRIORITY' scripts/rubika_publish_cc0.cjs
           node -e "const p=require('./config/content-policy.json'); const f=p.platform_profiles&&p.platform_profiles.filo; if(p.vertical_video.aspect_ratio!=='9:16'||p.vertical_video.output_width!==1080||p.vertical_video.output_height!==1920||!f||f.output_width!==720||f.output_height!==1280||f.cover_width!==720||f.cover_height!==1280||f.end_card_seconds!==1.6) process.exit(1)"
-          grep -Fq 'cron: "*/30 * * * *"' .github/workflows/publish-approved-video-to-filo.yml
+          grep -Fq 'cron: "30 4,14,17 * * *"' .github/workflows/publish-approved-video-to-filo.yml
+          grep -Fq 'cron: "0 9 * * *"' .github/workflows/publish-approved-video-to-filo.yml
+          grep -Fq 'MAX_DAILY_PUBLICATIONS = 4' scripts/filo_publish_cc0.cjs
+          grep -Fq 'MIN_PUBLICATION_GAP_MS = 3 * 60 * 60 * 1000' scripts/filo_publish_cc0.cjs
           grep -Fq 'Independent Filo delivery' .github/workflows/publish-approved-video-to-filo.yml
       - name: Test public commercial-license video discovery (no upload)
         run: |
