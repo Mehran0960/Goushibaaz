@@ -218,6 +218,161 @@ function writeSharedManifest(manifest) {
   fs.writeFileSync(SHARED_MANIFEST_PATH, JSON.stringify(manifest, null, 2) + '\n', 'utf8');
 }
 
+const ARCHIVE_SEARCH_TERMS = [
+  { key: 'iran', term: 'Iran', localPriority: true },
+  { key: 'persian', term: 'Persian', localPriority: true },
+  { key: 'tehran', term: 'Tehran', localPriority: true },
+  { key: 'iranian-animals', term: 'Iran animals', localPriority: true },
+  { key: 'iranian-nature', term: 'Iran nature', localPriority: true },
+  { key: 'iranian-life', term: 'Iran daily life', localPriority: true },
+  { key: 'funny-animals', term: 'funny animals' },
+  { key: 'cats', term: 'cats' },
+  { key: 'dogs', term: 'dogs' },
+  { key: 'pets', term: 'pets' },
+  { key: 'birds', term: 'birds' },
+  { key: 'wildlife', term: 'wildlife' },
+  { key: 'visual-comedy', term: 'visual comedy' },
+  { key: 'silent-comedy', term: 'silent comedy' },
+  { key: 'satisfying', term: 'satisfying' },
+  { key: 'crafts', term: 'craft process' },
+  { key: 'cooking', term: 'cooking' },
+  { key: 'science', term: 'science experiment' },
+  { key: 'street-moments', term: 'street moments' },
+  { key: 'inventions', term: 'inventions' },
+  { key: 'nature', term: 'nature' },
+  { key: 'family-friendly', term: 'family friendly' },
+  { key: 'sports-fun', term: 'funny sports' },
+  { key: 'unexpected-moments', term: 'unexpected moments' }
+];
+
+function internetArchiveLicense(rawUrl) {
+  const url = String(rawUrl || '').toLowerCase().replace(/&amp;/g, '&').replace(/\\/+$/, '');
+  if (/creativecommons\\.org\\/publicdomain\\/zero\\/1\\.0$/.test(url)) {
+    return { type: 'CC0 1.0', url: LICENSES.cc0 };
+  }
+  if (/creativecommons\\.org\\/licenses\\/by\\/4\\.0$/.test(url) &&
+      !/creativecommons\\.org\\/licenses\\/by-(?:nc|nd|sa)(?:-|\\/)/.test(url)) {
+    return { type: 'CC BY 4.0', url: LICENSES.ccby };
+  }
+  return null;
+}
+
+async function discoverInternetArchiveCandidates(used) {
+  const searches = ARCHIVE_SEARCH_TERMS.map(term => ({ key: term.key, term }));
+  const discovered = new Map();
+  const queue = [...searches];
+  async function searchWorker() {
+    while (queue.length) {
+      const search = queue.shift();
+      if (!search) continue;
+      const endpoint = new URL('https://archive.org/advancedsearch.php');
+      endpoint.searchParams.set('q', 'mediatype:movies AND ' + search.term.term);
+      for (const field of ['identifier', 'title', 'creator', 'licenseurl', 'description']) endpoint.searchParams.append('fl[]', field);
+      endpoint.searchParams.set('rows', '25');
+      endpoint.searchParams.set('page', '1');
+      endpoint.searchParams.set('output', 'json');
+      try {
+        let response = null;
+        for (let attempt = 0; attempt < 2; attempt++) {
+          response = await fetch(endpoint, {
+            headers: { 'User-Agent': 'GoushibaazPublisher/1.0 (public metadata and reuse-license verification)' },
+            signal: AbortSignal.timeout(12000)
+          });
+          if (response.status !== 429 && response.status < 500) break;
+          if (attempt === 0) await pause(2500);
+        }
+        if (!response || !response.ok) {
+          console.log('ARCHIVE_SEARCH', JSON.stringify({ query: search.key, status: response && response.status }));
+          continue;
+        }
+        const payload = await response.json();
+        const docs = Array.isArray(payload.response?.docs) ? payload.response.docs : [];
+        for (const doc of docs.slice(0, 12)) {
+          if (!doc.identifier) continue;
+          const identifier = String(doc.identifier);
+          const old = discovered.get(identifier);
+          if (!old || (search.term.localPriority && !old.search.term.localPriority)) {
+            discovered.set(identifier, { identifier, search, indexed: doc });
+          }
+        }
+      } catch (error) {
+        console.log('ARCHIVE_SEARCH_ERROR', JSON.stringify({ query: search.key, error: String(error && error.name || 'Error').slice(0, 40) }));
+      }
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(4, queue.length) }, () => searchWorker()));
+  const metadataQueue = [...discovered.values()]
+    .sort((a,b) => Number(Boolean(b.search.term.localPriority)) - Number(Boolean(a.search.term.localPriority)))
+    .slice(0, 100);
+  const pending = [...metadataQueue];
+  const found = [];
+  let metadataErrors = 0;
+  async function metadataWorker() {
+    while (pending.length) {
+      const entry = pending.shift();
+      if (!entry) continue;
+      try {
+        const response = await fetch('https://archive.org/metadata/' + encodeURIComponent(entry.identifier), {
+          headers: { 'User-Agent': 'GoushibaazPublisher/1.0 (public metadata and reuse-license verification)' },
+          signal: AbortSignal.timeout(15000)
+        });
+        if (!response.ok) { metadataErrors++; continue; }
+        const body = await response.json();
+        const meta = body.metadata || {};
+        const license = internetArchiveLicense(meta.licenseurl || entry.indexed.licenseurl);
+        if (!license) continue;
+        const files = Array.isArray(body.files) ? body.files : [];
+        const videoFiles = files.filter(file => {
+          const name = String(file.name || '');
+          const size = Number(file.size);
+          return /\\.webm$/i.test(name) && file.private !== 'true' &&
+            Number.isFinite(size) && size >= 200000 && size <= MAX_SOURCE_BYTES;
+        }).sort((a,b) => Number(a.size) - Number(b.size));
+        for (const file of videoFiles.slice(0, 2)) {
+          const sourcePage = 'https://archive.org/details/' + entry.identifier;
+          if (used.has(sourcePage)) continue;
+          const fileUrl = 'https://archive.org/download/' + encodeURIComponent(entry.identifier) + '/' +
+            String(file.name).split('/').map(part => encodeURIComponent(part)).join('/');
+          const fileTitle = htmlText(meta.title || entry.indexed.title || entry.identifier).slice(0, 180);
+          const description = htmlText(meta.description || entry.indexed.description || '').slice(0, 1800);
+          const author = htmlText(meta.creator || entry.indexed.creator || '').slice(0, 300);
+          if (isExcludedEditorialContent(fileTitle + ' ' + description) || !looksRelevant(fileTitle, description)) continue;
+          const durationRaw = meta.runtime || meta.duration || meta.length || '';
+          const durationSeconds = durationFromMetadata({ commonmetadata: [{ name: 'duration', value: durationRaw }] });
+          if (durationSeconds !== null && (durationSeconds < MIN_DURATION_SECONDS || durationSeconds > MAX_DURATION_SECONDS)) continue;
+          const width = Number(file.width || meta.width) || null;
+          const height = Number(file.height || meta.height) || null;
+          const candidate = {
+            fileTitle, sourcePage, fileUrl, size: Number(file.size), durationSeconds,
+            license, author, description, sourceWidth: width, sourceHeight: height,
+            sourceAspectRatio: width && height ? Math.round((width / height) * 1000) / 1000 : null,
+            discoveryQuery: entry.search.key, localPriorityQuery: Boolean(entry.search.term.localPriority),
+            archiveIdentifier: entry.identifier
+          };
+          candidate.contentLocaleScore = Math.max(candidateContentPriority(candidate), candidate.localPriorityQuery ? 1 : 0);
+          candidate.sourceVerticalScore = sourceVerticalScore(candidate.sourceWidth, candidate.sourceHeight);
+          candidate.title = persianTitle(fileTitle, description);
+          found.push(candidate);
+          break;
+        }
+      } catch { metadataErrors++; }
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(4, pending.length) }, () => metadataWorker()));
+  const unique = new Map();
+  for (const item of found) if (!unique.has(item.sourcePage)) unique.set(item.sourcePage, item);
+  const ranked = [...unique.values()].sort((a,b) =>
+    (b.contentLocaleScore - a.contentLocaleScore) ||
+    (b.sourceVerticalScore - a.sourceVerticalScore) ||
+    (Number(b.durationSeconds || 0) - Number(a.durationSeconds || 0))
+  );
+  console.log('INTERNET_ARCHIVE_SOURCE_COVERAGE', JSON.stringify({
+    searchQueries: searches.length, uniqueItemsDiscovered: discovered.size,
+    itemsCheckedForMetadata: metadataQueue.length, eligibleWebmCandidates: ranked.length, metadataErrors
+  }));
+  return ranked.slice(0, 60);
+}
+
 async function discoverCandidates(state) {
   const shared = loadSharedState();
   const used = new Set([
@@ -307,6 +462,18 @@ async function discoverCandidates(state) {
     }
     await pause(1000);
   }
+  const archiveCandidates = await discoverInternetArchiveCandidates(used);
+  for (const candidate of archiveCandidates) {
+    const previous = hits.get(candidate.sourcePage);
+    if (!previous || candidate.contentLocaleScore > previous.contentLocaleScore ||
+        (candidate.contentLocaleScore === previous.contentLocaleScore && candidate.sourceVerticalScore > previous.sourceVerticalScore)) {
+      hits.set(candidate.sourcePage, candidate);
+    }
+  }
+  console.log('COMBINED_LICENSED_SOURCE_COVERAGE', JSON.stringify({
+    wikimediaAndArchiveCandidates: hits.size,
+    archiveCandidates: archiveCandidates.length
+  }));
   let trendSnapshot = {};
   try {
     trendSnapshot = JSON.parse(fs.readFileSync(path.join('state', 'platform-trends.json'), 'utf8'));
