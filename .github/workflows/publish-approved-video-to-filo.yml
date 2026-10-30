@@ -28,13 +28,15 @@ jobs:
       - name: Install browser and video tools
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg
+          sudo apt-get install -y -qq ffmpeg fonts-noto-core
           npm init -y >/dev/null
           npm install --no-save playwright >/dev/null
           npx playwright install --with-deps chromium >/dev/null
           node --check scripts/filo_publish_cc0.cjs
           node --check scripts/editorial_content.cjs
+          node --check scripts/filo_endcard.cjs
           node scripts/test_editorial_content.cjs
+          node scripts/test_filo_endcard.cjs
 
       - name: Discover a fresh rights-cleared short, prepare 720p vertical video and cover, publish to Filo
         env:
