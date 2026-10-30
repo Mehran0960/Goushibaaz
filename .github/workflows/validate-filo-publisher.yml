@@ -8,12 +8,21 @@ on:
       - "scripts/filo_publish_cc0.cjs"
       - "scripts/platform_scout.cjs"
       - "scripts/rubika_publish_cc0.cjs"
+      - "scripts/rubika_publish_shared.cjs"
+      - "scripts/platform_publish.cjs"
+      - "scripts/telegram_publish.cjs"
+      - "scripts/bale_publish.cjs"
       - "scripts/synchronized_scheduler.cjs"
       - "scripts/quality_rank.cjs"
       - "scripts/test_quality_rank.cjs"
       - ".github/workflows/discover-filo-candidates.yml"
       - ".github/workflows/publish-approved-video-to-filo.yml"
       - ".github/workflows/publish-approved-video-to-rubika.yml"
+      - ".github/workflows/prepare-shared-video.yml"
+      - ".github/workflows/publish-shared-video-to-rubika.yml"
+      - ".github/workflows/publish-shared-video-to-telegram.yml"
+      - ".github/workflows/publish-shared-video-to-bale.yml"
+      - ".github/workflows/trend-intelligence.yml"
       - ".github/workflows/dispatch-short-publishers.yml"
 
 permissions:
@@ -36,6 +45,10 @@ jobs:
         run: |
           node --check scripts/filo_publish_cc0.cjs
           node --check scripts/rubika_publish_cc0.cjs
+          node --check scripts/rubika_publish_shared.cjs
+          node --check scripts/platform_publish.cjs
+          node --check scripts/telegram_publish.cjs
+          node --check scripts/bale_publish.cjs
           node --check scripts/synchronized_scheduler.cjs
           node --check scripts/quality_rank.cjs
           node --check scripts/test_quality_rank.cjs
@@ -46,12 +59,15 @@ jobs:
           grep -Fq '    - cron: "*/5 * * * *"' .github/workflows/dispatch-short-publishers.yml
           grep -Fq 'const INTERVALS = [7, 17, 27, 37, 47, 57, 77, 97' scripts/synchronized_scheduler.cjs
           grep -Fq 'const MAX_DESTINATION_STARTS_PER_UTC_DAY = 900;' scripts/synchronized_scheduler.cjs
-          grep -Fq 'const FUTURE_PLATFORM_RESERVE = 2;' scripts/synchronized_scheduler.cjs
+          grep -Fq 'const FUTURE_PLATFORM_RESERVE = 3;' scripts/synchronized_scheduler.cjs
           grep -Fq 'Promise.all(planned.map(dispatchOne))' scripts/synchronized_scheduler.cjs
           grep -Fq 'actions/cache/restore@v4' .github/workflows/dispatch-short-publishers.yml
           grep -Fq 'actions/cache/save@v4' .github/workflows/dispatch-short-publishers.yml
           ! grep -Fq 'publish-approved-video-to-filo.yml' scripts/synchronized_scheduler.cjs
-          grep -Fq 'publish-approved-video-to-rubika.yml' scripts/synchronized_scheduler.cjs
+          grep -Fq 'prepare-shared-video.yml' scripts/synchronized_scheduler.cjs
+          ! grep -Fq 'publish-approved-video-to-rubika.yml' scripts/synchronized_scheduler.cjs
+          grep -Fq 'publish-shared-video-to-telegram.yml' .github/workflows/validate-filo-publisher.yml
+          python -m py_compile scripts/trend_intelligence/follower_growth.py scripts/trend_intelligence/social_discovery.py scripts/trend_intelligence/run_discovery.py
           grep -Fq 'const MIN_DURATION_SECONDS = 8;' scripts/filo_publish_cc0.cjs
           grep -Fq 'const MIN_DURATION_SECONDS = 8;' scripts/rubika_publish_cc0.cjs
           grep -Fq 'FILO_EDITORIAL_RANKING' scripts/filo_publish_cc0.cjs
