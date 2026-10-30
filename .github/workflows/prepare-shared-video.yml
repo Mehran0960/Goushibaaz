@@ -13,6 +13,7 @@ on:
       - "scripts/platform_publish.cjs"
       - "scripts/telegram_publish.cjs"
       - "scripts/bale_publish.cjs"
+      - "scripts/persist_state_file.sh"
       - ".github/workflows/prepare-shared-video.yml"
 permissions:
   contents: write
@@ -58,16 +59,4 @@ jobs:
           retention-days: 2
       - name: Persist shared deduplication and preparation outcome
         if: ${{ always() && hashFiles('state/shared-publications.json') != '' }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add state/shared-publications.json
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Record shared licensed video preparation"
-          for attempt in 1 2 3 4; do
-            git fetch origin main
-            git rebase --autostash origin/main
-            if git push origin HEAD:main; then exit 0; fi
-            sleep "$attempt"
-          done
-          exit 1
+        run: bash scripts/persist_state_file.sh state/shared-publications.json "Record shared licensed video preparation"
