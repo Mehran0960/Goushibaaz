@@ -23,6 +23,8 @@ on:
       - "scripts/synchronized_scheduler.cjs"
       - "scripts/quality_rank.cjs"
       - "scripts/test_quality_rank.cjs"
+      - "scripts/media_format.cjs"
+      - "scripts/test_media_format.cjs"
       - "scripts/trend_discovery.cjs"
       - "scripts/test_trend_discovery.cjs"
       - ".github/workflows/discover-filo-candidates.yml"
@@ -64,6 +66,8 @@ jobs:
           node --check scripts/test_filo_endcard.cjs
           node scripts/test_editorial_content.cjs
           node scripts/test_filo_endcard.cjs
+          node --check scripts/media_format.cjs
+          node scripts/test_media_format.cjs
           node --check scripts/rubika_publish_cc0.cjs
           node --check scripts/rubika_publish_shared.cjs
           node --check scripts/platform_publish.cjs
@@ -77,6 +81,9 @@ jobs:
           node --check scripts/quality_rank.cjs
           node --check scripts/test_quality_rank.cjs
           node scripts/test_quality_rank.cjs
+          node --check scripts/media_format.cjs
+          node --check scripts/test_media_format.cjs
+          node scripts/test_media_format.cjs
           node --check scripts/trend_discovery.cjs
           node --check scripts/test_trend_discovery.cjs
           node scripts/test_trend_discovery.cjs
@@ -116,6 +123,14 @@ jobs:
           grep -Fq 'buildTrendSearches()' scripts/filo_publish_cc0.cjs
           grep -Fq 'rotateSearchBatch' scripts/rubika_publish_cc0.cjs
           grep -Fq 'observed_trend_title_overlap' scripts/quality_rank.cjs
+          grep -Fq 'never_crop_foreground' config/content-policy.json
+          grep -Fq 'nasa_public_media_enabled_for_public_entertainment' config/content-policy.json
+          grep -Fq 'technology_demo' scripts/quality_rank.cjs
+          grep -Fq 'source_audio_track_missing' scripts/media_format.cjs
+          grep -Fq 'fit_foreground_with_blurred_background' scripts/rubika_publish_cc0.cjs
+          grep -Fq 'fit_foreground_with_blurred_background' scripts/filo_publish_cc0.cjs
+          ! grep -Fq 'discoverNasaCandidates(used)' scripts/rubika_publish_cc0.cjs
+          ! grep -Fq "'-an'" scripts/rubika_publish_cc0.cjs
           ! grep -Fq 'licenseurl:http*creativecommons.org/publicdomain/zero/1.0*' scripts/filo_publish_cc0.cjs
           ! grep -Fq 'licenseurl:http*creativecommons.org/publicdomain/zero/1.0*' scripts/rubika_publish_cc0.cjs
           grep -Fq 'internetArchiveLicense(meta.licenseurl || entry.indexed.licenseurl)' scripts/filo_publish_cc0.cjs
