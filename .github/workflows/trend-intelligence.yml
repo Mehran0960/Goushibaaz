@@ -11,6 +11,7 @@ on:
       - ".github/workflows/trend-intelligence.yml"
 permissions:
   contents: write
+# Shared lock: the Filo scout also writes platform-trends.json.
 concurrency:
   group: goushibaaz-trend-state-writers
   cancel-in-progress: false

@@ -15,6 +15,7 @@ on:
 permissions:
   contents: write
 
+# Shared lock: trend-intelligence writes the same platform-trends.json snapshot.
 concurrency:
   group: goushibaaz-trend-state-writers
   cancel-in-progress: false
