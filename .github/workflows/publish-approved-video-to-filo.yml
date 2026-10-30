@@ -1,9 +1,9 @@
-name: Scheduled licensed and original short-video publisher for Filo
+name: Scheduled verified-license short-video publisher for Filo
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0,6,12,18 * * *" # Iran time: 03:30, 09:30, 15:30 and 21:30; evenly spaced six-hour slots
+    - cron: "*/30 * * * *" # continuous half-hour attempts; the publisher enforces the same minimum gap
 
 permissions:
   contents: write
@@ -15,7 +15,7 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
@@ -28,34 +28,22 @@ jobs:
       - name: Install browser and video tools
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg fonts-noto-core espeak-ng
+          sudo apt-get install -y -qq ffmpeg fonts-noto-core
           npm init -y >/dev/null
           npm install --no-save playwright >/dev/null
           npx playwright install --with-deps chromium >/dev/null
           node --check scripts/filo_publish_cc0.cjs
           node --check scripts/editorial_content.cjs
           node --check scripts/filo_endcard.cjs
-          node --check scripts/original_puzzle_video.cjs
           node scripts/test_editorial_content.cjs
           node scripts/test_filo_endcard.cjs
-          node scripts/test_original_puzzle_video.cjs
 
-      - name: Prefer a verified licensed trend; otherwise generate a Persian original puzzle, prepare 720p vertical video and cover, publish to Filo
+      - name: Find a trend-led video with verified reuse rights, prepare 720p vertical video and cover, publish to Filo
         env:
           FILO_USER: ${{ secrets.FILO_USER }}
           FILO_PASS: ${{ secrets.FILO_PASS }}
         run: node scripts/filo_publish_cc0.cjs
 
-      - name: Commit publication result for idempotency, including unconfirmed submissions
+      - name: Persist publication result for idempotency, including unconfirmed submissions
         if: always()
-        run: |
-          if [ -f state/filo-published.json ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add state/filo-published.json
-            if ! git diff --cached --quiet; then
-              git commit -m "Record Filo publication result"
-              git pull --rebase origin main
-              git push origin HEAD:main
-            fi
-          fi
+        run: bash scripts/persist_state_file.sh state/filo-published.json "Record Filo publication result"
