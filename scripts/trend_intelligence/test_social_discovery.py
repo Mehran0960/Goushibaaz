@@ -31,6 +31,29 @@ class ViewTrajectoryPersistenceTests(unittest.TestCase):
         self.assertEqual(result["views_delta_last_interval"], 600)
         self.assertAlmostEqual(result["views_velocity_per_hour"], 600.0)
 
+    def test_rapid_latest_snapshot_does_not_discard_older_usable_history(self):
+        now = datetime(2026, 10, 30, 12, 0, tzinfo=timezone.utc)
+        previous = [{
+            "id": "stable-video-id",
+            "views": 1500,
+            "metrics_observed_at": (now - timedelta(seconds=30)).isoformat(),
+            "views_history": [
+                {
+                    "observed_at": (now - timedelta(hours=1)).isoformat(),
+                    "views": 1000,
+                },
+                {
+                    "observed_at": (now - timedelta(seconds=30)).isoformat(),
+                    "views": 1500,
+                },
+            ],
+        }]
+        current = [{"id": "stable-video-id", "views": 1600, "age_hours": 2}]
+        result = attach_view_trajectory(current, previous, now)[0]
+        self.assertEqual(result["views_velocity_kind"], "observed")
+        self.assertEqual(result["views_delta_last_interval"], 600)
+        self.assertAlmostEqual(result["views_velocity_per_hour"], 600.0)
+
     def test_non_increasing_views_are_not_misreported_as_growth(self):
         now = datetime(2026, 10, 30, 12, 0, tzinfo=timezone.utc)
         previous = [{
