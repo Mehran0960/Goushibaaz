@@ -34,7 +34,7 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GOUSHIBAAZ_PUBLIC_PUBLISH_ENABLED: ${{ vars.GOUSHIBAAZ_PUBLIC_PUBLISH_ENABLED }}
-          GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: ${{ vars.GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED }}
+          GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "false" # keep first public post blocked until explicit approval
         run: |
           node --check scripts/platform_publish.cjs
           node --check scripts/telegram_publish.cjs
