@@ -273,6 +273,58 @@ def _freshness(age):
         return 1.0
     return 0.0
 
+def retention_potential(item, text=""):
+    """Estimate short-form retention potential from metadata; never claim measured watch time."""
+    row = item if isinstance(item, dict) else {}
+    duration = row.get("duration_seconds", row.get("durationSeconds", row.get("duration")))
+    try:
+        seconds = float(duration)
+        if seconds <= 0:
+            seconds = None
+    except (TypeError, ValueError, OverflowError):
+        seconds = None
+
+    score = 0.0
+    if seconds is not None:
+        if 8 <= seconds <= 18:
+            score += 4.0
+        elif seconds <= 30:
+            score += 3.0
+        elif seconds <= 45:
+            score += 1.5
+        elif seconds <= 60:
+            score += 0.5
+        else:
+            score -= min(3.0, 0.5 + (seconds - 60.0) / 40.0)
+
+    source_text = str(text or "").lower()
+    open_loop = bool(re.search(
+        r"wait until|watch till|watch to the end|last second|final reveal|plot twist|"
+        r"before and after|before-after|unexpected ending|نتیجه نهایی|آخرش|تا آخر|"
+        r"صبر کن|قبل و بعد|غافلگیر|غیرمنتظره|راز|معما|لحظه آخر",
+        source_text, re.I
+    ))
+    payoff = bool(re.search(
+        r"final result|reveal|transformation|restoration|trick shot|impossible|"
+        r"amazing skill|perfect landing|نتیجه|بازسازی|تغییر|ترفند|حرکت نمایشی|"
+        r"پایان|لحظه آخر|نتیجه نهایی",
+        source_text, re.I
+    ))
+    replay_cue = bool(re.search(
+        r"optical illusion|visual puzzle|blink and miss|impossible to see|"
+        r"خطای دید|معمای تصویری|چند بار ببین|باورکردنی نیست|چطور انجام داد",
+        source_text, re.I
+    ))
+    if open_loop:
+        score += 2.0
+    if payoff:
+        score += 2.0
+    if open_loop and payoff:
+        score += 1.0
+    if replay_cue:
+        score += 2.0
+    return round(max(0.0, min(10.0, score)), 1)
+
 
 def momentum_priority(age_hours, velocity_per_hour, acceleration_per_hour2=0.0,
                        views=0, source="", source_channel_priority=1,
@@ -415,7 +467,9 @@ def annotate_candidate(item):
     repost_signal = min(6.0, math.log10(repost_views + 1) / 6.0 * 4.0 + min(2.0, len(repost_channels) * 0.5)) if repost_views else min(2.0, len(repost_channels) * 0.5)
 
     native_platform_fit = 2.0 if platform in PLATFORMS else 0.0
-    score = _freshness(age) + demand + velocity + hook + engagement + repost_signal + native_platform_fit + language_score_bonus
+    retention_score = retention_potential(x, text)
+    score = (_freshness(age) + demand + velocity + hook + engagement + repost_signal
+             + native_platform_fit + language_score_bonus + retention_score)
     if is_news:
         score -= 15.0
     if is_sensitive:
@@ -489,6 +543,9 @@ def annotate_candidate(item):
         "language_score_bonus": language_score_bonus,
         "language_priority_bonus": language_priority_bonus,
         "follow_growth_score": score,
+        "retention_potential_score": retention_score,
+        "retention_evidence_basis": "metadata_proxy_not_measured_watch_time",
+        "watch_time_observed": False,
         "score_confidence": confidence,
         "content_lane": lane,
         "hook_signals": lanes,
