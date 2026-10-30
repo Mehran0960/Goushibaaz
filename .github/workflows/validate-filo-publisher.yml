@@ -194,13 +194,47 @@ jobs:
           from pathlib import Path
 
           def snapshot(connection):
+              # SQLite ALTER TABLE appends columns, so physical column order is not
+              # part of the schema contract. Compare column definitions by name.
               tables = [row[0] for row in connection.execute(
                   "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name"
               )]
-              return {
-                  table: [row[1] for row in connection.execute(f'PRAGMA table_info("{table}")')]
-                  for table in tables
-              }
+              result = {}
+              for table in tables:
+                  columns = {}
+                  for row in connection.execute(f'PRAGMA table_info("{table}")'):
+                      columns[row[1]] = {
+                          'type': (row[2] or '').upper().strip(),
+                          'not_null': bool(row[3]),
+                          'default': row[4],
+                          'primary_key_position': row[5],
+                      }
+
+                  indexes = {}
+                  for row in connection.execute(f'PRAGMA index_list("{table}")'):
+                      _, name, unique, origin, partial = row
+                      indexed_columns = [
+                          (column[2], bool(column[3]), column[4])
+                          for column in connection.execute(f'PRAGMA index_xinfo("{name}")')
+                          if column[5]
+                      ]
+                      indexes[name] = {
+                          'unique': bool(unique),
+                          'origin': origin,
+                          'partial': bool(partial),
+                          'columns': indexed_columns,
+                      }
+
+                  foreign_keys = sorted(
+                      tuple(row)
+                      for row in connection.execute(f'PRAGMA foreign_key_list("{table}")')
+                  )
+                  result[table] = {
+                      'columns': columns,
+                      'indexes': indexes,
+                      'foreign_keys': foreign_keys,
+                  }
+              return result
 
           migrated = sqlite3.connect(':memory:')
           migrated.execute('PRAGMA foreign_keys = ON')
@@ -214,7 +248,13 @@ jobs:
           reference = sqlite3.connect(':memory:')
           reference.execute('PRAGMA foreign_keys = ON')
           reference.executescript(Path('cloudflare/schema.sql').read_text(encoding='utf-8'))
-          if snapshot(migrated) != snapshot(reference):
+          migrated_snapshot = snapshot(migrated)
+          reference_snapshot = snapshot(reference)
+          if migrated_snapshot != reference_snapshot:
+              all_tables = sorted(set(migrated_snapshot) | set(reference_snapshot))
+              for table in all_tables:
+                  if migrated_snapshot.get(table) != reference_snapshot.get(table):
+                      print(f'D1_SCHEMA_DIFF table={table}')
               raise SystemExit('D1 migrations do not match cloudflare/schema.sql')
           if migrated.execute('PRAGMA integrity_check').fetchone()[0] != 'ok':
               raise SystemExit('D1 migration database failed integrity_check')
