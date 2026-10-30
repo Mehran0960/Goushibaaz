@@ -1128,7 +1128,7 @@ async function main() {
     return;
   }
 
-  state.lastOutcome = { status: 'candidate_ready', checkedAt: new Date().toISOString(), sourcePage: candidate.sourcePage };
+  state.lastOutcome = { status: 'candidate_ready', checkedAt: new Date().toISOString(), sourcePage: candidate.sourcePage, contentOrigin: candidate.contentOrigin || 'licensed_external' };
   fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
   const COMMONS_PAGE = candidate.sourcePage;
   const SOURCE_TITLE = candidate.fileTitle;
@@ -1338,6 +1338,9 @@ async function main() {
       licenseUrl: rights.licenseUrl,
       title: PERSIAN_TITLE,
       status: 'submit_started',
+      contentOrigin: candidate.contentOrigin || 'licensed_external',
+      puzzleId: candidate.puzzleId || undefined,
+      topic: candidate.topic || undefined,
       attemptedAt: new Date().toISOString()
     };
     state.posts = [...(state.posts || []), preSubmitEntry].slice(-500);
@@ -1424,6 +1427,9 @@ async function main() {
         sourcePage: COMMONS_PAGE,
         sourceTitle: SOURCE_TITLE,
         sourceType: candidate.contentOrigin || 'licensed_external',
+        contentOrigin: candidate.contentOrigin || 'licensed_external',
+        puzzleId: candidate.puzzleId || undefined,
+        topic: candidate.topic || candidate.editorialTopic || undefined,
         author: rights.author,
         license: rights.licenseName,
         licenseUrl: rights.licenseUrl,
