@@ -1052,7 +1052,7 @@ def attach_view_trajectory(results, previous_items, now):
 
     def parse_views(item):
         try:
-            return max(0, int(item.get("views") or item.get("telegram_post_views") or 0))
+            return max(0, int(item.get("views") or item.get("telegram_post_views") or item.get("last_views") or 0))
         except (TypeError, ValueError, OverflowError):
             return 0
 
@@ -1069,7 +1069,7 @@ def attach_view_trajectory(results, previous_items, now):
         for row in old_history if isinstance(old_history, list) else []:
             if not isinstance(row, dict):
                 continue
-            stamp = _observation_time(row.get("observed_at"))
+            stamp = _observation_time(row.get("observed_at") or row.get("at"))
             try:
                 count = max(0, int(row.get("views") or 0))
             except (TypeError, ValueError, OverflowError):
@@ -1079,7 +1079,7 @@ def attach_view_trajectory(results, previous_items, now):
 
         # Preserve a prior observation for candidates created before view history existed.
         old_views = parse_views(old)
-        old_stamp = _observation_time(old.get("metrics_observed_at") or old.get("discovered_at"))
+        old_stamp = _observation_time(old.get("metrics_observed_at") or old.get("discovered_at") or old.get("last_seen_at"))
         if old_views > 0 and old_stamp:
             if not history or (
                 history[-1]["observed_at"] != old_stamp.isoformat()
@@ -1148,6 +1148,47 @@ def attach_view_trajectory(results, previous_items, now):
     return results
 
 
+
+def enrich_previous_with_platform_history(previous_payload):
+    """Recover persisted per-video view snapshots from the compact platform-trends ledger."""
+    payload = dict(previous_payload) if isinstance(previous_payload, dict) else {}
+    items = payload.get("items") if isinstance(payload.get("items"), list) else []
+    by_id = {
+        str(item.get("id") or item.get("url") or ""): dict(item)
+        for item in items if isinstance(item, dict)
+    }
+    try:
+        snapshot = json.loads((ROOT / "state" / "platform-trends.json").read_text(encoding="utf-8"))
+    except Exception:
+        snapshot = {}
+    for group in ("telegram", "aparat", "youtube_cc"):
+        rows = snapshot.get(group) if isinstance(snapshot, dict) else {}
+        for ident, row in (rows or {}).items():
+            if not isinstance(row, dict):
+                continue
+            key = str(ident or row.get("url") or "")
+            if not key:
+                continue
+            current = by_id.get(key, {
+                "id": key, "url": str(row.get("url") or ""),
+                "title": str(row.get("title") or ""),
+                "platform": str(row.get("platform") or group),
+                "source": str(row.get("source") or ""),
+            })
+            if not current.get("views_history") and isinstance(row.get("history"), list):
+                current["views_history"] = [
+                    {"observed_at": str(x.get("at") or ""), "views": safe_quota_count(x.get("views"))}
+                    for x in row["history"] if isinstance(x, dict) and x.get("at")
+                ]
+            current.setdefault("last_views", safe_quota_count(row.get("last_views")))
+            current.setdefault("last_seen_at", str(row.get("last_seen_at") or ""))
+            current.setdefault("metrics_observed_at", str(row.get("last_seen_at") or ""))
+            current.setdefault("views", safe_quota_count(row.get("last_views")))
+            by_id[key] = current
+    payload["items"] = list(by_id.values())
+    return payload
+
+
 def main(force_fallback=False, _quota_ledger=None, _previous_payload=None):
     now = datetime.now(timezone.utc)
     previous_payload = _previous_payload
@@ -1158,6 +1199,7 @@ def main(force_fallback=False, _quota_ledger=None, _previous_payload=None):
                 previous_payload = {}
         except Exception:
             previous_payload = {}
+    previous_payload = enrich_previous_with_platform_history(previous_payload)
     quota_ledger = _quota_ledger or quota_ledger_for_run(previous_payload, now)
     print("DISCOVERY_QUOTA_LEDGER", json.dumps({
         "firecrawl_month": quota_ledger.get("firecrawl_month"),
