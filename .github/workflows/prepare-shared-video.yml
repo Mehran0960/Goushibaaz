@@ -52,7 +52,7 @@ jobs:
           PREPARE_ONLY: "true"
           DRY_RUN: "true"
         run: node scripts/rubika_publish_cc0.cjs
-      - name: Upload the same prepared video and manifest for all destinations
+      - name: Upload the same prepared video and manifest for Telegram, Rubika and Bale
         if: ${{ success() && hashFiles('work/shared-publish/manifest.json') != '' }}
         uses: actions/upload-artifact@v4
         with:
