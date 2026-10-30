@@ -12,7 +12,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   publish:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion != 'cancelled' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -23,6 +23,8 @@ jobs:
         with:
           node-version: 22
       - name: Download the exact shared candidate artifact
+        id: artifact
+        continue-on-error: true
         uses: actions/download-artifact@v4
         with:
           name: goushibaaz-shared-candidate
@@ -30,6 +32,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: work/shared-publish
       - name: Validate and independently publish to Rubika
+        if: steps.artifact.outcome == 'success'
         env:
           RUBIKA_BOT_TOKEN: ${{ secrets.RUBIKA_BOT_TOKEN }}
           RUBIKA_CHAT_ID: ${{ secrets.RUBIKA_CHAT_ID }}
@@ -39,7 +42,7 @@ jobs:
           node --check scripts/rubika_publish_shared.cjs
           node scripts/rubika_publish_shared.cjs
       - name: Persist Rubika-only publication state
-        if: ${{ always() && hashFiles('state/rubika-published.json') != '' }}
+        if: ${{ always() && steps.artifact.outcome == 'success' && hashFiles('state/rubika-published.json') != '' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
