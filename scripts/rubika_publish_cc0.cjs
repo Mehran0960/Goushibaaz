@@ -380,6 +380,153 @@ async function discoverInternetArchiveCandidates(used) {
   return ranked.slice(0, 60);
 }
 
+
+const NASA_API = 'https://images-api.nasa.gov';
+const NASA_POLICY_URL = 'https://www.nasa.gov/nasa-brand-center/images-and-media/';
+const NASA_CENTERS = new Set([
+  'NASA','HQ','NASA HEADQUARTERS','HEADQUARTERS','JPL','JET PROPULSION LABORATORY',
+  'NASA JET PROPULSION LABORATORY','GSFC','GODDARD SPACE FLIGHT CENTER',
+  'NASA GODDARD SPACE FLIGHT CENTER','JSC','JOHNSON SPACE CENTER',
+  'NASA JOHNSON SPACE CENTER','KSC','KENNEDY SPACE CENTER',
+  'NASA KENNEDY SPACE CENTER','MSFC','MARSHALL SPACE FLIGHT CENTER',
+  'NASA MARSHALL SPACE FLIGHT CENTER','GRC','GLENN RESEARCH CENTER',
+  'NASA GLENN RESEARCH CENTER','ARC','AMES RESEARCH CENTER',
+  'NASA AMES RESEARCH CENTER','LRC','LARC','LANGLEY RESEARCH CENTER',
+  'NASA LANGLEY RESEARCH CENTER','DFRC','AFRC','DRYDEN FLIGHT RESEARCH CENTER',
+  'ARMSTRONG FLIGHT RESEARCH CENTER','SSC','STENNIS SPACE CENTER',
+  'NASA STENNIS SPACE CENTER'
+]);
+const NASA_RIGHTS_WARNING = /copyright(?:ed)?|all rights reserved|third.party|permission required|not for commercial|courtesy of|licensed from|©|getty|reuters|associated press|ap video|stock footage|commercial use prohibited/i;
+const NASA_PERSON_AUDIO_WARNING = /interview|voice.?over|narrat(?:ed|ion|or)|music|soundtrack|singing|astronaut|crew member|crew interview|person speaking|people speaking|students? (?:at|from)|children|celebrity|actor|actress|portrait/i;
+const NASA_PARTNER_WARNING = /\b(?:ESA|JAXA|NOAA|USGS|U\.S\. Navy|SpaceX|Boeing|Lockheed Martin|Getty|Reuters|Associated Press|AP Video)\b/i;
+const NASA_LONG_FORM_WARNING = /\b(?:briefing|press conference|highlight reel|full episode|full length|livestream|webcast|documentary|lecture|panel discussion|presentation|behind the scenes|deep dive|mission update|question and answer|explainer|explained)\b/i;
+const NASA_SEARCHES = [
+  ['Earth from space', ['nature_wildlife','science_tech']],
+  ['aurora', ['nature_wildlife','science_tech']],
+  ['Mars rover', ['science_tech']],
+  ['solar flare', ['science_tech']],
+  ['rocket launch', ['science_tech','performance_magic']],
+  ['space telescope', ['science_tech']],
+  ['International Space Station Earth', ['nature_wildlife','science_tech']],
+  ['planetary science', ['science_tech']]
+];
+
+function nasaDuration(data) {
+  for (const key of ['duration_seconds','duration','runtime_seconds','runtime']) {
+    const value=data && data[key];
+    if (value===undefined || value===null || value==='') continue;
+    const n=Number(value);
+    if (Number.isFinite(n) && n>0 && n<86400) return n;
+    const raw=String(value).trim();
+    const m=raw.match(/^(\d{1,2}):(\d{2})(?::(\d{2}))?$/);
+    if (m) return m[3]===undefined ? Number(m[1])*60+Number(m[2]) : Number(m[1])*3600+Number(m[2])*60+Number(m[3]);
+  }
+  return null;
+}
+
+function nasaMetadataAllowed(data) {
+  const center=tidy(data.center).toUpperCase();
+  if (!NASA_CENTERS.has(center)) return {ok:false,reason:'non_nasa_center'};
+  const secondary=tidy(data.secondary_creator);
+  if (secondary && !/^(NASA|National Aeronautics and Space Administration)$/i.test(secondary)) {
+    return {ok:false,reason:'secondary_creator_present'};
+  }
+  const title=tidy(data.title);
+  const description=tidy(data.description);
+  const keywords=Array.isArray(data.keywords) ? data.keywords.join(' ') : String(data.keywords || '');
+  const all=[title,description,keywords,secondary].join(' ');
+  if (NASA_RIGHTS_WARNING.test(all)) return {ok:false,reason:'rights_warning_in_metadata'};
+  if (NASA_PERSON_AUDIO_WARNING.test(all)) return {ok:false,reason:'person_or_audio_signal'};
+  if (NASA_PARTNER_WARNING.test(all)) return {ok:false,reason:'third_party_partner_signal'};
+  if (NASA_LONG_FORM_WARNING.test(title)) return {ok:false,reason:'likely_long_form_title'};
+  const duration=nasaDuration(data);
+  if (duration!==null && (duration<8 || duration>60)) return {ok:false,reason:'duration_metadata_out_of_range'};
+  if (!title || !description) return {ok:false,reason:'missing_metadata'};
+  return {ok:true,reason:'nasa_center_and_metadata_screen_passed',center,secondaryCreator:secondary};
+}
+
+async function nasaAssetUrl(nasaId) {
+  const response=await fetch(NASA_API+'/asset/'+encodeURIComponent(nasaId),{
+    headers:{'User-Agent':'GoushibaazPublisher/1.0 (NASA source rights screening)'},
+    signal:AbortSignal.timeout(15000)
+  });
+  if(!response.ok) return '';
+  const payload=await response.json();
+  const rows=payload.collection && Array.isArray(payload.collection.items) ? payload.collection.items : [];
+  const urls=rows.map(x=>String(x && x.href || '')).filter(href=>{
+    try{
+      const u=new URL(href);
+      return u.protocol==='https:' && u.hostname==='images-assets.nasa.gov' &&
+        u.pathname.startsWith('/video/'+nasaId+'/') && /\.mp4$/i.test(u.pathname) &&
+        !u.username && !u.password;
+    }catch{return false;}
+  });
+  const preference=['~small.mp4','~medium.mp4','~large.mp4','~orig.mp4'];
+  for(const suffix of preference){
+    const found=urls.find(url=>url.toLowerCase().endsWith(suffix));
+    if(found) return found;
+  }
+  return urls[0] || '';
+}
+
+async function discoverNasaCandidates(used) {
+  const slot=Math.floor(Date.now()/1800000);
+  const queries=Array.from({length:3},(_,offset)=>NASA_SEARCHES[(slot+offset)%NASA_SEARCHES.length]);
+  const found=[];
+  const diagnostics={queries:queries.length,apiResults:0,metadataAccepted:0,mediaUrlsFound:0,rejections:{}};
+  for(const [query,lanes] of queries){
+    try{
+      const url=new URL(NASA_API+'/search');
+      url.searchParams.set('q',query);
+      url.searchParams.set('media_type','video');
+      url.searchParams.set('page_size','100');
+      url.searchParams.set('page',String(1+Math.floor((slot/NASA_SEARCHES.length))%4));
+      const response=await fetch(url,{headers:{'User-Agent':'GoushibaazPublisher/1.0 (NASA metadata discovery)'},signal:AbortSignal.timeout(20000)});
+      if(!response.ok) throw new Error('nasa_search_http_'+response.status);
+      const payload=await response.json();
+      const rows=payload.collection && Array.isArray(payload.collection.items) ? payload.collection.items : [];
+      diagnostics.apiResults+=rows.length;
+      for(const item of rows.slice(0,12)){
+        const data=Array.isArray(item.data) ? item.data[0] : null;
+        if(!data || String(data.media_type||'').toLowerCase()!=='video') continue;
+        const nasaId=String(data.nasa_id||'').trim();
+        if(!/^[A-Za-z0-9_-]{2,100}$/.test(nasaId)) continue;
+        const sourcePage='https://images.nasa.gov/details/'+nasaId;
+        if(used.has(sourcePage)) continue;
+        const screened=nasaMetadataAllowed(data);
+        if(!screened.ok){
+          diagnostics.rejections[screened.reason]=(diagnostics.rejections[screened.reason]||0)+1;
+          continue;
+        }
+        diagnostics.metadataAccepted++;
+        const fileUrl=await nasaAssetUrl(nasaId);
+        if(!fileUrl) continue;
+        diagnostics.mediaUrlsFound++;
+        const fileTitle=tidy(data.title).slice(0,180);
+        const description=tidy(data.description).slice(0,1800);
+        const candidate={
+          source:'nasa_public_domain_video',fileTitle,sourcePage,fileUrl,
+          size:0,durationSeconds:nasaDuration(data),mediaExtension:'.mp4',
+          license:{type:'NASA public media (metadata-screened)',url:NASA_POLICY_URL},
+          author:screened.center,description,sourceWidth:null,sourceHeight:null,sourceAspectRatio:null,
+          discoveryQuery:'nasa:'+query,localPriorityQuery:false,
+          rightsScreen:{approved:true,basis:screened.reason,center:screened.center,secondaryCreator:screened.secondaryCreator},
+          contentLocaleScore:candidateContentPriority({fileTitle,description}),
+          sourceVerticalScore:1
+        };
+        candidate.title=persianTitle(fileTitle,description);
+        found.push(candidate);
+        if(found.length>=12) break;
+      }
+    }catch(error){
+      console.log('NASA_VIDEO_SEARCH_FAIL',JSON.stringify({query,error:String(error && error.message || error).slice(0,120)}));
+    }
+    if(found.length>=12) break;
+  }
+  console.log('NASA_LICENSED_SOURCE_COVERAGE',JSON.stringify({...diagnostics,eligibleVideoCandidates:found.length}));
+  return found;
+}
+
 async function discoverCandidates(state) {
   const shared = loadSharedState();
   const used = new Set([
@@ -470,7 +617,8 @@ async function discoverCandidates(state) {
     await pause(1000);
   }
   const archiveCandidates = await discoverInternetArchiveCandidates(used);
-  for (const candidate of archiveCandidates) {
+  const nasaCandidates = await discoverNasaCandidates(used);
+  for (const candidate of [...archiveCandidates, ...nasaCandidates]) {
     const previous = hits.get(candidate.sourcePage);
     if (!previous || candidate.contentLocaleScore > previous.contentLocaleScore ||
         (candidate.contentLocaleScore === previous.contentLocaleScore && candidate.sourceVerticalScore > previous.sourceVerticalScore)) {
@@ -479,7 +627,8 @@ async function discoverCandidates(state) {
   }
   console.log('COMBINED_LICENSED_SOURCE_COVERAGE', JSON.stringify({
     wikimediaAndArchiveCandidates: hits.size,
-    archiveCandidates: archiveCandidates.length
+    archiveCandidates: archiveCandidates.length,
+    nasaCandidates: nasaCandidates.length
   }));
   let trendSnapshot = {};
   try {
@@ -509,7 +658,17 @@ async function discoverCandidates(state) {
 }
 
 async function downloadSource(candidate) {
-  if (!candidate.license || ![LICENSES.cc0, LICENSES.ccby].includes(candidate.license.url)) {
+  const standardLicense = candidate.license && [LICENSES.cc0, LICENSES.ccby].includes(candidate.license.url);
+  let nasaLicense = false;
+  if (candidate.source === 'nasa_public_domain_video' && candidate.license && candidate.license.url === NASA_POLICY_URL &&
+      candidate.rightsScreen && candidate.rightsScreen.approved === true) {
+    try {
+      const u = new URL(candidate.fileUrl);
+      nasaLicense = u.protocol === 'https:' && u.hostname === 'images-assets.nasa.gov' &&
+        u.pathname.startsWith('/video/') && /\\.mp4$/i.test(u.pathname);
+    } catch {}
+  }
+  if (!standardLicense && !nasaLicense) {
     throw new Error('source_license_not_verified_for_commercial_reuse');
   }
   fs.mkdirSync(WORK_DIR, { recursive: true });
