@@ -10,6 +10,7 @@ import os
 import re
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import requests
 
@@ -891,6 +892,113 @@ def discover_youtube_public_candidates(now=None, limit=50, max_search_calls=None
     }, ensure_ascii=False))
     return results
 
+
+def discover_youtube_global_charts(now=None, limit_per_bucket=8):
+    """Collect cross-region YouTube chart momentum as demand intelligence only."""
+    if not YOUTUBE_KEY or not YOUTUBE_API_ENABLED:
+        print("YOUTUBE_GLOBAL_CHARTS_SKIPPED_NO_KEY_OR_DISABLED")
+        return []
+    now = now or datetime.now(timezone.utc)
+    regions = ["IR", "US", "GB", "CA", "IN", "BR", "DE", "TR"]
+    categories = ["15", "17", "23", "24", "26", "28"]
+    category_names = {
+        "15": "animals", "17": "sports", "23": "comedy",
+        "24": "entertainment", "26": "howto", "28": "technology",
+    }
+
+    def fetch_bucket(region, category_id):
+        try:
+            response = requests.get(
+                "https://www.googleapis.com/youtube/v3/videos",
+                params={
+                    "key": YOUTUBE_KEY, "part": "snippet,contentDetails,statistics",
+                    "chart": "mostPopular", "regionCode": region,
+                    "videoCategoryId": category_id, "maxResults": min(50, int(limit_per_bucket)),
+                },
+                timeout=22,
+            )
+            response.raise_for_status()
+            return region, category_id, response.json(), ""
+        except Exception as exc:
+            details = youtube_api_error_context(exc)
+            return region, category_id, {"items": []}, details
+
+    raw = []
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        futures = [
+            pool.submit(fetch_bucket, region, category_id)
+            for region in regions for category_id in categories
+        ]
+        for future in as_completed(futures):
+            region, category_id, payload, error = future.result()
+            if error:
+                print("YOUTUBE_GLOBAL_CHART_BUCKET_FAIL", json.dumps({
+                    "region": region, "category": category_id, **error,
+                }, ensure_ascii=False))
+                continue
+            for rank, row in enumerate((payload.get("items") or [])[:limit_per_bucket], start=1):
+                video_id = str(row.get("id") or "").strip()
+                snippet = row.get("snippet") or {}
+                stats = row.get("statistics") or {}
+                content = row.get("contentDetails") or {}
+                duration = parse_youtube_duration(content.get("duration"))
+                if not video_id or duration is None or duration < 8 or duration > 180:
+                    continue
+                published_at = str(snippet.get("publishedAt") or "")
+                age_hours = 999999.0
+                if published_at:
+                    try:
+                        published = datetime.fromisoformat(published_at.replace("Z", "+00:00"))
+                        age_hours = max(0.0, (now - published.astimezone(timezone.utc)).total_seconds() / 3600.0)
+                    except (TypeError, ValueError):
+                        pass
+                views = safe_quota_count(stats.get("viewCount"))
+                likes = safe_quota_count(stats.get("likeCount"))
+                comments = safe_quota_count(stats.get("commentCount"))
+                raw.append({
+                    "id": hashlib.sha256(("https://www.youtube.com/watch?v=" + video_id).encode()).hexdigest(),
+                    "url": "https://www.youtube.com/watch?v=" + video_id,
+                    "title": str(snippet.get("title") or ""),
+                    "description": str(snippet.get("description") or "")[:1500],
+                    "platform": "youtube", "source": "youtube_global_chart",
+                    "views": views, "likes": likes, "comments": comments, "shares": 0,
+                    "published_at": published_at, "age_hours": age_hours,
+                    "duration_seconds": duration, "discovered_at": now.isoformat(),
+                    "chart_region": region, "chart_category": category_names.get(category_id, "other"),
+                    "chart_rank": rank,
+                })
+
+    grouped = {}
+    for item in raw:
+        key = item["id"]
+        entry = grouped.setdefault(key, {"item": item, "regions": set(), "ranks": []})
+        entry["regions"].add(item["chart_region"])
+        entry["ranks"].append(int(item["chart_rank"]))
+        if int(item["chart_rank"]) < int(entry["item"].get("chart_rank") or 999):
+            entry["item"] = item
+
+    results = []
+    for entry in grouped.values():
+        item = dict(entry["item"])
+        item["chart_regions"] = sorted(entry["regions"])
+        item["chart_region_count"] = len(entry["regions"])
+        item["chart_average_rank"] = round(sum(entry["ranks"]) / max(1, len(entry["ranks"])), 2)
+        results.append(item)
+    results.sort(key=lambda x: (
+        int(x.get("chart_region_count") or 0),
+        -float(x.get("chart_average_rank") or 99),
+        int(x.get("views") or 0),
+    ), reverse=True)
+    print("YOUTUBE_GLOBAL_CHART_SUMMARY", json.dumps({
+        "regions": len(regions), "categories": len(categories),
+        "buckets_requested": len(regions) * len(categories),
+        "raw_chart_rows": len(raw), "unique_videos": len(results),
+        "videos_in_multiple_regions": sum(1 for x in results if x["chart_region_count"] > 1),
+    }, ensure_ascii=False))
+    return results[:160]
+
+
+
 def log_growth_summary(items):
     """Expose ranking quality and review queues in CI logs for iteration."""
     rows = items if isinstance(items, list) else []
@@ -1162,6 +1270,8 @@ def main(force_fallback=False, _quota_ledger=None, _previous_payload=None):
                 "query": qidx,
             })
         results.extend(discover_youtube_with_budget(now, quota_ledger))
+    results.extend(discover_youtube_global_charts(now))
+        results.extend(discover_youtube_global_charts(now))
         previous = []
         try:
             previous = list(previous_payload.get("items") or [])
