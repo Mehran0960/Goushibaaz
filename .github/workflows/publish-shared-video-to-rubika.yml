@@ -34,7 +34,7 @@ jobs:
           RUBIKA_BOT_TOKEN: ${{ secrets.RUBIKA_BOT_TOKEN }}
           RUBIKA_CHAT_ID: ${{ secrets.RUBIKA_CHAT_ID }}
           GOUSHIBAAZ_PUBLIC_PUBLISH_ENABLED: ${{ vars.GOUSHIBAAZ_PUBLIC_PUBLISH_ENABLED }}
-          GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: ${{ vars.GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED }}
+          GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "false" # keep first public post blocked until explicit approval
         run: |
           node --check scripts/rubika_publish_shared.cjs
           node scripts/rubika_publish_shared.cjs
