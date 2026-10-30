@@ -110,11 +110,26 @@
       "status": "upload_failed_retryable",
       "preparedAt": "2026-10-30T15:05:25.154Z",
       "attemptedAt": "2026-10-30T15:05:41.873Z"
+    },
+    {
+      "sourcePage": "https://images.nasa.gov/details/ksc_101504_gyro",
+      "title": "ویدیوی کوتاه و جذاب",
+      "sha256": "9e78fa28e7f73e87d447a7183fc2f15eee32c05eb9e85f3b2d63630a8142d1c4",
+      "license": "NASA public media (metadata-screened)",
+      "licenseUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+      "status": "published",
+      "preparedAt": "2026-10-30T15:05:25.154Z",
+      "attemptedAt": "2026-10-30T15:13:13.581Z",
+      "uploadedAt": "2026-10-30T15:16:17.630Z",
+      "messageId": "1956185443934781160",
+      "publishedAt": "2026-10-30T15:16:20.872Z"
     }
   ],
   "lastOutcome": {
-    "status": "no_shared_candidate",
-    "checkedAt": "2026-10-30T15:12:17.139Z",
-    "manifestStatus": "no_eligible_candidate"
+    "status": "published",
+    "checkedAt": "2026-10-30T15:16:20.872Z",
+    "sourcePage": "https://images.nasa.gov/details/ksc_101504_gyro",
+    "messageId": "1956185443934781160",
+    "sha256": "9e78fa28e7f73e87d447a7183fc2f15eee32c05eb9e85f3b2d63630a8142d1c4"
   }
 }
