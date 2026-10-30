@@ -60,6 +60,12 @@ The project now uses a **single shared licensed-video preparation pipeline**. Th
 
 Filo remains parked and is not part of the central scheduler.
 
+### Destination availability
+
+The currently wired public publishing destinations are **Filo, Telegram, Bale and Rubika**. Filo runs on its own scheduled discovery/upload workflow; Telegram, Bale and Rubika receive the same prepared artifact through three independent workflows with separate gates, concurrency groups, credentials and state files. A delivery failure or timeout in one destination does not cancel or pause the other destination workflows or the next discovery slot. The shared preparation stage remains a common upstream dependency: when it produces no eligible artifact, every consumer records `no_shared_candidate` and sends nothing.
+
+YouTube and Aparat are currently **discovery sources only**, not upload destinations in this repository. The YouTube API key is used for search/statistics; a separate OAuth credential with the `youtube.upload` scope is required for the official upload API. Aparat has no uploader adapter in this repository; an official supported upload integration must be confirmed before adding an automated destination. Do not treat a discovered video source as a publication destination.
+
 ## Repository layout
 
 - `cloudflare/src/index.js` — Worker API, scheduled scanning, scoring, and candidate endpoints.
