@@ -453,7 +453,13 @@ async function nasaAssetUrl(nasaId) {
   if(!response.ok) return '';
   const payload=await response.json();
   const rows=payload.collection && Array.isArray(payload.collection.items) ? payload.collection.items : [];
-  const urls=rows.map(x=>String(x && x.href || '')).filter(href=>{
+  const urls=rows.map(x=>String(x && x.href || '')).map(href=>{
+    try{
+      const u=new URL(href);
+      if(u.protocol==='http:' && u.hostname==='images-assets.nasa.gov') u.protocol='https:';
+      return u.toString();
+    }catch{return '';}
+  }).filter(href=>{
     try{
       const u=new URL(href);
       return u.protocol==='https:' && u.hostname==='images-assets.nasa.gov' &&
