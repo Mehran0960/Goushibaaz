@@ -3,6 +3,7 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const { execFileSync } = require('node:child_process');
 const { rankCandidates, buildTrendWeights } = require('./quality_rank.cjs');
+const { buildTrendSearches, rotateSearchBatch } = require('./trend_discovery.cjs');
 const { looksRelevant, persianTitle } = require('./editorial_content.cjs');
 
 const TOKEN = process.env.RUBIKA_BOT_TOKEN || '';
@@ -233,7 +234,21 @@ function internetArchiveLicense(rawUrl) {
 }
 
 async function discoverInternetArchiveCandidates(used) {
-  const searches = ARCHIVE_SEARCH_TERMS.map(term => ({ key: term.key, term }));
+  const trendSearches = buildTrendSearches();
+  const localSearches = rotateSearchBatch(ARCHIVE_SEARCH_TERMS.filter(term => term.localPriority), 2);
+  const broadSearches = rotateSearchBatch(ARCHIVE_SEARCH_TERMS.filter(term => !term.localPriority), 2);
+  const searches = [
+    ...localSearches.map(term => ({ key: term.key, term })),
+    ...broadSearches.map(term => ({ key: term.key, term })),
+    ...trendSearches.map(item => ({ key: item.key, term: {
+      term: item.searchTerms.join(' '), localPriority: item.localPriority,
+      trendTitle: item.trendTitle, trendUrl: item.trendUrl, trendVelocity: item.trendVelocity
+    }}))
+  ];
+  console.log('RUBIKA_ARCHIVE_ROTATING_BATCH', JSON.stringify({
+    localQueries: localSearches.length, broadQueries: broadSearches.length,
+    observedTrendTitleQueries: trendSearches.map(item => item.trendTitle)
+  }));
   const discovered = new Map();
   const queue = [...searches];
   async function searchWorker() {
@@ -328,6 +343,9 @@ async function discoverInternetArchiveCandidates(used) {
             license, author, description, sourceWidth: width, sourceHeight: height,
             sourceAspectRatio: width && height ? Math.round((width / height) * 1000) / 1000 : null,
             discoveryQuery: entry.search.key, localPriorityQuery: Boolean(entry.search.term.localPriority),
+            trendSearchTitle: entry.search.term.trendTitle || undefined,
+            trendSearchUrl: entry.search.term.trendUrl || undefined,
+            trendSearchVelocity: entry.search.term.trendVelocity || undefined,
             archiveIdentifier: entry.identifier
           };
           candidate.contentLocaleScore = Math.max(candidateContentPriority(candidate), candidate.localPriorityQuery ? 1 : 0);
@@ -458,8 +476,10 @@ async function nasaAssetUrl(nasaId) {
 }
 
 async function discoverNasaCandidates(used) {
-  const slot=Math.floor(Date.now()/1800000);
-  const queries=Array.from({length:3},(_,offset)=>NASA_SEARCHES[(slot+offset)%NASA_SEARCHES.length]);
+  // Rotate one NASA query per five-minute slot; do not repeat the same three searches six times per half hour.
+  const slot=Math.floor(Date.now()/(5*60*1000));
+  const queryIndex=slot%NASA_SEARCHES.length;
+  const queries=[NASA_SEARCHES[queryIndex]];
   const found=[];
   const diagnostics={queries:queries.length,apiResults:0,metadataAccepted:0,mediaUrlsFound:0,rejections:{}};
   for(const [query,lanes] of queries){
@@ -468,7 +488,7 @@ async function discoverNasaCandidates(used) {
       url.searchParams.set('q',query);
       url.searchParams.set('media_type','video');
       url.searchParams.set('page_size','100');
-      url.searchParams.set('page',String(1+Math.floor((slot/NASA_SEARCHES.length))%4));
+      url.searchParams.set('page',String(1+Math.floor(slot/NASA_SEARCHES.length)%4));
       const response=await fetch(url,{headers:{'User-Agent':'GoushibaazPublisher/1.0 (NASA metadata discovery)'},signal:AbortSignal.timeout(20000)});
       if(!response.ok) throw new Error('nasa_search_http_'+response.status);
       const payload=await response.json();
@@ -524,10 +544,14 @@ async function discoverCandidates(state) {
     .map(item => item.sourcePage));
   const hits = new Map();
   // Search all Persian/Iranian targets first, then fallback to broadly useful licensed clips.
-  const orderedSearches = [
-    ...SEARCHES.filter(item => item.localPriority).slice(0, 8),
-    ...SEARCHES.filter(item => !item.localPriority).slice(0, 14)
-  ];
+  const trendSearches = buildTrendSearches();
+  const localSearches = rotateSearchBatch(SEARCHES.filter(item => item.localPriority), 3);
+  const broadSearches = rotateSearchBatch(SEARCHES.filter(item => !item.localPriority), 5);
+  const orderedSearches = [...localSearches, ...broadSearches, ...trendSearches];
+  console.log('RUBIKA_ROTATING_DISCOVERY_BATCH', JSON.stringify({
+    localCommonsQueries: localSearches.length, broadCommonsQueries: broadSearches.length,
+    observedTrendTitleQueries: trendSearches.map(item => item.trendTitle)
+  }));
   for (const search of orderedSearches) {
     const url = new URL('https://commons.wikimedia.org/w/api.php');
     url.searchParams.set('action', 'query');
@@ -591,7 +615,10 @@ async function discoverCandidates(state) {
         sourceAspectRatio: Number(info.width) > 0 && Number(info.height) > 0
           ? Math.round((Number(info.width) / Number(info.height)) * 1000) / 1000 : null,
         discoveryQuery: search.key,
-        localPriorityQuery: Boolean(search.localPriority)
+        localPriorityQuery: Boolean(search.localPriority),
+        trendSearchTitle: search.trendTitle || undefined,
+        trendSearchUrl: search.trendUrl || undefined,
+        trendSearchVelocity: search.trendVelocity || undefined
       };
       candidate.contentLocaleScore = Math.max(candidateContentPriority(candidate), search.localPriority ? 1 : 0);
       candidate.sourceVerticalScore = sourceVerticalScore(candidate.sourceWidth, candidate.sourceHeight);
