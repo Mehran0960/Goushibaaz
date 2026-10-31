@@ -180,7 +180,7 @@ jobs:
           check_contains scripts/trend_intelligence/social_discovery.py 'site:kwai.com/short-video/'
           check_contains scripts/trend_intelligence/social_discovery.py 'site:bilibili.com/video/'
           check_contains scripts/trend_intelligence/social_discovery.py '"snapchat", "likee", "kwai", "bilibili"'
-          check_contains scripts/trend_intelligence/follower_growth.py 'if "bilibili.com" in q:'
+          check_contains scripts/trend_intelligence/follower_growth.py 'if "bilibili.com" in q or "b23.tv" in q:'
           check_contains scripts/trend_intelligence/test_social_discovery.py 'class AdditionalPlatformDiscoveryTests'
           check_contains scripts/quality_rank.cjs 'observed_trend_acceleration:'
           check_contains scripts/test_quality_rank.cjs 'trendSearchAcceleration: 12000'
