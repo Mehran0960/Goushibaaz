@@ -15,22 +15,73 @@ function looksRelevant(fileTitle, description = '') {
 
 function persianTitle(fileTitle, description = '') {
   const text = sourceText(fileTitle, description);
-  if (/\b(cat|cats|kitten|kittens|feline)\b|گربه/.test(text)) return 'رفتار غیرمنتظره یک گربه';
-  if (/\b(dog|dogs|puppy|puppies)\b|سگ/.test(text)) return 'حرکت بامزه یک سگ';
-  if (/\b(bird|birds|parrot|parrots|pigeon)\b|پرنده/.test(text)) return 'رفتار جالب یک پرنده';
-  if (/\b(mouse|mice|hamster|hamsters|gerbil|gerbils)\b|موش|همستر/.test(text)) return 'رفتار بامزه موش‌های خانگی';
-  if (/\b(squirrel|squirrels|monkey|monkeys|rabbit|rabbits)\b/.test(text)) return 'رفتار جالب یک حیوان';
-  if (/\b(football|soccer|basketball|trick shot|parkour|freestyle|sports? skill|goal|dunk|skateboard)\b|فوتبال|بسکتبال|ورزش|دریبل|حرکت نمایشی|اسکیت/.test(text)) return 'نمایش یک مهارت ورزشی دیدنی';
-  if (/\b(science experiment|invention|technology demo|optical illusion|brain teaser|puzzle)\b|آزمایش علمی|اختراع|فناوری|خطای دید|معما/.test(text)) return 'نتیجه جالب یک آزمایش یا خطای دید';
-  if (/\b(oddly satisfying|satisfying|restoration|woodworking|pottery|craft|miniature|before and after|transformation)\b|رضایت.?بخش|کاردستی|نجاری|سفال|مرمت|بازسازی|قبل و بعد/.test(text)) return 'فرایند ساخت یا بازسازی رضایت‌بخش';
-  if (/\b(cooking|recipe|food art|food hack|kitchen|baking|street food)\b|آشپزی|غذا|خوراکی|شیرینی|آشپزخانه/.test(text)) return 'یک ایده خلاقانه در آشپزی';
-  if (/\b(magic|dancing|dance|music performance|musician|singing|instrument|juggling)\b|شعبده|جادو|رقص|نوازندگی|موسیقی|خوانندگی|آکروبات/.test(text)) return 'یک اجرای دیدنی و متفاوت';
-  if (/\b(nature|landscape|weather phenomenon|ocean|volcano|waterfall|space footage)\b|طبیعت|آبشار|اقیانوس|پدیده جوی|آتشفشان|منظره|فضا/.test(text)) return 'یک پدیده دیدنی در طبیعت';
-  if (/\b(travel|tourism|street life|local culture|traditional|architecture)\b|سفر|گردشگری|فرهنگ|سنتی|معماری|ایرانگردی/.test(text)) return 'نمایی تماشایی از سفر و فرهنگ';
-  if (/hidden camera|prank|comedy|humou?r|funny|reaction|meme|sketch|fail|surprise|unexpected|چالش|طنز|خنده|بامزه|سوتی|دوربین مخفی|واکنش/.test(text)) return 'لحظه‌ای سرگرم‌کننده و جالب';
-  if (/iranian|tehran|shiraz|ایران|ایرانی|تهران|شیراز|اصفهان/.test(text)) return 'لحظه‌ای جالب از ایران';
-  if (/\b(caught on camera|surprise|jumpscare|unexpected|funny|playful|playing|fail)\b/.test(text)) return 'اتفاقی غیرمنتظره و دیدنی';
-  return 'ویدیوی کوتاه و جذاب';
+  // Titles must describe an observable subject/action from source metadata.
+  // Empty means "not enough evidence to caption safely"; callers must reject it.
+  if (/\\b(cat|cats|kitten|kittens|feline)\\b|گربه/.test(text)) {
+    if (/jumpscare|jump scare|sudden|suddenly|startled|surprise|unexpected|ناگهان|غافلگیر|واکنش/.test(text)) {
+      return 'پرش یا واکنش ناگهانی گربه';
+    }
+    if (/drink|drinking|water|بطری|آب می.?نوش/.test(text)) return 'رفتار یک گربه هنگام آب خوردن';
+    return '';
+  }
+  if (/\\b(dog|dogs|puppy|puppies)\\b|سگ/.test(text)) {
+    if (/reaction|unexpected|surprise|startled|fail|caught on camera|واکنش|غافلگیر|غیرمنتظره|سوتی/.test(text)) {
+      return 'واکنش غیرمنتظره یک سگ';
+    }
+    if (/jump|run|play|playing|fetch|بازی|دویدن|پرش/.test(text)) return 'یک سگ در حال بازی و تحرک';
+    return '';
+  }
+  if (/\\b(bird|birds|parrot|parrots|pigeon)\\b|پرنده|طوطی/.test(text)) {
+    if (/drink|drinking|bottle cap|water|آب.?خوردن|در.?بطری/.test(text)) return 'پرنده‌ای در حال آب خوردن از درِ بطری';
+    if (/talk|speak|sing|dance|trick|پرواز|صحبت|آواز|رقص/.test(text)) return 'مهارت یا رفتار جالب یک پرنده';
+    return '';
+  }
+  if (/\\b(mouse|mice|hamster|hamsters|gerbil|gerbils)\\b|موش|همستر/.test(text)) {
+    if (/run|escape|jump|play|unexpected|فرار|پرش|بازی|غافلگیر/.test(text)) return 'حرکت غیرمنتظره یک حیوان کوچک';
+    return '';
+  }
+  if (/\\b(squirrel|squirrels)\\b/.test(text)) {
+    if (/eat|eating|nut|food|خور|غذا/.test(text)) return 'سنجابی در حال خوردن خوراکی';
+    if (/jump|run|play|unexpected|پرش|دویدن|بازی|غافلگیر/.test(text)) return 'حرکت غیرمنتظره یک سنجاب';
+    return '';
+  }
+  if (/\\b(football|soccer|basketball|trick shot|parkour|freestyle|sports? skill|goal|dunk|skateboard)\\b|فوتبال|بسکتبال|ورزش|دریبل|حرکت نمایشی|اسکیت/.test(text)) {
+    if (/trick shot|freestyle|impossible|skill|goal|dunk|parkour|unexpected|باورنکردنی|مهارت|گل|شوت|دریبل|حرکت نمایشی/.test(text)) {
+      if (/football|soccer|فوتبال/.test(text)) return 'یک حرکت یا شوت مهارتی در فوتبال';
+      if (/basketball|بسکتبال/.test(text)) return 'یک حرکت مهارتی در بسکتبال';
+      return 'اجرای یک مهارت ورزشی';
+    }
+    return '';
+  }
+  if (/\\b(science experiment|experiment|optical illusion|brain teaser|puzzle|invention|technology demo)\\b|آزمایش علمی|اختراع|فناوری|خطای دید|معما/.test(text)) {
+    if (/unexpected|surprise|reveal|result|illusion|puzzle|غیرمنتظره|غافلگیر|نتیجه|خطای دید|معما/.test(text)) return 'نتیجه یا خطای دیدِ یک آزمایش';
+    return '';
+  }
+  if (/\\b(oddly satisfying|satisfying|restoration|woodworking|pottery|craft|miniature|before and after|transformation)\\b|رضایت.?بخش|کاردستی|نجاری|سفال|مرمت|بازسازی|قبل و بعد/.test(text)) {
+    if (/before and after|transformation|restoration|reveal|نتیجه|قبل و بعد|تغییر|بازسازی|مرمت/.test(text)) return 'تغییر چشمگیر در فرایند ساخت یا بازسازی';
+    return '';
+  }
+  if (/\\b(redcurrant|currant|jam recipe)\\b|مربا/.test(text) && /recipe|jam|مربا|آشپزی/.test(text)) return 'طرز تهیه مربا';
+  if (/\\b(cooking|recipe|food art|food hack|kitchen|baking|street food)\\b|آشپزی|غذا|خوراکی|شیرینی|آشپزخانه/.test(text)) {
+    if (/unusual|unexpected|giant|creative|surprise|reveal|غیرمعمول|غافلگیر|غافلگیرکننده|ترکیب عجیب/.test(text)) return 'یک ترکیب یا روش غیرمعمول در آشپزی';
+    return '';
+  }
+  if (/\\b(magic|dancing|dance|music performance|musician|singing|instrument|juggling)\\b|شعبده|جادو|رقص|نوازندگی|موسیقی|خوانندگی|آکروبات/.test(text)) {
+    if (/trick|performance|juggling|skill|شعبده|مهارت|اجرا|نمایشی/.test(text)) return 'اجرای یک مهارت نمایشی';
+    return '';
+  }
+  if (/\\b(travel|tourism|street life|local culture|traditional|architecture)\\b|سفر|گردشگری|فرهنگ|سنتی|معماری|ایرانگردی/.test(text)) {
+    if (/hidden|unusual|unexpected|rare|غیرمعمول|غیرمنتظره|کم.?نظیر/.test(text)) return 'نمایی متفاوت از یک مکان یا فرهنگ';
+    return '';
+  }
+  if (/hidden camera|prank|comedy|humou?r|funny|reaction|meme|sketch|fail|surprise|unexpected|caught on camera|چالش|طنز|خنده|بامزه|سوتی|دوربین مخفی|واکنش/.test(text)) {
+    if (/hidden camera|prank|دوربین مخفی|پرنک/.test(text)) return 'اتفاقی غیرمنتظره در دوربین مخفی';
+    if (/reaction|واکنش/.test(text)) return 'واکنش واقعی و غیرمنتظره';
+    if (/fail|سوتی/.test(text)) return 'یک سوتی ثبت‌شده در لحظه';
+    if (/surprise|unexpected|غافلگیر|غیرمنتظره/.test(text)) return 'اتفاقی غیرمنتظره در چند ثانیه';
+    return '';
+  }
+  return '';
 }
 
 module.exports = { looksRelevant, persianTitle };
