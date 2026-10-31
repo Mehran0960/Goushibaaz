@@ -410,6 +410,7 @@ async function discoverCommercialCandidates(state) {
       candidate.contentLocaleScore = Math.max(candidateContentPriority(candidate), search.localPriority ? 1 : 0);
       candidate.sourceVerticalScore = sourceVerticalScore(candidate.sourceWidth, candidate.sourceHeight);
       candidate.title = persianTitle(candidate.fileTitle, candidate.description);
+      if (!candidate.title) continue;
       candidate.descriptionText = descriptionForCandidate(candidate);
       const previousCandidate = found.get(sourcePage);
       if (!previousCandidate || candidate.contentLocaleScore > previousCandidate.contentLocaleScore ||
@@ -635,6 +636,7 @@ async function discoverInternetArchiveCandidates(state) {
           candidate.contentLocaleScore = Math.max(candidateContentPriority(candidate), candidate.localPriorityQuery ? 1 : 0);
           candidate.sourceVerticalScore = sourceVerticalScore(candidate.sourceWidth, candidate.sourceHeight);
           candidate.title = persianTitle(candidate.fileTitle, candidate.description);
+          if (!candidate.title) continue;
           candidate.descriptionText = descriptionForCandidate(candidate);
           found.push(candidate);
           break;
@@ -702,6 +704,13 @@ async function downloadVerifiedCommercialVideo(candidate) {
   if (!Number.isFinite(media.durationSeconds) ||
       media.durationSeconds < MIN_DURATION_SECONDS || media.durationSeconds > MAX_DURATION_SECONDS) {
     throw new Error('source_duration_out_of_range_or_unavailable');
+  }
+  const actualRatio = media.width > 0 && media.height > 0 ? media.width / media.height : null;
+  if (actualRatio === null || actualRatio < 0.45 || actualRatio > 0.75) {
+    throw new Error('source_not_native_portrait_after_media_probe');
+  }
+  if (media.width < 540 || media.height < 960) {
+    throw new Error('source_resolution_below_540x960');
   }
   return {
     sourcePage: candidate.sourcePage, sourceTitle: candidate.fileTitle,
