@@ -132,11 +132,9 @@ jobs:
           check_contains scripts/synchronized_scheduler.cjs 'Promise.all(planned.map(dispatchOne))'
           check_contains .github/workflows/dispatch-short-publishers.yml 'actions/cache/restore@v6'
           check_contains .github/workflows/dispatch-short-publishers.yml 'actions/cache/save@v6'
-          node <<'NODE'
-          const fs = require('node:fs');
-          const workflow = fs.readFileSync('.github/workflows/dispatch-short-publishers.yml', 'utf8');
-          const runIdToken = '
-          check_absent scripts/synchronized_scheduler.cjs 'publish-approved-video-to-filo.yml'
+          check_contains .github/workflows/dispatch-short-publishers.yml 'key: goushibaaz-publisher-schedule-v2-'
+                    check_contains .github/workflows/dispatch-short-publishers.yml 'goushibaaz-publisher-schedule-v2-'
+                    check_absent scripts/synchronized_scheduler.cjs 'publish-approved-video-to-filo.yml'
           check_contains scripts/synchronized_scheduler.cjs 'prepare-shared-video.yml'
           check_contains scripts/synchronized_scheduler.cjs 'slow Telegram/Bale/Rubika delivery must never freeze fresh discovery slots'
           check_absent scripts/synchronized_scheduler.cjs 'publish-approved-video-to-rubika.yml'
