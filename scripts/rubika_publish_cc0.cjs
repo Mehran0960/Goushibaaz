@@ -145,7 +145,7 @@ function captionFor(candidate) {
       'تصویربردار: ' + (candidate.author || 'Pexels contributor'),
       'صفحه ویدئو: ' + candidate.sourcePage,
       'مجوز: Pexels License — ' + PEXELS_LICENSE_URL
-    ].join('\\n').slice(0, 1000);
+    ].join('\n').slice(0, 1000);
   }
   const lines = [
     candidate.title,
@@ -157,7 +157,7 @@ function captionFor(candidate) {
     candidate.sourcePage,
     candidate.license.url
   ];
-  return lines.join('\\n').slice(0, 1000);
+  return lines.join('\n').slice(0, 1000);
 }
 
 async function rubika(method, body = {}) {
