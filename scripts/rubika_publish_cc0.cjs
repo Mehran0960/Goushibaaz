@@ -34,7 +34,8 @@ const MIN_DURATION_SECONDS = 8;
 const MAX_DURATION_SECONDS = 180;
 const LICENSES = {
   cc0: 'https://creativecommons.org/publicdomain/zero/1.0/',
-  ccby: 'https://creativecommons.org/licenses/by/4.0/'
+  ccby: 'https://creativecommons.org/licenses/by/4.0/',
+  ccbysa: 'https://creativecommons.org/licenses/by-sa/4.0/'
 };
 const SEARCHES = [
   // Preserve Iranian/Persian discovery, but allocate these slots to comedy, reactions,
@@ -81,6 +82,10 @@ function licenseProfile(name, url) {
   if (/\bCC0\b/i.test(n) &&
       /creativecommons\.org\/publicdomain\/zero\/1\.0(?:\/|$)/i.test(u)) {
     return { type: 'CC0 1.0', url: LICENSES.cc0 };
+  }
+  if (/\bCC BY-SA 4\.0\b/i.test(n) &&
+      /creativecommons\.org\/licenses\/by-sa\/4\.0(?:\/|$)/i.test(u)) {
+    return { type: 'CC BY-SA 4.0', url: LICENSES.ccbysa };
   }
   if (/\bCC BY 4\.0\b/i.test(n) &&
       /creativecommons\.org\/licenses\/by\/4\.0(?:\/|$)/i.test(u) &&
@@ -146,7 +151,8 @@ function captionFor(candidate) {
     'منبع: ' + candidate.fileTitle.replace(/^File:/i, ''),
     'پدیدآورنده: ' + (candidate.author || 'طبق اطلاعات صفحه منبع'),
     'مجوز: ' + candidate.license.type,
-    'تغییرات: تبدیل خروجی به قالب عمودی ۹:۱۶ و حذف صدا برای سازگاری بارگذاری روبیکا.',
+    'تغییرات: قاب‌بندی عمودی ۹:۱۶، حفظ صدای اصلی و افزودن عنوان/کارت پایانی اختصاصی.',
+    ...(candidate.license.type === 'CC BY-SA 4.0' ? ['مجوز نسخه تدوین‌شده: CC BY-SA 4.0 (با همان شرایط اشتراک‌گذاری).'] : []),
     candidate.sourcePage,
     candidate.license.url
   ];
@@ -247,6 +253,9 @@ function internetArchiveLicense(rawUrl) {
   const url = String(rawUrl || '').toLowerCase().replace(/&amp;/g, '&').replace(/\/+$/, '');
   if (/creativecommons\.org\/publicdomain\/zero\/1\.0$/.test(url)) {
     return { type: 'CC0 1.0', url: LICENSES.cc0 };
+  }
+  if (/creativecommons\.org\/licenses\/by-sa\/4\.0$/.test(url)) {
+    return { type: 'CC BY-SA 4.0', url: LICENSES.ccbysa };
   }
   if (/creativecommons\.org\/licenses\/by\/4\.0$/.test(url) &&
       !/creativecommons\.org\/licenses\/by-(?:nc|nd|sa)(?:-|\/)/.test(url)) {
@@ -709,7 +718,7 @@ async function discoverCandidates(state) {
 }
 
 async function downloadSource(candidate) {
-  const standardLicense = candidate.license && [LICENSES.cc0, LICENSES.ccby].includes(candidate.license.url);
+  const standardLicense = candidate.license && [LICENSES.cc0, LICENSES.ccby, LICENSES.ccbysa].includes(candidate.license.url);
   const pexelsLicense = candidate.sourceType === 'pexels' && candidate.license &&
     candidate.license.type === 'Pexels License' && candidate.license.url === PEXELS_LICENSE_URL &&
     /^https:\/\/(?:www\.)?pexels\.com\/video\//i.test(String(candidate.sourcePage || '')) &&

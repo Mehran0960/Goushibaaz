@@ -175,7 +175,12 @@ function commercialLicenseProfile(licenseName, licenseUrl) {
   if (/\bCC0\b/i.test(name) && /creativecommons\.org\/publicdomain\/zero\/1\.0(?:\/|$)/i.test(url)) {
     return { type: 'CC0 1.0', url: 'https://creativecommons.org/publicdomain/zero/1.0/' };
   }
-  // Commercial reuse allowed with attribution/change notice; exclude NC, ND, and SA variants.
+  // CC BY-SA permits commercial adaptations when attribution and share-alike are preserved.
+  if (/\bCC BY-SA 4\.0\b/i.test(name) &&
+      /creativecommons\.org\/licenses\/by-sa\/4\.0(?:\/|$)/i.test(url)) {
+    return { type: 'CC BY-SA 4.0', url: 'https://creativecommons.org/licenses/by-sa/4.0/' };
+  }
+  // CC BY permits commercial adaptations with attribution.
   if (/\bCC BY 4\.0\b/i.test(name) &&
       /creativecommons\.org\/licenses\/by\/4\.0(?:\/|$)/i.test(url) &&
       !/creativecommons\.org\/licenses\/by-(?:nc|nd|sa)(?:-|\/)/i.test(url)) {
@@ -231,7 +236,9 @@ function descriptionForCandidate(candidate) {
   const licenseType = candidate.licenseType || commercialLicenseProfile(candidate.licenseName, candidate.licenseUrl)?.type || 'CC0 1.0';
   const licenseUrl = candidate.licenseUrl || (licenseType === 'CC BY 4.0'
     ? 'https://creativecommons.org/licenses/by/4.0/'
-    : CC0_LICENSE_URL);
+    : licenseType === 'CC BY-SA 4.0'
+      ? 'https://creativecommons.org/licenses/by-sa/4.0/'
+      : CC0_LICENSE_URL);
   const title = candidate.title || persianTitle(candidate.fileTitle, candidate.description);
   const topic = persianTopicLabel(candidate);
   const changeNote = 'تغییرات انجام‌شده: قاب‌بندی عمودی ۹:۱۶ بدون برش تصویر اصلی، حفظ صدای موجود و افزودن کارت پایانی معرفی گوشی‌باز در فیلو.';
@@ -242,7 +249,8 @@ function descriptionForCandidate(candidate) {
     'منبع: ' + candidate.fileTitle.replace(/^File:/i, ''),
     'پدیدآورنده: ' + (candidate.author || 'طبق اطلاعات صفحهٔ منبع'),
     'مجوز: ' + licenseType,
-    ...(licenseType === 'CC BY 4.0' ? [changeNote] : []),
+    ...(['CC BY 4.0', 'CC BY-SA 4.0'].includes(licenseType) ? [changeNote] : []),
+    ...(licenseType === 'CC BY-SA 4.0' ? ['مجوز نسخه تدوین‌شده: CC BY-SA 4.0 (با همان شرایط اشتراک‌گذاری).'] : []),
     candidate.sourcePage,
     licenseUrl
   ].join('\n');
@@ -364,7 +372,7 @@ async function discoverCommercialCandidates(state) {
     console.log('COMMONS_SEARCH', JSON.stringify({ query: search.key, results: pages.length }));
     for (const page of pages) {
       const info = page.imageinfo && page.imageinfo[0];
-      if (!info || !info.url || info.mime !== 'video/webm') continue;
+      if (!info || !info.url || !['video/webm', 'video/mp4'].includes(String(info.mime || '').toLowerCase())) continue;
       if (!Number.isFinite(info.size) || info.size < 200000 || info.size > MAX_SOURCE_BYTES) continue;
       const meta = info.extmetadata || {};
       const rawLicenseName = plainMetadata(meta.LicenseShortName && meta.LicenseShortName.value);
@@ -480,6 +488,9 @@ function internetArchiveLicense(rawUrl) {
   if (/creativecommons\.org\/publicdomain\/zero\/1\.0$/.test(url)) {
     return { type: 'CC0 1.0', url: 'https://creativecommons.org/publicdomain/zero/1.0/' };
   }
+  if (/creativecommons\.org\/licenses\/by-sa\/4\.0$/.test(url)) {
+    return { type: 'CC BY-SA 4.0', url: 'https://creativecommons.org/licenses/by-sa/4.0/' };
+  }
   if (/creativecommons\.org\/licenses\/by\/4\.0$/.test(url) &&
       !/creativecommons\.org\/licenses\/by-(?:nc|nd|sa)(?:-|\/)/.test(url)) {
     return { type: 'CC BY 4.0', url: 'https://creativecommons.org/licenses/by/4.0/' };
@@ -579,7 +590,7 @@ async function discoverInternetArchiveCandidates(state) {
         const videoFiles = files.filter(file => {
           const name = String(file.name || '');
           const size = Number(file.size);
-          return /\.webm$/i.test(name) && file.private !== 'true' &&
+          return /\.(?:webm|mp4|m4v|mov)$/i.test(name) && file.private !== 'true' && file.private !== true &&
             Number.isFinite(size) && size >= 200000 && size <= MAX_SOURCE_BYTES;
         }).sort((a, b) => Number(a.size) - Number(b.size));
         for (const file of videoFiles.slice(0, 2)) {
@@ -599,7 +610,7 @@ async function discoverInternetArchiveCandidates(state) {
             fileTitle: title,
             sourcePage,
             fileUrl,
-            mime: 'video/webm',
+            mime: /\.webm$/i.test(String(file.name || '')) ? 'video/webm' : 'video/mp4',
             size: Number(file.size),
             durationSeconds,
             licenseName: licenseProfile.type,
@@ -669,7 +680,8 @@ async function downloadVerifiedCommercialVideo(candidate) {
     if (candidate.mime !== 'video/mp4' || !/^https:\/\/videos\.pexels\.com\//i.test(candidate.fileUrl)) {
       throw new Error('pexels_video_type_or_host_not_allowed');
     }
-  } else if (candidate.mime !== 'video/webm' || candidate.size > MAX_SOURCE_BYTES) {
+  } else if (!['video/webm', 'video/mp4'].includes(candidate.mime) || candidate.size > MAX_SOURCE_BYTES ||
+      !/^https:\/\/(?:upload\.wikimedia\.org|archive\.org)\//i.test(candidate.fileUrl)) {
     throw new Error('commons_video_type_or_size_not_allowed');
   }
   fs.mkdirSync(VIDEO_DIR, { recursive: true });
@@ -682,7 +694,8 @@ async function downloadVerifiedCommercialVideo(candidate) {
   if (bytes.length < 200000 || bytes.length > MAX_SOURCE_BYTES) throw new Error('commercial_video_size_out_of_range');
   const isWebm = bytes[0] === 0x1a && bytes[1] === 0x45 && bytes[2] === 0xdf && bytes[3] === 0xa3;
   const isMp4 = bytes.toString('ascii', 4, 8) === 'ftyp';
-  if (isPexels ? !isMp4 : !isWebm) throw new Error(isPexels ? 'pexels_source_not_mp4' : 'commons_file_not_webm');
+  const expectedContainerMatches = candidate.mime === 'video/webm' ? isWebm : candidate.mime === 'video/mp4' ? isMp4 : false;
+  if (isPexels ? !isMp4 : !expectedContainerMatches) throw new Error(isPexels ? 'pexels_source_not_mp4' : 'licensed_source_container_mismatch');
   fs.writeFileSync(INPUT_FILE, bytes);
   const media = probeMedia(INPUT_FILE);
   if (!media.audio) throw new Error('source_audio_track_missing');
