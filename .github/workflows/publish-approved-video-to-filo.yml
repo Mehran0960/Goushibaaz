@@ -34,6 +34,7 @@ jobs:
           npm install --no-save playwright >/dev/null
           npx playwright install --with-deps chromium >/dev/null
           node --check scripts/filo_publish_cc0.cjs
+          node --check scripts/pexels_source.cjs
           node --check scripts/editorial_content.cjs
           node --check scripts/filo_endcard.cjs
           node scripts/test_editorial_content.cjs
@@ -43,6 +44,7 @@ jobs:
         env:
           FILO_USER: ${{ secrets.FILO_USER }}
           FILO_PASS: ${{ secrets.FILO_PASS }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
         run: node scripts/filo_publish_cc0.cjs
 
       - name: Persist publication result for idempotency, including unconfirmed submissions

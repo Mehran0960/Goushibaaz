@@ -36,6 +36,14 @@ Filo outputs use 720×1280 (9:16), preserve an existing licensed source audio tr
 
 The state ledger distinguishes `submitted_pending_approval` from `published`. A successful submission request or a post URL alone is not proof that the video is publicly active or earning revenue. The system only marks `published` after the account page shows an active status. Filo's moderation, view qualification, RPM and actual payments remain platform-controlled; uploads do not guarantee income.
 
+### Optional licensed stock-video supply: Pexels
+
+- The independent Filo publisher and the shared Telegram/Bale/Rubika preparation path can use the official Pexels Videos API as an optional extra source. The adapter searches using the top currently observed trend lead; when no fresh lead exists it uses Pexels' popular-video endpoint. Pexels does not provide per-video view-velocity data through this integration, so no acceleration score is fabricated for stock clips.
+- The API is polled at most once per 15 minutes per publishing path and only when `PEXELS_API_KEY` is configured. Without that secret, the module returns an empty candidate list and Wikimedia Commons / Internet Archive discovery continues normally.
+- The adapter accepts only Pexels-hosted video pages and HTTPS MP4 files, checks duration, audio, dimensions and relevance, credits the contributor and links to the original Pexels page and license. The output adds a Persian editorial title overlay, vertical composition and the channel end card; raw standalone stock reposting is not the intended use.
+- Add the key in GitHub repository Settings → Secrets and variables → Actions → New repository secret, named `PEXELS_API_KEY`. Never put the key in source files or chat. A Pexels API key is not currently present in the repository, so this source remains inactive until that secret is added.
+- Pexels has its own content and API rules. A public stock license does not clear third-party trademarks, people, privacy or other rights in every clip; candidates that fail validation are skipped.
+
 ## Multi-source trend intelligence
 
 - A separate, free trend-intelligence workflow runs every **15 minutes**. To keep the higher refresh rate from multiplying polling load, it rotates **24 of 48** curated public Persian Telegram feeds per run (a complete pass about every 30 minutes) and **24 of 48** YouTube global-chart region/category buckets per run (a complete pass about every 30 minutes). It rotates Bing-indexed searches across Instagram, TikTok, YouTube, Aparat, X, Facebook Reels, Reddit, Vimeo, Dailymotion, Twitch, Rumble, Snapchat Spotlight, Likee, Kwai and Bilibili. The official YouTube Data API is used only when `YOUTUBE_API_KEY` is configured: search calls remain capped at **30/day**, spaced at least 48 minutes apart, while chart reads are rotated to preserve the existing request volume. Paid Firecrawl search is disabled in this adapter.

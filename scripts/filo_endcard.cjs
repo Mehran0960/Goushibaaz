@@ -35,6 +35,37 @@ function probeVideo(filePath) {
   };
 }
 
+function addEditorialIntroOverlay(inputPath, outputPath, options = {}) {
+  const width = Number(options.width) || 720;
+  const height = Number(options.height) || 1280;
+  const introSeconds = Math.max(2, Math.min(5, Number(options.introSeconds) || 3.5));
+  const rawText = String(options.text || '').trim().slice(0, 110);
+  const introText = escapeDrawText(rawText);
+  const regularFont = options.regularFont || REGULAR_FONT;
+  if (!introText) throw new Error('filo_editorial_intro_text_missing');
+  if (!fs.existsSync(inputPath)) throw new Error('filo_editorial_intro_input_missing');
+  if (!fs.existsSync(regularFont)) throw new Error('filo_editorial_intro_font_missing');
+  if (path.resolve(inputPath) === path.resolve(outputPath)) throw new Error('filo_editorial_intro_output_must_differ');
+  const before = probeVideo(inputPath);
+  if (before.width !== width || before.height !== height || !Number.isFinite(before.durationSeconds)) throw new Error('filo_editorial_intro_input_dimensions_invalid');
+  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+  const tempPath = outputPath + '.tmp.mp4';
+  const filter = 'drawtext=fontfile=' + regularFont + ':text=\'' + introText + '\':fontcolor=white:fontsize=38:x=(w-text_w)/2:y=h*0.055:box=1:boxcolor=black@0.52:boxborderw=18:text_shaping=1:enable=\'between(t\\,0\\,' + introSeconds + ')\'';
+  try {
+    execFileSync('ffmpeg', [
+      '-hide_banner', '-loglevel', 'error', '-y', '-i', inputPath, '-vf', filter,
+      '-map', '0:v:0', '-map', '0:a?', '-c:v', 'libx264', '-preset', 'veryfast',
+      '-crf', '25', '-pix_fmt', 'yuv420p', '-c:a', 'copy', '-movflags', '+faststart', tempPath
+    ], { stdio: 'pipe', timeout: 120000 });
+    const after = probeVideo(tempPath);
+    if (after.width !== width || after.height !== height || Math.abs(after.durationSeconds - before.durationSeconds) > 0.15 || !fs.statSync(tempPath).size) throw new Error('filo_editorial_intro_output_validation_failed');
+    fs.renameSync(tempPath, outputPath);
+    return { width: after.width, height: after.height, durationSeconds: Math.round(after.durationSeconds * 100) / 100, introSeconds, outputBytes: fs.statSync(outputPath).size, text: rawText };
+  } catch (error) {
+    try { fs.rmSync(tempPath, { force: true }); } catch {}
+    throw error;
+  }
+}
 function appendFiloEndCard(inputPath, outputPath, options = {}) {
   const width = Number(options.width) || 720;
   const height = Number(options.height) || 1280;
@@ -59,8 +90,12 @@ function appendFiloEndCard(inputPath, outputPath, options = {}) {
   const tempPath = outputPath + '.tmp.mp4';
   const firstLine = escapeDrawText('برای ویدیوهای بیشتر');
   const secondLine = escapeDrawText('گوشی‌باز را در فیلو دنبال کنید');
+  const introText = String(options.introText || '').trim().slice(0, 110);
+  const introFilter = introText
+    ? ',drawtext=fontfile=' + regularFont + ':text=\'' + escapeDrawText(introText) + '\':fontcolor=white:fontsize=38:x=(w-text_w)/2:y=h*0.055:box=1:boxcolor=black@0.52:boxborderw=18:text_shaping=1:enable=\'between(t\\,0\\,3.5)\''
+    : '';
   const filter = [
-    `[0:v]fps=30,scale=${width}:${height},setsar=1,format=yuv420p[main]`,
+    `[0:v]fps=30,scale=${width}:${height},setsar=1,format=yuv420p${introFilter}[main]`,
     `[1:v]drawtext=fontfile=${regularFont}:text='${firstLine}':fontcolor=white:fontsize=42:x=(w-text_w)/2:y=h*0.43:text_shaping=1,` +
       `drawtext=fontfile=${boldFont}:text='${secondLine}':fontcolor=0x7FE6D2:fontsize=40:x=(w-text_w)/2:y=h*0.53:text_shaping=1[card]`,
     '[main][card]concat=n=2:v=1:a=0[v]'
@@ -103,4 +138,4 @@ function appendFiloEndCard(inputPath, outputPath, options = {}) {
   }
 }
 
-module.exports = { appendFiloEndCard };
+module.exports = { appendFiloEndCard, addEditorialIntroOverlay };

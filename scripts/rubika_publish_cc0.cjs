@@ -4,6 +4,8 @@ const crypto = require('node:crypto');
 const { execFileSync } = require('node:child_process');
 const { rankCandidates, buildTrendWeights } = require('./quality_rank.cjs');
 const { buildTrendSearches, rotateSearchBatch } = require('./trend_discovery.cjs');
+const { discoverPexelsCandidates, PEXELS_LICENSE_URL } = require('./pexels_source.cjs');
+const { addEditorialIntroOverlay } = require('./filo_endcard.cjs');
 const { probeMedia, convertToPortrait } = require('./media_format.cjs');
 const { looksRelevant, persianTitle } = require('./editorial_content.cjs');
 
@@ -127,6 +129,17 @@ function sourceVerticalScore(width, height) {
 }
 
 function captionFor(candidate) {
+  if (candidate.sourceType === 'pexels') {
+    return [candidate.title, '',
+      'این کلیپ با عنوان‌گذاری فارسی و تدوین عمودی اختصاصی آماده شده است.',
+      'منبع: Pexels',
+      'تصویربردار: ' + (candidate.author || 'Pexels contributor'),
+      'پروفایل تصویربردار: ' + (candidate.authorUrl || 'https://www.pexels.com'),
+      'صفحه ویدئو: ' + candidate.sourcePage,
+      'Pexels: https://www.pexels.com',
+      'مجوز: Pexels License — ' + PEXELS_LICENSE_URL
+    ].join('\\n').slice(0, 1800);
+  }
   const lines = [
     candidate.title,
     '',
@@ -647,10 +660,15 @@ async function discoverCandidates(state) {
     await pause(1000);
   }
   const archiveCandidates = await discoverInternetArchiveCandidates(used);
+  const pexelsCandidates = await discoverPexelsCandidates({ state: shared, used, limit: 25 });
+  persistSharedState(shared);
   // NASA/institutional footage is intentionally not a public entertainment source for this channel.
   // Trend discovery and licensed creator-style entertainment sources take precedence.
   console.log('NASA_PUBLIC_MEDIA_SKIPPED_FOR_ENTERTAINMENT_FIT');
-  for (const candidate of archiveCandidates) {
+  for (const candidate of [...archiveCandidates, ...pexelsCandidates.map(candidate => ({
+    ...candidate,
+    license: { type: candidate.licenseType, url: candidate.licenseUrl }
+  }))]) {
     const previous = hits.get(candidate.sourcePage);
     if (!previous || candidate.contentLocaleScore > previous.contentLocaleScore ||
         (candidate.contentLocaleScore === previous.contentLocaleScore && candidate.sourceVerticalScore > previous.sourceVerticalScore)) {
@@ -660,6 +678,7 @@ async function discoverCandidates(state) {
   console.log('COMBINED_LICENSED_SOURCE_COVERAGE', JSON.stringify({
     wikimediaAndArchiveCandidates: hits.size,
     archiveCandidates: archiveCandidates.length,
+    pexelsCandidates: pexelsCandidates.length,
     nasaCandidates: 0, nasaPublicMediaEnabled: false
   }));
   let trendSnapshot = {};
@@ -691,7 +710,11 @@ async function discoverCandidates(state) {
 
 async function downloadSource(candidate) {
   const standardLicense = candidate.license && [LICENSES.cc0, LICENSES.ccby].includes(candidate.license.url);
-  if (!standardLicense) throw new Error('source_license_not_verified_for_commercial_reuse');
+  const pexelsLicense = candidate.sourceType === 'pexels' && candidate.license &&
+    candidate.license.type === 'Pexels License' && candidate.license.url === PEXELS_LICENSE_URL &&
+    /^https:\/\/(?:www\.)?pexels\.com\/video\//i.test(String(candidate.sourcePage || '')) &&
+    /^https:\/\/videos\.pexels\.com\//i.test(String(candidate.fileUrl || ''));
+  if (!standardLicense && !pexelsLicense) throw new Error('source_license_not_verified_for_commercial_reuse');
   fs.mkdirSync(WORK_DIR, { recursive: true });
   const response = await fetch(candidate.fileUrl, {
     headers: { 'User-Agent': 'GoushibaazRubikaPublisher/1.0 (verified commercial reuse)' },
@@ -703,6 +726,7 @@ async function downloadSource(candidate) {
   const isWebm = bytes[0] === 0x1a && bytes[1] === 0x45 && bytes[2] === 0xdf && bytes[3] === 0xa3;
   const isIsoBmff = bytes.toString('ascii', 4, 8) === 'ftyp';
   if (!isWebm && !isIsoBmff) throw new Error('source_container_not_supported');
+  if (pexelsLicense && !isIsoBmff) throw new Error('pexels_source_not_mp4');
   fs.writeFileSync(INPUT_FILE, bytes);
   const media = probeMedia(INPUT_FILE);
   if (!media.audio) throw new Error('source_audio_track_missing');
@@ -860,11 +884,19 @@ async function main() {
   state.lastOutcome = { status: 'candidate_ready', checkedAt: new Date().toISOString(), sourcePage: candidate.sourcePage };
   if (!PREPARE_ONLY) persistState(state);
   const converted = convertPortrait();
+  if (candidate.sourceType === 'pexels') {
+    const introPath = OUTPUT_FILE + '.editorial.mp4';
+    addEditorialIntroOverlay(OUTPUT_FILE, introPath, {
+      width: TARGET_WIDTH, height: TARGET_HEIGHT, text: candidate.title, introSeconds: 3.5
+    });
+    fs.renameSync(introPath, OUTPUT_FILE);
+  }
   const resultSummary = {
     title: candidate.title,
     sourcePage: candidate.sourcePage,
     sourceTitle: candidate.fileTitle,
     license: candidate.license.type,
+    contentSource: candidate.sourceType || 'licensed_archive',
     sourceBytes: sourceInfo.bytes,
     sourceAudio: sourceInfo.sourceAudio,
     outputBytes: converted.outputBytes,

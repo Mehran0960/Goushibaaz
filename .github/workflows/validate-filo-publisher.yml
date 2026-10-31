@@ -17,6 +17,8 @@ on:
       - "scripts/telegram_publish.cjs"
       - "scripts/bale_publish.cjs"
       - "scripts/test_shared_publish.cjs"
+      - "scripts/pexels_source.cjs"
+      - "scripts/test_pexels_source.cjs"
       - "scripts/persist_state_file.sh"
       - "scripts/import_trend_intelligence.cjs"
       - "scripts/trend_intelligence/**"
@@ -75,6 +77,8 @@ jobs:
           node --check scripts/bale_publish.cjs
           node --check scripts/rubika_publish_shared.cjs
           node --check scripts/test_shared_publish.cjs
+          node --check scripts/pexels_source.cjs
+          node --check scripts/test_pexels_source.cjs
           node --check scripts/media_format.cjs
           node --check scripts/rubika_publish_cc0.cjs
           node --check scripts/import_trend_intelligence.cjs
@@ -95,6 +99,7 @@ jobs:
           node scripts/test_editorial_content.cjs
           node scripts/test_filo_endcard.cjs
           node scripts/test_shared_publish.cjs
+          node scripts/test_pexels_source.cjs
           node scripts/test_media_format.cjs
           node scripts/test_quality_rank.cjs
           node scripts/test_trend_discovery.cjs
@@ -187,6 +192,12 @@ jobs:
           check_contains scripts/test_trend_discovery.cjs 'limit: 2'
           check_contains scripts/filo_publish_cc0.cjs 'buildTrendSearches(undefined, { limit: 2 })'
           check_contains scripts/filo_publish_cc0.cjs 'filo_login_submit_stayed_disabled:'
+          check_contains scripts/filo_publish_cc0.cjs 'discoverPexelsCandidates({ state, used: usedSources, limit: 25 })'
+          check_contains scripts/rubika_publish_cc0.cjs 'discoverPexelsCandidates({ state: shared, used, limit: 25 })'
+          check_contains scripts/filo_publish_cc0.cjs 'Pexels License'
+          check_contains scripts/rubika_publish_cc0.cjs 'Pexels License'
+          check_contains .github/workflows/publish-approved-video-to-filo.yml 'PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}'
+          check_contains .github/workflows/prepare-shared-video.yml 'PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}'
           check_contains scripts/rubika_publish_cc0.cjs 'buildTrendSearches(undefined, { limit: 2 })'
           check_contains scripts/rubika_publish_cc0.cjs 'trendSearchAcceleration: search.trendAcceleration || undefined'
           node -e "const p=require('./config/content-policy.json'); const f=p.platform_profiles&&p.platform_profiles.filo; if(p.vertical_video.aspect_ratio!=='9:16'||p.vertical_video.output_width!==1080||p.vertical_video.output_height!==1920||!f||f.output_width!==720||f.output_height!==1280||f.cover_width!==720||f.cover_height!==1280||f.end_card_seconds!==1.6) process.exit(1); console.log('CONTENT_POLICY_CHECK_OK')"

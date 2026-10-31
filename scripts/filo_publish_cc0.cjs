@@ -7,11 +7,12 @@ const { buildTrendSearches, rotateSearchBatch } = require('./trend_discovery.cjs
 const { probeMedia, convertToPortrait } = require('./media_format.cjs');
 const { looksRelevant, persianTitle } = require('./editorial_content.cjs');
 const { appendFiloEndCard } = require('./filo_endcard.cjs');
+const { discoverPexelsCandidates, PEXELS_LICENSE_URL } = require('./pexels_source.cjs');
 const ACCOUNT = 'https://ifilo.net';
 const CC0_LICENSE_URL = 'https://creativecommons.org/publicdomain/zero/1.0/';
 const STATE_PATH = path.join('state', 'filo-published.json');
 const VIDEO_DIR = path.join(process.cwd(), 'work', 'filo-publish');
-const INPUT_FILE = path.join(VIDEO_DIR, 'source-video.webm');
+const INPUT_FILE = path.join(VIDEO_DIR, 'source-video.bin');
 const OUTPUT_FILE = path.join(VIDEO_DIR, 'filo-video-fa.mp4');
 const COVER_FILE = path.join(VIDEO_DIR, 'filo-video-cover.jpg');
 const MAX_SOURCE_BYTES = 45_000_000;
@@ -168,6 +169,9 @@ function plainMetadata(value) {
 function commercialLicenseProfile(licenseName, licenseUrl) {
   const name = String(licenseName || '');
   const url = String(licenseUrl || '').replace(/&amp;/g, '&');
+  if (/^Pexels License$/i.test(name.trim()) && url.replace(/\/+$/, '').toLowerCase() === PEXELS_LICENSE_URL.replace(/\/+$/, '').toLowerCase()) {
+    return { type: 'Pexels License', url: PEXELS_LICENSE_URL };
+  }
   if (/\bCC0\b/i.test(name) && /creativecommons\.org\/publicdomain\/zero\/1\.0(?:\/|$)/i.test(url)) {
     return { type: 'CC0 1.0', url: 'https://creativecommons.org/publicdomain/zero/1.0/' };
   }
@@ -197,6 +201,20 @@ function persianTopicLabel(candidate) {
 }
 
 function descriptionForCandidate(candidate) {
+  if (candidate.sourceType === 'pexels') {
+    return [
+      candidate.title + '؛ کلیپی کوتاه درباره ' + persianTopicLabel(candidate) + '.',
+      'برای دیدن ویدئوهای بیشتر، گوشی‌باز را در فیلو دنبال کنید.',
+      '',
+      'این ویدئو با عنوان‌گذاری فارسی اختصاصی، تدوین عمودی و کارت پایانی گوشی‌باز آماده شده است.',
+      'منبع ویدئو: Pexels',
+      'تصویربردار: ' + (candidate.author || 'Pexels contributor'),
+      'پروفایل تصویربردار: ' + (candidate.authorUrl || 'https://www.pexels.com'),
+      'صفحه ویدئو: ' + candidate.sourcePage,
+      'Pexels: https://www.pexels.com',
+      'مجوز: Pexels License — ' + PEXELS_LICENSE_URL
+    ].join('\n');
+  }
   if (candidate.contentOrigin === 'original_goushibaaz') {
     const optionLine = candidate.options.map((value, i) => ['۱', '۲', '۳'][i] + ') ' + value).join(' | ');
     return [
@@ -637,26 +655,34 @@ async function discoverInternetArchiveCandidates(state) {
 
 async function downloadVerifiedCommercialVideo(candidate) {
   if (!candidate || !candidate.fileUrl || !candidate.sourcePage || !candidate.fileTitle) {
-    throw new Error('commons_candidate_missing_required_fields');
+    throw new Error('commercial_candidate_missing_required_fields');
   }
+  const isPexels = candidate.sourceType === 'pexels' &&
+    String(candidate.licenseName || '') === 'Pexels License' &&
+    String(candidate.licenseUrl || '').replace(/\/+$/, '') === PEXELS_LICENSE_URL.replace(/\/+$/, '') &&
+    /^https:\/\/(?:www\.)?pexels\.com\/video\//i.test(String(candidate.sourcePage || ''));
   const licenseProfile = commercialLicenseProfile(candidate.licenseName, candidate.licenseUrl);
   if (!licenseProfile || (candidate.licenseType && candidate.licenseType !== licenseProfile.type)) {
-    throw new Error('commons_license_not_verified_for_commercial_reuse');
+    throw new Error('commercial_reuse_license_not_verified');
   }
-  if (candidate.mime !== 'video/webm' || candidate.size > MAX_SOURCE_BYTES) {
+  if (isPexels) {
+    if (candidate.mime !== 'video/mp4' || !/^https:\/\/videos\.pexels\.com\//i.test(candidate.fileUrl)) {
+      throw new Error('pexels_video_type_or_host_not_allowed');
+    }
+  } else if (candidate.mime !== 'video/webm' || candidate.size > MAX_SOURCE_BYTES) {
     throw new Error('commons_video_type_or_size_not_allowed');
   }
   fs.mkdirSync(VIDEO_DIR, { recursive: true });
   const fileResponse = await fetch(candidate.fileUrl, {
-    headers: { 'User-Agent': 'GoushibaazPublisher/1.1 (https://github.com/Mehran0960/Goushibaaz; verified commercial-reuse license)' },
-    signal: AbortSignal.timeout(45000)
+    headers: { 'User-Agent': 'GoushibaazPublisher/1.2 (verified commercial reuse and Pexels attribution)' },
+    signal: AbortSignal.timeout(60000)
   });
-  if (!fileResponse.ok) throw new Error('commons_video_download_http_' + fileResponse.status);
+  if (!fileResponse.ok) throw new Error('commercial_video_download_http_' + fileResponse.status);
   const bytes = Buffer.from(await fileResponse.arrayBuffer());
-  if (bytes.length < 200000 || bytes.length > MAX_SOURCE_BYTES) throw new Error('commons_video_size_out_of_expected_range');
-  if (!(bytes[0] === 0x1a && bytes[1] === 0x45 && bytes[2] === 0xdf && bytes[3] === 0xa3)) {
-    throw new Error('commons_file_not_webm');
-  }
+  if (bytes.length < 200000 || bytes.length > MAX_SOURCE_BYTES) throw new Error('commercial_video_size_out_of_range');
+  const isWebm = bytes[0] === 0x1a && bytes[1] === 0x45 && bytes[2] === 0xdf && bytes[3] === 0xa3;
+  const isMp4 = bytes.toString('ascii', 4, 8) === 'ftyp';
+  if (isPexels ? !isMp4 : !isWebm) throw new Error(isPexels ? 'pexels_source_not_mp4' : 'commons_file_not_webm');
   fs.writeFileSync(INPUT_FILE, bytes);
   const media = probeMedia(INPUT_FILE);
   if (!media.audio) throw new Error('source_audio_track_missing');
@@ -666,17 +692,15 @@ async function downloadVerifiedCommercialVideo(candidate) {
   }
   return {
     sourcePage: candidate.sourcePage, sourceTitle: candidate.fileTitle,
-    directFilePath: pathOnly(candidate.fileUrl), licenseName: candidate.licenseName,
+    directFilePath: pathOnly(candidate.fileUrl), licenseName: licenseProfile.type,
     licenseUrl: licenseProfile.url, licenseType: licenseProfile.type,
-    author: String(candidate.author || 'Not identified on the source page').slice(0, 100),
-    sourceBytes: bytes.length, sourceDescription: candidate.description.slice(0, 180),
+    author: String(candidate.author || 'Not identified on the source page').slice(0, 120),
+    authorUrl: String(candidate.authorUrl || '').slice(0, 400),
+    sourceBytes: bytes.length, sourceDescription: String(candidate.description || '').slice(0, 180),
     durationSeconds: Math.round(media.durationSeconds * 100) / 100,
-    sourceAudio: media.audio,
-    sourceWidth: media.width,
-    sourceHeight: media.height
+    sourceAudio: media.audio, sourceWidth: media.width, sourceHeight: media.height
   };
 }
-
 function convertToPortraitMp4() {
   return convertToPortrait(INPUT_FILE, OUTPUT_FILE, {
     width: TARGET_WIDTH,
@@ -1013,12 +1037,16 @@ async function main() {
     return;
   }
 
-  const [commonsCandidates, archiveCandidates] = await Promise.all([
+  const usedSources = new Set((state.posts || [])
+    .filter(item => ACTIVE_SOURCE_STATUSES.has(item.status) || item.status === 'ineligible_source')
+    .map(item => item.sourcePage));
+  const [commonsCandidates, archiveCandidates, pexelsCandidates] = await Promise.all([
     discoverCommercialCandidates(state),
-    discoverInternetArchiveCandidates(state)
+    discoverInternetArchiveCandidates(state),
+    discoverPexelsCandidates({ state, used: usedSources, limit: 25 })
   ]);
   const uniqueCandidates = new Map();
-  for (const candidate of [...commonsCandidates, ...archiveCandidates]) {
+  for (const candidate of [...commonsCandidates, ...archiveCandidates, ...pexelsCandidates]) {
     const old = uniqueCandidates.get(candidate.sourcePage);
     if (!old || (candidate.contentLocaleScore || 0) > (old.contentLocaleScore || 0)) {
       uniqueCandidates.set(candidate.sourcePage, candidate);
@@ -1049,6 +1077,7 @@ async function main() {
     internet_archive_queries: ARCHIVE_SEARCH_TERMS.length,
     eligible_commons: commonsCandidates.length,
     eligible_internet_archive: archiveCandidates.length,
+    eligible_pexels: pexelsCandidates.length,
     unique_eligible_sources: candidates.length
   }));
   let candidate = null;
@@ -1112,7 +1141,8 @@ async function main() {
   const endCard = appendFiloEndCard(OUTPUT_FILE, OUTPUT_FILE + '.endcard.mp4', {
     width: TARGET_WIDTH,
     height: TARGET_HEIGHT,
-    durationSeconds: Number(FILO_PROFILE.end_card_seconds) || 1.6
+    durationSeconds: Number(FILO_PROFILE.end_card_seconds) || 1.6,
+    introText: candidate.sourceType === 'pexels' ? candidate.title : ''
   });
   fs.renameSync(OUTPUT_FILE + '.endcard.mp4', OUTPUT_FILE);
   const finalMedia = probeMedia(OUTPUT_FILE);
