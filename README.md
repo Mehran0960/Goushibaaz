@@ -14,6 +14,8 @@ The current first source is YouTube Data API v3. The worker samples video statis
 
 The current discovery source is a signal, not a guarantee that a video will go viral. Additional sources can be added behind the same discovery interface.
 
+The multi-source trend-intelligence pipeline keeps a free 15-minute discovery pass and adds a separate Firecrawl-backed pass every four hours. The paid pass rotates two searches per run and obeys the persisted internal ceiling of 800 credits/month; the six-runs/day schedule is sized for at most about 720 credits in a 30-day month, leaving a reserve. It reads `FIRECRAWL_API_KEY` from GitHub Actions Secrets (or a protected Actions variable fallback); missing credentials safely fall back to free discovery. Pexels is enabled separately through `PEXELS_API_KEY` in the shared publisher and Filo publisher; workflows log credential presence only, never the key value.
+
 ## Scheduled Persian-first Shorts scout
 
 The GitHub Actions workflow `.github/workflows/discover-filo-candidates.yml` runs every two hours and can also be started manually. It dynamically crawls MediaFarsi home/ranking/new-channel/statistics pages, up to 100 sitemap targets at the first level, 150 additional sitemap targets, and up to 150 relevant category pages. It scans up to **1,000 Persian channel Shorts pages per run**: 100 priority channels plus a rotating window of up to 900 other discovered channels. Each run exports the complete discovered/selected channel registry in `out/mediafarsi-source-catalog.json`; URLs that fail or return no video cards are recorded as discovery errors rather than treated as active sources.
