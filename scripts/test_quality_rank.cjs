@@ -121,6 +121,19 @@ const trendLaneMatch = scoreCandidate({
 });
 assert.equal(trendLaneMatch.topic, 'sports_skill',
   'a closely matched observed trend lane should guide the licensed clip topic');
+const acceleratingTrendMatch = scoreCandidate({
+  fileTitle: 'Unexpected athletic trick shot with a surprising payoff',
+  description: 'One continuous sports skill clip.',
+  durationSeconds: 16,
+  sourceAspectRatio: 0.5625,
+  trendSearchTitle: 'Unexpected athletic skill trick shot',
+  trendSearchLane: 'skill_or_spectacle',
+  trendSearchAcceleration: 12000
+});
+assert.ok(acceleratingTrendMatch.score > trendLaneMatch.score,
+  'a licensed clip matching an accelerating observed trend should receive an additional ranking bonus');
+assert.ok(acceleratingTrendMatch.reasons.some(reason => reason.startsWith('observed_trend_acceleration:')),
+  'the acceleration bonus should be auditable');
 
 assert.equal(scoreCandidate({
   fileTitle: 'Election campaign and political rally footage',

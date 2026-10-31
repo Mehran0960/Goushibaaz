@@ -234,6 +234,12 @@ function scoreCandidate(candidate, options = {}) {
   if (trendMatchBonus > 0) {
     score += trendMatchBonus;
     reasons.push('observed_trend_title_overlap:' + trendMatchBonus);
+    const acceleration = safeNumber(c.trendSearchAcceleration) || 0;
+    if (acceleration > 0 && trendMatchBonus >= 4) {
+      const accelerationBonus = Math.min(4, Math.log10(acceleration + 1) * 1.5);
+      score += accelerationBonus;
+      reasons.push('observed_trend_acceleration:' + Math.round(accelerationBonus * 10) / 10);
+    }
   }
   if (MULTI_CLIP_RISK.test(text)) {
     score -= 20;

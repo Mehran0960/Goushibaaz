@@ -60,6 +60,23 @@ assert.ok(firstSlot[0].trendTitle);
 assert.ok(['comedy', 'food_cooking'].includes(firstSlot[0].trendLane));
 assert.equal(firstSlot[0].trendUrl.startsWith('https://t.me/'), true);
 
+const twoLeads = buildTrendSearches({
+  social: {
+    social1: {
+      title: 'Unexpected satisfying restoration reveal',
+      url: 'https://www.instagram.com/reel/ABC123/',
+      lane: 'transformation_or_satisfying',
+      velocity_kind: 'observed',
+      velocity_per_hour: 7000,
+      acceleration_per_hour2: 9000,
+      last_seen_at: new Date(now).toISOString()
+    }
+  },
+  ...snapshot
+}, { nowMs: now, limit: 2 });
+assert.equal(twoLeads.length, 2);
+assert.ok(twoLeads.some(item => item.trendAcceleration > 0));
+
 const nextSlot = buildTrendSearches(snapshot, { nowMs: now + 5 * 60000 });
 assert.notEqual(nextSlot[0].trendUrl, firstSlot[0].trendUrl,
   'the observed trend lead should rotate on the next five-minute slot');
