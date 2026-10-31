@@ -4,6 +4,16 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "*/5 * * * *" # five-minute best-effort attempts; job runtime and Filo review can extend the actual gap
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/publish-approved-video-to-filo.yml"
+      - "scripts/filo_publish_cc0.cjs"
+      - "scripts/pexels_source.cjs"
+      - "scripts/filo_endcard.cjs"
+      - "scripts/quality_rank.cjs"
+      - "scripts/trend_discovery.cjs"
+      - "config/content-policy.json"
 
 permissions:
   contents: write
