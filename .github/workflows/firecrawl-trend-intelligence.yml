@@ -42,6 +42,7 @@ jobs:
           python -m py_compile scripts/trend_intelligence/follower_growth.py scripts/trend_intelligence/social_discovery.py scripts/trend_intelligence/run_paid_discovery.py scripts/trend_intelligence/build_preview.py scripts/trend_intelligence/test_social_discovery.py
           python -m unittest scripts.trend_intelligence.test_social_discovery
           node --check scripts/import_trend_intelligence.cjs
+      # Re-trigger discovery after repository credential setup; never print the secret itself.
       - name: Check Firecrawl credential availability without exposing its value
         env:
           FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY || vars.FIRECRAWL_API_KEY }}
