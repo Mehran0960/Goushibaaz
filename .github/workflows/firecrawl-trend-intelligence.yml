@@ -1,0 +1,95 @@
+name: Goushibaaz Firecrawl-powered trend discovery
+
+on:
+  schedule:
+    - cron: "11 */4 * * *" # Six runs/day; bounded Firecrawl search budget.
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/trend_intelligence/run_paid_discovery.py"
+      - "scripts/trend_intelligence/social_discovery.py"
+      - "scripts/import_trend_intelligence.cjs"
+      - ".github/workflows/firecrawl-trend-intelligence.yml"
+
+permissions:
+  contents: write
+
+# Serialize writes to the shared trend-intelligence and platform-trends ledgers.
+concurrency:
+  group: goushibaaz-trend-state-writers
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - name: Install free discovery dependency
+        run: pip install --disable-pip-version-check requests
+      - name: Validate Firecrawl discovery and trend import
+        run: |
+          python -m py_compile scripts/trend_intelligence/follower_growth.py scripts/trend_intelligence/social_discovery.py scripts/trend_intelligence/run_paid_discovery.py scripts/trend_intelligence/build_preview.py scripts/trend_intelligence/test_social_discovery.py
+          python -m unittest scripts.trend_intelligence.test_social_discovery
+          node --check scripts/import_trend_intelligence.cjs
+      - name: Check Firecrawl credential availability without exposing its value
+        env:
+          FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY || vars.FIRECRAWL_API_KEY }}
+        run: |
+          if [ -n "$FIRECRAWL_API_KEY" ]; then
+            echo "FIRECRAWL_REPOSITORY_CREDENTIAL_PRESENT=true"
+          else
+            echo "FIRECRAWL_REPOSITORY_CREDENTIAL_PRESENT=false; this run will safely use free discovery fallback."
+          fi
+      - name: Scan with Firecrawl, public Telegram feeds and optional YouTube API
+        env:
+          FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY || vars.FIRECRAWL_API_KEY }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY || vars.YOUTUBE_API_KEY }}
+        run: python scripts/trend_intelligence/run_paid_discovery.py
+      - name: Import observed trend history into destination ranking
+        run: node scripts/import_trend_intelligence.cjs
+      - name: Build human-readable trend preview
+        if: ${{ always() && hashFiles('state/trend-intelligence.json') != '' }}
+        run: python scripts/trend_intelligence/build_preview.py
+      - name: Upload trend preview
+        if: ${{ always() && hashFiles('reports/latest-trend-preview.md') != '' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: goushibaaz-firecrawl-trend-preview
+          path: reports/latest-trend-preview.md
+          if-no-files-found: warn
+          retention-days: 7
+      - name: Persist trend state independently
+        if: ${{ always() && hashFiles('state/trend-intelligence.json') != '' }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state/trend-intelligence.json state/platform-trends.json
+          if git diff --cached --quiet; then
+            echo "No trend state change."
+            exit 0
+          fi
+          git commit -m "Refresh Firecrawl-backed video trend intelligence"
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              sleep "$attempt"
+              continue
+            fi
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$attempt"
+          done
+          echo "Unable to persist Firecrawl trend state after four attempts." >&2
+          exit 1
