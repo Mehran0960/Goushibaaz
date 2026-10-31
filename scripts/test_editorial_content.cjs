@@ -11,7 +11,7 @@ assert.equal(persianTitle('Redcurrant jam recipe 19', ''), 'طرز تهیه مر
 assert.equal(looksRelevant('دوربین مخفی ایرانی', 'یک موقعیت طنز'), true);
 assert.equal(looksRelevant('Iranian political protest', 'A street demonstration'), false);
 
-assert.equal(persianTitle('Cat Jumpscare', ''), 'پرش ناگهانی گربه جلوی دوربین');
+assert.equal(persianTitle('Cat Jumpscare', ''), 'پرش یا واکنش ناگهانی گربه');
 assert.equal(persianTitle('Squirrel eating a nut', ''), 'سنجابی در حال خوردن خوراکی');
 assert.equal(persianTitle('Cooking food art', ''), '', 'generic cooking metadata must not generate a generic caption');
 assert.equal(persianTitle('Unexpected football trick shot', ''), 'یک حرکت یا شوت مهارتی در فوتبال');
