@@ -194,7 +194,7 @@ jobs:
           check_contains .github/workflows/publish-approved-video-to-filo.yml 'five-minute best-effort attempts'
           check_contains scripts/filo_publish_cc0.cjs 'MAX_DAILY_PUBLICATIONS = 288'
           check_contains scripts/filo_publish_cc0.cjs 'MIN_PUBLICATION_GAP_MS = 5 * 60 * 1000'
-          check_contains scripts/filo_publish_cc0.cjs 'buildTrendSearches()'
+          check_contains scripts/filo_publish_cc0.cjs 'buildTrendSearches(undefined, { limit: 2 })'
           check_contains scripts/rubika_publish_cc0.cjs 'rotateSearchBatch'
           check_contains scripts/quality_rank.cjs 'observed_trend_title_overlap'
           check_contains config/content-policy.json 'never_crop_foreground'
