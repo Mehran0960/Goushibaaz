@@ -54,7 +54,7 @@ jobs:
         env:
           FILO_USER: ${{ secrets.FILO_USER }}
           FILO_PASS: ${{ secrets.FILO_PASS }}
-          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY || vars.PEXELS_API_KEY }}
         run: node scripts/filo_publish_cc0.cjs
 
       - name: Persist publication result for idempotency, including unconfirmed submissions
