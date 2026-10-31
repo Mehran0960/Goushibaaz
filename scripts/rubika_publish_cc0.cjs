@@ -134,29 +134,30 @@ function sourceVerticalScore(width, height) {
 }
 
 function captionFor(candidate) {
+  if (!candidate.title || !String(candidate.title).trim()) {
+    throw new Error('source_specific_persian_caption_missing');
+  }
   if (candidate.sourceType === 'pexels') {
-    return [candidate.title, '',
-      'این کلیپ با عنوان‌گذاری فارسی و تدوین عمودی اختصاصی آماده شده است.',
+    return [
+      candidate.title,
+      '',
       'منبع: Pexels',
       'تصویربردار: ' + (candidate.author || 'Pexels contributor'),
-      'پروفایل تصویربردار: ' + (candidate.authorUrl || 'https://www.pexels.com'),
       'صفحه ویدئو: ' + candidate.sourcePage,
-      'Pexels: https://www.pexels.com',
       'مجوز: Pexels License — ' + PEXELS_LICENSE_URL
-    ].join('\\n').slice(0, 1800);
+    ].join('\\n').slice(0, 1000);
   }
   const lines = [
     candidate.title,
     '',
-    'منبع: ' + candidate.fileTitle.replace(/^File:/i, ''),
+    'عنوان اصلی منبع: ' + candidate.fileTitle.replace(/^File:/i, ''),
     'پدیدآورنده: ' + (candidate.author || 'طبق اطلاعات صفحه منبع'),
     'مجوز: ' + candidate.license.type,
-    'تغییرات: قاب‌بندی عمودی ۹:۱۶، حفظ صدای اصلی و افزودن عنوان/کارت پایانی اختصاصی.',
     ...(candidate.license.type === 'CC BY-SA 4.0' ? ['مجوز نسخه تدوین‌شده: CC BY-SA 4.0 (با همان شرایط اشتراک‌گذاری).'] : []),
     candidate.sourcePage,
     candidate.license.url
   ];
-  return lines.join('\n').slice(0, 1800);
+  return lines.join('\\n').slice(0, 1000);
 }
 
 async function rubika(method, body = {}) {
@@ -385,6 +386,7 @@ async function discoverInternetArchiveCandidates(used) {
           candidate.contentLocaleScore = Math.max(candidateContentPriority(candidate), candidate.localPriorityQuery ? 1 : 0);
           candidate.sourceVerticalScore = sourceVerticalScore(candidate.sourceWidth, candidate.sourceHeight);
           candidate.title = persianTitle(fileTitle, description);
+          if (!candidate.title) continue;
           found.push(candidate);
           break;
         }
@@ -660,6 +662,7 @@ async function discoverCandidates(state) {
       candidate.contentLocaleScore = Math.max(candidateContentPriority(candidate), search.localPriority ? 1 : 0);
       candidate.sourceVerticalScore = sourceVerticalScore(candidate.sourceWidth, candidate.sourceHeight);
       candidate.title = persianTitle(fileTitle, description);
+      if (!candidate.title) continue;
       const previousCandidate = hits.get(sourcePage);
       if (!previousCandidate || candidate.contentLocaleScore > previousCandidate.contentLocaleScore ||
           (candidate.contentLocaleScore === previousCandidate.contentLocaleScore && candidate.sourceVerticalScore > previousCandidate.sourceVerticalScore)) {
@@ -742,6 +745,13 @@ async function downloadSource(candidate) {
   if (!Number.isFinite(media.durationSeconds) ||
       media.durationSeconds < MIN_DURATION_SECONDS || media.durationSeconds > MAX_DURATION_SECONDS) {
     throw new Error('source_duration_out_of_range_or_unavailable');
+  }
+  const actualRatio = media.width > 0 && media.height > 0 ? media.width / media.height : null;
+  if (actualRatio === null || actualRatio < 0.45 || actualRatio > 0.75) {
+    throw new Error('source_not_native_portrait_after_media_probe');
+  }
+  if (media.width < 540 || media.height < 960) {
+    throw new Error('source_resolution_below_540x960');
   }
   return {
     bytes: bytes.length,
@@ -911,9 +921,9 @@ async function main() {
     outputBytes: converted.outputBytes,
     outputAudioCodec: converted.audioCodec,
     framingMode: 'fit_foreground_with_blurred_background',
-    sourceWidth: candidate.sourceWidth || null,
-    sourceHeight: candidate.sourceHeight || null,
-    sourceAspectRatio: candidate.sourceAspectRatio || null,
+    sourceWidth: sourceInfo.sourceWidth,
+    sourceHeight: sourceInfo.sourceHeight,
+    sourceAspectRatio: sourceInfo.sourceHeight ? Math.round((sourceInfo.sourceWidth / sourceInfo.sourceHeight) * 1000) / 1000 : null,
     targetAspectRatio: CONTENT_POLICY.vertical_video.aspect_ratio,
     contentLocaleScore: candidate.contentLocaleScore || 0,
     sourceVerticalScore: candidate.sourceVerticalScore || 1,
