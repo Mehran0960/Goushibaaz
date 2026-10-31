@@ -95,6 +95,12 @@ QUERIES = [
     'site:reddit.com/r/videos/comments/ (viral OR amazing OR funny OR unexpected OR skill OR science) video',
     'site:vimeo.com/ (short film OR amazing skill OR nature OR satisfying process) video',
     'site:dailymotion.com/video/ (funny OR animals OR amazing skill OR science OR satisfying)',
+    'site:snapchat.com/spotlight/ (funny OR unexpected OR animals OR sports OR satisfying)',
+    'site:likee.video/ (funny OR reaction OR skill OR animals OR satisfying)',
+    'site:kwai.com/short-video/ (funny OR unexpected OR animals OR sports OR food)',
+    'site:bilibili.com/video/ (搞笑 OR 动物 OR 技巧 OR 美食 OR 惊喜 OR 短视频)',
+    'site:clips.twitch.tv/ (funny OR skill OR unexpected OR amazing)',
+    'site:rumble.com/v (funny OR animals OR skill OR nature OR satisfying)',
     'viral short videos trending in the last 24 hours funny unexpected animal skill science satisfying',
     'ویدئوهای وایرال و پربازدید ۲۴ ساعت اخیر طنز حیوانات مهارت اتفاق غیرمنتظره علم ترفند',
 ]
@@ -105,6 +111,7 @@ UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/130 Safari/537.3
 DISCOVERABLE_PLATFORMS = {
     "instagram", "tiktok", "youtube", "x", "aparat", "telegram",
     "facebook", "reddit", "vimeo", "dailymotion", "twitch", "rumble",
+    "snapchat", "likee", "kwai", "bilibili",
 }
 
 
@@ -291,6 +298,10 @@ def platform(url):
     if "dailymotion.com" in h or h == "dai.ly": return "dailymotion"
     if "twitch.tv" in h: return "twitch"
     if "rumble.com" in h: return "rumble"
+    if "snapchat.com" in h: return "snapchat"
+    if "likee.video" in h or "likee.com" in h: return "likee"
+    if "kwai.com" in h or "kwai.video" in h: return "kwai"
+    if "bilibili.com" in h or "b23.tv" in h: return "bilibili"
     return "web"
 
 
@@ -331,6 +342,16 @@ def is_video_post(url):
                     parsed.netloc.lower() == "clips.twitch.tv")
     if p == "rumble":
         return bool(re.match(r"^/v[A-Za-z0-9]+", path))
+    if p == "snapchat":
+        return bool(re.match(r"^/spotlight/[A-Za-z0-9_-]+", path))
+    if p == "likee":
+        return bool(re.search(r"/(?:video|v)/[A-Za-z0-9_-]+", path) or
+                    re.search(r"/@[^/]+/video/[A-Za-z0-9_-]+", path))
+    if p == "kwai":
+        return bool(re.search(r"/(?:short-video|video)/[A-Za-z0-9_-]+", path) or
+                    re.search(r"/@[^/]+/video/[A-Za-z0-9_-]+", path))
+    if p == "bilibili":
+        return bool(re.match(r"^/video/(?:BV[0-9A-Za-z]+|av[0-9]+)", path, re.I))
     return False
 
 

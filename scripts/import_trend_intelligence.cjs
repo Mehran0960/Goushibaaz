@@ -7,14 +7,19 @@ const OUTPUT = path.join('state', 'platform-trends.json');
 const MAX_ITEMS = 500;
 function readJson(file, fallback) { try { return JSON.parse(fs.readFileSync(file, 'utf8')); } catch { return fallback; } }
 function safeNumber(value) { const n = Number(value); return Number.isFinite(n) && n >= 0 ? n : 0; }
-function groupFor(platform) { if (platform === 'youtube') return 'youtube_cc'; if (platform === 'aparat') return 'aparat'; return 'telegram'; }
+function groupFor(platform) {
+  if (platform === 'youtube') return 'youtube_cc';
+  if (platform === 'aparat') return 'aparat';
+  if (platform === 'telegram') return 'telegram';
+  return 'social';
+}
 function main() {
   const feed = readJson(INPUT, null);
   if (!feed || !Array.isArray(feed.items)) throw new Error('trend_intelligence_feed_missing_or_invalid');
   const existing = readJson(OUTPUT, {});
-  const next = { schemaVersion: 2, updated_at: new Date().toISOString(), telegram: {}, aparat: {}, youtube_cc: {} };
+  const next = { schemaVersion: 3, updated_at: new Date().toISOString(), telegram: {}, aparat: {}, youtube_cc: {}, social: {} };
   const previousById = new Map();
-  for (const group of ['telegram', 'aparat', 'youtube_cc']) for (const [id,row] of Object.entries(existing[group] || {})) previousById.set(id,row);
+  for (const group of ['telegram', 'aparat', 'youtube_cc', 'social']) for (const [id,row] of Object.entries(existing[group] || {})) previousById.set(id,row);
   const ranked = [...feed.items].filter(x => x && x.id && x.url).slice(0, MAX_ITEMS);
   for (const item of ranked) {
     const id=String(item.id), group=groupFor(String(item.platform || '')), old=previousById.get(id)||{};
@@ -29,7 +34,7 @@ function main() {
       acceleration_per_hour2:Number(item.views_acceleration_per_hour2||0)
     };
   }
-  for (const group of ['telegram','aparat','youtube_cc']) {
+  for (const group of ['telegram','aparat','youtube_cc','social']) {
     const entries=Object.entries(next[group]).sort((a,b)=>String(b[1].last_seen_at).localeCompare(String(a[1].last_seen_at))).slice(0,MAX_ITEMS);
     next[group]=Object.fromEntries(entries);
   }
@@ -38,7 +43,7 @@ function main() {
   const topics={};
   for(const item of ranked){const key=categoryFor(item);topics[key]=(topics[key]||0)+1;}
   console.log('TREND_INTELLIGENCE_IMPORTED',JSON.stringify({
-    inputItems:feed.items.length,retained:['telegram','aparat','youtube_cc'].reduce((n,k)=>n+Object.keys(next[k]).length,0),
+    inputItems:feed.items.length,retained:['telegram','aparat','youtube_cc','social'].reduce((n,k)=>n+Object.keys(next[k]).length,0),
     measuredVelocity:ranked.filter(x=>x.views_velocity_kind==='observed').length,
     estimatedVelocity:ranked.filter(x=>x.views_velocity_kind==='estimated_from_lifetime_views').length,
     topicSignals:topics

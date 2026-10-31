@@ -8,8 +8,8 @@ import re
 from datetime import datetime, timezone
 
 
-PLATFORM_SHORTFORM = {"instagram", "tiktok", "youtube", "aparat"}
-PLATFORMS = PLATFORM_SHORTFORM | {"telegram", "x"}
+PLATFORM_SHORTFORM = {"instagram", "tiktok", "youtube", "aparat", "snapchat", "likee", "kwai", "bilibili"}
+PLATFORMS = PLATFORM_SHORTFORM | {"telegram", "x", "facebook", "reddit", "vimeo", "dailymotion", "twitch", "rumble"}
 
 LANES = {
     "comedy": re.compile(r"خنده|خنده.?دار|طنز|سوتی|بامزه|قهقهه|شوخی|fail|funny|comedy|prank", re.I),
@@ -253,6 +253,14 @@ def expected_platform_for_query(query):
         return "twitch"
     if "rumble.com" in q:
         return "rumble"
+    if "snapchat.com" in q:
+        return "snapchat"
+    if "likee.video" in q or "likee.com" in q:
+        return "likee"
+    if "kwai.com" in q or "kwai.video" in q:
+        return "kwai"
+    if "bilibili.com" in q or "b23.tv" in q:
+        return "bilibili"
     return ""
 
 

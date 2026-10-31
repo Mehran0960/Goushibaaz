@@ -79,7 +79,7 @@ function buildTrendSearches(snapshot = readTrendSnapshot(), options = {}) {
   const limit = Math.max(0, Math.min(2, Math.floor(Number(options.limit ?? 1))));
   if (!limit || !snapshot || typeof snapshot !== 'object') return [];
   const leads = [];
-  for (const group of ['telegram', 'aparat', 'youtube_cc']) {
+  for (const group of ['telegram', 'aparat', 'youtube_cc', 'social']) {
     const entries = snapshot[group];
     if (!entries || typeof entries !== 'object') continue;
     for (const [id, item] of Object.entries(entries)) {
@@ -91,11 +91,14 @@ function buildTrendSearches(snapshot = readTrendSnapshot(), options = {}) {
       if (!Number.isFinite(seenAt) || seenAt > nowMs + 5 * 60000 || nowMs - seenAt > 36 * 3600000) continue;
       const velocity = Number(item.velocity_per_hour);
       if (!Number.isFinite(velocity) || velocity <= 0) continue;
+      const acceleration = Number(item.acceleration_per_hour2 || 0);
+      const positiveAcceleration = Number.isFinite(acceleration) ? Math.max(0, acceleration) : 0;
+      const accelerationBonus = Math.min(8, Math.log10(positiveAcceleration + 1) * 2);
       const searchTerms = [...new Set(tokens(item.title))].slice(0, 6);
       if (searchTerms.length < 2) continue;
       const ageHours = Math.max(0, (nowMs - seenAt) / 3600000);
       const audienceBonus = Number(LANE_PRIORITY[lane]) || 0;
-      const priority = Math.log10(velocity + 1) * 2 + Math.max(0, 1 - ageHours / 36) + audienceBonus;
+      const priority = Math.log10(velocity + 1) * 2 + accelerationBonus + Math.max(0, 1 - ageHours / 36) + audienceBonus;
       leads.push({
         id: String(id),
         group,
@@ -103,6 +106,7 @@ function buildTrendSearches(snapshot = readTrendSnapshot(), options = {}) {
         title: String(item.title || '').slice(0, 240),
         url: String(item.url || ''),
         velocity,
+        acceleration: positiveAcceleration,
         seenAt,
         ageHours,
         priority,
@@ -126,6 +130,7 @@ function buildTrendSearches(snapshot = readTrendSnapshot(), options = {}) {
       trendTitle: lead.title,
       trendUrl: lead.url,
       trendVelocity: lead.velocity,
+      trendAcceleration: lead.acceleration,
       trendLane: lead.lane
     });
   }

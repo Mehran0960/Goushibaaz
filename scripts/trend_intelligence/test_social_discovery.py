@@ -4,7 +4,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from social_discovery import attach_view_trajectory, rotating_batch, rotating_query_index, youtube_search_due
+from social_discovery import attach_view_trajectory, rotating_batch, rotating_query_index, youtube_search_due, platform, is_video_post
+from follower_growth import expected_platform_for_query
 
 
 class ViewTrajectoryPersistenceTests(unittest.TestCase):
@@ -110,6 +111,30 @@ class RotatingDiscoveryBatchTests(unittest.TestCase):
         }
         self.assertEqual(indexes, set(range(22)))
 
+class AdditionalPlatformDiscoveryTests(unittest.TestCase):
+    def test_new_short_video_domains_are_recognized(self):
+        cases = [
+            ("https://www.snapchat.com/spotlight/Abc_123", "snapchat"),
+            ("https://likee.video/@creator/video/98765", "likee"),
+            ("https://www.kwai.com/short-video/xyz_987", "kwai"),
+            ("https://www.bilibili.com/video/BV1xx411c7mD", "bilibili"),
+        ]
+        for url, expected in cases:
+            with self.subTest(url=url):
+                self.assertEqual(platform(url), expected)
+                self.assertTrue(is_video_post(url))
+
+    def test_profile_pages_are_not_video_candidates(self):
+        urls = ["https://www.snapchat.com/creator", "https://likee.video/@creator", "https://www.kwai.com/@creator", "https://www.bilibili.com/"]
+        for url in urls:
+            with self.subTest(url=url):
+                self.assertFalse(is_video_post(url))
+
+    def test_search_domains_are_matched_to_expected_platform(self):
+        checks = [("site:snapchat.com/spotlight funny", "snapchat"), ("site:likee.video funny", "likee"), ("site:kwai.com/short-video sports", "kwai"), ("site:bilibili.com/video 搞笑", "bilibili")]
+        for query, expected in checks:
+            with self.subTest(query=query):
+                self.assertEqual(expected_platform_for_query(query), expected)
 
 if __name__ == "__main__":
     unittest.main()
