@@ -73,7 +73,7 @@ const GENERIC_SOURCE_TERMS = new Set([
 ]);
 
 function sourceSpecificityCount(text) {
-  const tokens = cleanText(text).match(/[a-z0-9\\u0600-\\u06ff]+/g) || [];
+  const tokens = cleanText(text).match(/[a-z0-9\u0600-\u06ff]+/g) || [];
   return new Set(tokens.filter(token => token.length >= 3 && !GENERIC_SOURCE_TERMS.has(token))).size;
 }
 
