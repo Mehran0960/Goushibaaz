@@ -43,6 +43,8 @@ const COMMONS_SEARCHES = [
   { key: 'iranian-sports-skills', query: 'filetype:video مهارت ورزشی ایران فوتبال', localPriority: true },
   { key: 'persian-food', query: 'filetype:video آشپزی خلاقانه فارسی', localPriority: true },
   { key: 'persian-tech-lifehack', query: 'filetype:video ترفند کاربردی فناوری فارسی', localPriority: true },
+  { key: 'iranian-street-performance', query: 'filetype:video اجرای خیابانی مهارت ورزشی ایران', localPriority: true },
+  { key: 'persian-transformations', query: 'filetype:video بازسازی تغییر خلاقانه فارسی', localPriority: true },
   { key: 'visual-comedy', query: 'filetype:video visual comedy' },
   { key: 'unexpected-reactions', query: 'filetype:video unexpected reaction' },
   { key: 'caught-on-camera', query: 'filetype:video caught on camera funny' },
@@ -303,9 +305,9 @@ async function discoverCommercialCandidates(state) {
     .map(item => item.sourcePage));
   // Each five-minute attempt rotates a small, balanced batch to avoid hammering public archives.
   // One additional query is built from an actually observed high-velocity entertainment trend.
-  const trendSearches = buildTrendSearches();
-  const localSearches = rotateSearchBatch(COMMONS_SEARCHES.filter(item => item.localPriority), 3);
-  const broadSearches = rotateSearchBatch(COMMONS_SEARCHES.filter(item => !item.localPriority), 5);
+  const trendSearches = buildTrendSearches(undefined, { limit: 2 });
+  const localSearches = rotateSearchBatch(COMMONS_SEARCHES.filter(item => item.localPriority), 4);
+  const broadSearches = rotateSearchBatch(COMMONS_SEARCHES.filter(item => !item.localPriority), 6);
   const searches = [...localSearches, ...broadSearches, ...trendSearches];
   console.log('FILO_ROTATING_DISCOVERY_BATCH', JSON.stringify({
     localCommonsQueries: localSearches.length,
@@ -375,6 +377,7 @@ async function discoverCommercialCandidates(state) {
         trendSearchTitle: search.trendTitle || undefined,
         trendSearchUrl: search.trendUrl || undefined,
         trendSearchVelocity: search.trendVelocity || undefined,
+        trendSearchAcceleration: search.trendAcceleration || undefined,
         trendSearchLane: search.trendLane || undefined,
         trendSearchLocalPriority: Boolean(search.localPriority)
       };
@@ -445,7 +448,13 @@ const ARCHIVE_SEARCH_TERMS = [
   { key: 'inventions', term: 'inventions' },
   { key: 'nature', term: 'nature' },
   { key: 'family-friendly', term: 'family friendly' },
-  { key: 'sports-fun', term: 'funny sports' }
+  { key: 'sports-fun', term: 'funny sports' },
+  { key: 'sports-trick-shots', term: 'sports trick shot' },
+  { key: 'surprise-reveal', term: 'surprise reveal' },
+  { key: 'street-performance', term: 'street performance' },
+  { key: 'before-after', term: 'before after transformation' },
+  { key: 'pet-behavior', term: 'unusual pet behavior' },
+  { key: 'magic-tricks', term: 'magic tricks' }
 ];
 // License is verified against each archive item's actual metadata after discovery.
 function internetArchiveLicense(rawUrl) {
@@ -465,9 +474,9 @@ async function discoverInternetArchiveCandidates(state) {
     .filter(item => ACTIVE_SOURCE_STATUSES.has(item.status) || item.status === 'ineligible_source')
     .map(item => item.sourcePage));
   // Rotate a bounded set of archive queries; metadata is still checked per item before download.
-  const trendSearches = buildTrendSearches();
-  const localSearches = rotateSearchBatch(ARCHIVE_SEARCH_TERMS.filter(term => term.localPriority), 2);
-  const broadSearches = rotateSearchBatch(ARCHIVE_SEARCH_TERMS.filter(term => !term.localPriority), 2);
+  const trendSearches = buildTrendSearches(undefined, { limit: 2 });
+  const localSearches = rotateSearchBatch(ARCHIVE_SEARCH_TERMS.filter(term => term.localPriority), 3);
+  const broadSearches = rotateSearchBatch(ARCHIVE_SEARCH_TERMS.filter(term => !term.localPriority), 3);
   const searches = [
     ...localSearches.map(term => ({ key: term.key, term })),
     ...broadSearches.map(term => ({ key: term.key, term })),
@@ -589,6 +598,7 @@ async function discoverInternetArchiveCandidates(state) {
             trendSearchTitle: entry.search.term.trendTitle || undefined,
             trendSearchUrl: entry.search.term.trendUrl || undefined,
             trendSearchVelocity: entry.search.term.trendVelocity || undefined,
+            trendSearchAcceleration: entry.search.term.trendAcceleration || undefined,
             trendSearchLane: entry.search.term.trendLane || undefined,
             trendSearchLocalPriority: Boolean(entry.search.term.localPriority),
             archiveIdentifier: entry.identifier
@@ -722,8 +732,13 @@ async function login(page) {
 
   const password = page.locator('input[type="password"]').first();
   await password.waitFor({ state: 'visible', timeout: 15000 });
-  const username = await visibleFirst(page, [
+  const passwordForm = password.locator('xpath=ancestor::form[1]');
+  const usernameSelectors = [
     'input[autocomplete="username"]',
+    'input[type="tel"]',
+    'input[name*="phone" i]',
+    'input[name*="mobile" i]',
+    'input[placeholder*="شماره"]',
     'input[placeholder="شماره موبایل یا ایمیل"]',
     'input[placeholder*="موبایل"]',
     'input[placeholder*="ایمیل"]',
@@ -731,7 +746,9 @@ async function login(page) {
     'input[name*="user" i]',
     'input[name*="email" i]',
     'input[type="text"]'
-  ]);
+  ];
+  let username = await visibleFirst(passwordForm, usernameSelectors);
+  if (!username) username = await visibleFirst(page, usernameSelectors);
   if (!username) throw new Error('filo_username_field_not_found');
 
   await username.fill(process.env.FILO_USER);
@@ -741,6 +758,21 @@ async function login(page) {
     'input[type="submit"]'
   ]) || page.getByRole('button', { name: /^ورود$|^login$/i }).first();
   if (!(await submit.isVisible().catch(() => false))) throw new Error('filo_login_submit_not_found');
+  await username.press('Tab').catch(() => {});
+  await password.press('Tab').catch(() => {});
+  let submitEnabled = false;
+  for (let attempt = 0; attempt < 24; attempt++) {
+    submitEnabled = await submit.isEnabled().catch(() => false);
+    if (submitEnabled) break;
+    await sleep(400);
+  }
+  if (!submitEnabled) {
+    const fields = await visibleFieldReport(page);
+    const summary = fields.filter(item => ['text','email','tel','password','submit'].includes(item.type) || item.tag === 'button')
+      .map(item => ({tag:item.tag,type:item.type,placeholder:item.placeholder,required:item.required,disabled:item.disabled}))
+      .slice(0,12);
+    throw new Error('filo_login_submit_stayed_disabled:' + JSON.stringify(summary));
+  }
 
   const loginResponsePromise = page.waitForResponse(response => {
     try {

@@ -62,6 +62,8 @@ const SEARCHES = [
   { key: 'wholesome-moments', query: 'filetype:video wholesome kindness unexpected reunion' },
   { key: 'nature-wonders', query: 'filetype:video nature wonders unusual animal behavior' },
   { key: 'travel-culture', query: 'filetype:video Iran travel culture street life' },
+  { key: 'iranian-street-performance', query: 'filetype:video اجرای خیابانی مهارت ورزشی ایران', localPriority: true },
+  { key: 'iranian-transformations', query: 'filetype:video بازسازی تغییر خلاقانه فارسی', localPriority: true },
 ];
 
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -219,7 +221,13 @@ const ARCHIVE_SEARCH_TERMS = [
   { key: 'nature', term: 'nature' },
   { key: 'family-friendly', term: 'family friendly' },
   { key: 'sports-fun', term: 'funny sports' },
-  { key: 'unexpected-moments', term: 'unexpected moments' }
+  { key: 'unexpected-moments', term: 'unexpected moments' },
+  { key: 'sports-trick-shots', term: 'sports trick shot' },
+  { key: 'surprise-reveal', term: 'surprise reveal' },
+  { key: 'street-performance', term: 'street performance' },
+  { key: 'before-after', term: 'before after transformation' },
+  { key: 'pet-behavior', term: 'unusual pet behavior' },
+  { key: 'magic-tricks', term: 'magic tricks' }
 ];
 
 function internetArchiveLicense(rawUrl) {
@@ -235,9 +243,9 @@ function internetArchiveLicense(rawUrl) {
 }
 
 async function discoverInternetArchiveCandidates(used) {
-  const trendSearches = buildTrendSearches();
-  const localSearches = rotateSearchBatch(ARCHIVE_SEARCH_TERMS.filter(term => term.localPriority), 2);
-  const broadSearches = rotateSearchBatch(ARCHIVE_SEARCH_TERMS.filter(term => !term.localPriority), 2);
+  const trendSearches = buildTrendSearches(undefined, { limit: 2 });
+  const localSearches = rotateSearchBatch(ARCHIVE_SEARCH_TERMS.filter(term => term.localPriority), 3);
+  const broadSearches = rotateSearchBatch(ARCHIVE_SEARCH_TERMS.filter(term => !term.localPriority), 3);
   const searches = [
     ...localSearches.map(term => ({ key: term.key, term })),
     ...broadSearches.map(term => ({ key: term.key, term })),
@@ -347,6 +355,7 @@ async function discoverInternetArchiveCandidates(used) {
             trendSearchTitle: entry.search.term.trendTitle || undefined,
             trendSearchUrl: entry.search.term.trendUrl || undefined,
             trendSearchVelocity: entry.search.term.trendVelocity || undefined,
+            trendSearchAcceleration: entry.search.term.trendAcceleration || undefined,
             trendSearchLane: entry.search.term.trendLane || undefined,
             trendSearchLocalPriority: Boolean(entry.search.term.localPriority),
             archiveIdentifier: entry.identifier
@@ -547,9 +556,9 @@ async function discoverCandidates(state) {
     .map(item => item.sourcePage));
   const hits = new Map();
   // Search all Persian/Iranian targets first, then fallback to broadly useful licensed clips.
-  const trendSearches = buildTrendSearches();
-  const localSearches = rotateSearchBatch(SEARCHES.filter(item => item.localPriority), 3);
-  const broadSearches = rotateSearchBatch(SEARCHES.filter(item => !item.localPriority), 5);
+  const trendSearches = buildTrendSearches(undefined, { limit: 2 });
+  const localSearches = rotateSearchBatch(SEARCHES.filter(item => item.localPriority), 4);
+  const broadSearches = rotateSearchBatch(SEARCHES.filter(item => !item.localPriority), 6);
   const orderedSearches = [...localSearches, ...broadSearches, ...trendSearches];
   console.log('RUBIKA_ROTATING_DISCOVERY_BATCH', JSON.stringify({
     localCommonsQueries: localSearches.length, broadCommonsQueries: broadSearches.length,
@@ -622,6 +631,7 @@ async function discoverCandidates(state) {
         trendSearchTitle: search.trendTitle || undefined,
         trendSearchUrl: search.trendUrl || undefined,
         trendSearchVelocity: search.trendVelocity || undefined,
+        trendSearchAcceleration: search.trendAcceleration || undefined,
         trendSearchLane: search.trendLane || undefined,
         trendSearchLocalPriority: Boolean(search.localPriority)
       };
