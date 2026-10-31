@@ -1,9 +1,11 @@
 name: Publish Shared Video to Bale
 on:
-  workflow_run:
-    workflows: ["Prepare Shared Licensed Short Video"]
-    types: [completed]
-    branches: [main]
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: "Run ID of the preparation workflow that uploaded the shared artifact"
+        required: true
+        type: string
 permissions:
   actions: read
   contents: write
@@ -12,7 +14,6 @@ concurrency:
   cancel-in-progress: false
 jobs:
   publish:
-    if: ${{ github.event.workflow_run.conclusion != 'cancelled' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -29,7 +30,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: goushibaaz-shared-candidate
-          run-id: ${{ github.event.workflow_run.id }}
+          run-id: ${{ inputs.source_run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: work/shared-publish
       - name: Validate and independently publish to Bale

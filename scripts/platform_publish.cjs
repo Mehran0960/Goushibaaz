@@ -113,7 +113,22 @@ async function publish(platform) {
     }));
     return;
   }
-  const resolvedChatId = await resolveChannel(platform, config);
+  let resolvedChatId;
+  try {
+    resolvedChatId = await resolveChannel(platform, config);
+  } catch (error) {
+    const failedAt = new Date().toISOString();
+    entry.status = 'failed_retryable';
+    entry.failure = clean(error && error.message || error);
+    entry.failedAt = failedAt;
+    state.posts.push(entry);
+    state.lastOutcome = {
+      status: 'failed_retryable', checkedAt: failedAt,
+      sourcePage: entry.sourcePage, error: entry.failure
+    };
+    writeJson(config.statePath, state);
+    throw error;
+  }
 
   // Persist before sending so an ambiguous timeout cannot cause an automatic duplicate.
   entry.status = 'send_started';

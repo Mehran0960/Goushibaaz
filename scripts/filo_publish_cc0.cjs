@@ -1457,6 +1457,24 @@ async function main() {
 }
 
 main().catch(error => {
+  const errorKind = String(error && error.name || 'Error').slice(0, 60);
+  let reason = String(error && error.message || 'unknown').slice(0, 180);
+  for (const secret of [process.env.FILO_USER, process.env.FILO_PASS].filter(Boolean)) {
+    reason = reason.split(secret).join('[redacted]');
+  }
+  try {
+    let state = { posts: [] };
+    try { state = JSON.parse(fs.readFileSync(STATE_PATH, 'utf8')); } catch {}
+    if (!Array.isArray(state.posts)) state.posts = [];
+    state.lastOutcome = {
+      status: 'failed_retryable', checkedAt: new Date().toISOString(),
+      errorKind, reason
+    };
+    fs.mkdirSync(path.dirname(STATE_PATH), { recursive: true });
+    fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
+  } catch (stateError) {
+    console.error('FILO_FAILURE_STATE_WRITE_FAILED', String(stateError && stateError.message || stateError).slice(0, 160));
+  }
   console.log('FILO_PUBLISH_RESULT', JSON.stringify({
     status: 'failed',
     errorKind: String(error && error.name || 'Error').slice(0, 60),
