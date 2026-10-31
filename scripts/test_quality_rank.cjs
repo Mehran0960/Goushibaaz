@@ -39,8 +39,8 @@ const recentPets = [
   { title: 'funny cat moment', status: 'published' },
   { title: 'cute dog playing', status: 'published' },
 ];
-const petCandidate = { fileTitle: 'funny cats', description: 'unexpected cat reaction', durationSeconds: 15, sourceAspectRatio: 0.56 };
-const diverseCandidate = { fileTitle: 'satisfying woodworking restoration', durationSeconds: 18, sourceAspectRatio: 0.56 };
+const petCandidate = { fileTitle: 'Unexpected cat jumpscare caught on camera', description: 'A cat suddenly leaps in front of a doorbell camera.', durationSeconds: 15, sourceAspectRatio: 0.56 };
+const diverseCandidate = { fileTitle: 'Unexpected wood restoration before and after reveal', description: 'A damaged chair is transformed into a polished design.', durationSeconds: 18, sourceAspectRatio: 0.56 };
 assert.ok(
   scoreCandidate(diverseCandidate, { recentPosts: recentPets }).score >
   scoreCandidate(petCandidate, { recentPosts: recentPets }).score,
@@ -56,12 +56,8 @@ const genericCaption = {
   sourceAspectRatio: 0.5625
 };
 const genericRanking = scoreCandidate(genericCaption);
-assert.equal(genericRanking.topic, 'pets_animals');
-assert.equal(
-  genericRanking.reasons.some(reason => reason.startsWith('strong_hook:')),
-  false,
-  'generic generated captions such as "تماشایی" must not count as source-content hooks'
-);
+assert.equal(genericRanking.eligible, false, 'topic-only footage without a source-backed hook must not publish');
+assert.ok(genericRanking.reasons.includes('no_verifiable_source_hook'), 'generated captions cannot manufacture source hooks');
 
 const sourceHook = {
   fileTitle: 'File:Unexpected cat reaction caught on camera.webm',
@@ -74,6 +70,34 @@ assert.ok(
   scoreCandidate(sourceHook).reasons.some(reason => reason.startsWith('strong_hook:')),
   'specific source-title/description hook signals should still be rewarded'
 );
+
+
+const blandLandscapeRecipe = scoreCandidate({
+  fileTitle: 'Redcurrant jam recipe 19',
+  description: 'A person slowly stirs redcurrant jam in a saucepan.',
+  durationSeconds: 35,
+  sourceAspectRatio: 1.333,
+  sourceWidth: 640,
+  sourceHeight: 480
+});
+assert.equal(blandLandscapeRecipe.eligible, false, 'ordinary landscape recipe footage must not be forced into a vertical post');
+assert.ok(blandLandscapeRecipe.reasons.includes('source_not_native_portrait'));
+
+const vagueChallenge = scoreCandidate({
+  fileTitle: 'Commons challenge',
+  description: '',
+  durationSeconds: 14,
+  sourceAspectRatio: 0.5625
+});
+assert.equal(vagueChallenge.eligible, false, 'generic archive filenames must not pass as specific entertainment');
+
+const nonHookRecipe = scoreCandidate({
+  fileTitle: 'Redcurrant jam recipe',
+  description: 'A recipe for making redcurrant jam at home.',
+  durationSeconds: 34,
+  sourceAspectRatio: 0.5625
+});
+assert.equal(nonHookRecipe.eligible, false, 'a topic label alone is not evidence of an engaging short-video hook');
 
 const now = Date.now();
 const trends = buildTrendWeights({
@@ -152,9 +176,8 @@ const roundup = scoreCandidate({
   description: 'Top 10 viral moments roundup.',
   durationSeconds: 30
 });
-assert.equal(roundup.eligible, true);
-assert.ok(roundup.reasons.includes('multi_clip_roundup:-20'),
-  'multi-clip roundups should be deprioritized in favour of one clear event');
+assert.equal(roundup.eligible, false, 'compilations and roundups must be rejected rather than merely down-ranked');
+assert.ok(roundup.reasons.includes('multi_clip_roundup_not_allowed'));
 
 const ranked = rankCandidates([weak, strong]);
 assert.equal(ranked[0].fileTitle, strong.fileTitle);
