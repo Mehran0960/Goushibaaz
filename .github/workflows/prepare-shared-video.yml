@@ -9,6 +9,8 @@ on:
       - "scripts/media_format.cjs"
       - "scripts/editorial_content.cjs"
       - "scripts/test_editorial_content.cjs"
+      - "scripts/pexels_source.cjs"
+      - "scripts/test_pexels_source.cjs"
       - "config/content-policy.json"
       - "scripts/rubika_publish_shared.cjs"
       - "scripts/platform_publish.cjs"
@@ -50,11 +52,21 @@ jobs:
           node --check scripts/editorial_content.cjs
           node scripts/test_media_format.cjs
           node scripts/test_editorial_content.cjs
+          node scripts/test_pexels_source.cjs
+      - name: Check Pexels credential availability without exposing its value
+        env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY || vars.PEXELS_API_KEY }}
+        run: |
+          if [ -n "$PEXELS_API_KEY" ]; then
+            echo "PEXELS_REPOSITORY_CREDENTIAL_PRESENT=true"
+          else
+            echo "PEXELS_REPOSITORY_CREDENTIAL_PRESENT=false; Pexels discovery will be skipped."
+          fi
       - name: Discover, verify rights and prepare one shared vertical video
         env:
           PREPARE_ONLY: "true"
           DRY_RUN: "true"
-          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY || vars.PEXELS_API_KEY }}
         run: node scripts/rubika_publish_cc0.cjs
       - name: Upload the same prepared video and manifest for Telegram, Rubika and Bale
         id: shared_artifact
