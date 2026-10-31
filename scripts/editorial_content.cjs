@@ -21,6 +21,7 @@ function persianTitle(fileTitle, description = '') {
     if (/jumpscare|jump scare|sudden|suddenly|startled|surprise|unexpected|ناگهان|غافلگیر|واکنش/.test(text)) {
       return 'پرش یا واکنش ناگهانی گربه';
     }
+    if (/play|playing|ball|toy|بازی|توپ|اسباب.?بازی/.test(text)) return 'بازی یک گربه با توپ یا اسباب‌بازی';
     if (/drink|drinking|water|بطری|آب می.?نوش/.test(text)) return 'رفتار یک گربه هنگام آب خوردن';
     return '';
   }
