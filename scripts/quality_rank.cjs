@@ -62,6 +62,21 @@ function candidateText(candidate) {
   return cleanText([sourceTitle, sourceDescription].filter(Boolean).join(' '));
 }
 
+const GENERIC_SOURCE_TERMS = new Set([
+  'file','the','a','an','and','or','of','to','in','on','from','with','for','by','at','is','are','was','were',
+  'this','that','these','those','video','clip','short','footage','webm','mp4','commons','archive','moment',
+  'interesting','funny','beautiful','amazing','viral','best','top','challenge','unexpected','surprise',
+  'shocking','unbelievable','caught','camera','reaction','fail','prank','comedy','comedic','satisfying',
+  'oddly','final','result','wait','until','twist','plot','story','journey','درباره','برای','این','یک','ویدیو',
+  'ویدئو','کلیپ','لحظه','جالب','دیدنی','زیبا','جذاب','فوق','العاده','بامزه','غیرمنتظره','غافلگیرکننده',
+  'واکنش','چالش','بهترین','برترین','از','در','با','به','که','را','های','یک'
+]);
+
+function sourceSpecificityCount(text) {
+  const tokens = cleanText(text).match(/[a-z0-9\\u0600-\\u06ff]+/g) || [];
+  return new Set(tokens.filter(token => token.length >= 3 && !GENERIC_SOURCE_TERMS.has(token))).size;
+}
+
 function categoryFor(value) {
   if (value && typeof value === 'object') {
     const lane = String(value.content_lane || value.lane || value.editorialTopic || value.topic || '').toLowerCase();
@@ -163,11 +178,31 @@ function scoreCandidate(candidate, options = {}) {
   if (duration !== null && duration < 8) {
     return { eligible: false, score: -1000, topic, durationSeconds: duration, reasons: ['duration_under_8_seconds'] };
   }
+  const sourceWidth = safeNumber(c.sourceWidth ?? c.source_width);
+  const sourceHeight = safeNumber(c.sourceHeight ?? c.source_height);
+  const sourceRatio = safeNumber(c.sourceAspectRatio ?? c.source_aspect_ratio) ??
+    (sourceWidth > 0 && sourceHeight > 0 ? sourceWidth / sourceHeight : null);
+  if (sourceRatio !== null && (sourceRatio < 0.45 || sourceRatio > 0.75)) {
+    return { eligible: false, score: -1000, topic, durationSeconds: duration, reasons: ['source_not_native_portrait'] };
+  }
+  if (sourceWidth > 0 && sourceHeight > 0 && (sourceWidth < 540 || sourceHeight < 960)) {
+    return { eligible: false, score: -1000, topic, durationSeconds: duration, reasons: ['source_resolution_below_540x960'] };
+  }
+  if (MULTI_CLIP_RISK.test(text)) {
+    return { eligible: false, score: -1000, topic, durationSeconds: duration, reasons: ['multi_clip_roundup_not_allowed'] };
+  }
   const configuredBase = safeNumber(AUDIENCE_WEIGHTS[topic]);
   let score = configuredBase !== null ? configuredBase : (topicInfo ? topicInfo.base : 6);
   reasons.push('iranian_audience_topic:' + topic);
 
   const hookCount = HOOKS.reduce((sum, pattern) => sum + (pattern.test(text) ? 1 : 0), 0);
+  if (hookCount < 1) {
+    return { eligible: false, score: -1000, topic, durationSeconds: duration, reasons: ['no_verifiable_source_hook'] };
+  }
+  const specificityCount = sourceSpecificityCount(text);
+  if (specificityCount < 2) {
+    return { eligible: false, score: -1000, topic, durationSeconds: duration, reasons: ['source_context_too_generic'] };
+  }
   const hookScore = Math.min(16, hookCount * 8);
   score += hookScore;
   if (hookScore) reasons.push('strong_hook:' + hookScore);
@@ -241,10 +276,6 @@ function scoreCandidate(candidate, options = {}) {
       reasons.push('observed_trend_acceleration:' + Math.round(accelerationBonus * 10) / 10);
     }
   }
-  if (MULTI_CLIP_RISK.test(text)) {
-    score -= 20;
-    reasons.push('multi_clip_roundup:-20');
-  }
   if (c.trendSearchLocalPriority === true) {
     score += 3;
     reasons.push('persian_trend_search_priority:3');
@@ -259,6 +290,10 @@ function scoreCandidate(candidate, options = {}) {
   const diversityPenalty = Math.min(18, previousSameTopic * 5);
   score -= diversityPenalty;
   if (diversityPenalty) reasons.push('recent_topic_repeat:-' + diversityPenalty);
+
+  if (score < 38) {
+    return { eligible: false, score: Math.round(score * 10) / 10, topic, durationSeconds: duration, reasons: [...reasons, 'below_publication_quality_floor'] };
+  }
 
   return {
     eligible: true,
