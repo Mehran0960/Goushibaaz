@@ -246,12 +246,16 @@ async function readOnlyDiagnostics(now) {
 
 async function main() {
   const now = Date.now();
-  if (process.env.GITHUB_EVENT_NAME !== 'schedule') {
+  const eventName = process.env.GITHUB_EVENT_NAME || 'unknown';
+  // Scheduled, manual and narrowly path-filtered code-push events all perform one bounded tick.
+  // The workflow only listens to pushes touching this scheduler or its own workflow file.
+  if (!['schedule', 'workflow_dispatch', 'push'].includes(eventName)) {
     await readOnlyDiagnostics(now);
     output('state_changed', 'false');
-    log('SCHEDULER_NOOP', { reason: 'manual and push events are diagnostics only; no platforms were dispatched' });
+    log('SCHEDULER_NOOP', { reason: 'unsupported event; no platforms were dispatched', eventName });
     return;
   }
+  log('SCHEDULER_TRIGGER', { eventName, mode: 'one_bounded_tick' });
   fs.mkdirSync(STATE_DIR, { recursive: true });
   let state;
   try { state = JSON.parse(fs.readFileSync(STATE_PATH, 'utf8')); } catch { state = freshState(now); }
