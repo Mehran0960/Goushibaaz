@@ -96,7 +96,9 @@
     }
   ],
   "lastOutcome": {
-    "status": "no_eligible_licensed_candidate",
-    "checkedAt": "2026-10-31T10:30:02.961Z"
+    "status": "failed_retryable",
+    "checkedAt": "2026-10-31T10:39:36.428Z",
+    "errorKind": "Error",
+    "reason": "filo_login_submit_stayed_disabled:[{\"tag\":\"input\",\"type\":\"text\",\"placeholder\":\"شماره موبایل یا ایمیل\",\"required\":true},{\"tag\":\"input\",\"type\":\"password\",\"placeholder\":\"رمز عبور\",\"re"
   }
 }
