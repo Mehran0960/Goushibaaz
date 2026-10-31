@@ -5,7 +5,7 @@ on:
     # GitHub polls every five minutes; the persisted cadence decides whether all publishers start.
     - cron: "*/5 * * * *"
   workflow_dispatch:
-  # Push/manual events only report capacity diagnostics; they never publish.
+  # Relevant scheduler-code pushes and manual starts execute one bounded tick; scheduled ticks continue every five minutes.
   push:
     branches: [main]
     paths:
