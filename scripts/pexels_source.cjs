@@ -92,6 +92,7 @@ function videoToCandidate(video, options = {}) {
     trendSearchLane: lead && lead.trendLane || undefined
   };
   candidate.title = persianTitle(candidate.fileTitle, candidate.description);
+  if (!candidate.title) return null;
   candidate.descriptionText = [
     candidate.title,
     '',
