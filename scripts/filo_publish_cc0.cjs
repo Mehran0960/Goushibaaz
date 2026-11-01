@@ -4,7 +4,7 @@ const { execFileSync } = require('child_process');
 const { chromium } = require('playwright');
 const { rankCandidates, buildTrendWeights } = require('./quality_rank.cjs');
 const { buildTrendSearches, rotateSearchBatch } = require('./trend_discovery.cjs');
-const { probeMedia, convertToPortrait } = require('./media_format.cjs');
+const { probeMedia, validateSourceOrientation, convertToPortrait } = require('./media_format.cjs');
 const { looksRelevant, persianTitle } = require('./editorial_content.cjs');
 const { appendFiloEndCard } = require('./filo_endcard.cjs');
 const { discoverPexelsCandidates, PEXELS_LICENSE_URL } = require('./pexels_source.cjs');
@@ -725,13 +725,10 @@ async function downloadVerifiedCommercialVideo(candidate) {
       media.durationSeconds < MIN_DURATION_SECONDS || media.durationSeconds > MAX_DURATION_SECONDS) {
     throw new Error('source_duration_out_of_range_or_unavailable');
   }
-  const actualRatio = media.width > 0 && media.height > 0 ? media.width / media.height : null;
-  if (actualRatio === null || actualRatio < 0.45 || actualRatio > 0.75) {
-    throw new Error('source_not_native_portrait_after_media_probe');
-  }
-  if (media.width < 540 || media.height < 960) {
-    throw new Error('source_resolution_below_540x960');
-  }
+  const sourceOrientation = validateSourceOrientation(media, {
+    allowedAspectRatioRange: CONTENT_POLICY.vertical_video.allowed_source_aspect_ratio_range
+  });
+  console.log('FILO_SOURCE_ORIENTATION_ACCEPTED', JSON.stringify(sourceOrientation));
   return {
     sourcePage: candidate.sourcePage, sourceTitle: candidate.fileTitle,
     directFilePath: pathOnly(candidate.fileUrl), licenseName: licenseProfile.type,
