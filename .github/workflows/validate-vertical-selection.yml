@@ -1,0 +1,56 @@
+name: Validate vertical and landscape short selection
+
+on:
+  push:
+    paths:
+      - "scripts/quality_rank.cjs"
+      - "scripts/test_quality_rank.cjs"
+      - "scripts/rubika_publish_cc0.cjs"
+      - "scripts/filo_publish_cc0.cjs"
+      - "scripts/media_format.cjs"
+      - "config/content-policy.json"
+      - ".github/workflows/validate-vertical-selection.yml"
+  pull_request:
+    paths:
+      - "scripts/quality_rank.cjs"
+      - "scripts/test_quality_rank.cjs"
+      - "scripts/rubika_publish_cc0.cjs"
+      - "scripts/filo_publish_cc0.cjs"
+      - "scripts/media_format.cjs"
+      - "config/content-policy.json"
+      - ".github/workflows/validate-vertical-selection.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  selection:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - name: Validate changed JavaScript syntax
+        run: |
+          node --check scripts/quality_rank.cjs
+          node --check scripts/test_quality_rank.cjs
+          node --check scripts/rubika_publish_cc0.cjs
+          node --check scripts/filo_publish_cc0.cjs
+          node --check scripts/media_format.cjs
+      - name: Test portrait preference and full-frame landscape acceptance
+        run: node scripts/test_quality_rank.cjs
+      - name: Validate the video adaptation policy
+        run: |
+          node <<'NODE'
+          const assert = require('node:assert/strict');
+          const policy = require('./config/content-policy.json');
+          assert.equal(policy.vertical_video.aspect_ratio, '9:16');
+          assert.equal(policy.vertical_video.prefer_source_portrait, true);
+          assert.equal(policy.vertical_video.allow_landscape_with_blurred_background, true);
+          assert.equal(policy.vertical_video.portrait_preferred_but_not_mandatory, true);
+          assert.deepEqual(policy.vertical_video.allowed_source_aspect_ratio_range, [0.45, 2]);
+          console.log('VERTICAL_ADAPTATION_POLICY_OK');
+          NODE
