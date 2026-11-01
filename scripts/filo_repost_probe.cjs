@@ -44,8 +44,17 @@ async function login(page) {
 
   await username.fill(process.env.FILO_USER);
   await password.fill(process.env.FILO_PASS);
+  await username.press('Tab').catch(() => {});
+  await password.press('Tab').catch(() => {});
   const submit = await visibleFirst(page, ['button[type="submit"]', 'input[type="submit"]']);
   if (!submit) throw new Error('filo_login_submit_not_found');
+  let submitEnabled = false;
+  for (let attempt = 0; attempt < 24; attempt++) {
+    submitEnabled = await submit.isEnabled().catch(() => false);
+    if (submitEnabled) break;
+    await sleep(400);
+  }
+  if (!submitEnabled) throw new Error('filo_login_submit_stayed_disabled_after_validation');
 
   const responsePromise = page.waitForResponse(response => {
     try {
