@@ -2,6 +2,13 @@
 
 const assert = require('node:assert/strict');
 const { categoryFor, scoreCandidate, rankCandidates, buildTrendWeights } = require('./quality_rank.cjs');
+const { validateSourceOrientation } = require('./media_format.cjs');
+
+assert.equal(validateSourceOrientation({ width: 1080, height: 1920 }).orientation, 'portrait');
+assert.equal(validateSourceOrientation({ width: 1920, height: 1080 }).orientation, 'landscape');
+assert.equal(validateSourceOrientation({ width: 720, height: 720 }).orientation, 'square');
+assert.throws(() => validateSourceOrientation({ width: 2200, height: 1000 }), /source_aspect_ratio_out_of_range/);
+assert.throws(() => validateSourceOrientation({ width: 854, height: 480 }), /source_resolution_below_orientation_minimum/);
 
 assert.equal(categoryFor('Persian hidden camera prank reaction'), 'persian_comedy');
 assert.equal(categoryFor('football trick shot and basketball dunk'), 'sports_skill');

@@ -5,7 +5,14 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { execFileSync } = require('node:child_process');
-const { probeMedia, buildPortraitFilter, convertToPortrait } = require('./media_format.cjs');
+const { probeMedia, validateSourceOrientation, buildPortraitFilter, convertToPortrait } = require('./media_format.cjs');
+
+assert.equal(validateSourceOrientation({ width: 1080, height: 1920 }).orientation, 'portrait');
+assert.equal(validateSourceOrientation({ width: 1920, height: 1080 }).orientation, 'landscape');
+assert.equal(validateSourceOrientation({ width: 720, height: 720 }).orientation, 'square');
+assert.throws(() => validateSourceOrientation({ width: 2200, height: 1000 }), /source_aspect_ratio_out_of_range/);
+assert.throws(() => validateSourceOrientation({ width: 854, height: 480 }), /source_resolution_below_orientation_minimum/);
+assert.throws(() => validateSourceOrientation({ width: 320, height: 568 }), /source_resolution_below_orientation_minimum/);
 
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'goushibaaz-media-format-'));
 try {
