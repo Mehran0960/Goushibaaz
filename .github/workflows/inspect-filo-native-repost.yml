@@ -40,9 +40,9 @@ jobs:
           node --check scripts/filo_repost_probe.cjs
       - name: Inspect authenticated native repost form (no publication)
         env:
-          FILO_USER: \${{ secrets.FILO_USER }}
-          FILO_PASS: \${{ secrets.FILO_PASS }}
-          FILO_REPOST_FORM_URL: \${{ inputs.repost_form_url || 'https://ifilo.net/republish/iFEOV7G' }}
+          FILO_USER: ${{ secrets.FILO_USER }}
+          FILO_PASS: ${{ secrets.FILO_PASS }}
+          FILO_REPOST_FORM_URL: ${{ github.event.inputs.repost_form_url || 'https://ifilo.net/republish/iFEOV7G' }}
         run: node scripts/filo_repost_probe.cjs
       - name: Upload sanitized inspection report
         if: always()
