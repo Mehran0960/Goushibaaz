@@ -1,0 +1,54 @@
+name: Inspect Filo native repost form
+
+on:
+  workflow_dispatch:
+    inputs:
+      repost_form_url:
+        description: "Filo repost form URL (from the native repost button)"
+        required: true
+        type: string
+        default: "https://ifilo.net/republish/iFEOV7G"
+  push:
+    branches:
+      - "test/filo-native-repost"
+    paths:
+      - ".github/workflows/inspect-filo-native-repost.yml"
+      - "scripts/filo_repost_probe.cjs"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: filo-native-repost-probe
+  cancel-in-progress: false
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - name: Install browser
+        run: |
+          npm init -y >/dev/null
+          npm install --no-save playwright >/dev/null
+          npx playwright install --with-deps chromium >/dev/null
+          node --check scripts/filo_repost_probe.cjs
+      - name: Inspect authenticated native repost form (no publication)
+        env:
+          FILO_USER: \${{ secrets.FILO_USER }}
+          FILO_PASS: \${{ secrets.FILO_PASS }}
+          FILO_REPOST_FORM_URL: \${{ inputs.repost_form_url || 'https://ifilo.net/republish/iFEOV7G' }}
+        run: node scripts/filo_repost_probe.cjs
+      - name: Upload sanitized inspection report
+        if: always()
+        uses: actions/upload-artifact@v8
+        with:
+          name: filo-native-repost-probe
+          path: out/filo-repost-probe.json
+          if-no-files-found: error
+          retention-days: 7
