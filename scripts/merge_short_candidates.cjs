@@ -38,13 +38,26 @@ function rightsStatus(item, licenseLookup) {
   const status = license?.license_status || item.license_status || 'unverified';
   const label = license?.license || item.license || '';
   const verifiedByOwner = Boolean(item.owner_permission_verified || item.explicit_permission_verified);
-  const eligibleStatus = ['public_domain_or_cc0', 'cc_by'].includes(status);
-  // YouTube/API labels are signals only: component ownership and source terms still need clearance.
-  const publishEligible = verifiedByOwner || Boolean(item.rights_verified && eligibleStatus);
+  const eligibleStatus = ['public_domain_or_cc0', 'cc_by', 'cc_by_sa'].includes(status);
+  const explicitBlock = Boolean(
+    item.republication_prohibited === true ||
+    item.reuse_prohibited === true ||
+    ['explicit_prohibition', 'republication_prohibited', 'republish_prohibited'].includes(status)
+  );
+  const restrictedLicense = /creative commons.*(?:non.?commercial|no derivatives)|\\bCC\\s*BY[\\s-]*(?:NC|ND)\\b/i.test(String(label));
+  // A missing/unknown label is not the same as an explicit prohibition.
+  // It remains in the ranked discovery list, but is not publishable without clearance.
+  let decision = 'pending_rights_review';
+  if (explicitBlock) decision = 'blocked_explicit_restriction';
+  else if (verifiedByOwner) decision = 'cleared';
+  else if (restrictedLicense) decision = 'restricted_license';
+  else if (Boolean(item.rights_verified) && eligibleStatus) decision = 'cleared';
+  const publishEligible = decision === 'cleared';
   return {
     license_label: label || null,
     license_status: status,
-    permission_verified: verifiedByOwner || Boolean(item.rights_verified),
+    rights_decision: decision,
+    permission_verified: publishEligible,
     republish_eligible: publishEligible
   };
 }
@@ -90,6 +103,7 @@ function candidateFrom(item, origin, licenseLookup) {
     license_status: rights.license_status,
     permission_verified: rights.permission_verified,
     republish_eligible: rights.republish_eligible,
+    rights_decision: rights.rights_decision,
     priority_reasons: tags
   };
 }
@@ -145,12 +159,15 @@ function main() {
       rights_gate: POLICY.rights_gate
     },
     candidate_count: candidates.length,
-    note: 'This is the shared discovery shortlist for all destination adapters. Public video links, Persian language, Shorts pages, and a Creative Commons search filter are discovery signals only. Do not download or publish a lead unless republication rights are independently verified. Final exports must be 1080x1920 (9:16).',
+    note: 'Unknown rights are retained as pending-review discovery leads, not labelled as prohibited. They are not automatically publishable. Explicit reuse prohibitions and restricted licenses remain blocked; only cleared sources are publish-eligible. Final exports must be 1080x1920 (9:16).',
     summary: {
       persian_signals: candidates.filter(x => x.content_language === 'persian_signal').length,
       iran_metadata_signals: candidates.filter(x => x.content_locality === 'iran_metadata_signal').length,
       portrait_or_shorts_candidates: candidates.filter(x => x.vertical_score >= 2).length,
       rights_verified_for_republication: candidates.filter(x => x.republish_eligible).length,
+      pending_rights_review: candidates.filter(x => x.rights_decision === 'pending_rights_review').length,
+      restricted_license: candidates.filter(x => x.rights_decision === 'restricted_license').length,
+      explicitly_blocked: candidates.filter(x => x.rights_decision === 'blocked_explicit_restriction').length,
       discovery_only: candidates.filter(x => !x.republish_eligible).length
     },
     candidates
@@ -164,9 +181,9 @@ function main() {
     '**No media is downloaded or published by this merge step.**',
     'Ranking: Persian/Iran-related signal → portrait/Shorts evidence → observed growth → freshness.',
     'Target output: 1080×1920 (9:16). Exact source ratio is only confirmed when source dimensions are available.',
-    'Public availability or a search-filter/license label alone does not grant republishing permission.',
+    'Unknown rights remain pending review, not falsely labelled as prohibited; pending-review and restricted candidates are not publishable. Only cleared assets are publish-eligible.',
     '',
-    'Candidates: ' + report.summary.persian_signals + ' Persian signals · ' + report.summary.iran_metadata_signals + ' Iran-related metadata signals · ' + report.summary.portrait_or_shorts_candidates + ' portrait/Shorts candidates · ' + report.summary.rights_verified_for_republication + ' rights-cleared',
+    'Candidates: ' + report.summary.persian_signals + ' Persian signals · ' + report.summary.iran_metadata_signals + ' Iran-related metadata signals · ' + report.summary.portrait_or_shorts_candidates + ' portrait/Shorts candidates · ' + report.summary.rights_verified_for_republication + ' rights-cleared · ' + report.summary.pending_rights_review + ' pending rights review · ' + report.summary.restricted_license + ' restricted · ' + report.summary.explicitly_blocked + ' explicitly blocked',
     '',
     '| Rank | Candidate | Source | Content signal | Vertical evidence | Growth/h | Rights status |',
     '|---:|---|---|---|---|---:|---|'
@@ -175,7 +192,7 @@ function main() {
     const title = item.title.replace(/[|\n]/g, ' ').slice(0, 120);
     const growth = item.observed_views_per_hour === null ? '—' : item.observed_views_per_hour;
     const contentSignal = item.content_locality === 'iran_metadata_signal' ? 'Iran signal' : item.content_language === 'persian_signal' ? 'Persian signal' : 'unconfirmed';
-    lines.push('| ' + (index + 1) + ' | [' + title + '](' + item.source_url + ') | ' + item.source_platform + '/' + (item.source_channel || 'unknown') + ' | ' + contentSignal + ' | ' + item.vertical_fit + ' | ' + growth + ' | ' + item.license_status + (item.republish_eligible ? ' (cleared)' : ' (discovery only)') + ' |');
+    lines.push('| ' + (index + 1) + ' | [' + title + '](' + item.source_url + ') | ' + item.source_platform + '/' + (item.source_channel || 'unknown') + ' | ' + contentSignal + ' | ' + item.vertical_fit + ' | ' + growth + ' | ' + item.rights_decision + ' |');
   }
   fs.writeFileSync(OUT_MD, lines.join('\n') + '\n', 'utf8');
   console.log('SHORTS_PRIORITY_SUMMARY', JSON.stringify(report.summary));
@@ -184,8 +201,10 @@ function main() {
       title: item.title, source_url: item.source_url, source_platform: item.source_platform,
       local_content_score: item.local_content_score, vertical_fit: item.vertical_fit,
       observed_views_per_hour: item.observed_views_per_hour, license_status: item.license_status,
-      republish_eligible: item.republish_eligible
+      republish_eligible: item.republish_eligible, rights_decision: item.rights_decision
     }));
   }
 }
-main();
+
+if (require.main === module) main();
+module.exports = { rightsStatus, candidateFrom, score, compare };
