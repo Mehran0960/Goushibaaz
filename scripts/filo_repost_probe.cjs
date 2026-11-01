@@ -42,8 +42,10 @@ async function login(page) {
   const username = await visibleFirst(page, usernameSelectors);
   if (!username) throw new Error('filo_username_field_not_found');
 
-  await username.fill(process.env.FILO_USER);
-  await password.fill(process.env.FILO_PASS);
+  await username.fill('');
+  await username.pressSequentially(process.env.FILO_USER, { delay: 18 });
+  await password.fill('');
+  await password.pressSequentially(process.env.FILO_PASS, { delay: 18 });
   await username.press('Tab').catch(() => {});
   await password.press('Tab').catch(() => {});
   const submit = await visibleFirst(page, ['button[type="submit"]', 'input[type="submit"]']);
@@ -239,7 +241,7 @@ async function inspectForm(page) {
     report.note = 'Inspection-only run. No form field was changed and no repost or publication control was clicked.';
   } catch (error) {
     report.status = 'probe_failed';
-    report.error = String(error && error.message || error).replace(/[\r\n]+/g, ' ').slice(0, 220);
+    report.error = String(error && error.message || error).replace(/[\r\n]+/g, ' ').slice(0, 1600);
   } finally {
     if (browser) await browser.close().catch(() => {});
     fs.writeFileSync(OUT, JSON.stringify(report, null, 2) + '\n', 'utf8');
