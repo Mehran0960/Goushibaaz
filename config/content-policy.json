@@ -31,7 +31,13 @@
     "aspect_ratio_numeric": 0.5625,
     "prefer_source_portrait": true,
     "accept_unknown_source_dimensions_for_discovery": true,
-    "transcode_all_published_videos_to_output_ratio": true
+    "transcode_all_published_videos_to_output_ratio": true,
+    "allow_landscape_with_blurred_background": true,
+    "portrait_preferred_but_not_mandatory": true,
+    "allowed_source_aspect_ratio_range": [
+      0.45,
+      2
+    ]
   },
   "ranking_order": [
     "iranian_audience_content_fit",

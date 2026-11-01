@@ -68,6 +68,12 @@ const SEARCHES = [
   { key: 'travel-culture', query: 'filetype:video Iran travel culture street life' },
   { key: 'iranian-street-performance', query: 'filetype:video اجرای خیابانی مهارت ورزشی ایران', localPriority: true },
   { key: 'iranian-transformations', query: 'filetype:video بازسازی تغییر خلاقانه فارسی', localPriority: true },
+  { key: 'commons-webm-cats', query: 'filetype:video webm cat' },
+  { key: 'commons-webm-dogs', query: 'filetype:video webm dog' },
+  { key: 'commons-webm-dance', query: 'filetype:video webm dance' },
+  { key: 'commons-webm-football', query: 'filetype:video webm football' },
+  { key: 'commons-webm-sports', query: 'filetype:video webm sports' },
+  { key: 'commons-webm-funny', query: 'filetype:video webm funny' },
 ];
 
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));

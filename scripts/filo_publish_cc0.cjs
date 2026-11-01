@@ -55,6 +55,12 @@ const COMMONS_SEARCHES = [
   { key: 'sports-fails', query: 'filetype:video funny sports fail' },
   { key: 'technology-demos', query: 'filetype:video surprising technology demo' },
   { key: 'food-cooking', query: 'filetype:video food cooking unexpected' },
+  { key: 'commons-webm-cats', query: 'filetype:video webm cat' },
+  { key: 'commons-webm-dogs', query: 'filetype:video webm dog' },
+  { key: 'commons-webm-dance', query: 'filetype:video webm dance' },
+  { key: 'commons-webm-football', query: 'filetype:video webm football' },
+  { key: 'commons-webm-sports', query: 'filetype:video webm sports' },
+  { key: 'commons-webm-funny', query: 'filetype:video webm funny' },
 
   ...[
     ['iranian-pet-moments', 'filetype:video Iran pet', true],

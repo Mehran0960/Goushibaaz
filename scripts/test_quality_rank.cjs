@@ -76,12 +76,42 @@ const blandLandscapeRecipe = scoreCandidate({
   fileTitle: 'Redcurrant jam recipe 19',
   description: 'A person slowly stirs redcurrant jam in a saucepan.',
   durationSeconds: 35,
-  sourceAspectRatio: 1.333,
-  sourceWidth: 640,
+  sourceAspectRatio: 1.777,
+  sourceWidth: 1920,
+  sourceHeight: 1080
+});
+assert.equal(blandLandscapeRecipe.eligible, false, 'landscape format alone must not rescue ordinary footage without a source-backed hook');
+assert.ok(blandLandscapeRecipe.reasons.includes('no_verifiable_source_hook'));
+
+const strongLandscape = scoreCandidate({
+  ...strong,
+  sourceAspectRatio: 1.777,
+  sourceWidth: 1920,
+  sourceHeight: 1080
+});
+assert.equal(strongLandscape.eligible, true, 'a high-quality, source-hook-rich landscape clip may use the full-frame blurred-background treatment');
+assert.ok(strongLandscape.score < scoreCandidate(strong).score,
+  'native portrait should remain preferred over otherwise equivalent landscape footage');
+assert.ok(strongLandscape.reasons.includes('source_format:-4'),
+  'landscape format should retain an auditable ranking penalty');
+
+const ultraWide = scoreCandidate({
+  ...strong,
+  sourceAspectRatio: 2.2,
+  sourceWidth: 2200,
+  sourceHeight: 1000
+});
+assert.equal(ultraWide.eligible, false, 'extreme panoramic video must remain outside the portrait adaptation range');
+assert.ok(ultraWide.reasons.includes('source_aspect_ratio_out_of_range'));
+
+const lowResolutionLandscape = scoreCandidate({
+  ...strong,
+  sourceAspectRatio: 1.777,
+  sourceWidth: 854,
   sourceHeight: 480
 });
-assert.equal(blandLandscapeRecipe.eligible, false, 'ordinary landscape recipe footage must not be forced into a vertical post');
-assert.ok(blandLandscapeRecipe.reasons.includes('source_not_native_portrait'));
+assert.equal(lowResolutionLandscape.eligible, false, 'low-resolution landscape sources must remain excluded');
+assert.ok(lowResolutionLandscape.reasons.includes('source_resolution_below_orientation_minimum'));
 
 const vagueChallenge = scoreCandidate({
   fileTitle: 'Commons challenge',
