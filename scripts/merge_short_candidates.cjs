@@ -44,7 +44,7 @@ function rightsStatus(item, licenseLookup) {
     item.reuse_prohibited === true ||
     ['explicit_prohibition', 'republication_prohibited', 'republish_prohibited'].includes(status)
   );
-  const restrictedLicense = /creative commons.*(?:non.?commercial|no derivatives)|\\bCC\\s*BY[\\s-]*(?:NC|ND)\\b/i.test(String(label));
+  const restrictedLicense = /creative commons.*(?:non.?commercial|no derivatives)|\bCC\s*BY[\s-]*(?:NC|ND)\b/i.test(String(label));
   // A missing/unknown label is not the same as an explicit prohibition.
   // It remains in the ranked discovery list, but is not publishable without clearance.
   let decision = 'pending_rights_review';
