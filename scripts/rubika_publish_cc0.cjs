@@ -8,6 +8,7 @@ const { discoverPexelsCandidates, PEXELS_LICENSE_URL } = require('./pexels_sourc
 const { addEditorialIntroOverlay } = require('./filo_endcard.cjs');
 const { probeMedia, convertToPortrait } = require('./media_format.cjs');
 const { looksRelevant, persianTitle } = require('./editorial_content.cjs');
+const { buildInternetArchiveSearchQuery } = require('./archive_search.cjs');
 
 const TOKEN = process.env.RUBIKA_BOT_TOKEN || '';
 // Shared preparation creates an audio-preserving 9:16 video with a full, uncropped foreground.
@@ -247,7 +248,14 @@ const ARCHIVE_SEARCH_TERMS = [
   { key: 'street-performance', term: 'street performance' },
   { key: 'before-after', term: 'before after transformation' },
   { key: 'pet-behavior', term: 'unusual pet behavior' },
-  { key: 'magic-tricks', term: 'magic tricks' }
+  { key: 'magic-tricks', term: 'magic tricks' },
+  { key: 'street-magic', term: 'street magic' },
+  { key: 'skateboard-tricks', term: 'skateboard tricks' },
+  { key: 'basketball-trick-shots', term: 'basketball trick shot' },
+  { key: 'parkour-stunts', term: 'parkour' },
+  { key: 'restoration-transformations', term: 'restoration transformation' },
+  { key: 'street-dance', term: 'street dance performance' },
+  { key: 'creative-builds', term: 'creative build' }
 ];
 
 function internetArchiveLicense(rawUrl) {
@@ -288,9 +296,9 @@ async function discoverInternetArchiveCandidates(used) {
       const search = queue.shift();
       if (!search) continue;
       const endpoint = new URL('https://archive.org/advancedsearch.php');
-      endpoint.searchParams.set('q', 'mediatype:movies AND (' + search.term.term + ') ');
+      endpoint.searchParams.set('q', buildInternetArchiveSearchQuery(search.term.term));
       for (const field of ['identifier', 'title', 'creator', 'licenseurl', 'description']) endpoint.searchParams.append('fl[]', field);
-      endpoint.searchParams.set('rows', '25');
+      endpoint.searchParams.set('rows', '50');
       endpoint.searchParams.set('page', '1');
       endpoint.searchParams.set('output', 'json');
       try {
@@ -309,7 +317,7 @@ async function discoverInternetArchiveCandidates(used) {
         }
         const payload = await response.json();
         const docs = Array.isArray(payload.response?.docs) ? payload.response.docs : [];
-        for (const doc of docs.slice(0, 12)) {
+        for (const doc of docs.slice(0, 20)) {
           if (!doc.identifier) continue;
           const identifier = String(doc.identifier);
           const old = discovered.get(identifier);
