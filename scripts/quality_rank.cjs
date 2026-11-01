@@ -182,11 +182,21 @@ function scoreCandidate(candidate, options = {}) {
   const sourceHeight = safeNumber(c.sourceHeight ?? c.source_height);
   const sourceRatio = safeNumber(c.sourceAspectRatio ?? c.source_aspect_ratio) ??
     (sourceWidth > 0 && sourceHeight > 0 ? sourceWidth / sourceHeight : null);
-  if (sourceRatio !== null && (sourceRatio < 0.45 || sourceRatio > 0.75)) {
-    return { eligible: false, score: -1000, topic, durationSeconds: duration, reasons: ['source_not_native_portrait'] };
+  if (sourceRatio !== null && (sourceRatio < 0.45 || sourceRatio > 2.0)) {
+    return { eligible: false, score: -1000, topic, durationSeconds: duration, reasons: ['source_aspect_ratio_out_of_range'] };
   }
-  if (sourceWidth > 0 && sourceHeight > 0 && (sourceWidth < 540 || sourceHeight < 960)) {
-    return { eligible: false, score: -1000, topic, durationSeconds: duration, reasons: ['source_resolution_below_540x960'] };
+  if (sourceWidth > 0 && sourceHeight > 0) {
+    let tooSmall = false;
+    if (sourceRatio !== null && sourceRatio <= 0.75) {
+      tooSmall = sourceWidth < 540 || sourceHeight < 960;
+    } else if (sourceRatio !== null && sourceRatio < 1.05) {
+      tooSmall = sourceWidth < 720 || sourceHeight < 720;
+    } else {
+      tooSmall = sourceWidth < 960 || sourceHeight < 540;
+    }
+    if (tooSmall) {
+      return { eligible: false, score: -1000, topic, durationSeconds: duration, reasons: ['source_resolution_below_orientation_minimum'] };
+    }
   }
   if (MULTI_CLIP_RISK.test(text)) {
     return { eligible: false, score: -1000, topic, durationSeconds: duration, reasons: ['multi_clip_roundup_not_allowed'] };
