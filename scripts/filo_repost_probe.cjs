@@ -54,7 +54,39 @@ async function login(page) {
     if (submitEnabled) break;
     await sleep(400);
   }
-  if (!submitEnabled) throw new Error('filo_login_submit_stayed_disabled_after_validation');
+  if (!submitEnabled) {
+    const diagnostics = await page.evaluate(() => {
+      const isVisible = el => {
+        const r = el.getBoundingClientRect();
+        return r.width > 0 && r.height > 0 && getComputedStyle(el).visibility !== 'hidden';
+      };
+      const inputs = [...document.querySelectorAll('input')].filter(isVisible).slice(0, 20).map(el => ({
+        type: String(el.type || '').toLowerCase(),
+        id: el.id || '',
+        name: el.name || '',
+        placeholder: el.getAttribute('placeholder') || '',
+        required: Boolean(el.required),
+        minLength: el.minLength,
+        maxLength: el.maxLength,
+        valueLength: String(el.value || '').length,
+        valid: el.checkValidity(),
+        validationMessage: String(el.validationMessage || '').slice(0, 100),
+        className: String(el.className || '').slice(0, 100)
+      }));
+      const form = document.querySelector('input[type="password"]')?.form ||
+        document.querySelector('button[type="submit"]')?.form || null;
+      const button = document.querySelector('button[type="submit"], input[type="submit"]');
+      return {
+        inputs,
+        formPresent: Boolean(form),
+        formValid: form ? form.checkValidity() : null,
+        submitDisabled: button ? Boolean(button.disabled) : null,
+        submitClassName: button ? String(button.className || '').slice(0, 120) : '',
+        visibleText: String(document.body.innerText || '').replace(/\\s+/g, ' ').slice(0, 900)
+      };
+    }).catch(() => ({}));
+    throw new Error('filo_login_submit_stayed_disabled:' + JSON.stringify(diagnostics).slice(0, 1800));
+  }
 
   const responsePromise = page.waitForResponse(response => {
     try {
