@@ -46,7 +46,7 @@ jobs:
         run: node scripts/filo_repost_probe.cjs
       - name: Upload sanitized inspection report
         if: always()
-        uses: actions/upload-artifact@v8
+        uses: actions/upload-artifact@v4
         with:
           name: filo-native-repost-probe
           path: out/filo-repost-probe.json
