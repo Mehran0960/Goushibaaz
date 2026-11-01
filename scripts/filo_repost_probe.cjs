@@ -51,19 +51,23 @@ async function login(page) {
   await password.fill(process.env.FILO_PASS);
   inputDiagnostics.usernameAfterPasswordFill = (await username.inputValue().catch(() => '')).length;
   inputDiagnostics.passwordAfterFill = (await password.inputValue().catch(() => '')).length;
-  await sleep(300);
-  inputDiagnostics.usernameAfterWait = (await username.inputValue().catch(() => '')).length;
   await username.press('Tab').catch(() => {});
-  inputDiagnostics.usernameAfterBlur = (await username.inputValue().catch(() => '')).length;
   await password.press('Tab').catch(() => {});
-  inputDiagnostics.usernameAfterPasswordBlur = (await username.inputValue().catch(() => '')).length;
+
   const submit = await visibleFirst(page, ['button[type="submit"]', 'input[type="submit"]']);
   if (!submit) throw new Error('filo_login_submit_not_found');
-  let submitEnabled = false;
-  for (let attempt = 0; attempt < 24; attempt++) {
+  let submitEnabled = await submit.isEnabled().catch(() => false);
+  if (!submitEnabled) {
+    await sleep(80);
+    inputDiagnostics.usernameAfterShortWait = (await username.inputValue().catch(() => '')).length;
+    inputDiagnostics.passwordAfterShortWait = (await password.inputValue().catch(() => '')).length;
     submitEnabled = await submit.isEnabled().catch(() => false);
-    if (submitEnabled) break;
-    await sleep(400);
+  }
+  if (!submitEnabled) {
+    await sleep(150);
+    inputDiagnostics.usernameAfterRetryWait = (await username.inputValue().catch(() => '')).length;
+    inputDiagnostics.passwordAfterRetryWait = (await password.inputValue().catch(() => '')).length;
+    submitEnabled = await submit.isEnabled().catch(() => false);
   }
   if (!submitEnabled) {
     const diagnostics = await page.evaluate(() => {
