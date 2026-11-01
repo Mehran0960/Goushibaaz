@@ -11,6 +11,52 @@ function positiveDimension(value, name) {
   return n;
 }
 
+function validateSourceOrientation(media, options = {}) {
+  const width = Number(media && media.width);
+  const height = Number(media && media.height);
+  if (!Number.isFinite(width) || !Number.isFinite(height) || width <= 0 || height <= 0) {
+    throw new Error('source_dimensions_unavailable');
+  }
+  const aspectRatio = width / height;
+  const allowedRange = Array.isArray(options.allowedAspectRatioRange) &&
+    options.allowedAspectRatioRange.length === 2
+    ? options.allowedAspectRatioRange.map(Number)
+    : [0.45, 2.0];
+  const minAspectRatio = Number.isFinite(allowedRange[0]) ? allowedRange[0] : 0.45;
+  const maxAspectRatio = Number.isFinite(allowedRange[1]) ? allowedRange[1] : 2.0;
+  if (aspectRatio < minAspectRatio || aspectRatio > maxAspectRatio) {
+    throw new Error('source_aspect_ratio_out_of_range');
+  }
+
+  let minWidth;
+  let minHeight;
+  let orientation;
+  if (aspectRatio <= 0.75) {
+    orientation = 'portrait';
+    minWidth = 540;
+    minHeight = 960;
+  } else if (aspectRatio < 1.05) {
+    orientation = 'square';
+    minWidth = 720;
+    minHeight = 720;
+  } else {
+    orientation = 'landscape';
+    minWidth = 960;
+    minHeight = 540;
+  }
+  if (width < minWidth || height < minHeight) {
+    throw new Error('source_resolution_below_orientation_minimum');
+  }
+  return {
+    width,
+    height,
+    aspectRatio: Math.round(aspectRatio * 1000) / 1000,
+    orientation,
+    minWidth,
+    minHeight
+  };
+}
+
 function probeMedia(filePath) {
   if (!fs.existsSync(filePath)) throw new Error('media_probe_input_missing');
   const raw = execFileSync('ffprobe', [
@@ -106,4 +152,4 @@ function convertToPortrait(inputPath, outputPath, options = {}) {
   };
 }
 
-module.exports = { probeMedia, buildPortraitFilter, convertToPortrait };
+module.exports = { probeMedia, validateSourceOrientation, buildPortraitFilter, convertToPortrait };
