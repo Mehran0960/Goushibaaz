@@ -42,12 +42,21 @@ async function login(page) {
   const username = await visibleFirst(page, usernameSelectors);
   if (!username) throw new Error('filo_username_field_not_found');
 
-  await username.fill('');
-  await username.pressSequentially(process.env.FILO_USER, { delay: 18 });
-  await password.fill('');
-  await password.pressSequentially(process.env.FILO_PASS, { delay: 18 });
+  const inputDiagnostics = {
+    usernameSecretLength: String(process.env.FILO_USER || '').length,
+    passwordSecretLength: String(process.env.FILO_PASS || '').length
+  };
+  await username.fill(process.env.FILO_USER);
+  inputDiagnostics.usernameAfterFill = (await username.inputValue().catch(() => '')).length;
+  await password.fill(process.env.FILO_PASS);
+  inputDiagnostics.usernameAfterPasswordFill = (await username.inputValue().catch(() => '')).length;
+  inputDiagnostics.passwordAfterFill = (await password.inputValue().catch(() => '')).length;
+  await sleep(300);
+  inputDiagnostics.usernameAfterWait = (await username.inputValue().catch(() => '')).length;
   await username.press('Tab').catch(() => {});
+  inputDiagnostics.usernameAfterBlur = (await username.inputValue().catch(() => '')).length;
   await password.press('Tab').catch(() => {});
+  inputDiagnostics.usernameAfterPasswordBlur = (await username.inputValue().catch(() => '')).length;
   const submit = await visibleFirst(page, ['button[type="submit"]', 'input[type="submit"]']);
   if (!submit) throw new Error('filo_login_submit_not_found');
   let submitEnabled = false;
@@ -87,7 +96,7 @@ async function login(page) {
         visibleText: String(document.body.innerText || '').replace(/\\s+/g, ' ').slice(0, 900)
       };
     }).catch(() => ({}));
-    throw new Error('filo_login_submit_stayed_disabled:' + JSON.stringify(diagnostics).slice(0, 1800));
+    throw new Error('filo_login_submit_stayed_disabled:' + JSON.stringify({inputDiagnostics, diagnostics}).slice(0, 1500));
   }
 
   const responsePromise = page.waitForResponse(response => {
