@@ -12,6 +12,8 @@ on:
       - "scripts/test_filo_endcard.cjs"
       - "scripts/platform_scout.cjs"
       - "scripts/rubika_publish_cc0.cjs"
+      - "scripts/archive_search.cjs"
+      - "scripts/test_archive_search.cjs"
       - "scripts/rubika_publish_shared.cjs"
       - "scripts/platform_publish.cjs"
       - "scripts/telegram_publish.cjs"
@@ -81,6 +83,8 @@ jobs:
           node --check scripts/test_pexels_source.cjs
           node --check scripts/media_format.cjs
           node --check scripts/rubika_publish_cc0.cjs
+          node --check scripts/archive_search.cjs
+          node --check scripts/test_archive_search.cjs
           node --check scripts/import_trend_intelligence.cjs
           node --check scripts/synchronized_scheduler.cjs
           node --check scripts/quality_rank.cjs
@@ -99,6 +103,7 @@ jobs:
           node scripts/test_editorial_content.cjs
           node scripts/test_filo_endcard.cjs
           node scripts/test_shared_publish.cjs
+          node scripts/test_archive_search.cjs
           node scripts/test_pexels_source.cjs
           node scripts/test_media_format.cjs
           node scripts/test_quality_rank.cjs
@@ -200,8 +205,8 @@ jobs:
           check_contains scripts/filo_publish_cc0.cjs 'video/mp4'
           check_contains config/content-policy.json 'CC BY-SA 4.0'
           check_contains scripts/rubika_publish_cc0.cjs 'Pexels License'
-          check_contains .github/workflows/publish-approved-video-to-filo.yml 'PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}'
-          check_contains .github/workflows/prepare-shared-video.yml 'PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}'
+          check_contains .github/workflows/publish-approved-video-to-filo.yml 'PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY || vars.PEXELS_API_KEY }}'
+          check_contains .github/workflows/prepare-shared-video.yml 'PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY || vars.PEXELS_API_KEY }}'
           check_contains scripts/rubika_publish_cc0.cjs 'buildTrendSearches(undefined, { limit: 2 })'
           check_contains scripts/rubika_publish_cc0.cjs 'trendSearchAcceleration: search.trendAcceleration || undefined'
           node -e "const p=require('./config/content-policy.json'); const f=p.platform_profiles&&p.platform_profiles.filo; if(p.vertical_video.aspect_ratio!=='9:16'||p.vertical_video.output_width!==1080||p.vertical_video.output_height!==1920||!f||f.output_width!==720||f.output_height!==1280||f.cover_width!==720||f.cover_height!==1280||f.end_card_seconds!==1.6) process.exit(1); console.log('CONTENT_POLICY_CHECK_OK')"
