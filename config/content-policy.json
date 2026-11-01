@@ -51,7 +51,12 @@
     ],
     "explicit_creator_permission_also_allowed": true,
     "public_visibility_or_cc_search_filter_alone_is_permission": false,
-    "unverified_sources_are_discovery_only": true
+    "unverified_sources_are_discovery_only": true,
+    "unknown_rights_are_not_explicit_prohibition": true,
+    "retain_unverified_candidates_in_discovery_ranking": true,
+    "unverified_candidates_are_not_auto_publishable": true,
+    "explicit_republication_prohibition_blocks_publication": true,
+    "restricted_licenses_block_automated_adaptation": true
   },
   "platform_profiles": {
     "filo": {
