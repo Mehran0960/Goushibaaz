@@ -8,6 +8,7 @@ const { probeMedia, convertToPortrait } = require('./media_format.cjs');
 const { looksRelevant, persianTitle } = require('./editorial_content.cjs');
 const { appendFiloEndCard } = require('./filo_endcard.cjs');
 const { discoverPexelsCandidates, PEXELS_LICENSE_URL } = require('./pexels_source.cjs');
+const { buildInternetArchiveSearchQuery } = require('./archive_search.cjs');
 const ACCOUNT = 'https://ifilo.net';
 const CC0_LICENSE_URL = 'https://creativecommons.org/publicdomain/zero/1.0/';
 const STATE_PATH = path.join('state', 'filo-published.json');
@@ -527,13 +528,13 @@ async function discoverInternetArchiveCandidates(state) {
       const search = queue.shift();
       if (!search) continue;
       const api = new URL('https://archive.org/advancedsearch.php');
-      api.searchParams.set('q', 'mediatype:movies AND (' + search.term.term + ') ');
+      api.searchParams.set('q', buildInternetArchiveSearchQuery(search.term.term));
       api.searchParams.set('fl[]', 'identifier');
       api.searchParams.append('fl[]', 'title');
       api.searchParams.append('fl[]', 'creator');
       api.searchParams.append('fl[]', 'licenseurl');
       api.searchParams.append('fl[]', 'description');
-      api.searchParams.set('rows', '25');
+      api.searchParams.set('rows', '50');
       api.searchParams.set('page', '1');
       api.searchParams.set('output', 'json');
       try {
@@ -547,7 +548,7 @@ async function discoverInternetArchiveCandidates(state) {
         }
         const payload = await response.json();
         const docs = payload.response && Array.isArray(payload.response.docs) ? payload.response.docs : [];
-        for (const doc of docs.slice(0, 12)) {
+        for (const doc of docs.slice(0, 20)) {
           if (!doc.identifier) continue;
           const previous = discovered.get(String(doc.identifier));
           const entry = { identifier: String(doc.identifier), search, indexed: doc };
@@ -571,6 +572,10 @@ async function discoverInternetArchiveCandidates(state) {
   const candidateQueue = [...metadataQueue];
   const found = [];
   let metadataErrors = 0;
+  let licenseRejected = 0;
+  let itemsWithoutSupportedVideo = 0;
+  let durationRejected = 0;
+  const fileTypeCounts = {};
 
   async function metadataWorker() {
     while (candidateQueue.length) {
@@ -586,14 +591,19 @@ async function discoverInternetArchiveCandidates(state) {
         const body = await response.json();
         const meta = body.metadata || {};
         const licenseProfile = internetArchiveLicense(meta.licenseurl || entry.indexed.licenseurl);
-        if (!licenseProfile) continue;
+        if (!licenseProfile) { licenseRejected++; continue; }
         const files = Array.isArray(body.files) ? body.files : [];
+        for (const item of files) {
+          const ext = path.extname(String(item.name || '')).toLowerCase() || '[none]';
+          fileTypeCounts[ext] = (fileTypeCounts[ext] || 0) + 1;
+        }
         const videoFiles = files.filter(file => {
           const name = String(file.name || '');
           const size = Number(file.size);
           return /\.(?:webm|mp4|m4v|mov)$/i.test(name) && file.private !== 'true' && file.private !== true &&
             Number.isFinite(size) && size >= 200000 && size <= MAX_SOURCE_BYTES;
         }).sort((a, b) => Number(a.size) - Number(b.size));
+        if (!videoFiles.length) itemsWithoutSupportedVideo++;
         for (const file of videoFiles.slice(0, 2)) {
           const sourcePage = 'https://archive.org/details/' + entry.identifier;
           if (used.has(sourcePage)) continue;
@@ -606,7 +616,7 @@ async function discoverInternetArchiveCandidates(state) {
           if (isExcludedEditorialContent(title + ' ' + description) || !classifyCandidate(editorial)) continue;
           const durationRaw = meta.runtime || meta.duration || meta.length || '';
           const durationSeconds = parsedDurationSeconds({ commonmetadata: [{ name: 'duration', value: durationRaw }] });
-          if (durationSeconds !== null && (durationSeconds < 3 || durationSeconds > MAX_DURATION_SECONDS)) continue;
+          if (durationSeconds !== null && (durationSeconds < 3 || durationSeconds > MAX_DURATION_SECONDS)) { durationRejected++; continue; }
           const candidate = {
             fileTitle: title,
             sourcePage,
@@ -660,7 +670,11 @@ async function discoverInternetArchiveCandidates(state) {
     search_queries: searches.length,
     unique_items_discovered: discovered.size,
     items_checked_for_file_metadata: metadataQueue.length,
-    eligible_webm_candidates: ranked.length,
+    eligible_video_candidates: ranked.length,
+    license_rejected: licenseRejected,
+    items_without_supported_video: itemsWithoutSupportedVideo,
+    duration_rejected: durationRejected,
+    file_type_counts: fileTypeCounts,
     metadata_errors: metadataErrors
   }));
   return ranked.slice(0, 60);
