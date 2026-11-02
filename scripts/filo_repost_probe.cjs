@@ -291,7 +291,7 @@ async function inspectForm(page) {
               const root = body.data && typeof body.data === 'object' ? body.data :
                 body.r && typeof body.r === 'object' ? body.r : body;
               const safe = {};
-              for (const key of ['status','status_code','title','description','videoTitle','videoDescription','videoId','video_code','id','user_id','server_id','category_id','views','view_count','visit_count','play_count','share_count','duration','width','height','has_audio','can_make_money','allow_public_display','category','categoryName','playlistId','createdAt','thumbnail','image','sourceUrl','url','ownerName','userName']) {
+              for (const key of ['status','status_code','title','description','videoTitle','videoDescription','videoId','video_code','id','server_id','category_id','views','view_count','visit_count','play_count','share_count','duration','width','height','has_audio','can_make_money','allow_public_display','can_republish','is_publish_able','active','status_id','republish_from','file_deleted','only_in_filo','chosen','category','categoryName','playlistId','createdAt','thumbnail','image','sourceUrl','url']) {
                 if (Object.prototype.hasOwnProperty.call(root, key) && (root[key] === null || ['string','number','boolean'].includes(typeof root[key]))) {
                   safe[key] = typeof root[key] === 'string' ? root[key].slice(0, 300) : root[key];
                 }
@@ -347,7 +347,7 @@ async function inspectForm(page) {
                 if (child && typeof child === 'object' && !Array.isArray(child)) {
                   safe[childKey + 'Keys'] = Object.keys(child).slice(0, 60);
                   const childSafe = {};
-                  for (const key of ['title','description','name','username','views','viewCount','duration','thumbnail','url','createdAt']) {
+                  for (const key of ['title','description','name','views','viewCount','duration','thumbnail','url','createdAt']) {
                     if (Object.prototype.hasOwnProperty.call(child, key) && (child[key] === null || ['string','number','boolean'].includes(typeof child[key]))) {
                       childSafe[key] = typeof child[key] === 'string' ? child[key].slice(0, 300) : child[key];
                     }
@@ -372,6 +372,7 @@ async function inspectForm(page) {
     report.categoryDiscoveryProbe = await (async () => {
       const requests = [];
       const responses = [];
+      const candidateItems = [];
       const categoryPage = BASE + '/video/category/11';
       page.on('request', request => {
         try {
@@ -398,7 +399,7 @@ async function inspectForm(page) {
               const pick = item => {
                 if (!item || typeof item !== 'object') return item;
                 const safe = {};
-                for (const key of ['id','i','video_code','videoCode','code','title','description','visit_count','visitCount','play_count','playCount','view_count','views','duration','create_date','create_time','active_datetime','category_id','user_id','username','user_name','is_republish','can_make_money','file_deleted','allow_public_display']) {
+                for (const key of ['id','i','video_code','videoCode','code','title','visit_count','play_count','views','duration','create_date','create_time','active_datetime','category_id','is_republish','can_make_money','can_republish','is_publish_able','active','status_id','republish_from','has_audio','file_deleted','allow_public_display','only_in_filo','chosen']) {
                   if (Object.prototype.hasOwnProperty.call(item, key) &&
                       (item[key] === null || ['string','number','boolean'].includes(typeof item[key]))) {
                     safe[key] = typeof item[key] === 'string' ? item[key].slice(0, 260) : item[key];
@@ -407,13 +408,20 @@ async function inspectForm(page) {
                 safe.keys = Object.keys(item).slice(0, 90);
                 return safe;
               };
+              for (const item of arr) {
+                const rawCode = item && (item.video_code || item.videoCode || item.code);
+                if (typeof rawCode === 'string' && /^[A-Za-z0-9_-]{5,40}$/.test(rawCode)) {
+                  const safe = pick(item);
+                  candidateItems.push(safe);
+                }
+              }
               responses.push({
                 path: u.pathname,
                 status: response.status(),
                 rootKeys: Object.keys(body).slice(0, 80),
                 pageTitle: body.pageTitle || body.page_title || body.t || '',
                 itemCount: arr.length,
-                items: arr.slice(0, 8).map(pick),
+                items: arr.slice(0, 12).map(pick),
                 paging: {
                   p: body.p ?? body.page ?? null,
                   next: body.next ?? null,
@@ -441,11 +449,69 @@ async function inspectForm(page) {
         await moreButton.click().catch(() => {});
         await page.waitForTimeout(2200);
       }
+      const codeSet = new Set(candidateItems.map(item => item.video_code).filter(Boolean));
+      for (const item of firstPageVideoLinks) {
+        const match = String(item.path || '').match(/^\\/v\\/([A-Za-z0-9_-]+)$/);
+        if (match) codeSet.add(match[1]);
+      }
+      const candidateCodes = [...codeSet].slice(0, 18);
+      const candidateChecks = await page.evaluate(async codes => {
+        const results = [];
+        for (const code of codes) {
+          try {
+            const response = await fetch('/api/v1/republish/' + encodeURIComponent(code), {
+              credentials: 'include',
+              headers: { Accept: 'application/json' }
+            });
+            const payload = await response.json().catch(() => null);
+            const root = payload && typeof payload === 'object'
+              ? (payload.data && typeof payload.data === 'object' ? payload.data :
+                 payload.r && typeof payload.r === 'object' ? payload.r : payload)
+              : null;
+            const video = root && root.republish_video && typeof root.republish_video === 'object'
+              ? root.republish_video : null;
+            const safeValue = (obj, keys) => {
+              if (!obj) return {};
+              const out = {};
+              for (const key of keys) {
+                const value = obj[key];
+                if (value === null || ['string','number','boolean'].includes(typeof value)) {
+                  if (value !== undefined) out[key] = typeof value === 'string' ? value.slice(0, 260) : value;
+                }
+              }
+              return out;
+            };
+            results.push({
+              code, httpStatus: response.status(),
+              successFlag: payload && typeof payload === 'object' ? Boolean(payload.s) : null,
+              errorPresent: Boolean(payload && typeof payload === 'object' && payload.r),
+              source: video ? safeValue(video, [
+                'id','video_code','title','duration','visit_count','play_count','category_id',
+                'server_id','status_id','active','can_republish','is_publish_able',
+                'allow_public_display','can_make_money','has_audio','file_deleted',
+                'only_in_filo','chosen','republish_from','create_date','create_time'
+              ]) : null,
+              rootFlags: root ? safeValue(root, [
+                'is_republish','republish_video_code','republish_video_category',
+                'server_id','limited_minutes','stop_upload','stop_upload_message',
+                'accept_rule','block_made_by_me'
+              ]) : null,
+              rootKeys: root && typeof root === 'object' ? Object.keys(root).slice(0, 60) : []
+            });
+          } catch (error) {
+            results.push({ code, errorKind: String(error && error.name || 'Error').slice(0, 60) });
+          }
+        }
+        return results;
+      }, candidateCodes);
       return {
         pagePath: safeUrlPath(page.url()),
         requests: requests.slice(-10),
         responses: responses.slice(-10),
         firstPageVideoLinks: firstPageVideoLinks.slice(0, 20),
+        candidateItems: candidateItems.slice(0, 24),
+        candidateCodes,
+        candidateChecks,
         pageTitle: await page.title().catch(() => '')
       };
     })();
