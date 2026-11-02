@@ -69,6 +69,7 @@ const pages = {
   assert.equal(calls[0].rowCount, null);
   assert.equal(result.results[0].video_code, 'video00000');
   assert.equal(result.results[0].globalTrendSearch.trendTitle, trends[0].title);
+  assert.deepEqual(result.results[0].globalTrendSearch.trendKeywords, trends[0].keywords);
 
   const nested = await searchFiloGlobalTopic('nested', async () => ({
     data: { p: 1, hm: 0, l: [{ v: 'Nested01', t: 'عنوان ویدئو' }] }
