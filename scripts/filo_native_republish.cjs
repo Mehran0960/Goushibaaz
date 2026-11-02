@@ -85,7 +85,24 @@ function categoryBase(categoryId) {
   return map[String(categoryId)] || 8;
 }
 
-const EXCLUDED = /(?:اخبار|خبر فوری|تحلیل سیاسی|سیاست|سیاسی|انتخابات|جنگ|حمله نظامی|موشک|انفجار|تروریست|ترور|اعدام|شلیک|سلاح|خشونت|مداحی|تبلیغات|کازینو|شرط.?بندی|قمار|محتوای بزرگسال|پورنو|قتل|خودکشی|خودآزاری|صحنه دلخراش|تصادف مرگبار|حیوان.?آزاری|رقص|حرکات موزون|تک.?خوانی.{0,8}زن|خوانندگی.{0,8}زن|فحاشی|الفاظ رکیک|افترا|تهمت|دوربین مداربسته)/i;
+const EXCLUDED = /(?:اخبار|خبر فوری|تحلیل سیاسی|سیاست|سیاسی|انتخابات|جنگ|حمله نظامی|موشک|انفجار|تروریست|ترور|اعدام|شلیک|سلاح|خشونت|مداحی|تبلیغات|کازینو|شرط.?بندی|قمار|محتوای بزرگسال|پورنو|قتل|خودکشی|خودآزاری|صحنه دلخراش|تصادف مرگبار|حیوان.?آزاری|رقص|حرکات موزون|تک.?خوانی.{0,8}زن|خوانندگی.{0,8}زن|فحاشی|الفاظ رکیک|افترا|تهمت|توهین|ناسزا|بددهنی|تحقیر|تمسخر|دوربین.?مداربسته|فیلم.?برداری.?مخفی|افشای اطلاعات|کد ملی|خبر جعلی|اطلاعات نادرست|فیلم سینمایی|فیلم ایرانی|سریال|مجموعه تلویزیونی|محصول نمایش خانگی|شبکه نمایش خانگی|صدا.?و.?سیما|فیلیمو|نماوا|فیلم.?نت|تلوبیون|مواد مخدر|مشروبات الکلی|برهنگی|محتوای جنسی)/i;
+const POLICY_TEXT_RISKS = [
+ {reason:'insult_or_defamation',pattern:/(?:توهین|توهین\s*آمیز|فحاشی|الفاظ\s*رکیک|ناسزا|بددهنی|افترا|تهمت|تحقیر|تمسخر)/i},
+ {reason:'privacy_exposure',pattern:/(?:دوربین\s*مداربسته|\bCCTV\b|افشای\s*(?:اطلاعات|آدرس|شماره)|کد\s*ملی|شماره\s*(?:موبایل|تلفن)|آدرس\s*منزل|بدون\s*رضایت|فیلم.?برداری\s*مخفی)/i},
+ {reason:'group_harassment',pattern:/(?:(?:تمسخر|توهین|تحقیر|نفرت.?پراکنی|نژاد.?پرستی|قوم.?ستیزی).{0,30}(?:قوم|نژاد|دین|مذهب|جنسیت|اقلیت)|(?:قوم|نژاد|دین|مذهب|جنسیت|اقلیت).{0,30}(?:تمسخر|توهین|تحقیر|نفرت.?پراکنی|نژاد.?پرستی|قوم.?ستیزی))/i},
+ {reason:'copyrighted_film_or_series',pattern:/(?:فیلم\s*(?:سینمایی|ایرانی)|سریال(?:\s*تلویزیونی)?|مجموعه\s*تلویزیونی|سکانس\s*(?:از\s*)?(?:فیلم|سریال)|قسمت\s*کامل|محصول\s*نمایش\s*خانگی|شبکه\s*نمایش\s*خانگی|فیلیمو|نماوا|فیلم\s*نت|تلوبیون|صدا\s*و\s*سیما|صداوسیما)/i},
+ {reason:'prohibited_dance_or_solo_singing',pattern:/(?:رقص|حرکات\s*موزون|تک.?خوانی.{0,10}زن|خوانندگی.{0,10}زن)/i},
+ {reason:'misleading_or_false_information',pattern:/(?:شایعه|خبر\s*جعلی|اطلاعات\s*نادرست|خبر\s*دروغ|اطلاعات\s*غیرواقعی)/i},
+ {reason:'adult_or_sexual_content',pattern:/(?:محتوای\s*جنسی|پورنوگرافی|برهنگی|برهنه|جفت.?گیری\s*حیوانات)/i},
+ {reason:'illegal_goods_or_gambling',pattern:/(?:مواد\s*مخدر|مشروبات\s*الکلی|کازینو|شرط.?بندی|قمار|فروش\s*(?:مشروب|مواد\s*مخدر|سلاح))/i}
+];
+function policyTextRiskReason(item){
+ const text=[item&&item.title,item&&item.description].filter(Boolean).join(' ').replace(/\s+/g,' ').trim();
+ if(!text)return null;
+ for(const risk of POLICY_TEXT_RISKS)if(risk.pattern.test(text))return risk.reason;
+ return EXCLUDED.test(text)?'prohibited_or_sensitive_content':null;
+}
+
 const HOOK = /(?:خنده|طنز|بامزه|سوتی|دوربین مخفی|چالش|غافلگیر|غیرمنتظره|باورنکردنی|عجیب|جالب|دیدنی|سوپرگل|گل تماشایی|مهارت|ترفند|قبل و بعد|بازسازی|واکنش|رقابت|مسابقه|رکورد|حیوان|گربه|سگ|آشپزی|غذا|فوتبال|کشتی|بسکتبال|والیبال|فناوری|گجت|funny|comedy|surprise|unexpected|challenge|trick|skill|goal|animal|cat|dog|cooking|satisfying)/i;
 const PERSIAN = /[\u0600-\u06FF]/;
 
@@ -107,7 +124,7 @@ function feedCandidateEligible(item, ledger) {
     ['submitted_pending_approval', 'submitted_unconfirmed', 'public_verified', 'rejected_by_filo'].includes(post.status)
   )) return false;
   const text = sourceText(item);
-  if (text.length < 8 || EXCLUDED.test(text)) return false;
+  if (text.length < 8 || policyTextRiskReason(item)) return false;
   return true;
 }
 
@@ -124,7 +141,7 @@ function searchCandidateEligible(item, ledger) {
   const duration = num(item.duration, -1);
   if (duration > 0 && (duration < MIN_DURATION_SECONDS || duration > MAX_DURATION_SECONDS)) return false;
   const text = sourceText(item);
-  return text.length >= 8 && !EXCLUDED.test(text);
+  return text.length >= 8 && !policyTextRiskReason(item);
 }
 
 function globalSearchRelevanceBonus(item) {
@@ -279,6 +296,8 @@ function detailGate(root, video) {
   if (num(video.status_id) !== 1) return { eligible: false, reason: 'source_status_not_publishable' };
   if (isFlag(video.file_deleted)) return { eligible: false, reason: 'source_file_deleted' };
   if (num(video.only_in_filo) === 1) return { eligible: false, reason: 'source_only_in_filo' };
+  const policyRisk = policyTextRiskReason(video);
+  if (policyRisk) return { eligible: false, reason: 'filo_policy_text_risk:' + policyRisk };
   if (!isFlag(video.has_audio)) return { eligible: false, reason: 'source_audio_missing' };
   if (!isFlag(video.can_make_money)) return { eligible: false, reason: 'source_monetization_not_enabled' };
   const duration = num(video.duration, 0);
@@ -350,19 +369,86 @@ function cleanRepostCaptionTitle(sourceTitle) {
   return title;
 }
 
+function removeLiteralPhrase(text, phrase) {
+ const value=String(phrase||'').trim();
+ if(value.length<10)return String(text||'').trim();
+ const escaped=value.replace(/[.*+?^{}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s+');
+ return String(text||'').replace(new RegExp(escaped,'giu'),' ').replace(/\s+/g,' ').trim();
+}
+function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
+ const raw=String(sourceDescription||'').replace(/\s+/g,' ').trim();
+ if(raw.length<50)throw new Error('repost_description_source_too_short');
+ let description=raw
+  .replace(/https?:\/\/\S+|www\.\S+/giu,' ')
+  .replace(/#[^\s#]+/gu,' ')
+  .replace(/@[A-Za-z0-9_.-]+/g,' ')
+  .replace(/(?:لطفاً|لطفا)\s*(?:لایک|پسند|فالو|دنبال|عضویت|اشتراک).{0,160}$/iu,' ')
+  .replace(/(?:برای\s+(?:دیدن|تماشای|دنبال\s+کردن).{0,160})$/iu,' ')
+  .replace(/(?:حتماً|حتما)\s*(?:ببینید|ببنید|تماشا\s+کنید|مشاهده\s+کنید).{0,100}$/iu,' ')
+  .replace(/^(?:(?:در\s+)?این\s+(?:ویدئو|ویدیو|کلیپ|فیلم)\s*[,،:؛-]?\s*)+/iu,'')
+  .replace(/\s+/g,' ').trim();
+ description=removeLiteralPhrase(description,sourceTitle);
+ description=removeLiteralPhrase(description,repostTitle);
+ description=description
+  .replace(/مشاهده\s+می‌کنید/giu,'دیده می‌شود')
+  .replace(/می‌بینید/giu,'دیده می‌شود')
+  .replace(/اتفاق\s+می‌افتد/giu,'رخ می‌دهد')
+  .replace(/اتفاق\s+افتاده/giu,'رخ داده')
+  .replace(/نشان\s+می‌دهد/giu,'نمایان می‌کند')
+  .replace(/\s+/g,' ').trim();
+ if(description.length<50)throw new Error('repost_description_lacks_substantive_detail');
+ if(normalizeComparable(description)===normalizeComparable(raw))throw new Error('repost_description_not_rewritten_from_original');
+ const descN=normalizeComparable(description),titleN=normalizeComparable(repostTitle),sourceTitleN=normalizeComparable(sourceTitle),sourceDescN=normalizeComparable(raw);
+ if(titleN&&descN.includes(titleN))throw new Error('repost_description_repeats_repost_title');
+ if(sourceTitleN&&sourceTitleN.length>=12&&descN.includes(sourceTitleN))throw new Error('repost_description_repeats_source_title');
+ if(descN===sourceTitleN||descN===sourceDescN)throw new Error('repost_description_not_distinct_from_original');
+ if(/(?:https?:\/\/|www\.)/i.test(description))throw new Error('repost_description_contains_unapproved_external_link');
+ if(/(?:فیلیمو|نماوا|فیلم\s*نت|تلوبیون|تبلیغ\s+سرویس\s+اشتراک)/iu.test(description))throw new Error('repost_description_contains_video_service_promotion');
+ const descTokens=new Set(queryTokens(description)),titleTokens=queryTokens(repostTitle).filter(t=>String(t).length>=3);
+ if(!titleTokens.some(t=>descTokens.has(t)))throw new Error('repost_description_missing_relevant_title_keyword');
+ const risk=policyTextRiskReason({title:repostTitle,description});
+ if(risk)throw new Error('repost_description_policy_risk:'+risk);
+ return trimAtWord(description,900);
+}
 function createRepostMetadata(video, sourceCode) {
-  const sourceTitle = String(video && video.title || '').replace(/#[^\s#]+/g, ' ').replace(/\s+/g, ' ').trim();
-  const sourceDescription = String(video && video.description || '').replace(/\s+/g, ' ').trim();
-  const title = cleanRepostCaptionTitle(sourceTitle);
-  // Filo has a separate description field; the visible caption/title is title-only.
-  const description = trimAtWord(
-    title + '. این نسخه از مسیر بازنشر رسمی فیلو و با اجازه‌ای که منتشرکننده‌ی اصلی فعال کرده، منتشر می‌شود.',
-    1100
-  );
-  if (normalizeComparable(title) === normalizeComparable(sourceTitle)) throw new Error('repost_title_not_distinct_from_original');
-  if (normalizeComparable(description) === normalizeComparable(sourceDescription)) throw new Error('repost_description_not_distinct_from_original');
-  if (/(?:https?:\/\/|www\.)/i.test(description)) throw new Error('repost_description_contains_unapproved_external_link');
-  return { title, description, sourceTitle, sourceDescription, sourceCode };
+ const sourceTitle=String(video&&video.title||'').replace(/#[^\s#]+/g,' ').replace(/\s+/g,' ').trim();
+ const sourceDescription=String(video&&video.description||'').replace(/\s+/g,' ').trim();
+ if(/(?:https?:\/\/|www\.)/i.test(sourceTitle))throw new Error('repost_source_title_contains_external_link');
+ const risk=policyTextRiskReason(video);
+ if(risk)throw new Error('filo_policy_text_risk:'+risk);
+ const title=cleanRepostCaptionTitle(sourceTitle);
+ const description=cleanRepostDescription(sourceDescription,sourceTitle,title);
+ const titleN=normalizeComparable(title),sourceTitleN=normalizeComparable(sourceTitle),sourceDescN=normalizeComparable(sourceDescription);
+ if(titleN===sourceTitleN||titleN===sourceDescN)throw new Error('repost_title_not_distinct_from_original_metadata');
+ if(/(?:https?:\/\/|www\.)/i.test(description))throw new Error('repost_description_contains_unapproved_external_link');
+ return {title,description,sourceTitle,sourceDescription,sourceCode};
+}
+function imageDimensionsFromDataUrl(value) {
+ const match=/^data:image\/(png|jpe?g);base64,([A-Za-z0-9+/=\s]+)$/i.exec(String(value||''));
+ if(!match)return null;
+ const buffer=Buffer.from(match[2],'base64');
+ if(match[1].toLowerCase()==='png'){
+  const sig=Buffer.from([0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a]);
+  if(buffer.length<24||!buffer.subarray(0,8).equals(sig))return null;
+  const width=buffer.readUInt32BE(16),height=buffer.readUInt32BE(20);
+  return width>0&&height>0?{width,height}:null;
+ }
+ const markers=new Set([0xc0,0xc1,0xc2,0xc3,0xc5,0xc6,0xc7,0xc9,0xca,0xcb,0xcd,0xce,0xcf]);
+ let offset=2;
+ while(offset+9<buffer.length){
+  if(buffer[offset]!==0xff){offset++;continue;}
+  const marker=buffer[offset+1];offset+=2;
+  if(marker===0xd8||marker===0xd9||(marker>=0xd0&&marker<=0xd7))continue;
+  if(offset+7>=buffer.length)break;
+  const length=buffer.readUInt16BE(offset);
+  if(length<2||offset+length>buffer.length)break;
+  if(markers.has(marker)&&length>=7){
+   const height=buffer.readUInt16BE(offset+3),width=buffer.readUInt16BE(offset+5);
+   return width>0&&height>0?{width,height}:null;
+  }
+  offset+=length;
+ }
+ return null;
 }
 function loadState() {
   try {
@@ -772,6 +858,9 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
     const request = route.request();
     const params = new URLSearchParams(request.postData() || '');
     const selectedFrame = params.get('selectedFrame') || '';
+    const coverDimensions = imageDimensionsFromDataUrl(selectedFrame);
+    const coverAspectRatio = coverDimensions ? coverDimensions.width / coverDimensions.height : 0;
+    const coverAspectOk = Boolean(coverDimensions && Math.abs(coverAspectRatio - (16 / 9)) <= 0.02);
     const republishFrom = params.get('republishFrom') || '';
     const videoCode = params.get('videoCode') || '';
     const isMadeByMe = params.get('isMadeByMe');
@@ -780,14 +869,22 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
     const dontPublish = params.get('dontPublish');
     const outgoingTitle = params.get('title') || '';
     const outgoingDescription = params.get('description') || '';
-    const titleDistinct = normalizeComparable(outgoingTitle) !== normalizeComparable(repostMetadata.sourceTitle);
-    const descriptionDistinct = normalizeComparable(outgoingDescription) !== normalizeComparable(repostMetadata.sourceDescription);
-    const metadataOk = outgoingTitle.length >= 8 && outgoingDescription.length >= 50 &&
-      titleDistinct && descriptionDistinct && !/(?:https?:\/\/|www\.)/i.test(outgoingDescription);
+    const outgoingTitleComparable = normalizeComparable(outgoingTitle);
+    const outgoingDescriptionComparable = normalizeComparable(outgoingDescription);
+    const sourceTitleComparable = normalizeComparable(repostMetadata.sourceTitle);
+    const sourceDescriptionComparable = normalizeComparable(repostMetadata.sourceDescription);
+    const titleDistinct = outgoingTitleComparable !== sourceTitleComparable && outgoingTitleComparable !== sourceDescriptionComparable;
+    const descriptionDistinct = outgoingDescriptionComparable !== sourceDescriptionComparable && outgoingDescriptionComparable !== sourceTitleComparable;
+    const descriptionDoesNotRepeatTitle = !outgoingDescriptionComparable.includes(outgoingTitleComparable);
+    const metadataRisk = policyTextRiskReason({ title: outgoingTitle, description: outgoingDescription });
+    const hasExternalLink = /(?:https?:\/\/|www\\.)/i.test(outgoingTitle + ' ' + outgoingDescription);
+    const metadataOk = outgoingTitle.length >= 8 && outgoingTitle.length <= 180 &&
+      outgoingDescription.length >= 50 && outgoingDescription.length <= 1100 &&
+      titleDistinct && descriptionDistinct && descriptionDoesNotRepeatTitle && !metadataRisk && !hasExternalLink;
     const frameOk = selectedFrame.startsWith('data:image/') && selectedFrame.length > 1000;
     const requestOk = republishFrom === code && /^[A-Za-z0-9_-]{5,40}$/.test(videoCode) &&
       isMadeByMe === 'false' && canRepublish === 'true' &&
-      canMakeMoney === 'true' && dontPublish === '0' && frameOk && metadataOk;
+      canMakeMoney === 'true' && dontPublish === '0' && frameOk && coverAspectOk && metadataOk;
 
     publishPayload = {
       sourceCode: republishFrom,
@@ -798,6 +895,9 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
       category: params.get('category') || '',
       selectedFrameLength: selectedFrame.length,
       selectedFrameType: selectedFrame.slice(0, 40),
+      coverDimensions,
+      coverAspectRatio: coverAspectRatio || null,
+      coverAspectOk,
       thumbnailStrategy: report.thumbnailSelection && report.thumbnailSelection.strategy || 'legacy_fallback',
       thumbnailTimeSeconds: report.thumbnailSelection && report.thumbnailSelection.selectedTimeSeconds || null,
       thumbnailScore: report.thumbnailSelection && report.thumbnailSelection.score || null,
@@ -971,7 +1071,7 @@ async function fetchOwnVideoForCaptionEdit(page, videoCode) {
   return items.find(item => String(item.video_code || item.code || item.v || '') === videoCode) || null;
 }
 
-async function editOwnVideoTitle(page, item, videoCode, newTitle) {
+async function editOwnVideoTitle(page, item, videoCode, newTitle, newDescription = null) {
   const form = await page.evaluate(async ({ videoCode, id }) => {
     const params = new URLSearchParams();
     params.set('c', videoCode);
@@ -1002,7 +1102,7 @@ async function editOwnVideoTitle(page, item, videoCode, newTitle) {
   const model = {
     id: video.id,
     title: newTitle,
-    description: String(video.description || ''),
+    description: newDescription === null ? String(video.description || '') : String(newDescription),
     playlist_id: video.playlist_id ?? 0,
     category_id: video.category_id ?? 0,
     status_id: video.status_id ?? '',
@@ -1044,83 +1144,49 @@ async function editOwnVideoTitle(page, item, videoCode, newTitle) {
 }
 
 async function cleanupLegacyRepostCaptions(page, state) {
-  const targets = (state.posts || []).filter(post =>
-    post &&
-    post.status === 'public_verified' &&
-    post.newVideoCode &&
-    (post.sourceTitle || post.repostTitle) &&
-    (post.captionCleanupPending || post.captionPolicyVersion !== 2)
-  );
-  const report = { checked: targets.length, updated: [], pending: [], skipped: [], errors: [] };
-
-  for (const post of targets) {
-    const code = String(post.newVideoCode);
-    const newTitle = cleanLegacyRepostTitle(post.repostTitle, post.sourceTitle);
-    if (!newTitle) {
-      report.skipped.push({ code, reason: 'clean_title_unavailable' });
-      continue;
-    }
-
-    try {
-      const ownVideo = await fetchOwnVideoForCaptionEdit(page, code);
-      if (!ownVideo) {
-        report.skipped.push({ code, reason: 'not_found_in_own_video_list' });
-        continue;
-      }
-      if (String(ownVideo.video_code || ownVideo.code || ownVideo.v || '') !== code) {
-        report.skipped.push({ code, reason: 'own_video_code_mismatch' });
-        continue;
-      }
-
-      const currentTitle = String(ownVideo.title || ownVideo.t || '').trim();
-      if (currentTitle && normalizeComparable(currentTitle) === normalizeComparable(newTitle)) {
-        const publicUrl = await verifyPublicVideo(page, code, newTitle).catch(() => null);
-        if (publicUrl) {
-          post.repostTitle = newTitle;
-          post.captionCleanupPending = false;
-          post.captionPolicyVersion = 2;
-          post.captionCleanupAt = new Date().toISOString();
-          report.updated.push({ code, title: newTitle, publicUrl, verified: true, unchanged: true });
-        } else {
-          report.pending.push({ code, title: newTitle, reason: 'public_title_not_yet_verified' });
-        }
-        state.updatedAt = new Date().toISOString();
-        fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
-        continue;
-      }
-
-      if (!(ownVideo.canEdit === 1 || ownVideo.canEdit === true || ownVideo.canEdit === '1')) {
-        report.skipped.push({ code, reason: 'filo_can_edit_not_granted' });
-        continue;
-      }
-
-      const edit = await editOwnVideoTitle(page, ownVideo, code, newTitle);
-      if (!edit.ok) {
-        report.skipped.push({ code, reason: edit.reason });
-        continue;
-      }
-
-      post.repostTitle = newTitle;
-      post.captionCleanupPending = true;
-      post.captionPolicyVersion = 2;
-      post.captionCleanupRequestedAt = new Date().toISOString();
-      const publicUrl = await verifyPublicVideo(page, code, newTitle).catch(() => null);
-      if (publicUrl) {
-        post.captionCleanupPending = false;
-        post.captionCleanupAt = new Date().toISOString();
-        report.updated.push({ code, title: newTitle, publicUrl, verified: true });
-      } else {
-        report.pending.push({ code, title: newTitle, reason: 'edit_accepted_public_verification_pending' });
-      }
-      state.updatedAt = new Date().toISOString();
-      fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
-    } catch (error) {
-      report.errors.push({ code, error: String(error && error.message || error).slice(0, 200) });
-    }
+ const targets=(state.posts||[]).filter(post=>post&&post.status==='public_verified'&&post.newVideoCode&&post.sourceCode&&(post.captionCleanupPending||post.captionPolicyVersion!==3));
+ const report={checked:targets.length,updated:[],pending:[],skipped:[],errors:[]};
+ for(const post of targets){
+  const code=String(post.newVideoCode);
+  if(post.captionCleanupLastAttemptAt&&Date.now()-Date.parse(post.captionCleanupLastAttemptAt)<12*60*60*1000){
+   report.skipped.push({code,reason:'metadata_migration_retry_cooldown'});continue;
   }
-
-  return report;
+  const markAttempt=()=>{post.captionCleanupLastAttemptAt=new Date().toISOString();state.updatedAt=post.captionCleanupLastAttemptAt;fs.writeFileSync(STATE_PATH,JSON.stringify(state,null,2)+'\n','utf8');};
+  try{
+   const sourceDetail=await getRepublishDetail(page,String(post.sourceCode)).catch(()=>null);
+   if(!sourceDetail||!sourceDetail.video){report.skipped.push({code,reason:'original_source_metadata_unavailable'});markAttempt();continue;}
+   const sourceGate=detailGate(sourceDetail.root,sourceDetail.video);
+   if(!sourceGate.eligible){report.skipped.push({code,reason:'original_source_no_longer_eligible',detail:sourceGate.reason});markAttempt();continue;}
+   const metadata=createRepostMetadata(sourceDetail.video,String(post.sourceCode));
+   const newTitle=metadata.title,newDescription=metadata.description;
+   const ownVideo=await fetchOwnVideoForCaptionEdit(page,code);
+   if(!ownVideo){report.skipped.push({code,reason:'not_found_in_own_video_list'});markAttempt();continue;}
+   if(String(ownVideo.video_code||ownVideo.code||ownVideo.v||'')!==code){report.skipped.push({code,reason:'own_video_code_mismatch'});markAttempt();continue;}
+   const currentTitle=String(ownVideo.title||ownVideo.t||'').trim();
+   const currentDescription=String(ownVideo.description||ownVideo.d||'').trim();
+   if(normalizeComparable(currentTitle)===normalizeComparable(newTitle)&&normalizeComparable(currentDescription)===normalizeComparable(newDescription)){
+    const publicUrl=await verifyPublicVideo(page,code,newTitle).catch(()=>null);
+    if(publicUrl){
+     post.repostTitle=newTitle;post.repostDescription=newDescription;post.captionCleanupPending=false;post.captionPolicyVersion=3;post.captionCleanupAt=new Date().toISOString();
+     markAttempt();report.updated.push({code,title:newTitle,descriptionUpdated:true,publicUrl,verified:true,unchanged:true});
+    }else{report.pending.push({code,title:newTitle,reason:'public_title_not_yet_verified'});markAttempt();}
+    continue;
+   }
+   if(!(ownVideo.canEdit===1||ownVideo.canEdit===true||ownVideo.canEdit==='1')){report.skipped.push({code,reason:'filo_can_edit_not_granted'});markAttempt();continue;}
+   const edit=await editOwnVideoTitle(page,ownVideo,code,newTitle,newDescription);
+   if(!edit.ok){report.skipped.push({code,reason:edit.reason});markAttempt();continue;}
+   post.repostTitle=newTitle;post.repostDescription=newDescription;post.captionCleanupPending=true;post.captionPolicyVersion=3;post.captionCleanupRequestedAt=new Date().toISOString();
+   const edited=await fetchOwnVideoForCaptionEdit(page,code).catch(()=>null);
+   const ownMetadataVerified=Boolean(edited&&normalizeComparable(String(edited.title||edited.t||''))===normalizeComparable(newTitle)&&normalizeComparable(String(edited.description||edited.d||''))===normalizeComparable(newDescription));
+   const publicUrl=ownMetadataVerified?await verifyPublicVideo(page,code,newTitle).catch(()=>null):null;
+   if(publicUrl){post.captionCleanupPending=false;post.captionCleanupAt=new Date().toISOString();report.updated.push({code,title:newTitle,descriptionUpdated:true,publicUrl,verified:true});}
+   else report.pending.push({code,title:newTitle,reason:ownMetadataVerified?'public_title_not_yet_verified':'edited_metadata_not_yet_verified'});
+   markAttempt();
+  }catch(error){report.errors.push({code,error:String(error&&error.message||error).slice(0,200)});markAttempt();}
+ }
+ return report;
 }
+
 async function main() {
   fs.mkdirSync(path.dirname(REPORT_PATH), { recursive: true });
   fs.mkdirSync(path.dirname(STATE_PATH), { recursive: true });
@@ -1278,8 +1344,8 @@ async function main() {
         try {
           createRepostMetadata(detail.video, code);
         } catch (error) {
-          checked[checked.length - 1].gate = 'no_clean_title_without_extra_words';
-          checked[checked.length - 1].titleError = String(error && error.message || error).slice(0, 120);
+          checked[checked.length - 1].gate = 'metadata_not_compliant';
+          checked[checked.length - 1].metadataError = String(error && error.message || error).slice(0, 160);
           continue;
         }
         selected = { ...entry.item, editorialScore: entry.rank.score, scoreDetails: entry.rank, detail };
@@ -1312,6 +1378,12 @@ async function main() {
       if (!latestGate.eligible) {
         throw new Error('filo_permission_gate_changed_before_submission:' + latestGate.reason);
       }
+      const latestMetadata = createRepostMetadata(latestDetail.video, selected.video_code);
+      const selectedMetadata = createRepostMetadata(selected.detail.video, selected.video_code);
+      if (normalizeComparable(latestMetadata.title) !== normalizeComparable(selectedMetadata.title) ||
+          normalizeComparable(latestMetadata.description) !== normalizeComparable(selectedMetadata.description)) {
+        throw new Error('source_metadata_changed_before_submission');
+      }
     });
     report.result = result;
     report.status = result.status;
@@ -1321,7 +1393,8 @@ async function main() {
         sourceCode: result.sourceCode || selected.video_code,
         sourceTitle: report.selected.title,
         repostTitle: result.repostMetadata && result.repostMetadata.title || null,
-        captionPolicyVersion: 2,
+        repostDescription: result.repostMetadata && result.repostMetadata.description || null,
+        captionPolicyVersion: 3,
         newVideoCode: result.newVideoCode || null,
         publicUrl: result.publicUrl || null,
         status: result.status,
@@ -1382,6 +1455,9 @@ module.exports = {
   searchCandidateEligible,
   cleanLegacyRepostTitle,
   cleanRepostCaptionTitle,
+  cleanRepostDescription,
+  policyTextRiskReason,
+  imageDimensionsFromDataUrl,
   scoreFeedCandidate,
   createRepostMetadata,
   normalizeComparable,

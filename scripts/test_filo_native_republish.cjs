@@ -7,6 +7,9 @@ const {
   searchCandidateEligible,
   cleanLegacyRepostTitle,
   cleanRepostCaptionTitle,
+  cleanRepostDescription,
+  policyTextRiskReason,
+  imageDimensionsFromDataUrl,
   scoreFeedCandidate,
   createRepostMetadata,
   normalizeComparable,
@@ -47,6 +50,10 @@ assert.equal(feedCandidateEligible({ ...valid, duration: 9 }, { posts: [] }), fa
 assert.equal(feedCandidateEligible({ ...valid, duration: 10 }, { posts: [] }), true);
 assert.equal(feedCandidateEligible({ ...valid, duration: 240 }, { posts: [] }), false);
 assert.equal(feedCandidateEligible({ ...valid, title: 'خبر فوری جنگ و حمله نظامی' }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, title: 'پیغام توهین آمیز در پایان مسابقه' }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, title: 'سکانس سریال ایرانی' }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, title: 'تصاویر دوربین مداربسته بدون رضایت افراد' }, { posts: [] }), false);
+assert.equal(policyTextRiskReason({ title: 'پیغام توهین آمیز به یک بازیکن' }), 'insult_or_defamation');
 assert.equal(feedCandidateEligible({ ...valid, title: 'رقص و حرکات موزون' }, { posts: [] }), false);
 assert.equal(feedCandidateEligible({ ...valid, title: 'صحنه اعدام با سلاح' }, { posts: [] }), false);
 assert.equal(feedCandidateEligible(valid, { posts: [{ sourceCode: 'AbC1234', status: 'submitted_pending_approval' }] }), false);
@@ -81,17 +88,24 @@ assert.equal(
 );
 assert.throws(() => cleanRepostCaptionTitle('عنوان کوتاه'), /no_clean_distinct_title_available_without_extra_words/);
 
-const rewritten = createRepostMetadata({ ...valid, title: 'طنز خنده دار وقتی مامانت مولودی گرفته و تو تو اتاق تنها موندی', description: 'توضیحات اصلی با متن بلند و تکراری' }, 'AbC1234');
+const sourceDescription = 'در این ویدئو، هنگام برگزاری مولودی واکنش خانواده به تنها ماندن یکی از اعضا دیده می‌شود و رفتار او باعث خنده اطرافیان می‌شود.';
+const rewritten = createRepostMetadata({
+  ...valid,
+  title: 'طنز خنده دار وقتی مامانت مولودی گرفته و تو تو اتاق تنها موندی',
+  description: sourceDescription
+}, 'AbC1234');
 assert.notEqual(normalizeComparable(rewritten.title), normalizeComparable('طنز خنده دار وقتی مامانت مولودی گرفته و تو تو اتاق تنها موندی'));
-assert.notEqual(normalizeComparable(rewritten.description), normalizeComparable('توضیحات اصلی با متن بلند و تکراری'));
+assert.notEqual(normalizeComparable(rewritten.description), normalizeComparable(sourceDescription));
 assert.ok(rewritten.title.length >= 8);
 assert.doesNotMatch(rewritten.title, /ماجرای\s+بامزه/);
 assert.doesNotMatch(rewritten.title, /لحظه‌ی\s+تماشایی/);
 assert.doesNotMatch(rewritten.title, /روایت\s+تصویری|ماجرای\s+بامزه|روایتی\s+از/);
-assert.doesNotMatch(rewritten.description, /روایت\s+تصویری/);
+assert.doesNotMatch(rewritten.description, /روایت\s+تصویری|اجازه|https?:\/\//i);
 assert.ok(rewritten.description.length >= 50);
-assert.match(rewritten.description, /اجازه/);
-assert.doesNotMatch(rewritten.description, /https?:\/\//i);
+assert.equal(normalizeComparable(rewritten.description).includes(normalizeComparable(rewritten.title)), false);
+assert.throws(() => createRepostMetadata({ ...valid, description: 'توضیح کوتاه' }, 'AbC1235'), /repost_description_source_too_short/);
+assert.throws(() => createRepostMetadata({ ...valid, title: 'پیغام توهین آمیز به یک بازیکن', description: sourceDescription }, 'AbC1236'), /filo_policy_text_risk:insult_or_defamation/);
+assert.throws(() => createRepostMetadata({ ...valid, title: 'لینک https://example.com ویدئو', description: sourceDescription }, 'AbC1237'), /repost_source_title_contains_external_link/);
 
 const high = scoreFeedCandidate(valid);
 const low = scoreFeedCandidate({ ...valid, visit_count: 0, play_count: 0, share_count: 0, create_date: 'دیروز' });
@@ -101,6 +115,16 @@ const trendBoosted = scoreFeedCandidate(valid, {}, [{
 }]);
 assert.ok(trendBoosted.googleTrend.score > 0);
 assert.ok(trendBoosted.score > high.score, 'a fresh, matching Iran trend should increase candidate relevance');
+
+const pngHeader = Buffer.alloc(24);
+Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]).copy(pngHeader, 0);
+pngHeader.writeUInt32BE(1600, 16);
+pngHeader.writeUInt32BE(900, 20);
+assert.deepEqual(imageDimensionsFromDataUrl('data:image/png;base64,' + pngHeader.toString('base64')), { width: 1600, height: 900 });
+pngHeader.writeUInt32BE(1200, 16);
+pngHeader.writeUInt32BE(900, 20);
+const nonWideCover = imageDimensionsFromDataUrl('data:image/png;base64,' + pngHeader.toString('base64'));
+assert.equal(Math.abs(nonWideCover.width / nonWideCover.height - 16 / 9) <= 0.02, false);
 assert.equal(detailGate({}, { ...valid }).eligible, false, 'global search must never bypass the native Filo permission gate');
 
 assert.deepEqual(detailGate({ is_republish: 1, stop_upload: 0 }, {
