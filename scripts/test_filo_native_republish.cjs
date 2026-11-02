@@ -46,6 +46,15 @@ assert.equal(feedCandidateEligible({ ...valid, title: 'خبر فوری جنگ و
 assert.equal(feedCandidateEligible({ ...valid, title: 'رقص و حرکات موزون' }, { posts: [] }), false);
 assert.equal(feedCandidateEligible({ ...valid, title: 'صحنه اعدام با سلاح' }, { posts: [] }), false);
 assert.equal(feedCandidateEligible(valid, { posts: [{ sourceCode: 'AbC1234', status: 'submitted_pending_approval' }] }), false);
+assert.equal(feedCandidateEligible(valid, { posts: [{ sourceCode: 'AbC1234', status: 'submitted_unconfirmed' }] }), false);
+assert.equal(
+  normalizeComparable('ماجرای بامزه‌ی «دستشویی رفتن آقایون»'),
+  normalizeComparable('ماجرای بامزه ی «دستشویی رفتن آقایون»')
+);
+assert.equal(
+  normalizeComparable('كلیپ خنده دار'),
+  normalizeComparable('کلیپ خنده دار')
+);
 
 const rewritten = createRepostMetadata({ ...valid, title: 'طنز خنده دار وقتی مامانت مولودی گرفته و تو تو اتاق تنها موندی', description: 'توضیحات اصلی با متن بلند و تکراری' }, 'AbC1234');
 assert.notEqual(normalizeComparable(rewritten.title), normalizeComparable('طنز خنده دار وقتی مامانت مولودی گرفته و تو تو اتاق تنها موندی'));

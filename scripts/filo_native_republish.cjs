@@ -166,6 +166,9 @@ function normalizeComparable(value) {
   return String(value || '')
     .normalize('NFKC')
     .toLocaleLowerCase('fa-IR')
+    .replace(/[يى]/g, 'ی')
+    .replace(/ك/g, 'ک')
+    .replace(/[\u064B-\u065F\u0670]/g, '')
     .replace(/[\s\u200c\u200e\u200f\u0640،؛:,.!?؟"'«»()\[\]{}\-–—_]/g, '');
 }
 
@@ -515,7 +518,8 @@ async function prepareAndPublish(page, candidate, detail, report) {
   }
 
   const result = {
-    status: 'submitted_pending_approval',
+    // The publish API accepted the request, but moderation/public visibility is not inferred.
+    status: 'submitted_unconfirmed',
     sourceCode: code,
     newVideoCode: publishPayload.newVideoCode,
     httpStatus: publishResponse.status(),
@@ -529,22 +533,57 @@ async function prepareAndPublish(page, candidate, detail, report) {
   };
 
   if (publishPayload.newVideoCode) {
-    try {
-      await page.goto(BASE + '/v/' + encodeURIComponent(publishPayload.newVideoCode), {
-        waitUntil: 'domcontentloaded',
-        timeout: 18000
-      });
-      await page.waitForTimeout(1200);
-      const visible = await page.locator('body').innerText().catch(() => '');
-      const title = await page.title().catch(() => '');
-      if (title.includes(repostMetadata.title) || visible.includes(repostMetadata.title)) {
-        result.status = 'public_verified';
-        result.publicUrl = BASE + '/v/' + publishPayload.newVideoCode;
-      }
-    } catch {}
+    const publicUrl = await verifyPublicVideo(
+      page,
+      publishPayload.newVideoCode,
+      repostMetadata.title
+    ).catch(() => null);
+    if (publicUrl) {
+      result.status = 'public_verified';
+      result.publicUrl = publicUrl;
+    }
   }
 
   return result;
+}
+
+async function verifyPublicVideo(page, code, expectedTitle) {
+  if (!code || !expectedTitle) return null;
+  const expected = normalizeComparable(expectedTitle);
+  if (!expected) return null;
+
+  const response = await page.goto(BASE + '/v/' + encodeURIComponent(code), {
+    waitUntil: 'domcontentloaded',
+    timeout: 18000
+  });
+  await page.waitForTimeout(900);
+  const visible = await page.locator('body').innerText().catch(() => '');
+  const title = await page.title().catch(() => '');
+  const observed = normalizeComparable(title + ' ' + visible);
+  if (response && response.status() === 200 && observed.includes(expected)) {
+    return BASE + '/v/' + encodeURIComponent(code);
+  }
+  return null;
+}
+
+async function reconcilePreviouslySubmitted(page, state) {
+  const candidates = (state.posts || []).filter(post =>
+    post &&
+    ['submitted_pending_approval', 'submitted_unconfirmed'].includes(post.status) &&
+    post.newVideoCode &&
+    post.repostTitle
+  );
+  let verified = 0;
+  for (const post of candidates) {
+    const publicUrl = await verifyPublicVideo(page, post.newVideoCode, post.repostTitle).catch(() => null);
+    if (!publicUrl) continue;
+    post.status = 'public_verified';
+    post.publicUrl = publicUrl;
+    post.verifiedAt = new Date().toISOString();
+    verified += 1;
+  }
+  if (verified) state.updatedAt = new Date().toISOString();
+  return { checked: candidates.length, newlyPublic: verified, changed: verified > 0 };
 }
 
 async function main() {
@@ -593,6 +632,10 @@ async function main() {
     page.setDefaultTimeout(12000);
 
     report.login = await login(page);
+    report.reconciliation = await reconcilePreviouslySubmitted(page, state);
+    if (report.reconciliation.changed) {
+      fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
+    }
     const trendWeights = {};
     try {
       const trend = JSON.parse(fs.readFileSync(path.join('state', 'platform-trends.json'), 'utf8'));
@@ -682,6 +725,7 @@ async function main() {
       state.posts.push({
         sourceCode: result.sourceCode || selected.video_code,
         sourceTitle: report.selected.title,
+        repostTitle: result.repostMetadata && result.repostMetadata.title || null,
         newVideoCode: result.newVideoCode || null,
         publicUrl: result.publicUrl || null,
         status: result.status,
