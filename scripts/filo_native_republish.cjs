@@ -309,30 +309,30 @@ function trimAtWord(text, maxLength) {
 
 function cleanRepostCaptionTitle(sourceTitle) {
   const original = String(sourceTitle || '')
-    .replace(/#[^\\s#]+/g, ' ')
+    .replace(/#[^\s#]+/g, ' ')
     .replace(/[«»“”"]/g, '')
-    .replace(/\\s+/g, ' ')
+    .replace(/\s+/g, ' ')
     .trim();
   if (original.length < 5) throw new Error('source_title_too_short_for_compliant_rewrite');
 
   let title = original
-    .replace(/^(?:(?:ماجرای\\s+بامزه(?:‌ی|ی)?|روایت\\s+تصویری|روایتی\\s+از)\\s*[:،؛-]?\\s*)+/iu, '')
-    .replace(/^(?:(?:طنز|کلیپ|ویدیو|ویدئوی|ویدئو|فیلم|تصاویر|تصاویری)\\s+)*(?:(?:خنده.?دار|بامزه|جالب|دیدنی|تماشایی|جذاب|کوتاه|باورنکردنی)(?:\\s+و)?\\s+)*(?:از\\s+)?/iu, '')
-    .replace(/^[-:،؛|\\s]+/, '')
-    .replace(/\\s+/g, ' ')
+    .replace(/^(?:(?:ماجرای\s+بامزه(?:‌ی|ی)?|روایت\s+تصویری|روایتی\s+از)\s*[:،؛-]?\s*)+/iu, '')
+    .replace(/^(?:(?:طنز|کلیپ|ویدیو|ویدئوی|ویدئو|فیلم|تصاویر|تصاویری)\s+)*(?:(?:خنده.?دار|بامزه|جالب|دیدنی|تماشایی|جذاب|کوتاه|باورنکردنی)(?:\s+و)?\s+)*(?:از\s+)?/iu, '')
+    .replace(/^[-:،؛|\s]+/, '')
+    .replace(/\s+/g, ' ')
     .trim();
 
   title = title
-    .replace(/\\s+(?:این\\s+)?(?:حتماً?\\s*)?(?:ببینید|ببنید|تماشا کنید|مشاهده کنید|از دست ندید|از دست ندهید)\\s*$/iu, '')
-    .replace(/\\s+(?:پوکیدم از خنده|ترکیدم از خنده|عالی بود|خیلی عالی بود|خیلی خنده.?دار بود|خیلی باحال بود|بسیار جالب بود)\\s*$/iu, '')
-    .replace(/\\s+(?:سرمربی|مربی|بازیکن|بازیگر|خواننده|قهرمان|مجری)\\s+[\\p{L}\\p{N}‌_-]+(?:\\s+[\\p{L}\\p{N}‌_-]+){0,2}(?=\\s+(?:با|به|در|از)\\s+)/u, ' ')
-    .replace(/\\s+/g, ' ')
+    .replace(/\s+(?:این\s+)?(?:حتماً?\s*)?(?:ببینید|ببنید|تماشا کنید|مشاهده کنید|از دست ندید|از دست ندهید)\s*$/iu, '')
+    .replace(/\s+(?:پوکیدم از خنده|ترکیدم از خنده|عالی بود|خیلی عالی بود|خیلی خنده.?دار بود|خیلی باحال بود|بسیار جالب بود)\s*$/iu, '')
+    .replace(/\s+(?:سرمربی|مربی|بازیکن|بازیگر|خواننده|قهرمان|مجری)\s+[\p{L}\p{N}‌_-]+(?:\s+[\p{L}\p{N}‌_-]+){0,2}(?=\s+(?:با|به|در|از)\s+)/u, ' ')
+    .replace(/\s+/g, ' ')
     .trim();
 
   if (normalizeComparable(title) === normalizeComparable(original)) {
     title = title
-      .replace(/(?:عجیب\\s+و\\s+توهین\\s+آمیز|توهین\\s+آمیز|عجیب|باورنکردنی|دیدنی|تماشایی|جالب|فوق\\s+العاده|عالی|خنده.?دار|بامزه)/giu, ' ')
-      .replace(/\\s+/g, ' ')
+      .replace(/(?:عجیب\s+و\s+توهین\s+آمیز|توهین\s+آمیز|عجیب|باورنکردنی|دیدنی|تماشایی|جالب|فوق\s+العاده|عالی|خنده.?دار|بامزه)/giu, ' ')
+      .replace(/\s+/g, ' ')
       .trim();
   }
   if (normalizeComparable(title) === normalizeComparable(original)) {
@@ -344,15 +344,15 @@ function cleanRepostCaptionTitle(sourceTitle) {
   if (title.length < 8 || normalizeComparable(title) === normalizeComparable(original)) {
     throw new Error('no_clean_distinct_title_available_without_extra_words');
   }
-  if (/(?:روایت\\s+تصویری|ماجرای\\s+بامزه|روایتی\\s+از)/iu.test(title)) {
+  if (/(?:روایت\s+تصویری|ماجرای\s+بامزه|روایتی\s+از)/iu.test(title)) {
     throw new Error('repost_title_contains_editorial_wrapper');
   }
   return title;
 }
 
 function createRepostMetadata(video, sourceCode) {
-  const sourceTitle = String(video && video.title || '').replace(/#[^\\s#]+/g, ' ').replace(/\\s+/g, ' ').trim();
-  const sourceDescription = String(video && video.description || '').replace(/\\s+/g, ' ').trim();
+  const sourceTitle = String(video && video.title || '').replace(/#[^\s#]+/g, ' ').replace(/\s+/g, ' ').trim();
+  const sourceDescription = String(video && video.description || '').replace(/\s+/g, ' ').trim();
   const title = cleanRepostCaptionTitle(sourceTitle);
   // Filo has a separate description field; the visible caption/title is title-only.
   const description = trimAtWord(
@@ -361,7 +361,7 @@ function createRepostMetadata(video, sourceCode) {
   );
   if (normalizeComparable(title) === normalizeComparable(sourceTitle)) throw new Error('repost_title_not_distinct_from_original');
   if (normalizeComparable(description) === normalizeComparable(sourceDescription)) throw new Error('repost_description_not_distinct_from_original');
-  if (/(?:https?:\\/\\/|www\\.)/i.test(description)) throw new Error('repost_description_contains_unapproved_external_link');
+  if (/(?:https?:\/\/|www\.)/i.test(description)) throw new Error('repost_description_contains_unapproved_external_link');
   return { title, description, sourceTitle, sourceDescription, sourceCode };
 }
 function loadState() {
