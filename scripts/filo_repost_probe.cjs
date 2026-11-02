@@ -288,14 +288,28 @@ async function inspectForm(page) {
           if (u.pathname.startsWith('/api/v1/republish/')) {
             const body = await response.json().catch(() => null);
             if (body && typeof body === 'object') {
-              const root = body.r && typeof body.r === 'object' ? body.r : body;
+              const root = body.data && typeof body.data === 'object' ? body.data :
+                body.r && typeof body.r === 'object' ? body.r : body;
               const safe = {};
-              for (const key of ['s','title','description','videoTitle','videoDescription','videoId','id','views','viewCount','likes','duration','category','categoryName','playlistId','status','createdAt','thumbnail','image','sourceUrl']) {
+              for (const key of ['status','status_code','title','description','videoTitle','videoDescription','videoId','id','views','viewCount','likes','duration','category','categoryName','playlistId','createdAt','thumbnail','image','sourceUrl','url','ownerName','userName']) {
                 if (Object.prototype.hasOwnProperty.call(root, key) && (root[key] === null || ['string','number','boolean'].includes(typeof root[key]))) {
                   safe[key] = typeof root[key] === 'string' ? root[key].slice(0, 300) : root[key];
                 }
               }
-              safe.rootKeys = Object.keys(root).slice(0, 80);
+              safe.rootKeys = Object.keys(root).slice(0, 100);
+              for (const childKey of ['video','user','author','owner','item']) {
+                const child = root[childKey];
+                if (child && typeof child === 'object' && !Array.isArray(child)) {
+                  safe[childKey + 'Keys'] = Object.keys(child).slice(0, 60);
+                  const childSafe = {};
+                  for (const key of ['title','description','name','username','views','viewCount','duration','thumbnail','url','createdAt']) {
+                    if (Object.prototype.hasOwnProperty.call(child, key) && (child[key] === null || ['string','number','boolean'].includes(typeof child[key]))) {
+                      childSafe[key] = typeof child[key] === 'string' ? child[key].slice(0, 300) : child[key];
+                    }
+                  }
+                  if (Object.keys(childSafe).length) safe[childKey] = childSafe;
+                }
+              }
               repostSourceData = safe;
             }
           }
@@ -310,6 +324,32 @@ async function inspectForm(page) {
     report.form = await inspectForm(page);
     report.apiTraffic = apiTraffic.slice(-80);
     report.repostSourceData = repostSourceData;
+    report.publicBundleInspection = await (async () => {
+      const bundlePath = (report.form.scriptPaths || []).find(item => /\\/assets\\/index-.*\\.js$/.test(item));
+      if (!bundlePath) return { status: 'main_bundle_not_found' };
+      try {
+        const response = await fetch(new URL(bundlePath, BASE).href, { signal: AbortSignal.timeout(15000) });
+        if (!response.ok) return { status: 'bundle_http_' + response.status };
+        const source = await response.text();
+        const terms = ['/api/v1/republish', '/api/v1/video/publish', 'dontPublish', 'acceptRules', 'canMakeMoney', 'hasComment', 'republish'];
+        const snippets = [];
+        for (const term of terms) {
+          let from = 0;
+          for (let hit = 0; hit < 3; hit++) {
+            const at = source.indexOf(term, from);
+            if (at < 0) break;
+            snippets.push({
+              term,
+              context: source.slice(Math.max(0, at - 260), Math.min(source.length, at + term.length + 360)).replace(/\\s+/g, ' ').slice(0, 700)
+            });
+            from = at + term.length;
+          }
+        }
+        return { status: 'ok', bundlePath, bytes: source.length, snippets };
+      } catch (error) {
+        return { status: 'bundle_fetch_failed', errorKind: String(error && error.name || 'Error').slice(0, 60) };
+      }
+    })();
     report.login.headerShowsSignedIn = await page.locator('a').evaluateAll(links =>
       links.some(a => /خروج|logout|sign.?out/i.test((a.innerText || '') + ' ' + (a.getAttribute('href') || '')))
     ).catch(() => false);
