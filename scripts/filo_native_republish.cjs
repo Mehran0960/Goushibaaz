@@ -369,6 +369,25 @@ function millisecondsUntilNextPublication(state, now = Date.now()) {
   return last ? Math.max(0, last + MIN_PUBLISH_GAP_MS - now) : 0;
 }
 
+async function waitForPublicationGap(state, report = {}, options = {}) {
+  const now = typeof options.now === 'function' ? options.now : () => Date.now();
+  const sleepFn = typeof options.sleep === 'function' ? options.sleep : sleep;
+  let waitMs = millisecondsUntilNextPublication(state, now());
+  const initialWaitMs = waitMs;
+
+  while (waitMs > 0) {
+    report.status = 'waiting_for_minimum_publication_gap';
+    report.waitMilliseconds = initialWaitMs;
+    report.nextEligibleAt = new Date(now() + waitMs).toISOString();
+    await sleepFn(waitMs + 750);
+    waitMs = millisecondsUntilNextPublication(state, now());
+  }
+
+  report.waitCompletedAt = new Date(now()).toISOString();
+  report.minimumGapWaitedMs = Math.max(0, now() - (Date.parse(report.nextEligibleAt || '') - initialWaitMs));
+  return initialWaitMs;
+}
+
 function parseApiBody(raw) {
   const outer = parseJson(raw);
   if (!outer) return null;
@@ -1279,20 +1298,7 @@ async function main() {
     };
 
     const result = await prepareAndPublish(page, selected, selected.detail, report, async () => {
-      let waitMs = millisecondsUntilNextPublication(state);
-      while (waitMs > 0) {
-        report.status = 'waiting_for_minimum_publication_gap';
-        report.waitMilliseconds = waitMs;
-        report.nextEligibleAt = new Date(Date.now() + waitMs).toISOString();
-        console.log('FILO_NATIVE_REPUBLISH_WAITING_FOR_GAP ' + JSON.stringify({
-          waitMilliseconds: waitMs,
-          nextEligibleAt: report.nextEligibleAt,
-          stage: 'ready_to_submit'
-        }));
-        await sleep(waitMs + 750);
-        waitMs = millisecondsUntilNextPublication(state);
-      }
-      report.waitCompletedAt = new Date().toISOString();
+      await waitForPublicationGap(state, report);
     });
     report.result = result;
     report.status = result.status;
@@ -1367,5 +1373,6 @@ module.exports = {
   detailGate,
   dailyCount,
   lastSubmissionTime,
-  millisecondsUntilNextPublication
+  millisecondsUntilNextPublication,
+  waitForPublicationGap
 };
