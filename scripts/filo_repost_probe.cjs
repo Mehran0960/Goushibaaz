@@ -369,6 +369,73 @@ async function inspectForm(page) {
     report.form = await inspectForm(page);
     report.apiTraffic = apiTraffic.slice(-80);
     report.repostSourceData = repostSourceData;
+    report.categoryDiscoveryProbe = await (async () => {
+      const requests = [];
+      const responses = [];
+      const categoryPage = BASE + '/video/category/11';
+      page.on('request', request => {
+        try {
+          const u = new URL(request.url());
+          if (u.hostname === 'ifilo.net' && u.pathname.startsWith('/api/v1/video/category/')) {
+            const raw = request.postData() || '';
+            requests.push({
+              path: u.pathname,
+              method: request.method(),
+              postData: raw.slice(0, 900)
+            });
+          }
+        } catch {}
+      });
+      page.on('response', async response => {
+        try {
+          const u = new URL(response.url());
+          if (u.hostname === 'ifilo.net' && u.pathname.startsWith('/api/v1/video/category/')) {
+            const body = await response.json().catch(() => null);
+            if (body && typeof body === 'object') {
+              const arr = Array.isArray(body.l) ? body.l :
+                Array.isArray(body.items) ? body.items :
+                Array.isArray(body.v) ? body.v : [];
+              const pick = item => {
+                if (!item || typeof item !== 'object') return item;
+                const safe = {};
+                for (const key of ['id','i','video_code','videoCode','code','title','description','visit_count','visitCount','play_count','playCount','view_count','views','duration','create_date','create_time','active_datetime','category_id','user_id','username','user_name','is_republish','can_make_money','file_deleted','allow_public_display']) {
+                  if (Object.prototype.hasOwnProperty.call(item, key) &&
+                      (item[key] === null || ['string','number','boolean'].includes(typeof item[key]))) {
+                    safe[key] = typeof item[key] === 'string' ? item[key].slice(0, 260) : item[key];
+                  }
+                }
+                safe.keys = Object.keys(item).slice(0, 90);
+                return safe;
+              };
+              responses.push({
+                path: u.pathname,
+                status: response.status(),
+                rootKeys: Object.keys(body).slice(0, 80),
+                pageTitle: body.pageTitle || body.page_title || body.t || '',
+                itemCount: arr.length,
+                items: arr.slice(0, 8).map(pick),
+                paging: {
+                  p: body.p ?? body.page ?? null,
+                  next: body.next ?? null,
+                  total: body.total ?? body.count ?? null
+                }
+              });
+            } else {
+              responses.push({ path: u.pathname, status: response.status(), json: false });
+            }
+          }
+        } catch {}
+      });
+      await page.goto(categoryPage, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
+      await page.waitForTimeout(1800);
+      return {
+        pagePath: safeUrlPath(page.url()),
+        requests: requests.slice(-10),
+        responses: responses.slice(-10),
+        pageTitle: await page.title().catch(() => '')
+      };
+    })();
     report.publicBundleInspection = await (async () => {
       const bundlePath = (report.form.scriptPaths || []).find(item => item.startsWith('/assets/index-') && item.endsWith('.js'));
       if (!bundlePath) return { status: 'main_bundle_not_found' };
