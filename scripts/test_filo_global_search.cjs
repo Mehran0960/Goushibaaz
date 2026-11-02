@@ -104,11 +104,14 @@ const pages = {
   assert.deepEqual(mapped, [2, 4, 6, 8]);
 
   const sample = normalizeFiloSearchItem({
-    i: 'alias01',
+    v: 'videoCode01',
+    i: 'internalId77',
     t: 'عنوان کوتاه'
   }, { query: 'موضوع' });
-  assert.equal(sample.video_code, 'alias01');
+  assert.equal(sample.video_code, 'videoCode01');
   assert.equal(sample.title, 'عنوان کوتاه');
+  assert.equal(normalizeFiloSearchItem({ i: 'internalId77', t: 'عنوان کوتاه' }), null,
+    'internal result ids must never be mistaken for Filo video codes');
 
   console.log('FILO_GLOBAL_SEARCH_TESTS_PASSED');
 })().catch(error => {
