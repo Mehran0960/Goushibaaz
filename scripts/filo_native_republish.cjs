@@ -1192,6 +1192,7 @@ if (require.main === module) {
 module.exports = {
   ageHours,
   feedCandidateEligible,
+  searchCandidateEligible,
   scoreFeedCandidate,
   createRepostMetadata,
   normalizeComparable,
