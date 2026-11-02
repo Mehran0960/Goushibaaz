@@ -291,13 +291,13 @@ async function inspectForm(page) {
               const root = body.data && typeof body.data === 'object' ? body.data :
                 body.r && typeof body.r === 'object' ? body.r : body;
               const safe = {};
-              for (const key of ['status','status_code','title','description','videoTitle','videoDescription','videoId','id','views','viewCount','likes','duration','category','categoryName','playlistId','createdAt','thumbnail','image','sourceUrl','url','ownerName','userName']) {
+              for (const key of ['status','status_code','title','description','videoTitle','videoDescription','videoId','video_code','id','user_id','server_id','category_id','views','view_count','visit_count','play_count','share_count','duration','width','height','has_audio','can_make_money','allow_public_display','category','categoryName','playlistId','createdAt','thumbnail','image','sourceUrl','url','ownerName','userName']) {
                 if (Object.prototype.hasOwnProperty.call(root, key) && (root[key] === null || ['string','number','boolean'].includes(typeof root[key]))) {
                   safe[key] = typeof root[key] === 'string' ? root[key].slice(0, 300) : root[key];
                 }
               }
               safe.rootKeys = Object.keys(root).slice(0, 100);
-              for (const key of ['republish_video','republish_video_category','all_categories','limited_minutes','important_messages']) {
+              for (const key of ['republish_video','republish_video_category','republish_video_code','server_id','upload_domain','file_domain','unix_time','accept_rule','is_republish','all_categories','limited_minutes','important_messages']) {
                 const value = root[key];
                 if (Array.isArray(value)) {
                   safe[key] = {
@@ -318,7 +318,7 @@ async function inspectForm(page) {
                   };
                 } else if (value && typeof value === 'object') {
                   const out = {};
-                  for (const k of ['id','code','name','title','description','label','url','category','type','views','duration']) {
+                  for (const k of ['id','code','name','title','description','label','url','category','type','views','duration','video_code','user_id','server_id','category_id','visit_count','play_count']) {
                     if (Object.prototype.hasOwnProperty.call(value, k) && (value[k] === null || ['string','number','boolean'].includes(typeof value[k]))) {
                       out[k] = typeof value[k] === 'string' ? value[k].slice(0, 180) : value[k];
                     }
