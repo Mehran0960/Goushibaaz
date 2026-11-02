@@ -167,6 +167,7 @@ async function searchFiloGlobalTopic(query, fetchPage, options = {}) {
 
     if (payload && Number(payload.status) >= 400) {
       termination = 'http_' + Number(payload.status);
+      nextPage = page;
       pages.push({ page, status: Number(payload.status), error: String(payload.error || 'http_error').slice(0, 180) });
       break;
     }
