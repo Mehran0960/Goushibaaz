@@ -111,21 +111,25 @@ assert.equal(dailyCount(state, Date.parse('2026-11-02T12:00:00.000Z')), 2);
 assert.equal(lastSubmissionTime(state), Date.parse('2026-11-02T00:10:00.000Z'));
 assert.equal(millisecondsUntilNextPublication(state, Date.parse('2026-11-02T00:14:59.000Z')), 1000);
 assert.equal(millisecondsUntilNextPublication(state, Date.parse('2026-11-02T00:15:00.000Z')), 0);
-let fakeNow = Date.parse('2026-11-02T00:14:00.000Z');
-const waitReport = {};
-const waitCalls = [];
-await waitForPublicationGap(state, waitReport, {
-  now: () => fakeNow,
-  sleep: async ms => {
-    waitCalls.push(ms);
-    fakeNow += ms;
-  }
+(async () => {
+  let fakeNow = Date.parse('2026-11-02T00:14:00.000Z');
+  const waitReport = {};
+  const waitCalls = [];
+  await waitForPublicationGap(state, waitReport, {
+    now: () => fakeNow,
+    sleep: async ms => {
+      waitCalls.push(ms);
+      fakeNow += ms;
+    }
+  });
+  assert.equal(waitCalls.length, 1);
+  assert.ok(waitCalls[0] >= 61000);
+  assert.equal(millisecondsUntilNextPublication(state, fakeNow), 0);
+  assert.equal(waitReport.status, 'waiting_for_minimum_publication_gap');
+  assert.ok(waitReport.minimumGapWaitedMs >= 61000);
+
+  console.log('FILO_NATIVE_REPUBLISH_TESTS_PASSED');
+})().catch(error => {
+  console.error(error);
+  process.exitCode = 1;
 });
-assert.equal(waitCalls.length, 1);
-assert.ok(waitCalls[0] >= 61000);
-assert.equal(millisecondsUntilNextPublication(state, fakeNow), 0);
-assert.equal(waitReport.status, 'waiting_for_minimum_publication_gap');
-assert.ok(waitReport.minimumGapWaitedMs >= 61000);
-
-
-console.log('FILO_NATIVE_REPUBLISH_TESTS_PASSED');
