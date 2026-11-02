@@ -373,7 +373,7 @@ async function inspectForm(page) {
                   code: video.video_code || root.republish_video_code || u.pathname.split('/').pop(),
                   httpStatus: response.status(),
                   root: get(root, ['is_republish','republish_video_code','republish_video_category','server_id','limited_minutes','stop_upload','accept_rule']),
-                  video: get(video, ['video_code','title','duration','visit_count','play_count','category_id','server_id','status_id','active','can_republish','is_publish_able','allow_public_display','can_make_money','has_audio','file_deleted','only_in_filo','chosen','republish_from','create_date','create_time'])
+                  video: get(video, ['video_code','title','description','duration','visit_count','play_count','category_id','server_id','status_id','active','can_republish','is_publish_able','allow_public_display','can_make_money','has_audio','file_deleted','only_in_filo','chosen','republish_from','create_date','create_time'])
                 });
               }
             }
@@ -548,7 +548,7 @@ async function inspectForm(page) {
         titleFilled: (await titleField.inputValue()).length > 0,
         titleDifferentFromSource: (await titleField.inputValue()) !== String(candidate.video.title || ''),
         descriptionFilled: (await descriptionField.inputValue()).length > 0,
-        descriptionDifferentFromSource: (await descriptionField.inputValue()) !== String(repostSourceData?.republish_video?.description || ''),
+        descriptionDifferentFromSource: (await descriptionField.inputValue()) !== String(candidate.video.description || ''),
         formPath: safeUrlPath(page.url())
       };
 
