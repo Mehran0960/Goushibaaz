@@ -507,17 +507,25 @@ async function inspectForm(page) {
       };
     })();
     report.publishDryRun = await (async () => {
-      const candidate = (report.categoryDiscoveryProbe?.candidateChecks || []).find(item =>
-        item.video &&
-        item.video.can_republish === 1 &&
-        item.video.is_publish_able === 1 &&
-        item.video.active === 1 &&
-        item.video.file_deleted === 0 &&
-        item.video.has_audio === 1 &&
-        item.video.can_make_money === 1 &&
-        Number(item.video.duration) >= 10 &&
-        item.video.video_code
-      );
+      const candidate = (report.categoryDiscoveryProbe?.candidateChecks || []).find(item => {
+        const feedItem = (report.categoryDiscoveryProbe?.candidateItems || []).find(
+          feed => feed.video_code === item.code
+        );
+        return Boolean(
+          item.video &&
+          feedItem &&
+          feedItem.can_republish === 1 &&
+          feedItem.is_publish_able === 1 &&
+          item.video.can_republish === 1 &&
+          item.video.active === 1 &&
+          item.video.status_id === 1 &&
+          item.video.file_deleted === 0 &&
+          item.video.has_audio === 1 &&
+          item.video.can_make_money === 1 &&
+          Number(item.video.duration) >= 10 &&
+          item.video.video_code
+        );
+      });
       if (!candidate) return { status: 'no_eligible_candidate_for_dry_run' };
 
       const code = candidate.video.video_code;
