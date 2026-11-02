@@ -883,9 +883,17 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
       outgoingDescription.length >= 50 && outgoingDescription.length <= 1100 &&
       titleDistinct && descriptionDistinct && descriptionDoesNotRepeatTitle && !metadataRisk && !hasExternalLink;
     const frameOk = selectedFrame.startsWith('data:image/') && selectedFrame.length > 1000;
-    const requestOk = republishFrom === code && /^[A-Za-z0-9_-]{5,40}$/.test(videoCode) &&
-      isMadeByMe === 'false' && canRepublish === 'true' &&
-      canMakeMoney === 'true' && dontPublish === '0' && frameOk && coverAspectOk && metadataOk;
+    const guardFailures = [];
+    if (republishFrom !== code) guardFailures.push('source_code_mismatch');
+    if (!/^[A-Za-z0-9_-]{5,40}$/.test(videoCode)) guardFailures.push('new_video_code_invalid');
+    if (isMadeByMe !== 'false') guardFailures.push('source_is_not_other_user_content');
+    if (canRepublish !== 'true') guardFailures.push('native_republish_permission_missing');
+    if (canMakeMoney !== 'true') guardFailures.push('monetization_permission_missing');
+    if (dontPublish !== '0') guardFailures.push('source_marked_do_not_publish');
+    if (!frameOk) guardFailures.push('cover_frame_missing_or_invalid');
+    if (!coverAspectOk) guardFailures.push('cover_aspect_not_16_9');
+    if (!metadataOk) guardFailures.push('metadata_policy_guard_failed');
+    const requestOk = guardFailures.length === 0;
 
     publishPayload = {
       sourceCode: republishFrom,
@@ -899,6 +907,7 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
       coverDimensions,
       coverAspectRatio: coverAspectRatio || null,
       coverAspectOk,
+      guardFailures,
       thumbnailStrategy: report.thumbnailSelection && report.thumbnailSelection.strategy || 'legacy_fallback',
       thumbnailTimeSeconds: report.thumbnailSelection && report.thumbnailSelection.selectedTimeSeconds || null,
       thumbnailScore: report.thumbnailSelection && report.thumbnailSelection.score || null,
@@ -1203,6 +1212,17 @@ async function cleanupLegacyRepostCaptions(page, state) {
  return report;
 }
 
+function isRecoverableCoverGuardBlock(result) {
+  const failures = result && result.publishPayload && result.publishPayload.guardFailures;
+  return Boolean(
+    result &&
+    result.status === 'blocked_before_filo_submission' &&
+    Array.isArray(failures) &&
+    failures.length === 1 &&
+    failures[0] === 'cover_aspect_not_16_9'
+  );
+}
+
 async function main() {
   fs.mkdirSync(path.dirname(REPORT_PATH), { recursive: true });
   fs.mkdirSync(path.dirname(STATE_PATH), { recursive: true });
@@ -1350,27 +1370,85 @@ async function main() {
     }
 
     let selected = null;
+    let result = null;
     const checked = [];
+    const coverGuardSkips = [];
     for (const entry of ranked.slice(0, MAX_DETAIL_CHECKS)) {
       const code = entry.item.video_code;
       const detail = await getRepublishDetail(page, code).catch(() => null);
       const gate = detail ? detailGate(detail.root, detail.video) : { eligible: false, reason: 'republish_detail_unavailable' };
-      checked.push({ code, score: entry.rank.score, gate: gate.reason });
-      if (gate.eligible) {
-        try {
-          createRepostMetadata(detail.video, code);
-        } catch (error) {
-          checked[checked.length - 1].gate = 'metadata_not_compliant';
-          checked[checked.length - 1].metadataError = String(error && error.message || error).slice(0, 160);
+      const check = { code, score: entry.rank.score, gate: gate.reason };
+      checked.push(check);
+      if (!gate.eligible) continue;
+
+      try {
+        createRepostMetadata(detail.video, code);
+      } catch (error) {
+        check.gate = 'metadata_not_compliant';
+        check.metadataError = String(error && error.message || error).slice(0, 160);
+        continue;
+      }
+
+      const candidate = { ...entry.item, editorialScore: entry.rank.score, scoreDetails: entry.rank, detail };
+      let attemptResult;
+      try {
+        attemptResult = await prepareAndPublish(page, candidate, candidate.detail, report, async () => {
+          const latestDetail = await getRepublishDetail(page, candidate.video_code).catch(() => null);
+          const latestGate = latestDetail
+            ? detailGate(latestDetail.root, latestDetail.video)
+            : { eligible: false, reason: 'republish_detail_unavailable_before_submission' };
+          if (!latestGate.eligible) {
+            throw new Error('filo_permission_gate_changed_before_submission:' + latestGate.reason);
+          }
+          const latestMetadata = createRepostMetadata(latestDetail.video, candidate.video_code);
+          const selectedMetadata = createRepostMetadata(candidate.detail.video, candidate.video_code);
+          if (normalizeComparable(latestMetadata.title) !== normalizeComparable(selectedMetadata.title) ||
+              normalizeComparable(latestMetadata.description) !== normalizeComparable(selectedMetadata.description)) {
+            throw new Error('source_metadata_changed_before_submission');
+          }
+        });
+      } catch (error) {
+        const reason = String(error && error.message || error).slice(0, 220);
+        check.publishError = reason;
+        if (reason.startsWith('filo_permission_gate_changed_before_submission:') ||
+            reason === 'source_metadata_changed_before_submission') {
+          check.gate = 'permission_or_source_metadata_changed_before_submission';
           continue;
         }
-        selected = { ...entry.item, editorialScore: entry.rank.score, scoreDetails: entry.rank, detail };
-        break;
+        throw error;
       }
+
+      if (isRecoverableCoverGuardBlock(attemptResult)) {
+        coverGuardSkips.push({
+          sourceCode: candidate.video_code,
+          score: candidate.editorialScore,
+          reason: 'cover_aspect_not_16_9',
+          coverDimensions: attemptResult.publishPayload.coverDimensions || null,
+          coverAspectRatio: attemptResult.publishPayload.coverAspectRatio || null
+        });
+        check.publishAttempt = 'skipped_before_submission_bad_cover_aspect';
+        // No POST was sent. Keep the candidate eligible for future runs, but try the next ranked
+        // source in this run so a bad thumbnail cannot waste the entire publishing slot.
+        continue;
+      }
+
+      selected = candidate;
+      result = attemptResult;
+      break;
     }
     report.discovery.detailChecks = checked;
+    report.discovery.coverGuardSkips = coverGuardSkips;
     if (!selected) {
-      report.status = 'no_candidate_passed_filo_native_permission_gate';
+      if (coverGuardSkips.length) {
+        report.status = 'no_candidate_with_valid_16_9_cover';
+        report.result = {
+          status: 'blocked_before_filo_submission',
+          reason: 'all_checked_candidates_failed_only_the_16_9_cover_guard',
+          coverGuardSkips
+        };
+      } else {
+        report.status = 'no_candidate_passed_filo_native_permission_gate';
+      }
       return;
     }
 
@@ -1385,22 +1463,6 @@ async function main() {
       score: selected.editorialScore,
       scoreDetails: selected.scoreDetails
     };
-
-    const result = await prepareAndPublish(page, selected, selected.detail, report, async () => {
-      const latestDetail = await getRepublishDetail(page, selected.video_code).catch(() => null);
-      const latestGate = latestDetail
-        ? detailGate(latestDetail.root, latestDetail.video)
-        : { eligible: false, reason: 'republish_detail_unavailable_before_submission' };
-      if (!latestGate.eligible) {
-        throw new Error('filo_permission_gate_changed_before_submission:' + latestGate.reason);
-      }
-      const latestMetadata = createRepostMetadata(latestDetail.video, selected.video_code);
-      const selectedMetadata = createRepostMetadata(selected.detail.video, selected.video_code);
-      if (normalizeComparable(latestMetadata.title) !== normalizeComparable(selectedMetadata.title) ||
-          normalizeComparable(latestMetadata.description) !== normalizeComparable(selectedMetadata.description)) {
-        throw new Error('source_metadata_changed_before_submission');
-      }
-    });
     report.result = result;
     report.status = result.status;
 
@@ -1478,5 +1540,6 @@ module.exports = {
   createRepostMetadata,
   normalizeComparable,
   detailGate,
+  isRecoverableCoverGuardBlock,
   dailyCount
 };
