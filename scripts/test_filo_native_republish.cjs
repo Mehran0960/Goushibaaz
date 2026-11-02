@@ -1,0 +1,66 @@
+'use strict';
+
+const assert = require('node:assert/strict');
+const {
+  ageHours,
+  feedCandidateEligible,
+  scoreFeedCandidate,
+  detailGate,
+  dailyCount,
+  lastSubmissionTime
+} = require('./filo_native_republish.cjs');
+
+const valid = {
+  video_code: 'AbC1234',
+  title: 'یک چالش بامزه و غیرمنتظره در مسابقه فوتبال',
+  description: 'لحظه جالب و خنده دار مسابقه',
+  category_id: 6,
+  duration: 28,
+  visit_count: 1200,
+  play_count: 900,
+  share_count: 20,
+  create_date: '۲ ساعت پیش',
+  can_republish: 1,
+  is_publish_able: 1,
+  active: 1,
+  status_id: 1,
+  file_deleted: 0,
+  only_in_filo: 0,
+  has_audio: 1,
+  can_make_money: 1
+};
+
+assert.equal(ageHours({ create_date: '۲ ساعت پیش' }), 2);
+assert.equal(feedCandidateEligible(valid, { posts: [] }), true);
+assert.equal(feedCandidateEligible({ ...valid, can_republish: 0 }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, is_publish_able: 0 }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, only_in_filo: 1 }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, duration: 240 }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, title: 'خبر فوری جنگ و حمله نظامی' }, { posts: [] }), false);
+assert.equal(feedCandidateEligible(valid, { posts: [{ sourceCode: 'AbC1234', status: 'submitted_pending_approval' }] }), false);
+
+const high = scoreFeedCandidate(valid);
+const low = scoreFeedCandidate({ ...valid, visit_count: 0, play_count: 0, share_count: 0, create_date: 'دیروز' });
+assert.ok(high.score > low.score);
+
+assert.deepEqual(detailGate({ is_republish: 1, stop_upload: 0 }, {
+  can_republish: 1, active: 1, status_id: 1, file_deleted: 0,
+  only_in_filo: 0, has_audio: 1, can_make_money: 1, duration: 32
+}), { eligible: true, reason: 'filo_native_republish_permitted' });
+
+assert.equal(detailGate({ is_republish: 1 }, { ...valid, can_republish: 0, duration: 32 }).eligible, false);
+assert.equal(detailGate({ is_republish: 0 }, { ...valid, duration: 32 }).eligible, false);
+assert.equal(detailGate({ is_republish: 1, stop_upload: 1 }, { ...valid, duration: 32 }).eligible, false);
+assert.equal(detailGate({ is_republish: 1 }, { ...valid, only_in_filo: 1, duration: 32 }).eligible, false);
+
+const state = {
+  posts: [
+    { sourceCode: 'old', status: 'public_verified', submittedAt: '2026-11-02T00:00:00.000Z' },
+    { sourceCode: 'pending', status: 'submitted_pending_approval', submittedAt: '2026-11-02T00:10:00.000Z' },
+    { sourceCode: 'rejected', status: 'rejected_by_filo', attemptedAt: '2026-11-02T00:20:00.000Z' }
+  ]
+};
+assert.equal(dailyCount(state, Date.parse('2026-11-02T12:00:00.000Z')), 2);
+assert.equal(lastSubmissionTime(state), Date.parse('2026-11-02T00:10:00.000Z'));
+
+console.log('FILO_NATIVE_REPUBLISH_TESTS_PASSED');
