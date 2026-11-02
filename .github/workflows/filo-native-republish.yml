@@ -36,11 +36,13 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg
+          python3 -m pip install --quiet --break-system-packages mediapipe==0.10.21
           npm init -y >/dev/null
           npm install --no-save playwright >/dev/null
           npx playwright install --with-deps chromium >/dev/null
           node --check scripts/filo_native_republish.cjs
           node scripts/test_filo_native_republish.cjs
+          python3 scripts/test_filo_thumbnail.py
 
       - name: Discover Filo videos with native repost permission and publish one
         env:

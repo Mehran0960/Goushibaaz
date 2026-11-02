@@ -3,6 +3,8 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { chromium } = require('playwright');
+const os = require('node:os');
+const { spawnSync } = require('node:child_process');
 
 const BASE = 'https://ifilo.net';
 const STATE_PATH = path.join('state', 'filo-native-republished.json');
@@ -371,6 +373,153 @@ async function getRepublishDetail(page, code) {
   return { root, video: root.republish_video || root.video || null };
 }
 
+async function seekVideoTo(page, targetSeconds) {
+  return page.evaluate(async target => {
+    const video = document.querySelector('#plr video');
+    if (!video || !Number.isFinite(video.duration) || video.duration <= 0) {
+      return { ok: false, reason: 'video_metadata_unavailable' };
+    }
+    video.pause();
+    const safeTarget = Math.max(0.15, Math.min(video.duration - 0.15, target));
+    if (Math.abs(video.currentTime - safeTarget) > 0.08) {
+      await new Promise(resolve => {
+        let finished = false;
+        const finish = () => {
+          if (finished) return;
+          finished = true;
+          video.removeEventListener('seeked', finish);
+          resolve();
+        };
+        video.addEventListener('seeked', finish, { once: true });
+        try {
+          video.currentTime = safeTarget;
+          setTimeout(finish, 4500);
+        } catch {
+          finish();
+        }
+      });
+    }
+    await new Promise(resolve => setTimeout(resolve, 140));
+    return {
+      ok: video.readyState >= 2 && video.videoWidth > 0 && video.videoHeight > 0,
+      timeSeconds: Number(video.currentTime) || safeTarget,
+      durationSeconds: Number(video.duration) || 0
+    };
+  }, targetSeconds);
+}
+
+async function selectThumbnailFrame(page, sourceCode, report) {
+  const fallback = async reason => {
+    const info = await page.locator('#plr video').first().evaluate(video => ({
+      duration: Number(video.duration) || 0
+    })).catch(() => ({ duration: 0 }));
+    const target = info.duration > 2 ? Math.min(4, Math.max(1, info.duration * 0.12)) : 0.5;
+    await seekVideoTo(page, target).catch(() => null);
+    return {
+      strategy: 'legacy_early_frame_fallback',
+      fallback: true,
+      reason: String(reason || 'thumbnail_analysis_unavailable').slice(0, 240),
+      selectedTimeSeconds: target,
+      framesAnalyzed: 0
+    };
+  };
+
+  const videoInfo = await page.locator('#plr video').first().evaluate(video => ({
+    duration: Number(video.duration) || 0,
+    width: Number(video.videoWidth) || 0,
+    height: Number(video.videoHeight) || 0
+  })).catch(() => null);
+
+  if (!videoInfo || videoInfo.duration < 2 || !videoInfo.width || !videoInfo.height) {
+    const result = await fallback('video_metadata_unavailable');
+    report.thumbnailSelection = result;
+    return result;
+  }
+
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'filo-thumbnail-'));
+  const frameCount = 18;
+  const startRatio = 0.06;
+  const endRatio = 0.94;
+  const frames = [];
+  let selected = null;
+
+  try {
+    const videoLocator = page.locator('#plr video').first();
+    for (let index = 0; index < frameCount; index += 1) {
+      const ratio = frameCount === 1 ? 0.5 : startRatio + (endRatio - startRatio) * index / (frameCount - 1);
+      const target = Math.max(0.15, Math.min(videoInfo.duration - 0.15, videoInfo.duration * ratio));
+      const seek = await seekVideoTo(page, target).catch(() => ({ ok: false }));
+      if (!seek || !seek.ok) continue;
+      const filePath = path.join(tempDir, 'frame-' + String(index).padStart(2, '0') + '.jpg');
+      try {
+        const image = await videoLocator.screenshot({ type: 'jpeg', quality: 88, timeout: 10000 });
+        if (!image || image.length < 1500) continue;
+        fs.writeFileSync(filePath, image);
+        frames.push({ index, timeSeconds: Number(seek.timeSeconds || target), path: filePath });
+      } catch {}
+    }
+
+    if (frames.length < 3) {
+      const result = await fallback('insufficient_decoded_frames');
+      report.thumbnailSelection = { ...result, framesAnalyzed: frames.length };
+      return report.thumbnailSelection;
+    }
+
+    const scored = spawnSync('python3', ['scripts/score_filo_thumbnail.py'], {
+      input: JSON.stringify({ frames }),
+      encoding: 'utf8',
+      timeout: 45000,
+      maxBuffer: 3 * 1024 * 1024
+    });
+
+    if (scored.error || scored.status !== 0) {
+      const reason = scored.error ? scored.error.message : String(scored.stderr || 'thumbnail_scorer_failed').slice(0, 220);
+      const result = await fallback(reason);
+      report.thumbnailSelection = { ...result, framesAnalyzed: frames.length };
+      return report.thumbnailSelection;
+    }
+
+    const analysis = parseJson(scored.stdout);
+    if (!analysis || !Number.isInteger(analysis.selectedIndex)) {
+      const result = await fallback('thumbnail_scorer_returned_invalid_result');
+      report.thumbnailSelection = { ...result, framesAnalyzed: frames.length };
+      return report.thumbnailSelection;
+    }
+
+    selected = frames.find(frame => frame.index === analysis.selectedIndex);
+    if (!selected) {
+      const result = await fallback('selected_thumbnail_frame_not_found');
+      report.thumbnailSelection = { ...result, framesAnalyzed: frames.length };
+      return report.thumbnailSelection;
+    }
+
+    await seekVideoTo(page, selected.timeSeconds);
+    const summary = {
+      strategy: 'multi_frame_face_expression_visual_quality_v1',
+      fallback: false,
+      framesAnalyzed: frames.length,
+      selectedTimeSeconds: Math.round(selected.timeSeconds * 100) / 100,
+      score: analysis.selected && analysis.selected.score,
+      faceDetected: Boolean(analysis.selected && analysis.selected.faceDetected),
+      faceCount: analysis.selected && analysis.selected.faceCount || 0,
+      expressionScore: analysis.selected && analysis.selected.expressionScore,
+      sharpnessScore: analysis.selected && analysis.selected.sharpnessScore,
+      selectionReason: analysis.selectionReason || 'highest_composite_visual_score',
+      topCandidates: (analysis.ranked || []).slice(0, 3).map(item => ({
+        timeSeconds: Math.round(Number(item.timeSeconds) * 100) / 100,
+        score: item.score,
+        faceDetected: Boolean(item.faceDetected),
+        faceCount: item.faceCount || 0,
+        expressionScore: item.expressionScore
+      }))
+    };
+    report.thumbnailSelection = summary;
+    return summary;
+  } finally {
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  }
+}
+
 async function prepareAndPublish(page, candidate, detail, report) {
   const code = String(candidate.video_code || candidate.code);
   const sourceVideo = detail.video;
@@ -399,27 +548,7 @@ async function prepareAndPublish(page, candidate, detail, report) {
   }, null, { timeout: 25000 }).then(() => true).catch(() => false);
   if (!videoReady) throw new Error('filo_source_player_not_ready_for_cover');
 
-  await page.evaluate(async () => {
-    const video = document.querySelector('#plr video');
-    if (!video) return;
-    video.pause();
-    const duration = Number(video.duration) || 0;
-    const target = duration > 2 ? Math.min(4, Math.max(1, duration * 0.12)) : 0;
-    if (target > 0 && Math.abs(video.currentTime - target) > 0.3) {
-      await new Promise(resolve => {
-        let done = false;
-        const finish = () => {
-          if (done) return;
-          done = true;
-          video.removeEventListener('seeked', finish);
-          resolve();
-        };
-        video.addEventListener('seeked', finish, { once: true });
-        setTimeout(finish, 5000);
-        try { video.currentTime = target; } catch { finish(); }
-      });
-    }
-  });
+  const thumbnailSelection = await selectThumbnailFrame(page, code, report);
 
   const cropButton = page.locator('button.shot-btn').first();
   await cropButton.waitFor({ state: 'visible', timeout: 10000 });
@@ -458,6 +587,10 @@ async function prepareAndPublish(page, candidate, detail, report) {
       category: params.get('category') || '',
       selectedFrameLength: selectedFrame.length,
       selectedFrameType: selectedFrame.slice(0, 40),
+      thumbnailStrategy: report.thumbnailSelection && report.thumbnailSelection.strategy || 'legacy_fallback',
+      thumbnailTimeSeconds: report.thumbnailSelection && report.thumbnailSelection.selectedTimeSeconds || null,
+      thumbnailScore: report.thumbnailSelection && report.thumbnailSelection.score || null,
+      thumbnailFaceDetected: Boolean(report.thumbnailSelection && report.thumbnailSelection.faceDetected),
       isMadeByMe,
       canRepublish,
       canMakeMoney,
@@ -525,6 +658,7 @@ async function prepareAndPublish(page, candidate, detail, report) {
     httpStatus: publishResponse.status(),
     publishPayload,
     repostMetadata: { title: repostMetadata.title, descriptionLength: repostMetadata.description.length },
+    thumbnailSelection: report.thumbnailSelection || null,
     responseSummary: {
       success: true,
       keys: Object.keys(responseBody).slice(0, 20),
