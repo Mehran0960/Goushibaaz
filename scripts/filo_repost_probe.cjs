@@ -174,6 +174,16 @@ async function inspectForm(page) {
           valueLength: String(value || '').length, optionCount: options.length, options
         };
       });
+    const allInputs = [...document.querySelectorAll('input')].slice(0, 80).map(el => ({
+      type: String(el.type || '').toLowerCase(),
+      id: el.id || '',
+      name: el.name || '',
+      placeholder: el.getAttribute('placeholder') || '',
+      required: Boolean(el.required),
+      visible: visible(el),
+      disabled: Boolean(el.disabled),
+      accept: el.getAttribute('accept') || ''
+    }));
     const headings = [...document.querySelectorAll('h1,h2,h3')]
       .filter(visible).map(el => String(el.innerText || '').trim().replace(/\s+/g, ' ').slice(0, 160)).slice(0, 12);
     const buttons = [...document.querySelectorAll('button, input[type="submit"], [role="button"], a')]
@@ -191,6 +201,7 @@ async function inspectForm(page) {
     }));
     return {
       title: document.title.slice(0, 160),
+      allInputs,
       headings,
       controls,
       buttons,
@@ -213,6 +224,7 @@ async function inspectForm(page) {
     pagePath: safeUrlPath(page.url()),
     pageTitle: data.title,
     headings: data.headings,
+    allInputs: data.allInputs,
     fields,
     titlePrefilled: Boolean(titleField && titleField.valuePresent),
     descriptionPrefilled: Boolean(descriptionField && descriptionField.valuePresent),
@@ -250,11 +262,33 @@ async function inspectForm(page) {
     const page = await context.newPage();
     page.setDefaultTimeout(10000);
 
+    const apiTraffic = [];
+    page.on('request', request => {
+      try {
+        const u = new URL(request.url());
+        if (u.hostname === 'ifilo.net' && (/^\\/api\\//.test(u.pathname) || /republish/.test(u.pathname))) {
+          apiTraffic.push({ kind: 'request', method: request.method(), path: u.pathname, resourceType: request.resourceType() });
+        }
+      } catch {}
+    });
+    page.on('response', response => {
+      try {
+        const u = new URL(response.url());
+        if (u.hostname === 'ifilo.net' && (/^\\/api\\//.test(u.pathname) || /republish/.test(u.pathname))) {
+          apiTraffic.push({ kind: 'response', method: response.request().method(), path: u.pathname, status: response.status() });
+        }
+      } catch {}
+    });
     report.login = await login(page);
     await page.goto(TARGET_URL, { waitUntil: 'domcontentloaded', timeout: 30000 });
-    await page.waitForTimeout(1800);
+    await page.waitForLoadState('networkidle', { timeout: 7000 }).catch(() => {});
+    await page.waitForTimeout(3200);
     if (safeUrlPath(page.url()) === '/login') throw new Error('repost_form_redirected_to_login');
     report.form = await inspectForm(page);
+    report.apiTraffic = apiTraffic.slice(-80);
+    report.login.headerShowsSignedIn = await page.locator('a').evaluateAll(links =>
+      links.some(a => /خروج|logout|sign.?out/i.test((a.innerText || '') + ' ' + (a.getAttribute('href') || '')))
+    ).catch(() => false);
 
     const titleText = (report.form.headings || []).join(' ');
     report.sourceLooksLikeMusic = /پیانو|آهنگ|موسیقی|خواننده|شادمهر|ابی/i.test(titleText);
