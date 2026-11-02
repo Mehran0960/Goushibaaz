@@ -9,7 +9,8 @@ const {
   normalizeComparable,
   detailGate,
   dailyCount,
-  lastSubmissionTime
+  lastSubmissionTime,
+  millisecondsUntilNextPublication
 } = require('./filo_native_republish.cjs');
 
 const valid = {
@@ -78,5 +79,7 @@ const state = {
 };
 assert.equal(dailyCount(state, Date.parse('2026-11-02T12:00:00.000Z')), 2);
 assert.equal(lastSubmissionTime(state), Date.parse('2026-11-02T00:10:00.000Z'));
+assert.equal(millisecondsUntilNextPublication(state, Date.parse('2026-11-02T00:14:59.000Z')), 1000);
+assert.equal(millisecondsUntilNextPublication(state, Date.parse('2026-11-02T00:15:00.000Z')), 0);
 
 console.log('FILO_NATIVE_REPUBLISH_TESTS_PASSED');
