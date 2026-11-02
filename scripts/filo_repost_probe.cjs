@@ -182,8 +182,14 @@ async function inspectForm(page) {
       required: Boolean(el.required),
       visible: visible(el),
       disabled: Boolean(el.disabled),
-      accept: el.getAttribute('accept') || ''
+      checked: typeof el.checked === 'boolean' ? Boolean(el.checked) : null,
+      accept: el.getAttribute('accept') || '',
+      labelText: el.labels ? [...el.labels].map(label => String(label.innerText || '').trim().replace(/\\s+/g, ' ').slice(0, 120)) : [],
+      parentText: el.type === 'checkbox' ? String(el.parentElement && el.parentElement.innerText || '').trim().replace(/\\s+/g, ' ').slice(0, 180) : ''
     }));
+    const scriptPaths = [...document.querySelectorAll('script[src]')].map(el => {
+      try { return new URL(el.src, location.href).pathname; } catch { return ''; }
+    }).filter(Boolean).slice(0, 80);
     const headings = [...document.querySelectorAll('h1,h2,h3')]
       .filter(visible).map(el => String(el.innerText || '').trim().replace(/\s+/g, ' ').slice(0, 160)).slice(0, 12);
     const buttons = [...document.querySelectorAll('button, input[type="submit"], [role="button"], a')]
@@ -202,6 +208,7 @@ async function inspectForm(page) {
     return {
       title: document.title.slice(0, 160),
       allInputs,
+      scriptPaths,
       headings,
       controls,
       buttons,
@@ -225,6 +232,7 @@ async function inspectForm(page) {
     pageTitle: data.title,
     headings: data.headings,
     allInputs: data.allInputs,
+    scriptPaths: data.scriptPaths,
     fields,
     titlePrefilled: Boolean(titleField && titleField.valuePresent),
     descriptionPrefilled: Boolean(descriptionField && descriptionField.valuePresent),
@@ -271,11 +279,26 @@ async function inspectForm(page) {
         }
       } catch {}
     });
-    page.on('response', response => {
+    let repostSourceData = null;
+    page.on('response', async response => {
       try {
         const u = new URL(response.url());
         if (u.hostname === 'ifilo.net' && (u.pathname.startsWith('/api/') || u.pathname.includes('republish'))) {
           apiTraffic.push({ kind: 'response', method: response.request().method(), path: u.pathname, status: response.status() });
+          if (u.pathname.startsWith('/api/v1/republish/')) {
+            const body = await response.json().catch(() => null);
+            if (body && typeof body === 'object') {
+              const root = body.r && typeof body.r === 'object' ? body.r : body;
+              const safe = {};
+              for (const key of ['s','title','description','videoTitle','videoDescription','videoId','id','views','viewCount','likes','duration','category','categoryName','playlistId','status','createdAt','thumbnail','image','sourceUrl']) {
+                if (Object.prototype.hasOwnProperty.call(root, key) && (root[key] === null || ['string','number','boolean'].includes(typeof root[key]))) {
+                  safe[key] = typeof root[key] === 'string' ? root[key].slice(0, 300) : root[key];
+                }
+              }
+              safe.rootKeys = Object.keys(root).slice(0, 80);
+              repostSourceData = safe;
+            }
+          }
         }
       } catch {}
     });
@@ -286,6 +309,7 @@ async function inspectForm(page) {
     if (safeUrlPath(page.url()) === '/login') throw new Error('repost_form_redirected_to_login');
     report.form = await inspectForm(page);
     report.apiTraffic = apiTraffic.slice(-80);
+    report.repostSourceData = repostSourceData;
     report.login.headerShowsSignedIn = await page.locator('a').evaluateAll(links =>
       links.some(a => /خروج|logout|sign.?out/i.test((a.innerText || '') + ' ' + (a.getAttribute('href') || '')))
     ).catch(() => false);
