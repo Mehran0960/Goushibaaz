@@ -1187,7 +1187,7 @@ async function cleanupLegacyRepostCaptions(page, state) {
    const edited=await fetchOwnVideoForCaptionEdit(page,code).catch(()=>null);
    const ownMetadataVerified=Boolean(edited&&normalizeComparable(String(edited.title||edited.t||''))===normalizeComparable(newTitle)&&normalizeComparable(String(edited.description||edited.d||''))===normalizeComparable(newDescription));
    const publicUrl=ownMetadataVerified?await verifyPublicVideo(page,code,newTitle).catch(()=>null):null;
-   if(publicUrl){post.captionCleanupPending=false;post.captionCleanupAt=new Date().toISOString();report.updated.push({code,title:newTitle,descriptionUpdated:true,publicUrl,verified:true});}
+   if(publicUrl){post.captionCleanupPending=false;post.captionCleanupAt=new Date().toISOString();post.monetizationReviewRequired=false;delete post.monetizationReviewReason;delete post.monetizationReviewAt;report.updated.push({code,title:newTitle,descriptionUpdated:true,publicUrl,verified:true});}
    else report.pending.push({code,title:newTitle,reason:ownMetadataVerified?'public_title_not_yet_verified':'edited_metadata_not_yet_verified'});
    markAttempt();
   }catch(error){
