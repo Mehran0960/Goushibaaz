@@ -10,8 +10,8 @@ on:
       - "scripts/test_filo_native_republish.cjs"
       - "scripts/google_trends_iran.cjs"
       - "scripts/test_google_trends_iran.cjs"
-  schedule:
-    - cron: "2-57/5 * * * *"
+      - "scripts/filo_global_search.cjs"
+      - "scripts/test_filo_global_search.cjs"
 
 permissions:
   contents: write
@@ -47,6 +47,9 @@ jobs:
           node --check scripts/google_trends_iran.cjs
           node --check scripts/test_google_trends_iran.cjs
           node scripts/test_google_trends_iran.cjs
+          node --check scripts/filo_global_search.cjs
+          node --check scripts/test_filo_global_search.cjs
+          node scripts/test_filo_global_search.cjs
           python3 scripts/test_filo_thumbnail.py
 
       - name: Discover Filo videos with native repost permission and publish one
