@@ -46,7 +46,7 @@ function buildFiloTrendQueries(trends, options = {}) {
       candidates.push(simplified);
     }
     for (const newsItem of (Array.isArray(trend.newsItems) ? trend.newsItems : []).slice(0, 2)) {
-      const relatedTitle = String(newsItem && newsItem.title || '').replace(/\\s+/g, ' ').trim();
+      const relatedTitle = String(newsItem && newsItem.title || '').replace(/\s+/g, ' ').trim();
       if (queryTokens(relatedTitle).length >= 2) candidates.push(relatedTitle);
     }
 
