@@ -15,6 +15,8 @@ on:
     paths:
       - "scripts/filo_native_republish.cjs"
       - "scripts/test_filo_native_republish.cjs"
+      - "scripts/google_trends_iran.cjs"
+      - "scripts/test_google_trends_iran.cjs"
       - "scripts/score_filo_thumbnail.py"
       - "scripts/test_filo_thumbnail.py"
       - ".github/workflows/filo-native-republish.yml"
