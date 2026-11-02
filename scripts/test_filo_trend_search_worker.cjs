@@ -71,4 +71,28 @@ assert.ok(nextBatch.some(item => item.normalized === query.normalized));
 assert.equal(nextBatch.find(item => item.normalized === query.normalized).nextPage, 4,
   'a later worker run must resume at the first unsearched page');
 
+
+const completedQuery = state.queries[query.normalized];
+completedQuery.complete = true;
+completedQuery.completedAt = new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString();
+completedQuery.activeInLatestFeed = true;
+const refreshBatch = selectQueriesForRun(state, Date.now());
+const refreshQuery = refreshBatch.find(item => item.normalized === query.normalized);
+assert.ok(refreshQuery);
+assert.equal(refreshQuery.refreshOnly, true);
+assert.equal(refreshQuery.nextPage, 1);
+
+applyQueryResult(state, refreshQuery, {
+  results: [],
+  pagesFetched: 5,
+  nextPage: 6,
+  complete: false,
+  termination: 'max_pages_reached',
+  totalUniqueVideos: 0
+});
+assert.equal(completedQuery.complete, true, 'a fresh first-page sweep should complete its refresh cycle');
+assert.equal(completedQuery.nextPage, 1, 'a refresh cycle must not overwrite the full-search pagination cursor');
+assert.equal(completedQuery.refreshOnly, false);
+assert.ok(completedQuery.lastRefreshAt);
+
 console.log('FILO_TREND_SEARCH_WORKER_TESTS_PASSED');
