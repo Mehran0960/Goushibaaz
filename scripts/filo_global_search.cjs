@@ -117,6 +117,7 @@ function normalizeFiloSearchItem(item, topicSearch = {}) {
       trendTitle: String(topicSearch.trendTitle || topicSearch.query || '').slice(0, 180),
       trendTraffic: Number(topicSearch.trendTraffic) || 0,
       trendPublishedAt: topicSearch.trendPublishedAt || null,
+      trendKeywords: Array.isArray(topicSearch.trendKeywords) ? topicSearch.trendKeywords.slice(0, 10) : queryTokens(topicSearch.trendTitle || topicSearch.query),
       page: Number(topicSearch.page) || null
     }
   };
