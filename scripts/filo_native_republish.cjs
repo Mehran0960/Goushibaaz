@@ -3,6 +3,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { chromium } = require('playwright');
+const { fetchIranGoogleTrends, scoreGoogleTrendRelevance } = require('./google_trends_iran.cjs');
 const os = require('node:os');
 const { spawnSync } = require('node:child_process');
 
@@ -110,7 +111,7 @@ function feedCandidateEligible(item, ledger) {
   return true;
 }
 
-function scoreFeedCandidate(item, trendWeights = {}) {
+function scoreFeedCandidate(item, trendWeights = {}, googleTrends = []) {
   const text = sourceText(item);
   const categoryId = num(item.category_id);
   const duration = num(item.duration, 0);
@@ -129,6 +130,8 @@ function scoreFeedCandidate(item, trendWeights = {}) {
   score += duration <= 30 ? 7 : duration <= 60 ? 5 : duration <= 120 ? 2 : -4;
   const topic = String(item.category_id || '');
   score += Math.min(5, num(trendWeights[topic]));
+  const googleTrend = scoreGoogleTrendRelevance(text, googleTrends);
+  score += googleTrend.score;
   if (text.length < 16) score -= 5;
 
   return {
@@ -138,7 +141,8 @@ function scoreFeedCandidate(item, trendWeights = {}) {
     categoryId,
     durationSeconds: duration,
     visits,
-    plays
+    plays,
+    googleTrend
   };
 }
 
@@ -283,7 +287,7 @@ async function login(page) {
   const password = page.locator('input[type="password"]').first();
   await password.waitFor({ state: 'visible', timeout: 15000 });
   await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
-  await sleep(1800);
+  await sleep(1200);
 
   const username = await visibleFirst(page, [
     'input[autocomplete="username"]',
@@ -309,7 +313,7 @@ async function login(page) {
     throw new Error('filo_login_submit_not_ready');
   }
 
-  const loginResponse = page.waitForResponse(response => {
+  const loginResponsePromise = page.waitForResponse(response => {
     try {
       const url = new URL(response.url());
       return url.hostname === 'ifilo.net' &&
@@ -319,17 +323,98 @@ async function login(page) {
   }, { timeout: 15000 }).catch(() => null);
 
   await submit.click();
-  await loginResponse;
-  await sleep(1500);
+  const loginResponse = await loginResponsePromise;
+  let responsePayload = null;
+  if (loginResponse) {
+    const responseText = await loginResponse.text().catch(() => '');
+    responsePayload = parseJson(responseText);
+  }
+
+  const responseStatus = loginResponse ? loginResponse.status() : null;
+  const responseKeys = responsePayload && typeof responsePayload === 'object'
+    ? Object.keys(responsePayload).slice(0, 12)
+    : [];
+  const explicitApiRejection = Boolean(responsePayload && typeof responsePayload === 'object' && (
+    responsePayload.success === false ||
+    responsePayload.status === false ||
+    responsePayload.error ||
+    responsePayload.errors
+  ));
+  if (loginResponse && (responseStatus < 200 || responseStatus >= 400 || explicitApiRejection)) {
+    throw new Error('filo_login_api_rejected:' + JSON.stringify({
+      httpStatus: responseStatus,
+      responseKeys,
+      explicitApiRejection
+    }));
+  }
+
+  await sleep(1800);
   await page.goto(BASE + '/upload', { waitUntil: 'domcontentloaded', timeout: 30000 });
-  await sleep(800);
+  await sleep(1200);
 
-  const signedIn = await page.locator('a').evaluateAll(links =>
-    links.some(a => /خروج|logout|sign.?out/i.test((a.innerText || '') + ' ' + (a.getAttribute('href') || '')))
-  ).catch(() => false);
-  if (!signedIn) throw new Error('filo_login_not_confirmed');
+  const pageEvidence = await page.evaluate(() => {
+    const bodyText = (document.body && document.body.innerText || '').replace(/\s+/g, ' ').slice(0, 1600);
+    const path = location.pathname;
+    const hasLogoutLink = Array.from(document.querySelectorAll('a')).some(a =>
+      /خروج|logout|sign.?out/i.test((a.innerText || '') + ' ' + (a.getAttribute('href') || ''))
+    );
+    const hasPasswordField = Array.from(document.querySelectorAll('input[type="password"]'))
+      .some(input => input.offsetParent !== null);
+    const hasFileInput = Boolean(document.querySelector('input[type="file"]'));
+    const hasUploadForm = Boolean(document.querySelector('form[action*="upload" i], [data-upload-form], .upload-form'));
+    const loginPrompt = /ورود به حساب|وارد حساب شوید|لطفا وارد شوید|رمز عبور|sign in to|please log in|login required/i.test(bodyText);
+    return {
+      path,
+      title: document.title || '',
+      hasLogoutLink,
+      hasPasswordField,
+      hasFileInput,
+      hasUploadForm,
+      loginPrompt
+    };
+  }).catch(() => ({
+    path: new URL(page.url()).pathname,
+    title: '',
+    hasLogoutLink: false,
+    hasPasswordField: false,
+    hasFileInput: false,
+    hasUploadForm: false,
+    loginPrompt: true
+  }));
 
-  return { authenticated: true, route: '/upload' };
+  const cookieNames = (await page.context().cookies(BASE))
+    .map(cookie => cookie.name)
+    .filter(name => !/(csrf|xsrf)/i.test(name));
+  const hasSessionCookie = cookieNames.some(name => /(session|auth|token|user|sid|jwt)/i.test(name));
+  const isUploadRoute = /^\/upload(?:\/|$)/i.test(pageEvidence.path);
+  const routeHasNoLoginScreen = isUploadRoute &&
+    !pageEvidence.hasPasswordField &&
+    !pageEvidence.loginPrompt &&
+    !/\/login(?:\/|$)/i.test(pageEvidence.path);
+  const verifiedBy = pageEvidence.hasLogoutLink
+    ? 'logout_link'
+    : routeHasNoLoginScreen && (hasSessionCookie || pageEvidence.hasFileInput || pageEvidence.hasUploadForm)
+      ? 'authenticated_upload_route'
+      : null;
+
+  if (!verifiedBy) {
+    throw new Error('filo_login_not_confirmed:' + JSON.stringify({
+      httpStatus: responseStatus,
+      responseKeys,
+      hasSessionCookie,
+      cookieNames: cookieNames.slice(0, 12),
+      pageEvidence
+    }));
+  }
+
+  return {
+    authenticated: true,
+    route: pageEvidence.path,
+    verifiedBy,
+    httpStatus: responseStatus,
+    responseKeys,
+    hasSessionCookie
+  };
 }
 
 async function fetchCategoryPage(page, categoryId, pageNo) {
@@ -729,7 +814,8 @@ async function main() {
     status: 'started',
     discovery: { categories: CATEGORY_IDS, pagesPerCategory: PAGES_PER_CATEGORY, scannedItems: 0, eligibleFeedItems: 0, errors: [] },
     selected: null,
-    result: null
+    result: null,
+    googleTrends: { status: 'not_fetched', itemCount: 0, topTopics: [] }
   };
   let browser;
 
@@ -766,6 +852,20 @@ async function main() {
     page.setDefaultTimeout(12000);
 
     report.login = await login(page);
+    const googleTrendsFeed = await fetchIranGoogleTrends({ timeoutMs: 8000, maxItems: 40 });
+    const googleTrends = googleTrendsFeed.items || [];
+    report.googleTrends = {
+      status: googleTrendsFeed.ok ? 'active' : 'unavailable_non_blocking',
+      source: googleTrendsFeed.source,
+      fetchedAt: googleTrendsFeed.fetchedAt,
+      itemCount: googleTrends.length,
+      error: googleTrendsFeed.error || null,
+      topTopics: googleTrends.slice(0, 12).map(item => ({
+        title: item.title,
+        traffic: item.traffic,
+        publishedAt: item.publishedAt
+      }))
+    };
     report.reconciliation = await reconcilePreviouslySubmitted(page, state);
     if (report.reconciliation.changed) {
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
@@ -812,7 +912,7 @@ async function main() {
     const feedCandidates = [...byCode.values()].filter(item => feedCandidateEligible(item, state));
     report.discovery.eligibleFeedItems = feedCandidates.length;
     const ranked = feedCandidates
-      .map(item => ({ item, rank: scoreFeedCandidate(item, trendWeights) }))
+      .map(item => ({ item, rank: scoreFeedCandidate(item, trendWeights, googleTrends) }))
       .filter(entry => entry.rank.score >= 30)
       .sort((a, b) => b.rank.score - a.rank.score);
 
@@ -894,6 +994,7 @@ async function main() {
       selected: report.selected,
       result: report.result,
       errors: report.discovery.errors.slice(0, 8),
+      googleTrends: report.googleTrends,
       error: report.error
     }));
   }
