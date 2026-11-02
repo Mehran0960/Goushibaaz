@@ -25,19 +25,36 @@ const trends = [{
 
 const definitions = refreshQueryDefinitions(state, trends);
 assert.ok(definitions >= 2, 'trend phrase, simplified query, and useful related-news query should be indexed');
+const now = Date.now();
 state.queries['inactive-old-topic'] = {
   query: 'موضوع قدیمی',
   normalized: 'موضوعقدیمی',
   nextPage: 21,
   complete: false,
   activeInLatestFeed: false,
-  createdAt: '2026-11-01T00:00:00.000Z'
+  createdAt: new Date(now - 60 * 60 * 1000).toISOString(),
+  lastTrendSeenAt: new Date(now - 60 * 60 * 1000).toISOString()
 };
-const selected = selectQueriesForRun(state);
+state.queries['expired-old-topic'] = {
+  query: 'موضوع منقضی',
+  normalized: 'موضوعمنقضی',
+  nextPage: 21,
+  complete: false,
+  activeInLatestFeed: false,
+  createdAt: new Date(now - 4 * 24 * 60 * 60 * 1000).toISOString(),
+  lastTrendSeenAt: new Date(now - 4 * 24 * 60 * 60 * 1000).toISOString()
+};
+const selected = selectQueriesForRun(state, now);
 assert.ok(selected.length > 0);
-assert.equal(selected.some(item => item.normalized === 'موضوعقدیمی'), false,
-  'queries for topics no longer in the live RSS should not consume the current search batch');
+assert.equal(selected.some(item => item.normalized === 'موضوعقدیمی'), true,
+  'recently trending incomplete queries must continue in the backlog after leaving the live RSS feed');
+assert.equal(selected.some(item => item.normalized === 'موضوعمنقضی'), false,
+  'expired historical queries must not consume search capacity');
 assert.ok(selected.length <= 8);
+const backlogIndex = selected.findIndex(item => item.normalized === 'موضوعقدیمی');
+const currentIndex = selected.findIndex(item => item.activeInLatestFeed !== false);
+assert.ok(currentIndex >= 0 && currentIndex < backlogIndex,
+  'current trend searches must retain priority over backlog searches');
 
 const query = selected[0];
 const added = applyQueryResult(state, query, {
