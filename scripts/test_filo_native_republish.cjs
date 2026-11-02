@@ -6,6 +6,7 @@ const {
   feedCandidateEligible,
   searchCandidateEligible,
   cleanLegacyRepostTitle,
+  cleanRepostCaptionTitle,
   scoreFeedCandidate,
   createRepostMetadata,
   normalizeComparable,
@@ -61,10 +62,24 @@ assert.equal(
 assert.equal(cleanLegacyRepostTitle('ماجرای بامزه‌ی «دستشویی رفتن آقایون»'), 'دستشویی رفتن آقایون');
 assert.equal(cleanLegacyRepostTitle('عنوان بدون پیشوند'), 'عنوان بدون پیشوند');
 assert.equal(
-  cleanLegacyRepostTitle('ماجرای بامزه‌ی «دزد حرفه ای»', 'کلیپ خنده دار دزد حرفه ای'),
-  'دزد حرفه ای؛ روایتی از یک اتفاق غیرمنتظره',
-  'short legacy titles must be expanded so Filo does not reject the caption edit'
+  cleanLegacyRepostTitle('روایتی از یک اتفاق غیرمنتظره', 'کلیپ خنده دار دزد حرفه ای'),
+  'دزد حرفه ای',
+  'legacy titles must be reduced to the actual title without editorial filler'
 );
+assert.equal(cleanRepostCaptionTitle('تصاویری دیدنی و خنده دار از سوژه هالووین'), 'سوژه هالووین');
+assert.equal(
+  cleanRepostCaptionTitle('مسخره کردن فرار از زندان پوکیدم از خنده عالی بود این حتما ببنید'),
+  'مسخره کردن فرار از زندان'
+);
+assert.equal(
+  cleanRepostCaptionTitle('چالش یحیی گل محمدی سرمربی پرسپولیس با رکورد دار روپایی'),
+  'چالش یحیی گل محمدی با رکورد دار روپایی'
+);
+assert.equal(
+  cleanRepostCaptionTitle('پیغام عجیب و توهین آمیز ساکت الهامی به یحیی گل محمدی در پایان مسابقه فولاد_ نساجی'),
+  'پیغام ساکت الهامی به یحیی گل محمدی در پایان مسابقه فولاد_ نساجی'
+);
+assert.throws(() => cleanRepostCaptionTitle('عنوان کوتاه'), /no_clean_distinct_title_available_without_extra_words/);
 
 const rewritten = createRepostMetadata({ ...valid, title: 'طنز خنده دار وقتی مامانت مولودی گرفته و تو تو اتاق تنها موندی', description: 'توضیحات اصلی با متن بلند و تکراری' }, 'AbC1234');
 assert.notEqual(normalizeComparable(rewritten.title), normalizeComparable('طنز خنده دار وقتی مامانت مولودی گرفته و تو تو اتاق تنها موندی'));
@@ -72,6 +87,8 @@ assert.notEqual(normalizeComparable(rewritten.description), normalizeComparable(
 assert.ok(rewritten.title.length >= 8);
 assert.doesNotMatch(rewritten.title, /ماجرای\s+بامزه/);
 assert.doesNotMatch(rewritten.title, /لحظه‌ی\s+تماشایی/);
+assert.doesNotMatch(rewritten.title, /روایت\\s+تصویری|ماجرای\\s+بامزه|روایتی\\s+از/);
+assert.doesNotMatch(rewritten.description, /روایت\\s+تصویری/);
 assert.ok(rewritten.description.length >= 50);
 assert.match(rewritten.description, /اجازه/);
 assert.doesNotMatch(rewritten.description, /https?:\/\//i);
