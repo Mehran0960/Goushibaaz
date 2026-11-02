@@ -506,6 +506,122 @@ async function inspectForm(page) {
         pageTitle: await page.title().catch(() => '')
       };
     })();
+    report.publishDryRun = await (async () => {
+      const candidate = (report.categoryDiscoveryProbe?.candidateChecks || []).find(item =>
+        item.video &&
+        item.video.can_republish === 1 &&
+        item.video.is_publish_able === 1 &&
+        item.video.active === 1 &&
+        item.video.file_deleted === 0 &&
+        item.video.has_audio === 1 &&
+        item.video.can_make_money === 1 &&
+        Number(item.video.duration) >= 10 &&
+        item.video.video_code
+      );
+      if (!candidate) return { status: 'no_eligible_candidate_for_dry_run' };
+
+      const code = candidate.video.video_code;
+      await page.goto(BASE + '/republish/' + encodeURIComponent(code), {
+        waitUntil: 'domcontentloaded',
+        timeout: 30000
+      });
+      await page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => {});
+      await page.waitForTimeout(1500);
+
+      const title = 'مروری کوتاه بر ' + String(candidate.video.title || 'این ویدئو').trim();
+      const description = 'در این بازنشر، نگاهی کوتاه به این ویدئو با عنوان «' +
+        String(candidate.video.title || '').trim().slice(0, 180) +
+        '» خواهیم داشت. این متن برای آزمایش فنی فرم ساخته شده و محتوای ویدئو تغییر نمی‌کند.';
+
+      const titleField = page.locator('input[name="title"]').first();
+      const descriptionField = page.locator('textarea').first();
+      await titleField.waitFor({ state: 'visible', timeout: 10000 });
+      await descriptionField.waitFor({ state: 'visible', timeout: 10000 });
+      await titleField.fill(title);
+      await descriptionField.fill(description);
+
+      const beforeSubmit = {
+        sourceCode: code,
+        sourceTitle: String(candidate.video.title || '').slice(0, 220),
+        durationSeconds: Number(candidate.video.duration),
+        sourceCategoryId: candidate.video.category_id ?? null,
+        titleFilled: (await titleField.inputValue()).length > 0,
+        titleDifferentFromSource: (await titleField.inputValue()) !== String(candidate.video.title || ''),
+        descriptionFilled: (await descriptionField.inputValue()).length > 0,
+        descriptionDifferentFromSource: (await descriptionField.inputValue()) !== String(repostSourceData?.republish_video?.description || ''),
+        formPath: safeUrlPath(page.url())
+      };
+
+      let interceptedPublish = null;
+      const blockedRequests = [];
+      await page.route('**/*', async route => {
+        const request = route.request();
+        let url;
+        try { url = new URL(request.url()); } catch {}
+        const method = String(request.method() || 'GET').toUpperCase();
+        if (url && url.hostname === 'ifilo.net' && !['GET','HEAD','OPTIONS'].includes(method)) {
+          const summary = { path: url.pathname, method };
+          blockedRequests.push(summary);
+          if (url.pathname === '/api/v1/video/publish' && method === 'POST') {
+            const raw = request.postData() || '';
+            const params = new URLSearchParams(raw);
+            const get = key => params.has(key) ? params.get(key) : null;
+            interceptedPublish = {
+              path: url.pathname,
+              method,
+              keys: [...params.keys()],
+              values: {
+                videoCode: get('videoCode'),
+                serverId: get('serverId'),
+                republishFrom: get('republishFrom'),
+                category: get('category'),
+                duration: get('duration'),
+                title: get('title'),
+                descriptionLength: String(get('description') || '').length,
+                hasComment: get('hasComment'),
+                allowDownload: get('allowDownload'),
+                setWatermark: get('setWatermark'),
+                canMakeMoney: get('canMakeMoney'),
+                dontPublish: get('dontPublish'),
+                isMadeByMe: get('isMadeByMe'),
+                canRepublish: get('canRepublish'),
+                madeForKids: get('madeForKids'),
+                over18: get('over18'),
+                onlyInFilo: get('onlyInFilo'),
+                uploadDomainPresent: Boolean(get('uploadDomain')),
+                imagePresent: Boolean(get('image')),
+                selectedFramePresent: Boolean(get('selectedFrame'))
+              }
+            };
+          }
+          await route.abort('blockedbyclient').catch(() => {});
+          return;
+        }
+        await route.continue().catch(() => {});
+      });
+
+      const publishButton = page.getByRole('button', { name: /انتشار ویدیو|انتشار ویدئو/ }).first();
+      if (!(await publishButton.isVisible().catch(() => false)) ||
+          !(await publishButton.isEnabled().catch(() => false))) {
+        return {
+          status: 'publish_button_not_available',
+          beforeSubmit,
+          blockedRequests
+        };
+      }
+
+      await publishButton.click();
+      await page.waitForTimeout(1500);
+      return {
+        status: interceptedPublish ? 'publish_request_intercepted_before_server' : 'publish_request_not_observed',
+        beforeSubmit,
+        interceptedPublish,
+        blockedRequests,
+        serverReached: false,
+        actualPublication: false,
+        note: 'The UI submit was simulated. Every non-GET request to ifilo.net was aborted locally before reaching Filo.'
+      };
+    })();
     report.publicBundleInspection = await (async () => {
       const bundlePath = (report.form.scriptPaths || []).find(item => item.startsWith('/assets/index-') && item.endsWith('.js'));
       if (!bundlePath) return { status: 'main_bundle_not_found' };
@@ -545,7 +661,7 @@ async function inspectForm(page) {
     report.status = report.form.titlePrefilled && report.form.descriptionPrefilled
       ? 'authenticated_repost_form_inspected_prefilled'
       : 'authenticated_repost_form_inspected';
-    report.note = 'Inspection-only run. No form field was changed and no repost or publication control was clicked.';
+    report.note = 'Inspection and blocked dry-run only. No video was downloaded; all first-party non-GET requests during the simulated submit were intercepted before reaching Filo.';
   } catch (error) {
     report.status = 'probe_failed';
     report.error = String(error && error.message || error).replace(/[\r\n]+/g, ' ').slice(0, 1600);
