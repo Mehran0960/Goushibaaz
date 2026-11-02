@@ -369,6 +369,26 @@ function millisecondsUntilNextPublication(state, now = Date.now()) {
   return last ? Math.max(0, last + MIN_PUBLISH_GAP_MS - now) : 0;
 }
 
+async function waitForPublicationGap(state, report = {}, options = {}) {
+  const now = typeof options.now === 'function' ? options.now : () => Date.now();
+  const sleepFn = typeof options.sleep === 'function' ? options.sleep : sleep;
+  const startedAt = now();
+  let waitMs = millisecondsUntilNextPublication(state, startedAt);
+  const initialWaitMs = waitMs;
+
+  while (waitMs > 0) {
+    report.status = 'waiting_for_minimum_publication_gap';
+    report.waitMilliseconds = initialWaitMs;
+    report.nextEligibleAt = new Date(now() + waitMs).toISOString();
+    await sleepFn(waitMs + 750);
+    waitMs = millisecondsUntilNextPublication(state, now());
+  }
+
+  report.waitCompletedAt = new Date(now()).toISOString();
+  report.minimumGapWaitedMs = Math.max(0, now() - startedAt);
+  return initialWaitMs;
+}
+
 function parseApiBody(raw) {
   const outer = parseJson(raw);
   if (!outer) return null;
@@ -713,7 +733,7 @@ async function selectThumbnailFrame(page, sourceCode, report) {
   }
 }
 
-async function prepareAndPublish(page, candidate, detail, report) {
+async function prepareAndPublish(page, candidate, detail, report, beforeSubmit = null) {
   const code = String(candidate.video_code || candidate.code);
   const sourceVideo = detail.video;
   const sourceTitle = String(sourceVideo.title || candidate.title || '').trim().slice(0, 180);
@@ -747,6 +767,11 @@ async function prepareAndPublish(page, candidate, detail, report) {
   await cropButton.waitFor({ state: 'visible', timeout: 10000 });
   await cropButton.click();
   await page.waitForTimeout(500);
+
+  // Finish all discovery, rights checks, video loading and cover selection before
+  // waiting for the next allowed publication slot. This keeps the five-minute
+  // interval from wasting time before work that can run during the cooldown.
+  if (typeof beforeSubmit === 'function') await beforeSubmit();
 
   let publishPayload = null;
   let thumbnailGuardBlocked = false;
@@ -1117,23 +1142,6 @@ async function main() {
       report.dailyCount = dailyCount(state);
       return;
     }
-    const waitMs = millisecondsUntilNextPublication(state);
-    if (waitMs > 0) {
-      report.status = 'waiting_for_minimum_publication_gap';
-      report.nextEligibleAt = new Date(Date.now() + waitMs).toISOString();
-      report.waitMilliseconds = waitMs;
-      console.log('FILO_NATIVE_REPUBLISH_WAITING_FOR_GAP ' + JSON.stringify({
-        waitMilliseconds: waitMs,
-        nextEligibleAt: report.nextEligibleAt
-      }));
-      await sleep(waitMs + 1000);
-      report.waitCompletedAt = new Date().toISOString();
-      if (millisecondsUntilNextPublication(state) > 0) {
-        report.status = 'minimum_publication_gap_not_elapsed';
-        return;
-      }
-    }
-
     browser = await chromium.launch({ headless: true });
     const context = await browser.newContext({
       locale: 'fa-IR',
@@ -1290,7 +1298,16 @@ async function main() {
       scoreDetails: selected.scoreDetails
     };
 
-    const result = await prepareAndPublish(page, selected, selected.detail, report);
+    const result = await prepareAndPublish(page, selected, selected.detail, report, async () => {
+      await waitForPublicationGap(state, report);
+      const latestDetail = await getRepublishDetail(page, selected.video_code).catch(() => null);
+      const latestGate = latestDetail
+        ? detailGate(latestDetail.root, latestDetail.video)
+        : { eligible: false, reason: 'republish_detail_unavailable_before_submission' };
+      if (!latestGate.eligible) {
+        throw new Error('filo_permission_gate_changed_before_submission:' + latestGate.reason);
+      }
+    });
     report.result = result;
     report.status = result.status;
 
@@ -1364,5 +1381,6 @@ module.exports = {
   detailGate,
   dailyCount,
   lastSubmissionTime,
-  millisecondsUntilNextPublication
+  millisecondsUntilNextPublication,
+  waitForPublicationGap
 };
