@@ -32,6 +32,12 @@ async function login(page) {
   const password = page.locator('input[type="password"]').first();
   await password.waitFor({ state: 'visible', timeout: 15000 });
 
+  // The SSR form can be replaced during client hydration. Wait for the app to settle
+  // before entering credentials so Vue hydration cannot erase them mid-fill.
+  await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
+  await sleep(2500);
+  await password.waitFor({ state: 'visible', timeout: 10000 });
+
   const usernameSelectors = [
     'input[autocomplete="username"]', 'input[type="tel"]',
     'input[name*="phone" i]', 'input[name*="mobile" i]',
@@ -44,13 +50,17 @@ async function login(page) {
 
   const inputDiagnostics = {
     usernameSecretLength: String(process.env.FILO_USER || '').length,
-    passwordSecretLength: String(process.env.FILO_PASS || '').length
+    passwordSecretLength: String(process.env.FILO_PASS || '').length,
+    waitedForHydration: true
   };
   await username.fill(process.env.FILO_USER);
   inputDiagnostics.usernameAfterFill = (await username.inputValue().catch(() => '')).length;
   await password.fill(process.env.FILO_PASS);
   inputDiagnostics.usernameAfterPasswordFill = (await username.inputValue().catch(() => '')).length;
   inputDiagnostics.passwordAfterFill = (await password.inputValue().catch(() => '')).length;
+  await sleep(700);
+  inputDiagnostics.usernameAfterHydrationSettle = (await username.inputValue().catch(() => '')).length;
+  inputDiagnostics.passwordAfterHydrationSettle = (await password.inputValue().catch(() => '')).length;
   await username.press('Tab').catch(() => {});
   await password.press('Tab').catch(() => {});
 
