@@ -3,7 +3,7 @@ name: Scheduled verified-license short-video publisher for Filo
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/5 * * * *" # retained for legacy scheduler validation; publishing job is manual-only
+    - cron: "*/5 * * * *" # five-minute best-effort attempts: legacy scheduler validation only; publish job is manual-only
 
 permissions:
   contents: write
