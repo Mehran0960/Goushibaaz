@@ -13,6 +13,8 @@ on:
     paths:
       - "scripts/filo_native_republish.cjs"
       - "scripts/test_filo_native_republish.cjs"
+      - "scripts/score_filo_thumbnail.py"
+      - "scripts/test_filo_thumbnail.py"
       - ".github/workflows/filo-native-republish.yml"
       - ".github/workflows/validate-filo-native-republish.yml"
 
