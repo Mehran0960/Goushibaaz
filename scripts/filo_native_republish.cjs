@@ -1300,6 +1300,13 @@ async function main() {
 
     const result = await prepareAndPublish(page, selected, selected.detail, report, async () => {
       await waitForPublicationGap(state, report);
+      const latestDetail = await getRepublishDetail(page, selected.video_code).catch(() => null);
+      const latestGate = latestDetail
+        ? detailGate(latestDetail.root, latestDetail.video)
+        : { eligible: false, reason: 'republish_detail_unavailable_before_submission' };
+      if (!latestGate.eligible) {
+        throw new Error('filo_permission_gate_changed_before_submission:' + latestGate.reason);
+      }
     });
     report.result = result;
     report.status = result.status;
