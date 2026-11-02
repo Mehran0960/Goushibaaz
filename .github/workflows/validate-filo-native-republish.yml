@@ -1,0 +1,38 @@
+name: Validate Filo native republisher
+
+on:
+  push:
+    paths:
+      - "scripts/filo_native_republish.cjs"
+      - "scripts/test_filo_native_republish.cjs"
+      - ".github/workflows/filo-native-republish.yml"
+      - ".github/workflows/validate-filo-native-republish.yml"
+  pull_request:
+    paths:
+      - "scripts/filo_native_republish.cjs"
+      - "scripts/test_filo_native_republish.cjs"
+      - ".github/workflows/filo-native-republish.yml"
+      - ".github/workflows/validate-filo-native-republish.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - name: Install Playwright dependency for module checks
+        run: |
+          npm init -y >/dev/null
+          npm install --no-save playwright >/dev/null
+      - name: Syntax and deterministic policy tests
+        run: |
+          node --check scripts/filo_native_republish.cjs
+          node --check scripts/test_filo_native_republish.cjs
+          node scripts/test_filo_native_republish.cjs
