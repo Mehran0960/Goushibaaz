@@ -602,7 +602,7 @@ async function main() {
         publicUrl: result.publicUrl || null,
         status: result.status,
         score: selected.editorialScore,
-        submittedAt: report.createdAt
+        submittedAt: new Date().toISOString()
       });
       state.posts = state.posts.slice(-1200);
       state.updatedAt = new Date().toISOString();
