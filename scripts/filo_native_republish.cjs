@@ -307,37 +307,63 @@ function trimAtWord(text, maxLength) {
   return (boundary > maxLength * 0.65 ? clipped.slice(0, boundary) : clipped).trim();
 }
 
-function createRepostMetadata(video, sourceCode) {
-  const sourceTitle = String(video && video.title || '').replace(/#[^\s#]+/g, ' ').replace(/\s+/g, ' ').trim();
-  const sourceDescription = String(video && video.description || '').replace(/\s+/g, ' ').trim();
-  if (sourceTitle.length < 5) throw new Error('source_title_too_short_for_compliant_rewrite');
-
-  let core = sourceTitle
-    .replace(/^(?:(?:طنز|کلیپ|ویدیو|ویدئوی|فیلم)\s+)*(?:(?:خنده.?دار|بامزه|جالب|دیدنی|جذاب|کوتاه)\s+)*(?:از\s+)?/i, '')
-    .replace(/^[-:،؛|\s]+/, '')
-    .replace(/\s+/g, ' ')
+function cleanRepostCaptionTitle(sourceTitle) {
+  const original = String(sourceTitle || '')
+    .replace(/#[^\\s#]+/g, ' ')
+    .replace(/[«»“”"]/g, '')
+    .replace(/\\s+/g, ' ')
     .trim();
-  if (core.length < 5) core = sourceTitle;
-  core = trimAtWord(core, 132);
+  if (original.length < 5) throw new Error('source_title_too_short_for_compliant_rewrite');
 
-  let title = trimAtWord(core, 176);
-  if (normalizeComparable(title) === normalizeComparable(sourceTitle)) {
-    title = trimAtWord('روایت تصویری: ' + core, 176);
+  let title = original
+    .replace(/^(?:(?:ماجرای\\s+بامزه(?:‌ی|ی)?|روایت\\s+تصویری|روایتی\\s+از)\\s*[:،؛-]?\\s*)+/iu, '')
+    .replace(/^(?:(?:طنز|کلیپ|ویدیو|ویدئوی|ویدئو|فیلم|تصاویر|تصاویری)\\s+)*(?:(?:خنده.?دار|بامزه|جالب|دیدنی|تماشایی|جذاب|کوتاه|باورنکردنی)(?:\\s+و)?\\s+)*(?:از\\s+)?/iu, '')
+    .replace(/^[-:،؛|\\s]+/, '')
+    .replace(/\\s+/g, ' ')
+    .trim();
+
+  title = title
+    .replace(/\\s+(?:این\\s+)?(?:حتماً?\\s*)?(?:ببینید|ببنید|تماشا کنید|مشاهده کنید|از دست ندید|از دست ندهید)\\s*$/iu, '')
+    .replace(/\\s+(?:پوکیدم از خنده|ترکیدم از خنده|عالی بود|خیلی عالی بود|خیلی خنده.?دار بود|خیلی باحال بود|بسیار جالب بود)\\s*$/iu, '')
+    .replace(/\\s+(?:سرمربی|مربی|بازیکن|بازیگر|خواننده|قهرمان|مجری)\\s+[\\p{L}\\p{N}‌_-]+(?:\\s+[\\p{L}\\p{N}‌_-]+){0,2}(?=\\s+(?:با|به|در|از)\\s+)/u, ' ')
+    .replace(/\\s+/g, ' ')
+    .trim();
+
+  if (normalizeComparable(title) === normalizeComparable(original)) {
+    title = title
+      .replace(/(?:عجیب\\s+و\\s+توهین\\s+آمیز|توهین\\s+آمیز|عجیب|باورنکردنی|دیدنی|تماشایی|جالب|فوق\\s+العاده|عالی|خنده.?دار|بامزه)/giu, ' ')
+      .replace(/\\s+/g, ' ')
+      .trim();
   }
-
-  const description = trimAtWord(
-    'در این ویدئوی کوتاه، ' + core +
-    ' را در قالب یک روایت تصویری می‌بینید. این نسخه از مسیر بازنشر رسمی فیلو و با اجازه‌ای که منتشرکننده‌ی اصلی برای بازنشر فعال کرده، منتشر می‌شود.',
-    1100
-  );
-
-  if (normalizeComparable(title) === normalizeComparable(sourceTitle)) throw new Error('repost_title_not_distinct_from_original');
-  if (normalizeComparable(description) === normalizeComparable(sourceDescription)) throw new Error('repost_description_not_distinct_from_original');
-  if (/(?:https?:\/\/|www\.)/i.test(description)) throw new Error('repost_description_contains_unapproved_external_link');
-
-  return { title, description, sourceTitle, sourceDescription, sourceCode };
+  if (normalizeComparable(title) === normalizeComparable(original)) {
+    const words = title.split(' ').filter(Boolean);
+    while (words.length > 2 && normalizeComparable(words.join(' ')) === normalizeComparable(original)) words.pop();
+    title = words.join(' ').trim();
+  }
+  title = trimAtWord(title, 176);
+  if (title.length < 8 || normalizeComparable(title) === normalizeComparable(original)) {
+    throw new Error('no_clean_distinct_title_available_without_extra_words');
+  }
+  if (/(?:روایت\\s+تصویری|ماجرای\\s+بامزه|روایتی\\s+از)/iu.test(title)) {
+    throw new Error('repost_title_contains_editorial_wrapper');
+  }
+  return title;
 }
 
+function createRepostMetadata(video, sourceCode) {
+  const sourceTitle = String(video && video.title || '').replace(/#[^\\s#]+/g, ' ').replace(/\\s+/g, ' ').trim();
+  const sourceDescription = String(video && video.description || '').replace(/\\s+/g, ' ').trim();
+  const title = cleanRepostCaptionTitle(sourceTitle);
+  // Filo has a separate description field; the visible caption/title is title-only.
+  const description = trimAtWord(
+    title + '. این نسخه از مسیر بازنشر رسمی فیلو و با اجازه‌ای که منتشرکننده‌ی اصلی فعال کرده، منتشر می‌شود.',
+    1100
+  );
+  if (normalizeComparable(title) === normalizeComparable(sourceTitle)) throw new Error('repost_title_not_distinct_from_original');
+  if (normalizeComparable(description) === normalizeComparable(sourceDescription)) throw new Error('repost_description_not_distinct_from_original');
+  if (/(?:https?:\\/\\/|www\\.)/i.test(description)) throw new Error('repost_description_contains_unapproved_external_link');
+  return { title, description, sourceTitle, sourceDescription, sourceCode };
+}
 function loadState() {
   try {
     const data = JSON.parse(fs.readFileSync(STATE_PATH, 'utf8'));
