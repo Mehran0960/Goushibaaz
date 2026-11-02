@@ -217,16 +217,23 @@ function applyQueryResult(state, query, result) {
 
   target.pagesFetched = safeNumber(target.pagesFetched) + safeNumber(result.pagesFetched);
   target.videosSeen = safeNumber(target.videosSeen) + safeNumber(result.totalUniqueVideos);
-  target.nextPage = query.refreshOnly ? 1 : Math.max(1, safeNumber(result.nextPage) || safeNumber(target.nextPage) || 1);
-  target.complete = query.refreshOnly ? true : Boolean(result.complete);
-  target.termination = query.refreshOnly ? 'recent_first_pages_refreshed' : String(result.termination || '');
-  if (query.refreshOnly) {
+  const refreshFailed = result.termination === 'request_failed' || /^http_\\d+/.test(String(result.termination || ''));
+  target.nextPage = query.refreshOnly
+    ? 1
+    : Math.max(1, safeNumber(result.nextPage) || safeNumber(target.nextPage) || 1);
+  target.complete = query.refreshOnly
+    ? !refreshFailed
+    : Boolean(result.complete);
+  target.termination = query.refreshOnly && !refreshFailed
+    ? 'recent_first_pages_refreshed'
+    : String(result.termination || '');
+  if (query.refreshOnly && !refreshFailed) {
     target.refreshOnly = false;
     target.lastRefreshAt = isoNow();
   }
   target.lastAttemptAt = isoNow();
-  target.lastError = result.termination === 'request_failed'
-    ? String(result.pages && result.pages.at(-1) && result.pages.at(-1).error || 'request_failed').slice(0, 180)
+  target.lastError = refreshFailed
+    ? String(result.pages && result.pages.at(-1) && result.pages.at(-1).error || result.termination).slice(0, 180)
     : null;
   if (target.complete) target.completedAt = isoNow();
   state.totalPagesFetched = safeNumber(state.totalPagesFetched) + safeNumber(result.pagesFetched);
