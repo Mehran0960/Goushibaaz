@@ -919,11 +919,22 @@ async function reconcilePreviouslySubmitted(page, state) {
 }
 
 
-function cleanLegacyRepostTitle(value) {
-  return String(value || '')
+function cleanLegacyRepostTitle(value, sourceTitle = '') {
+  const cleaned = String(value || '')
     .replace(/^ماجرای\s+بامزه(?:‌ی|ی)?\s*[«"“”]?\s*/u, '')
     .replace(/[»"“”]\s*$/u, '')
     .trim();
+  if (cleaned.length >= 16) return trimAtWord(cleaned, 176);
+
+  const sourceCore = String(sourceTitle || '')
+    .replace(/#[^\s#]+/g, ' ')
+    .replace(/^(?:(?:طنز|کلیپ|ویدیو|ویدئوی|فیلم)\s+)*(?:(?:خنده.?دار|بامزه|جالب|دیدنی|جذاب|کوتاه)\s+)*(?:از\s+)?/i, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  const core = sourceCore.length >= 5 ? sourceCore : cleaned;
+  const expanded = trimAtWord(core + '؛ روایتی از یک اتفاق غیرمنتظره', 176);
+  if (expanded.length >= 20) return expanded;
+  return trimAtWord((cleaned || core) + '؛ روایتی کوتاه از یک اتفاق جالب', 176);
 }
 
 async function fetchOwnVideoForCaptionEdit(page, videoCode) {
@@ -1032,7 +1043,7 @@ async function cleanupLegacyRepostCaptions(page, state) {
 
   for (const post of targets) {
     const code = String(post.newVideoCode);
-    const newTitle = cleanLegacyRepostTitle(post.repostTitle);
+    const newTitle = cleanLegacyRepostTitle(post.repostTitle, post.sourceTitle);
     if (!newTitle || normalizeComparable(newTitle) === normalizeComparable(post.repostTitle)) {
       if (post.captionCleanupPending) {
         const verified = await verifyPublicVideo(page, code, post.repostTitle).catch(() => null);
