@@ -877,7 +877,7 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
     const descriptionDistinct = outgoingDescriptionComparable !== sourceDescriptionComparable && outgoingDescriptionComparable !== sourceTitleComparable;
     const descriptionDoesNotRepeatTitle = !outgoingDescriptionComparable.includes(outgoingTitleComparable);
     const metadataRisk = policyTextRiskReason({ title: outgoingTitle, description: outgoingDescription });
-    const hasExternalLink = /(?:https?:\/\/|www\\.)/i.test(outgoingTitle + ' ' + outgoingDescription);
+    const hasExternalLink = /(?:https?:\/\/|www\.)/i.test(outgoingTitle + ' ' + outgoingDescription);
     const metadataOk = outgoingTitle.length >= 8 && outgoingTitle.length <= 180 &&
       outgoingDescription.length >= 50 && outgoingDescription.length <= 1100 &&
       titleDistinct && descriptionDistinct && descriptionDoesNotRepeatTitle && !metadataRisk && !hasExternalLink;
