@@ -428,11 +428,24 @@ async function inspectForm(page) {
       });
       await page.goto(categoryPage, { waitUntil: 'domcontentloaded', timeout: 30000 });
       await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
-      await page.waitForTimeout(1800);
+      await page.waitForTimeout(1600);
+      const firstPageVideoLinks = await page.locator('a[href*="/v/"]').evaluateAll(nodes => nodes.slice(0, 40).map(a => ({
+        path: (() => { try { return new URL(a.href).pathname; } catch { return ''; } })(),
+        title: String(a.innerText || a.getAttribute('title') || a.querySelector('img')?.getAttribute('alt') || '').trim().replace(/\\s+/g, ' ').slice(0, 180),
+        cardText: String((a.closest('article,li,[class*="video-item"],[class*="videoItem"],[class*="item"],[class*="card"],[class*="Card"]') || a.parentElement || a).innerText || '').trim().replace(/\\s+/g, ' ').slice(0, 260)
+      })));
+      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      await page.waitForTimeout(2200);
+      const moreButton = page.locator('button.more-btn, button:has-text("بیشتر")').first();
+      if (await moreButton.isVisible().catch(() => false)) {
+        await moreButton.click().catch(() => {});
+        await page.waitForTimeout(2200);
+      }
       return {
         pagePath: safeUrlPath(page.url()),
         requests: requests.slice(-10),
         responses: responses.slice(-10),
+        firstPageVideoLinks: firstPageVideoLinks.slice(0, 20),
         pageTitle: await page.title().catch(() => '')
       };
     })();
