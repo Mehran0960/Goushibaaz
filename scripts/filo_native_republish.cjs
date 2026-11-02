@@ -324,7 +324,7 @@ function cleanRepostCaptionTitle(sourceTitle) {
 
   title = title
     .replace(/\s+(?:این\s+)?(?:حتماً?\s*)?(?:ببینید|ببنید|تماشا کنید|مشاهده کنید|از دست ندید|از دست ندهید)\s*$/iu, '')
-    .replace(/\s+(?:پوکیدم از خنده|ترکیدم از خنده|عالی بود|خیلی عالی بود|خیلی خنده.?دار بود|خیلی باحال بود|بسیار جالب بود)\s*$/iu, '')
+    .replace(/(?:\s+(?:پوکیدم از خنده|ترکیدم از خنده|عالی بود|خیلی عالی بود|خیلی خنده.?دار بود|خیلی باحال بود|بسیار جالب بود))+\s*$/iu, '')
     .replace(/\s+(?:سرمربی|مربی|بازیکن|بازیگر|خواننده|قهرمان|مجری)\s+[\p{L}\p{N}‌_-]+(?:\s+[\p{L}\p{N}‌_-]+){0,2}(?=\s+(?:با|به|در|از)\s+)/u, ' ')
     .replace(/\s+/g, ' ')
     .trim();
@@ -933,16 +933,21 @@ async function reconcilePreviouslySubmitted(page, state) {
 
 
 function cleanLegacyRepostTitle(value, sourceTitle = '') {
-  const source = String(sourceTitle || value || '').trim();
-  if (!source) return '';
-  try {
-    return cleanRepostCaptionTitle(source);
-  } catch {
-    return String(value || source)
-      .replace(/^(?:(?:ماجرای\s+بامزه(?:‌ی|ی)?|روایت\s+تصویری|روایتی\s+از)\s*[:،؛-]?\s*)+/iu, '')
-      .replace(/[«»“”"]/g, '')
-      .trim();
+  const source = String(sourceTitle || '').trim();
+  if (source) {
+    try {
+      return cleanRepostCaptionTitle(source);
+    } catch {
+      return String(value || source)
+        .replace(/^(?:(?:ماجرای\s+بامزه(?:‌ی|ی)?|روایت\s+تصویری|روایتی\s+از)\s*[:،؛-]?\s*)+/iu, '')
+        .replace(/[«»“”"]/g, '')
+        .trim();
+    }
   }
+  return String(value || '')
+    .replace(/^(?:(?:ماجرای\s+بامزه(?:‌ی|ی)?|روایت\s+تصویری|روایتی\s+از)\s*[:،؛-]?\s*)+/iu, '')
+    .replace(/[«»“”"]/g, '')
+    .trim();
 }
 async function fetchOwnVideoForCaptionEdit(page, videoCode) {
   const result = await page.evaluate(async ({ videoCode }) => {
