@@ -201,7 +201,7 @@ function applyQueryResult(state, query, result) {
   }
 
   target.pagesFetched = safeNumber(target.pagesFetched) + safeNumber(result.pagesFetched);
-  target.videosSeen = Math.max(safeNumber(target.videosSeen), safeNumber(result.totalUniqueVideos));
+  target.videosSeen = safeNumber(target.videosSeen) + safeNumber(result.totalUniqueVideos);
   target.nextPage = Math.max(1, safeNumber(result.nextPage) || safeNumber(target.nextPage) || 1);
   target.complete = Boolean(result.complete);
   target.termination = String(result.termination || '');
@@ -246,7 +246,8 @@ async function main() {
     status: 'started',
     trends: { status: 'not_fetched', count: 0 },
     search: { queriesSelected: 0, queriesCompleted: 0, pagesFetched: 0, newCandidates: 0 },
-    errors: []
+    errors: [],
+    search: { queriesSelected: 0, queriesCompleted: 0, pagesFetched: 0, newCandidates: 0, results: [] }
   };
   let browser;
 
@@ -299,7 +300,7 @@ async function main() {
         addedCandidates += applied.added;
         report.search.pagesFetched += safeNumber(result.pagesFetched);
         if (result.complete) report.search.queriesCompleted += 1;
-        report.search.results.push?.({
+        report.search.results.push({
           query: query.query,
           startPage: result.startPage,
           nextPage: result.nextPage,
