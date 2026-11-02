@@ -87,8 +87,8 @@ assert.notEqual(normalizeComparable(rewritten.description), normalizeComparable(
 assert.ok(rewritten.title.length >= 8);
 assert.doesNotMatch(rewritten.title, /ماجرای\s+بامزه/);
 assert.doesNotMatch(rewritten.title, /لحظه‌ی\s+تماشایی/);
-assert.doesNotMatch(rewritten.title, /روایت\\s+تصویری|ماجرای\\s+بامزه|روایتی\\s+از/);
-assert.doesNotMatch(rewritten.description, /روایت\\s+تصویری/);
+assert.doesNotMatch(rewritten.title, /روایت\s+تصویری|ماجرای\s+بامزه|روایتی\s+از/);
+assert.doesNotMatch(rewritten.description, /روایت\s+تصویری/);
 assert.ok(rewritten.description.length >= 50);
 assert.match(rewritten.description, /اجازه/);
 assert.doesNotMatch(rewritten.description, /https?:\/\//i);
