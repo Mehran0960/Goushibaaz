@@ -297,7 +297,21 @@ async function inspectForm(page) {
                 }
               }
               safe.rootKeys = Object.keys(root).slice(0, 100);
-              for (const key of ['republish_video','republish_video_category','republish_video_code','server_id','upload_domain','file_domain','unix_time','accept_rule','is_republish','all_categories','limited_minutes','important_messages']) {
+              if (root.all_categories && typeof root.all_categories === 'object' && !Array.isArray(root.all_categories)) {
+                safe.all_categories = Object.entries(root.all_categories).slice(0, 80).map(([id, item]) => {
+                  if (item && typeof item === 'object') {
+                    const fields = {};
+                    for (const key of ['id','code','name','title','description','slug','url','parent_id','parentId','type']) {
+                      if (Object.prototype.hasOwnProperty.call(item, key) && (item[key] === null || ['string','number','boolean'].includes(typeof item[key]))) {
+                        fields[key] = typeof item[key] === 'string' ? item[key].slice(0, 180) : item[key];
+                      }
+                    }
+                    return { id, keys: Object.keys(item).slice(0, 40), fields };
+                  }
+                  return { id, value: typeof item === 'string' ? item.slice(0, 180) : item };
+                });
+              }
+              for (const key of ['republish_video','republish_video_category','republish_video_code','server_id','upload_domain','file_domain','unix_time','accept_rule','is_republish','limited_minutes','important_messages']) {
                 const value = root[key];
                 if (Array.isArray(value)) {
                   safe[key] = {
