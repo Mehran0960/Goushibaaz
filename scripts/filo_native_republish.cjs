@@ -10,7 +10,7 @@ const REPORT_PATH = path.join('out', 'filo-native-republish.json');
 const CATEGORY_IDS = [6, 11, 13, 29, 2, 22, 17, 25, 15, 3];
 const PAGES_PER_CATEGORY = 3;
 const MAX_DETAIL_CHECKS = 30;
-const MIN_DURATION_SECONDS = 8;
+const MIN_DURATION_SECONDS = 10;
 const MAX_DURATION_SECONDS = 180;
 const MIN_PUBLISH_GAP_MS = 15 * 60 * 1000;
 const MAX_DAILY_PUBLICATIONS = 48;
@@ -82,7 +82,7 @@ function categoryBase(categoryId) {
   return map[String(categoryId)] || 8;
 }
 
-const EXCLUDED = /(?:اخبار|خبر فوری|تحلیل سیاسی|سیاست|سیاسی|انتخابات|جنگ|حمله نظامی|موشک|انفجار|تروریست|مداحی|تبلیغات|کازینو|شرط.?بندی|قمار|محتوای بزرگسال|پورنو|قتل|خودکشی|صحنه دلخراش|تصادف مرگبار)/i;
+const EXCLUDED = /(?:اخبار|خبر فوری|تحلیل سیاسی|سیاست|سیاسی|انتخابات|جنگ|حمله نظامی|موشک|انفجار|تروریست|ترور|اعدام|شلیک|سلاح|خشونت|مداحی|تبلیغات|کازینو|شرط.?بندی|قمار|محتوای بزرگسال|پورنو|قتل|خودکشی|خودآزاری|صحنه دلخراش|تصادف مرگبار|حیوان.?آزاری|رقص|حرکات موزون|تک.?خوانی.{0,8}زن|خوانندگی.{0,8}زن|فحاشی|الفاظ رکیک|افترا|تهمت|دوربین مداربسته)/i;
 const HOOK = /(?:خنده|طنز|بامزه|سوتی|دوربین مخفی|چالش|غافلگیر|غیرمنتظره|باورنکردنی|عجیب|جالب|دیدنی|سوپرگل|گل تماشایی|مهارت|ترفند|قبل و بعد|بازسازی|واکنش|رقابت|مسابقه|رکورد|حیوان|گربه|سگ|آشپزی|غذا|فوتبال|کشتی|بسکتبال|والیبال|فناوری|گجت|funny|comedy|surprise|unexpected|challenge|trick|skill|goal|animal|cat|dog|cooking|satisfying)/i;
 const PERSIAN = /[\u0600-\u06FF]/;
 
@@ -159,6 +159,67 @@ function detailGate(root, video) {
     return { eligible: false, reason: 'duration_out_of_short_form_range' };
   }
   return { eligible: true, reason: 'filo_native_republish_permitted' };
+}
+
+
+function normalizeComparable(value) {
+  return String(value || '')
+    .normalize('NFKC')
+    .toLocaleLowerCase('fa-IR')
+    .replace(/[\s\u200c\u200e\u200f\u0640،؛:,.!?؟"'«»()\[\]{}\-–—_]/g, '');
+}
+
+function trimAtWord(text, maxLength) {
+  const value = String(text || '').trim();
+  if (value.length <= maxLength) return value;
+  const clipped = value.slice(0, maxLength);
+  const boundary = clipped.lastIndexOf(' ');
+  return (boundary > maxLength * 0.65 ? clipped.slice(0, boundary) : clipped).trim();
+}
+
+function createRepostMetadata(video, sourceCode) {
+  const sourceTitle = String(video && video.title || '').replace(/#[^\s#]+/g, ' ').replace(/\s+/g, ' ').trim();
+  const sourceDescription = String(video && video.description || '').replace(/\s+/g, ' ').trim();
+  if (sourceTitle.length < 5) throw new Error('source_title_too_short_for_compliant_rewrite');
+
+  let core = sourceTitle
+    .replace(/^(?:(?:طنز|کلیپ|ویدیو|ویدئوی|فیلم)\s+)*(?:(?:خنده.?دار|بامزه|جالب|دیدنی|جذاب|کوتاه)\s+)*(?:از\s+)?/i, '')
+    .replace(/^[-:،؛|\s]+/, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (core.length < 5) core = sourceTitle;
+  core = trimAtWord(core, 132);
+
+  const category = Number(video && video.category_id);
+  const lead = ({
+    6: 'ماجرای بامزه‌ی',
+    11: 'لحظه‌ی تماشاییِ',
+    13: 'رفتار دیدنیِ',
+    29: 'روایت خوشمزه‌ی',
+    2: 'نگاهی کوتاه به',
+    22: 'نمایی چشم‌نواز از',
+    17: 'لحظه‌ای هیجان‌انگیز از',
+    25: 'صحنه‌ای دیدنی از',
+    15: 'روایتی جذاب از',
+    3: 'نگاهی کوتاه به'
+  })[category] || 'روایتی کوتاه از';
+
+  let title = trimAtWord(lead + ' «' + core + '»', 176);
+  if (normalizeComparable(title) === normalizeComparable(sourceTitle)) {
+    title = trimAtWord('بازنشر مجاز: ' + title, 176);
+  }
+
+  const description = trimAtWord(
+    'در این ویدئوی کوتاه، ' + core +
+    ' را در قالب یک روایت تصویری می‌بینید. این نسخه از مسیر بازنشر رسمی فیلو و با اجازه‌ای که منتشرکننده‌ی اصلی برای بازنشر فعال کرده، منتشر می‌شود.',
+    1100
+  );
+
+  if (normalizeComparable(title) === normalizeComparable(sourceTitle)) throw new Error('repost_title_not_distinct_from_original');
+  if (normalizeComparable(description) === normalizeComparable(sourceDescription)) throw new Error('repost_description_not_distinct_from_original');
+  if (/(?:https?:\/\/|www\.)/i.test(description)) throw new Error('repost_description_contains_unapproved_external_link');
+
+  return { title, description, sourceTitle, sourceDescription, sourceCode };
 }
 
 function loadState() {
@@ -306,8 +367,8 @@ async function prepareAndPublish(page, candidate, detail, report) {
   const code = String(candidate.video_code || candidate.code);
   const sourceVideo = detail.video;
   const sourceTitle = String(sourceVideo.title || candidate.title || '').trim().slice(0, 180);
-  const sourceDescription = String(sourceVideo.description || candidate.description || '').trim().slice(0, 1800);
   if (!sourceTitle) throw new Error('source_title_missing');
+  const repostMetadata = createRepostMetadata({ ...sourceVideo, category_id: sourceVideo.category_id || candidate.category_id }, code);
 
   await page.goto(BASE + '/republish/' + encodeURIComponent(code), {
     waitUntil: 'domcontentloaded',
@@ -321,10 +382,8 @@ async function prepareAndPublish(page, candidate, detail, report) {
   await titleField.waitFor({ state: 'visible', timeout: 12000 });
   await descriptionField.waitFor({ state: 'visible', timeout: 12000 });
 
-  await titleField.fill(sourceTitle);
-  const description = (sourceDescription ? sourceDescription + '\n\n' : '') +
-    'بازنشر از مسیر رسمی فیلو با مجوز بازنشر فعال‌شده توسط منتشرکننده.';
-  await descriptionField.fill(description.slice(0, 1900));
+  await titleField.fill(repostMetadata.title);
+  await descriptionField.fill(repostMetadata.description);
 
   const videoReady = await page.waitForFunction(() => {
     const video = document.querySelector('#plr video');
@@ -371,15 +430,23 @@ async function prepareAndPublish(page, candidate, detail, report) {
     const canRepublish = params.get('canRepublish');
     const canMakeMoney = params.get('canMakeMoney');
     const dontPublish = params.get('dontPublish');
+    const outgoingTitle = params.get('title') || '';
+    const outgoingDescription = params.get('description') || '';
+    const titleDistinct = normalizeComparable(outgoingTitle) !== normalizeComparable(repostMetadata.sourceTitle);
+    const descriptionDistinct = normalizeComparable(outgoingDescription) !== normalizeComparable(repostMetadata.sourceDescription);
+    const metadataOk = outgoingTitle.length >= 8 && outgoingDescription.length >= 50 &&
+      titleDistinct && descriptionDistinct && !/(?:https?:\/\/|www\.)/i.test(outgoingDescription);
     const frameOk = selectedFrame.startsWith('data:image/') && selectedFrame.length > 1000;
     const requestOk = republishFrom === code && /^[A-Za-z0-9_-]{5,40}$/.test(videoCode) &&
       isMadeByMe === 'false' && canRepublish === 'true' &&
-      canMakeMoney === 'true' && dontPublish === '0' && frameOk;
+      canMakeMoney === 'true' && dontPublish === '0' && frameOk && metadataOk;
 
     publishPayload = {
       sourceCode: republishFrom,
       newVideoCode: videoCode,
-      title: (params.get('title') || '').slice(0, 180),
+      title: outgoingTitle.slice(0, 180),
+      descriptionDistinct,
+      titleDistinct,
       category: params.get('category') || '',
       selectedFrameLength: selectedFrame.length,
       selectedFrameType: selectedFrame.slice(0, 40),
@@ -448,6 +515,7 @@ async function prepareAndPublish(page, candidate, detail, report) {
     newVideoCode: publishPayload.newVideoCode,
     httpStatus: publishResponse.status(),
     publishPayload,
+    repostMetadata: { title: repostMetadata.title, descriptionLength: repostMetadata.description.length },
     responseSummary: {
       success: true,
       keys: Object.keys(responseBody).slice(0, 20),
@@ -464,7 +532,7 @@ async function prepareAndPublish(page, candidate, detail, report) {
       await page.waitForTimeout(1200);
       const visible = await page.locator('body').innerText().catch(() => '');
       const title = await page.title().catch(() => '');
-      if (title.includes(sourceTitle) || visible.includes(sourceTitle)) {
+      if (title.includes(repostMetadata.title) || visible.includes(repostMetadata.title)) {
         result.status = 'public_verified';
         result.publicUrl = BASE + '/v/' + publishPayload.newVideoCode;
       }
@@ -582,6 +650,7 @@ async function main() {
     report.selected = {
       sourceCode: selected.video_code,
       title: String(selected.detail.video.title || selected.title || '').slice(0, 220),
+      repostTitle: createRepostMetadata(selected.detail.video, selected.video_code).title,
       categoryId: selected.detail.video.category_id,
       durationSeconds: num(selected.detail.video.duration),
       visits: num(selected.detail.video.visit_count),
@@ -650,6 +719,8 @@ module.exports = {
   ageHours,
   feedCandidateEligible,
   scoreFeedCandidate,
+  createRepostMetadata,
+  normalizeComparable,
   detailGate,
   dailyCount,
   lastSubmissionTime

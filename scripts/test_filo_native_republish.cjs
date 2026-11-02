@@ -5,6 +5,8 @@ const {
   ageHours,
   feedCandidateEligible,
   scoreFeedCandidate,
+  createRepostMetadata,
+  normalizeComparable,
   detailGate,
   dailyCount,
   lastSubmissionTime
@@ -35,9 +37,22 @@ assert.equal(feedCandidateEligible(valid, { posts: [] }), true);
 assert.equal(feedCandidateEligible({ ...valid, can_republish: 0 }, { posts: [] }), false);
 assert.equal(feedCandidateEligible({ ...valid, is_publish_able: 0 }, { posts: [] }), false);
 assert.equal(feedCandidateEligible({ ...valid, only_in_filo: 1 }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, duration: 8 }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, duration: 9 }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, duration: 10 }, { posts: [] }), true);
 assert.equal(feedCandidateEligible({ ...valid, duration: 240 }, { posts: [] }), false);
 assert.equal(feedCandidateEligible({ ...valid, title: 'خبر فوری جنگ و حمله نظامی' }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, title: 'رقص و حرکات موزون' }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, title: 'صحنه اعدام با سلاح' }, { posts: [] }), false);
 assert.equal(feedCandidateEligible(valid, { posts: [{ sourceCode: 'AbC1234', status: 'submitted_pending_approval' }] }), false);
+
+const rewritten = createRepostMetadata({ ...valid, title: 'طنز خنده دار وقتی مامانت مولودی گرفته و تو تو اتاق تنها موندی', description: 'توضیحات اصلی با متن بلند و تکراری' }, 'AbC1234');
+assert.notEqual(normalizeComparable(rewritten.title), normalizeComparable('طنز خنده دار وقتی مامانت مولودی گرفته و تو تو اتاق تنها موندی'));
+assert.notEqual(normalizeComparable(rewritten.description), normalizeComparable('توضیحات اصلی با متن بلند و تکراری'));
+assert.ok(rewritten.title.length >= 8);
+assert.ok(rewritten.description.length >= 50);
+assert.match(rewritten.description, /اجازه/);
+assert.doesNotMatch(rewritten.description, /https?:\/\//i);
 
 const high = scoreFeedCandidate(valid);
 const low = scoreFeedCandidate({ ...valid, visit_count: 0, play_count: 0, share_count: 0, create_date: 'دیروز' });
@@ -52,6 +67,7 @@ assert.equal(detailGate({ is_republish: 1 }, { ...valid, can_republish: 0, durat
 assert.equal(detailGate({ is_republish: 0 }, { ...valid, duration: 32 }).eligible, false);
 assert.equal(detailGate({ is_republish: 1, stop_upload: 1 }, { ...valid, duration: 32 }).eligible, false);
 assert.equal(detailGate({ is_republish: 1 }, { ...valid, only_in_filo: 1, duration: 32 }).eligible, false);
+assert.equal(detailGate({ is_republish: 1 }, { ...valid, duration: 9 }).eligible, false);
 
 const state = {
   posts: [

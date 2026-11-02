@@ -6,6 +6,8 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/filo-native-republish.yml"
+      - "scripts/filo_native_republish.cjs"
+      - "scripts/test_filo_native_republish.cjs"
   schedule:
     - cron: "*/15 * * * *"
 
