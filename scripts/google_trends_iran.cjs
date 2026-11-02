@@ -139,7 +139,7 @@ function scoreGoogleTrendRelevance(candidateText, trends = []) {
     }
     if (exactPhrase) base += 1.5;
 
-    const ageHours = Number.isFinite(Number(trend.ageHours)) ? Number(trend.ageHours) : 24;
+    const ageHours = Number.isFinite(trend.ageHours) ? trend.ageHours : 24;
     const freshness = Math.max(0.35, Math.min(1, 1 - ageHours / 72));
     const score = Math.min(12, Math.round(base * trafficMultiplier(Number(trend.traffic) || 0) * freshness * 10) / 10);
     if (score > best.score) {
