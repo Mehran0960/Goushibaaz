@@ -42,6 +42,8 @@ assert.equal(feedCandidateEligible({ ...valid, duration: 9 }, { posts: [] }), fa
 assert.equal(feedCandidateEligible({ ...valid, duration: 10 }, { posts: [] }), true);
 assert.equal(feedCandidateEligible({ ...valid, duration: 240 }, { posts: [] }), false);
 assert.equal(feedCandidateEligible({ ...valid, title: 'خبر فوری جنگ و حمله نظامی' }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, title: 'رقص و حرکات موزون' }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, title: 'صحنه اعدام با سلاح' }, { posts: [] }), false);
 assert.equal(feedCandidateEligible(valid, { posts: [{ sourceCode: 'AbC1234', status: 'submitted_pending_approval' }] }), false);
 
 const rewritten = createRepostMetadata({ ...valid, title: 'طنز خنده دار وقتی مامانت مولودی گرفته و تو تو اتاق تنها موندی', description: 'توضیحات اصلی با متن بلند و تکراری' }, 'AbC1234');
