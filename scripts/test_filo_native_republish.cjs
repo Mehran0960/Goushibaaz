@@ -4,6 +4,7 @@ const assert = require('node:assert/strict');
 const {
   ageHours,
   feedCandidateEligible,
+  searchCandidateEligible,
   scoreFeedCandidate,
   createRepostMetadata,
   normalizeComparable,
@@ -35,6 +36,9 @@ const valid = {
 
 assert.equal(ageHours({ create_date: '۲ ساعت پیش' }), 2);
 assert.equal(feedCandidateEligible(valid, { posts: [] }), true);
+assert.equal(searchCandidateEligible({ video_code: 'Trend01', title: 'لحظه دیدنی مسابقه فوتبال', duration: 28 }, { posts: [] }), true);
+assert.equal(searchCandidateEligible({ video_code: 'Trend02', title: 'خبر فوری جنگ و حمله نظامی' }, { posts: [] }), false);
+assert.equal(searchCandidateEligible({ video_code: 'Trend01', title: 'لحظه دیدنی مسابقه فوتبال' }, { posts: [{ sourceCode: 'Trend01', status: 'public_verified' }] }), false);
 assert.equal(feedCandidateEligible({ ...valid, can_republish: 0 }, { posts: [] }), false);
 assert.equal(feedCandidateEligible({ ...valid, is_publish_able: 0 }, { posts: [] }), false);
 assert.equal(feedCandidateEligible({ ...valid, only_in_filo: 1 }, { posts: [] }), false);
@@ -60,6 +64,8 @@ const rewritten = createRepostMetadata({ ...valid, title: 'طنز خنده دا�
 assert.notEqual(normalizeComparable(rewritten.title), normalizeComparable('طنز خنده دار وقتی مامانت مولودی گرفته و تو تو اتاق تنها موندی'));
 assert.notEqual(normalizeComparable(rewritten.description), normalizeComparable('توضیحات اصلی با متن بلند و تکراری'));
 assert.ok(rewritten.title.length >= 8);
+assert.doesNotMatch(rewritten.title, /ماجرای\s+بامزه/);
+assert.doesNotMatch(rewritten.title, /لحظه‌ی\s+تماشایی/);
 assert.ok(rewritten.description.length >= 50);
 assert.match(rewritten.description, /اجازه/);
 assert.doesNotMatch(rewritten.description, /https?:\/\//i);
@@ -72,6 +78,7 @@ const trendBoosted = scoreFeedCandidate(valid, {}, [{
 }]);
 assert.ok(trendBoosted.googleTrend.score > 0);
 assert.ok(trendBoosted.score > high.score, 'a fresh, matching Iran trend should increase candidate relevance');
+assert.equal(detailGate({}, { ...valid }).eligible, false, 'global search must never bypass the native Filo permission gate');
 
 assert.deepEqual(detailGate({ is_republish: 1, stop_upload: 0 }, {
   can_republish: 1, active: 1, status_id: 1, file_deleted: 0,
