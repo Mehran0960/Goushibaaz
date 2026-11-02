@@ -939,7 +939,7 @@ function cleanLegacyRepostTitle(value, sourceTitle = '') {
     return cleanRepostCaptionTitle(source);
   } catch {
     return String(value || source)
-      .replace(/^(?:(?:ماجرای\\s+بامزه(?:‌ی|ی)?|روایت\\s+تصویری|روایتی\\s+از)\\s*[:،؛-]?\\s*)+/iu, '')
+      .replace(/^(?:(?:ماجرای\s+بامزه(?:‌ی|ی)?|روایت\s+تصویری|روایتی\s+از)\s*[:،؛-]?\s*)+/iu, '')
       .replace(/[«»“”"]/g, '')
       .trim();
   }
@@ -1368,6 +1368,7 @@ module.exports = {
   feedCandidateEligible,
   searchCandidateEligible,
   cleanLegacyRepostTitle,
+  cleanRepostCaptionTitle,
   scoreFeedCandidate,
   createRepostMetadata,
   normalizeComparable,
