@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { chromium } = require('playwright');
 const { fetchIranGoogleTrends, scoreGoogleTrendRelevance } = require('./google_trends_iran.cjs');
+const { buildFiloTrendQueries, searchFiloGlobalTopic, mapWithConcurrency, queryTokens } = require('./filo_global_search.cjs');
 const os = require('node:os');
 const { spawnSync } = require('node:child_process');
 
@@ -111,6 +112,132 @@ function feedCandidateEligible(item, ledger) {
   return true;
 }
 
+function searchCandidateEligible(item, ledger) {
+  if (!item || typeof item !== 'object') return false;
+  const code = String(item.video_code || item.videoCode || item.code || '').trim();
+  if (!/^[A-Za-z0-9_-]{5,40}$/.test(code)) return false;
+  if (ledger && ledger.posts && ledger.posts.some(post =>
+    post && post.sourceCode === code &&
+    ['submitted_pending_approval', 'submitted_unconfirmed', 'public_verified', 'rejected_by_filo'].includes(post.status)
+  )) return false;
+  if (item.active !== undefined && !isFlag(item.active)) return false;
+  if (isFlag(item.file_deleted) || num(item.only_in_filo) === 1) return false;
+  const duration = num(item.duration, -1);
+  if (duration > 0 && (duration < MIN_DURATION_SECONDS || duration > MAX_DURATION_SECONDS)) return false;
+  const text = sourceText(item);
+  return text.length >= 8 && !EXCLUDED.test(text);
+}
+
+function globalSearchRelevanceBonus(item) {
+  const candidate = new Set(queryTokens(sourceText(item)));
+  const matches = Array.isArray(item && item.globalTrendSearchMatches)
+    ? item.globalTrendSearchMatches
+    : item && item.globalTrendSearch ? [item.globalTrendSearch] : [];
+  let best = { bonus: 0, trendTitle: null, overlap: [] };
+  for (const match of matches) {
+    const terms = Array.isArray(match && match.trendKeywords) ? match.trendKeywords : queryTokens(match && match.trendTitle);
+    const overlap = [...new Set(terms.map(String))].filter(token => candidate.has(token));
+    const bonus = overlap.length >= 2 ? Math.min(7, 2 + overlap.length * 1.5)
+      : overlap.length === 1 && overlap[0].length >= 4 ? 2 : 0;
+    if (bonus > best.bonus) best = {
+      bonus,
+      trendTitle: match.trendTitle || match.query || null,
+      overlap: overlap.slice(0, 6)
+    };
+  }
+  return { ...best, bonus: Math.round(best.bonus * 10) / 10 };
+}
+
+async function fetchFiloGlobalSearchPage(page, params) {
+  const result = await page.evaluate(async ({ query, pageNo, windowWidth }) => {
+    const response = await fetch('/api/v2/videos/search/' + encodeURIComponent(query), {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        rowCount: null,
+        page: pageNo,
+        needAllData: 0,
+        windowWidth
+      }),
+      signal: AbortSignal.timeout(15000)
+    });
+    const text = await response.text();
+    let body = null;
+    try { body = text ? JSON.parse(text) : {}; }
+    catch { body = { raw: text.slice(0, 500) }; }
+    return { status: response.status, body };
+  }, {
+    query: params.query,
+    pageNo: params.page,
+    windowWidth: params.windowWidth || 1365
+  });
+
+  if (!result || result.status !== 200) {
+    throw new Error('filo_global_search_http_' + (result && result.status || 'no_response'));
+  }
+  if (!result.body || result.body.raw) throw new Error('filo_global_search_invalid_json');
+  return { status: result.status, body: result.body };
+}
+
+async function searchFiloTrendingTopics(page, trends) {
+  const queries = buildFiloTrendQueries(trends, {
+    maxTopics: 40,
+    maxQueriesPerTopic: 2
+  });
+  const searches = await mapWithConcurrency(queries, 4, async topicSearch => {
+    return searchFiloGlobalTopic(
+      topicSearch.query,
+      params => fetchFiloGlobalSearchPage(page, params),
+      {
+        maxPages: 60,
+        pageSize: 20,
+        windowWidth: 1365,
+        topicSearch
+      }
+    );
+  });
+
+  const byCode = new Map();
+  for (const search of searches) {
+    for (const item of search.results || []) {
+      const code = String(item.video_code || '');
+      if (!code) continue;
+      const previous = byCode.get(code);
+      const previousMatches = previous && Array.isArray(previous.globalTrendSearchMatches)
+        ? previous.globalTrendSearchMatches : [];
+      const currentMatch = item.globalTrendSearch || null;
+      const matches = [...previousMatches];
+      if (currentMatch && !matches.some(match =>
+        match.trendTitle === currentMatch.trendTitle && match.query === currentMatch.query
+      )) matches.push(currentMatch);
+
+      const merged = previous ? { ...item, ...previous } : { ...item };
+      merged.globalTrendSearchMatches = matches;
+      byCode.set(code, merged);
+    }
+  }
+
+  return {
+    queriesRequested: queries.length,
+    queriesCompleted: searches.filter(item => item.complete).length,
+    complete: searches.every(item => item.complete),
+    pagesFetched: searches.reduce((sum, item) => sum + item.pagesFetched, 0),
+    uniqueVideos: byCode.size,
+    results: [...byCode.values()],
+    queries: searches.map(item => ({
+      query: item.query,
+      pagesFetched: item.pagesFetched,
+      resultCount: item.totalUniqueVideos,
+      complete: item.complete,
+      termination: item.termination
+    }))
+  };
+}
+
 function scoreFeedCandidate(item, trendWeights = {}, googleTrends = []) {
   const text = sourceText(item);
   const categoryId = num(item.category_id);
@@ -199,23 +326,9 @@ function createRepostMetadata(video, sourceCode) {
   if (core.length < 5) core = sourceTitle;
   core = trimAtWord(core, 132);
 
-  const category = Number(video && video.category_id);
-  const lead = ({
-    6: 'ماجرای بامزه‌ی',
-    11: 'لحظه‌ی تماشاییِ',
-    13: 'رفتار دیدنیِ',
-    29: 'روایت خوشمزه‌ی',
-    2: 'نگاهی کوتاه به',
-    22: 'نمایی چشم‌نواز از',
-    17: 'لحظه‌ای هیجان‌انگیز از',
-    25: 'صحنه‌ای دیدنی از',
-    15: 'روایتی جذاب از',
-    3: 'نگاهی کوتاه به'
-  })[category] || 'روایتی کوتاه از';
-
-  let title = trimAtWord(lead + ' «' + core + '»', 176);
+  let title = trimAtWord(core, 176);
   if (normalizeComparable(title) === normalizeComparable(sourceTitle)) {
-    title = trimAtWord('بازنشر مجاز: ' + title, 176);
+    title = trimAtWord('روایت تصویری: ' + core, 176);
   }
 
   const description = trimAtWord(
@@ -805,6 +918,179 @@ async function reconcilePreviouslySubmitted(page, state) {
   return { checked: candidates.length, newlyPublic: verified, changed: verified > 0 };
 }
 
+
+function cleanLegacyRepostTitle(value) {
+  return String(value || '')
+    .replace(/^ماجرای\s+بامزه(?:‌ی|ی)?\s*[«"“”]?\s*/u, '')
+    .replace(/[»"“”]\s*$/u, '')
+    .trim();
+}
+
+async function fetchOwnVideoForCaptionEdit(page, videoCode) {
+  const result = await page.evaluate(async ({ videoCode }) => {
+    const params = new URLSearchParams();
+    params.set('page', '1');
+    params.set('rowCount', '24');
+    params.set('vc', videoCode);
+    const response = await fetch('/api/v1/my/videos', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' },
+      body: params.toString()
+    });
+    return { status: response.status, body: await response.text() };
+  }, { videoCode });
+
+  if (!result || result.status !== 200) return null;
+  const body = parseJson(result.body);
+  const root = body && body.data && typeof body.data === 'object' ? body.data : body;
+  const items = root && Array.isArray(root.items) ? root.items : [];
+  return items.find(item => String(item.video_code || item.code || item.v || '') === videoCode) || null;
+}
+
+async function editOwnVideoTitle(page, item, videoCode, newTitle) {
+  const form = await page.evaluate(async ({ videoCode, id }) => {
+    const params = new URLSearchParams();
+    params.set('c', videoCode);
+    params.set('id', String(id));
+    const response = await fetch('/api/v1/video/edit', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' },
+      body: params.toString()
+    });
+    return { status: response.status, body: await response.text() };
+  }, { videoCode, id: item.id });
+
+  if (!form || form.status !== 200) return { ok: false, reason: 'edit_form_http_' + (form && form.status || 'no_response') };
+  const loaded = parseJson(form.body);
+  if (!loaded || !loaded.video) return { ok: false, reason: 'edit_form_invalid' };
+  if (loaded.isLockEdit === true || loaded.isLockEdit === 1 || loaded.isLockEdit === '1') {
+    return { ok: false, reason: 'filo_locked_video_edit' };
+  }
+  if (String(loaded.video.id) !== String(item.id)) {
+    return { ok: false, reason: 'edit_form_owner_id_mismatch' };
+  }
+  if (num(loaded.video.status_id) === 11) {
+    return { ok: false, reason: 'moderation_confirmation_required' };
+  }
+
+  const video = loaded.video;
+  const model = {
+    id: video.id,
+    title: newTitle,
+    description: String(video.description || ''),
+    playlist_id: video.playlist_id ?? 0,
+    category_id: video.category_id ?? 0,
+    status_id: video.status_id ?? '',
+    has_comment: !!video.has_comment,
+    allow_download: !!video.allow_download,
+    only_in_filo: Number(video.only_in_filo) || 0,
+    made_for_kids: !!video.made_for_kids,
+    over18: !!video.over18,
+    can_republish: !!video.can_republish,
+    made_by_me: !!video.made_by_me,
+    is_republish: !!loaded.isRepublish,
+    video_url: video.video_url || '',
+    cards: Array.isArray(video.cards) ? video.cards : [],
+    subtitle_file_name: video.subtitle_file_name || video.subtitleFileName || '',
+    jost_save_cards: false
+  };
+
+  const saved = await page.evaluate(async model => {
+    const response = await fetch('/api/v1/video/edit', {
+      method: 'PUT',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(model)
+    });
+    const text = await response.text();
+    let body = null;
+    try { body = text ? JSON.parse(text) : {}; } catch {}
+    return { status: response.status, body };
+  }, model);
+
+  if (!saved || saved.status !== 200 || !saved.body || !isFlag(saved.body.s)) {
+    return {
+      ok: false,
+      reason: String(saved && saved.body && saved.body.r || 'filo_edit_not_accepted').slice(0, 180),
+      httpStatus: saved && saved.status || null
+    };
+  }
+  return { ok: true, httpStatus: saved.status };
+}
+
+async function cleanupLegacyRepostCaptions(page, state) {
+  const targets = (state.posts || []).filter(post =>
+    post &&
+    post.status === 'public_verified' &&
+    post.newVideoCode &&
+    (post.captionCleanupPending ||
+      /^ماجرای\s+بامزه/i.test(String(post.repostTitle || '')))
+  );
+  const report = { checked: targets.length, updated: [], pending: [], skipped: [], errors: [] };
+
+  for (const post of targets) {
+    const code = String(post.newVideoCode);
+    const newTitle = cleanLegacyRepostTitle(post.repostTitle);
+    if (!newTitle || normalizeComparable(newTitle) === normalizeComparable(post.repostTitle)) {
+      if (post.captionCleanupPending) {
+        const verified = await verifyPublicVideo(page, code, post.repostTitle).catch(() => null);
+        if (verified) {
+          post.captionCleanupPending = false;
+          post.captionCleanupAt = new Date().toISOString();
+          report.updated.push({ code, title: post.repostTitle, verified: true, previouslyAccepted: true });
+        } else {
+          report.pending.push({ code, title: post.repostTitle, reason: 'public_title_not_yet_verified' });
+        }
+      } else {
+        report.skipped.push({ code, reason: 'no_legacy_lead_found' });
+      }
+      continue;
+    }
+
+    try {
+      const ownVideo = await fetchOwnVideoForCaptionEdit(page, code);
+      if (!ownVideo) {
+        report.skipped.push({ code, reason: 'not_found_in_own_video_list' });
+        continue;
+      }
+      if (String(ownVideo.video_code || ownVideo.code || ownVideo.v || '') !== code) {
+        report.skipped.push({ code, reason: 'own_video_code_mismatch' });
+        continue;
+      }
+      if (!(ownVideo.canEdit === 1 || ownVideo.canEdit === true || ownVideo.canEdit === '1')) {
+        report.skipped.push({ code, reason: 'filo_can_edit_not_granted' });
+        continue;
+      }
+
+      const edit = await editOwnVideoTitle(page, ownVideo, code, newTitle);
+      if (!edit.ok) {
+        report.skipped.push({ code, reason: edit.reason });
+        continue;
+      }
+
+      post.repostTitle = newTitle;
+      post.captionCleanupPending = true;
+      post.captionCleanupRequestedAt = new Date().toISOString();
+      const publicUrl = await verifyPublicVideo(page, code, newTitle).catch(() => null);
+      if (publicUrl) {
+        post.captionCleanupPending = false;
+        post.captionCleanupAt = new Date().toISOString();
+        report.updated.push({ code, title: newTitle, publicUrl, verified: true });
+      } else {
+        report.pending.push({ code, title: newTitle, reason: 'edit_accepted_public_verification_pending' });
+      }
+      state.updatedAt = new Date().toISOString();
+      fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
+    } catch (error) {
+      report.errors.push({ code, error: String(error && error.message || error).slice(0, 200) });
+    }
+  }
+
+  return report;
+}
+
 async function main() {
   fs.mkdirSync(path.dirname(REPORT_PATH), { recursive: true });
   fs.mkdirSync(path.dirname(STATE_PATH), { recursive: true });
@@ -812,7 +1098,7 @@ async function main() {
   const report = {
     createdAt: new Date().toISOString(),
     status: 'started',
-    discovery: { categories: CATEGORY_IDS, pagesPerCategory: PAGES_PER_CATEGORY, scannedItems: 0, eligibleFeedItems: 0, errors: [] },
+    discovery: { categories: CATEGORY_IDS, pagesPerCategory: PAGES_PER_CATEGORY, scannedItems: 0, eligibleFeedItems: 0, eligibleGlobalSearchItems: 0, combinedCandidates: 0, globalTrendSearch: null, errors: [] },
     selected: null,
     result: null,
     googleTrends: { status: 'not_fetched', itemCount: 0, topTopics: [] }
@@ -870,6 +1156,7 @@ async function main() {
     if (report.reconciliation.changed) {
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
     }
+    report.captionCleanup = await cleanupLegacyRepostCaptions(page, state);
     const trendWeights = {};
     try {
       const trend = JSON.parse(fs.readFileSync(path.join('state', 'platform-trends.json'), 'utf8'));
@@ -882,6 +1169,41 @@ async function main() {
         }
       }
     } catch {}
+
+    report.discovery.globalTrendSearch = {
+      status: googleTrends.length ? 'searching' : 'skipped_no_google_trends',
+      topicsAvailable: googleTrends.length,
+      queriesRequested: 0,
+      queriesCompleted: 0,
+      pagesFetched: 0,
+      uniqueVideos: 0,
+      complete: googleTrends.length === 0,
+      queries: []
+    };
+    let globalSearchCandidates = [];
+    if (googleTrends.length) {
+      try {
+        const globalSearch = await searchFiloTrendingTopics(page, googleTrends);
+        globalSearchCandidates = globalSearch.results;
+        report.discovery.globalTrendSearch = {
+          status: globalSearch.complete ? 'complete' : 'partial',
+          topicsAvailable: googleTrends.length,
+          queriesRequested: globalSearch.queriesRequested,
+          queriesCompleted: globalSearch.queriesCompleted,
+          pagesFetched: globalSearch.pagesFetched,
+          uniqueVideos: globalSearch.uniqueVideos,
+          complete: globalSearch.complete,
+          queries: globalSearch.queries
+        };
+      } catch (error) {
+        report.discovery.globalTrendSearch = {
+          status: 'failed_non_blocking',
+          topicsAvailable: googleTrends.length,
+          complete: false,
+          error: String(error && error.message || error).slice(0, 240)
+        };
+      }
+    }
 
     const byCode = new Map();
     for (const categoryId of CATEGORY_IDS) {
@@ -911,8 +1233,39 @@ async function main() {
 
     const feedCandidates = [...byCode.values()].filter(item => feedCandidateEligible(item, state));
     report.discovery.eligibleFeedItems = feedCandidates.length;
-    const ranked = feedCandidates
-      .map(item => ({ item, rank: scoreFeedCandidate(item, trendWeights, googleTrends) }))
+
+    const globalCandidatesByCode = new Map();
+    for (const item of globalSearchCandidates) {
+      if (!searchCandidateEligible(item, state)) continue;
+      const code = String(item.video_code || '');
+      if (!code) continue;
+      globalCandidatesByCode.set(code, item);
+    }
+    report.discovery.eligibleGlobalSearchItems = globalCandidatesByCode.size;
+
+    const combinedByCode = new Map(feedCandidates.map(item => [String(item.video_code), item]));
+    for (const [code, searchItem] of globalCandidatesByCode) {
+      const existing = combinedByCode.get(code);
+      if (existing) {
+        const matches = [
+          ...(Array.isArray(existing.globalTrendSearchMatches) ? existing.globalTrendSearchMatches : []),
+          ...(Array.isArray(searchItem.globalTrendSearchMatches) ? searchItem.globalTrendSearchMatches : [])
+        ];
+        combinedByCode.set(code, { ...searchItem, ...existing, globalTrendSearchMatches: matches });
+      } else {
+        combinedByCode.set(code, searchItem);
+      }
+    }
+    report.discovery.combinedCandidates = combinedByCode.size;
+
+    const ranked = [...combinedByCode.values()]
+      .map(item => {
+        const rank = scoreFeedCandidate(item, trendWeights, googleTrends);
+        const searchBonus = globalSearchRelevanceBonus(item);
+        rank.score = Math.round((rank.score + searchBonus.bonus) * 10) / 10;
+        rank.globalSearchRelevance = searchBonus;
+        return { item, rank };
+      })
       .filter(entry => entry.rank.score >= 30)
       .sort((a, b) => b.rank.score - a.rank.score);
 
@@ -995,6 +1348,8 @@ async function main() {
       result: report.result,
       errors: report.discovery.errors.slice(0, 8),
       googleTrends: report.googleTrends,
+      globalTrendSearch: report.discovery.globalTrendSearch,
+      captionCleanup: report.captionCleanup,
       error: report.error
     }));
   }
@@ -1012,6 +1367,8 @@ if (require.main === module) {
 module.exports = {
   ageHours,
   feedCandidateEligible,
+  searchCandidateEligible,
+  cleanLegacyRepostTitle,
   scoreFeedCandidate,
   createRepostMetadata,
   normalizeComparable,

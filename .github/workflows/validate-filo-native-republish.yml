@@ -7,6 +7,8 @@ on:
       - "scripts/test_filo_native_republish.cjs"
       - "scripts/google_trends_iran.cjs"
       - "scripts/test_google_trends_iran.cjs"
+      - "scripts/filo_global_search.cjs"
+      - "scripts/test_filo_global_search.cjs"
       - "scripts/score_filo_thumbnail.py"
       - "scripts/test_filo_thumbnail.py"
       - ".github/workflows/filo-native-republish.yml"
@@ -17,6 +19,8 @@ on:
       - "scripts/test_filo_native_republish.cjs"
       - "scripts/google_trends_iran.cjs"
       - "scripts/test_google_trends_iran.cjs"
+      - "scripts/filo_global_search.cjs"
+      - "scripts/test_filo_global_search.cjs"
       - "scripts/score_filo_thumbnail.py"
       - "scripts/test_filo_thumbnail.py"
       - ".github/workflows/filo-native-republish.yml"
@@ -48,5 +52,8 @@ jobs:
           node --check scripts/google_trends_iran.cjs
           node --check scripts/test_google_trends_iran.cjs
           node scripts/test_google_trends_iran.cjs
+          node --check scripts/filo_global_search.cjs
+          node --check scripts/test_filo_global_search.cjs
+          node scripts/test_filo_global_search.cjs
           python3 -m py_compile scripts/score_filo_thumbnail.py scripts/test_filo_thumbnail.py
           python3 scripts/test_filo_thumbnail.py
