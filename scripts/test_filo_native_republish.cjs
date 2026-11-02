@@ -123,7 +123,7 @@ assert.equal(millisecondsUntilNextPublication(state, Date.parse('2026-11-02T00:1
     }
   });
   assert.equal(waitCalls.length, 1);
-  assert.ok(waitCalls[0] >= 61000);
+  assert.equal(waitCalls[0], 60750);
   assert.equal(millisecondsUntilNextPublication(state, fakeNow), 0);
   assert.equal(waitReport.status, 'waiting_for_minimum_publication_gap');
   assert.ok(waitReport.minimumGapWaitedMs >= 61000);
