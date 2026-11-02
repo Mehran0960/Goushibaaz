@@ -933,23 +933,17 @@ async function reconcilePreviouslySubmitted(page, state) {
 
 
 function cleanLegacyRepostTitle(value, sourceTitle = '') {
-  const cleaned = String(value || '')
-    .replace(/^ماجرای\s+بامزه(?:‌ی|ی)?\s*[«"“”]?\s*/u, '')
-    .replace(/[»"“”]\s*$/u, '')
-    .trim();
-  if (cleaned.length >= 16) return trimAtWord(cleaned, 176);
-
-  const sourceCore = String(sourceTitle || '')
-    .replace(/#[^\s#]+/g, ' ')
-    .replace(/^(?:(?:طنز|کلیپ|ویدیو|ویدئوی|فیلم)\s+)*(?:(?:خنده.?دار|بامزه|جالب|دیدنی|جذاب|کوتاه)\s+)*(?:از\s+)?/i, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-  const core = sourceCore.length >= 5 ? sourceCore : cleaned;
-  const expanded = trimAtWord(core + '؛ روایتی از یک اتفاق غیرمنتظره', 176);
-  if (expanded.length >= 20) return expanded;
-  return trimAtWord((cleaned || core) + '؛ روایتی کوتاه از یک اتفاق جالب', 176);
+  const source = String(sourceTitle || value || '').trim();
+  if (!source) return '';
+  try {
+    return cleanRepostCaptionTitle(source);
+  } catch {
+    return String(value || source)
+      .replace(/^(?:(?:ماجرای\\s+بامزه(?:‌ی|ی)?|روایت\\s+تصویری|روایتی\\s+از)\\s*[:،؛-]?\\s*)+/iu, '')
+      .replace(/[«»“”"]/g, '')
+      .trim();
+  }
 }
-
 async function fetchOwnVideoForCaptionEdit(page, videoCode) {
   const result = await page.evaluate(async ({ videoCode }) => {
     const params = new URLSearchParams();
