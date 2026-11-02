@@ -1043,27 +1043,16 @@ async function cleanupLegacyRepostCaptions(page, state) {
     post &&
     post.status === 'public_verified' &&
     post.newVideoCode &&
-    (post.captionCleanupPending ||
-      /^ماجرای\s+بامزه/i.test(String(post.repostTitle || '')))
+    (post.sourceTitle || post.repostTitle) &&
+    (post.captionCleanupPending || post.captionPolicyVersion !== 2)
   );
   const report = { checked: targets.length, updated: [], pending: [], skipped: [], errors: [] };
 
   for (const post of targets) {
     const code = String(post.newVideoCode);
     const newTitle = cleanLegacyRepostTitle(post.repostTitle, post.sourceTitle);
-    if (!newTitle || normalizeComparable(newTitle) === normalizeComparable(post.repostTitle)) {
-      if (post.captionCleanupPending) {
-        const verified = await verifyPublicVideo(page, code, post.repostTitle).catch(() => null);
-        if (verified) {
-          post.captionCleanupPending = false;
-          post.captionCleanupAt = new Date().toISOString();
-          report.updated.push({ code, title: post.repostTitle, verified: true, previouslyAccepted: true });
-        } else {
-          report.pending.push({ code, title: post.repostTitle, reason: 'public_title_not_yet_verified' });
-        }
-      } else {
-        report.skipped.push({ code, reason: 'no_legacy_lead_found' });
-      }
+    if (!newTitle) {
+      report.skipped.push({ code, reason: 'clean_title_unavailable' });
       continue;
     }
 
@@ -1077,6 +1066,24 @@ async function cleanupLegacyRepostCaptions(page, state) {
         report.skipped.push({ code, reason: 'own_video_code_mismatch' });
         continue;
       }
+
+      const currentTitle = String(ownVideo.title || ownVideo.t || '').trim();
+      if (currentTitle && normalizeComparable(currentTitle) === normalizeComparable(newTitle)) {
+        const publicUrl = await verifyPublicVideo(page, code, newTitle).catch(() => null);
+        if (publicUrl) {
+          post.repostTitle = newTitle;
+          post.captionCleanupPending = false;
+          post.captionPolicyVersion = 2;
+          post.captionCleanupAt = new Date().toISOString();
+          report.updated.push({ code, title: newTitle, publicUrl, verified: true, unchanged: true });
+        } else {
+          report.pending.push({ code, title: newTitle, reason: 'public_title_not_yet_verified' });
+        }
+        state.updatedAt = new Date().toISOString();
+        fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
+        continue;
+      }
+
       if (!(ownVideo.canEdit === 1 || ownVideo.canEdit === true || ownVideo.canEdit === '1')) {
         report.skipped.push({ code, reason: 'filo_can_edit_not_granted' });
         continue;
@@ -1090,6 +1097,7 @@ async function cleanupLegacyRepostCaptions(page, state) {
 
       post.repostTitle = newTitle;
       post.captionCleanupPending = true;
+      post.captionPolicyVersion = 2;
       post.captionCleanupRequestedAt = new Date().toISOString();
       const publicUrl = await verifyPublicVideo(page, code, newTitle).catch(() => null);
       if (publicUrl) {
@@ -1108,7 +1116,6 @@ async function cleanupLegacyRepostCaptions(page, state) {
 
   return report;
 }
-
 async function main() {
   fs.mkdirSync(path.dirname(REPORT_PATH), { recursive: true });
   fs.mkdirSync(path.dirname(STATE_PATH), { recursive: true });
