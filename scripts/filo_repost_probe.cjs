@@ -280,6 +280,7 @@ async function inspectForm(page) {
       } catch {}
     });
     let repostSourceData = null;
+    const repostCandidateSnapshots = [];
     page.on('response', async response => {
       try {
         const u = new URL(response.url());
@@ -356,6 +357,25 @@ async function inspectForm(page) {
                 }
               }
               repostSourceData = safe;
+              if (u.pathname.startsWith('/api/v1/republish/')) {
+                const video = root.republish_video && typeof root.republish_video === 'object' ? root.republish_video : {};
+                const get = (object, keys) => {
+                  const out = {};
+                  for (const key of keys) {
+                    const value = object && object[key];
+                    if (value === null || ['string','number','boolean'].includes(typeof value)) {
+                      if (value !== undefined) out[key] = typeof value === 'string' ? value.slice(0, 260) : value;
+                    }
+                  }
+                  return out;
+                };
+                repostCandidateSnapshots.push({
+                  code: video.video_code || root.republish_video_code || u.pathname.split('/').pop(),
+                  httpStatus: response.status(),
+                  root: get(root, ['is_republish','republish_video_code','republish_video_category','server_id','limited_minutes','stop_upload','accept_rule']),
+                  video: get(video, ['video_code','title','duration','visit_count','play_count','category_id','server_id','status_id','active','can_republish','is_publish_able','allow_public_display','can_make_money','has_audio','file_deleted','only_in_filo','chosen','republish_from','create_date','create_time'])
+                });
+              }
             }
           }
         }
@@ -454,63 +474,34 @@ async function inspectForm(page) {
         const match = String(item.path || '').match(/^\/v\/([A-Za-z0-9_-]+)$/);
         if (match) codeSet.add(match[1]);
       }
-      const candidateCodes = [...codeSet].slice(0, 18);
-      const candidateChecks = await page.evaluate(async codes => {
-        const results = [];
-        for (const code of codes) {
-          try {
-            const response = await fetch('/api/v1/republish/' + encodeURIComponent(code), {
-              credentials: 'include',
-              headers: { Accept: 'application/json' }
-            });
-            const payload = await response.json().catch(() => null);
-            const root = payload && typeof payload === 'object'
-              ? (payload.data && typeof payload.data === 'object' ? payload.data :
-                 payload.r && typeof payload.r === 'object' ? payload.r : payload)
-              : null;
-            const video = root && root.republish_video && typeof root.republish_video === 'object'
-              ? root.republish_video : null;
-            const safeValue = (obj, keys) => {
-              if (!obj) return {};
-              const out = {};
-              for (const key of keys) {
-                const value = obj[key];
-                if (value === null || ['string','number','boolean'].includes(typeof value)) {
-                  if (value !== undefined) out[key] = typeof value === 'string' ? value.slice(0, 260) : value;
-                }
-              }
-              return out;
-            };
-            results.push({
-              code, httpStatus: response.status(),
-              successFlag: payload && typeof payload === 'object' ? Boolean(payload.s) : null,
-              errorPresent: Boolean(payload && typeof payload === 'object' && payload.r),
-              source: video ? safeValue(video, [
-                'id','video_code','title','duration','visit_count','play_count','category_id',
-                'server_id','status_id','active','can_republish','is_publish_able',
-                'allow_public_display','can_make_money','has_audio','file_deleted',
-                'only_in_filo','chosen','republish_from','create_date','create_time'
-              ]) : null,
-              rootFlags: root ? safeValue(root, [
-                'is_republish','republish_video_code','republish_video_category',
-                'server_id','limited_minutes','stop_upload','stop_upload_message',
-                'accept_rule','block_made_by_me'
-              ]) : null,
-              rootKeys: root && typeof root === 'object' ? Object.keys(root).slice(0, 60) : []
-            });
-          } catch (error) {
-            results.push({ code, errorKind: String(error && error.name || 'Error').slice(0, 60) });
-          }
+      const candidateCodes = [...codeSet];
+      const candidateCheckCodes = [
+        ...candidateItems.filter(item => item.can_republish === 0 || item.can_republish === false).map(item => item.video_code),
+        ...candidateItems.filter(item => item.can_republish === 1 || item.can_republish === true).slice(0, 7).map(item => item.video_code)
+      ].filter(Boolean).filter((code, index, array) => array.indexOf(code) === index).slice(0, 8);
+      const snapshotStart = repostCandidateSnapshots.length;
+      const candidateNavigationResults = [];
+      for (const code of candidateCheckCodes) {
+        try {
+          await page.goto(BASE + '/republish/' + encodeURIComponent(code), {
+            waitUntil: 'domcontentloaded',
+            timeout: 20000
+          });
+          await page.waitForTimeout(900);
+          candidateNavigationResults.push({ code, pagePath: safeUrlPath(page.url()), reachedRepublishForm: safeUrlPath(page.url()) === '/republish/' + code });
+        } catch (error) {
+          candidateNavigationResults.push({ code, errorKind: String(error && error.name || 'Error').slice(0, 60) });
         }
-        return results;
-      }, candidateCodes);
+      }
+      const candidateChecks = repostCandidateSnapshots.slice(snapshotStart);
       return {
         pagePath: safeUrlPath(page.url()),
         requests: requests.slice(-10),
         responses: responses.slice(-10),
         firstPageVideoLinks: firstPageVideoLinks.slice(0, 20),
         candidateItems: candidateItems.slice(0, 24),
-        candidateCodes,
+        candidateCodes: candidateCodes.slice(0, 32),
+        candidateNavigationResults,
         candidateChecks,
         pageTitle: await page.title().catch(() => '')
       };
