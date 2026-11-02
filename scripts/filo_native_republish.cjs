@@ -247,6 +247,11 @@ function lastSubmissionTime(state) {
   return times.length ? Math.max(...times) : 0;
 }
 
+function millisecondsUntilNextPublication(state, now = Date.now()) {
+  const last = lastSubmissionTime(state);
+  return last ? Math.max(0, last + MIN_PUBLISH_GAP_MS - now) : 0;
+}
+
 function parseApiBody(raw) {
   const outer = parseJson(raw);
   if (!outer) return null;
@@ -561,11 +566,21 @@ async function main() {
       report.dailyCount = dailyCount(state);
       return;
     }
-    const last = lastSubmissionTime(state);
-    if (last && Date.now() - last < MIN_PUBLISH_GAP_MS) {
-      report.status = 'minimum_publication_gap_not_elapsed';
-      report.nextEligibleAt = new Date(last + MIN_PUBLISH_GAP_MS).toISOString();
-      return;
+    const waitMs = millisecondsUntilNextPublication(state);
+    if (waitMs > 0) {
+      report.status = 'waiting_for_minimum_publication_gap';
+      report.nextEligibleAt = new Date(Date.now() + waitMs).toISOString();
+      report.waitMilliseconds = waitMs;
+      console.log('FILO_NATIVE_REPUBLISH_WAITING_FOR_GAP ' + JSON.stringify({
+        waitMilliseconds: waitMs,
+        nextEligibleAt: report.nextEligibleAt
+      }));
+      await sleep(waitMs + 1000);
+      report.waitCompletedAt = new Date().toISOString();
+      if (millisecondsUntilNextPublication(state) > 0) {
+        report.status = 'minimum_publication_gap_not_elapsed';
+        return;
+      }
     }
 
     browser = await chromium.launch({ headless: true });
@@ -723,5 +738,6 @@ module.exports = {
   normalizeComparable,
   detailGate,
   dailyCount,
-  lastSubmissionTime
+  lastSubmissionTime,
+  millisecondsUntilNextPublication
 };
