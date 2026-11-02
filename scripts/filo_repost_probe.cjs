@@ -266,7 +266,7 @@ async function inspectForm(page) {
     page.on('request', request => {
       try {
         const u = new URL(request.url());
-        if (u.hostname === 'ifilo.net' && (/^\\/api\\//.test(u.pathname) || /republish/.test(u.pathname))) {
+        if (u.hostname === 'ifilo.net' && (u.pathname.startsWith('/api/') || u.pathname.includes('republish'))) {
           apiTraffic.push({ kind: 'request', method: request.method(), path: u.pathname, resourceType: request.resourceType() });
         }
       } catch {}
@@ -274,7 +274,7 @@ async function inspectForm(page) {
     page.on('response', response => {
       try {
         const u = new URL(response.url());
-        if (u.hostname === 'ifilo.net' && (/^\\/api\\//.test(u.pathname) || /republish/.test(u.pathname))) {
+        if (u.hostname === 'ifilo.net' && (u.pathname.startsWith('/api/') || u.pathname.includes('republish'))) {
           apiTraffic.push({ kind: 'response', method: response.request().method(), path: u.pathname, status: response.status() });
         }
       } catch {}
