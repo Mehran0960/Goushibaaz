@@ -191,18 +191,38 @@ function selectQueriesForRun(state, now = Date.now()) {
       query.lastAttemptAt = null;
     }
   }
-  return Object.values(state.queries)
-    .filter(query => query && !query.complete && query.activeInLatestFeed !== false)
+
+  const recentlySeen = query => {
+    if (query.activeInLatestFeed !== false) return true;
+    const seenAt = Date.parse(query.lastTrendSeenAt || query.createdAt || '');
+    return Number.isFinite(seenAt) && now - seenAt <= ACTIVE_QUERY_TTL_MS;
+  };
+  const eligible = Object.values(state.queries)
+    .filter(query => query && !query.complete && recentlySeen(query))
     .filter(query => {
       const lastAttempt = Date.parse(query.lastAttemptAt || '');
       return !Number.isFinite(lastAttempt) || now - lastAttempt >= QUERY_RETRY_COOLDOWN_MS;
-    })
-    .sort((a, b) => {
-      const aTime = Date.parse(a.lastAttemptAt || a.createdAt || '') || 0;
-      const bTime = Date.parse(b.lastAttemptAt || b.createdAt || '') || 0;
-      return aTime - bTime || Number(a.nextPage || 1) - Number(b.nextPage || 1);
-    })
-    .slice(0, MAX_QUERIES_PER_RUN);
+    });
+
+  const byOldestAttempt = (a, b) => {
+    const aTime = Date.parse(a.lastAttemptAt || a.createdAt || '') || 0;
+    const bTime = Date.parse(b.lastAttemptAt || b.createdAt || '') || 0;
+    return aTime - bTime || Number(a.nextPage || 1) - Number(b.nextPage || 1);
+  };
+  const current = eligible.filter(query => query.activeInLatestFeed !== false).sort(byOldestAttempt);
+  const backlog = eligible.filter(query => query.activeInLatestFeed === false).sort(byOldestAttempt);
+
+  // Reserve two of eight slots for recently trending topics that have since
+  // left the live RSS feed. This prevents incomplete global searches from
+  // being abandoned while still giving current topics scheduling priority.
+  const backlogSlots = Math.min(2, backlog.length, MAX_QUERIES_PER_RUN);
+  const currentSlots = Math.min(current.length, MAX_QUERIES_PER_RUN - backlogSlots);
+  return [
+    ...current.slice(0, currentSlots),
+    ...backlog.slice(0, backlogSlots),
+    ...current.slice(currentSlots),
+    ...backlog.slice(backlogSlots)
+  ].slice(0, MAX_QUERIES_PER_RUN);
 }
 
 function applyQueryResult(state, query, result) {
