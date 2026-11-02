@@ -28,7 +28,7 @@ function queryTokens(value) {
 }
 
 function buildFiloTrendQueries(trends, options = {}) {
-  const maxTopics = Math.max(1, Math.min(30, Math.floor(Number(options.maxTopics) || 10)));
+  const maxTopics = Math.max(1, Math.min(40, Math.floor(Number(options.maxTopics) || 10)));
   const maxQueriesPerTopic = Math.max(1, Math.min(4, Math.floor(Number(options.maxQueriesPerTopic) || 3)));
   const topics = (Array.isArray(trends) ? trends : [])
     .filter(item => item && String(item.title || '').trim())
