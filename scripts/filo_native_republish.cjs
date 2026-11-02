@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { chromium } = require('playwright');
 const { fetchIranGoogleTrends, scoreGoogleTrendRelevance } = require('./google_trends_iran.cjs');
+const { buildFiloTrendQueries, searchFiloGlobalTopic, mapWithConcurrency, queryTokens } = require('./filo_global_search.cjs');
 const os = require('node:os');
 const { spawnSync } = require('node:child_process');
 
@@ -111,6 +112,132 @@ function feedCandidateEligible(item, ledger) {
   return true;
 }
 
+function searchCandidateEligible(item, ledger) {
+  if (!item || typeof item !== 'object') return false;
+  const code = String(item.video_code || item.videoCode || item.code || '').trim();
+  if (!/^[A-Za-z0-9_-]{5,40}$/.test(code)) return false;
+  if (ledger && ledger.posts && ledger.posts.some(post =>
+    post && post.sourceCode === code &&
+    ['submitted_pending_approval', 'submitted_unconfirmed', 'public_verified', 'rejected_by_filo'].includes(post.status)
+  )) return false;
+  if (item.active !== undefined && !isFlag(item.active)) return false;
+  if (isFlag(item.file_deleted) || num(item.only_in_filo) === 1) return false;
+  const duration = num(item.duration, -1);
+  if (duration > 0 && (duration < MIN_DURATION_SECONDS || duration > MAX_DURATION_SECONDS)) return false;
+  const text = sourceText(item);
+  return text.length >= 8 && !EXCLUDED.test(text);
+}
+
+function globalSearchRelevanceBonus(item) {
+  const candidate = new Set(queryTokens(sourceText(item)));
+  const matches = Array.isArray(item && item.globalTrendSearchMatches)
+    ? item.globalTrendSearchMatches
+    : item && item.globalTrendSearch ? [item.globalTrendSearch] : [];
+  let best = { bonus: 0, trendTitle: null, overlap: [] };
+  for (const match of matches) {
+    const terms = Array.isArray(match && match.trendKeywords) ? match.trendKeywords : queryTokens(match && match.trendTitle);
+    const overlap = [...new Set(terms.map(String))].filter(token => candidate.has(token));
+    const bonus = overlap.length >= 2 ? Math.min(7, 2 + overlap.length * 1.5)
+      : overlap.length === 1 && overlap[0].length >= 4 ? 2 : 0;
+    if (bonus > best.bonus) best = {
+      bonus,
+      trendTitle: match.trendTitle || match.query || null,
+      overlap: overlap.slice(0, 6)
+    };
+  }
+  return { ...best, bonus: Math.round(best.bonus * 10) / 10 };
+}
+
+async function fetchFiloGlobalSearchPage(page, params) {
+  const result = await page.evaluate(async ({ query, pageNo, windowWidth }) => {
+    const response = await fetch('/api/v2/videos/search/' + encodeURIComponent(query), {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        rowCount: null,
+        page: pageNo,
+        needAllData: 0,
+        windowWidth
+      }),
+      signal: AbortSignal.timeout(15000)
+    });
+    const text = await response.text();
+    let body = null;
+    try { body = text ? JSON.parse(text) : {}; }
+    catch { body = { raw: text.slice(0, 500) }; }
+    return { status: response.status, body };
+  }, {
+    query: params.query,
+    pageNo: params.page,
+    windowWidth: params.windowWidth || 1365
+  });
+
+  if (!result || result.status !== 200) {
+    throw new Error('filo_global_search_http_' + (result && result.status || 'no_response'));
+  }
+  if (!result.body || result.body.raw) throw new Error('filo_global_search_invalid_json');
+  return { status: result.status, body: result.body };
+}
+
+async function searchFiloTrendingTopics(page, trends) {
+  const queries = buildFiloTrendQueries(trends, {
+    maxTopics: 40,
+    maxQueriesPerTopic: 2
+  });
+  const searches = await mapWithConcurrency(queries, 4, async topicSearch => {
+    return searchFiloGlobalTopic(
+      topicSearch.query,
+      params => fetchFiloGlobalSearchPage(page, params),
+      {
+        maxPages: 60,
+        pageSize: 20,
+        windowWidth: 1365,
+        topicSearch
+      }
+    );
+  });
+
+  const byCode = new Map();
+  for (const search of searches) {
+    for (const item of search.results || []) {
+      const code = String(item.video_code || '');
+      if (!code) continue;
+      const previous = byCode.get(code);
+      const previousMatches = previous && Array.isArray(previous.globalTrendSearchMatches)
+        ? previous.globalTrendSearchMatches : [];
+      const currentMatch = item.globalTrendSearch || null;
+      const matches = [...previousMatches];
+      if (currentMatch && !matches.some(match =>
+        match.trendTitle === currentMatch.trendTitle && match.query === currentMatch.query
+      )) matches.push(currentMatch);
+
+      const merged = previous ? { ...item, ...previous } : { ...item };
+      merged.globalTrendSearchMatches = matches;
+      byCode.set(code, merged);
+    }
+  }
+
+  return {
+    queriesRequested: queries.length,
+    queriesCompleted: searches.filter(item => item.complete).length,
+    complete: searches.every(item => item.complete),
+    pagesFetched: searches.reduce((sum, item) => sum + item.pagesFetched, 0),
+    uniqueVideos: byCode.size,
+    results: [...byCode.values()],
+    queries: searches.map(item => ({
+      query: item.query,
+      pagesFetched: item.pagesFetched,
+      resultCount: item.totalUniqueVideos,
+      complete: item.complete,
+      termination: item.termination
+    }))
+  };
+}
+
 function scoreFeedCandidate(item, trendWeights = {}, googleTrends = []) {
   const text = sourceText(item);
   const categoryId = num(item.category_id);
@@ -199,23 +326,9 @@ function createRepostMetadata(video, sourceCode) {
   if (core.length < 5) core = sourceTitle;
   core = trimAtWord(core, 132);
 
-  const category = Number(video && video.category_id);
-  const lead = ({
-    6: 'ماجرای بامزه‌ی',
-    11: 'لحظه‌ی تماشاییِ',
-    13: 'رفتار دیدنیِ',
-    29: 'روایت خوشمزه‌ی',
-    2: 'نگاهی کوتاه به',
-    22: 'نمایی چشم‌نواز از',
-    17: 'لحظه‌ای هیجان‌انگیز از',
-    25: 'صحنه‌ای دیدنی از',
-    15: 'روایتی جذاب از',
-    3: 'نگاهی کوتاه به'
-  })[category] || 'روایتی کوتاه از';
-
-  let title = trimAtWord(lead + ' «' + core + '»', 176);
+  let title = trimAtWord(core, 176);
   if (normalizeComparable(title) === normalizeComparable(sourceTitle)) {
-    title = trimAtWord('بازنشر مجاز: ' + title, 176);
+    title = trimAtWord('روایت تصویری: ' + core, 176);
   }
 
   const description = trimAtWord(
@@ -812,7 +925,7 @@ async function main() {
   const report = {
     createdAt: new Date().toISOString(),
     status: 'started',
-    discovery: { categories: CATEGORY_IDS, pagesPerCategory: PAGES_PER_CATEGORY, scannedItems: 0, eligibleFeedItems: 0, errors: [] },
+    discovery: { categories: CATEGORY_IDS, pagesPerCategory: PAGES_PER_CATEGORY, scannedItems: 0, eligibleFeedItems: 0, eligibleGlobalSearchItems: 0, combinedCandidates: 0, globalTrendSearch: null, errors: [] },
     selected: null,
     result: null,
     googleTrends: { status: 'not_fetched', itemCount: 0, topTopics: [] }
@@ -883,6 +996,41 @@ async function main() {
       }
     } catch {}
 
+    report.discovery.globalTrendSearch = {
+      status: googleTrends.length ? 'searching' : 'skipped_no_google_trends',
+      topicsAvailable: googleTrends.length,
+      queriesRequested: 0,
+      queriesCompleted: 0,
+      pagesFetched: 0,
+      uniqueVideos: 0,
+      complete: googleTrends.length === 0,
+      queries: []
+    };
+    let globalSearchCandidates = [];
+    if (googleTrends.length) {
+      try {
+        const globalSearch = await searchFiloTrendingTopics(page, googleTrends);
+        globalSearchCandidates = globalSearch.results;
+        report.discovery.globalTrendSearch = {
+          status: globalSearch.complete ? 'complete' : 'partial',
+          topicsAvailable: googleTrends.length,
+          queriesRequested: globalSearch.queriesRequested,
+          queriesCompleted: globalSearch.queriesCompleted,
+          pagesFetched: globalSearch.pagesFetched,
+          uniqueVideos: globalSearch.uniqueVideos,
+          complete: globalSearch.complete,
+          queries: globalSearch.queries
+        };
+      } catch (error) {
+        report.discovery.globalTrendSearch = {
+          status: 'failed_non_blocking',
+          topicsAvailable: googleTrends.length,
+          complete: false,
+          error: String(error && error.message || error).slice(0, 240)
+        };
+      }
+    }
+
     const byCode = new Map();
     for (const categoryId of CATEGORY_IDS) {
       for (let pageNo = 1; pageNo <= PAGES_PER_CATEGORY; pageNo++) {
@@ -911,8 +1059,39 @@ async function main() {
 
     const feedCandidates = [...byCode.values()].filter(item => feedCandidateEligible(item, state));
     report.discovery.eligibleFeedItems = feedCandidates.length;
-    const ranked = feedCandidates
-      .map(item => ({ item, rank: scoreFeedCandidate(item, trendWeights, googleTrends) }))
+
+    const globalCandidatesByCode = new Map();
+    for (const item of globalSearchCandidates) {
+      if (!searchCandidateEligible(item, state)) continue;
+      const code = String(item.video_code || '');
+      if (!code) continue;
+      globalCandidatesByCode.set(code, item);
+    }
+    report.discovery.eligibleGlobalSearchItems = globalCandidatesByCode.size;
+
+    const combinedByCode = new Map(feedCandidates.map(item => [String(item.video_code), item]));
+    for (const [code, searchItem] of globalCandidatesByCode) {
+      const existing = combinedByCode.get(code);
+      if (existing) {
+        const matches = [
+          ...(Array.isArray(existing.globalTrendSearchMatches) ? existing.globalTrendSearchMatches : []),
+          ...(Array.isArray(searchItem.globalTrendSearchMatches) ? searchItem.globalTrendSearchMatches : [])
+        ];
+        combinedByCode.set(code, { ...searchItem, ...existing, globalTrendSearchMatches: matches });
+      } else {
+        combinedByCode.set(code, searchItem);
+      }
+    }
+    report.discovery.combinedCandidates = combinedByCode.size;
+
+    const ranked = [...combinedByCode.values()]
+      .map(item => {
+        const rank = scoreFeedCandidate(item, trendWeights, googleTrends);
+        const searchBonus = globalSearchRelevanceBonus(item);
+        rank.score = Math.round((rank.score + searchBonus.bonus) * 10) / 10;
+        rank.globalSearchRelevance = searchBonus;
+        return { item, rank };
+      })
       .filter(entry => entry.rank.score >= 30)
       .sort((a, b) => b.rank.score - a.rank.score);
 
@@ -995,6 +1174,7 @@ async function main() {
       result: report.result,
       errors: report.discovery.errors.slice(0, 8),
       googleTrends: report.googleTrends,
+      globalTrendSearch: report.discovery.globalTrendSearch,
       error: report.error
     }));
   }
