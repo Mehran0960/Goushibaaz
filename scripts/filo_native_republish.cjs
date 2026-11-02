@@ -1270,6 +1270,13 @@ async function main() {
       const gate = detail ? detailGate(detail.root, detail.video) : { eligible: false, reason: 'republish_detail_unavailable' };
       checked.push({ code, score: entry.rank.score, gate: gate.reason });
       if (gate.eligible) {
+        try {
+          createRepostMetadata(detail.video, code);
+        } catch (error) {
+          checked[checked.length - 1].gate = 'no_clean_title_without_extra_words';
+          checked[checked.length - 1].titleError = String(error && error.message || error).slice(0, 120);
+          continue;
+        }
         selected = { ...entry.item, editorialScore: entry.rank.score, scoreDetails: entry.rank, detail };
         break;
       }
@@ -1309,6 +1316,7 @@ async function main() {
         sourceCode: result.sourceCode || selected.video_code,
         sourceTitle: report.selected.title,
         repostTitle: result.repostMetadata && result.repostMetadata.title || null,
+        captionPolicyVersion: 2,
         newVideoCode: result.newVideoCode || null,
         publicUrl: result.publicUrl || null,
         status: result.status,
