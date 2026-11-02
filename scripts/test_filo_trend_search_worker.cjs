@@ -25,8 +25,18 @@ const trends = [{
 
 const definitions = refreshQueryDefinitions(state, trends);
 assert.ok(definitions >= 2, 'trend phrase, simplified query, and useful related-news query should be indexed');
+state.queries['inactive-old-topic'] = {
+  query: 'موضوع قدیمی',
+  normalized: 'موضوعقدیمی',
+  nextPage: 21,
+  complete: false,
+  activeInLatestFeed: false,
+  createdAt: '2026-11-01T00:00:00.000Z'
+};
 const selected = selectQueriesForRun(state);
 assert.ok(selected.length > 0);
+assert.equal(selected.some(item => item.normalized === 'موضوعقدیمی'), false,
+  'queries for topics no longer in the live RSS should not consume the current search batch');
 assert.ok(selected.length <= 8);
 
 const query = selected[0];
