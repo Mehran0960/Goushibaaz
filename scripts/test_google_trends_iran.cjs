@@ -20,6 +20,9 @@ const fixture = [
   '<item><title>weather tomorrow</title><ht:approx_traffic>5K+</ht:approx_traffic><pubDate>Mon, 02 Nov 2026 17:10:00 GMT</pubDate></item>',
   '<item><title>رمزارز</title><ht:approx_traffic>50K+</ht:approx_traffic><pubDate>Mon, 02 Nov 2026 17:20:00 GMT</pubDate></item>',
   '<item><title>حمله آمریکا</title><ht:approx_traffic>20K+</ht:approx_traffic><pubDate>Mon, 02 Nov 2026 17:25:00 GMT</pubDate></item>',
+  '<item><title>بیتکوین</title><ht:approx_traffic>500K+</ht:approx_traffic><pubDate>Mon, 02 Nov 2026 17:28:00 GMT</pubDate></item>',
+  '<item><title>سپاه پاسداران انقلاب اسلامی</title><ht:approx_traffic>100K+</ht:approx_traffic><pubDate>Mon, 02 Nov 2026 17:29:00 GMT</pubDate></item>',
+  '<item><title>افغانی افغانستان</title><ht:approx_traffic>5K+</ht:approx_traffic><pubDate>Mon, 02 Nov 2026 17:29:30 GMT</pubDate></item>',
   '<item><title>ترند قدیمی سرگرمی</title><ht:approx_traffic>1M+</ht:approx_traffic><pubDate>Fri, 30 Oct 2026 10:00:00 GMT</pubDate></item>',
   '</channel></rss>'
 ].join('\n');
