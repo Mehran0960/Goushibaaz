@@ -166,7 +166,7 @@ function normalizeComparable(value) {
   return String(value || '')
     .normalize('NFKC')
     .toLocaleLowerCase('fa-IR')
-    .replace(/[\\s\\u200c\\u200e\\u200f\\u0640،؛:,.!?؟"'«»()\\[\\]{}\\-–—_]/g, '');
+    .replace(/[\s\u200c\u200e\u200f\u0640،؛:,.!?؟"'«»()\[\]{}\-–—_]/g, '');
 }
 
 function trimAtWord(text, maxLength) {
@@ -178,14 +178,14 @@ function trimAtWord(text, maxLength) {
 }
 
 function createRepostMetadata(video, sourceCode) {
-  const sourceTitle = String(video && video.title || '').replace(/#[^\\s#]+/g, ' ').replace(/\\s+/g, ' ').trim();
-  const sourceDescription = String(video && video.description || '').replace(/\\s+/g, ' ').trim();
+  const sourceTitle = String(video && video.title || '').replace(/#[^\s#]+/g, ' ').replace(/\s+/g, ' ').trim();
+  const sourceDescription = String(video && video.description || '').replace(/\s+/g, ' ').trim();
   if (sourceTitle.length < 5) throw new Error('source_title_too_short_for_compliant_rewrite');
 
   let core = sourceTitle
-    .replace(/^(?:(?:طنز|کلیپ|ویدیو|ویدئوی|فیلم)\\s+)*(?:(?:خنده.?دار|بامزه|جالب|دیدنی|جذاب|کوتاه)\\s+)*(?:از\\s+)?/i, '')
-    .replace(/^[-:،؛|\\s]+/, '')
-    .replace(/\\s+/g, ' ')
+    .replace(/^(?:(?:طنز|کلیپ|ویدیو|ویدئوی|فیلم)\s+)*(?:(?:خنده.?دار|بامزه|جالب|دیدنی|جذاب|کوتاه)\s+)*(?:از\s+)?/i, '')
+    .replace(/^[-:،؛|\s]+/, '')
+    .replace(/\s+/g, ' ')
     .trim();
   if (core.length < 5) core = sourceTitle;
   core = trimAtWord(core, 132);
@@ -217,7 +217,7 @@ function createRepostMetadata(video, sourceCode) {
 
   if (normalizeComparable(title) === normalizeComparable(sourceTitle)) throw new Error('repost_title_not_distinct_from_original');
   if (normalizeComparable(description) === normalizeComparable(sourceDescription)) throw new Error('repost_description_not_distinct_from_original');
-  if (/(?:https?:\\/\\/|www\\.)/i.test(description)) throw new Error('repost_description_contains_unapproved_external_link');
+  if (/(?:https?:\/\/|www\.)/i.test(description)) throw new Error('repost_description_contains_unapproved_external_link');
 
   return { title, description, sourceTitle, sourceDescription, sourceCode };
 }
@@ -435,7 +435,7 @@ async function prepareAndPublish(page, candidate, detail, report) {
     const titleDistinct = normalizeComparable(outgoingTitle) !== normalizeComparable(repostMetadata.sourceTitle);
     const descriptionDistinct = normalizeComparable(outgoingDescription) !== normalizeComparable(repostMetadata.sourceDescription);
     const metadataOk = outgoingTitle.length >= 8 && outgoingDescription.length >= 50 &&
-      titleDistinct && descriptionDistinct && !/(?:https?:\\/\\/|www\\.)/i.test(outgoingDescription);
+      titleDistinct && descriptionDistinct && !/(?:https?:\/\/|www\.)/i.test(outgoingDescription);
     const frameOk = selectedFrame.startsWith('data:image/') && selectedFrame.length > 1000;
     const requestOk = republishFrom === code && /^[A-Za-z0-9_-]{5,40}$/.test(videoCode) &&
       isMadeByMe === 'false' && canRepublish === 'true' &&
