@@ -297,6 +297,37 @@ async function inspectForm(page) {
                 }
               }
               safe.rootKeys = Object.keys(root).slice(0, 100);
+              for (const key of ['republish_video','republish_video_category','all_categories','limited_minutes','important_messages']) {
+                const value = root[key];
+                if (Array.isArray(value)) {
+                  safe[key] = {
+                    type: 'array',
+                    length: value.length,
+                    sample: value.slice(0, 20).map(item => {
+                      if (item && typeof item === 'object') {
+                        const out = {};
+                        for (const k of ['id','code','name','title','description','label','url','category','type']) {
+                          if (Object.prototype.hasOwnProperty.call(item, k) && (item[k] === null || ['string','number','boolean'].includes(typeof item[k]))) {
+                            out[k] = typeof item[k] === 'string' ? item[k].slice(0, 180) : item[k];
+                          }
+                        }
+                        return { keys: Object.keys(item).slice(0, 30), fields: out };
+                      }
+                      return typeof item === 'string' ? item.slice(0, 180) : item;
+                    })
+                  };
+                } else if (value && typeof value === 'object') {
+                  const out = {};
+                  for (const k of ['id','code','name','title','description','label','url','category','type','views','duration']) {
+                    if (Object.prototype.hasOwnProperty.call(value, k) && (value[k] === null || ['string','number','boolean'].includes(typeof value[k]))) {
+                      out[k] = typeof value[k] === 'string' ? value[k].slice(0, 180) : value[k];
+                    }
+                  }
+                  safe[key] = { keys: Object.keys(value).slice(0, 40), fields: out };
+                } else if (value !== undefined) {
+                  safe[key] = typeof value === 'string' ? value.slice(0, 300) : value;
+                }
+              }
               for (const childKey of ['video','user','author','owner','item']) {
                 const child = root[childKey];
                 if (child && typeof child === 'object' && !Array.isArray(child)) {
@@ -331,7 +362,7 @@ async function inspectForm(page) {
         const response = await fetch(new URL(bundlePath, BASE).href, { signal: AbortSignal.timeout(15000) });
         if (!response.ok) return { status: 'bundle_http_' + response.status };
         const source = await response.text();
-        const terms = ['/api/v1/republish', '/api/v1/video/publish', 'dontPublish', 'acceptRules', 'canMakeMoney', 'hasComment', 'republish'];
+        const terms = ['/api/v1/republish', '/api/v1/video/publish', 'dontPublish', 'acceptRules', 'canMakeMoney', 'hasComment', 'republish', 'uploadView', 'uploadRepublishView'];
         const snippets = [];
         for (const term of terms) {
           let from = 0;
@@ -345,7 +376,11 @@ async function inspectForm(page) {
             from = at + term.length;
           }
         }
-        return { status: 'ok', bundlePath, bytes: source.length, snippets };
+        const uploadComponentAt = source.indexOf('uploadRepublishView');
+        const uploadComponentContext = uploadComponentAt >= 0
+          ? source.slice(Math.max(0, uploadComponentAt - 1800), Math.min(source.length, uploadComponentAt + 900)).replace(/\\s+/g, ' ').slice(0, 2600)
+          : '';
+        return { status: 'ok', bundlePath, bytes: source.length, snippets, uploadComponentContext };
       } catch (error) {
         return { status: 'bundle_fetch_failed', errorKind: String(error && error.name || 'Error').slice(0, 60) };
       }
