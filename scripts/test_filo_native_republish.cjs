@@ -62,6 +62,11 @@ assert.equal(
 );
 assert.equal(cleanLegacyRepostTitle('ماجرای بامزه‌ی «دستشویی رفتن آقایون»'), 'دستشویی رفتن آقایون');
 assert.equal(cleanLegacyRepostTitle('عنوان بدون پیشوند'), 'عنوان بدون پیشوند');
+assert.equal(
+  cleanLegacyRepostTitle('ماجرای بامزه‌ی «دزد حرفه ای»', 'کلیپ خنده دار دزد حرفه ای'),
+  'دزد حرفه ای؛ روایتی از یک اتفاق غیرمنتظره',
+  'short legacy titles must be expanded so Filo does not reject the caption edit'
+);
 
 const rewritten = createRepostMetadata({ ...valid, title: 'طنز خنده دار وقتی مامانت مولودی گرفته و تو تو اتاق تنها موندی', description: 'توضیحات اصلی با متن بلند و تکراری' }, 'AbC1234');
 assert.notEqual(normalizeComparable(rewritten.title), normalizeComparable('طنز خنده دار وقتی مامانت مولودی گرفته و تو تو اتاق تنها موندی'));
