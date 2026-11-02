@@ -5,6 +5,8 @@ on:
     paths:
       - "scripts/filo_native_republish.cjs"
       - "scripts/test_filo_native_republish.cjs"
+      - "scripts/score_filo_thumbnail.py"
+      - "scripts/test_filo_thumbnail.py"
       - ".github/workflows/filo-native-republish.yml"
       - ".github/workflows/validate-filo-native-republish.yml"
   pull_request:
@@ -27,12 +29,15 @@ jobs:
         with:
           node-version: 22
           package-manager-cache: false
-      - name: Install Playwright dependency for module checks
+      - name: Install Playwright and local face-landmark dependencies
         run: |
           npm init -y >/dev/null
           npm install --no-save playwright >/dev/null
+          python3 -m pip install --quiet --break-system-packages mediapipe==0.10.21
       - name: Syntax and deterministic policy tests
         run: |
           node --check scripts/filo_native_republish.cjs
           node --check scripts/test_filo_native_republish.cjs
           node scripts/test_filo_native_republish.cjs
+          python3 -m py_compile scripts/score_filo_thumbnail.py scripts/test_filo_thumbnail.py
+          python3 scripts/test_filo_thumbnail.py
