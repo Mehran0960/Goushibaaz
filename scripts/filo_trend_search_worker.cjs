@@ -24,6 +24,8 @@ const PAGES_PER_QUERY_PER_RUN = 20;
 const SEARCH_CONCURRENCY = 4;
 const MAX_CACHED_CANDIDATES = 5000;
 const QUERY_RETRY_COOLDOWN_MS = 4 * 60 * 1000;
+const COMPLETED_QUERY_REFRESH_MS = 60 * 60 * 1000;
+const REFRESH_TOP_PAGES = 5;
 const ACTIVE_QUERY_TTL_MS = 72 * 60 * 60 * 1000;
 
 const isoNow = () => new Date().toISOString();
@@ -141,6 +143,7 @@ function refreshQueryDefinitions(state, trends, now = Date.now()) {
     maxQueriesPerTopic: MAX_QUERIES_PER_TOPIC
   });
   const currentKeys = new Set();
+  for (const query of Object.values(state.queries)) query.activeInLatestFeed = false;
 
   for (const definition of definitions) {
     const key = normalizePersian(definition.query);
@@ -163,6 +166,7 @@ function refreshQueryDefinitions(state, trends, now = Date.now()) {
     existing.trendPublishedAt = definition.trendPublishedAt;
     existing.trendKeywords = definition.trendKeywords;
     existing.lastTrendSeenAt = isoNow();
+    existing.activeInLatestFeed = true;
     state.queries[key] = existing;
   }
 
@@ -176,6 +180,16 @@ function refreshQueryDefinitions(state, trends, now = Date.now()) {
 }
 
 function selectQueriesForRun(state, now = Date.now()) {
+  for (const query of Object.values(state.queries)) {
+    if (!query || !query.complete || !query.activeInLatestFeed) continue;
+    const completedAt = Date.parse(query.completedAt || query.lastAttemptAt || '');
+    if (Number.isFinite(completedAt) && now - completedAt >= COMPLETED_QUERY_REFRESH_MS) {
+      query.complete = false;
+      query.refreshOnly = true;
+      query.nextPage = 1;
+      query.lastAttemptAt = null;
+    }
+  }
   return Object.values(state.queries)
     .filter(query => query && !query.complete)
     .filter(query => {
@@ -202,9 +216,13 @@ function applyQueryResult(state, query, result) {
 
   target.pagesFetched = safeNumber(target.pagesFetched) + safeNumber(result.pagesFetched);
   target.videosSeen = safeNumber(target.videosSeen) + safeNumber(result.totalUniqueVideos);
-  target.nextPage = Math.max(1, safeNumber(result.nextPage) || safeNumber(target.nextPage) || 1);
-  target.complete = Boolean(result.complete);
-  target.termination = String(result.termination || '');
+  target.nextPage = query.refreshOnly ? 1 : Math.max(1, safeNumber(result.nextPage) || safeNumber(target.nextPage) || 1);
+  target.complete = query.refreshOnly ? true : Boolean(result.complete);
+  target.termination = query.refreshOnly ? 'recent_first_pages_refreshed' : String(result.termination || '');
+  if (query.refreshOnly) {
+    target.refreshOnly = false;
+    target.lastRefreshAt = isoNow();
+  }
   target.lastAttemptAt = isoNow();
   target.lastError = result.termination === 'request_failed'
     ? String(result.pages && result.pages.at(-1) && result.pages.at(-1).error || 'request_failed').slice(0, 180)
@@ -225,7 +243,7 @@ async function runSearchBatch(context, selectedQueries) {
         params => fetchFiloGlobalSearchPage(page, params),
         {
           startPage: query.nextPage || 1,
-          maxPages: PAGES_PER_QUERY_PER_RUN,
+          maxPages: query.refreshOnly ? REFRESH_TOP_PAGES : PAGES_PER_QUERY_PER_RUN,
           pageSize: 20,
           windowWidth: 1365,
           topicSearch: query
