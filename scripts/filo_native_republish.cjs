@@ -372,7 +372,8 @@ function millisecondsUntilNextPublication(state, now = Date.now()) {
 async function waitForPublicationGap(state, report = {}, options = {}) {
   const now = typeof options.now === 'function' ? options.now : () => Date.now();
   const sleepFn = typeof options.sleep === 'function' ? options.sleep : sleep;
-  let waitMs = millisecondsUntilNextPublication(state, now());
+  const startedAt = now();
+  let waitMs = millisecondsUntilNextPublication(state, startedAt);
   const initialWaitMs = waitMs;
 
   while (waitMs > 0) {
@@ -384,7 +385,7 @@ async function waitForPublicationGap(state, report = {}, options = {}) {
   }
 
   report.waitCompletedAt = new Date(now()).toISOString();
-  report.minimumGapWaitedMs = Math.max(0, now() - (Date.parse(report.nextEligibleAt || '') - initialWaitMs));
+  report.minimumGapWaitedMs = Math.max(0, now() - startedAt);
   return initialWaitMs;
 }
 
