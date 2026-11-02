@@ -217,7 +217,7 @@ function applyQueryResult(state, query, result) {
 
   target.pagesFetched = safeNumber(target.pagesFetched) + safeNumber(result.pagesFetched);
   target.videosSeen = safeNumber(target.videosSeen) + safeNumber(result.totalUniqueVideos);
-  const refreshFailed = result.termination === 'request_failed' || /^http_\\d+/.test(String(result.termination || ''));
+  const refreshFailed = result.termination === 'request_failed' || /^http_\d+/.test(String(result.termination || ''));
   target.nextPage = query.refreshOnly
     ? 1
     : Math.max(1, safeNumber(result.nextPage) || safeNumber(target.nextPage) || 1);
