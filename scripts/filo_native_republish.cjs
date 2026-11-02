@@ -713,7 +713,7 @@ async function selectThumbnailFrame(page, sourceCode, report) {
   }
 }
 
-async function prepareAndPublish(page, candidate, detail, report) {
+async function prepareAndPublish(page, candidate, detail, report, beforeSubmit = null) {
   const code = String(candidate.video_code || candidate.code);
   const sourceVideo = detail.video;
   const sourceTitle = String(sourceVideo.title || candidate.title || '').trim().slice(0, 180);
@@ -747,6 +747,11 @@ async function prepareAndPublish(page, candidate, detail, report) {
   await cropButton.waitFor({ state: 'visible', timeout: 10000 });
   await cropButton.click();
   await page.waitForTimeout(500);
+
+  // Finish all discovery, rights checks, video loading and cover selection before
+  // waiting for the next allowed publication slot. This keeps the five-minute
+  // interval from wasting time before work that can run during the cooldown.
+  if (typeof beforeSubmit === 'function') await beforeSubmit();
 
   let publishPayload = null;
   let thumbnailGuardBlocked = false;
@@ -1117,23 +1122,6 @@ async function main() {
       report.dailyCount = dailyCount(state);
       return;
     }
-    const waitMs = millisecondsUntilNextPublication(state);
-    if (waitMs > 0) {
-      report.status = 'waiting_for_minimum_publication_gap';
-      report.nextEligibleAt = new Date(Date.now() + waitMs).toISOString();
-      report.waitMilliseconds = waitMs;
-      console.log('FILO_NATIVE_REPUBLISH_WAITING_FOR_GAP ' + JSON.stringify({
-        waitMilliseconds: waitMs,
-        nextEligibleAt: report.nextEligibleAt
-      }));
-      await sleep(waitMs + 1000);
-      report.waitCompletedAt = new Date().toISOString();
-      if (millisecondsUntilNextPublication(state) > 0) {
-        report.status = 'minimum_publication_gap_not_elapsed';
-        return;
-      }
-    }
-
     browser = await chromium.launch({ headless: true });
     const context = await browser.newContext({
       locale: 'fa-IR',
@@ -1290,7 +1278,22 @@ async function main() {
       scoreDetails: selected.scoreDetails
     };
 
-    const result = await prepareAndPublish(page, selected, selected.detail, report);
+    const result = await prepareAndPublish(page, selected, selected.detail, report, async () => {
+      let waitMs = millisecondsUntilNextPublication(state);
+      while (waitMs > 0) {
+        report.status = 'waiting_for_minimum_publication_gap';
+        report.waitMilliseconds = waitMs;
+        report.nextEligibleAt = new Date(Date.now() + waitMs).toISOString();
+        console.log('FILO_NATIVE_REPUBLISH_WAITING_FOR_GAP ' + JSON.stringify({
+          waitMilliseconds: waitMs,
+          nextEligibleAt: report.nextEligibleAt,
+          stage: 'ready_to_submit'
+        }));
+        await sleep(waitMs + 750);
+        waitMs = millisecondsUntilNextPublication(state);
+      }
+      report.waitCompletedAt = new Date().toISOString();
+    });
     report.result = result;
     report.status = result.status;
 
