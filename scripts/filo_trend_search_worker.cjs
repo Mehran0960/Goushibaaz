@@ -15,6 +15,7 @@ const {
   fetchFiloGlobalSearchPage
 } = require('./filo_native_republish.cjs');
 
+const BASE = 'https://ifilo.net';
 const STATE_PATH = path.join('state', 'filo-global-search-candidates.json');
 const REPORT_PATH = path.join('out', 'filo-global-search-worker.json');
 const MAX_TOPICS = 40;
@@ -238,6 +239,7 @@ async function runSearchBatch(context, selectedQueries) {
     const page = await context.newPage();
     page.setDefaultTimeout(15000);
     try {
+      await page.goto(BASE + '/upload', { waitUntil: 'domcontentloaded', timeout: 25000 });
       return await searchFiloGlobalTopic(
         query.query,
         params => fetchFiloGlobalSearchPage(page, params),
