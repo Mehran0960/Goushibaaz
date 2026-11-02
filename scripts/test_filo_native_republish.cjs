@@ -14,6 +14,7 @@ const {
   createRepostMetadata,
   normalizeComparable,
   detailGate,
+  isRecoverableCoverGuardBlock,
   dailyCount
 } = require('./filo_native_republish.cjs');
 
@@ -126,6 +127,22 @@ pngHeader.writeUInt32BE(1200, 16);
 pngHeader.writeUInt32BE(900, 20);
 const nonWideCover = imageDimensionsFromDataUrl('data:image/png;base64,' + pngHeader.toString('base64'));
 assert.equal(Math.abs(nonWideCover.width / nonWideCover.height - 16 / 9) <= 0.02, false);
+assert.equal(isRecoverableCoverGuardBlock({
+  status: 'blocked_before_filo_submission',
+  publishPayload: { guardFailures: ['cover_aspect_not_16_9'], coverAspectOk: false }
+}), true, 'a cover-only rejection must allow trying the next candidate');
+assert.equal(isRecoverableCoverGuardBlock({
+  status: 'blocked_before_filo_submission',
+  publishPayload: { guardFailures: ['cover_aspect_not_16_9', 'monetization_permission_missing'], coverAspectOk: false }
+}), false, 'never skip a candidate when any permission or policy guard also fails');
+assert.equal(isRecoverableCoverGuardBlock({
+  status: 'blocked_before_filo_submission',
+  publishPayload: { guardFailures: ['monetization_permission_missing'], coverAspectOk: true }
+}), false, 'permission failures must not be treated as thumbnail-only failures');
+assert.equal(isRecoverableCoverGuardBlock({
+  status: 'submitted_unconfirmed',
+  publishPayload: { guardFailures: [], coverAspectOk: false }
+}), false, 'submitted items must never be retried as an alternate candidate');
 assert.equal(detailGate({}, { ...valid }).eligible, false, 'global search must never bypass the native Filo permission gate');
 
 assert.deepEqual(detailGate({ is_republish: 1, stop_upload: 0 }, {
