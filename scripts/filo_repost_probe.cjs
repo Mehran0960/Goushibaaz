@@ -325,7 +325,7 @@ async function inspectForm(page) {
     report.apiTraffic = apiTraffic.slice(-80);
     report.repostSourceData = repostSourceData;
     report.publicBundleInspection = await (async () => {
-      const bundlePath = (report.form.scriptPaths || []).find(item => /\\/assets\\/index-.*\\.js$/.test(item));
+      const bundlePath = (report.form.scriptPaths || []).find(item => item.startsWith('/assets/index-') && item.endsWith('.js'));
       if (!bundlePath) return { status: 'main_bundle_not_found' };
       try {
         const response = await fetch(new URL(bundlePath, BASE).href, { signal: AbortSignal.timeout(15000) });
