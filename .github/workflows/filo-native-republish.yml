@@ -9,7 +9,7 @@ on:
       - "scripts/filo_native_republish.cjs"
       - "scripts/test_filo_native_republish.cjs"
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "2-57/5 * * * *"
 
 permissions:
   contents: write
