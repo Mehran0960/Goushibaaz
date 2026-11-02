@@ -17,7 +17,7 @@ const {
 
 const STATE_PATH = path.join('state', 'filo-global-search-candidates.json');
 const REPORT_PATH = path.join('out', 'filo-global-search-worker.json');
-const MAX_TOPICS = 24;
+const MAX_TOPICS = 40;
 const MAX_QUERIES_PER_TOPIC = 3;
 const MAX_QUERIES_PER_RUN = 8;
 const PAGES_PER_QUERY_PER_RUN = 20;
@@ -263,7 +263,6 @@ async function main() {
     createdAt: isoNow(),
     status: 'started',
     trends: { status: 'not_fetched', count: 0 },
-    search: { queriesSelected: 0, queriesCompleted: 0, pagesFetched: 0, newCandidates: 0 },
     errors: [],
     search: { queriesSelected: 0, queriesCompleted: 0, pagesFetched: 0, newCandidates: 0, results: [] }
   };
