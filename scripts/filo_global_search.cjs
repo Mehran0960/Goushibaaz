@@ -2,6 +2,8 @@
 
 const DEFAULT_PAGE_SIZE = 20;
 const DEFAULT_MAX_PAGES = 60;
+const EXCLUDED_NEWS_QUERY = /(?:انتخابات|سیاسی|سیاست|جنگ|حمله نظامی|حمله آمریکا|سپاه پاسداران|سپاه ایران|موشک|درگیری نظامی|بیت.?کوین|bitcoin|btc|دوج.?کوین|dogecoin|اتریوم|ethereum|رمزارز|ارز دیجیتال|کریپتو|crypto|قیمت دلار|نرخ ارز|قیمت طلا|قیمت سکه|weather|forecast|آب.?و.?هوا|هواشناسی)/i;
+
 const QUERY_STOP_WORDS = new Set([
   'این','آن','از','با','برای','به','در','را','روی','و','یا','اما','اگر','هم','یک',
   'چه','چرا','چی','چطور','امروز','دیروز','فردا','شد','شده','شود','است','هست',
@@ -47,7 +49,7 @@ function buildFiloTrendQueries(trends, options = {}) {
     }
     for (const newsItem of (Array.isArray(trend.newsItems) ? trend.newsItems : []).slice(0, 2)) {
       const relatedTitle = String(newsItem && newsItem.title || '').replace(/\s+/g, ' ').trim();
-      if (queryTokens(relatedTitle).length >= 2) candidates.push(relatedTitle);
+      if (queryTokens(relatedTitle).length >= 2 && !EXCLUDED_NEWS_QUERY.test(relatedTitle)) candidates.push(relatedTitle);
     }
 
     let added = 0;
