@@ -12,8 +12,8 @@ const PAGES_PER_CATEGORY = 3;
 const MAX_DETAIL_CHECKS = 30;
 const MIN_DURATION_SECONDS = 10;
 const MAX_DURATION_SECONDS = 180;
-const MIN_PUBLISH_GAP_MS = 15 * 60 * 1000;
-const MAX_DAILY_PUBLICATIONS = 48;
+const MIN_PUBLISH_GAP_MS = 5 * 60 * 1000;
+const MAX_DAILY_PUBLICATIONS = 288;
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
