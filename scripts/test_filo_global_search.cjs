@@ -31,7 +31,10 @@ assert.equal(buildFiloTrendQueries(trends, { maxTopics: 1 }).length, 2);
 const newsVariant = buildFiloTrendQueries([{
   title: 'شکیرا',
   keywords: ['شکیرا'],
-  newsItems: [{ title: 'اجرای تازه شکیرا در کنسرت مادرید' }]
+  newsItems: [
+    { title: 'اجرای تازه شکیرا در کنسرت مادرید' },
+    { title: 'انتخابات میان‌دوره آمریکا و بیتکوین' }
+  ]
 }], { maxTopics: 1, maxQueriesPerTopic: 3 });
 assert.equal(newsVariant.length, 2, 'related Google Trends news headlines should become extra search variants');
 assert.equal(newsVariant[1].query, 'اجرای تازه شکیرا در کنسرت مادرید');
