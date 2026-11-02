@@ -97,7 +97,7 @@ function asBoolean(value) {
 function normalizeFiloSearchItem(item, topicSearch = {}) {
   if (!item || typeof item !== 'object') return null;
   const videoCode = String(
-    item.video_code || item.videoCode || item.code || item.v || item.id || item.i || ''
+    item.video_code || item.videoCode || item.code || item.v || ''
   ).trim();
   const title = String(item.title || item.t || item.name || '').replace(/\s+/g, ' ').trim();
   if (!/^[A-Za-z0-9_-]{5,40}$/.test(videoCode) || title.length < 5) return null;
