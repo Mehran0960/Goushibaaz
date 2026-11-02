@@ -28,6 +28,13 @@ assert.equal(queries[0].query, 'نتیجه بازی تراکتور امروز');
 assert.equal(queries[1].query, 'نتیجه بازی تراکتور');
 assert.equal(queries[0].trendTitle, trends[0].title);
 assert.equal(buildFiloTrendQueries(trends, { maxTopics: 1 }).length, 2);
+const newsVariant = buildFiloTrendQueries([{
+  title: 'شکیرا',
+  keywords: ['شکیرا'],
+  newsItems: [{ title: 'اجرای تازه شکیرا در کنسرت مادرید' }]
+}], { maxTopics: 1, maxQueriesPerTopic: 3 });
+assert.equal(newsVariant.length, 2, 'related Google Trends news headlines should become extra search variants');
+assert.equal(newsVariant[1].query, 'اجرای تازه شکیرا در کنسرت مادرید');
 
 const calls = [];
 const pages = {
@@ -93,6 +100,22 @@ const pages = {
   assert.equal(capped.complete, false);
   assert.equal(capped.termination, 'max_pages_reached');
   assert.equal(capped.pagesFetched, 2);
+
+  const resumedCalls = [];
+  const resumed = await searchFiloGlobalTopic('resume', async params => {
+    resumedCalls.push(params.page);
+    return {
+      items: Array.from({ length: 20 }, (_, i) => ({
+        code: 'resume' + params.page + 'item' + i,
+        title: 'عنوان ویدئو'
+      })),
+      has_more_load: 1
+    };
+  }, { startPage: 3, maxPages: 2, pageSize: 20 });
+  assert.equal(resumed.startPage, 3);
+  assert.equal(resumed.nextPage, 5);
+  assert.deepEqual(resumedCalls, [3, 4]);
+  assert.equal(resumed.complete, false);
 
   const bad = await searchFiloGlobalTopic('bad', async () => {
     throw new Error('network unavailable');

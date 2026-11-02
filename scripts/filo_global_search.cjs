@@ -28,8 +28,8 @@ function queryTokens(value) {
 }
 
 function buildFiloTrendQueries(trends, options = {}) {
-  const maxTopics = Math.max(1, Math.min(30, Math.floor(Number(options.maxTopics) || 10)));
-  const maxQueriesPerTopic = Math.max(1, Math.min(3, Math.floor(Number(options.maxQueriesPerTopic) || 2)));
+  const maxTopics = Math.max(1, Math.min(40, Math.floor(Number(options.maxTopics) || 10)));
+  const maxQueriesPerTopic = Math.max(1, Math.min(4, Math.floor(Number(options.maxQueriesPerTopic) || 3)));
   const topics = (Array.isArray(trends) ? trends : [])
     .filter(item => item && String(item.title || '').trim())
     .slice(0, maxTopics);
@@ -44,6 +44,10 @@ function buildFiloTrendQueries(trends, options = {}) {
       : queryTokens(title))].slice(0, 5).join(' ');
     if (simplified && normalizePersian(simplified) !== normalizePersian(title)) {
       candidates.push(simplified);
+    }
+    for (const newsItem of (Array.isArray(trend.newsItems) ? trend.newsItems : []).slice(0, 2)) {
+      const relatedTitle = String(newsItem && newsItem.title || '').replace(/\s+/g, ' ').trim();
+      if (queryTokens(relatedTitle).length >= 2) candidates.push(relatedTitle);
     }
 
     let added = 0;
@@ -135,14 +139,16 @@ async function searchFiloGlobalTopic(query, fetchPage, options = {}) {
   };
 
   const pageSize = Math.max(1, Math.min(100, Math.floor(Number(options.pageSize) || DEFAULT_PAGE_SIZE)));
-  const maxPages = Math.max(1, Math.min(200, Math.floor(Number(options.maxPages) || DEFAULT_MAX_PAGES)));
+  const maxPages = Math.max(1, Math.min(1000, Math.floor(Number(options.maxPages) || DEFAULT_MAX_PAGES)));
+  const startPage = Math.max(1, Math.floor(Number(options.startPage) || 1));
   const results = [];
   const seenCodes = new Set();
   const pages = [];
   let complete = false;
   let termination = 'max_pages_reached';
+  let nextPage = startPage;
 
-  for (let page = 1; page <= maxPages; page += 1) {
+  for (let page = startPage; page < startPage + maxPages; page += 1) {
     let payload;
     try {
       payload = await fetchPage({
@@ -154,12 +160,14 @@ async function searchFiloGlobalTopic(query, fetchPage, options = {}) {
       });
     } catch (error) {
       termination = 'request_failed';
+      nextPage = page;
       pages.push({ page, error: String(error && error.message || error).slice(0, 180) });
       break;
     }
 
     if (payload && Number(payload.status) >= 400) {
       termination = 'http_' + Number(payload.status);
+      nextPage = page;
       pages.push({ page, status: Number(payload.status), error: String(payload.error || 'http_error').slice(0, 180) });
       break;
     }
@@ -192,6 +200,7 @@ async function searchFiloGlobalTopic(query, fetchPage, options = {}) {
       rowCount: Number(root.row_count ?? root.rowCount) || null,
       hasMore
     });
+    nextPage = page + 1;
 
     if (items.length === 0) {
       complete = true;
@@ -219,6 +228,8 @@ async function searchFiloGlobalTopic(query, fetchPage, options = {}) {
     query: String(query),
     results,
     pagesFetched: pages.length,
+    startPage,
+    nextPage,
     complete,
     termination,
     totalUniqueVideos: results.length,

@@ -17,6 +17,9 @@ const fixture = [
   '<ht:news_item><ht:news_item_title>گزارش دیدار تراکتور</ht:news_item_title><ht:news_item_source>نمونه</ht:news_item_source></ht:news_item></item>',
   '<item><title>شکیرا</title><ht:approx_traffic>100K+</ht:approx_traffic><pubDate>Mon, 02 Nov 2026 16:00:00 GMT</pubDate></item>',
   '<item><title>وضعیت هوای تهران فردا</title><ht:approx_traffic>200K+</ht:approx_traffic><pubDate>Mon, 02 Nov 2026 17:00:00 GMT</pubDate></item>',
+  '<item><title>weather tomorrow</title><ht:approx_traffic>5K+</ht:approx_traffic><pubDate>Mon, 02 Nov 2026 17:10:00 GMT</pubDate></item>',
+  '<item><title>رمزارز</title><ht:approx_traffic>50K+</ht:approx_traffic><pubDate>Mon, 02 Nov 2026 17:20:00 GMT</pubDate></item>',
+  '<item><title>حمله آمریکا</title><ht:approx_traffic>20K+</ht:approx_traffic><pubDate>Mon, 02 Nov 2026 17:25:00 GMT</pubDate></item>',
   '<item><title>ترند قدیمی سرگرمی</title><ht:approx_traffic>1M+</ht:approx_traffic><pubDate>Fri, 30 Oct 2026 10:00:00 GMT</pubDate></item>',
   '</channel></rss>'
 ].join('\n');
