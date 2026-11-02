@@ -918,6 +918,179 @@ async function reconcilePreviouslySubmitted(page, state) {
   return { checked: candidates.length, newlyPublic: verified, changed: verified > 0 };
 }
 
+
+function cleanLegacyRepostTitle(value) {
+  return String(value || '')
+    .replace(/^ماجرای\s+بامزه(?:‌ی|ی)?\s*[«"“”]?\s*/u, '')
+    .replace(/[»"“”]\s*$/u, '')
+    .trim();
+}
+
+async function fetchOwnVideoForCaptionEdit(page, videoCode) {
+  const result = await page.evaluate(async ({ videoCode }) => {
+    const params = new URLSearchParams();
+    params.set('page', '1');
+    params.set('rowCount', '24');
+    params.set('vc', videoCode);
+    const response = await fetch('/api/v1/my/videos', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' },
+      body: params.toString()
+    });
+    return { status: response.status, body: await response.text() };
+  }, { videoCode });
+
+  if (!result || result.status !== 200) return null;
+  const body = parseJson(result.body);
+  const root = body && body.data && typeof body.data === 'object' ? body.data : body;
+  const items = root && Array.isArray(root.items) ? root.items : [];
+  return items.find(item => String(item.video_code || item.code || item.v || '') === videoCode) || null;
+}
+
+async function editOwnVideoTitle(page, item, videoCode, newTitle) {
+  const form = await page.evaluate(async ({ videoCode, id }) => {
+    const params = new URLSearchParams();
+    params.set('c', videoCode);
+    params.set('id', String(id));
+    const response = await fetch('/api/v1/video/edit', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' },
+      body: params.toString()
+    });
+    return { status: response.status, body: await response.text() };
+  }, { videoCode, id: item.id });
+
+  if (!form || form.status !== 200) return { ok: false, reason: 'edit_form_http_' + (form && form.status || 'no_response') };
+  const loaded = parseJson(form.body);
+  if (!loaded || !loaded.video) return { ok: false, reason: 'edit_form_invalid' };
+  if (loaded.isLockEdit === true || loaded.isLockEdit === 1 || loaded.isLockEdit === '1') {
+    return { ok: false, reason: 'filo_locked_video_edit' };
+  }
+  if (String(loaded.video.id) !== String(item.id)) {
+    return { ok: false, reason: 'edit_form_owner_id_mismatch' };
+  }
+  if (num(loaded.video.status_id) === 11) {
+    return { ok: false, reason: 'moderation_confirmation_required' };
+  }
+
+  const video = loaded.video;
+  const model = {
+    id: video.id,
+    title: newTitle,
+    description: String(video.description || ''),
+    playlist_id: video.playlist_id ?? 0,
+    category_id: video.category_id ?? 0,
+    status_id: video.status_id ?? '',
+    has_comment: !!video.has_comment,
+    allow_download: !!video.allow_download,
+    only_in_filo: Number(video.only_in_filo) || 0,
+    made_for_kids: !!video.made_for_kids,
+    over18: !!video.over18,
+    can_republish: !!video.can_republish,
+    made_by_me: !!video.made_by_me,
+    is_republish: !!loaded.isRepublish,
+    video_url: video.video_url || '',
+    cards: Array.isArray(video.cards) ? video.cards : [],
+    subtitle_file_name: video.subtitle_file_name || video.subtitleFileName || '',
+    jost_save_cards: false
+  };
+
+  const saved = await page.evaluate(async model => {
+    const response = await fetch('/api/v1/video/edit', {
+      method: 'PUT',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(model)
+    });
+    const text = await response.text();
+    let body = null;
+    try { body = text ? JSON.parse(text) : {}; } catch {}
+    return { status: response.status, body };
+  }, model);
+
+  if (!saved || saved.status !== 200 || !saved.body || !isFlag(saved.body.s)) {
+    return {
+      ok: false,
+      reason: String(saved && saved.body && saved.body.r || 'filo_edit_not_accepted').slice(0, 180),
+      httpStatus: saved && saved.status || null
+    };
+  }
+  return { ok: true, httpStatus: saved.status };
+}
+
+async function cleanupLegacyRepostCaptions(page, state) {
+  const targets = (state.posts || []).filter(post =>
+    post &&
+    post.status === 'public_verified' &&
+    post.newVideoCode &&
+    (post.captionCleanupPending ||
+      /^ماجرای\s+بامزه/i.test(String(post.repostTitle || '')))
+  );
+  const report = { checked: targets.length, updated: [], pending: [], skipped: [], errors: [] };
+
+  for (const post of targets) {
+    const code = String(post.newVideoCode);
+    const newTitle = cleanLegacyRepostTitle(post.repostTitle);
+    if (!newTitle || normalizeComparable(newTitle) === normalizeComparable(post.repostTitle)) {
+      if (post.captionCleanupPending) {
+        const verified = await verifyPublicVideo(page, code, post.repostTitle).catch(() => null);
+        if (verified) {
+          post.captionCleanupPending = false;
+          post.captionCleanupAt = new Date().toISOString();
+          report.updated.push({ code, title: post.repostTitle, verified: true, previouslyAccepted: true });
+        } else {
+          report.pending.push({ code, title: post.repostTitle, reason: 'public_title_not_yet_verified' });
+        }
+      } else {
+        report.skipped.push({ code, reason: 'no_legacy_lead_found' });
+      }
+      continue;
+    }
+
+    try {
+      const ownVideo = await fetchOwnVideoForCaptionEdit(page, code);
+      if (!ownVideo) {
+        report.skipped.push({ code, reason: 'not_found_in_own_video_list' });
+        continue;
+      }
+      if (String(ownVideo.video_code || ownVideo.code || ownVideo.v || '') !== code) {
+        report.skipped.push({ code, reason: 'own_video_code_mismatch' });
+        continue;
+      }
+      if (!(ownVideo.canEdit === 1 || ownVideo.canEdit === true || ownVideo.canEdit === '1')) {
+        report.skipped.push({ code, reason: 'filo_can_edit_not_granted' });
+        continue;
+      }
+
+      const edit = await editOwnVideoTitle(page, ownVideo, code, newTitle);
+      if (!edit.ok) {
+        report.skipped.push({ code, reason: edit.reason });
+        continue;
+      }
+
+      post.repostTitle = newTitle;
+      post.captionCleanupPending = true;
+      post.captionCleanupRequestedAt = new Date().toISOString();
+      const publicUrl = await verifyPublicVideo(page, code, newTitle).catch(() => null);
+      if (publicUrl) {
+        post.captionCleanupPending = false;
+        post.captionCleanupAt = new Date().toISOString();
+        report.updated.push({ code, title: newTitle, publicUrl, verified: true });
+      } else {
+        report.pending.push({ code, title: newTitle, reason: 'edit_accepted_public_verification_pending' });
+      }
+      state.updatedAt = new Date().toISOString();
+      fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
+    } catch (error) {
+      report.errors.push({ code, error: String(error && error.message || error).slice(0, 200) });
+    }
+  }
+
+  return report;
+}
+
 async function main() {
   fs.mkdirSync(path.dirname(REPORT_PATH), { recursive: true });
   fs.mkdirSync(path.dirname(STATE_PATH), { recursive: true });
@@ -983,6 +1156,7 @@ async function main() {
     if (report.reconciliation.changed) {
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
     }
+    report.captionCleanup = await cleanupLegacyRepostCaptions(page, state);
     const trendWeights = {};
     try {
       const trend = JSON.parse(fs.readFileSync(path.join('state', 'platform-trends.json'), 'utf8'));
@@ -1175,6 +1349,7 @@ async function main() {
       errors: report.discovery.errors.slice(0, 8),
       googleTrends: report.googleTrends,
       globalTrendSearch: report.discovery.globalTrendSearch,
+      captionCleanup: report.captionCleanup,
       error: report.error
     }));
   }
@@ -1193,6 +1368,7 @@ module.exports = {
   ageHours,
   feedCandidateEligible,
   searchCandidateEligible,
+  cleanLegacyRepostTitle,
   scoreFeedCandidate,
   createRepostMetadata,
   normalizeComparable,
