@@ -16,8 +16,7 @@ const PAGES_PER_CATEGORY = 3;
 const MAX_DETAIL_CHECKS = 30;
 const MIN_DURATION_SECONDS = 10;
 const MAX_DURATION_SECONDS = 180;
-const MIN_PUBLISH_GAP_MS = 5 * 60 * 1000;
-const MAX_DAILY_PUBLICATIONS = 288;
+const MAX_PUBLICATIONS_PER_24H = 288;
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -348,45 +347,14 @@ function loadState() {
 }
 
 function dailyCount(state, now = Date.now()) {
-  const utcDay = new Date(now).toISOString().slice(0, 10);
-  return state.posts.filter(post =>
-    post && post.submittedAt && post.submittedAt.slice(0, 10) === utcDay &&
-    ['submitted_pending_approval', 'submitted_unconfirmed', 'public_verified'].includes(post.status)
-  ).length;
-}
-
-function lastSubmissionTime(state) {
-  const times = state.posts
-    .filter(post => post && post.submittedAt &&
-      ['submitted_pending_approval', 'submitted_unconfirmed', 'public_verified'].includes(post.status))
-    .map(post => Date.parse(post.submittedAt))
-    .filter(Number.isFinite);
-  return times.length ? Math.max(...times) : 0;
-}
-
-function millisecondsUntilNextPublication(state, now = Date.now()) {
-  const last = lastSubmissionTime(state);
-  return last ? Math.max(0, last + MIN_PUBLISH_GAP_MS - now) : 0;
-}
-
-async function waitForPublicationGap(state, report = {}, options = {}) {
-  const now = typeof options.now === 'function' ? options.now : () => Date.now();
-  const sleepFn = typeof options.sleep === 'function' ? options.sleep : sleep;
-  const startedAt = now();
-  let waitMs = millisecondsUntilNextPublication(state, startedAt);
-  const initialWaitMs = waitMs;
-
-  while (waitMs > 0) {
-    report.status = 'waiting_for_minimum_publication_gap';
-    report.waitMilliseconds = initialWaitMs;
-    report.nextEligibleAt = new Date(now() + waitMs).toISOString();
-    await sleepFn(waitMs + 750);
-    waitMs = millisecondsUntilNextPublication(state, now());
-  }
-
-  report.waitCompletedAt = new Date(now()).toISOString();
-  report.minimumGapWaitedMs = Math.max(0, now() - startedAt);
-  return initialWaitMs;
+  const windowStart = now - 24 * 60 * 60 * 1000;
+  return state.posts.filter(post => {
+    const submittedAt = Date.parse(post && post.submittedAt || '');
+    return Number.isFinite(submittedAt) &&
+      submittedAt >= windowStart &&
+      submittedAt <= now &&
+      ['submitted_pending_approval', 'submitted_unconfirmed', 'public_verified'].includes(post.status);
+  }).length;
 }
 
 function parseApiBody(raw) {
@@ -768,9 +736,8 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
   await cropButton.click();
   await page.waitForTimeout(500);
 
-  // Finish all discovery, rights checks, video loading and cover selection before
-  // waiting for the next allowed publication slot. This keeps the five-minute
-  // interval from wasting time before work that can run during the cooldown.
+  // Refresh native repost permission immediately before submission. The scheduler
+  // and Filo's own upload-limit response determine the next eligible opportunity.
   if (typeof beforeSubmit === 'function') await beforeSubmit();
 
   let publishPayload = null;
@@ -1137,7 +1104,7 @@ async function main() {
   let browser;
 
   try {
-    if (dailyCount(state) >= MAX_DAILY_PUBLICATIONS) {
+    if (dailyCount(state) >= MAX_PUBLICATIONS_PER_24H) {
       report.status = 'daily_publication_cap_reached';
       report.dailyCount = dailyCount(state);
       return;
@@ -1299,7 +1266,6 @@ async function main() {
     };
 
     const result = await prepareAndPublish(page, selected, selected.detail, report, async () => {
-      await waitForPublicationGap(state, report);
       const latestDetail = await getRepublishDetail(page, selected.video_code).catch(() => null);
       const latestGate = latestDetail
         ? detailGate(latestDetail.root, latestDetail.video)
@@ -1379,8 +1345,5 @@ module.exports = {
   createRepostMetadata,
   normalizeComparable,
   detailGate,
-  dailyCount,
-  lastSubmissionTime,
-  millisecondsUntilNextPublication,
-  waitForPublicationGap
+  dailyCount
 };

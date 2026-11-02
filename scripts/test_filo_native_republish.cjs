@@ -10,10 +10,7 @@ const {
   createRepostMetadata,
   normalizeComparable,
   detailGate,
-  dailyCount,
-  lastSubmissionTime,
-  millisecondsUntilNextPublication,
-  waitForPublicationGap
+  dailyCount
 } = require('./filo_native_republish.cjs');
 
 const valid = {
@@ -108,28 +105,9 @@ const state = {
   ]
 };
 assert.equal(dailyCount(state, Date.parse('2026-11-02T12:00:00.000Z')), 2);
-assert.equal(lastSubmissionTime(state), Date.parse('2026-11-02T00:10:00.000Z'));
-assert.equal(millisecondsUntilNextPublication(state, Date.parse('2026-11-02T00:14:59.000Z')), 1000);
-assert.equal(millisecondsUntilNextPublication(state, Date.parse('2026-11-02T00:15:00.000Z')), 0);
-(async () => {
-  let fakeNow = Date.parse('2026-11-02T00:14:00.000Z');
-  const waitReport = {};
-  const waitCalls = [];
-  await waitForPublicationGap(state, waitReport, {
-    now: () => fakeNow,
-    sleep: async ms => {
-      waitCalls.push(ms);
-      fakeNow += ms;
-    }
-  });
-  assert.equal(waitCalls.length, 1);
-  assert.equal(waitCalls[0], 60750);
-  assert.equal(millisecondsUntilNextPublication(state, fakeNow), 0);
-  assert.equal(waitReport.status, 'waiting_for_minimum_publication_gap');
-  assert.equal(waitReport.minimumGapWaitedMs, 60750);
+assert.equal(dailyCount(state, Date.parse('2026-11-03T00:05:00.000Z')), 1,
+  'the 24-hour window must include recent submissions across UTC midnight');
+assert.equal(dailyCount(state, Date.parse('2026-11-03T00:10:00.000Z')), 1,
+  'a submission exactly 24 hours old remains inside the rolling window');
 
-  console.log('FILO_NATIVE_REPUBLISH_TESTS_PASSED');
-})().catch(error => {
-  console.error(error);
-  process.exitCode = 1;
-});
+console.log('FILO_NATIVE_REPUBLISH_TESTS_PASSED');
