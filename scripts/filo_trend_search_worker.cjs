@@ -192,7 +192,7 @@ function selectQueriesForRun(state, now = Date.now()) {
     }
   }
   return Object.values(state.queries)
-    .filter(query => query && !query.complete)
+    .filter(query => query && !query.complete && query.activeInLatestFeed !== false)
     .filter(query => {
       const lastAttempt = Date.parse(query.lastAttemptAt || '');
       return !Number.isFinite(lastAttempt) || now - lastAttempt >= QUERY_RETRY_COOLDOWN_MS;
@@ -297,9 +297,14 @@ async function main() {
         publishedAt: item.publishedAt,
         ageHours: item.ageHours
       }));
+      refreshQueryDefinitions(state, trends);
+    } else {
+      // A temporary Trends RSS outage must not erase the last valid active-topic set.
+      for (const query of Object.values(state.queries)) {
+        if (query && query.activeInLatestFeed === undefined) query.activeInLatestFeed = true;
+      }
     }
 
-    refreshQueryDefinitions(state, trends);
     const selected = selectQueriesForRun(state);
     report.search.queriesSelected = selected.length;
     if (!selected.length) {
