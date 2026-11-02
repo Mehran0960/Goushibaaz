@@ -451,7 +451,7 @@ async function inspectForm(page) {
       }
       const codeSet = new Set(candidateItems.map(item => item.video_code).filter(Boolean));
       for (const item of firstPageVideoLinks) {
-        const match = String(item.path || '').match(/^\\/v\\/([A-Za-z0-9_-]+)$/);
+        const match = String(item.path || '').match(/^\/v\/([A-Za-z0-9_-]+)$/);
         if (match) codeSet.add(match[1]);
       }
       const candidateCodes = [...codeSet].slice(0, 18);
