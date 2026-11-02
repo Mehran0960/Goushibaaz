@@ -7,7 +7,7 @@ const STOP_WORDS = new Set([
   'هست','بود','بودن','می','های','ها','ترین','the','and','for','with','from','into',
   'what','when','where','why','how','who','new','today','tomorrow','yesterday'
 ]);
-const IRRELEVANT_TOPIC = /(?:آب.?و.?هوا|وضعیت هوا|پیش.?بینی هوا|دمای هوا|قیمت دلار|قیمت یورو|نرخ ارز|قیمت طلا|قیمت سکه|قیمت بیت.?کوین|قیمت دوج.?کوین|قیمت اتریوم|بورس|شاخص بورس|انتخابات|سیاست|سیاسی|جنگ|حمله نظامی|زلزله|سیل|آتش.?سوزی|اخبار فوری|breaking news|weather\b|forecast|stock market|exchange rate|election|politic|war|earthquake|flood)/i;
+const IRRELEVANT_TOPIC = /(?:آب.?و.?هوا|وضعیت هوا|پیش.?بینی هوا|دمای هوا|هواشناسی|قیمت دلار|قیمت یورو|نرخ ارز|قیمت طلا|قیمت سکه|قیمت بیت.?کوین|قیمت دوج.?کوین|قیمت اتریوم|رمزارز|ارز دیجیتال|بورس|شاخص بورس|دینار|انتخابات|سیاست|سیاسی|جنگ|حمله(?:\s+\S+)?|موشک|درگیری نظامی|زلزله|سیل|آتش.?سوزی|اخبار فوری|breaking news|weather\b|forecast|stock market|exchange rate|election|politic|war|earthquake|flood)/i;
 
 function decodeXml(value) {
   return String(value || '')
