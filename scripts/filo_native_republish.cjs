@@ -85,12 +85,13 @@ function categoryBase(categoryId) {
   return map[String(categoryId)] || 8;
 }
 
-const EXCLUDED = /(?:اخبار|خبر فوری|تحلیل سیاسی|سیاست|سیاسی|انتخابات|جنگ|حمله نظامی|موشک|انفجار|تروریست|ترور|اعدام|شلیک|سلاح|خشونت|مداحی|تبلیغات|کازینو|شرط.?بندی|قمار|محتوای بزرگسال|پورنو|قتل|خودکشی|خودآزاری|صحنه دلخراش|تصادف مرگبار|حیوان.?آزاری|رقص|حرکات موزون|تک.?خوانی.{0,8}زن|خوانندگی.{0,8}زن|فحاشی|الفاظ رکیک|افترا|تهمت|توهین|ناسزا|بددهنی|تحقیر|تمسخر|دوربین.?مداربسته|فیلم.?برداری.?مخفی|افشای اطلاعات|کد ملی|خبر جعلی|اطلاعات نادرست|فیلم سینمایی|فیلم ایرانی|سریال|مجموعه تلویزیونی|محصول نمایش خانگی|شبکه نمایش خانگی|صدا.?و.?سیما|فیلیمو|نماوا|فیلم.?نت|تلوبیون|مواد مخدر|مشروبات الکلی|برهنگی|محتوای جنسی)/i;
+const EXCLUDED = /(?:اخبار|خبر فوری|تحلیل سیاسی|سیاست|سیاسی|انتخابات|جنگ|حمله نظامی|موشک|انفجار|تروریست|ترور|اعدام|شلیک|سلاح|خشونت|مداحی|تبلیغات|کازینو|شرط.?بندی|قمار|محتوای بزرگسال|پورنو|قتل|خودکشی|خودآزاری|صحنه دلخراش|تصادف مرگبار|حیوان.?آزاری|رقص|حرکات موزون|تک.?خوانی.{0,8}زن|خوانندگی.{0,8}زن|فحاشی|الفاظ رکیک|افترا|تهمت|توهین|ناسزا|بددهنی|تحقیر|تمسخر|دوربین.?مداربسته|فیلم.?برداری.?مخفی|افشای اطلاعات|کد ملی|خبر جعلی|اطلاعات نادرست|فیلم سینمایی|فیلم ایرانی|سریال|مجموعه تلویزیونی|محصول نمایش خانگی|شبکه نمایش خانگی|صدا.?و.?سیما|فیلیمو|نماوا|فیلم.?نت|تلوبیون|آی.?آر.?مووی|IR.?Movie|مواد مخدر|مشروبات الکلی|برهنگی|محتوای جنسی)/i;
 const POLICY_TEXT_RISKS = [
  {reason:'insult_or_defamation',pattern:/(?:توهین|توهین\s*آمیز|فحاشی|الفاظ\s*رکیک|ناسزا|بددهنی|افترا|تهمت|تحقیر|تمسخر)/i},
  {reason:'privacy_exposure',pattern:/(?:دوربین\s*مداربسته|\bCCTV\b|افشای\s*(?:اطلاعات|آدرس|شماره)|کد\s*ملی|شماره\s*(?:موبایل|تلفن)|آدرس\s*منزل|بدون\s*رضایت|فیلم.?برداری\s*مخفی)/i},
  {reason:'group_harassment',pattern:/(?:(?:تمسخر|توهین|تحقیر|نفرت.?پراکنی|نژاد.?پرستی|قوم.?ستیزی).{0,30}(?:قوم|نژاد|دین|مذهب|جنسیت|اقلیت)|(?:قوم|نژاد|دین|مذهب|جنسیت|اقلیت).{0,30}(?:تمسخر|توهین|تحقیر|نفرت.?پراکنی|نژاد.?پرستی|قوم.?ستیزی))/i},
- {reason:'copyrighted_film_or_series',pattern:/(?:فیلم\s*(?:سینمایی|ایرانی)|سریال(?:\s*تلویزیونی)?|مجموعه\s*تلویزیونی|سکانس\s*(?:از\s*)?(?:فیلم|سریال)|قسمت\s*کامل|محصول\s*نمایش\s*خانگی|شبکه\s*نمایش\s*خانگی|فیلیمو|نماوا|فیلم\s*نت|تلوبیون|صدا\s*و\s*سیما|صداوسیما)/i},
+ {reason:'copyrighted_film_or_series',pattern:/(?:فیلم\s*(?:سینمایی|ایرانی|فرار\s*از\s*زندان)|سریال(?:\s*تلویزیونی)?|مجموعه\s*تلویزیونی|سکانس\s*(?:از\s*)?(?:فیلم|سریال)|قسمت\s*کامل|محصول\s*نمایش\s*خانگی|شبکه\s*نمایش\s*خانگی|فیلیمو|نماوا|فیلم\s*نت|تلوبیون|صدا\s*و\s*سیما|صداوسیما|فرار\s*از\s*زندان|prison\s*break)/i},
+ {reason:'external_video_service_advertising',pattern:/(?:آی[\s‌-]*آر[\s‌-]*مووی|ir[\s-]?movie|دانلود\s+(?:و\s+)?تماشای\s+رایگان|فیلم.{0,40}سریال.{0,30}درخواستی|سریال.{0,30}فیلم.{0,30}درخواستی|درخواست\s+(?:فیلم|سریال)|ویدیو(?:ها)?\s+درخواستی|رسانه\s+.{0,50}(?:فیلم|ویدیو)|سایت\s+.{0,50}(?:فیلم|سریال))/i},
  {reason:'prohibited_dance_or_solo_singing',pattern:/(?:رقص|حرکات\s*موزون|تک.?خوانی.{0,10}زن|خوانندگی.{0,10}زن)/i},
  {reason:'misleading_or_false_information',pattern:/(?:شایعه|خبر\s*جعلی|اطلاعات\s*نادرست|خبر\s*دروغ|اطلاعات\s*غیرواقعی)/i},
  {reason:'adult_or_sexual_content',pattern:/(?:محتوای\s*جنسی|پورنوگرافی|برهنگی|برهنه|جفت.?گیری\s*حیوانات)/i},
@@ -1156,7 +1157,14 @@ async function cleanupLegacyRepostCaptions(page, state) {
    const sourceDetail=await getRepublishDetail(page,String(post.sourceCode)).catch(()=>null);
    if(!sourceDetail||!sourceDetail.video){report.skipped.push({code,reason:'original_source_metadata_unavailable'});markAttempt();continue;}
    const sourceGate=detailGate(sourceDetail.root,sourceDetail.video);
-   if(!sourceGate.eligible){report.skipped.push({code,reason:'original_source_no_longer_eligible',detail:sourceGate.reason});markAttempt();continue;}
+   if(!sourceGate.eligible){
+    post.monetizationReviewRequired=true;
+    post.monetizationReviewReason='original_source_no_longer_eligible:'+sourceGate.reason;
+    post.monetizationReviewAt=new Date().toISOString();
+    report.skipped.push({code,reason:'original_source_no_longer_eligible',detail:sourceGate.reason,manualReviewRequired:true});
+    report.manualReview=(report.manualReview||[]).concat([{code,reason:post.monetizationReviewReason}]);
+    markAttempt();continue;
+   }
    const metadata=createRepostMetadata(sourceDetail.video,String(post.sourceCode));
    const newTitle=metadata.title,newDescription=metadata.description;
    const ownVideo=await fetchOwnVideoForCaptionEdit(page,code);
@@ -1167,7 +1175,7 @@ async function cleanupLegacyRepostCaptions(page, state) {
    if(normalizeComparable(currentTitle)===normalizeComparable(newTitle)&&normalizeComparable(currentDescription)===normalizeComparable(newDescription)){
     const publicUrl=await verifyPublicVideo(page,code,newTitle).catch(()=>null);
     if(publicUrl){
-     post.repostTitle=newTitle;post.repostDescription=newDescription;post.captionCleanupPending=false;post.captionPolicyVersion=3;post.captionCleanupAt=new Date().toISOString();
+     post.repostTitle=newTitle;post.repostDescription=newDescription;post.captionCleanupPending=false;post.captionPolicyVersion=3;post.monetizationReviewRequired=false;delete post.monetizationReviewReason;delete post.monetizationReviewAt;post.captionCleanupAt=new Date().toISOString();
      markAttempt();report.updated.push({code,title:newTitle,descriptionUpdated:true,publicUrl,verified:true,unchanged:true});
     }else{report.pending.push({code,title:newTitle,reason:'public_title_not_yet_verified'});markAttempt();}
     continue;
@@ -1182,7 +1190,15 @@ async function cleanupLegacyRepostCaptions(page, state) {
    if(publicUrl){post.captionCleanupPending=false;post.captionCleanupAt=new Date().toISOString();report.updated.push({code,title:newTitle,descriptionUpdated:true,publicUrl,verified:true});}
    else report.pending.push({code,title:newTitle,reason:ownMetadataVerified?'public_title_not_yet_verified':'edited_metadata_not_yet_verified'});
    markAttempt();
-  }catch(error){report.errors.push({code,error:String(error&&error.message||error).slice(0,200)});markAttempt();}
+  }catch(error){
+    const reason=String(error&&error.message||error).slice(0,200);
+    post.monetizationReviewRequired=true;
+    post.monetizationReviewReason='metadata_migration_requires_review:'+reason;
+    post.monetizationReviewAt=new Date().toISOString();
+    report.errors.push({code,error:reason,manualReviewRequired:true});
+    report.manualReview=(report.manualReview||[]).concat([{code,reason:post.monetizationReviewReason}]);
+    markAttempt();
+   }
  }
  return report;
 }
