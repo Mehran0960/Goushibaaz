@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { chromium } = require('playwright');
 const { fetchIranGoogleTrends, scoreGoogleTrendRelevance } = require('./google_trends_iran.cjs');
-const { buildFiloTrendQueries, searchFiloGlobalTopic, mapWithConcurrency, queryTokens } = require('./filo_global_search.cjs');
+const { queryTokens, normalizePersian } = require('./filo_global_search.cjs');
 const os = require('node:os');
 const { spawnSync } = require('node:child_process');
 
@@ -148,6 +148,55 @@ function globalSearchRelevanceBonus(item) {
   return { ...best, bonus: Math.round(best.bonus * 10) / 10 };
 }
 
+
+function loadGlobalSearchCache(currentTrends = [], now = Date.now()) {
+  const file = path.join('state', 'filo-global-search-candidates.json');
+  try {
+    const saved = JSON.parse(fs.readFileSync(file, 'utf8'));
+    const updatedAtMs = Date.parse(saved.updatedAt || '');
+    const ageMs = Number.isFinite(updatedAtMs) ? Math.max(0, now - updatedAtMs) : Infinity;
+    if (ageMs > 36 * 60 * 60 * 1000) {
+      return { status: 'stale', items: [], updatedAt: saved.updatedAt || null, ageMinutes: null };
+    }
+    const activeTitles = new Set((Array.isArray(currentTrends) ? currentTrends : [])
+      .map(item => normalizeComparable(item && item.title))
+      .filter(Boolean));
+    const items = Object.values(saved.items || {}).filter(item => {
+      const matches = Array.isArray(item && item.globalTrendSearchMatches)
+        ? item.globalTrendSearchMatches : [];
+      return matches.some(match => activeTitles.has(normalizeComparable(match && match.trendTitle)));
+    });
+    const queryValues = Object.values(saved.queries || {});
+    const completedQueries = queryValues.filter(query => query && query.complete).length;
+    const pagesFetched = queryValues.reduce((sum, query) => sum + Math.max(0, num(query && query.pagesFetched)), 0);
+    return {
+      status: queryValues.length && completedQueries === queryValues.length ? 'cached_complete' : 'cached_in_progress',
+      items,
+      updatedAt: saved.updatedAt || null,
+      ageMinutes: Math.round(ageMs / 60000),
+      topicsAvailable: Array.isArray(saved.trends) ? saved.trends.length : 0,
+      queriesRequested: queryValues.length,
+      queriesCompleted: completedQueries,
+      pagesFetched,
+      totalVideosRetained: Object.keys(saved.items || {}).length,
+      complete: queryValues.length > 0 && completedQueries === queryValues.length
+    };
+  } catch {
+    return {
+      status: 'awaiting_search_worker',
+      items: [],
+      updatedAt: null,
+      ageMinutes: null,
+      topicsAvailable: 0,
+      queriesRequested: 0,
+      queriesCompleted: 0,
+      pagesFetched: 0,
+      totalVideosRetained: 0,
+      complete: false
+    };
+  }
+}
+
 async function fetchFiloGlobalSearchPage(page, params) {
   const result = await page.evaluate(async ({ query, pageNo, windowWidth }) => {
     const response = await fetch('/api/v2/videos/search/' + encodeURIComponent(query), {
@@ -183,60 +232,6 @@ async function fetchFiloGlobalSearchPage(page, params) {
   return { status: result.status, body: result.body };
 }
 
-async function searchFiloTrendingTopics(page, trends) {
-  const queries = buildFiloTrendQueries(trends, {
-    maxTopics: 40,
-    maxQueriesPerTopic: 2
-  });
-  const searches = await mapWithConcurrency(queries, 4, async topicSearch => {
-    return searchFiloGlobalTopic(
-      topicSearch.query,
-      params => fetchFiloGlobalSearchPage(page, params),
-      {
-        maxPages: 60,
-        pageSize: 20,
-        windowWidth: 1365,
-        topicSearch
-      }
-    );
-  });
-
-  const byCode = new Map();
-  for (const search of searches) {
-    for (const item of search.results || []) {
-      const code = String(item.video_code || '');
-      if (!code) continue;
-      const previous = byCode.get(code);
-      const previousMatches = previous && Array.isArray(previous.globalTrendSearchMatches)
-        ? previous.globalTrendSearchMatches : [];
-      const currentMatch = item.globalTrendSearch || null;
-      const matches = [...previousMatches];
-      if (currentMatch && !matches.some(match =>
-        match.trendTitle === currentMatch.trendTitle && match.query === currentMatch.query
-      )) matches.push(currentMatch);
-
-      const merged = previous ? { ...item, ...previous } : { ...item };
-      merged.globalTrendSearchMatches = matches;
-      byCode.set(code, merged);
-    }
-  }
-
-  return {
-    queriesRequested: queries.length,
-    queriesCompleted: searches.filter(item => item.complete).length,
-    complete: searches.every(item => item.complete),
-    pagesFetched: searches.reduce((sum, item) => sum + item.pagesFetched, 0),
-    uniqueVideos: byCode.size,
-    results: [...byCode.values()],
-    queries: searches.map(item => ({
-      query: item.query,
-      pagesFetched: item.pagesFetched,
-      resultCount: item.totalUniqueVideos,
-      complete: item.complete,
-      termination: item.termination
-    }))
-  };
-}
 
 function scoreFeedCandidate(item, trendWeights = {}, googleTrends = []) {
   const text = sourceText(item);
@@ -1181,40 +1176,20 @@ async function main() {
       }
     } catch {}
 
+    const globalSearchCache = loadGlobalSearchCache(googleTrends);
+    const globalSearchCandidates = globalSearchCache.items;
     report.discovery.globalTrendSearch = {
-      status: googleTrends.length ? 'searching' : 'skipped_no_google_trends',
+      status: globalSearchCache.status,
       topicsAvailable: googleTrends.length,
-      queriesRequested: 0,
-      queriesCompleted: 0,
-      pagesFetched: 0,
-      uniqueVideos: 0,
-      complete: googleTrends.length === 0,
-      queries: []
+      queriesRequested: globalSearchCache.queriesRequested,
+      queriesCompleted: globalSearchCache.queriesCompleted,
+      pagesFetched: globalSearchCache.pagesFetched,
+      uniqueVideos: globalSearchCache.totalVideosRetained,
+      currentTrendMatches: globalSearchCandidates.length,
+      complete: globalSearchCache.complete,
+      cacheUpdatedAt: globalSearchCache.updatedAt,
+      cacheAgeMinutes: globalSearchCache.ageMinutes
     };
-    let globalSearchCandidates = [];
-    if (googleTrends.length) {
-      try {
-        const globalSearch = await searchFiloTrendingTopics(page, googleTrends);
-        globalSearchCandidates = globalSearch.results;
-        report.discovery.globalTrendSearch = {
-          status: globalSearch.complete ? 'complete' : 'partial',
-          topicsAvailable: googleTrends.length,
-          queriesRequested: globalSearch.queriesRequested,
-          queriesCompleted: globalSearch.queriesCompleted,
-          pagesFetched: globalSearch.pagesFetched,
-          uniqueVideos: globalSearch.uniqueVideos,
-          complete: globalSearch.complete,
-          queries: globalSearch.queries
-        };
-      } catch (error) {
-        report.discovery.globalTrendSearch = {
-          status: 'failed_non_blocking',
-          topicsAvailable: googleTrends.length,
-          complete: false,
-          error: String(error && error.message || error).slice(0, 240)
-        };
-      }
-    }
 
     const byCode = new Map();
     for (const categoryId of CATEGORY_IDS) {
@@ -1376,6 +1351,9 @@ if (require.main === module) {
 }
 
 module.exports = {
+  login,
+  fetchFiloGlobalSearchPage,
+  loadGlobalSearchCache,
   ageHours,
   feedCandidateEligible,
   searchCandidateEligible,
