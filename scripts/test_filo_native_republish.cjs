@@ -5,6 +5,7 @@ const {
   ageHours,
   feedCandidateEligible,
   searchCandidateEligible,
+  cleanLegacyRepostTitle,
   scoreFeedCandidate,
   createRepostMetadata,
   normalizeComparable,
@@ -59,6 +60,8 @@ assert.equal(
   normalizeComparable('كلیپ خنده دار'),
   normalizeComparable('کلیپ خنده دار')
 );
+assert.equal(cleanLegacyRepostTitle('ماجرای بامزه‌ی «دستشویی رفتن آقایون»'), 'دستشویی رفتن آقایون');
+assert.equal(cleanLegacyRepostTitle('عنوان بدون پیشوند'), 'عنوان بدون پیشوند');
 
 const rewritten = createRepostMetadata({ ...valid, title: 'طنز خنده دار وقتی مامانت مولودی گرفته و تو تو اتاق تنها موندی', description: 'توضیحات اصلی با متن بلند و تکراری' }, 'AbC1234');
 assert.notEqual(normalizeComparable(rewritten.title), normalizeComparable('طنز خنده دار وقتی مامانت مولودی گرفته و تو تو اتاق تنها موندی'));
