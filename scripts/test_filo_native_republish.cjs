@@ -67,6 +67,11 @@ assert.doesNotMatch(rewritten.description, /https?:\/\//i);
 const high = scoreFeedCandidate(valid);
 const low = scoreFeedCandidate({ ...valid, visit_count: 0, play_count: 0, share_count: 0, create_date: 'دیروز' });
 assert.ok(high.score > low.score);
+const trendBoosted = scoreFeedCandidate(valid, {}, [{
+  title: 'مسابقه فوتبال', keywords: ['مسابقه', 'فوتبال'], traffic: 500000, ageHours: 0
+}]);
+assert.ok(trendBoosted.googleTrend.score > 0);
+assert.ok(trendBoosted.score > high.score, 'a fresh, matching Iran trend should increase candidate relevance');
 
 assert.deepEqual(detailGate({ is_republish: 1, stop_upload: 0 }, {
   can_republish: 1, active: 1, status_id: 1, file_deleted: 0,
