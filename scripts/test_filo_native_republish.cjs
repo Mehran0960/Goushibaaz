@@ -211,6 +211,8 @@ async function testPortraitCoverComposition() {
     assert.deepEqual(composed.sourceDimensions, { width: 300, height: 600 });
     assert.deepEqual(composed.dimensions, { width: 1280, height: 720 });
     assert.equal(composed.strategy, 'blurred_background_full_frame_contain_v1');
+    assert.equal(composed.dataUrl.startsWith('data:image/png;base64,'), true,
+      'the composed cover must retain Filo native PNG data URL format');
 
     const preserved = await page.evaluate(async dataUrl => {
       const image = new Image();
