@@ -350,6 +350,12 @@ function cleanRepostCaptionTitle(sourceTitle) {
     .replace(/\s+/g, ' ')
     .trim();
 
+  if (normalizeComparable(title) === normalizeComparable(original)) {
+    title = title
+      .replace(/(?:عجیب\s+و\s+توهین\s+آمیز|توهین\s+آمیز|عجیب|باورنکردنی|دیدنی|تماشایی|جالب|فوق\s+العاده|عالی|خنده.?دار|بامزه)/giu, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
   // A faithful, already-clean source title is preferable to a truncated or invented alternative.
   title = trimAtWord(title, 176);
   if (title.length < 8) {
@@ -1894,7 +1900,7 @@ async function main() {
       state.posts = state.posts.slice(-1200);
       state.updatedAt = new Date().toISOString();
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
-      } else if (result.status === 'rejected_by_filo') {
+    } else if (result.status === 'rejected_by_filo') {
       state.posts.push({
         sourceCode: selected.video_code,
         sourceTitle: report.selected.title,
