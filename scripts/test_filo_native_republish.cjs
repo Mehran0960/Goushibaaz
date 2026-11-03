@@ -127,7 +127,7 @@ const unicodePromo = cleanRepostDescription(
   'ویدئوی ماکارونی'
 );
 assert.match(unicodePromo, /سالاد ماکارونی/);
-assert.doesNotMatch(unicodePromo, /join\s+us|excited|click/i,
+assert.doesNotMatch(unicodePromo, /join\s*us|excited|click/i,
   'Unicode-styled English promotions must be normalized and stripped');
 const shortButUseful = cleanRepostDescription(
   'بچه و مامانش سالاد ماکارونی درست میکنن 😂🤣 𝗝𝗈𝗂𝗇︎𝗨𝗌 𝗘𝗑︎𝖼︎𝗂𝗍𝖾𝖽 𝗖𝗅︎𝗂𝖼𝗄',
