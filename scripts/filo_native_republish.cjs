@@ -17,6 +17,7 @@ const MAX_DETAIL_CHECKS = 90;
 const MIN_DURATION_SECONDS = 10;
 const MAX_DURATION_SECONDS = 180;
 const MAX_PUBLICATIONS_PER_24H = 288;
+const CAPTION_POLICY_VERSION = 4;
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -349,19 +350,9 @@ function cleanRepostCaptionTitle(sourceTitle) {
     .replace(/\s+/g, ' ')
     .trim();
 
-  if (normalizeComparable(title) === normalizeComparable(original)) {
-    title = title
-      .replace(/(?:عجیب\s+و\s+توهین\s+آمیز|توهین\s+آمیز|عجیب|باورنکردنی|دیدنی|تماشایی|جالب|فوق\s+العاده|عالی|خنده.?دار|بامزه)/giu, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
-  }
-  if (normalizeComparable(title) === normalizeComparable(original)) {
-    const words = title.split(' ').filter(Boolean);
-    while (words.length > 2 && normalizeComparable(words.join(' ')) === normalizeComparable(original)) words.pop();
-    title = words.join(' ').trim();
-  }
+  // A faithful, already-clean source title is preferable to a truncated or invented alternative.
   title = trimAtWord(title, 176);
-  if (title.length < 8 || normalizeComparable(title) === normalizeComparable(original)) {
+  if (title.length < 8) {
     throw new Error('no_clean_distinct_title_available_without_extra_words');
   }
   if (/(?:روایت\s+تصویری|ماجرای\s+بامزه|روایتی\s+از)/iu.test(title)) {
@@ -420,7 +411,7 @@ function createRepostMetadata(video, sourceCode) {
  const title=cleanRepostCaptionTitle(sourceTitle);
  const description=cleanRepostDescription(sourceDescription,sourceTitle,title);
  const titleN=normalizeComparable(title),sourceTitleN=normalizeComparable(sourceTitle),sourceDescN=normalizeComparable(sourceDescription);
- if(titleN===sourceTitleN||titleN===sourceDescN)throw new Error('repost_title_not_distinct_from_original_metadata');
+ if(titleN===sourceDescN)throw new Error('repost_title_matches_source_description');
  if(/(?:https?:\/\/|www\.)/i.test(description))throw new Error('repost_description_contains_unapproved_external_link');
  return {title,description,sourceTitle,sourceDescription,sourceCode};
 }
@@ -1176,13 +1167,14 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
     const sourceTitleComparable = normalizeComparable(repostMetadata.sourceTitle);
     const sourceDescriptionComparable = normalizeComparable(repostMetadata.sourceDescription);
     const titleDistinct = outgoingTitleComparable !== sourceTitleComparable && outgoingTitleComparable !== sourceDescriptionComparable;
+    const titleNotSourceDescription = outgoingTitleComparable !== sourceDescriptionComparable;
     const descriptionDistinct = outgoingDescriptionComparable !== sourceDescriptionComparable && outgoingDescriptionComparable !== sourceTitleComparable;
     const descriptionDoesNotRepeatTitle = !outgoingDescriptionComparable.includes(outgoingTitleComparable);
     const metadataRisk = policyTextRiskReason({ title: outgoingTitle, description: outgoingDescription });
     const hasExternalLink = /(?:https?:\/\/|www\.)/i.test(outgoingTitle + ' ' + outgoingDescription);
     const metadataOk = outgoingTitle.length >= 8 && outgoingTitle.length <= 180 &&
       outgoingDescription.length >= 50 && outgoingDescription.length <= 1100 &&
-      titleDistinct && descriptionDistinct && descriptionDoesNotRepeatTitle && !metadataRisk && !hasExternalLink;
+      titleNotSourceDescription && descriptionDistinct && descriptionDoesNotRepeatTitle && !metadataRisk && !hasExternalLink;
     const frameOk = selectedFrame.startsWith('data:image/') && selectedFrame.length > 1000;
     const guardFailures = buildNativePublishGuardFailures({
       sourceCode:code,republishFrom,videoCode,isMadeByMe,canRepublish,canMakeMoney,dontPublish,metadataOk
@@ -1195,6 +1187,7 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
       title: outgoingTitle.slice(0, 180),
       descriptionDistinct,
       titleDistinct,
+      titleNotSourceDescription,
       category: params.get('category') || '',
       selectedFramePresent: frameOk,
       coverStatus: !frameOk ? 'cover_omitted_optional'
@@ -1508,7 +1501,13 @@ async function editOwnVideoTitle(page, item, videoCode, newTitle, newDescription
 }
 
 async function cleanupLegacyRepostCaptions(page, state) {
- const targets=(state.posts||[]).filter(post=>post&&post.status==='public_verified'&&post.newVideoCode&&post.sourceCode&&(post.captionCleanupPending||post.captionPolicyVersion!==3)).slice(0,1);
+ const cooldownMs=12*60*60*1000;
+  const targets=(state.posts||[]).filter(post=>{
+   if(!post||post.status!=='public_verified'||!post.newVideoCode||!post.sourceCode||
+      !(post.captionCleanupPending||post.captionPolicyVersion!==CAPTION_POLICY_VERSION))return false;
+   const lastAttempt=Date.parse(post.captionCleanupLastAttemptAt||'');
+   return !Number.isFinite(lastAttempt)||Date.now()-lastAttempt>=cooldownMs;
+  }).slice(0,1);
  const report={checked:targets.length,updated:[],pending:[],skipped:[],errors:[]};
  for(const post of targets){
   const code=String(post.newVideoCode);
@@ -1538,7 +1537,7 @@ async function cleanupLegacyRepostCaptions(page, state) {
    if(normalizeComparable(currentTitle)===normalizeComparable(newTitle)&&normalizeComparable(currentDescription)===normalizeComparable(newDescription)){
     const publicUrl=await verifyPublicVideo(page,code,newTitle).catch(()=>null);
     if(publicUrl){
-     post.repostTitle=newTitle;post.repostDescription=newDescription;post.captionCleanupPending=false;post.captionPolicyVersion=3;post.monetizationReviewRequired=false;delete post.monetizationReviewReason;delete post.monetizationReviewAt;post.captionCleanupAt=new Date().toISOString();
+     post.repostTitle=newTitle;post.repostDescription=newDescription;post.captionCleanupPending=false;post.captionPolicyVersion=CAPTION_POLICY_VERSION;post.monetizationReviewRequired=false;delete post.monetizationReviewReason;delete post.monetizationReviewAt;post.captionCleanupAt=new Date().toISOString();
      markAttempt();report.updated.push({code,title:newTitle,descriptionUpdated:true,publicUrl,verified:true,unchanged:true});
     }else{report.pending.push({code,title:newTitle,reason:'public_title_not_yet_verified'});markAttempt();}
     continue;
@@ -1546,7 +1545,7 @@ async function cleanupLegacyRepostCaptions(page, state) {
    if(!(ownVideo.canEdit===1||ownVideo.canEdit===true||ownVideo.canEdit==='1')){report.skipped.push({code,reason:'filo_can_edit_not_granted'});markAttempt();continue;}
    const edit=await editOwnVideoTitle(page,ownVideo,code,newTitle,newDescription);
    if(!edit.ok){report.skipped.push({code,reason:edit.reason});markAttempt();continue;}
-   post.repostTitle=newTitle;post.repostDescription=newDescription;post.captionCleanupPending=true;post.captionPolicyVersion=3;post.captionCleanupRequestedAt=new Date().toISOString();
+   post.repostTitle=newTitle;post.repostDescription=newDescription;post.captionCleanupPending=true;post.captionPolicyVersion=CAPTION_POLICY_VERSION;post.captionCleanupRequestedAt=new Date().toISOString();
    const edited=await fetchOwnVideoForCaptionEdit(page,code).catch(()=>null);
    const ownMetadataVerified=Boolean(edited&&normalizeComparable(String(edited.title||edited.t||''))===normalizeComparable(newTitle)&&normalizeComparable(String(edited.description||edited.d||''))===normalizeComparable(newDescription));
    const publicUrl=ownMetadataVerified?await verifyPublicVideo(page,code,newTitle).catch(()=>null):null;
@@ -1626,7 +1625,10 @@ async function main() {
     if (report.reconciliation.changed) {
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
     }
-    report.captionCleanup = {status:'deferred_until_after_publication',checked:0,updated:[],pending:[],skipped:[]};
+    report.captionCleanup = await cleanupLegacyRepostCaptions(page, state).catch(error => ({
+       status:'maintenance_failed_non_blocking',checked:0,updated:[],pending:[],
+       errors:[String(error&&error.message||error).slice(0,180)]
+     }));
     const trendWeights = {};
     try {
       const trend = JSON.parse(fs.readFileSync(path.join('state', 'platform-trends.json'), 'utf8'));
@@ -1860,16 +1862,18 @@ async function main() {
       return;
     }
 
-    report.selected = {
+    const selectedMetadata = createRepostMetadata(selected.detail.video, selected.video_code);
+     report.selected = {
       sourceCode: selected.video_code,
       title: String(selected.detail.video.title || selected.title || '').slice(0, 220),
-      repostTitle: createRepostMetadata(selected.detail.video, selected.video_code).title,
+      repostTitle: selectedMetadata.title,
       categoryId: selected.detail.video.category_id,
       durationSeconds: num(selected.detail.video.duration),
       visits: num(selected.detail.video.visit_count),
       plays: num(selected.detail.video.play_count),
       score: selected.editorialScore,
-      scoreDetails: selected.scoreDetails
+      scoreDetails: selected.scoreDetails,
+      repostDescriptionLength: selectedMetadata.description.length
     };
     report.result = result;
     report.status = result.status;
@@ -1878,9 +1882,9 @@ async function main() {
       state.posts.push({
         sourceCode: result.sourceCode || selected.video_code,
         sourceTitle: report.selected.title,
-        repostTitle: result.repostMetadata && result.repostMetadata.title || null,
-        repostDescription: result.repostMetadata && result.repostMetadata.description || null,
-        captionPolicyVersion: 3,
+        repostTitle: result.repostMetadata && result.repostMetadata.title || selectedMetadata.title,
+        repostDescription: result.repostMetadata && result.repostMetadata.description || selectedMetadata.description,
+        captionPolicyVersion: CAPTION_POLICY_VERSION,
         newVideoCode: result.newVideoCode || null,
         publicUrl: result.publicUrl || null,
         status: result.status,
@@ -1890,13 +1894,7 @@ async function main() {
       state.posts = state.posts.slice(-1200);
       state.updatedAt = new Date().toISOString();
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
-      if(result.status==='public_verified'){
-        report.captionCleanup=await cleanupLegacyRepostCaptions(page,state).catch(error=>({
-          status:'maintenance_failed_non_blocking',checked:0,updated:[],pending:[],
-          errors:[String(error&&error.message||error).slice(0,180)]
-        }));
-      }
-    } else if (result.status === 'rejected_by_filo') {
+      } else if (result.status === 'rejected_by_filo') {
       state.posts.push({
         sourceCode: selected.video_code,
         sourceTitle: report.selected.title,
