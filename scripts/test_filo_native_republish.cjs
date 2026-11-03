@@ -245,8 +245,10 @@ async function testPortraitCoverComposition() {
     const composed = await composeFiloCoverDataUrl(page, source);
     assert.equal(composed.ok, true, 'portrait cover must compose into a valid landscape image');
     assert.deepEqual(composed.sourceDimensions, { width: 300, height: 600 });
-    assert.deepEqual(composed.dimensions, { width: 1280, height: 720 });
-    assert.equal(composed.strategy, 'blurred_background_full_frame_contain_v1');
+    assert.deepEqual(composed.dimensions, { width: 640, height: 360 });
+    assert.ok(composed.encodedLength <= 800000,
+      'the complete URL-encoded selectedFrame field must stay below Filo’s request limit');
+    assert.equal(composed.strategy, 'blurred_background_full_frame_contain_compact_png_v1');
     assert.equal(composed.dataUrl.startsWith('data:image/png;base64,'), true,
       'the composed cover must retain Filo native PNG data URL format');
 
@@ -259,8 +261,8 @@ async function testPortraitCoverComposition() {
       canvas.height = image.naturalHeight;
       const context = canvas.getContext('2d');
       context.drawImage(image, 0, 0);
-      const top = context.getImageData(640, 10, 1, 1).data;
-      const bottom = context.getImageData(640, 710, 1, 1).data;
+      const top = context.getImageData(320, 5, 1, 1).data;
+      const bottom = context.getImageData(320, 350, 1, 1).data;
       return { topRed: top[0], topGreen: top[1], bottomGreen: bottom[1], bottomRed: bottom[0] };
     }, composed.dataUrl);
     assert.ok(preserved.topRed > preserved.topGreen,

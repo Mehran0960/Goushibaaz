@@ -590,50 +590,68 @@ async function composeFiloCoverDataUrl(page,sourceDataUrl) {
  const sourceDimensions=imageDimensionsFromDataUrl(sourceDataUrl);
  if(!sourceDimensions)return {ok:false,reason:'cover_source_image_invalid',sourceDimensions:null};
  try {
-  const dataUrl=await page.evaluate(async source=>{
+  const composed=await page.evaluate(async source=>{
    const image=new Image();
    image.src=source;
    try{await image.decode();}catch{return null;}
    if(!image.naturalWidth||!image.naturalHeight)return null;
-   const width=1280,height=720;
-   const canvas=document.createElement('canvas');
-   canvas.width=width;
-   canvas.height=height;
-   const context=canvas.getContext('2d');
-   if(!context)return null;
-   context.fillStyle='#10141b';
-   context.fillRect(0,0,width,height);
-   const backgroundScale=Math.max(width/image.naturalWidth,height/image.naturalHeight)*1.12;
-   const backgroundWidth=image.naturalWidth*backgroundScale;
-   const backgroundHeight=image.naturalHeight*backgroundScale;
-   context.save();
-   context.filter='blur(30px) brightness(0.58) saturate(0.82)';
-   context.drawImage(image,(width-backgroundWidth)/2,(height-backgroundHeight)/2,backgroundWidth,backgroundHeight);
-   context.restore();
-   context.fillStyle='rgba(5,8,13,0.12)';
-   context.fillRect(0,0,width,height);
-   const foregroundScale=Math.min(width/image.naturalWidth,height/image.naturalHeight);
-   const foregroundWidth=image.naturalWidth*foregroundScale;
-   const foregroundHeight=image.naturalHeight*foregroundScale;
-   const x=(width-foregroundWidth)/2;
-   const y=(height-foregroundHeight)/2;
-   context.save();
-   context.shadowColor='rgba(0,0,0,0.42)';
-   context.shadowBlur=22;
-   context.shadowOffsetY=5;
-   context.drawImage(image,x,y,foregroundWidth,foregroundHeight);
-   context.restore();
-   // Filo's native cover capture submits PNG data URLs; preserve that exact format.
-   return canvas.toDataURL('image/png');
+   // Keep encoded form data comfortably below Filo's 1 MiB request-field limit.
+   // URLSearchParams measures the actual x-www-form-urlencoded expansion.
+   const maxEncodedLength=800000;
+   const sizes=[[640,360],[480,270],[320,180]];
+   for(const [width,height] of sizes){
+    const canvas=document.createElement('canvas');
+    canvas.width=width;
+    canvas.height=height;
+    const context=canvas.getContext('2d');
+    if(!context)continue;
+    context.fillStyle='#10141b';
+    context.fillRect(0,0,width,height);
+    const backgroundScale=Math.max(width/image.naturalWidth,height/image.naturalHeight)*1.12;
+    const backgroundWidth=image.naturalWidth*backgroundScale;
+    const backgroundHeight=image.naturalHeight*backgroundScale;
+    context.save();
+    context.filter='blur('+Math.max(12,Math.round(width*0.023))+'px) brightness(0.58) saturate(0.82)';
+    context.drawImage(image,(width-backgroundWidth)/2,(height-backgroundHeight)/2,backgroundWidth,backgroundHeight);
+    context.restore();
+    context.fillStyle='rgba(5,8,13,0.12)';
+    context.fillRect(0,0,width,height);
+    const foregroundScale=Math.min(width/image.naturalWidth,height/image.naturalHeight);
+    const foregroundWidth=image.naturalWidth*foregroundScale;
+    const foregroundHeight=image.naturalHeight*foregroundScale;
+    const x=(width-foregroundWidth)/2;
+    const y=(height-foregroundHeight)/2;
+    context.save();
+    context.shadowColor='rgba(0,0,0,0.42)';
+    context.shadowBlur=Math.max(8,Math.round(width*0.018));
+    context.shadowOffsetY=Math.max(2,Math.round(height*0.007));
+    context.drawImage(image,x,y,foregroundWidth,foregroundHeight);
+    context.restore();
+    const dataUrl=canvas.toDataURL('image/png');
+    const encodedLength=new URLSearchParams({selectedFrame:dataUrl}).toString().length;
+    if(encodedLength<=maxEncodedLength){
+     return {dataUrl,encodedLength,width,height};
+    }
+   }
+   return null;
   },sourceDataUrl);
-  const dimensions=imageDimensionsFromDataUrl(dataUrl);
+  if(!composed||!composed.dataUrl)return {
+   ok:false,reason:'cover_exceeds_filo_encoded_field_limit',sourceDimensions,
+   encodedLength:null,dimensions:null,aspectRatio:null
+  };
+  const dimensions=imageDimensionsFromDataUrl(composed.dataUrl);
   const aspectRatio=dimensions?dimensions.width/dimensions.height:0;
-  const ok=Boolean(dimensions&&Math.abs(aspectRatio-(16/9))<=0.02);
-  return {ok,dataUrl:ok?dataUrl:null,strategy:ok?'blurred_background_full_frame_contain_v1':null,
-   reason:ok?null:'cover_composition_output_invalid',sourceDimensions,dimensions,aspectRatio:aspectRatio||null};
- } catch(error) {
+  const ok=Boolean(dimensions&&Math.abs(aspectRatio-(16/9))<=0.02&&composed.encodedLength<=800000);
+  return {
+   ok,dataUrl:ok?composed.dataUrl:null,
+   strategy:ok?'blurred_background_full_frame_contain_compact_png_v1':null,
+   reason:ok?null:'cover_composition_output_invalid',
+   sourceDimensions,dimensions,aspectRatio:aspectRatio||null,
+   encodedLength:composed.encodedLength
+  };
+ }catch(error){
   return {ok:false,reason:'cover_composition_failed:'+String(error&&error.message||error).slice(0,140),
-   sourceDimensions,dimensions:null,aspectRatio:null};
+   sourceDimensions,dimensions:null,aspectRatio:null,encodedLength:null};
  }
 }
 
@@ -1168,7 +1186,8 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
       coverComposition: {
         ok: Boolean(coverComposition.ok),
         strategy: coverComposition.strategy || null,
-        reason: coverComposition.reason || null
+        reason: coverComposition.reason || null,
+        encodedLength: coverComposition.encodedLength || null
       },
       guardFailures,
       thumbnailStrategy: report.thumbnailSelection && report.thumbnailSelection.strategy || 'legacy_fallback',
