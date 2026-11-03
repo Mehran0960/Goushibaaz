@@ -479,19 +479,11 @@ async function extractHighResolutionSourceFrames(page,videoMetadata,sourceCode,d
   return {ok:false,frames:[],report};
  }
  report.status='checking_source_media';
- let headers='';
- try {
-  const cookies=await page.context().cookies(mediaUrl);
-  const cookieHeader=cookies.map(cookie=>cookie.name+'='+cookie.value).join('; ');
-  const userAgent=await page.evaluate(()=>navigator.userAgent).catch(()=>'Mozilla/5.0');
-  headers=[
-   'User-Agent: '+String(userAgent).replace(/[\r\n]/g,' '),
-   'Referer: '+BASE+'/republish/'+encodeURIComponent(sourceCode),
-   ...(cookieHeader?['Cookie: '+cookieHeader]:[])
-  ].join(String.fromCharCode(13,10))+String.fromCharCode(13,10);
- } catch {
-  headers='Referer: '+BASE+'/republish/'+encodeURIComponent(sourceCode)+String.fromCharCode(13,10);
- }
+ const userAgent=await page.evaluate(()=>navigator.userAgent).catch(()=>'Mozilla/5.0');
+ const headers=[
+  'User-Agent: '+String(userAgent).replace(/[\r\n]/g,' '),
+  'Referer: '+BASE+'/republish/'+encodeURIComponent(sourceCode)
+ ].join(String.fromCharCode(13,10))+String.fromCharCode(13,10);
  const probe=spawnSync('ffprobe',[
   '-v','error','-headers',headers,'-select_streams','v:0',
   '-show_entries','stream=width,height:format=duration','-of','json',mediaUrl
@@ -512,7 +504,7 @@ async function extractHighResolutionSourceFrames(page,videoMetadata,sourceCode,d
   report.reason='source_video_has_no_readable_video_stream';
   return {ok:false,frames:[],report};
  }
- if(Math.max(width,height)<640||width*height<200000){
+ if(Math.max(width,height)<640||Math.min(width,height)<360){
   report.status='source_media_not_high_resolution';
   report.reason='source_video_resolution_below_quality_threshold';
   return {ok:false,frames:[],report};
@@ -903,7 +895,6 @@ async function selectThumbnailFrame(page, sourceCode, report, sourceVideo = null
   const endRatio = 0.94;
   const frames = [];
   let selected = null;
-  let sourceUpgrade = null;
 
   try {
     const originalFrames = await extractHighResolutionSourceFrames(
@@ -913,8 +904,7 @@ async function selectThumbnailFrame(page, sourceCode, report, sourceVideo = null
       report:{attempted:true,status:'source_frame_extraction_error',reason:String(error&&error.message||error).slice(0,120),
         width:null,height:null,framesExtracted:0}
     }));
-    sourceUpgrade = originalFrames.report;
-    report.thumbnailSourceUpgrade = sourceUpgrade;
+    report.thumbnailSourceUpgrade = originalFrames.report;
     if (originalFrames.ok) {
       frames.push(...originalFrames.frames);
     } else {
