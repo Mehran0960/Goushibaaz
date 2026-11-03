@@ -17,6 +17,7 @@ const {
   isRecoverableCoverGuardBlock,
   isRecoverableCoverPreparationError,
   imageBufferFromDataUrl,
+  encodedFormFieldLength,
   trustedFiloMediaUrl,
   buildNativePublishGuardFailures,
   safeApiDiagnosticValue,
@@ -173,6 +174,13 @@ assert.equal(trustedFiloMediaUrl('http://ifilo.net/media/source.mp4'),null,
   'insecure source media URLs must be rejected');
 assert.equal(trustedFiloMediaUrl('https://example.com/media/source.mp4'),null,
   'untrusted external media URLs must never be fetched by the thumbnail extractor');
+const compactCoverDataUrl='data:image/png;base64,'+'a'.repeat(700000);
+assert.ok(encodedFormFieldLength('selectedFrame',compactCoverDataUrl)<=800000,
+  'compact fallback cover fits within the selectedFrame request budget');
+const oversizedCoverDataUrl='data:image/png;base64,'+'a'.repeat(900000);
+assert.ok(encodedFormFieldLength('selectedFrame',oversizedCoverDataUrl)>800000,
+  'oversized fallback frame can be detected and omitted before sending the request');
+
 
 const safePublishContext={
   sourceCode:'Source01',republishFrom:'Source01',videoCode:'NewVid01',

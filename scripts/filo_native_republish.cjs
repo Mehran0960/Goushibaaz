@@ -17,6 +17,7 @@ const MAX_DETAIL_CHECKS = 90;
 const MIN_DURATION_SECONDS = 10;
 const MAX_DURATION_SECONDS = 180;
 const MAX_PUBLICATIONS_PER_24H = 288;
+const MAX_ENCODED_COVER_FIELD_LENGTH = 800000;
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -457,6 +458,11 @@ function imageBufferFromDataUrl(value) {
  if(!match)return null;
  return {buffer:Buffer.from(match[2],'base64'),mimeType:match[1].toLowerCase()};
 }
+
+function encodedFormFieldLength(name,value) {
+ return new URLSearchParams([[String(name),String(value??'')]]).toString().length;
+}
+
 
 function buildNativePublishGuardFailures({
  sourceCode,republishFrom,videoCode,isMadeByMe,canRepublish,canMakeMoney,dontPublish,metadataOk
@@ -1136,6 +1142,24 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
           sourceDimensions:nativeDimensions,dimensions:nativeDimensions,aspectRatio:nativeAspect};
       }
     }
+    let selectedFrameEncodedLength=selectedFrame
+      ?encodedFormFieldLength('selectedFrame',selectedFrame):0;
+    let coverOmittedForPayloadSize=false;
+    if(selectedFrame&&selectedFrameEncodedLength>MAX_ENCODED_COVER_FIELD_LENGTH){
+      selectedFrame='';
+      selectedFrameEncodedLength=0;
+      coverOmittedForPayloadSize=true;
+      coverComposition={
+        ok:false,
+        strategy:null,
+        reason:'fallback_video_frame_exceeds_filo_encoded_field_limit',
+        sourceDimensions:coverComposition.sourceDimensions||imageDimensionsFromDataUrl(preferredSourceFrame),
+        dimensions:null,
+        aspectRatio:null,
+        encodedLength:null
+      };
+      report.thumbnailPayloadFallbackOmitted=true;
+    }
     if(selectedFrame)params.set('selectedFrame',selectedFrame);
     else params.delete('selectedFrame');
     const coverDimensions = imageDimensionsFromDataUrl(selectedFrame);
@@ -1177,6 +1201,8 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
       selectedFramePresent: frameOk,
       coverStatus: !frameOk ? 'cover_omitted_optional'
         : coverAspectOk ? 'cover_ready_16_9' : 'video_frame_fallback_non_16_9',
+      coverOmittedForPayloadSize,
+      selectedFrameEncodedLength: selectedFrameEncodedLength,
       selectedFrameLength: selectedFrame.length,
       selectedFrameType: selectedFrame.slice(0, 40),
       coverSourceDimensions: coverComposition.sourceDimensions || null,
@@ -1933,6 +1959,7 @@ module.exports = {
   isRecoverableCoverGuardBlock,
   isRecoverableCoverPreparationError,
   imageBufferFromDataUrl,
+  encodedFormFieldLength,
   trustedFiloMediaUrl,
   buildNativePublishGuardFailures,
   safeApiDiagnosticValue,
