@@ -95,7 +95,14 @@ assert.equal(
   cleanRepostCaptionTitle('پیغام عجیب و توهین آمیز ساکت الهامی به یحیی گل محمدی در پایان مسابقه فولاد_ نساجی'),
   'پیغام ساکت الهامی به یحیی گل محمدی در پایان مسابقه فولاد_ نساجی'
 );
-assert.throws(() => cleanRepostCaptionTitle('عنوان کوتاه'), /no_clean_distinct_title_available_without_extra_words/);
+assert.equal(cleanRepostCaptionTitle('بدل بهنام بانی در قوچان'), 'بدل بهنام بانی در قوچان',
+  'a usable source title must not be truncated to force an artificial rewrite');
+assert.equal(cleanRepostCaptionTitle('مردی که روغن گریس میخورد!'), 'مردی که روغن گریس میخورد!',
+  'an already meaningful title must retain its full meaning');
+assert.equal(cleanRepostCaptionTitle('اگه گفتی این بی مزه ها چرا انقدر موقع پخت ماکارونی میخندن'),
+  'اگه گفتی این بی مزه ها چرا انقدر موقع پخت ماکارونی میخندن',
+  'a clean conversational title may remain unchanged');
+assert.throws(() => cleanRepostCaptionTitle('عنوان'), /no_clean_distinct_title_available_without_extra_words/);
 
 const sourceDescription = 'در این ویدئو، هنگام برگزاری مولودی واکنش خانواده به تنها ماندن یکی از اعضا دیده می‌شود و رفتار او باعث خنده اطرافیان می‌شود.';
 const rewritten = createRepostMetadata({
@@ -112,6 +119,14 @@ assert.doesNotMatch(rewritten.title, /روایت\s+تصویری|ماجرای\s+�
 assert.doesNotMatch(rewritten.description, /روایت\s+تصویری|اجازه|https?:\/\//i);
 assert.ok(rewritten.description.length >= 50);
 assert.equal(normalizeComparable(rewritten.description).includes(normalizeComparable(rewritten.title)), false);
+const alreadyCleanMetadata = createRepostMetadata({
+  ...valid,
+  title: 'مردی که روغن گریس میخورد!',
+  description: 'مردی هنگام خوردن روغن گریس دیده می‌شود و واکنش اطرافیان ثبت شده است. این رفتار غیرمعمول توجه افراد حاضر را جلب می‌کند.'
+}, 'AbC1238');
+assert.equal(alreadyCleanMetadata.title, 'مردی که روغن گریس میخورد!',
+  'an already-clean title is valid metadata when its description is independently substantive');
+assert.notEqual(normalizeComparable(alreadyCleanMetadata.description), normalizeComparable('مردی هنگام خوردن روغن گریس دیده می‌شود و واکنش اطرافیان ثبت شده است. این رفتار غیرمعمول توجه افراد حاضر را جلب می‌کند.'));
 assert.throws(() => createRepostMetadata({ ...valid, description: 'توضیح کوتاه' }, 'AbC1235'), /repost_description_source_too_short/);
 assert.throws(() => createRepostMetadata({ ...valid, title: 'پیغام توهین آمیز به یک بازیکن', description: sourceDescription }, 'AbC1236'), /filo_policy_text_risk:insult_or_defamation/);
 assert.throws(() => createRepostMetadata({ ...valid, title: 'لینک https://example.com ویدئو', description: sourceDescription }, 'AbC1237'), /repost_source_title_contains_external_link/);
