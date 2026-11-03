@@ -485,6 +485,26 @@ function safeApiDiagnosticValue(value,depth=0) {
  return String(value).slice(0,120);
 }
 
+function buildUnconfirmedSubmissionResult({
+ sourceCode,newVideoCode,publishPayload,repostTitle,repostDescription,reason,httpStatus,responseDiagnostics
+}) {
+ return {
+  status:'submitted_unconfirmed',
+  reason:String(reason||'publish_response_not_observed').slice(0,240),
+  sourceCode:String(sourceCode||publishPayload&&publishPayload.sourceCode||''),
+  newVideoCode:String(newVideoCode||publishPayload&&publishPayload.newVideoCode||'')||null,
+  httpStatus:httpStatus||null,
+  responseDiagnostics:responseDiagnostics||null,
+  publishPayload,
+  repostMetadata:repostTitle?{
+   title:String(repostTitle).slice(0,180),
+   description:String(repostDescription||''),
+   descriptionLength:String(repostDescription||'').length
+  }:null
+ };
+}
+
+
 
 function trustedFiloMediaUrl(value) {
  const raw=String(value||'').trim();
@@ -851,7 +871,8 @@ async function fetchCategoryPage(page, categoryId, pageNo) {
       method: 'POST',
       credentials: 'include',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' },
-      body: params.toString()
+      body: params.toString(),
+      signal: AbortSignal.timeout(7000)
     });
     return { status: response.status, body: await response.text() };
   }, { categoryId, pageNo });
@@ -870,7 +891,8 @@ async function getRepublishDetail(page, code) {
     const response = await fetch('/api/v1/republish/' + encodeURIComponent(code), {
       method: 'GET',
       credentials: 'include',
-      headers: { 'Accept': 'application/json' }
+      headers: { 'Accept': 'application/json' },
+      signal: AbortSignal.timeout(7000)
     });
     return { status: response.status, body: await response.text() };
   }, code);
@@ -1241,29 +1263,28 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
   }
   const publishResponse=publishOutcome.response;
   if (!publishResponse) {
-    return {
-      status: 'submitted_unconfirmed',
-      reason: 'publish_response_not_observed',
-      publishPayload
-    };
+    return buildUnconfirmedSubmissionResult({
+      sourceCode:code,
+      newVideoCode:publishPayload.newVideoCode,
+      publishPayload,
+      repostTitle:repostMetadata.title,
+      repostDescription:repostMetadata.description,
+      reason:'publish_response_not_observed'
+    });
   }
 
   const responseText=await publishResponse.text().catch(()=>'');
   const responseBody=parseJson(responseText);
   const httpStatus=publishResponse.status();
   if(httpStatus>=500){
-    return {
-      status:'submitted_unconfirmed',
-      reason:'filo_server_error_after_publish_submission',
-      httpStatus,
+    return buildUnconfirmedSubmissionResult({
+      sourceCode:code,newVideoCode:publishPayload.newVideoCode,publishPayload,
+      repostTitle:repostMetadata.title,repostDescription:repostMetadata.description,
+      reason:'filo_server_error_after_publish_submission',httpStatus,
       responseDiagnostics:{bodyKeys:responseBody&&typeof responseBody==='object'?Object.keys(responseBody).slice(0,30):[],
         r:responseBody&&safeApiDiagnosticValue(responseBody.r),
-        message:responseBody&&safeApiDiagnosticValue(responseBody.message)},
-      sourceCode:code,
-      newVideoCode:publishPayload.newVideoCode,
-      publishPayload,
-      repostMetadata:{title:repostMetadata.title,descriptionLength:repostMetadata.description.length}
-    };
+        message:responseBody&&safeApiDiagnosticValue(responseBody.message)}
+    });
   }
   if([401,403,408,425,429].includes(httpStatus)){
     return {
@@ -1360,7 +1381,7 @@ async function reconcilePreviouslySubmitted(page, state) {
     ['submitted_pending_approval', 'submitted_unconfirmed'].includes(post.status) &&
     post.newVideoCode &&
     post.repostTitle
-  );
+  ).sort((a,b)=>Date.parse(b.submittedAt||'')-Date.parse(a.submittedAt||'')).slice(0,1);
   let verified = 0;
   for (const post of candidates) {
     const publicUrl = await verifyPublicVideo(page, post.newVideoCode, post.repostTitle).catch(() => null);
@@ -1487,7 +1508,7 @@ async function editOwnVideoTitle(page, item, videoCode, newTitle, newDescription
 }
 
 async function cleanupLegacyRepostCaptions(page, state) {
- const targets=(state.posts||[]).filter(post=>post&&post.status==='public_verified'&&post.newVideoCode&&post.sourceCode&&(post.captionCleanupPending||post.captionPolicyVersion!==3));
+ const targets=(state.posts||[]).filter(post=>post&&post.status==='public_verified'&&post.newVideoCode&&post.sourceCode&&(post.captionCleanupPending||post.captionPolicyVersion!==3)).slice(0,1);
  const report={checked:targets.length,updated:[],pending:[],skipped:[],errors:[]};
  for(const post of targets){
   const code=String(post.newVideoCode);
@@ -1605,7 +1626,7 @@ async function main() {
     if (report.reconciliation.changed) {
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
     }
-    report.captionCleanup = await cleanupLegacyRepostCaptions(page, state);
+    report.captionCleanup = {status:'deferred_until_after_publication',checked:0,updated:[],pending:[],skipped:[]};
     const trendWeights = {};
     try {
       const trend = JSON.parse(fs.readFileSync(path.join('state', 'platform-trends.json'), 'utf8'));
@@ -1869,6 +1890,12 @@ async function main() {
       state.posts = state.posts.slice(-1200);
       state.updatedAt = new Date().toISOString();
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
+      if(result.status==='public_verified'){
+        report.captionCleanup=await cleanupLegacyRepostCaptions(page,state).catch(error=>({
+          status:'maintenance_failed_non_blocking',checked:0,updated:[],pending:[],
+          errors:[String(error&&error.message||error).slice(0,180)]
+        }));
+      }
     } else if (result.status === 'rejected_by_filo') {
       state.posts.push({
         sourceCode: selected.video_code,
@@ -1936,6 +1963,7 @@ module.exports = {
   trustedFiloMediaUrl,
   buildNativePublishGuardFailures,
   safeApiDiagnosticValue,
+  buildUnconfirmedSubmissionResult,
   composeFiloCoverDataUrl,
   dailyCount
 };
