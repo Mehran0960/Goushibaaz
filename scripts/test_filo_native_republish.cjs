@@ -136,6 +136,14 @@ assert.equal(isRecoverableCoverGuardBlock({
 }), true, 'a cover-only rejection must allow trying the next candidate');
 assert.equal(isRecoverableCoverGuardBlock({
   status: 'blocked_before_filo_submission',
+  publishPayload: { guardFailures: ['cover_frame_missing_or_invalid'], coverAspectOk: false }
+}), true, 'a missing cover frame must skip only this candidate');
+assert.equal(isRecoverableCoverGuardBlock({
+  status: 'blocked_before_filo_submission',
+  publishPayload: { guardFailures: ['cover_frame_missing_or_invalid', 'cover_aspect_not_16_9'], coverAspectOk: false }
+}), true, 'combined cover-only failures must remain candidate-local');
+assert.equal(isRecoverableCoverGuardBlock({
+  status: 'blocked_before_filo_submission',
   publishPayload: { guardFailures: ['cover_aspect_not_16_9', 'monetization_permission_missing'], coverAspectOk: false }
 }), false, 'never skip a candidate when any permission or policy guard also fails');
 assert.equal(isRecoverableCoverGuardBlock({
