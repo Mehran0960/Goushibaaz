@@ -350,6 +350,8 @@ function cleanRepostCaptionTitle(sourceTitle) {
     .replace(/\s+/g, ' ')
     .trim();
 
+  title = title.replace(/\s*[،؛:|\-]\s*(?:روایت\s+تصویری|روایتی\s+از|ماجرای\s+بامزه)\b.*$/iu, '').trim();
+
   if (normalizeComparable(title) === normalizeComparable(original)) {
     title = title
       .replace(/(?:عجیب\s+و\s+توهین\s+آمیز|توهین\s+آمیز|عجیب|باورنکردنی|دیدنی|تماشایی|جالب|فوق\s+العاده|عالی|خنده.?دار|بامزه)/giu, ' ')
@@ -374,7 +376,9 @@ function removeLiteralPhrase(text, phrase) {
  return String(text||'').replace(new RegExp(escaped,'giu'),' ').replace(/\s+/g,' ').trim();
 }
 function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
- const raw=String(sourceDescription||'').replace(/\s+/g,' ').trim();
+ const raw=String(sourceDescription||'').normalize('NFKC')
+  .replace(/[\u200B-\u200F\u2060\uFE0E]/g,'')
+  .replace(/\s+/g,' ').trim();
  if(raw.length<50)throw new Error('repost_description_source_too_short');
  let description=raw
   .replace(/https?:\/\/\S+|www\.\S+/giu,' ')
@@ -383,6 +387,8 @@ function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
   .replace(/(?:لطفاً|لطفا)\s*(?:لایک|پسند|فالو|دنبال|عضویت|اشتراک).{0,160}$/iu,' ')
   .replace(/(?:برای\s+(?:دیدن|تماشای|دنبال\s+کردن).{0,160})$/iu,' ')
   .replace(/(?:حتماً|حتما)\s*(?:ببینید|ببنید|تماشا\s+کنید|مشاهده\s+کنید).{0,100}$/iu,' ')
+  .replace(/\b(?:join\s+us|click(?:\s+(?:here|below))?|follow\s+us|subscribe|like\s+and\s+subscribe|comment\s+below)\b[\s\S]{0,240}$/iu,' ')
+  .replace(/(?:این\s+نسخه\s+از\s+مسیر\s+بازنشر\s+رسمی\s+فیلو|بازنشر\s+از\s+مسیر\s+رسمی\s+فیلو).*$/iu,' ')
   .replace(/^(?:(?:در\s+)?این\s+(?:ویدئو|ویدیو|کلیپ|فیلم)\s*[,،:؛-]?\s*)+/iu,'')
   .replace(/\s+/g,' ').trim();
  description=removeLiteralPhrase(description,sourceTitle);
