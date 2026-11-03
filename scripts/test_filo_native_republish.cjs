@@ -18,6 +18,8 @@ const {
   isRecoverableCoverPreparationError,
   imageBufferFromDataUrl,
   trustedFiloMediaUrl,
+  buildNativePublishGuardFailures,
+  safeApiDiagnosticValue,
   composeFiloCoverDataUrl,
   dailyCount
 } = require('./filo_native_republish.cjs');
@@ -171,6 +173,31 @@ assert.equal(trustedFiloMediaUrl('http://ifilo.net/media/source.mp4'),null,
   'insecure source media URLs must be rejected');
 assert.equal(trustedFiloMediaUrl('https://example.com/media/source.mp4'),null,
   'untrusted external media URLs must never be fetched by the thumbnail extractor');
+
+const safePublishContext={
+  sourceCode:'Source01',republishFrom:'Source01',videoCode:'NewVid01',
+  isMadeByMe:'false',canRepublish:'true',canMakeMoney:'true',dontPublish:'0',metadataOk:true
+};
+assert.deepEqual(buildNativePublishGuardFailures(safePublishContext),[],
+  'a valid source must pass native safety guards');
+assert.deepEqual(buildNativePublishGuardFailures({...safePublishContext,metadataOk:false}),
+  ['metadata_policy_guard_failed'],
+  'metadata policy must remain a hard publishing guard');
+assert.ok(buildNativePublishGuardFailures({...safePublishContext,canMakeMoney:'false'})
+  .includes('monetization_permission_missing'),
+  'missing monetization permission must remain a hard publishing guard');
+assert.ok(buildNativePublishGuardFailures({...safePublishContext,canRepublish:'false'})
+  .includes('native_republish_permission_missing'),
+  'missing native repost permission must remain a hard publishing guard');
+assert.deepEqual(buildNativePublishGuardFailures({
+  ...safePublishContext,selectedFramePresent:false,coverAspectOk:false
+}),[],
+  'a missing cover and non-16:9 video frame must not block the publish request');
+assert.equal(buildNativePublishGuardFailures(safePublishContext).some(reason=>/cover|frame|thumbnail/i.test(reason)),false,
+  'cover selection and aspect ratio must never block the publish request');
+assert.equal(safeApiDiagnosticValue({r:'خطا\nتکرار',items:[1,2,3]}).r,'خطا تکرار',
+  'Filo diagnostics must sanitize multiline response fields');
+
 assert.equal(detailGate({}, { ...valid }).eligible, false, 'global search must never bypass the native Filo permission gate');
 
 assert.deepEqual(detailGate({ is_republish: 1, stop_upload: 0 }, {

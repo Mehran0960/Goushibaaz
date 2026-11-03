@@ -458,6 +458,34 @@ function imageBufferFromDataUrl(value) {
  return {buffer:Buffer.from(match[2],'base64'),mimeType:match[1].toLowerCase()};
 }
 
+function buildNativePublishGuardFailures({
+ sourceCode,republishFrom,videoCode,isMadeByMe,canRepublish,canMakeMoney,dontPublish,metadataOk
+}) {
+ const failures=[];
+ if(republishFrom!==sourceCode)failures.push('source_code_mismatch');
+ if(!/^[A-Za-z0-9_-]{5,40}$/.test(String(videoCode||'')))failures.push('new_video_code_invalid');
+ if(isMadeByMe!=='false')failures.push('source_is_not_other_user_content');
+ if(canRepublish!=='true')failures.push('native_republish_permission_missing');
+ if(canMakeMoney!=='true')failures.push('monetization_permission_missing');
+ if(dontPublish!=='0')failures.push('source_marked_do_not_publish');
+ if(!metadataOk)failures.push('metadata_policy_guard_failed');
+ return failures;
+}
+
+function safeApiDiagnosticValue(value,depth=0) {
+ if(value===null||value===undefined)return value;
+ if(typeof value==='string')return value.replace(/[\r\n]+/g,' ').slice(0,260);
+ if(typeof value==='number'||typeof value==='boolean')return value;
+ if(Array.isArray(value))return value.slice(0,5).map(item=>safeApiDiagnosticValue(item,depth+1));
+ if(typeof value==='object'&&depth<2){
+  const output={};
+  for(const key of Object.keys(value).slice(0,12))output[key]=safeApiDiagnosticValue(value[key],depth+1);
+  return output;
+ }
+ return String(value).slice(0,120);
+}
+
+
 function trustedFiloMediaUrl(value) {
  const raw=String(value||'').trim();
  if(!raw)return null;
@@ -537,16 +565,25 @@ async function extractHighResolutionSourceFrames(page,videoMetadata,sourceCode,d
 }
 
 async function captureVideoFrameDataUrl(page) {
- return page.locator('#plr video').first().evaluate(video=>{
+ const canvasFrame=await page.locator('#plr video').first().evaluate(video=>{
   if(!video||video.readyState<2||!video.videoWidth||!video.videoHeight)return null;
-  const canvas=document.createElement('canvas');
-  canvas.width=video.videoWidth;
-  canvas.height=video.videoHeight;
-  const context=canvas.getContext('2d');
-  if(!context)return null;
-  context.drawImage(video,0,0,canvas.width,canvas.height);
-  return canvas.toDataURL('image/jpeg',0.94);
+  try{
+   const canvas=document.createElement('canvas');
+   canvas.width=video.videoWidth;
+   canvas.height=video.videoHeight;
+   const context=canvas.getContext('2d');
+   if(!context)return null;
+   context.drawImage(video,0,0,canvas.width,canvas.height);
+   const dataUrl=canvas.toDataURL('image/jpeg',0.92);
+   return dataUrl&&dataUrl.startsWith('data:image/')?dataUrl:null;
+  }catch{return null;}
  }).catch(()=>null);
+ if(canvasFrame)return canvasFrame;
+ const screenshot=await page.locator('#plr video').first()
+  .screenshot({type:'jpeg',quality:90,timeout:7000}).catch(()=>null);
+ return screenshot&&screenshot.length>1200
+  ?'data:image/jpeg;base64,'+screenshot.toString('base64')
+  :null;
 }
 
 async function composeFiloCoverDataUrl(page,sourceDataUrl) {
@@ -1019,15 +1056,37 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
   const videoReady = await page.waitForFunction(() => {
     const video = document.querySelector('#plr video');
     return Boolean(video && video.readyState >= 2 && video.videoWidth > 0 && video.videoHeight > 0);
-  }, null, { timeout: 25000 }).then(() => true).catch(() => false);
-  if (!videoReady) throw new Error('filo_source_player_not_ready_for_cover');
+  }, null, { timeout: 9000 }).then(() => true).catch(() => false);
 
-  const thumbnailSelection = await selectThumbnailFrame(page, code, report, sourceVideo);
+  let thumbnailSelection=null;
+  try {
+    thumbnailSelection=videoReady
+      ? await selectThumbnailFrame(page,code,report,sourceVideo)
+      : null;
+  } catch(error) {
+    report.thumbnailPreparationError=String(error&&error.message||error).slice(0,180);
+  }
+  if(!thumbnailSelection||!thumbnailSelection.coverFrameDataUrl) {
+    const fallbackFrame=await captureVideoFrameDataUrl(page);
+    thumbnailSelection=recordThumbnailSelection(report,{
+      strategy:'best_effort_video_element_frame',
+      fallback:true,
+      reason:videoReady?'thumbnail_selection_failed':'video_player_not_ready',
+      framesAnalyzed:thumbnailSelection&&thumbnailSelection.framesAnalyzed||0,
+      coverFrameDataUrl:fallbackFrame
+    });
+  }
 
-  const cropButton = page.locator('button.shot-btn').first();
-  if(!(await cropButton.isVisible().catch(()=>false)))throw new Error('filo_cover_capture_control_unavailable');
-  await cropButton.click().catch(()=>{throw new Error('filo_cover_capture_click_failed');});
-  await page.waitForTimeout(500);
+  // Cover controls are best-effort only; they must never block a publication.
+  const cropButton=page.locator('button.shot-btn').first();
+  if(await cropButton.isVisible().catch(()=>false)){
+    await cropButton.click().catch(error=>{
+      report.thumbnailButtonError=String(error&&error.message||error).slice(0,160);
+    });
+    await page.waitForTimeout(300);
+  }else{
+    report.thumbnailButtonUnavailable=true;
+  }
 
   // Refresh native repost permission immediately before submission. The scheduler
   // and Filo's own upload-limit response determine the next eligible opportunity.
@@ -1046,7 +1105,10 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
     if(!coverComposition.ok&&postedFrame&&postedFrame!==preferredSourceFrame){
       coverComposition=await composeFiloCoverDataUrl(page,postedFrame);
     }
-    let selectedFrame=coverComposition.ok?coverComposition.dataUrl:postedFrame;
+    let selectedFrame=coverComposition.ok
+      ?coverComposition.dataUrl
+      :(preferredSourceFrame&&preferredSourceFrame.startsWith('data:image/')
+        ?preferredSourceFrame:postedFrame);
     if(!coverComposition.ok){
       const nativeDimensions=imageDimensionsFromDataUrl(postedFrame);
       const nativeAspect=nativeDimensions?nativeDimensions.width/nativeDimensions.height:0;
@@ -1057,6 +1119,7 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
       }
     }
     if(selectedFrame)params.set('selectedFrame',selectedFrame);
+    else params.delete('selectedFrame');
     const coverDimensions = imageDimensionsFromDataUrl(selectedFrame);
     const coverAspectRatio = coverDimensions ? coverDimensions.width / coverDimensions.height : 0;
     const coverAspectOk = Boolean(coverDimensions && Math.abs(coverAspectRatio - (16 / 9)) <= 0.02);
@@ -1081,16 +1144,9 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
       outgoingDescription.length >= 50 && outgoingDescription.length <= 1100 &&
       titleDistinct && descriptionDistinct && descriptionDoesNotRepeatTitle && !metadataRisk && !hasExternalLink;
     const frameOk = selectedFrame.startsWith('data:image/') && selectedFrame.length > 1000;
-    const guardFailures = [];
-    if (republishFrom !== code) guardFailures.push('source_code_mismatch');
-    if (!/^[A-Za-z0-9_-]{5,40}$/.test(videoCode)) guardFailures.push('new_video_code_invalid');
-    if (isMadeByMe !== 'false') guardFailures.push('source_is_not_other_user_content');
-    if (canRepublish !== 'true') guardFailures.push('native_republish_permission_missing');
-    if (canMakeMoney !== 'true') guardFailures.push('monetization_permission_missing');
-    if (dontPublish !== '0') guardFailures.push('source_marked_do_not_publish');
-    if (!frameOk) guardFailures.push('cover_frame_missing_or_invalid');
-    if (!coverAspectOk) guardFailures.push('cover_aspect_not_16_9');
-    if (!metadataOk) guardFailures.push('metadata_policy_guard_failed');
+    const guardFailures = buildNativePublishGuardFailures({
+      sourceCode:code,republishFrom,videoCode,isMadeByMe,canRepublish,canMakeMoney,dontPublish,metadataOk
+    });
     const requestOk = guardFailures.length === 0;
 
     publishPayload = {
@@ -1100,6 +1156,9 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
       descriptionDistinct,
       titleDistinct,
       category: params.get('category') || '',
+      selectedFramePresent: frameOk,
+      coverStatus: !frameOk ? 'cover_omitted_optional'
+        : coverAspectOk ? 'cover_ready_16_9' : 'video_frame_fallback_non_16_9',
       selectedFrameLength: selectedFrame.length,
       selectedFrameType: selectedFrame.slice(0, 40),
       coverSourceDimensions: coverComposition.sourceDimensions || null,
@@ -1170,12 +1229,58 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
     };
   }
 
-  const responseBody = parseJson(await publishResponse.text().catch(() => ''));
-  if (!responseBody || !isFlag(responseBody.s)) {
+  const responseText=await publishResponse.text().catch(()=>'');
+  const responseBody=parseJson(responseText);
+  const httpStatus=publishResponse.status();
+  if(httpStatus>=500){
+    return {
+      status:'submitted_unconfirmed',
+      reason:'filo_server_error_after_publish_submission',
+      httpStatus,
+      responseDiagnostics:{bodyKeys:responseBody&&typeof responseBody==='object'?Object.keys(responseBody).slice(0,30):[],
+        r:responseBody&&safeApiDiagnosticValue(responseBody.r),
+        message:responseBody&&safeApiDiagnosticValue(responseBody.message)},
+      sourceCode:code,
+      newVideoCode:publishPayload.newVideoCode,
+      publishPayload,
+      repostMetadata:{title:repostMetadata.title,descriptionLength:repostMetadata.description.length}
+    };
+  }
+  if([401,403,408,425,429].includes(httpStatus)){
+    return {
+      status:'retryable_filo_failure',
+      reason:String(responseBody&&(responseBody.r||responseBody.message)||('filo_http_'+httpStatus)).slice(0,500),
+      httpStatus,
+      responseDiagnostics:{bodyKeys:responseBody&&typeof responseBody==='object'?Object.keys(responseBody).slice(0,30):[],
+        r:responseBody&&safeApiDiagnosticValue(responseBody.r),
+        message:responseBody&&safeApiDiagnosticValue(responseBody.message)},
+      publishPayload
+    };
+  }
+  if (httpStatus>=400 || !responseBody || !isFlag(responseBody.s)) {
+    const diagnostics={};
+    if(responseBody&&typeof responseBody==='object'){
+      diagnostics.bodyKeys=Object.keys(responseBody).slice(0,30);
+      for(const key of ['s','r','message','error','errors','reason','code','status','field','fields','detail','details']){
+        if(Object.prototype.hasOwnProperty.call(responseBody,key))
+          diagnostics[key]=safeApiDiagnosticValue(responseBody[key]);
+      }
+      if(responseBody.d&&typeof responseBody.d==='object')
+        diagnostics.dataKeys=Object.keys(responseBody.d).slice(0,20);
+    }else{
+      diagnostics.bodyPreview=String(responseText||'').replace(/[\r\n]+/g,' ').slice(0,600);
+    }
+    const responseHeaders=await publishResponse.allHeaders().catch(()=>({}));
+    diagnostics.contentType=responseHeaders['content-type']||null;
+    diagnostics.httpStatusText=publishResponse.statusText();
+    diagnostics.uiErrors=await page.locator('[role="alert"], .alert, .toast, .toast-message, .invalid-feedback')
+      .evaluateAll(nodes=>nodes.map(node=>String(node.innerText||node.textContent||'').replace(/\s+/g,' ').trim().slice(0,180)).filter(Boolean).slice(0,8))
+      .catch(()=>[]);
     return {
       status: 'rejected_by_filo',
       reason: String(responseBody && (responseBody.r || responseBody.message) || 'filo_publish_not_accepted').slice(0, 500),
       httpStatus: publishResponse.status(),
+      responseDiagnostics:diagnostics,
       publishPayload
     };
   }
@@ -1589,6 +1694,8 @@ async function main() {
     const checked = [];
     const coverGuardSkips = [];
     const coverPreparationSkips = [];
+    const filoRejections = [];
+    const MAX_CONFIRMED_FILO_REJECTIONS_PER_CYCLE = 3;
     for (const entry of ranked.slice(0, MAX_DETAIL_CHECKS)) {
       const code = entry.item.video_code;
       const detail = await getRepublishDetail(page, code).catch(() => null);
@@ -1640,6 +1747,23 @@ async function main() {
         throw error;
       }
 
+      if(attemptResult.status==='rejected_by_filo'&&[400,422].includes(Number(attemptResult.httpStatus))){
+        const rejection={
+          sourceCode:candidate.video_code,
+          score:candidate.editorialScore,
+          reason:attemptResult.reason||'filo_publish_not_accepted',
+          httpStatus:attemptResult.httpStatus,
+          responseDiagnostics:attemptResult.responseDiagnostics||null,
+          attemptedAt:new Date().toISOString()
+        };
+        filoRejections.push(rejection);
+        check.publishAttempt='rejected_by_filo_candidate_level';
+        check.filoHttpStatus=attemptResult.httpStatus;
+        check.filoReason=rejection.reason;
+        if(filoRejections.length>=MAX_CONFIRMED_FILO_REJECTIONS_PER_CYCLE)break;
+        continue;
+      }
+
       if (isRecoverableCoverGuardBlock(attemptResult)) {
         coverGuardSkips.push({
           sourceCode: candidate.video_code,
@@ -1663,16 +1787,35 @@ async function main() {
     report.discovery.detailChecks = checked;
     report.discovery.coverGuardSkips = coverGuardSkips;
     report.discovery.coverPreparationSkips = coverPreparationSkips;
+    report.discovery.filoRejections = filoRejections;
+    for(const rejected of filoRejections){
+      state.posts.push({
+        sourceCode:rejected.sourceCode,
+        status:'rejected_by_filo',
+        reason:rejected.reason,
+        httpStatus:rejected.httpStatus,
+        responseDiagnostics:rejected.responseDiagnostics,
+        attemptedAt:rejected.attemptedAt
+      });
+    }
+    if(filoRejections.length){
+      state.posts=state.posts.slice(-1200);
+      state.updatedAt=new Date().toISOString();
+      fs.writeFileSync(STATE_PATH,JSON.stringify(state,null,2)+'\n','utf8');
+    }
     if (!selected) {
-      report.status = 'no_candidate_published_this_cycle';
+      report.status = filoRejections.length
+        ? 'filo_rejected_candidates_no_success'
+        : 'no_candidate_published_this_cycle';
       report.result = {
-        status: 'no_candidate_published_this_cycle',
-        reason: coverGuardSkips.length || coverPreparationSkips.length
-          ? 'candidate_specific_cover_failures_exhausted_this_cycle'
-          : 'no_candidate_passed_native_permission_and_metadata_gates',
+        status:report.status,
+        reason:filoRejections.length
+          ?'confirmed_candidate_rejections_exhausted_this_cycle'
+          :'no_candidate_passed_native_permission_and_metadata_gates',
+        filoRejections,
         coverGuardSkips,
         coverPreparationSkips,
-        retryOnNextScheduledRun: true
+        retryOnNextScheduledRun:true
       };
       return;
     }
@@ -1713,6 +1856,8 @@ async function main() {
         sourceTitle: report.selected.title,
         status: 'rejected_by_filo',
         reason: result.reason || '',
+        httpStatus: result.httpStatus || null,
+        responseDiagnostics: result.responseDiagnostics || null,
         attemptedAt: report.createdAt
       });
       state.posts = state.posts.slice(-1200);
@@ -1731,6 +1876,7 @@ async function main() {
       eligibleFeedItems: report.discovery.eligibleFeedItems,
       selected: report.selected,
       result: report.result,
+      filoRejections: report.discovery.filoRejections || [],
       errors: report.discovery.errors.slice(0, 8),
       googleTrends: report.googleTrends,
       globalTrendSearch: report.discovery.globalTrendSearch,
@@ -1739,7 +1885,7 @@ async function main() {
     }));
   }
 
-  if (report.status === 'failed') process.exitCode = 1;
+  if (['failed','rejected_by_filo','filo_rejected_candidates_no_success','retryable_filo_failure'].includes(report.status)) process.exitCode = 1;
 }
 
 if (require.main === module) {
@@ -1769,6 +1915,8 @@ module.exports = {
   isRecoverableCoverPreparationError,
   imageBufferFromDataUrl,
   trustedFiloMediaUrl,
+  buildNativePublishGuardFailures,
+  safeApiDiagnosticValue,
   composeFiloCoverDataUrl,
   dailyCount
 };

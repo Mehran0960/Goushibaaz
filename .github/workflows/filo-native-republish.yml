@@ -30,14 +30,29 @@ jobs:
           node-version: 22
           package-manager-cache: false
 
-      - name: Install browser runtime and validate the publisher
+      # Browser and Python wheel caches prevent the five-minute publisher from spending
+      # most of each slot reinstalling the same toolchain.
+      - name: Restore publisher tool caches
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.cache/ms-playwright
+            ~/.npm
+          key: ${{ runner.os }}-filo-native-tools-v1-${{ hashFiles('scripts/score_filo_thumbnail.py') }}
+          restore-keys: |
+            ${{ runner.os }}-filo-native-tools-v1-
+
+      - name: Install only missing runtime dependencies and validate the publisher
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg
+          if ! command -v ffprobe >/dev/null 2>&1 || ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg
+          fi
           python3 -m pip install --quiet --break-system-packages mediapipe==0.10.21
           npm init -y >/dev/null
           npm install --no-save playwright >/dev/null
-          npx playwright install --with-deps chromium >/dev/null
+          npx playwright install chromium >/dev/null
           node --check scripts/filo_native_republish.cjs
           node scripts/test_filo_native_republish.cjs
           node --check scripts/google_trends_iran.cjs
