@@ -933,6 +933,8 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
 
   let publishPayload = null;
   let thumbnailGuardBlocked = false;
+  let resolveThumbnailGuardBlock;
+  const thumbnailGuardBlockPromise=new Promise(resolve=>{resolveThumbnailGuardBlock=resolve;});
   await page.route('**/api/v1/video/publish', async route => {
     const request = route.request();
     const params = new URLSearchParams(request.postData() || '');
@@ -1021,6 +1023,7 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
 
     if (!requestOk) {
       thumbnailGuardBlocked = true;
+      resolveThumbnailGuardBlock();
       await route.abort('blockedbyclient').catch(() => {});
       return;
     }
@@ -1043,16 +1046,20 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
   }, { timeout: 45000 }).catch(() => null);
 
   await publishButton.click();
-  const publishResponse = await responsePromise;
+  const publishOutcome=await Promise.race([
+    responsePromise.then(response=>({response})),
+    thumbnailGuardBlockPromise.then(()=>({blocked:true}))
+  ]);
   await page.waitForTimeout(1200);
 
-  if (thumbnailGuardBlocked || !publishPayload || !publishPayload.guardPassed) {
+  if (publishOutcome.blocked || thumbnailGuardBlocked || !publishPayload || !publishPayload.guardPassed) {
     return {
       status: 'blocked_before_filo_submission',
       reason: 'native_republish_payload_failed_safety_guard',
       publishPayload
     };
   }
+  const publishResponse=publishOutcome.response;
   if (!publishResponse) {
     return {
       status: 'submitted_unconfirmed',
@@ -1536,7 +1543,9 @@ async function main() {
           score: candidate.editorialScore,
           reason: 'cover_aspect_not_16_9',
           coverDimensions: attemptResult.publishPayload.coverDimensions || null,
-          coverAspectRatio: attemptResult.publishPayload.coverAspectRatio || null
+          coverAspectRatio: attemptResult.publishPayload.coverAspectRatio || null,
+          coverCompositionReason: attemptResult.publishPayload.coverComposition &&
+            attemptResult.publishPayload.coverComposition.reason || null
         });
         check.publishAttempt = 'skipped_before_submission_bad_cover_aspect';
         // No POST was sent. Keep the candidate eligible for future runs, but try the next ranked
