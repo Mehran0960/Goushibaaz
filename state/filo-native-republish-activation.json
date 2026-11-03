@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "activatedAt": "2026-11-03T00:00:00Z",
-  "lastManualActivationAt": "2026-11-03T04:51:20.753Z",
-  "activationAttempts": 3,
+  "lastManualActivationAt": "2026-11-03T10:30:28.223Z",
+  "activationAttempts": 4,
   "purpose": "One-time controlled activation of the Filo native republisher. Normal cadence is the five-minute GitHub Actions schedule; this marker is not a publication queue.",
-  "lastManualActivationReason": "user_requested_one_off_test_publication"
+  "lastManualActivationReason": "one_off_validation_after_cover_nonblocking_and_publish_retry_fix"
 }
