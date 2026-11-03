@@ -1231,7 +1231,7 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
 
   const responseText=await publishResponse.text().catch(()=>'');
   const responseBody=parseJson(responseText);
-  if (!responseBody || !isFlag(responseBody.s)) {
+  if (publishResponse.status()>=400 || !responseBody || !isFlag(responseBody.s)) {
     const diagnostics={};
     if(responseBody&&typeof responseBody==='object'){
       diagnostics.bodyKeys=Object.keys(responseBody).slice(0,30);
@@ -1830,6 +1830,8 @@ async function main() {
         sourceTitle: report.selected.title,
         status: 'rejected_by_filo',
         reason: result.reason || '',
+        httpStatus: result.httpStatus || null,
+        responseDiagnostics: result.responseDiagnostics || null,
         attemptedAt: report.createdAt
       });
       state.posts = state.posts.slice(-1200);
@@ -1848,6 +1850,7 @@ async function main() {
       eligibleFeedItems: report.discovery.eligibleFeedItems,
       selected: report.selected,
       result: report.result,
+      filoRejections: report.discovery.filoRejections || [],
       errors: report.discovery.errors.slice(0, 8),
       googleTrends: report.googleTrends,
       globalTrendSearch: report.discovery.globalTrendSearch,
