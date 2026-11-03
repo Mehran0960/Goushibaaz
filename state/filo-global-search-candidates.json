@@ -1,69 +1,107 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-03T17:41:43.309Z",
-  "trendsFetchedAt": "2026-11-03T17:40:43.242Z",
+  "updatedAt": "2026-11-03T21:48:40.557Z",
+  "trendsFetchedAt": "2026-11-03T21:47:51.211Z",
   "trends": [
     {
-      "title": "قیمت خودرو امروز",
+      "title": "لامین یامال",
       "keywords": [
-        "قیمت",
-        "خودرو"
-      ],
-      "traffic": 1000,
-      "publishedAt": "Tue, 3 Nov 2026 09:20:00 -0800",
-      "ageHours": 0.3
-    },
-    {
-      "title": "لیگ قهرمانان آسیا",
-      "keywords": [
-        "لیگ",
-        "قهرمانان",
-        "آسیا"
+        "لامین",
+        "یامال"
       ],
       "traffic": 500,
-      "publishedAt": "Tue, 3 Nov 2026 08:30:00 -0800",
-      "ageHours": 1.2
+      "publishedAt": "Tue, 3 Nov 2026 12:10:00 -0800",
+      "ageHours": 1.6
     },
     {
-      "title": "قیمت دنا پلاس",
+      "title": "psg",
       "keywords": [
-        "قیمت",
-        "دنا",
-        "پلاس"
+        "psg"
       ],
       "traffic": 200,
-      "publishedAt": "Tue, 3 Nov 2026 09:20:00 -0800",
+      "publishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+      "ageHours": 1.1
+    },
+    {
+      "title": "مسکن",
+      "keywords": [
+        "مسکن"
+      ],
+      "traffic": 200,
+      "publishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+      "ageHours": 1.1
+    },
+    {
+      "title": "polymarket",
+      "keywords": [
+        "polymarket"
+      ],
+      "traffic": 200,
+      "publishedAt": "Tue, 3 Nov 2026 12:30:00 -0800",
+      "ageHours": 1.3
+    },
+    {
+      "title": "پاریس",
+      "keywords": [
+        "پاریس"
+      ],
+      "traffic": 200,
+      "publishedAt": "Tue, 3 Nov 2026 12:20:00 -0800",
+      "ageHours": 1.5
+    },
+    {
+      "title": "champions league",
+      "keywords": [
+        "champions",
+        "league"
+      ],
+      "traffic": 100,
+      "publishedAt": "Tue, 3 Nov 2026 13:30:00 -0800",
       "ageHours": 0.3
     },
     {
-      "title": "gta vi",
+      "title": "manchester united",
       "keywords": [
-        "gta",
-        "vi"
+        "manchester",
+        "united"
       ],
-      "traffic": 200,
-      "publishedAt": "Tue, 3 Nov 2026 09:10:00 -0800",
-      "ageHours": 0.5
+      "traffic": 100,
+      "publishedAt": "Tue, 3 Nov 2026 13:10:00 -0800",
+      "ageHours": 0.6
     },
     {
-      "title": "الطقس غدًا",
+      "title": "فاینورد مقابل اینتر",
       "keywords": [
-        "الطقس",
-        "غد"
+        "فاینورد",
+        "مقابل",
+        "اینتر"
       ],
-      "traffic": 200,
-      "publishedAt": "Tue, 3 Nov 2026 09:10:00 -0800",
-      "ageHours": 0.5
+      "traffic": 100,
+      "publishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+      "ageHours": 1.1
     },
     {
-      "title": "چین",
+      "title": "برشلونة ضد أستون فيلا",
       "keywords": [
-        "چین"
+        "برشلونة",
+        "ضد",
+        "أستون",
+        "فیلا"
       ],
-      "traffic": 200,
-      "publishedAt": "Tue, 3 Nov 2026 08:50:00 -0800",
-      "ageHours": 0.8
+      "traffic": 100,
+      "publishedAt": "Tue, 3 Nov 2026 12:20:00 -0800",
+      "ageHours": 1.5
+    },
+    {
+      "title": "بیژن زنگنه",
+      "keywords": [
+        "بیژن",
+        "زنگنه"
+      ],
+      "traffic": 100,
+      "publishedAt": "Tue, 3 Nov 2026 12:10:00 -0800",
+      "ageHours": 1.6
     }
   ],
   "queries": {
@@ -1065,12 +1103,12 @@
     "شبکه خبر": {
       "query": "شبکه خبر",
       "normalized": "شبکه خبر",
-      "nextPage": 61,
+      "nextPage": 81,
       "complete": false,
-      "pagesFetched": 60,
-      "videosSeen": 1098,
+      "pagesFetched": 80,
+      "videosSeen": 1498,
       "createdAt": "2026-11-02T21:27:08.686Z",
-      "lastAttemptAt": "2026-11-02T22:01:25.359Z",
+      "lastAttemptAt": "2026-11-03T21:48:40.435Z",
       "lastError": null,
       "trendTitle": "شبکه خبر",
       "trendTraffic": 500,
@@ -1142,7 +1180,7 @@
         "چین"
       ],
       "lastTrendSeenAt": "2026-11-03T17:40:43.966Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-03T17:41:43.046Z",
       "refreshOnly": false,
@@ -1614,12 +1652,12 @@
     "خبرگزاری فارس": {
       "query": "خبرگزاری فارس",
       "normalized": "خبرگزاری فارس",
-      "nextPage": 21,
+      "nextPage": 41,
       "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 389,
+      "pagesFetched": 40,
+      "videosSeen": 789,
       "createdAt": "2026-11-02T21:58:38.825Z",
-      "lastAttemptAt": "2026-11-02T22:01:25.365Z",
+      "lastAttemptAt": "2026-11-03T21:48:40.438Z",
       "lastError": null,
       "trendTitle": "خبرگزاری فارس",
       "trendTraffic": 200,
@@ -3776,7 +3814,7 @@
         "پلاس"
       ],
       "lastTrendSeenAt": "2026-11-03T17:40:43.966Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "قیمت خودروهای ایران خودرو امروز دوشنبه ۱۱ آبان ۱۴۰۵ جدول ک سلام ماشین": {
@@ -3798,7 +3836,7 @@
         "پلاس"
       ],
       "lastTrendSeenAt": "2026-11-03T17:40:43.966Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "هادی عامل": {
@@ -3996,7 +4034,7 @@
         "خودرو"
       ],
       "lastTrendSeenAt": "2026-11-03T17:40:43.966Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "قیمت خودرو": {
@@ -4017,7 +4055,7 @@
         "خودرو"
       ],
       "lastTrendSeenAt": "2026-11-03T17:40:43.966Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "قیمت خودرو در بازار آزاد سه شنبه ۱۲ آبان": {
@@ -4038,7 +4076,7 @@
         "خودرو"
       ],
       "lastTrendSeenAt": "2026-11-03T17:40:43.966Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-03T17:41:43.092Z"
     },
@@ -4061,7 +4099,7 @@
         "آسیا"
       ],
       "lastTrendSeenAt": "2026-11-03T17:40:43.966Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "خاتون همچنان امیدوار به صعود در لیگ قهرمانان": {
       "query": "خاتون همچنان امیدوار به صعود در لیگ قهرمانان",
@@ -4082,7 +4120,7 @@
         "آسیا"
       ],
       "lastTrendSeenAt": "2026-11-03T17:40:43.966Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "شکست خاتون بم در نخستین دیدار لیگ قهرمانان زنان آسیا": {
       "query": "شکست خاتون بم در نخستین دیدار لیگ قهرمانان زنان آسیا",
@@ -4103,7 +4141,7 @@
         "آسیا"
       ],
       "lastTrendSeenAt": "2026-11-03T17:40:43.966Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "قیمت دنا پلاس": {
       "query": "قیمت دنا پلاس",
@@ -4124,7 +4162,7 @@
         "پلاس"
       ],
       "lastTrendSeenAt": "2026-11-03T17:40:43.966Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "gta vi": {
       "query": "gta vi",
@@ -4144,7 +4182,7 @@
         "vi"
       ],
       "lastTrendSeenAt": "2026-11-03T17:40:43.966Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "what gta vi s 20 ultimate edition upgrade actually buys you": {
       "query": "What GTA VI’s $20 Ultimate Edition Upgrade Actually Buys You",
@@ -4164,7 +4202,7 @@
         "vi"
       ],
       "lastTrendSeenAt": "2026-11-03T17:40:43.966Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "gta 6 ultimate edition is it worth paying more": {
       "query": "GTA 6 Ultimate Edition: Is It Worth Paying More?",
@@ -4184,7 +4222,7 @@
         "vi"
       ],
       "lastTrendSeenAt": "2026-11-03T17:40:43.966Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "الطقس غد ا": {
       "query": "الطقس غدًا",
@@ -4204,7 +4242,7 @@
         "غد"
       ],
       "lastTrendSeenAt": "2026-11-03T17:40:43.966Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "الطقس غد": {
       "query": "الطقس غد",
@@ -4224,7 +4262,7 @@
         "غد"
       ],
       "lastTrendSeenAt": "2026-11-03T17:40:43.966Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "چین": {
       "query": "چین",
@@ -4243,6 +4281,572 @@
         "چین"
       ],
       "lastTrendSeenAt": "2026-11-03T17:40:43.966Z",
+      "activeInLatestFeed": false
+    },
+    "لامین یامال": {
+      "query": "لامین یامال",
+      "normalized": "لامین یامال",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 344,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": "2026-11-03T21:48:40.425Z",
+      "lastError": null,
+      "trendTitle": "لامین یامال",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:10:00 -0800",
+      "trendKeywords": [
+        "لامین",
+        "یامال"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "رکورد جدید یامال از امباپه عبور کرد": {
+      "query": "رکورد جدید: یامال از امباپه عبور کرد",
+      "normalized": "رکورد جدید یامال از امباپه عبور کرد",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 368,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": "2026-11-03T21:48:40.429Z",
+      "lastError": null,
+      "trendTitle": "لامین یامال",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:10:00 -0800",
+      "trendKeywords": [
+        "لامین",
+        "یامال"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "پیامبر گل ها مهاجم امباپه و یامال نه ممنون ون و پیکه هستن این لاشی بازی رو فقط ای فوتبال باز ها درک میکنن": {
+      "query": "پیامبر گل ها: 🖼️ مهاجم امباپه و یامال؟نه ممنون ون و پیکه هستن🗿 (این لاشی بازی رو فقط ای فوتبال باز ها درک میکنن)",
+      "normalized": "پیامبر گل ها مهاجم امباپه و یامال نه ممنون ون و پیکه هستن این لاشی بازی رو فقط ای فوتبال باز ها درک میکنن",
+      "nextPage": 2,
+      "complete": true,
+      "pagesFetched": 1,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": "2026-11-03T21:48:40.429Z",
+      "lastError": null,
+      "trendTitle": "لامین یامال",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:10:00 -0800",
+      "trendKeywords": [
+        "لامین",
+        "یامال"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-03T21:48:40.429Z"
+    },
+    "psg": {
+      "query": "psg",
+      "normalized": "psg",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 392,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": "2026-11-03T21:48:40.431Z",
+      "lastError": null,
+      "trendTitle": "psg",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+      "trendKeywords": [
+        "psg"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "psg luis enrique a trouvé son nouveau chouchou en liga": {
+      "query": "PSG : Luis Enrique a trouvé son nouveau chouchou en Liga",
+      "normalized": "psg luis enrique a trouvé son nouveau chouchou en liga",
+      "nextPage": 2,
+      "complete": true,
+      "pagesFetched": 1,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": "2026-11-03T21:48:40.431Z",
+      "lastError": null,
+      "trendTitle": "psg",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+      "trendKeywords": [
+        "psg"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-03T21:48:40.431Z"
+    },
+    "concurrence européenne pour le défenseur du celta vig": {
+      "query": "Concurrence européenne pour le défenseur du Celta Vig…",
+      "normalized": "concurrence européenne pour le défenseur du celta vig",
+      "nextPage": 3,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 3,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": "2026-11-03T21:48:40.431Z",
+      "lastError": null,
+      "trendTitle": "psg",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+      "trendKeywords": [
+        "psg"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-03T21:48:40.431Z"
+    },
+    "مسکن": {
+      "query": "مسکن",
+      "normalized": "مسکن",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "مسکن",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+      "trendKeywords": [
+        "مسکن"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "حمایت از تولید انبوه و بخش خصوصی مسیر کاهش هزینه تأمین مسکن اختصاص ۲ ۵ همت اعتبار برای تأمین مسکن محرومان در سال جاری": {
+      "query": "حمایت از تولید انبوه و بخش خصوصی، مسیر کاهش هزینه تأمین مسکن/ اختصاص ۲.۵ همت اعتبار برای تأمین مسکن محرومان در سال جاری",
+      "normalized": "حمایت از تولید انبوه و بخش خصوصی مسیر کاهش هزینه تأمین مسکن اختصاص ۲ ۵ همت اعتبار برای تأمین مسکن محرومان در سال جاری",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "مسکن",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+      "trendKeywords": [
+        "مسکن"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "بانک ها به تعهدات مسکن عمل نکردند ۳۶۰ همت جریمه هنوز وصول نشده است فیلم": {
+      "query": "بانک‌ها به تعهدات مسکن عمل نکردند/ ۳۶۰ همت جریمه هنوز وصول نشده است + فیلم",
+      "normalized": "بانک ها به تعهدات مسکن عمل نکردند ۳۶۰ همت جریمه هنوز وصول نشده است فیلم",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "مسکن",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+      "trendKeywords": [
+        "مسکن"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "polymarket": {
+      "query": "polymarket",
+      "normalized": "polymarket",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "polymarket",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:30:00 -0800",
+      "trendKeywords": [
+        "polymarket"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "polymarket promo code mlive25bonus unlocks a 25 bonus for maction election day": {
+      "query": "Polymarket Promo Code MLIVE25BONUS unlocks a $25 bonus for MACtion + Election Day",
+      "normalized": "polymarket promo code mlive25bonus unlocks a 25 bonus for maction election day",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "polymarket",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:30:00 -0800",
+      "trendKeywords": [
+        "polymarket"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "buffalo vs miami oh prediction pick college football odds for tuesday november 3": {
+      "query": "Buffalo vs Miami (OH) Prediction, Pick, College Football Odds for Tuesday, November 3",
+      "normalized": "buffalo vs miami oh prediction pick college football odds for tuesday november 3",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "polymarket",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:30:00 -0800",
+      "trendKeywords": [
+        "polymarket"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "پاریس": {
+      "query": "پاریس",
+      "normalized": "پاریس",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "پاریس",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:20:00 -0800",
+      "trendKeywords": [
+        "پاریس"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "برملا شدن دروغ رفاه مطلق اروپایی با تصاویر واقعی خیابان های پاریس فیلم": {
+      "query": "برملا شدن دروغ رفاه مطلق اروپایی با تصاویر واقعی خیابان‌های پاریس + فیلم",
+      "normalized": "برملا شدن دروغ رفاه مطلق اروپایی با تصاویر واقعی خیابان های پاریس فیلم",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "پاریس",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:20:00 -0800",
+      "trendKeywords": [
+        "پاریس"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "ویدئو گرافیک عصر سقوط انتحاری اروپا": {
+      "query": "ویدئو گرافیک/ عصر «سقوط انتحاری اروپا»",
+      "normalized": "ویدئو گرافیک عصر سقوط انتحاری اروپا",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "پاریس",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:20:00 -0800",
+      "trendKeywords": [
+        "پاریس"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "champions league": {
+      "query": "champions league",
+      "normalized": "champions league",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "champions league",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 3 Nov 2026 13:30:00 -0800",
+      "trendKeywords": [
+        "champions",
+        "league"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "man utd vs roma suddenly halted as referee forced to stop champions league tie": {
+      "query": "Man Utd vs Roma suddenly halted as referee forced to stop Champions League tie",
+      "normalized": "man utd vs roma suddenly halted as referee forced to stop champions league tie",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "champions league",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 3 Nov 2026 13:30:00 -0800",
+      "trendKeywords": [
+        "champions",
+        "league"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "total chaos at old trafford furious man united fans throw rubbish towards their own players video": {
+      "query": "Total chaos at Old Trafford! Furious Man United fans throw rubbish towards their own players. VIDEO",
+      "normalized": "total chaos at old trafford furious man united fans throw rubbish towards their own players video",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "champions league",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 3 Nov 2026 13:30:00 -0800",
+      "trendKeywords": [
+        "champions",
+        "league"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "manchester united": {
+      "query": "manchester united",
+      "normalized": "manchester united",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "manchester united",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 3 Nov 2026 13:10:00 -0800",
+      "trendKeywords": [
+        "manchester",
+        "united"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "فاینورد مقابل اینتر": {
+      "query": "فاینورد مقابل اینتر",
+      "normalized": "فاینورد مقابل اینتر",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "فاینورد مقابل اینتر",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+      "trendKeywords": [
+        "فاینورد",
+        "مقابل",
+        "اینتر"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "اینتر درون خانواده دعواهایش را کرده": {
+      "query": "اینتر درون خانواده دعواهایش را کرده",
+      "normalized": "اینتر درون خانواده دعواهایش را کرده",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "فاینورد مقابل اینتر",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+      "trendKeywords": [
+        "فاینورد",
+        "مقابل",
+        "اینتر"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "صعود از لیگ قهرمانان فقط ۱۶ امتیاز کافی است": {
+      "query": "صعود از لیگ قهرمانان؟ فقط ۱۶ امتیاز کافی است!",
+      "normalized": "صعود از لیگ قهرمانان فقط ۱۶ امتیاز کافی است",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "فاینورد مقابل اینتر",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+      "trendKeywords": [
+        "فاینورد",
+        "مقابل",
+        "اینتر"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "برشلونة ضد أستون فیلا": {
+      "query": "برشلونة ضد أستون فيلا",
+      "normalized": "برشلونة ضد أستون فیلا",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "برشلونة ضد أستون فيلا",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:20:00 -0800",
+      "trendKeywords": [
+        "برشلونة",
+        "ضد",
+        "أستون",
+        "فیلا"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "بث مباشر لمباراة برشلونة ضد أستون فیلا فی دوری أبطال أوروبا": {
+      "query": "بث مباشر لمباراة برشلونة ضد أستون فيلا في دوري أبطال أوروبا",
+      "normalized": "بث مباشر لمباراة برشلونة ضد أستون فیلا فی دوری أبطال أوروبا",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "برشلونة ضد أستون فيلا",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:20:00 -0800",
+      "trendKeywords": [
+        "برشلونة",
+        "ضد",
+        "أستون",
+        "فیلا"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "رافیینیا یسجل الهدف الثالث لبرشلونة فی شباک أستون فیلا فیدیو": {
+      "query": "رافيينيا يسجل الهدف الثالث لبرشلونة في شباك أستون فيلا - فيديو",
+      "normalized": "رافیینیا یسجل الهدف الثالث لبرشلونة فی شباک أستون فیلا فیدیو",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "برشلونة ضد أستون فيلا",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:20:00 -0800",
+      "trendKeywords": [
+        "برشلونة",
+        "ضد",
+        "أستون",
+        "فیلا"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "بیژن زنگنه": {
+      "query": "بیژن زنگنه",
+      "normalized": "بیژن زنگنه",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "بیژن زنگنه",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:10:00 -0800",
+      "trendKeywords": [
+        "بیژن",
+        "زنگنه"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "مجلس ترحیم مادر بیژن زنگنه": {
+      "query": "مجلس ترحیم مادر «بیژن زنگنه»",
+      "normalized": "مجلس ترحیم مادر بیژن زنگنه",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.205Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "بیژن زنگنه",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:10:00 -0800",
+      "trendKeywords": [
+        "بیژن",
+        "زنگنه"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.205Z",
+      "activeInLatestFeed": true
+    },
+    "مراسم ختم مادر بیژن زنگنه وزیر اسبق نفت": {
+      "query": "مراسم ختم مادر بیژن زنگنه وزیر اسبق نفت",
+      "normalized": "مراسم ختم مادر بیژن زنگنه وزیر اسبق نفت",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T21:47:52.206Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "بیژن زنگنه",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 3 Nov 2026 12:10:00 -0800",
+      "trendKeywords": [
+        "بیژن",
+        "زنگنه"
+      ],
+      "lastTrendSeenAt": "2026-11-03T21:47:52.206Z",
       "activeInLatestFeed": true
     }
   },
@@ -13206,43 +13810,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T20:35:59.740Z"
     },
-    "ZCoa1py": {
-      "video_code": "ZCoa1py",
-      "title": "فیام هری پاتر ۶",
-      "sender_name": "نیلا",
-      "category_id": 21,
-      "duration": 9146,
-      "visit_count": 1958,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "ستاره اصلی Harry Potter به بازیگر جایگزین خود در سریال HBO هشدار داد",
-          "trendTitle": "اچبیاو",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:20:00 -0800",
-          "trendKeywords": [
-            "اچبیاو"
-          ],
-          "page": 9
-        },
-        {
-          "query": "پدر و مادر «هری پاتر» معرفی شدند",
-          "trendTitle": "اچبیاو",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:20:00 -0800",
-          "trendKeywords": [
-            "اچبیاو"
-          ],
-          "page": 9
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T20:35:59.740Z"
-    },
     "WwxGwd4": {
       "video_code": "WwxGwd4",
       "title": "فیلم سینمایی جدید 2022 اسلحه های آکیمبو با بازی هری پاتر",
@@ -15496,7 +16063,7 @@
       "sender_name": "علیرضا",
       "category_id": 1,
       "duration": 147,
-      "visit_count": 7028,
+      "visit_count": 7031,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
       "active": 1,
@@ -15523,9 +16090,20 @@
             "فارس"
           ],
           "page": 20
+        },
+        {
+          "query": "خبرگزاری فارس",
+          "trendTitle": "خبرگزاری فارس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:40:00 -0800",
+          "trendKeywords": [
+            "خبرگزاری",
+            "فارس"
+          ],
+          "page": 21
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:56:47.332Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.435Z"
     },
     "AFxtxmr": {
       "video_code": "AFxtxmr",
@@ -16325,34 +16903,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T20:44:41.297Z"
-    },
-    "QImrBtI": {
-      "video_code": "QImrBtI",
-      "title": "تماشای خودروی تویوتا لندکروز vip ادیشن مدل سال ۲۰۲۲",
-      "sender_name": "alireza",
-      "category_id": 25,
-      "duration": 21,
-      "visit_count": 5345,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "تویوتا لندکروزر",
-          "trendTitle": "تویوتا لندکروزر",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:20:00 -0800",
-          "trendKeywords": [
-            "تویوتا",
-            "لندکروزر"
-          ],
-          "page": 3
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T20:44:41.298Z"
     },
     "ZVndy8F": {
       "video_code": "ZVndy8F",
@@ -17473,45 +18023,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T21:04:30.306Z"
     },
-    "bKXbSZE": {
-      "video_code": "bKXbSZE",
-      "title": "فریادهای رائفی پور علیه « قالیباف »",
-      "sender_name": "سرگرمخانه",
-      "category_id": 1,
-      "duration": 602,
-      "visit_count": 1961,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "محمدباقر قالیباف",
-          "trendTitle": "محمدباقر قالیباف",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
-          "trendKeywords": [
-            "محمدباقر",
-            "قالیباف"
-          ],
-          "page": 5
-        },
-        {
-          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
-          "trendTitle": "محمدباقر قالیباف",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
-          "trendKeywords": [
-            "محمدباقر",
-            "قالیباف"
-          ],
-          "page": 12
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:04:30.306Z"
-    },
     "bUzWnj8": {
       "video_code": "bUzWnj8",
       "title": "دختر قالیباف ماجرای سیسمونی دروغ بود",
@@ -17667,45 +18178,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T21:04:30.306Z"
-    },
-    "A5gsHxW": {
-      "video_code": "A5gsHxW",
-      "title": "وقتی روحانی « قالیباف » رو ناک اوت کرد",
-      "sender_name": "یوتیوب فارسی",
-      "category_id": 1,
-      "duration": 296,
-      "visit_count": 1968,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "محمدباقر قالیباف",
-          "trendTitle": "محمدباقر قالیباف",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
-          "trendKeywords": [
-            "محمدباقر",
-            "قالیباف"
-          ],
-          "page": 6
-        },
-        {
-          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
-          "trendTitle": "محمدباقر قالیباف",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
-          "trendKeywords": [
-            "محمدباقر",
-            "قالیباف"
-          ],
-          "page": 15
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:04:30.307Z"
     },
     "GjUDnxc": {
       "video_code": "GjUDnxc",
@@ -18934,45 +19406,6 @@
       "category_id": 1,
       "duration": 106,
       "visit_count": 5767,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "محمدباقر قالیباف",
-          "trendTitle": "محمدباقر قالیباف",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
-          "trendKeywords": [
-            "محمدباقر",
-            "قالیباف"
-          ],
-          "page": 9
-        },
-        {
-          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
-          "trendTitle": "محمدباقر قالیباف",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
-          "trendKeywords": [
-            "محمدباقر",
-            "قالیباف"
-          ],
-          "page": 38
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:28:01.774Z"
-    },
-    "HqF2gaK": {
-      "video_code": "HqF2gaK",
-      "title": "سخنرانی دکتر قالیباف بعد از ثبت نام در ستاد انتخابات ریاست جمهوری ۱۴۰۳",
-      "sender_name": "علیرضا",
-      "category_id": 1,
-      "duration": 262,
-      "visit_count": 1971,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -20646,34 +21079,6 @@
             "قالیباف"
           ],
           "page": 15
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:04:30.307Z"
-    },
-    "FLF5j6b": {
-      "video_code": "FLF5j6b",
-      "title": "گرشا رضایی وقتی از عالم و آدم دل من خسته میشه",
-      "sender_name": "d1400",
-      "category_id": 4,
-      "duration": 63,
-      "visit_count": 5336,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
-          "trendTitle": "محمدباقر قالیباف",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
-          "trendKeywords": [
-            "محمدباقر",
-            "قالیباف"
-          ],
-          "page": 16
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T21:04:30.307Z"
@@ -23610,53 +24015,6 @@
       "category_id": 13,
       "duration": 70,
       "visit_count": 1078,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 3
-        },
-        {
-          "query": "زنده - شنیده شدن صدای دست‌کم ۶ انفجار در جزیره قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 16
-        },
-        {
-          "query": "فوری؛ شنیده شدن صدای پنج انفجار در جزیره قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 16
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:56:47.325Z"
-    },
-    "Lz24IEv": {
-      "video_code": "Lz24IEv",
-      "title": "قشم گردی دیدن دریا و جنگل حرا جنوب",
-      "sender_name": "یلدا",
-      "category_id": 22,
-      "duration": 434,
-      "visit_count": 728,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -28617,34 +28975,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T21:59:38.765Z"
     },
-    "yAaFdet": {
-      "video_code": "yAaFdet",
-      "title": "فیلم کامل هدف قرار گرفتن شبکه خبر در هنگام اجرای سحر امامی",
-      "sender_name": "منتخب فیلو✅",
-      "category_id": 3,
-      "duration": 110,
-      "visit_count": 5332,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "شبکه خبر",
-          "trendTitle": "شبکه خبر",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
-          "trendKeywords": [
-            "شبکه",
-            "خبر"
-          ],
-          "page": 1
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:30:01.340Z"
-    },
     "2AK20nL": {
       "video_code": "2AK20nL",
       "title": "سخنرانی دکتر مسعود پزشکیان در شبکه خبر زنده",
@@ -30027,9 +30357,20 @@
             "فارس"
           ],
           "page": 6
+        },
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 68
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.367Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.433Z"
     },
     "E157sVv": {
       "video_code": "E157sVv",
@@ -34837,34 +35178,6 @@
       "visit_count": 11442,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "افغانی افغانستان",
-          "trendTitle": "افغانی افغانستان",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "افغانی",
-            "افغانستان"
-          ],
-          "page": 13
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:31:42.828Z"
-    },
-    "RPCcUCt": {
-      "video_code": "RPCcUCt",
-      "title": "آهنگ افغانی غمگین جدایی",
-      "sender_name": "قادرم",
-      "category_id": 9,
-      "duration": 387,
-      "visit_count": 5384,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -39843,7 +40156,7 @@
       "sender_name": "آماندا",
       "category_id": 1,
       "duration": 698,
-      "visit_count": 6873,
+      "visit_count": 6874,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
       "active": 1,
@@ -39872,9 +40185,20 @@
             "فوری"
           ],
           "page": 8
+        },
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 72
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:59:38.767Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.434Z"
     },
     "zNlTjgI": {
       "video_code": "zNlTjgI",
@@ -48111,34 +48435,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T21:55:12.049Z"
     },
-    "NBCDATh": {
-      "video_code": "NBCDATh",
-      "title": "آموزش نواختن آهنگ عربی حبیبی یا نور العین با ارگ پیا ۵۰",
-      "sender_name": "آریو (فالو=فالو)",
-      "category_id": 7,
-      "duration": 347,
-      "visit_count": 5390,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 29
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.049Z"
-    },
     "isxkdAF": {
       "video_code": "isxkdAF",
       "title": "حسن ریوندی - استراتژی جذب دختر",
@@ -48896,34 +49192,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-03T05:06:09.132Z"
-    },
-    "rX13bpR": {
-      "video_code": "rX13bpR",
-      "title": "حسن نصر فی عنوان عرسان العرب",
-      "sender_name": "tamimi",
-      "category_id": 8,
-      "duration": 525,
-      "visit_count": 5339,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 31
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.050Z"
     },
     "JrPl0H5": {
       "video_code": "JrPl0H5",
@@ -52039,33 +52307,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T21:55:12.068Z"
-    },
-    "HO1F9j1": {
-      "video_code": "HO1F9j1",
-      "title": "مسلسل بيت الطين الجزء ١ الحلقه ١٠",
-      "sender_name": "اهواز تی وی",
-      "category_id": 1,
-      "duration": 2920,
-      "visit_count": 5347,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "بیت کوین زیر فشار داده‌های اشتغال؛ امیدی به برگشت دوباره هست؟",
-          "trendTitle": "بیتکوین",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:10:00 -0800",
-          "trendKeywords": [
-            "بیتکوین"
-          ],
-          "page": 31
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.069Z"
     },
     "O6vSS0S": {
       "video_code": "O6vSS0S",
@@ -59721,43 +59962,6 @@
       "visit_count": 2199,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "زنده - شنیده شدن صدای دست‌کم ۶ انفجار در جزیره قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 20
-        },
-        {
-          "query": "فوری؛ شنیده شدن صدای پنج انفجار در جزیره قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 20
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:56:47.327Z"
-    },
-    "8BSdpTi": {
-      "video_code": "8BSdpTi",
-      "title": "انفجار مهیب در بیروت امروز",
-      "sender_name": "s",
-      "category_id": 1,
-      "duration": 44,
-      "visit_count": 1968,
-      "create_date": "6 سال پیش",
-      "styled_create_date": "6 سال پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -67704,9 +67908,20 @@
             "گندم"
           ],
           "page": 48
+        },
+        {
+          "query": "خبرگزاری فارس",
+          "trendTitle": "خبرگزاری فارس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:40:00 -0800",
+          "trendKeywords": [
+            "خبرگزاری",
+            "فارس"
+          ],
+          "page": 21
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T10:51:08.356Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.435Z"
     },
     "OIalX7q": {
       "video_code": "OIalX7q",
@@ -67731,9 +67946,20 @@
             "فارس"
           ],
           "page": 20
+        },
+        {
+          "query": "خبرگزاری فارس",
+          "trendTitle": "خبرگزاری فارس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:40:00 -0800",
+          "trendKeywords": [
+            "خبرگزاری",
+            "فارس"
+          ],
+          "page": 21
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:56:47.332Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.435Z"
     },
     "20Js48v": {
       "video_code": "20Js48v",
@@ -70200,9 +70426,20 @@
             "فوری"
           ],
           "page": 6
+        },
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 62
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:59:38.766Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.431Z"
     },
     "cfHk0Mb": {
       "video_code": "cfHk0Mb",
@@ -70387,45 +70624,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T21:59:38.766Z"
-    },
-    "lYwgR2Z": {
-      "video_code": "lYwgR2Z",
-      "title": "خبر فوری و مهم! خبر فوری و مهم! خبر فوری و مهم!",
-      "sender_name": "احمد علی - 1",
-      "category_id": 1,
-      "duration": 558,
-      "visit_count": 1955,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "خبر فوری",
-          "trendTitle": "خبر فوری",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:40:00 -0800",
-          "trendKeywords": [
-            "خبر",
-            "فوری"
-          ],
-          "page": 6
-        },
-        {
-          "query": "شبکه خبر",
-          "trendTitle": "شبکه خبر",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
-          "trendKeywords": [
-            "شبکه",
-            "خبر"
-          ],
-          "page": 54
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.357Z"
     },
     "hfzX6SX": {
       "video_code": "hfzX6SX",
@@ -70763,9 +70961,20 @@
             "فوری"
           ],
           "page": 7
+        },
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 62
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:59:38.766Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.431Z"
     },
     "hbH6Num": {
       "video_code": "hbH6Num",
@@ -70791,9 +71000,20 @@
             "فوری"
           ],
           "page": 8
+        },
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 67
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:59:38.767Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.432Z"
     },
     "qJOq8Rg": {
       "video_code": "qJOq8Rg",
@@ -70829,9 +71049,20 @@
             "پهپاد"
           ],
           "page": 12
+        },
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 66
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:05:15.874Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.432Z"
     },
     "osELJ7J": {
       "video_code": "osELJ7J",
@@ -70857,9 +71088,20 @@
             "فوری"
           ],
           "page": 8
+        },
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 70
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:59:38.767Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.433Z"
     },
     "AqBhW38": {
       "video_code": "AqBhW38",
@@ -70905,9 +71147,20 @@
             "قشم"
           ],
           "page": 21
+        },
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 70
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.070Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.433Z"
     },
     "DgQ3pak": {
       "video_code": "DgQ3pak",
@@ -70915,7 +71168,7 @@
       "sender_name": "سعید",
       "category_id": 1,
       "duration": 55,
-      "visit_count": 10844,
+      "visit_count": 10845,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -70933,9 +71186,20 @@
             "فوری"
           ],
           "page": 8
+        },
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 72
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:59:38.767Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.434Z"
     },
     "3tlO9Er": {
       "video_code": "3tlO9Er",
@@ -70943,7 +71207,7 @@
       "sender_name": "جواد رستمی",
       "category_id": 1,
       "duration": 8,
-      "visit_count": 9037,
+      "visit_count": 9038,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
       "active": 1,
@@ -70981,9 +71245,20 @@
             "قشم"
           ],
           "page": 22
+        },
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 75
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.070Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.434Z"
     },
     "BnV4Dup": {
       "video_code": "BnV4Dup",
@@ -71031,9 +71306,20 @@
             "خودرو"
           ],
           "page": 1
+        },
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 75
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T17:41:43.092Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.434Z"
     },
     "nSMX9iS": {
       "video_code": "nSMX9iS",
@@ -71059,9 +71345,20 @@
             "فوری"
           ],
           "page": 9
+        },
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 77
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:59:38.767Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.434Z"
     },
     "fwGefps": {
       "video_code": "fwGefps",
@@ -71087,9 +71384,20 @@
             "فوری"
           ],
           "page": 9
+        },
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 78
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:59:38.767Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.434Z"
     },
     "coqh8e4": {
       "video_code": "coqh8e4",
@@ -71115,9 +71423,20 @@
             "فوری"
           ],
           "page": 9
+        },
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 79
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:59:38.767Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.435Z"
     },
     "ch8enIm": {
       "video_code": "ch8enIm",
@@ -71143,37 +71462,20 @@
             "فوری"
           ],
           "page": 9
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:59:38.767Z"
-    },
-    "s8Lr2ug": {
-      "video_code": "s8Lr2ug",
-      "title": "خبر فوری حمله ایران به اسراییل با پهباد شروع شد",
-      "sender_name": "دنیای ویدیویی",
-      "category_id": 1,
-      "duration": 19,
-      "visit_count": 5316,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
+        },
         {
-          "query": "خبر فوری",
-          "trendTitle": "خبر فوری",
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
           "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:40:00 -0800",
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
           "trendKeywords": [
-            "خبر",
-            "فوری"
+            "شبکه",
+            "خبر"
           ],
-          "page": 9
+          "page": 79
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:59:38.767Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.435Z"
     },
     "f6o6D5n": {
       "video_code": "f6o6D5n",
@@ -77037,44 +77339,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.344Z"
     },
-    "Kd89WDW": {
-      "video_code": "Kd89WDW",
-      "title": "عشق و نفرت،قسمت ششم،پارت اول",
-      "sender_name": "خدیجه",
-      "category_id": 3,
-      "duration": 6713,
-      "visit_count": 1958,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 56
-        },
-        {
-          "query": "قیمت نفت",
-          "trendTitle": "قیمت نفت",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 14:00:00 -0800",
-          "trendKeywords": [
-            "قیمت",
-            "نفت"
-          ],
-          "page": 7
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T02:37:37.092Z"
-    },
     "Ym6dX1Q": {
       "video_code": "Ym6dX1Q",
       "title": "دوبله فارسی انیمیشن راپونزل و قلم جادویی",
@@ -78312,33 +78576,6 @@
       "styled_create_date": "1 سال پیش",
       "active": 1,
       "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 59
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.345Z"
-    },
-    "yBL71C0": {
-      "video_code": "yBL71C0",
-      "title": "نماهنگ تصویری قسم به زخم سر حیدر، اللهی العفو",
-      "sender_name": "دانلود روزانه✅",
-      "category_id": 9,
-      "duration": 251,
-      "visit_count": 5367,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -80124,34 +80361,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T05:06:09.133Z"
     },
-    "bSpqdz6": {
-      "video_code": "bSpqdz6",
-      "title": "حسن ریوندی - جذب معشوق",
-      "sender_name": "کاربر فیلو",
-      "category_id": 8,
-      "duration": 47,
-      "visit_count": 5344,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 46
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.349Z"
-    },
     "N35B1Z7": {
       "video_code": "N35B1Z7",
       "title": "حسن روحانی و رئیسی",
@@ -80217,34 +80426,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-03T05:06:09.133Z"
-    },
-    "nVMd7oo": {
-      "video_code": "nVMd7oo",
-      "title": "گلچین بهترین کنسرت های حسن ریوندی",
-      "sender_name": "رنگارنگ",
-      "category_id": 9,
-      "duration": 689,
-      "visit_count": 5352,
-      "create_date": "6 سال پیش",
-      "styled_create_date": "6 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 47
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.349Z"
     },
     "AQRQzth": {
       "video_code": "AQRQzth",
@@ -80922,34 +81103,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.350Z"
     },
-    "QTgL4c6": {
-      "video_code": "QTgL4c6",
-      "title": "اهنگ عالی از هنرمند حسن زیرک",
-      "sender_name": "کلیپ کده",
-      "category_id": 9,
-      "duration": 34,
-      "visit_count": 5373,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 51
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.350Z"
-    },
     "fqeaU59": {
       "video_code": "fqeaU59",
       "title": "فیلم | خنده دار ترین کنسرت های حسن ریوندی _ میترکی از خنده",
@@ -81165,34 +81318,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-03T05:06:09.133Z"
-    },
-    "2dkTtDH": {
-      "video_code": "2dkTtDH",
-      "title": "حسن ریوندی - تفاوت بدرقه کردن شوهر در ایران و ایسلند!",
-      "sender_name": "گودزیلا",
-      "category_id": 8,
-      "duration": 270,
-      "visit_count": 5391,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 52
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.351Z"
     },
     "rBc6j4f": {
       "video_code": "rBc6j4f",
@@ -82430,34 +82555,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.353Z"
-    },
-    "9rS23Ww": {
-      "video_code": "9rS23Ww",
-      "title": "اولین واکنش نوش آفرین(همسر سابق سعید راد)به خبر در گذشت وی",
-      "sender_name": "امیرسالم",
-      "category_id": 1,
-      "duration": 655,
-      "visit_count": 5309,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "شبکه خبر",
-          "trendTitle": "شبکه خبر",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
-          "trendKeywords": [
-            "شبکه",
-            "خبر"
-          ],
-          "page": 42
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.354Z"
     },
     "fJvqasQ": {
       "video_code": "fJvqasQ",
@@ -83971,34 +84068,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.359Z"
     },
-    "vscB8ym": {
-      "video_code": "vscB8ym",
-      "title": "پیام احساسی عروس شهید هنیه پس از شنیدن خبر شهادت اسماعیل هنیه از غزه",
-      "sender_name": "علیرضا",
-      "category_id": 1,
-      "duration": 90,
-      "visit_count": 5315,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "شبکه خبر",
-          "trendTitle": "شبکه خبر",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
-          "trendKeywords": [
-            "شبکه",
-            "خبر"
-          ],
-          "page": 60
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.359Z"
-    },
     "ke2ix5o": {
       "video_code": "ke2ix5o",
       "title": "جدیدترین خبر از ترور ایت الله سلیمانی عضو خبرگان رهبری",
@@ -84552,60 +84621,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.373Z"
     },
-    "T6BAJ1y": {
-      "video_code": "T6BAJ1y",
-      "title": "فیلم شانگ چی Shang-Chi and the Legend of the Ten Rings 2021",
-      "sender_name": "امیرسالم",
-      "category_id": 3,
-      "duration": 7910,
-      "visit_count": 5314,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "Google fait un beau clin d’oeil à The Legend of Zelda [images]",
-          "trendTitle": "zelda",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
-          "trendKeywords": [
-            "zelda"
-          ],
-          "page": 4
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.373Z"
-    },
-    "owrhrMP": {
-      "video_code": "owrhrMP",
-      "title": "دانلود انیمه افسانه کورا قسمت 13 فصل 4 با دوبله فارسی The Legend of Korra",
-      "sender_name": "milloo",
-      "category_id": 21,
-      "duration": 1286,
-      "visit_count": 5383,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "Google fait un beau clin d’oeil à The Legend of Zelda [images]",
-          "trendTitle": "zelda",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
-          "trendKeywords": [
-            "zelda"
-          ],
-          "page": 4
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.373Z"
-    },
     "VCPZpL0": {
       "video_code": "VCPZpL0",
       "title": "فیلم موگلی Mowgli Legend of the Jungle 2018-12-07",
@@ -84667,33 +84682,6 @@
       "category_id": 21,
       "duration": 1354,
       "visit_count": 5600,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "Google fait un beau clin d’oeil à The Legend of Zelda [images]",
-          "trendTitle": "zelda",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
-          "trendKeywords": [
-            "zelda"
-          ],
-          "page": 5
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.373Z"
-    },
-    "uNX7Cec": {
-      "video_code": "uNX7Cec",
-      "title": "دانلود انیمه افسانه کورا قسمت5 فصل 4 با دوبله فارسی The Legend of Korra",
-      "sender_name": "milloo",
-      "category_id": 21,
-      "duration": 1361,
-      "visit_count": 5334,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
       "active": 1,
@@ -89398,9 +89386,20 @@
             "فارس"
           ],
           "page": 22
+        },
+        {
+          "query": "خبرگزاری فارس",
+          "trendTitle": "خبرگزاری فارس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:40:00 -0800",
+          "trendKeywords": [
+            "خبرگزاری",
+            "فارس"
+          ],
+          "page": 23
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.077Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.435Z"
     },
     "DXkrplP": {
       "video_code": "DXkrplP",
@@ -89425,9 +89424,20 @@
             "فارس"
           ],
           "page": 24
+        },
+        {
+          "query": "خبرگزاری فارس",
+          "trendTitle": "خبرگزاری فارس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:40:00 -0800",
+          "trendKeywords": [
+            "خبرگزاری",
+            "فارس"
+          ],
+          "page": 25
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.078Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.435Z"
     },
     "6iIWiGA": {
       "video_code": "6iIWiGA",
@@ -89452,9 +89462,20 @@
             "فارس"
           ],
           "page": 27
+        },
+        {
+          "query": "خبرگزاری فارس",
+          "trendTitle": "خبرگزاری فارس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:40:00 -0800",
+          "trendKeywords": [
+            "خبرگزاری",
+            "فارس"
+          ],
+          "page": 28
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.078Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.436Z"
     },
     "psG1tbW": {
       "video_code": "psG1tbW",
@@ -89479,9 +89500,20 @@
             "فارس"
           ],
           "page": 29
+        },
+        {
+          "query": "خبرگزاری فارس",
+          "trendTitle": "خبرگزاری فارس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:40:00 -0800",
+          "trendKeywords": [
+            "خبرگزاری",
+            "فارس"
+          ],
+          "page": 30
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.078Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.436Z"
     },
     "tEYJC8r": {
       "video_code": "tEYJC8r",
@@ -89506,9 +89538,20 @@
             "فارس"
           ],
           "page": 35
+        },
+        {
+          "query": "خبرگزاری فارس",
+          "trendTitle": "خبرگزاری فارس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:40:00 -0800",
+          "trendKeywords": [
+            "خبرگزاری",
+            "فارس"
+          ],
+          "page": 36
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.079Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.437Z"
     },
     "DPbv2Xt": {
       "video_code": "DPbv2Xt",
@@ -94280,34 +94323,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T02:37:37.092Z"
     },
-    "3K4Ln4U": {
-      "video_code": "3K4Ln4U",
-      "title": "عشق و نفرت قسمت هفتم پارت دوم",
-      "sender_name": "عشق و نفرت|یوتیوب فارسی",
-      "category_id": 3,
-      "duration": 5314,
-      "visit_count": 5336,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قیمت نفت",
-          "trendTitle": "قیمت نفت",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 14:00:00 -0800",
-          "trendKeywords": [
-            "قیمت",
-            "نفت"
-          ],
-          "page": 6
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T02:37:37.092Z"
-    },
     "DpRSegC": {
       "video_code": "DpRSegC",
       "title": "عشق و نفرت فصل ۲ قسمت صفر",
@@ -96333,34 +96348,6 @@
       "visit_count": 16555,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قیمت نفت",
-          "trendTitle": "قیمت نفت",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 14:00:00 -0800",
-          "trendKeywords": [
-            "قیمت",
-            "نفت"
-          ],
-          "page": 16
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T02:37:37.094Z"
-    },
-    "ubSvSA9": {
-      "video_code": "ubSvSA9",
-      "title": "فصل 2 قسمت 2 انیمیشن نفرت انگیز و شهر نامرئی با دوبله فارسی",
-      "sender_name": "سیم خاردار❤️",
-      "category_id": 21,
-      "duration": 1391,
-      "visit_count": 5380,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -99342,33 +99329,6 @@
       "category_id": 2,
       "duration": 190,
       "visit_count": 7071,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پهپاد",
-          "trendTitle": "پهپاد",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 18:10:00 -0800",
-          "trendKeywords": [
-            "پهپاد"
-          ],
-          "page": 13
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T04:05:15.874Z"
-    },
-    "lAI3o2T": {
-      "video_code": "lAI3o2T",
-      "title": "لحظه انهدام تانک اوکراینی توسط پهپاد روسیه + فیلم",
-      "sender_name": "سعید",
-      "category_id": 1,
-      "duration": 13,
-      "visit_count": 5339,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -104908,34 +104868,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T04:55:53.642Z"
     },
-    "rBPaI9h": {
-      "video_code": "rBPaI9h",
-      "title": "بزن بيرون از تنهايي برگرد كنارم? گرشا رضايي ?دريا نميرم",
-      "sender_name": "رو〽️مینا❤️",
-      "category_id": 8,
-      "duration": 51,
-      "visit_count": 5308,
-      "create_date": "7 سال پیش",
-      "styled_create_date": "7 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
-          "trendTitle": "محمدباقر قالیباف",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
-          "trendKeywords": [
-            "محمدباقر",
-            "قالیباف"
-          ],
-          "page": 46
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T04:09:09.982Z"
-    },
     "axiRcNI": {
       "video_code": "axiRcNI",
       "title": "دعوای علی دایی با شیث رضایی لیگ ۸۵-۸۶",
@@ -107907,33 +107839,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T04:55:53.639Z"
     },
-    "66lrx7j": {
-      "video_code": "66lrx7j",
-      "title": "مسابقه کشتی کج هشت ستاره کشتی کج",
-      "sender_name": "Bad Captain",
-      "category_id": 11,
-      "duration": 183,
-      "visit_count": 5385,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "کشتی",
-          "trendTitle": "کشتی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 18:30:00 -0800",
-          "trendKeywords": [
-            "کشتی"
-          ],
-          "page": 29
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.639Z"
-    },
     "KELKpqm": {
       "video_code": "KELKpqm",
       "title": "کشتی کج مسابقه بلادلاین در مقابل برادران اوسوز در مانی این د بنک 2023",
@@ -109021,33 +108926,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T04:55:53.640Z"
     },
-    "09WTkOi": {
-      "video_code": "09WTkOi",
-      "title": "۱۰ حرکت مرگبار در کشتی کج",
-      "sender_name": "خدیجه",
-      "category_id": 11,
-      "duration": 115,
-      "visit_count": 5367,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "کشتی",
-          "trendTitle": "کشتی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 18:30:00 -0800",
-          "trendKeywords": [
-            "کشتی"
-          ],
-          "page": 32
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.640Z"
-    },
     "RZArcRi": {
       "video_code": "RZArcRi",
       "title": "کشتی‌کج راک در مقابل جان سینا(فالو یادتون نره)",
@@ -109570,33 +109448,6 @@
       "visit_count": 7146,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "کشتی",
-          "trendTitle": "کشتی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 18:30:00 -0800",
-          "trendKeywords": [
-            "کشتی"
-          ],
-          "page": 34
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.641Z"
-    },
-    "blhKEhv": {
-      "video_code": "blhKEhv",
-      "title": "کشتی کج - براک لزنر vs بیگ شو",
-      "sender_name": "WWF Farsi",
-      "category_id": 11,
-      "duration": 639,
-      "visit_count": 5308,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -111432,33 +111283,6 @@
       "category_id": 11,
       "duration": 748,
       "visit_count": 6170,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "رقیب حسن یزدانی سومی ایران را تبریک گفت",
-          "trendTitle": "کشتی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 18:30:00 -0800",
-          "trendKeywords": [
-            "کشتی"
-          ],
-          "page": 7
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.134Z"
-    },
-    "eNzw4nD": {
-      "video_code": "eNzw4nD",
-      "title": "کشتی فینال حسن یزدانی مقابل آمریکا در مجارستان ۲۰۲۴",
-      "sender_name": "امیر",
-      "category_id": 11,
-      "duration": 458,
-      "visit_count": 5382,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -117011,34 +116835,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T05:06:09.148Z"
     },
-    "W9uOtPB": {
-      "video_code": "W9uOtPB",
-      "title": "دعوای سگ های سراب و افغانی",
-      "sender_name": "شیرخدا",
-      "category_id": 13,
-      "duration": 82,
-      "visit_count": 5320,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "افغانی افغانستان",
-          "trendTitle": "افغانی افغانستان",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "افغانی",
-            "افغانستان"
-          ],
-          "page": 25
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.148Z"
-    },
     "ESNFvSN": {
       "video_code": "ESNFvSN",
       "title": "خبرفوری از اعزام یگان های جنگی سپاه به مرز افغانستان طالبان عقب نشینی کرد",
@@ -117711,34 +117507,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T05:06:09.149Z"
     },
-    "xrfGglv": {
-      "video_code": "xrfGglv",
-      "title": "نماهنگ بسیار زیبا در وصف احمد مسعود و مقاومت افغانستان",
-      "sender_name": "حامد پاشایی",
-      "category_id": 9,
-      "duration": 32,
-      "visit_count": 5381,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "افغانی افغانستان",
-          "trendTitle": "افغانی افغانستان",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "افغانی",
-            "افغانستان"
-          ],
-          "page": 28
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.149Z"
-    },
     "4oHnnph": {
       "video_code": "4oHnnph",
       "title": "اهنگ افغانی عاشقانه جدید دخترک جگی جگی",
@@ -118140,34 +117908,6 @@
       "visit_count": 6987,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "افغانی افغانستان",
-          "trendTitle": "افغانی افغانستان",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "افغانی",
-            "افغانستان"
-          ],
-          "page": 30
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.150Z"
-    },
-    "7A1CsSO": {
-      "video_code": "7A1CsSO",
-      "title": "فیلم رقص زیبای افغانی",
-      "sender_name": "اسماعیل",
-      "category_id": 9,
-      "duration": 58,
-      "visit_count": 5388,
-      "create_date": "7 سال پیش",
-      "styled_create_date": "7 سال پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -119764,34 +119504,6 @@
       "visit_count": 10768,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "افغانی افغانستان",
-          "trendTitle": "افغانی افغانستان",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "افغانی",
-            "افغانستان"
-          ],
-          "page": 39
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.152Z"
-    },
-    "i28hBGi": {
-      "video_code": "i28hBGi",
-      "title": "آهنگ شاد افغانی لیلی بیگم",
-      "sender_name": "نسل باران",
-      "category_id": 9,
-      "duration": 156,
-      "visit_count": 5377,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -127623,34 +127335,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T10:07:05.002Z"
     },
-    "XdHGhAu": {
-      "video_code": "XdHGhAu",
-      "title": "صهبا ترابی - بیوگرافی محمدعلی فردین",
-      "sender_name": "فالو مساوی با فالو",
-      "category_id": 9,
-      "duration": 221,
-      "visit_count": 5314,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فردین هدایتی",
-          "trendTitle": "فردین هدایتی",
-          "trendTraffic": 5000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
-          "trendKeywords": [
-            "فردین",
-            "هدایتی"
-          ],
-          "page": 20
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:07:05.002Z"
-    },
     "VKnsPiq": {
       "video_code": "VKnsPiq",
       "title": "اواز زیبای فردین ...منم عاشق روزگار چه خش وچه بد.......",
@@ -129313,34 +128997,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T10:07:05.008Z"
     },
-    "DzhNqjw": {
-      "video_code": "DzhNqjw",
-      "title": "اجرای آهنگ زیبای میرزا کوچک خان جنگلی توسط بهنام بانی",
-      "sender_name": "آتی گرام",
-      "category_id": 9,
-      "duration": 63,
-      "visit_count": 5375,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "بهنام ابوالقاسمپور",
-          "trendTitle": "بهنام ابوالقاسمپور",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:40:00 -0800",
-          "trendKeywords": [
-            "بهنام",
-            "ابوالقاسمپور"
-          ],
-          "page": 11
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:07:05.008Z"
-    },
     "QazpjQL": {
       "video_code": "QazpjQL",
       "title": "موزیک ویدیو بهنام بانی بارون",
@@ -129537,34 +129193,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T10:07:05.009Z"
     },
-    "PwInwpG": {
-      "video_code": "PwInwpG",
-      "title": "کلیپ برای پدران آسمانی با صدای بهنام بانی | روزت در آسمونها مبارک پدر جانم",
-      "sender_name": "کلیپ کده",
-      "category_id": 28,
-      "duration": 16,
-      "visit_count": 5370,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "بهنام ابوالقاسمپور",
-          "trendTitle": "بهنام ابوالقاسمپور",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:40:00 -0800",
-          "trendKeywords": [
-            "بهنام",
-            "ابوالقاسمپور"
-          ],
-          "page": 13
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:07:05.009Z"
-    },
     "Bc49C3T": {
       "video_code": "Bc49C3T",
       "title": "شوخی جنجالی با بهنام بانی در سریال نون خ را از دست ندهید",
@@ -129705,34 +129333,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T10:07:05.009Z"
     },
-    "CVlI6m8": {
-      "video_code": "CVlI6m8",
-      "title": "آهنگ جدید بهنام بانی",
-      "sender_name": "ftm82k",
-      "category_id": 9,
-      "duration": 27,
-      "visit_count": 5373,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "بهنام ابوالقاسمپور",
-          "trendTitle": "بهنام ابوالقاسمپور",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:40:00 -0800",
-          "trendKeywords": [
-            "بهنام",
-            "ابوالقاسمپور"
-          ],
-          "page": 14
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:07:05.009Z"
-    },
     "zBnuAhS": {
       "video_code": "zBnuAhS",
       "title": "اجرا قرص قمر بهنام بانی در خندوانه",
@@ -129854,34 +129454,6 @@
       "visit_count": 7349,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "بهنام ابوالقاسمپور",
-          "trendTitle": "بهنام ابوالقاسمپور",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:40:00 -0800",
-          "trendKeywords": [
-            "بهنام",
-            "ابوالقاسمپور"
-          ],
-          "page": 16
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:07:05.011Z"
-    },
-    "Vfo13PA": {
-      "video_code": "Vfo13PA",
-      "title": "خوشحالم از اینکه خدا تورو داده به من ... بهنام بانی",
-      "sender_name": "Saleh",
-      "category_id": 4,
-      "duration": 118,
-      "visit_count": 5379,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132226,34 +131798,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T10:38:29.787Z"
     },
-    "TrS6M1O": {
-      "video_code": "TrS6M1O",
-      "title": "روایت فرزند محمدعلی فردین از لحضه اخرین زندگی پدرش حقایق شنیده نشده از زبانش",
-      "sender_name": "فالو مساوی با فالو",
-      "category_id": 8,
-      "duration": 610,
-      "visit_count": 5389,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فردین هدایتی",
-          "trendTitle": "فردین هدایتی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
-          "trendKeywords": [
-            "فردین",
-            "هدایتی"
-          ],
-          "page": 21
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:38:29.787Z"
-    },
     "xDV242V": {
       "video_code": "xDV242V",
       "title": "اعتراض محکم فردین به گران قبل انقلاب",
@@ -133010,34 +132554,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T10:38:29.788Z"
     },
-    "HXpvhlM": {
-      "video_code": "HXpvhlM",
-      "title": "فردین و خلیل عقاب در فیلم مردان خشن را ببینید",
-      "sender_name": "رسانه تصویری کیوسک",
-      "category_id": 3,
-      "duration": 56,
-      "visit_count": 5357,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فردین هدایتی",
-          "trendTitle": "فردین هدایتی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
-          "trendKeywords": [
-            "فردین",
-            "هدایتی"
-          ],
-          "page": 26
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:38:29.788Z"
-    },
     "V5etDD1": {
       "video_code": "V5etDD1",
       "title": "افشاگری جنجالی و مفتضحانه ی امین فردین درباره منوچهر هادی،کامران تفتی،متین ستوده و امید حاجیلی",
@@ -133206,34 +132722,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T10:38:29.788Z"
     },
-    "aiA6Bqj": {
-      "video_code": "aiA6Bqj",
-      "title": "تیزر ((مواظب کلات باش)) با بازی محمد علی فردین",
-      "sender_name": "فالو مساوی با فالو",
-      "category_id": 3,
-      "duration": 47,
-      "visit_count": 5358,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فردین هدایتی",
-          "trendTitle": "فردین هدایتی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
-          "trendKeywords": [
-            "فردین",
-            "هدایتی"
-          ],
-          "page": 27
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:38:29.788Z"
-    },
     "ksWozRv": {
       "video_code": "ksWozRv",
       "title": "آهنگ فیلم قدیمی موطلایی شهر ما با صدای ایرج و بازی فردین (سرکارگر_ مکانیک)",
@@ -133370,62 +132858,6 @@
             "هدایتی"
           ],
           "page": 29
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:38:29.789Z"
-    },
-    "bYQkJ2t": {
-      "video_code": "bYQkJ2t",
-      "title": "سکانس کوتاه | خاطره جالب رضا کیانیان از فردین،ناصر ملک مطیعی و بهروز وثوقی",
-      "sender_name": "محمد جواد",
-      "category_id": 3,
-      "duration": 120,
-      "visit_count": 5337,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 21,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فردین هدایتی",
-          "trendTitle": "فردین هدایتی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
-          "trendKeywords": [
-            "فردین",
-            "هدایتی"
-          ],
-          "page": 29
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:38:29.789Z"
-    },
-    "77zBPSr": {
-      "video_code": "77zBPSr",
-      "title": "گزارش امین فردین از خیانت همایون شجریان به سحر دولتشاهی و ازدواج با دوست سحر",
-      "sender_name": "DinarTavalod",
-      "category_id": 9,
-      "duration": 454,
-      "visit_count": 5331,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فردین هدایتی",
-          "trendTitle": "فردین هدایتی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
-          "trendKeywords": [
-            "فردین",
-            "هدایتی"
-          ],
-          "page": 30
         }
       ],
       "lastTrendMatchedAt": "2026-11-03T10:38:29.789Z"
@@ -133622,34 +133054,6 @@
             "هدایتی"
           ],
           "page": 39
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:38:29.791Z"
-    },
-    "UfIisA9": {
-      "video_code": "UfIisA9",
-      "title": "موزیک زیبا وشنیدنی بهنام صفوی به نام دلتنگتم",
-      "sender_name": "رضا",
-      "category_id": 9,
-      "duration": 261,
-      "visit_count": 5351,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "بهنام ابوالقاسمپور",
-          "trendTitle": "بهنام ابوالقاسمپور",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:40:00 -0800",
-          "trendKeywords": [
-            "بهنام",
-            "ابوالقاسمپور"
-          ],
-          "page": 22
         }
       ],
       "lastTrendMatchedAt": "2026-11-03T10:38:29.791Z"
@@ -134289,34 +133693,6 @@
       "visit_count": 66762,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سخنگوی پرسپولیس: هوچی‌گری کنید، ما به CAS می‌رویم!",
-          "trendTitle": "بهنام ابوالقاسمپور",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:40:00 -0800",
-          "trendKeywords": [
-            "بهنام",
-            "ابوالقاسمپور"
-          ],
-          "page": 8
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:51:08.333Z"
-    },
-    "VW5irvn": {
-      "video_code": "VW5irvn",
-      "title": "کلیپ لنگی پرسپولیس جدید",
-      "sender_name": "⭐ کلیپ آنلاین ⭐",
-      "category_id": 11,
-      "duration": 56,
-      "visit_count": 5339,
-      "create_date": "6 سال پیش",
-      "styled_create_date": "6 سال پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -142118,33 +141494,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T16:10:32.619Z"
     },
-    "DnZ6Yed": {
-      "video_code": "DnZ6Yed",
-      "title": "شکرستان فصل 1 قسمت 18 - تاجر دیزی",
-      "sender_name": "ARMY ♥ BTS",
-      "category_id": 3,
-      "duration": 849,
-      "visit_count": 5358,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "تایر",
-          "trendTitle": "تایر",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Tue, 3 Nov 2026 07:40:00 -0800",
-          "trendKeywords": [
-            "تایر"
-          ],
-          "page": 18
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.619Z"
-    },
     "1PJ85ZL": {
       "video_code": "1PJ85ZL",
       "title": "تاثیر دعای زن که معجزه میکنه",
@@ -144980,33 +144329,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T16:10:32.640Z"
     },
-    "rq8Lufe": {
-      "video_code": "rq8Lufe",
-      "title": "کلیپ طنز GTA 5 | اول مهر",
-      "sender_name": "hamidrezahassan3",
-      "category_id": 6,
-      "duration": 28,
-      "visit_count": 5376,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "جیتیای",
-          "trendTitle": "جیتیای ۶",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 3 Nov 2026 06:30:00 -0800",
-          "trendKeywords": [
-            "جیتیای"
-          ],
-          "page": 9
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.640Z"
-    },
     "Grtzfne": {
       "video_code": "Grtzfne",
       "title": "ویدیو طنز - GTA 5 - شاسی بلند ماشین",
@@ -145472,7 +144794,7 @@
       "sender_name": "عرفان",
       "category_id": 7,
       "duration": 59,
-      "visit_count": 13108,
+      "visit_count": 13109,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -145489,9 +144811,19 @@
             "جیتیای"
           ],
           "page": 11
+        },
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.641Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
     },
     "ditrDaE": {
       "video_code": "ditrDaE",
@@ -145871,60 +145203,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T16:10:32.642Z"
     },
-    "xHRZ76D": {
-      "video_code": "xHRZ76D",
-      "title": "شخصیت های بازی GTA V در دنیای واقعی",
-      "sender_name": "⚜️ pv lande⚜️",
-      "category_id": 17,
-      "duration": 241,
-      "visit_count": 5329,
-      "create_date": "7 سال پیش",
-      "styled_create_date": "7 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "جیتیای",
-          "trendTitle": "جیتیای ۶",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 3 Nov 2026 06:30:00 -0800",
-          "trendKeywords": [
-            "جیتیای"
-          ],
-          "page": 14
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.642Z"
-    },
-    "dTbxwwx": {
-      "video_code": "dTbxwwx",
-      "title": "خفن ترین راز ؟ های انمیشنی در جی تی ای وی GTA V",
-      "sender_name": "amir.moradi.00",
-      "category_id": 17,
-      "duration": 320,
-      "visit_count": 5330,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "جیتیای",
-          "trendTitle": "جیتیای ۶",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 3 Nov 2026 06:30:00 -0800",
-          "trendKeywords": [
-            "جیتیای"
-          ],
-          "page": 14
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.642Z"
-    },
     "tVkL2kH": {
       "video_code": "tVkL2kH",
       "title": "دزدی از بانک در بازی gta sa (جی تی ای سن آندریاس)",
@@ -146056,9 +145334,19 @@
             "جیتیای"
           ],
           "page": 16
+        },
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.643Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
     },
     "IwV8w9p": {
       "video_code": "IwV8w9p",
@@ -146174,7 +145462,7 @@
       "sender_name": "𝟚𝟜𝟟",
       "category_id": 17,
       "duration": 321,
-      "visit_count": 7619,
+      "visit_count": 7620,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -146191,9 +145479,19 @@
             "جیتیای"
           ],
           "page": 18
+        },
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.643Z"
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
     },
     "KH3C8i4": {
       "video_code": "KH3C8i4",
@@ -148940,33 +148238,6 @@
       "category_id": 3,
       "duration": 5939,
       "visit_count": 13237,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 63
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T17:41:43.093Z"
-    },
-    "EjXZWTP": {
-      "video_code": "EjXZWTP",
-      "title": "☆۶☆دانلودسریال ترکی قسم(سوگند)قسمت ششم☆زیرنویس فارسی☆",
-      "sender_name": "آی فیلوگرام❤2023❤",
-      "category_id": 3,
-      "duration": 3627,
-      "visit_count": 5339,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
       "active": 1,
@@ -153334,33 +152605,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T17:41:43.102Z"
     },
-    "TjBSJRx": {
-      "video_code": "TjBSJRx",
-      "title": "کیک یخچالی با دو قلم آسون",
-      "sender_name": "chi_dorost_konam",
-      "category_id": 29,
-      "duration": 59,
-      "visit_count": 5385,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 78
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T17:41:43.102Z"
-    },
     "HSLTmAB": {
       "video_code": "HSLTmAB",
       "title": "?دانلود انیمه Koroshi Ai قسمت ششم زیرنویس چسبیده انیمه وانتد",
@@ -154465,8 +153709,1553 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-03T17:41:43.108Z"
+    },
+    "sV0x88g": {
+      "video_code": "sV0x88g",
+      "title": "النصر مقابل پاریسن ژرمن (psg)",
+      "sender_name": "محمد",
+      "category_id": 11,
+      "duration": 59,
+      "visit_count": 7306,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.429Z"
+    },
+    "dE1CVPY": {
+      "video_code": "dE1CVPY",
+      "title": "بهترین ترکیب PSG در PES2020 (ترکیب اصلی / سیستم 4/2/1/3)",
+      "sender_name": "کسرا جلیلی",
+      "category_id": 2,
+      "duration": 709,
+      "visit_count": 12320,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.429Z"
+    },
+    "xSm5KDy": {
+      "video_code": "xSm5KDy",
+      "title": "برای داداشم PS5 خریدم ولی دزدیدنش😱❗",
+      "sender_name": "میا خدابنده",
+      "category_id": 4,
+      "duration": 854,
+      "visit_count": 6423,
+      "create_date": "1 سال پیش",
+      "styled_create_date": "1 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "uiQWhhP": {
+      "video_code": "uiQWhhP",
+      "title": "گیم پلی PUBG بر روی PS4 Pro",
+      "sender_name": "𝟚𝟜𝟟",
+      "category_id": 17,
+      "duration": 519,
+      "visit_count": 9108,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "4wfcB9X": {
+      "video_code": "4wfcB9X",
+      "title": "آنباکس کنسول پی اس فایو ps5",
+      "sender_name": "فیلی فیلم",
+      "category_id": 17,
+      "duration": 908,
+      "visit_count": 6269,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "3DstIpt": {
+      "video_code": "3DstIpt",
+      "title": "گیم پلی Red Dead Redemption 2 بر روی PS4 Slim",
+      "sender_name": "𝟚𝟜𝟟",
+      "category_id": 17,
+      "duration": 891,
+      "visit_count": 13259,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "ElQXZ4P": {
+      "video_code": "ElQXZ4P",
+      "title": "چگونه شخصیت هایمان را در GTA V تغییر دهیم به جز شخصیت های اصلی در PS4 و PS5",
+      "sender_name": "عرفان",
+      "category_id": 17,
+      "duration": 67,
+      "visit_count": 10599,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "a4mmsJW": {
+      "video_code": "a4mmsJW",
+      "title": "آموزش ساخت فرمان برای دسته PS4",
+      "sender_name": "شیطونک",
+      "category_id": 7,
+      "duration": 388,
+      "visit_count": 6576,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "u0zz7NF": {
+      "video_code": "u0zz7NF",
+      "title": "گیم Tom and Jerry in House Trap با کنسول PS1 پارت اول توسط عمو امیر",
+      "sender_name": "hamidrezahassan3",
+      "category_id": 17,
+      "duration": 880,
+      "visit_count": 6126,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "XVSduis": {
+      "video_code": "XVSduis",
+      "title": "نحوه خیلی سخت بازی کردن کراش ۴ برای ps1",
+      "sender_name": "video time",
+      "category_id": 17,
+      "duration": 90,
+      "visit_count": 5720,
+      "create_date": "1 سال پیش",
+      "styled_create_date": "1 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "LGVpffp": {
+      "video_code": "LGVpffp",
+      "title": "گیم پلی PUBG بر روی PS5 4K HDR",
+      "sender_name": "𝟚𝟜𝟟",
+      "category_id": 17,
+      "duration": 742,
+      "visit_count": 7088,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "vOqnt0D": {
+      "video_code": "vOqnt0D",
+      "title": "ریمیک جدید گاد آف وار ۲ برای کنسول PS5",
+      "sender_name": "فروشگاه Playstation",
+      "category_id": 17,
+      "duration": 79,
+      "visit_count": 7231,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "6Vwl5IV": {
+      "video_code": "6Vwl5IV",
+      "title": "مقایسه صدای فن PS4 Slim و PS4 Pro در بازی God of War Ragnarök",
+      "sender_name": "𝟚𝟜𝟟",
+      "category_id": 17,
+      "duration": 55,
+      "visit_count": 6838,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "TL9CmNn": {
+      "video_code": "TL9CmNn",
+      "title": "هرچی پانتومیم کنی برات میخرم!! (واسه امیر ps5 خریدم) ویدیو جدید سهیل",
+      "sender_name": "ویدیو های یوتیوب",
+      "category_id": 6,
+      "duration": 2644,
+      "visit_count": 5672,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "jsgj8U4": {
+      "video_code": "jsgj8U4",
+      "title": "مقایسه FIFA 23 بر روی Xbox One S و PS4 Pro",
+      "sender_name": "𝟚𝟜𝟟",
+      "category_id": 17,
+      "duration": 371,
+      "visit_count": 13692,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "iYCXUip": {
+      "video_code": "iYCXUip",
+      "title": "آهنگ زیبای PSY - GANGNAM STYLE",
+      "sender_name": "Music & Lyrics",
+      "category_id": 9,
+      "duration": 238,
+      "visit_count": 6427,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "PHItTv1": {
+      "video_code": "PHItTv1",
+      "title": "مقایسه eFootball 2023 بر روی Xbox One S و PS4 Slim",
+      "sender_name": "𝟚𝟜𝟟",
+      "category_id": 17,
+      "duration": 343,
+      "visit_count": 7487,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 6
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "zTvy5RS": {
+      "video_code": "zTvy5RS",
+      "title": "فیلم《خوک مار و کبوتر 2024》دوبله فارسی The Pig the Snake and the Pigeon",
+      "sender_name": "انیمه رزمی《{[دنبال=دنبال]}》",
+      "category_id": 3,
+      "duration": 7798,
+      "visit_count": 20966,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 7
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "9iyBUJj": {
+      "video_code": "9iyBUJj",
+      "title": "مقایسه گرافیک بازی GTA V روی ps4 , pc , xbox one s, ps4 pro",
+      "sender_name": "techtab",
+      "category_id": 17,
+      "duration": 687,
+      "visit_count": 5657,
+      "create_date": "7 سال پیش",
+      "styled_create_date": "7 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 7
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "PNIFEqg": {
+      "video_code": "PNIFEqg",
+      "title": "فیلم سینمایی(خوک)Pig 2021+با دوبله فارسی",
+      "sender_name": "🎬 سینمافیلم تی‌وی | CinemaFilm TV",
+      "category_id": 3,
+      "duration": 5488,
+      "visit_count": 13806,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 7
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "zAAySan": {
+      "video_code": "zAAySan",
+      "title": "فیلم هندی《صلح کوتا بانمالی Kota Bommali PS 2023》دوبله فارسی HD",
+      "sender_name": "film new",
+      "category_id": 3,
+      "duration": 7862,
+      "visit_count": 11438,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 9
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "634HpRx": {
+      "video_code": "634HpRx",
+      "title": "تتلو قبل از اینکه از ایران برا از ps23",
+      "sender_name": "PARSA23",
+      "category_id": 1,
+      "duration": 251,
+      "visit_count": 11164,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 13
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "87zBEXC": {
+      "video_code": "87zBEXC",
+      "title": "تتلو قبل از اینکه از ایران بره از ps23",
+      "sender_name": "PARSA23",
+      "category_id": 11,
+      "duration": 199,
+      "visit_count": 10940,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "psg",
+          "trendTitle": "psg",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "psg"
+          ],
+          "page": 14
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+    },
+    "4MW6DTi": {
+      "video_code": "4MW6DTi",
+      "title": "خبر جدید پسرهای افغانی را بهراه شکنجه میکنه",
+      "sender_name": "KMTV/MTV",
+      "category_id": 1,
+      "duration": 76,
+      "visit_count": 7968,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 61
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.431Z"
+    },
+    "OBwULQe": {
+      "video_code": "OBwULQe",
+      "title": "آیا واشنگتن از طرح شورش واگنر خبر داشت",
+      "sender_name": "فیلو نما (فالو=فالو)",
+      "category_id": 1,
+      "duration": 81,
+      "visit_count": 6428,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 61
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.431Z"
+    },
+    "6GjOFgy": {
+      "video_code": "6GjOFgy",
+      "title": "گزارش شبکه اوکراینی از پهپادهای ایرانی؛ از مهاجر 6 تا شاهد 136",
+      "sender_name": "alimohammadifg",
+      "category_id": 1,
+      "duration": 216,
+      "visit_count": 6895,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 61
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.431Z"
+    },
+    "LCo8HHR": {
+      "video_code": "LCo8HHR",
+      "title": "کارتون شن دونه ها این داستان جعبه آبرنگ شبکه پویا",
+      "sender_name": "کارتون وانیمیشن (فالو = فالو)",
+      "category_id": 21,
+      "duration": 262,
+      "visit_count": 7263,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 61
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.431Z"
+    },
+    "ajTQuvN": {
+      "video_code": "ajTQuvN",
+      "title": "من بی تقصیرم - خانه ما - شبکه پویا - 2 دانلود کارتون",
+      "sender_name": "آماندا",
+      "category_id": 21,
+      "duration": 899,
+      "visit_count": 8648,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 61
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.431Z"
+    },
+    "MuxYoyu": {
+      "video_code": "MuxYoyu",
+      "title": "ویدئوی آخرین خبر از لحظه سوءقصد آیت‌الله عباسعلی سلیمانی نماینده خبرگان رهبری",
+      "sender_name": "آرامش",
+      "category_id": 1,
+      "duration": 122,
+      "visit_count": 8208,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 62
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.431Z"
+    },
+    "SZaN7rj": {
+      "video_code": "SZaN7rj",
+      "title": "فیلم گریه و زاری دختر طرفدار محمدرضا گلزار بعد از شنید خبر ازدواج گلزار",
+      "sender_name": "✡کافه کلیپ✡",
+      "category_id": 3,
+      "duration": 56,
+      "visit_count": 8209,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 62
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.431Z"
+    },
+    "gDIQvdH": {
+      "video_code": "gDIQvdH",
+      "title": "من همراه یه نادونم - باب اسفنجی - شبکه پویا",
+      "sender_name": "آماندا",
+      "category_id": 21,
+      "duration": 723,
+      "visit_count": 10099,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 63
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.432Z"
+    },
+    "TBsvlr2": {
+      "video_code": "TBsvlr2",
+      "title": "قسمت ۴ سریال از یاد رفته/نسخه شبکه آی فیلم",
+      "sender_name": "محمدرضا",
+      "category_id": 3,
+      "duration": 6137,
+      "visit_count": 7763,
+      "create_date": "11 ماه پیش",
+      "styled_create_date": "11 ماه پیش",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 64
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.432Z"
+    },
+    "tuZgntV": {
+      "video_code": "tuZgntV",
+      "title": "روسیه از آغاز عملیات علیه واگنر در ورونژ خبر داد",
+      "sender_name": "alimohammadifg",
+      "category_id": 1,
+      "duration": 17,
+      "visit_count": 7844,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 65
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.432Z"
+    },
+    "8nkCWxs": {
+      "video_code": "8nkCWxs",
+      "title": "فيلم جنگی و اکشن (تک تیرانداز) دوبله فارسی.شبکه افق",
+      "sender_name": "filmkadeh.",
+      "category_id": 3,
+      "duration": 5332,
+      "visit_count": 15876,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 65
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.432Z"
+    },
+    "RLkkiCc": {
+      "video_code": "RLkkiCc",
+      "title": "فیلم شبکه زنبوری Wasp Network 2019",
+      "sender_name": "منتخب فیلو✅",
+      "category_id": 3,
+      "duration": 6507,
+      "visit_count": 5460,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 65
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.432Z"
+    },
+    "26dz9ZU": {
+      "video_code": "26dz9ZU",
+      "title": "صحبت های جنجالی شبکه اینتر نشنال ۹ مرداد ۱۴۰۲",
+      "sender_name": "خادم الشهدا",
+      "category_id": 1,
+      "duration": 145,
+      "visit_count": 8143,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 66
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.432Z"
+    },
+    "FWsKfrP": {
+      "video_code": "FWsKfrP",
+      "title": "حمله تند مجری شبکه من وتو به مسیح علینژاد و شکست اپوزیسیون",
+      "sender_name": "سعید",
+      "category_id": 1,
+      "duration": 78,
+      "visit_count": 13375,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 66
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.432Z"
+    },
+    "lIMPCHC": {
+      "video_code": "lIMPCHC",
+      "title": "در مورد شاهد ۱۳۶ ایرانی چه میگویند؟شبکه T۱۳ شیلی",
+      "sender_name": "سادگانه  💯",
+      "category_id": 2,
+      "duration": 116,
+      "visit_count": 7072,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 67
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.432Z"
+    },
+    "dj2jugy": {
+      "video_code": "dj2jugy",
+      "title": "پیامی که علی کریمی از پشه دریافت کرد.حاشیه خبر کلاهبرداری علی کریمی از خواهرش",
+      "sender_name": "اسنیک مامانی (فالو لطفا)",
+      "category_id": 1,
+      "duration": 29,
+      "visit_count": 10527,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 67
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.432Z"
+    },
+    "UWw8vIs": {
+      "video_code": "UWw8vIs",
+      "title": "فیلم | مجری شبکه من و تو درخواست تضمین کرد",
+      "sender_name": "Ali✅",
+      "category_id": 3,
+      "duration": 24,
+      "visit_count": 5577,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 67
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.433Z"
+    },
+    "xJjPFkr": {
+      "video_code": "xJjPFkr",
+      "title": "داستان آقای موش - ماجراهای ایوری - شبکه پویا",
+      "sender_name": "َََAli",
+      "category_id": 21,
+      "duration": 484,
+      "visit_count": 6469,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 68
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.433Z"
+    },
+    "xGlA9Xy": {
+      "video_code": "xGlA9Xy",
+      "title": "سکانسی از سریال کیمیا قسمت ۴۷ کیمیا (خبر لحظه آخری به رها در مورد مادرش کیمیا)",
+      "sender_name": "امیرسالم",
+      "category_id": 3,
+      "duration": 196,
+      "visit_count": 5482,
+      "create_date": "1 سال پیش",
+      "styled_create_date": "1 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 68
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.433Z"
+    },
+    "dGOOuQ7": {
+      "video_code": "dGOOuQ7",
+      "title": "خبر ازدواج مازیار لرستانی در ملاء عام + فیلم باورنکردنی از ساقدوش عروسی بعد از",
+      "sender_name": "الناز",
+      "category_id": 3,
+      "duration": 34,
+      "visit_count": 10541,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 69
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.433Z"
+    },
+    "6nKVwqL": {
+      "video_code": "6nKVwqL",
+      "title": "بالهای تراک - تامی تراکتور - شبکه پویا",
+      "sender_name": "آماندا",
+      "category_id": 11,
+      "duration": 643,
+      "visit_count": 6316,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 70
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.433Z"
+    },
+    "0m8yLri": {
+      "video_code": "0m8yLri",
+      "title": "خبر جنجالی لحظه ربودن مرزبانان ایرانی توسط گروه جیش العدل",
+      "sender_name": "فالو=فالوFilo",
+      "category_id": 1,
+      "duration": 124,
+      "visit_count": 6035,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 71
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.433Z"
+    },
+    "aD3Jask": {
+      "video_code": "aD3Jask",
+      "title": "بالاخره صدای فردوسی‌پور از شبکه سه پخش شد",
+      "sender_name": "rezaii",
+      "category_id": 3,
+      "duration": 43,
+      "visit_count": 6290,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 71
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.433Z"
+    },
+    "CyETbF5": {
+      "video_code": "CyETbF5",
+      "title": "اخبار ساعت 9:00 شبکه 1 - ۲ مهر ۱۳۹۸",
+      "sender_name": "َََAli",
+      "category_id": 1,
+      "duration": 1556,
+      "visit_count": 7611,
+      "create_date": "7 سال پیش",
+      "styled_create_date": "7 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 72
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.433Z"
+    },
+    "ekpoF7j": {
+      "video_code": "ekpoF7j",
+      "title": "توهین گستاخانه پربیننده ترین برنامه طنز شبکه تلویزیون دولتی آذربایجان به ایران",
+      "sender_name": "همراه پلاس",
+      "category_id": 6,
+      "duration": 793,
+      "visit_count": 6123,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 74
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.434Z"
+    },
+    "ULLlYcu": {
+      "video_code": "ULLlYcu",
+      "title": "سکانس کوتاه | سریال ایرانی (شبکه مخفی زنان) ۱",
+      "sender_name": "《بهترین ویدیوها》",
+      "category_id": 3,
+      "duration": 120,
+      "visit_count": 6252,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 21,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 74
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.434Z"
+    },
+    "7XvqBeC": {
+      "video_code": "7XvqBeC",
+      "title": "لحظه اعلام خبر شناسایی شهید جمال محمدشاهی به خانواده شهید",
+      "sender_name": "الناز",
+      "category_id": 1,
+      "duration": 283,
+      "visit_count": 6307,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 77
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.434Z"
+    },
+    "AaAt7Gz": {
+      "video_code": "AaAt7Gz",
+      "title": "صداهای هولناکی که از عمیق ترین چاه جهان ضبط شد؛ در اعماق زمین چه خبر است؟",
+      "sender_name": "نبض تو",
+      "category_id": 2,
+      "duration": 41,
+      "visit_count": 5553,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 78
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.434Z"
+    },
+    "vUlwD41": {
+      "video_code": "vUlwD41",
+      "title": "سریال ترکی دختر مردم قسمت 26 از شبکه جم",
+      "sender_name": "سریال نما",
+      "category_id": 3,
+      "duration": 2755,
+      "visit_count": 6549,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 78
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.434Z"
+    },
+    "g6T0qfw": {
+      "video_code": "g6T0qfw",
+      "title": "پاندای کونگ فو کار _ میمون در میان شبکه پویا",
+      "sender_name": "دنیای انیمیشن و سینما",
+      "category_id": 13,
+      "duration": 1385,
+      "visit_count": 5476,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 79
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.435Z"
+    },
+    "9MeAsWi": {
+      "video_code": "9MeAsWi",
+      "title": "المپیک ۲۰۲۴ : طوفان یوسف دیکچ تیرانداز ترکیه ای در اینترنت و شبکه های اجتماعی",
+      "sender_name": "hamechiplus",
+      "category_id": 11,
+      "duration": 179,
+      "visit_count": 10274,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 79
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.435Z"
+    },
+    "RpbpCHO": {
+      "video_code": "RpbpCHO",
+      "title": "آخرین خبر/ حادثه هولناک در جاده؛ کامیون خودرو ها را درو کرد!",
+      "sender_name": "دنیای فیلم و سریال(فالو=فالو)",
+      "category_id": 1,
+      "duration": 25,
+      "visit_count": 9736,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "شبکه خبر",
+          "trendTitle": "شبکه خبر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "شبکه",
+            "خبر"
+          ],
+          "page": 80
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.435Z"
+    },
+    "7OUmbRg": {
+      "video_code": "7OUmbRg",
+      "title": "خبرگذاری ها از بازداشت عمر علیپور(نماینده ماکو)به علت داشتن فساد اخلاقی خبر دادند",
+      "sender_name": "امیرسالم",
+      "category_id": 1,
+      "duration": 24,
+      "visit_count": 18417,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خبرگزاری فارس",
+          "trendTitle": "خبرگزاری فارس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 13:40:00 -0800",
+          "trendKeywords": [
+            "خبرگزاری",
+            "فارس"
+          ],
+          "page": 39
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T21:48:40.438Z"
     }
   },
-  "totalPagesFetched": 2220,
-  "totalVideosSeen": 41311
+  "totalPagesFetched": 2324,
+  "totalVideosSeen": 43218
 }
