@@ -191,7 +191,7 @@ assert.ok(buildNativePublishGuardFailures({...safePublishContext,canRepublish:'f
   'missing native repost permission must remain a hard publishing guard');
 assert.equal(buildNativePublishGuardFailures(safePublishContext).some(reason=>/cover|frame|thumbnail/i.test(reason)),false,
   'cover selection and aspect ratio must never block the publish request');
-assert.equal(safeApiDiagnosticValue({r:'خطا\\nتکرار',items:[1,2,3]}).r,'خطا تکرار',
+assert.equal(safeApiDiagnosticValue({r:'خطا\nتکرار',items:[1,2,3]}).r,'خطا تکرار',
   'Filo diagnostics must sanitize multiline response fields');
 
 assert.equal(detailGate({}, { ...valid }).eligible, false, 'global search must never bypass the native Filo permission gate');
