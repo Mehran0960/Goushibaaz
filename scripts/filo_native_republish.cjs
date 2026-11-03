@@ -453,7 +453,7 @@ function imageDimensionsFromDataUrl(value) {
 }
 
 function imageBufferFromDataUrl(value) {
- const match=/^data:image\/(png|jpe?g);base64,([A-Za-z0-9+/=\\s]+)$/i.exec(String(value||''));
+ const match=/^data:image\/(png|jpe?g);base64,([A-Za-z0-9+/=]+)$/i.exec(String(value||''));
  if(!match)return null;
  return {buffer:Buffer.from(match[2],'base64'),mimeType:match[1].toLowerCase()};
 }
