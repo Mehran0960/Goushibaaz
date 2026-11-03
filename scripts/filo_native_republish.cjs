@@ -399,8 +399,9 @@ function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
   .replace(/اتفاق\s+می‌افتد/giu,'رخ می‌دهد')
   .replace(/اتفاق\s+افتاده/giu,'رخ داده')
   .replace(/نشان\s+می‌دهد/giu,'نمایان می‌کند')
+  .replace(/(?:\s|[\p{Extended_Pictographic}\p{Emoji_Modifier}\uFE0F\u200D])+$/gu,' ')
   .replace(/\s+/g,' ').trim();
- if(description.length<50)throw new Error('repost_description_lacks_substantive_detail');
+ if(description.length<35)throw new Error('repost_description_lacks_substantive_detail');
  if(normalizeComparable(description)===normalizeComparable(raw))throw new Error('repost_description_not_rewritten_from_original');
  const descN=normalizeComparable(description),titleN=normalizeComparable(repostTitle),sourceTitleN=normalizeComparable(sourceTitle),sourceDescN=normalizeComparable(raw);
  if(titleN&&descN.includes(titleN))throw new Error('repost_description_repeats_repost_title');
@@ -1185,7 +1186,7 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
     const metadataRisk = policyTextRiskReason({ title: outgoingTitle, description: outgoingDescription });
     const hasExternalLink = /(?:https?:\/\/|www\.)/i.test(outgoingTitle + ' ' + outgoingDescription);
     const metadataOk = outgoingTitle.length >= 8 && outgoingTitle.length <= 180 &&
-      outgoingDescription.length >= 50 && outgoingDescription.length <= 1100 &&
+      outgoingDescription.length >= 35 && outgoingDescription.length <= 1100 &&
       titleNotSourceDescription && descriptionDistinct && descriptionDoesNotRepeatTitle && !metadataRisk && !hasExternalLink;
     const frameOk = selectedFrame.startsWith('data:image/') && selectedFrame.length > 1000;
     const guardFailures = buildNativePublishGuardFailures({
