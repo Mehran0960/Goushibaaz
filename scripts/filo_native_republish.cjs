@@ -474,7 +474,7 @@ function buildNativePublishGuardFailures({
 
 function safeApiDiagnosticValue(value,depth=0) {
  if(value===null||value===undefined)return value;
- if(typeof value==='string')return value.replace(/[\\r\\n]+/g,' ').slice(0,260);
+ if(typeof value==='string')return value.replace(/[\r\n]+/g,' ').slice(0,260);
  if(typeof value==='number'||typeof value==='boolean')return value;
  if(Array.isArray(value))return value.slice(0,5).map(item=>safeApiDiagnosticValue(item,depth+1));
  if(typeof value==='object'&&depth<2){
@@ -1242,13 +1242,13 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
       if(responseBody.d&&typeof responseBody.d==='object')
         diagnostics.dataKeys=Object.keys(responseBody.d).slice(0,20);
     }else{
-      diagnostics.bodyPreview=String(responseText||'').replace(/[\\r\\n]+/g,' ').slice(0,600);
+      diagnostics.bodyPreview=String(responseText||'').replace(/[\r\n]+/g,' ').slice(0,600);
     }
     const responseHeaders=await publishResponse.allHeaders().catch(()=>({}));
     diagnostics.contentType=responseHeaders['content-type']||null;
     diagnostics.httpStatusText=publishResponse.statusText();
     diagnostics.uiErrors=await page.locator('[role="alert"], .alert, .toast, .toast-message, .invalid-feedback')
-      .evaluateAll(nodes=>nodes.map(node=>String(node.innerText||node.textContent||'').replace(/\\s+/g,' ').trim().slice(0,180)).filter(Boolean).slice(0,8))
+      .evaluateAll(nodes=>nodes.map(node=>String(node.innerText||node.textContent||'').replace(/\s+/g,' ').trim().slice(0,180)).filter(Boolean).slice(0,8))
       .catch(()=>[]);
     return {
       status: 'rejected_by_filo',
@@ -1775,7 +1775,7 @@ async function main() {
     if(filoRejections.length){
       state.posts=state.posts.slice(-1200);
       state.updatedAt=new Date().toISOString();
-      fs.writeFileSync(STATE_PATH,JSON.stringify(state,null,2)+'\\n','utf8');
+      fs.writeFileSync(STATE_PATH,JSON.stringify(state,null,2)+'\n','utf8');
     }
     if (!selected) {
       report.status = filoRejections.length
