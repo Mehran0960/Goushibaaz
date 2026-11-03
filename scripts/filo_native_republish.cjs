@@ -1231,7 +1231,33 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
 
   const responseText=await publishResponse.text().catch(()=>'');
   const responseBody=parseJson(responseText);
-  if (publishResponse.status()>=400 || !responseBody || !isFlag(responseBody.s)) {
+  const httpStatus=publishResponse.status();
+  if(httpStatus>=500){
+    return {
+      status:'submitted_unconfirmed',
+      reason:'filo_server_error_after_publish_submission',
+      httpStatus,
+      responseDiagnostics:{bodyKeys:responseBody&&typeof responseBody==='object'?Object.keys(responseBody).slice(0,30):[],
+        r:responseBody&&safeApiDiagnosticValue(responseBody.r),
+        message:responseBody&&safeApiDiagnosticValue(responseBody.message)},
+      sourceCode:code,
+      newVideoCode:publishPayload.newVideoCode,
+      publishPayload,
+      repostMetadata:{title:repostMetadata.title,descriptionLength:repostMetadata.description.length}
+    };
+  }
+  if([401,403,408,425,429].includes(httpStatus)){
+    return {
+      status:'retryable_filo_failure',
+      reason:String(responseBody&&(responseBody.r||responseBody.message)||('filo_http_'+httpStatus)).slice(0,500),
+      httpStatus,
+      responseDiagnostics:{bodyKeys:responseBody&&typeof responseBody==='object'?Object.keys(responseBody).slice(0,30):[],
+        r:responseBody&&safeApiDiagnosticValue(responseBody.r),
+        message:responseBody&&safeApiDiagnosticValue(responseBody.message)},
+      publishPayload
+    };
+  }
+  if (httpStatus>=400 || !responseBody || !isFlag(responseBody.s)) {
     const diagnostics={};
     if(responseBody&&typeof responseBody==='object'){
       diagnostics.bodyKeys=Object.keys(responseBody).slice(0,30);
@@ -1859,7 +1885,7 @@ async function main() {
     }));
   }
 
-  if (['failed','rejected_by_filo','filo_rejected_candidates_no_success'].includes(report.status)) process.exitCode = 1;
+  if (['failed','rejected_by_filo','filo_rejected_candidates_no_success','retryable_filo_failure'].includes(report.status)) process.exitCode = 1;
 }
 
 if (require.main === module) {
