@@ -387,7 +387,7 @@ function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
   .replace(/(?:لطفاً|لطفا)\s*(?:لایک|پسند|فالو|دنبال|عضویت|اشتراک).{0,160}$/iu,' ')
   .replace(/(?:برای\s+(?:دیدن|تماشای|دنبال\s+کردن).{0,160})$/iu,' ')
   .replace(/(?:حتماً|حتما)\s*(?:ببینید|ببنید|تماشا\s+کنید|مشاهده\s+کنید).{0,100}$/iu,' ')
-  .replace(/\b(?:join\s+us|click(?:\s+(?:here|below))?|follow\s+us|subscribe|like\s+and\s+subscribe|comment\s+below)\b[\s\S]{0,240}$/iu,' ')
+  .replace(/\b(?:join\s*us|click(?:\s+(?:here|below))?|follow\s*us|subscribe|like\s+and\s+subscribe|comment\s+below)\b[\s\S]{0,240}$/iu,' ')
   .replace(/(?:این\s+نسخه\s+از\s+مسیر\s+بازنشر\s+رسمی\s+فیلو|بازنشر\s+از\s+مسیر\s+رسمی\s+فیلو).*$/iu,' ')
   .replace(/^(?:(?:در\s+)?این\s+(?:ویدئو|ویدیو|کلیپ|فیلم)\s*[,،:؛-]?\s*)+/iu,'')
   .replace(/\s+/g,' ').trim();
