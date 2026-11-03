@@ -20,6 +20,7 @@ const {
   trustedFiloMediaUrl,
   buildNativePublishGuardFailures,
   safeApiDiagnosticValue,
+  buildUnconfirmedSubmissionResult,
   composeFiloCoverDataUrl,
   dailyCount
 } = require('./filo_native_republish.cjs');
@@ -197,6 +198,18 @@ assert.equal(buildNativePublishGuardFailures(safePublishContext).some(reason=>/c
   'cover selection and aspect ratio must never block the publish request');
 assert.equal(safeApiDiagnosticValue({r:'خطا\nتکرار',items:[1,2,3]}).r,'خطا تکرار',
   'Filo diagnostics must sanitize multiline response fields');
+
+const unconfirmed=buildUnconfirmedSubmissionResult({
+ sourceCode:'Source01',newVideoCode:'NewVid01',publishPayload:{sourceCode:'Source01',newVideoCode:'NewVid01'},
+ repostTitle:'عنوان تازه',repostDescription:'توضیح کامل برای ثبت وضعیت ارسال نامشخص'
+});
+assert.equal(unconfirmed.status,'submitted_unconfirmed');
+assert.equal(unconfirmed.sourceCode,'Source01');
+assert.equal(unconfirmed.newVideoCode,'NewVid01',
+ 'unconfirmed submissions must retain the generated video code for later public reconciliation');
+assert.equal(unconfirmed.repostMetadata.title,'عنوان تازه',
+ 'unconfirmed submissions must retain the expected title for later public verification');
+
 
 assert.equal(detailGate({}, { ...valid }).eligible, false, 'global search must never bypass the native Filo permission gate');
 
