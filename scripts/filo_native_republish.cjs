@@ -1186,7 +1186,8 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
       coverComposition: {
         ok: Boolean(coverComposition.ok),
         strategy: coverComposition.strategy || null,
-        reason: coverComposition.reason || null
+        reason: coverComposition.reason || null,
+        encodedLength: coverComposition.encodedLength || null
       },
       guardFailures,
       thumbnailStrategy: report.thumbnailSelection && report.thumbnailSelection.strategy || 'legacy_fallback',
