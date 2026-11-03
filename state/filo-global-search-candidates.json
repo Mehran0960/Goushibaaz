@@ -1,20 +1,9 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-03T04:05:16.063Z",
-  "trendsFetchedAt": "2026-11-03T04:04:12.477Z",
+  "updatedAt": "2026-11-03T04:09:10.155Z",
+  "trendsFetchedAt": "2026-11-03T04:08:20.471Z",
   "trends": [
-    {
-      "title": "رمز ارز نیوز",
-      "keywords": [
-        "رمز",
-        "ارز",
-        "نیوز"
-      ],
-      "traffic": 500,
-      "publishedAt": "Mon, 2 Nov 2026 18:50:00 -0800",
-      "ageHours": 1.2
-    },
     {
       "title": "کشتی",
       "keywords": [
@@ -32,7 +21,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Mon, 2 Nov 2026 18:40:00 -0800",
-      "ageHours": 1.4
+      "ageHours": 1.5
     },
     {
       "title": "صندوق بازنشستگی کشوری",
@@ -52,19 +41,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Mon, 2 Nov 2026 18:10:00 -0800",
-      "ageHours": 1.9
-    },
-    {
-      "title": "باشگاه فوتبال استقلال تهران",
-      "keywords": [
-        "باشگاه",
-        "فوتبال",
-        "استقلال",
-        "تهران"
-      ],
-      "traffic": 200,
-      "publishedAt": "Mon, 2 Nov 2026 18:00:00 -0800",
-      "ageHours": 2.1
+      "ageHours": 2
     },
     {
       "title": "الطقس",
@@ -73,7 +50,28 @@
       ],
       "traffic": 100,
       "publishedAt": "Mon, 2 Nov 2026 19:10:00 -0800",
-      "ageHours": 0.9
+      "ageHours": 1
+    },
+    {
+      "title": "رمز ارز نیوز",
+      "keywords": [
+        "رمز",
+        "ارز",
+        "نیوز"
+      ],
+      "traffic": 100,
+      "publishedAt": "Mon, 2 Nov 2026 18:50:00 -0800",
+      "ageHours": 1.3
+    },
+    {
+      "title": "مارتا شهبازی",
+      "keywords": [
+        "مارتا",
+        "شهبازی"
+      ],
+      "traffic": 100,
+      "publishedAt": "Mon, 2 Nov 2026 18:50:00 -0800",
+      "ageHours": 1.3
     }
   ],
   "queries": {
@@ -421,12 +419,12 @@
     "۱۱ نفتکش متخلف بعد از بازدید نمایشی فرمانده سنتکام از تنگه هرمز در آتش سوختند": {
       "query": "۱۱ نفتکش متخلف بعد از بازدید نمایشی فرمانده سنتکام از تنگه هرمز، در آتش سوختند",
       "normalized": "۱۱ نفتکش متخلف بعد از بازدید نمایشی فرمانده سنتکام از تنگه هرمز در آتش سوختند",
-      "nextPage": 21,
-      "complete": false,
-      "pagesFetched": 20,
+      "nextPage": 22,
+      "complete": true,
+      "pagesFetched": 21,
       "videosSeen": 400,
       "createdAt": "2026-11-02T20:27:47.368Z",
-      "lastAttemptAt": "2026-11-02T21:30:01.355Z",
+      "lastAttemptAt": "2026-11-03T04:09:09.990Z",
       "lastError": null,
       "trendTitle": "سپاه پاسداران انقلاب اسلامی",
       "trendTraffic": 100,
@@ -439,7 +437,8 @@
       ],
       "lastTrendSeenAt": "2026-11-02T20:27:47.368Z",
       "activeInLatestFeed": false,
-      "termination": "max_pages_reached"
+      "termination": "empty_page",
+      "completedAt": "2026-11-03T04:09:09.990Z"
     },
     "اعلام سپاه از حادثه جنجالی در تنگه هرمز": {
       "query": "اعلام سپاه از حادثه جنجالی در تنگه هرمز",
@@ -819,12 +818,12 @@
     "دوگانه ای که شکل نگرفت قالیباف و رضایی در یک جبهه": {
       "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
       "normalized": "دوگانه ای که شکل نگرفت قالیباف و رضایی در یک جبهه",
-      "nextPage": 41,
+      "nextPage": 61,
       "complete": false,
-      "pagesFetched": 40,
-      "videosSeen": 800,
+      "pagesFetched": 60,
+      "videosSeen": 1200,
       "createdAt": "2026-11-02T21:03:17.930Z",
-      "lastAttemptAt": "2026-11-02T21:28:01.775Z",
+      "lastAttemptAt": "2026-11-03T04:09:09.990Z",
       "lastError": null,
       "trendTitle": "محمدباقر قالیباف",
       "trendTraffic": 200,
@@ -1794,7 +1793,7 @@
       "trendKeywords": [
         "پهپاد"
       ],
-      "lastTrendSeenAt": "2026-11-03T04:04:12.870Z",
+      "lastTrendSeenAt": "2026-11-03T04:08:20.969Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -1814,7 +1813,7 @@
       "trendKeywords": [
         "پهپاد"
       ],
-      "lastTrendSeenAt": "2026-11-03T04:04:12.870Z",
+      "lastTrendSeenAt": "2026-11-03T04:08:20.969Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -2018,7 +2017,7 @@
         "تهران"
       ],
       "lastTrendSeenAt": "2026-11-03T04:04:12.870Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "بختیاری زاده نشان داده ایم که تیم بزرگ و با کیفیتی هستیم باید با تمرکز به میدان برویم": {
@@ -2041,7 +2040,7 @@
         "تهران"
       ],
       "lastTrendSeenAt": "2026-11-03T04:04:12.870Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-03T04:05:15.889Z"
     },
@@ -2056,14 +2055,14 @@
       "lastAttemptAt": "2026-11-03T04:05:15.890Z",
       "lastError": null,
       "trendTitle": "رمز ارز نیوز",
-      "trendTraffic": 500,
+      "trendTraffic": 100,
       "trendPublishedAt": "Mon, 2 Nov 2026 18:50:00 -0800",
       "trendKeywords": [
         "رمز",
         "ارز",
         "نیوز"
       ],
-      "lastTrendSeenAt": "2026-11-03T04:04:12.870Z",
+      "lastTrendSeenAt": "2026-11-03T04:08:20.969Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-03T04:05:15.890Z"
@@ -2084,19 +2083,19 @@
       "trendKeywords": [
         "کشتی"
       ],
-      "lastTrendSeenAt": "2026-11-03T04:04:12.870Z",
+      "lastTrendSeenAt": "2026-11-03T04:08:20.969Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "بازگشت قهرمانان کشتی آزاد ایران به کشور": {
       "query": "بازگشت قهرمانان کشتی آزاد ایران به کشور",
       "normalized": "بازگشت قهرمانان کشتی آزاد ایران به کشور",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 2,
+      "complete": true,
+      "pagesFetched": 1,
       "videosSeen": 0,
       "createdAt": "2026-11-03T04:04:12.870Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-03T04:09:09.977Z",
       "lastError": null,
       "trendTitle": "کشتی",
       "trendTraffic": 500,
@@ -2104,18 +2103,20 @@
       "trendKeywords": [
         "کشتی"
       ],
-      "lastTrendSeenAt": "2026-11-03T04:04:12.870Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-03T04:08:20.969Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-03T04:09:09.977Z"
     },
     "farsnews استقبال از تیم ملی کشتی آزاد ایران": {
       "query": "Farsnews | استقبال از تیم ملی کشتی آزاد ایران",
       "normalized": "farsnews استقبال از تیم ملی کشتی آزاد ایران",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 6,
+      "complete": true,
+      "pagesFetched": 5,
+      "videosSeen": 53,
       "createdAt": "2026-11-03T04:04:12.870Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-03T04:09:09.979Z",
       "lastError": null,
       "trendTitle": "کشتی",
       "trendTraffic": 500,
@@ -2123,18 +2124,20 @@
       "trendKeywords": [
         "کشتی"
       ],
-      "lastTrendSeenAt": "2026-11-03T04:04:12.870Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-03T04:08:20.969Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-03T04:09:09.979Z"
     },
     "حاجیمراد گاتسالوف": {
       "query": "حاجیمراد گاتسالوف",
       "normalized": "حاجیمراد گاتسالوف",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 3,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 3,
       "createdAt": "2026-11-03T04:04:12.870Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-03T04:09:09.979Z",
       "lastError": null,
       "trendTitle": "حاجیمراد گاتسالوف",
       "trendTraffic": 200,
@@ -2143,18 +2146,20 @@
         "حاجیمراد",
         "گاتسالوف"
       ],
-      "lastTrendSeenAt": "2026-11-03T04:04:12.870Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-03T04:08:20.969Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-03T04:09:09.979Z"
     },
     "محدودیت و سختگیری برای کشتی گیران روس": {
       "query": "محدودیت و سختگیری برای کشتی‌گیران روس",
       "normalized": "محدودیت و سختگیری برای کشتی گیران روس",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 2,
+      "complete": true,
+      "pagesFetched": 1,
       "videosSeen": 0,
       "createdAt": "2026-11-03T04:04:12.870Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-03T04:09:09.979Z",
       "lastError": null,
       "trendTitle": "حاجیمراد گاتسالوف",
       "trendTraffic": 200,
@@ -2163,18 +2168,20 @@
         "حاجیمراد",
         "گاتسالوف"
       ],
-      "lastTrendSeenAt": "2026-11-03T04:04:12.870Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-03T04:08:20.969Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-03T04:09:09.979Z"
     },
     "روسیه مغلوبی تمام عیار مقابل میزبان جهانی سال آینده شکست همه روس ها به هر ۵ طلایی آمریکا در آستانه": {
       "query": "روسیه مغلوبی تمام عیار مقابل میزبان جهانی سال آینده؛ شکست همه‌ روس‌ها به هر ۵ طلایی آمریکا در آستانه",
       "normalized": "روسیه مغلوبی تمام عیار مقابل میزبان جهانی سال آینده شکست همه روس ها به هر ۵ طلایی آمریکا در آستانه",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 3,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 2,
       "createdAt": "2026-11-03T04:04:12.870Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-03T04:09:09.979Z",
       "lastError": null,
       "trendTitle": "حاجیمراد گاتسالوف",
       "trendTraffic": 200,
@@ -2183,18 +2190,20 @@
         "حاجیمراد",
         "گاتسالوف"
       ],
-      "lastTrendSeenAt": "2026-11-03T04:04:12.870Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-03T04:08:20.969Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-03T04:09:09.979Z"
     },
     "صندوق بازنشستگی کشوری": {
       "query": "صندوق بازنشستگی کشوری",
       "normalized": "صندوق بازنشستگی کشوری",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 4,
+      "complete": true,
+      "pagesFetched": 3,
+      "videosSeen": 31,
       "createdAt": "2026-11-03T04:04:12.870Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-03T04:09:09.980Z",
       "lastError": null,
       "trendTitle": "صندوق بازنشستگی کشوری",
       "trendTraffic": 200,
@@ -2204,8 +2213,10 @@
         "بازنشستگی",
         "کشوری"
       ],
-      "lastTrendSeenAt": "2026-11-03T04:04:12.870Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-03T04:08:20.969Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-03T04:09:09.980Z"
     },
     "رفیع زاده دستورالعمل حقوق بازنشستگان صادر شد": {
       "query": "رفیع‌زاده: دستورالعمل حقوق بازنشستگان صادر شد",
@@ -2225,7 +2236,7 @@
         "بازنشستگی",
         "کشوری"
       ],
-      "lastTrendSeenAt": "2026-11-03T04:04:12.870Z",
+      "lastTrendSeenAt": "2026-11-03T04:08:20.969Z",
       "activeInLatestFeed": true
     },
     "خبر مهم برای بازنشستگان احکام بازنشستگان کشوری تا بهمن ماه تعیین تکلیف می شود": {
@@ -2246,7 +2257,7 @@
         "بازنشستگی",
         "کشوری"
       ],
-      "lastTrendSeenAt": "2026-11-03T04:04:12.870Z",
+      "lastTrendSeenAt": "2026-11-03T04:08:20.969Z",
       "activeInLatestFeed": true
     },
     "شکار دو پهپاد آمریکایی mqm ۱۷۰ و انهدام یک پهپاد پیشرفته mq۹ توسط سپاه": {
@@ -2265,7 +2276,7 @@
       "trendKeywords": [
         "پهپاد"
       ],
-      "lastTrendSeenAt": "2026-11-03T04:04:12.870Z",
+      "lastTrendSeenAt": "2026-11-03T04:08:20.969Z",
       "activeInLatestFeed": true
     },
     "مرد سال سابق آسیا دوباره مقابل استقلال": {
@@ -2288,7 +2299,7 @@
         "تهران"
       ],
       "lastTrendSeenAt": "2026-11-03T04:04:12.870Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "الطقس": {
       "query": "الطقس",
@@ -2306,7 +2317,7 @@
       "trendKeywords": [
         "الطقس"
       ],
-      "lastTrendSeenAt": "2026-11-03T04:04:12.870Z",
+      "lastTrendSeenAt": "2026-11-03T04:08:20.969Z",
       "activeInLatestFeed": true
     },
     "heavy rain causes flooding in brevard county florida see photos": {
@@ -2325,7 +2336,7 @@
       "trendKeywords": [
         "الطقس"
       ],
-      "lastTrendSeenAt": "2026-11-03T04:04:12.870Z",
+      "lastTrendSeenAt": "2026-11-03T04:08:20.969Z",
       "activeInLatestFeed": true
     },
     "historic flooding across palm beaches treasure coast leads to road closures": {
@@ -2344,7 +2355,67 @@
       "trendKeywords": [
         "الطقس"
       ],
-      "lastTrendSeenAt": "2026-11-03T04:04:12.870Z",
+      "lastTrendSeenAt": "2026-11-03T04:08:20.969Z",
+      "activeInLatestFeed": true
+    },
+    "مارتا شهبازی": {
+      "query": "مارتا شهبازی",
+      "normalized": "مارتا شهبازی",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T04:08:20.969Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "مارتا شهبازی",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Mon, 2 Nov 2026 18:50:00 -0800",
+      "trendKeywords": [
+        "مارتا",
+        "شهبازی"
+      ],
+      "lastTrendSeenAt": "2026-11-03T04:08:20.969Z",
+      "activeInLatestFeed": true
+    },
+    "مارتا شهبازی پژوهشگر برجسته کمبریج در تصادف قطار در اسپانیا جان باخته است": {
+      "query": "مارتا شهبازی، پژوهشگر برجسته کمبریج، در تصادف قطار در اسپانیا جان باخته است",
+      "normalized": "مارتا شهبازی پژوهشگر برجسته کمبریج در تصادف قطار در اسپانیا جان باخته است",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T04:08:20.969Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "مارتا شهبازی",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Mon, 2 Nov 2026 18:50:00 -0800",
+      "trendKeywords": [
+        "مارتا",
+        "شهبازی"
+      ],
+      "lastTrendSeenAt": "2026-11-03T04:08:20.969Z",
+      "activeInLatestFeed": true
+    },
+    "مارتا شهبازی که بود دانشمند ایرانی تباری که در فاجعه قطار اسپانیا جان باخت": {
+      "query": "مارتا شهبازی که بود؟ دانشمند ایرانی تباری که در فاجعه قطار اسپانیا جان باخت",
+      "normalized": "مارتا شهبازی که بود دانشمند ایرانی تباری که در فاجعه قطار اسپانیا جان باخت",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T04:08:20.969Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "مارتا شهبازی",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Mon, 2 Nov 2026 18:50:00 -0800",
+      "trendKeywords": [
+        "مارتا",
+        "شهبازی"
+      ],
+      "lastTrendSeenAt": "2026-11-03T04:08:20.969Z",
       "activeInLatestFeed": true
     }
   },
@@ -9278,33 +9349,6 @@
       "visit_count": 4368,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "گندم",
-          "trendTitle": "گندم",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 10:50:00 -0800",
-          "trendKeywords": [
-            "گندم"
-          ],
-          "page": 5
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T20:32:47.112Z"
-    },
-    "uIdgA9T": {
-      "video_code": "uIdgA9T",
-      "title": "انیمیشن میرزا بلد - قسمت 4: گندم پخته",
-      "sender_name": "⭐ کلیپ آنلاین ⭐",
-      "category_id": 21,
-      "duration": 876,
-      "visit_count": 2203,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -21270,43 +21314,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T20:35:59.754Z"
     },
-    "VO96Cbv": {
-      "video_code": "VO96Cbv",
-      "title": "مصاحبه فرناز حسن زاده رتبه 1 کنکور تجربی 1401 1",
-      "sender_name": "sadatsam",
-      "category_id": 7,
-      "duration": 2013,
-      "visit_count": 812,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "کنکور",
-          "trendTitle": "کنکور",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:10:00 -0800",
-          "trendKeywords": [
-            "کنکور"
-          ],
-          "page": 40
-        },
-        {
-          "query": "زمان اعلام نتایج نهایی کنکور ۱۴۰۵ مشخص شد",
-          "trendTitle": "کنکور",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:10:00 -0800",
-          "trendKeywords": [
-            "کنکور"
-          ],
-          "page": 56
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T20:44:41.294Z"
-    },
     "MlpIyZP": {
       "video_code": "MlpIyZP",
       "title": "يحسيـن زينب لفت سيد فاقد الموسوي _ محرم الحرام 1445 هـ",
@@ -23025,43 +23032,6 @@
             "اچبیاو"
           ],
           "page": 22
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T20:44:41.275Z"
-    },
-    "JKP8e1P": {
-      "video_code": "JKP8e1P",
-      "title": "تریلر فیلم هری پاتر",
-      "sender_name": "سکانس فان",
-      "category_id": 3,
-      "duration": 152,
-      "visit_count": 812,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "ستاره اصلی Harry Potter به بازیگر جایگزین خود در سریال HBO هشدار داد",
-          "trendTitle": "اچبیاو",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:20:00 -0800",
-          "trendKeywords": [
-            "اچبیاو"
-          ],
-          "page": 23
-        },
-        {
-          "query": "پدر و مادر «هری پاتر» معرفی شدند",
-          "trendTitle": "اچبیاو",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:20:00 -0800",
-          "trendKeywords": [
-            "اچبیاو"
-          ],
-          "page": 23
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T20:44:41.275Z"
@@ -26319,33 +26289,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T21:04:30.291Z"
-    },
-    "xXTpn0k": {
-      "video_code": "xXTpn0k",
-      "title": "جدیدترین کلیپ طنز پریسا پور مشکی⧸ طنز جدید پریسا پورن بلک 5461",
-      "sender_name": "آیسان🙃",
-      "category_id": 6,
-      "duration": 60,
-      "visit_count": 2205,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "زمان اعلام نتایج نهایی کنکور ۱۴۰۵ مشخص شد",
-          "trendTitle": "کنکور",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:10:00 -0800",
-          "trendKeywords": [
-            "کنکور"
-          ],
-          "page": 78
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:04:30.294Z"
     },
     "6IoTgyB": {
       "video_code": "6IoTgyB",
@@ -30145,9 +30088,20 @@
             "قالیباف"
           ],
           "page": 11
+        },
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 47
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:04:30.300Z"
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.982Z"
     },
     "yhJFQvW": {
       "video_code": "yhJFQvW",
@@ -30173,9 +30127,20 @@
             "قالیباف"
           ],
           "page": 11
+        },
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 49
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:04:30.300Z"
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.983Z"
     },
     "NaXJgQH": {
       "video_code": "NaXJgQH",
@@ -30201,9 +30166,20 @@
             "قالیباف"
           ],
           "page": 11
+        },
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 50
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:04:30.300Z"
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.983Z"
     },
     "fHzQFAa": {
       "video_code": "fHzQFAa",
@@ -30211,7 +30187,7 @@
       "sender_name": "رسانه تصویری کیوسک",
       "category_id": 1,
       "duration": 51,
-      "visit_count": 2735,
+      "visit_count": 2736,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -30229,9 +30205,20 @@
             "قالیباف"
           ],
           "page": 12
+        },
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 56
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:04:30.301Z"
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.986Z"
     },
     "AH9t5zD": {
       "video_code": "AH9t5zD",
@@ -37058,34 +37045,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T21:28:01.753Z"
     },
-    "TPsRgzi": {
-      "video_code": "TPsRgzi",
-      "title": "سریال شهریار قسمت 21",
-      "sender_name": "کافه سینما",
-      "category_id": 3,
-      "duration": 2275,
-      "visit_count": 2203,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "شهریار مغانلو",
-          "trendTitle": "شهریار مغانلو",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:40:00 -0800",
-          "trendKeywords": [
-            "شهریار",
-            "مغانلو"
-          ],
-          "page": 12
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:28:01.753Z"
-    },
     "okLGXAs": {
       "video_code": "okLGXAs",
       "title": "فیلم وحشتناک از درگیری اشرار قمه به دست در شهریار!",
@@ -37842,34 +37801,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T21:28:01.755Z"
     },
-    "pZ0cWUg": {
-      "video_code": "pZ0cWUg",
-      "title": "سریال شهریار قسمت 30",
-      "sender_name": "کافه سینما",
-      "category_id": 3,
-      "duration": 2357,
-      "visit_count": 2207,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "شهریار مغانلو",
-          "trendTitle": "شهریار مغانلو",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:40:00 -0800",
-          "trendKeywords": [
-            "شهریار",
-            "مغانلو"
-          ],
-          "page": 19
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:28:01.755Z"
-    },
     "N5jyeuk": {
       "video_code": "N5jyeuk",
       "title": "سریال شهریار قسمت 28",
@@ -38529,34 +38460,6 @@
             "قالیباف"
           ],
           "page": 22
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:28:01.770Z"
-    },
-    "bbsGR5F": {
-      "video_code": "bbsGR5F",
-      "title": "آهنگ تیتراژ ابتدایی سریال یزدان از گرشا رضایی",
-      "sender_name": "MOFAHOME",
-      "category_id": 9,
-      "duration": 154,
-      "visit_count": 2204,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
-          "trendTitle": "محمدباقر قالیباف",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
-          "trendKeywords": [
-            "محمدباقر",
-            "قالیباف"
-          ],
-          "page": 23
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T21:28:01.770Z"
@@ -111363,34 +111266,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.346Z"
     },
-    "srKVo7q": {
-      "video_code": "srKVo7q",
-      "title": "مداحی جدید و زیبای یا حبیبی حسین | محمد حسین پویانفر",
-      "sender_name": "آماندا",
-      "category_id": 8,
-      "duration": 60,
-      "visit_count": 2210,
-      "create_date": "7 سال پیش",
-      "styled_create_date": "7 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 42
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.346Z"
-    },
     "GmObpxc": {
       "video_code": "GmObpxc",
       "title": "طنز خنده دار حسن ریوندی ... مورچه های قدیم",
@@ -113799,34 +113674,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.349Z"
     },
-    "Fnv08PZ": {
-      "video_code": "Fnv08PZ",
-      "title": "حسن ریوندی بمب خنده قسمت سیزدهم",
-      "sender_name": "ساسان",
-      "category_id": 6,
-      "duration": 617,
-      "visit_count": 2209,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 48
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.349Z"
-    },
     "WfsrMq8": {
       "video_code": "WfsrMq8",
       "title": "فیلم نیوکمپ / سکانسی از حسن معجونی",
@@ -114807,34 +114654,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.350Z"
     },
-    "g4UwsdE": {
-      "video_code": "g4UwsdE",
-      "title": "حسن ریوندی|حسن ریوندی|طنز و کمدی",
-      "sender_name": "sajjad_abdollahi",
-      "category_id": 6,
-      "duration": 653,
-      "visit_count": 2211,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 51
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.350Z"
-    },
     "8niYYNI": {
       "video_code": "8niYYNI",
       "title": "فینال کشتی حسن یزدانی و کشتی گیر آمریکایی ترنت هیدلی در بوداپست مجارستان",
@@ -115544,34 +115363,6 @@
       "visit_count": 4978,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 53
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.351Z"
-    },
-    "Ct9VjlY": {
-      "video_code": "Ct9VjlY",
-      "title": "کنسرت حسن ریوندی",
-      "sender_name": "Omid",
-      "category_id": 9,
-      "duration": 790,
-      "visit_count": 2209,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -116767,34 +116558,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.352Z"
     },
-    "mfSmOs0": {
-      "video_code": "mfSmOs0",
-      "title": "حسن یزدانی... قهرمان",
-      "sender_name": "pzr",
-      "category_id": 11,
-      "duration": 60,
-      "visit_count": 2199,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 56
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.352Z"
-    },
     "tFxsyJh": {
       "video_code": "tFxsyJh",
       "title": "تقلید صدای جالب از مهران مدیری ،فرزاد حسنی و حسن معجونی",
@@ -117086,34 +116849,6 @@
       "styled_create_date": "1 سال پیش",
       "active": 1,
       "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 57
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.352Z"
-    },
-    "61aiwLK": {
-      "video_code": "61aiwLK",
-      "title": "استوری برای ولادت امام حسن عسکری",
-      "sender_name": "setare",
-      "category_id": 8,
-      "duration": 15,
-      "visit_count": 2199,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 0,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -119819,34 +119554,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.355Z"
     },
-    "yJGJ8Ju": {
-      "video_code": "yJGJ8Ju",
-      "title": "خبر فوت بالاخاتون سریال قیام عثمان در زلزله اخیر ترکیه",
-      "sender_name": "Mr",
-      "category_id": 1,
-      "duration": 58,
-      "visit_count": 2212,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "شبکه خبر",
-          "trendTitle": "شبکه خبر",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
-          "trendKeywords": [
-            "شبکه",
-            "خبر"
-          ],
-          "page": 48
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.355Z"
-    },
     "TGc7mNg": {
       "video_code": "TGc7mNg",
       "title": "گلچین مزاحم تلفنی های لاتی داور ویسه و شبکه ی رنگارنگ",
@@ -121760,34 +121467,6 @@
       "visit_count": 2542,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "شبکه خبر",
-          "trendTitle": "شبکه خبر",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
-          "trendKeywords": [
-            "شبکه",
-            "خبر"
-          ],
-          "page": 57
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.358Z"
-    },
-    "eiRBxvp": {
-      "video_code": "eiRBxvp",
-      "title": "آدم های که از دلمون خبر ندارن",
-      "sender_name": "شیرخدا",
-      "category_id": 4,
-      "duration": 32,
-      "visit_count": 2212,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -134315,60 +133994,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:16:57.079Z"
     },
-    "u5esztz": {
-      "video_code": "u5esztz",
-      "title": "آواز محلی فارس_محشرر محلی شاد",
-      "sender_name": "🌺 ثـــریا 🌺",
-      "category_id": 9,
-      "duration": 60,
-      "visit_count": 2209,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فارس",
-          "trendTitle": "فارس",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:30:00 -0800",
-          "trendKeywords": [
-            "فارس"
-          ],
-          "page": 31
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.079Z"
-    },
-    "5w5Ezyq": {
-      "video_code": "5w5Ezyq",
-      "title": "طبیعت پاییزی روستای برایجان - خفر - فارس",
-      "sender_name": "جهانگیر باقری",
-      "category_id": 22,
-      "duration": 190,
-      "visit_count": 2203,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فارس",
-          "trendTitle": "فارس",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:30:00 -0800",
-          "trendKeywords": [
-            "فارس"
-          ],
-          "page": 32
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.079Z"
-    },
     "V3gqMEY": {
       "video_code": "V3gqMEY",
       "title": "لحظه نجات کودک از صندوق عقب ماشین زن و شوهر قاتل در بیرم استان فارس",
@@ -134638,33 +134263,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T22:16:57.079Z"
-    },
-    "Ae7BB56": {
-      "video_code": "Ae7BB56",
-      "title": "سریال آدم درست را راه بده 2022 قسمت 10 (پایان) زیرنویس فارس",
-      "sender_name": "Apratgram",
-      "category_id": 3,
-      "duration": 2955,
-      "visit_count": 2201,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فارس",
-          "trendTitle": "فارس",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:30:00 -0800",
-          "trendKeywords": [
-            "فارس"
-          ],
-          "page": 36
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.080Z"
     },
     "l2QbjIq": {
       "video_code": "l2QbjIq",
@@ -142788,34 +142386,6 @@
       "styled_create_date": "3 سال پیش",
       "active": 1,
       "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قیمت نفت",
-          "trendTitle": "قیمت نفت",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 14:00:00 -0800",
-          "trendKeywords": [
-            "قیمت",
-            "نفت"
-          ],
-          "page": 13
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T02:37:37.094Z"
-    },
-    "GfjKpYU": {
-      "video_code": "GfjKpYU",
-      "title": "سکانسی از آفت دوباره دختر ماه پیشونی رو گرفت | سریال دیو و ماه پیشونی2 قسمت2",
-      "sender_name": "naz_br",
-      "category_id": 3,
-      "duration": 66,
-      "visit_count": 2217,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 1,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -155065,8 +154635,540 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-03T04:05:15.898Z"
+    },
+    "v0IKiLc": {
+      "video_code": "v0IKiLc",
+      "title": "دیدنی ترین کشتی تاریخ بین گاتسالوف روس و ساندرسون آمریکایی",
+      "sender_name": "سرگرمخانه",
+      "category_id": 11,
+      "duration": 1039,
+      "visit_count": 3041,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حاجیمراد گاتسالوف",
+          "trendTitle": "حاجیمراد گاتسالوف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 18:40:00 -0800",
+          "trendKeywords": [
+            "حاجیمراد",
+            "گاتسالوف"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.979Z"
+    },
+    "VwTK9cg": {
+      "video_code": "VwTK9cg",
+      "title": "کشتی خارق العاده رضا یزدانی کبیر و گاتسالوف لجند! دوتاغول کشتی دنیا!",
+      "sender_name": "✅️دنبال=دنبال|فالو=فالو✅️",
+      "category_id": 11,
+      "duration": 573,
+      "visit_count": 6344,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حاجیمراد گاتسالوف",
+          "trendTitle": "حاجیمراد گاتسالوف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 18:40:00 -0800",
+          "trendKeywords": [
+            "حاجیمراد",
+            "گاتسالوف"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.979Z"
+    },
+    "sKoWFz7": {
+      "video_code": "sKoWFz7",
+      "title": "دانلود آهنگ جدید گرشا رضایی به نام عاشق شدم",
+      "sender_name": "Reza Eddie",
+      "category_id": 9,
+      "duration": 82,
+      "visit_count": 2227,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 41
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.980Z"
+    },
+    "kRdjZVy": {
+      "video_code": "kRdjZVy",
+      "title": "آهنگ گرشا رضایی به نام دلم گرفته ای رفیق",
+      "sender_name": "paradis music",
+      "category_id": 9,
+      "duration": 213,
+      "visit_count": 2305,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 41
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.980Z"
+    },
+    "nSyKxSW": {
+      "video_code": "nSyKxSW",
+      "title": "موزیک ویدیو 'مجرم' گرشا رضایی_با حضور علی انصاریان",
+      "sender_name": "سرگرم کنی",
+      "category_id": 9,
+      "duration": 60,
+      "visit_count": 2897,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 43
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.981Z"
+    },
+    "IwHRBoH": {
+      "video_code": "IwHRBoH",
+      "title": "ببینید/پیروزی جانانه علی رضایی بر حریف آمریکایی در فینال کشتی آزاد جوانان جهان",
+      "sender_name": "علیرضا",
+      "category_id": 11,
+      "duration": 51,
+      "visit_count": 3708,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 43
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.981Z"
+    },
+    "vPLbqp6": {
+      "video_code": "vPLbqp6",
+      "title": "آهنگ جدید گرشا رضایی به نام مو مشکی",
+      "sender_name": "Music & Lyrics",
+      "category_id": 9,
+      "duration": 184,
+      "visit_count": 2947,
+      "create_date": "7 سال پیش",
+      "styled_create_date": "7 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 43
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.981Z"
+    },
+    "iOfJwee": {
+      "video_code": "iOfJwee",
+      "title": "میکس گل یخ با آهنگ دنیامی گرشا رضایی - Gole Yakh Garsha Rez",
+      "sender_name": "Filo Series",
+      "category_id": 9,
+      "duration": 672,
+      "visit_count": 2483,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 45
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.982Z"
+    },
+    "qEGMck6": {
+      "video_code": "qEGMck6",
+      "title": "موزیک ویدیو گرشا رضایی دریا دریا",
+      "sender_name": "فیلو ☑️",
+      "category_id": 9,
+      "duration": 50,
+      "visit_count": 2443,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 46
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.982Z"
+    },
+    "rBPaI9h": {
+      "video_code": "rBPaI9h",
+      "title": "بزن بيرون از تنهايي برگرد كنارم? گرشا رضايي ?دريا نميرم",
+      "sender_name": "رو〽️مینا❤️",
+      "category_id": 8,
+      "duration": 51,
+      "visit_count": 5308,
+      "create_date": "7 سال پیش",
+      "styled_create_date": "7 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 46
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.982Z"
+    },
+    "nIrf6xn": {
+      "video_code": "nIrf6xn",
+      "title": "افشاگری محسن رضایی وولایتی از کارشکنی های متعدد جلیلی در مذاکرات هسته ای",
+      "sender_name": "🌙Moon clip",
+      "category_id": 1,
+      "duration": 136,
+      "visit_count": 4241,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 46
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.982Z"
+    },
+    "EAU32aY": {
+      "video_code": "EAU32aY",
+      "title": "دستگیر شد علی رضایی مداح معروف قمی در قم بازداشت شد و به زندان زاهدان منتقل شد",
+      "sender_name": "نبض تو",
+      "category_id": 1,
+      "duration": 79,
+      "visit_count": 2252,
+      "create_date": "1 سال پیش",
+      "styled_create_date": "1 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 48
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.983Z"
+    },
+    "RxMMnqL": {
+      "video_code": "RxMMnqL",
+      "title": "تصاویری از شاهین رضایی خوشتیپ ترین بدنساز ایرانی در جهان",
+      "sender_name": "علیرضا",
+      "category_id": 11,
+      "duration": 29,
+      "visit_count": 4220,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 49
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.983Z"
+    },
+    "axiRcNI": {
+      "video_code": "axiRcNI",
+      "title": "دعوای علی دایی با شیث رضایی لیگ ۸۵-۸۶",
+      "sender_name": "دنبال کن دنبال شو",
+      "category_id": 11,
+      "duration": 60,
+      "visit_count": 6775,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 52
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.984Z"
+    },
+    "jHZwjNu": {
+      "video_code": "jHZwjNu",
+      "title": "ناگفته هایی از ابعاد زندگی شهید مدافع حرم «عید محمد رضایی»",
+      "sender_name": "رزآتی",
+      "category_id": 8,
+      "duration": 1336,
+      "visit_count": 2982,
+      "create_date": "7 سال پیش",
+      "styled_create_date": "7 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 52
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.984Z"
+    },
+    "kjYzDxZ": {
+      "video_code": "kjYzDxZ",
+      "title": "موزیک ویدیو جدید گرشا رضایی",
+      "sender_name": "منتخب فیلو✅",
+      "category_id": 9,
+      "duration": 67,
+      "visit_count": 2761,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 53
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.984Z"
+    },
+    "j50qh1o": {
+      "video_code": "j50qh1o",
+      "title": "موزیکویدئو دوست داشتنی دریا نمیرم با صدای گرشا رضایی",
+      "sender_name": "بهترین فیلمهای سینمایی و کلیپ های جذاب❤️",
+      "category_id": 9,
+      "duration": 218,
+      "visit_count": 3318,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 56
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.986Z"
+    },
+    "iAmJ6kX": {
+      "video_code": "iAmJ6kX",
+      "title": "♦️محسن رضایی: ما تاکتیک های ناشناخته ای داریم که از آن استفاده خواهیم کرد",
+      "sender_name": "ساها",
+      "category_id": 1,
+      "duration": 80,
+      "visit_count": 4053,
+      "create_date": "1 سال پیش",
+      "styled_create_date": "1 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 56
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.986Z"
+    },
+    "A59RXlg": {
+      "video_code": "A59RXlg",
+      "title": "قهرمانی جانانه علی رضایی با غلبه بر حریف آمریکایی در فینال کشتی آزاد جوانان جهان",
+      "sender_name": "علیرضا",
+      "category_id": 11,
+      "duration": 51,
+      "visit_count": 4397,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
+          "trendTitle": "محمدباقر قالیباف",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "محمدباقر",
+            "قالیباف"
+          ],
+          "page": 58
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T04:09:09.987Z"
     }
   },
-  "totalPagesFetched": 1526,
-  "totalVideosSeen": 28654
+  "totalPagesFetched": 1561,
+  "totalVideosSeen": 29143
 }
