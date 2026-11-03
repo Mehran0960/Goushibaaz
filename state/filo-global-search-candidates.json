@@ -1,19 +1,9 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-03T10:07:05.207Z",
-  "trendsFetchedAt": "2026-11-03T10:06:28.174Z",
+  "updatedAt": "2026-11-03T10:31:52.248Z",
+  "trendsFetchedAt": "2026-11-03T10:30:46.461Z",
   "trends": [
-    {
-      "title": "فردین هدایتی",
-      "keywords": [
-        "فردین",
-        "هدایتی"
-      ],
-      "traffic": 5000,
-      "publishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
-      "ageHours": 0.8
-    },
     {
       "title": "بهنام ابوالقاسمپور",
       "keywords": [
@@ -22,18 +12,17 @@
       ],
       "traffic": 2000,
       "publishedAt": "Tue, 3 Nov 2026 01:40:00 -0800",
-      "ageHours": 0.4
+      "ageHours": 0.8
     },
     {
-      "title": "بیماری ترانه علیدوستی",
+      "title": "فردین هدایتی",
       "keywords": [
-        "بیماری",
-        "ترانه",
-        "علیدوستی"
+        "فردین",
+        "هدایتی"
       ],
       "traffic": 1000,
-      "publishedAt": "Tue, 3 Nov 2026 00:50:00 -0800",
-      "ageHours": 1.3
+      "publishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
+      "ageHours": 1.2
     },
     {
       "title": "قیمت لیر",
@@ -43,7 +32,16 @@
       ],
       "traffic": 500,
       "publishedAt": "Tue, 3 Nov 2026 01:10:00 -0800",
-      "ageHours": 0.9
+      "ageHours": 1.3
+    },
+    {
+      "title": "تیم",
+      "keywords": [
+        "تیم"
+      ],
+      "traffic": 200,
+      "publishedAt": "Tue, 3 Nov 2026 02:00:00 -0800",
+      "ageHours": 0.5
     },
     {
       "title": "خسوس د میگل",
@@ -53,19 +51,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
-      "ageHours": 0.8
-    },
-    {
-      "title": "تیم ملی فوتبال ایران",
-      "keywords": [
-        "تیم",
-        "ملی",
-        "فوتبال",
-        "ایران"
-      ],
-      "traffic": 200,
-      "publishedAt": "Tue, 3 Nov 2026 00:20:00 -0800",
-      "ageHours": 1.8
+      "ageHours": 1.2
     },
     {
       "title": "تیم ملی فوتبال پرتغال",
@@ -75,9 +61,20 @@
         "فوتبال",
         "پرتغال"
       ],
-      "traffic": 100,
+      "traffic": 200,
       "publishedAt": "Tue, 3 Nov 2026 01:00:00 -0800",
-      "ageHours": 1.1
+      "ageHours": 1.5
+    },
+    {
+      "title": "بیماری ترانه علیدوستی",
+      "keywords": [
+        "بیماری",
+        "ترانه",
+        "علیدوستی"
+      ],
+      "traffic": 200,
+      "publishedAt": "Tue, 3 Nov 2026 00:50:00 -0800",
+      "ageHours": 1.7
     },
     {
       "title": "روغن",
@@ -86,7 +83,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Tue, 3 Nov 2026 01:00:00 -0800",
-      "ageHours": 1.1
+      "ageHours": 1.5
     }
   ],
   "queries": {
@@ -114,12 +111,12 @@
     "بیت کوین زیر فشار داده های اشتغال امیدی به برگشت دوباره هست": {
       "query": "بیت کوین زیر فشار داده‌های اشتغال؛ امیدی به برگشت دوباره هست؟",
       "normalized": "بیت کوین زیر فشار داده های اشتغال امیدی به برگشت دوباره هست",
-      "nextPage": 41,
+      "nextPage": 61,
       "complete": false,
-      "pagesFetched": 40,
-      "videosSeen": 799,
+      "pagesFetched": 60,
+      "videosSeen": 1199,
       "createdAt": "2026-11-02T20:27:47.368Z",
-      "lastAttemptAt": "2026-11-02T21:55:12.073Z",
+      "lastAttemptAt": "2026-11-03T10:31:52.101Z",
       "lastError": null,
       "trendTitle": "بیتکوین",
       "trendTraffic": 500,
@@ -1233,12 +1230,12 @@
     "iran": {
       "query": "iran",
       "normalized": "iran",
-      "nextPage": 21,
+      "nextPage": 41,
       "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 400,
+      "pagesFetched": 40,
+      "videosSeen": 800,
       "createdAt": "2026-11-02T21:27:08.686Z",
-      "lastAttemptAt": "2026-11-02T21:55:12.039Z",
+      "lastAttemptAt": "2026-11-03T10:31:52.094Z",
       "lastError": null,
       "trendTitle": "iran",
       "trendTraffic": 100,
@@ -2669,13 +2666,13 @@
       "lastAttemptAt": "2026-11-03T10:07:05.002Z",
       "lastError": null,
       "trendTitle": "فردین هدایتی",
-      "trendTraffic": 5000,
+      "trendTraffic": 1000,
       "trendPublishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
       "trendKeywords": [
         "فردین",
         "هدایتی"
       ],
-      "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -2690,13 +2687,13 @@
       "lastAttemptAt": "2026-11-03T10:07:05.002Z",
       "lastError": null,
       "trendTitle": "فردین هدایتی",
-      "trendTraffic": 5000,
+      "trendTraffic": 1000,
       "trendPublishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
       "trendKeywords": [
         "فردین",
         "هدایتی"
       ],
-      "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-03T10:07:05.002Z"
@@ -2712,13 +2709,13 @@
       "lastAttemptAt": "2026-11-03T10:07:05.002Z",
       "lastError": null,
       "trendTitle": "فردین هدایتی",
-      "trendTraffic": 5000,
+      "trendTraffic": 1000,
       "trendPublishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
       "trendKeywords": [
         "فردین",
         "هدایتی"
       ],
-      "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-03T10:07:05.002Z"
@@ -2740,7 +2737,7 @@
         "بهنام",
         "ابوالقاسمپور"
       ],
-      "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -2762,7 +2759,7 @@
         "ابوالقاسمپور"
       ],
       "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-03T10:07:05.012Z"
     },
@@ -2783,7 +2780,7 @@
         "بهنام",
         "ابوالقاسمپور"
       ],
-      "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-03T10:07:05.012Z"
@@ -2791,23 +2788,25 @@
     "بیماری ترانه علیدوستی": {
       "query": "بیماری ترانه علیدوستی",
       "normalized": "بیماری ترانه علیدوستی",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 14,
+      "complete": true,
+      "pagesFetched": 13,
+      "videosSeen": 215,
       "createdAt": "2026-11-03T10:06:28.595Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-03T10:31:52.079Z",
       "lastError": null,
       "trendTitle": "بیماری ترانه علیدوستی",
-      "trendTraffic": 1000,
+      "trendTraffic": 200,
       "trendPublishedAt": "Tue, 3 Nov 2026 00:50:00 -0800",
       "trendKeywords": [
         "بیماری",
         "ترانه",
         "علیدوستی"
       ],
-      "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-03T10:31:52.079Z"
     },
     "معادی در خیابانی دیگر علیدوستی را می بینم": {
       "query": "معادی: در خیابانی دیگر علیدوستی را می‌بینم",
@@ -2828,7 +2827,7 @@
         "علیدوستی"
       ],
       "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "تصاویر متن و حاشیه تشییع پیکر حمید علیدوستی": {
       "query": "تصاویر؛ متن و حاشیه تشییع پیکر حمید علیدوستی",
@@ -2849,17 +2848,17 @@
         "علیدوستی"
       ],
       "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "قیمت لیر": {
       "query": "قیمت لیر",
       "normalized": "قیمت لیر",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 400,
       "createdAt": "2026-11-03T10:06:28.595Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-03T10:31:52.089Z",
       "lastError": null,
       "trendTitle": "قیمت لیر",
       "trendTraffic": 500,
@@ -2868,18 +2867,19 @@
         "قیمت",
         "لیر"
       ],
-      "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "قیمت لیر ترکیه امروز یکشنبه ۱۰ آبان ۱۴۰۵": {
       "query": "قیمت لیر ترکیه، امروز یکشنبه ۱۰ آبان ۱۴۰۵",
       "normalized": "قیمت لیر ترکیه امروز یکشنبه ۱۰ آبان ۱۴۰۵",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 2,
+      "complete": true,
+      "pagesFetched": 1,
       "videosSeen": 0,
       "createdAt": "2026-11-03T10:06:28.595Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-03T10:31:52.089Z",
       "lastError": null,
       "trendTitle": "قیمت لیر",
       "trendTraffic": 500,
@@ -2888,8 +2888,10 @@
         "قیمت",
         "لیر"
       ],
-      "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-03T10:31:52.089Z"
     },
     "قیمت امروز لیر ترکیه به تومان و دلار چند یکشنبه ۱۰ آبان": {
       "query": "قیمت امروز لیر ترکیه به تومان و دلار چند؟ | یکشنبه ۱۰ آبان",
@@ -2909,17 +2911,17 @@
         "لیر"
       ],
       "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "خسوس د میگل": {
       "query": "خسوس د میگل",
       "normalized": "خسوس د میگل",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 2,
+      "complete": true,
+      "pagesFetched": 1,
       "videosSeen": 0,
       "createdAt": "2026-11-03T10:06:28.595Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-03T10:31:52.089Z",
       "lastError": null,
       "trendTitle": "خسوس د میگل",
       "trendTraffic": 200,
@@ -2928,18 +2930,20 @@
         "خسوس",
         "میگل"
       ],
-      "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-03T10:31:52.089Z"
     },
     "خسوس میگل": {
       "query": "خسوس میگل",
       "normalized": "خسوس میگل",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 4,
+      "complete": true,
+      "pagesFetched": 3,
+      "videosSeen": 30,
       "createdAt": "2026-11-03T10:06:28.595Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-03T10:31:52.090Z",
       "lastError": null,
       "trendTitle": "خسوس د میگل",
       "trendTraffic": 200,
@@ -2948,18 +2952,20 @@
         "خسوس",
         "میگل"
       ],
-      "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-03T10:31:52.090Z"
     },
     "تکان دهنده مرگ شوکه کننده بازیکن اسپانیایی": {
       "query": "تکان‌دهنده: مرگ شوکه کننده بازیکن اسپانیایی",
       "normalized": "تکان دهنده مرگ شوکه کننده بازیکن اسپانیایی",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 2,
+      "complete": true,
+      "pagesFetched": 1,
       "videosSeen": 0,
       "createdAt": "2026-11-03T10:06:28.595Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-03T10:31:52.090Z",
       "lastError": null,
       "trendTitle": "خسوس د میگل",
       "trendTraffic": 200,
@@ -2968,8 +2974,10 @@
         "خسوس",
         "میگل"
       ],
-      "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-03T10:31:52.090Z"
     },
     "تیم ملی فوتبال ایران": {
       "query": "تیم ملی فوتبال ایران",
@@ -2991,7 +2999,7 @@
         "ایران"
       ],
       "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "بیانیه رسمی afc برای تعویق جام ملت های آسیا": {
       "query": "بیانیه رسمی AFC برای تعویق جام ملت‌های آسیا",
@@ -3013,7 +3021,7 @@
         "ایران"
       ],
       "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "جام ملت های آسیا به دی ۱۴۰۶ موکول شد": {
       "query": "جام ملت‌های آسیا به دی ۱۴۰۶ موکول شد",
@@ -3035,7 +3043,7 @@
         "ایران"
       ],
       "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "تیم ملی فوتبال پرتغال": {
       "query": "تیم ملی فوتبال پرتغال",
@@ -3048,7 +3056,7 @@
       "lastAttemptAt": null,
       "lastError": null,
       "trendTitle": "تیم ملی فوتبال پرتغال",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Tue, 3 Nov 2026 01:00:00 -0800",
       "trendKeywords": [
         "تیم",
@@ -3056,7 +3064,7 @@
         "فوتبال",
         "پرتغال"
       ],
-      "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
       "activeInLatestFeed": true
     },
     "کریستیانو جونیور به تیم ملی دعوت شد": {
@@ -3070,7 +3078,7 @@
       "lastAttemptAt": null,
       "lastError": null,
       "trendTitle": "تیم ملی فوتبال پرتغال",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Tue, 3 Nov 2026 01:00:00 -0800",
       "trendKeywords": [
         "تیم",
@@ -3078,7 +3086,7 @@
         "فوتبال",
         "پرتغال"
       ],
-      "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
       "activeInLatestFeed": true
     },
     "کریستیانو جونیور پسر رونالدو به تیم زیر ۱۷ سال پرتغال دعوت شد": {
@@ -3092,7 +3100,7 @@
       "lastAttemptAt": null,
       "lastError": null,
       "trendTitle": "تیم ملی فوتبال پرتغال",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Tue, 3 Nov 2026 01:00:00 -0800",
       "trendKeywords": [
         "تیم",
@@ -3100,7 +3108,7 @@
         "فوتبال",
         "پرتغال"
       ],
-      "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
       "activeInLatestFeed": true
     },
     "روغن": {
@@ -3119,7 +3127,7 @@
       "trendKeywords": [
         "روغن"
       ],
-      "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
       "activeInLatestFeed": true
     },
     "جریمه 40 میلیارد ریالی قاچاقچی روغن خوراکی در خرم آباد": {
@@ -3139,7 +3147,7 @@
         "روغن"
       ],
       "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "نقره داغ قاچاقچی روغن خوراکی در لرستان": {
       "query": "نقره‌داغ قاچاقچی روغن خوراکی در لرستان",
@@ -3158,6 +3166,183 @@
         "روغن"
       ],
       "lastTrendSeenAt": "2026-11-03T10:06:28.595Z",
+      "activeInLatestFeed": false
+    },
+    "سخنگوی پرسپولیس هوچی گری کنید ما به cas می رویم": {
+      "query": "سخنگوی پرسپولیس: هوچی‌گری کنید، ما به CAS می‌رویم!",
+      "normalized": "سخنگوی پرسپولیس هوچی گری کنید ما به cas می رویم",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T10:30:46.700Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "بهنام ابوالقاسمپور",
+      "trendTraffic": 2000,
+      "trendPublishedAt": "Tue, 3 Nov 2026 01:40:00 -0800",
+      "trendKeywords": [
+        "بهنام",
+        "ابوالقاسمپور"
+      ],
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
+      "activeInLatestFeed": true
+    },
+    "قیمت لیر ترکیه امروز یکشنبه ۱۰ آبان تغییر مسیر بازار ارز": {
+      "query": "قیمت لیر ترکیه امروز یکشنبه ۱۰ آبان؛ تغییر مسیر بازار ارز",
+      "normalized": "قیمت لیر ترکیه امروز یکشنبه ۱۰ آبان تغییر مسیر بازار ارز",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T10:30:46.700Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "قیمت لیر",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Tue, 3 Nov 2026 01:10:00 -0800",
+      "trendKeywords": [
+        "قیمت",
+        "لیر"
+      ],
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
+      "activeInLatestFeed": true
+    },
+    "تیم": {
+      "query": "تیم",
+      "normalized": "تیم",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T10:30:46.700Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "تیم",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 3 Nov 2026 02:00:00 -0800",
+      "trendKeywords": [
+        "تیم"
+      ],
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
+      "activeInLatestFeed": true
+    },
+    "بحث جانشینی من به جای امیر قلعه نویی به نفع فوتبال نیست با یک سوم دستمزدم در عراق سرمربی تیم ملی امید شدم": {
+      "query": "بحث جانشینی من به جای امیر قلعه‌نویی به نفع فوتبال نیست/ با یک‌سوم دستمزدم در عراق، سرمربی تیم ملی امید شدم",
+      "normalized": "بحث جانشینی من به جای امیر قلعه نویی به نفع فوتبال نیست با یک سوم دستمزدم در عراق سرمربی تیم ملی امید شدم",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T10:30:46.700Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "تیم",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 3 Nov 2026 02:00:00 -0800",
+      "trendKeywords": [
+        "تیم"
+      ],
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
+      "activeInLatestFeed": true
+    },
+    "زمان اولین اردوی تیم یحیی مشخص شد": {
+      "query": "زمان اولین اردوی تیم یحیی مشخص شد!",
+      "normalized": "زمان اولین اردوی تیم یحیی مشخص شد",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T10:30:46.700Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "تیم",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 3 Nov 2026 02:00:00 -0800",
+      "trendKeywords": [
+        "تیم"
+      ],
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
+      "activeInLatestFeed": true
+    },
+    "جزییاتی از بیماری ترانه علیدوستی و علت آن": {
+      "query": "جزییاتی از بیماری ترانه علیدوستی و علت آن",
+      "normalized": "جزییاتی از بیماری ترانه علیدوستی و علت آن",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T10:30:46.700Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "بیماری ترانه علیدوستی",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 3 Nov 2026 00:50:00 -0800",
+      "trendKeywords": [
+        "بیماری",
+        "ترانه",
+        "علیدوستی"
+      ],
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
+      "activeInLatestFeed": true
+    },
+    "بیماری ترانه علیدوستی چیست علائم علت عوارض و روش درمان فیلم": {
+      "query": "بیماری ترانه علیدوستی چیست؟ علائم، علت، عوارض و روش درمان / فیلم",
+      "normalized": "بیماری ترانه علیدوستی چیست علائم علت عوارض و روش درمان فیلم",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T10:30:46.700Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "بیماری ترانه علیدوستی",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 3 Nov 2026 00:50:00 -0800",
+      "trendKeywords": [
+        "بیماری",
+        "ترانه",
+        "علیدوستی"
+      ],
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
+      "activeInLatestFeed": true
+    },
+    "توزیع مویرگی ترمز افزایش قیمت لاستیک را کشید": {
+      "query": "توزیع مویرگی ترمز افزایش قیمت لاستیک را کشید",
+      "normalized": "توزیع مویرگی ترمز افزایش قیمت لاستیک را کشید",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T10:30:46.700Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "روغن",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 3 Nov 2026 01:00:00 -0800",
+      "trendKeywords": [
+        "روغن"
+      ],
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
+      "activeInLatestFeed": true
+    },
+    "جزئیات اجرای طرح توزیع مستقیم لاستیک و روغن موتور در تهران": {
+      "query": "جزئیات اجرای طرح توزیع مستقیم لاستیک و روغن موتور در تهران",
+      "normalized": "جزئیات اجرای طرح توزیع مستقیم لاستیک و روغن موتور در تهران",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-03T10:30:46.700Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "روغن",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 3 Nov 2026 01:00:00 -0800",
+      "trendKeywords": [
+        "روغن"
+      ],
+      "lastTrendSeenAt": "2026-11-03T10:30:46.700Z",
       "activeInLatestFeed": true
     }
   },
@@ -6441,33 +6626,6 @@
       "styled_create_date": "2 سال پیش",
       "active": 1,
       "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "زمان اعلام نتایج نهایی کنکور ۱۴۰۵ مشخص شد",
-          "trendTitle": "کنکور",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:10:00 -0800",
-          "trendKeywords": [
-            "کنکور"
-          ],
-          "page": 20
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T20:28:38.670Z"
-    },
-    "wtu1xWx": {
-      "video_code": "wtu1xWx",
-      "title": "حيهم يا زوار _ محمد الجنامي _ قصائد المشايه 1445 هـ",
-      "sender_name": "اهواز تی وی",
-      "category_id": 8,
-      "duration": 768,
-      "visit_count": 3711,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -14139,43 +14297,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T20:35:59.740Z"
     },
-    "xWKBa5I": {
-      "video_code": "xWKBa5I",
-      "title": "موسیقی هری پاتر",
-      "sender_name": "yones Hanfi",
-      "category_id": 9,
-      "duration": 300,
-      "visit_count": 1356,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "ستاره اصلی Harry Potter به بازیگر جایگزین خود در سریال HBO هشدار داد",
-          "trendTitle": "اچبیاو",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:20:00 -0800",
-          "trendKeywords": [
-            "اچبیاو"
-          ],
-          "page": 9
-        },
-        {
-          "query": "پدر و مادر «هری پاتر» معرفی شدند",
-          "trendTitle": "اچبیاو",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:20:00 -0800",
-          "trendKeywords": [
-            "اچبیاو"
-          ],
-          "page": 9
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T20:35:59.740Z"
-    },
     "8MNty55": {
       "video_code": "8MNty55",
       "title": "Harry Potter Store 😍🤩 فروشگاه هری پاتر / ویدیو جدید سوگنگ / هری پاتر / سوگنگ",
@@ -18466,43 +18587,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T20:44:41.279Z"
     },
-    "xMngrjE": {
-      "video_code": "xMngrjE",
-      "title": "مینیون ها در هری پاتر",
-      "sender_name": "Rpg413",
-      "category_id": 21,
-      "duration": 39,
-      "visit_count": 1360,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "ستاره اصلی Harry Potter به بازیگر جایگزین خود در سریال HBO هشدار داد",
-          "trendTitle": "اچبیاو",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:20:00 -0800",
-          "trendKeywords": [
-            "اچبیاو"
-          ],
-          "page": 30
-        },
-        {
-          "query": "پدر و مادر «هری پاتر» معرفی شدند",
-          "trendTitle": "اچبیاو",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:20:00 -0800",
-          "trendKeywords": [
-            "اچبیاو"
-          ],
-          "page": 30
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T20:44:41.280Z"
-    },
     "5ZsaKsW": {
       "video_code": "5ZsaKsW",
       "title": "سکانس برتر فیلم هری پاتر و زندانی آزکابان",
@@ -18650,43 +18734,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T20:44:41.283Z"
-    },
-    "6lLdaQi": {
-      "video_code": "6lLdaQi",
-      "title": "دانلود فیلم هری پاتر و سنگ جادو با دوبله فارسی پارت 6",
-      "sender_name": "پونوکو",
-      "category_id": 3,
-      "duration": 658,
-      "visit_count": 1357,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "ستاره اصلی Harry Potter به بازیگر جایگزین خود در سریال HBO هشدار داد",
-          "trendTitle": "اچبیاو",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:20:00 -0800",
-          "trendKeywords": [
-            "اچبیاو"
-          ],
-          "page": 36
-        },
-        {
-          "query": "پدر و مادر «هری پاتر» معرفی شدند",
-          "trendTitle": "اچبیاو",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:20:00 -0800",
-          "trendKeywords": [
-            "اچبیاو"
-          ],
-          "page": 36
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:59:38.784Z"
     },
     "Kd68SPg": {
       "video_code": "Kd68SPg",
@@ -19417,9 +19464,9 @@
       "title": "سریال چینی مرثیه پاییز قسمت 30 زیر نویس فارسی 2026",
       "sender_name": "خدیجه",
       "duration": 2960,
-      "visit_count": 4225,
-      "create_date": "5  روز پیش",
-      "styled_create_date": "5  روز پیش",
+      "visit_count": 4235,
+      "create_date": "6  روز پیش",
+      "styled_create_date": "6  روز پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -19435,9 +19482,20 @@
             "لندکروزر"
           ],
           "page": 19
+        },
+        {
+          "query": "قیمت لیر",
+          "trendTitle": "قیمت لیر",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Tue, 3 Nov 2026 01:10:00 -0800",
+          "trendKeywords": [
+            "قیمت",
+            "لیر"
+          ],
+          "page": 11
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:04:30.281Z"
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.084Z"
     },
     "iq3RZMS": {
       "video_code": "iq3RZMS",
@@ -19664,34 +19722,6 @@
       "visit_count": 4349,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "محمدباقر قالیباف",
-          "trendTitle": "محمدباقر قالیباف",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
-          "trendKeywords": [
-            "محمدباقر",
-            "قالیباف"
-          ],
-          "page": 3
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:04:30.299Z"
-    },
-    "rkK2zMY": {
-      "video_code": "rkK2zMY",
-      "title": "مداحی ترکی حاج مرحوم محمدباقر منصوری",
-      "sender_name": "«Mohammadreza»",
-      "category_id": 8,
-      "duration": 445,
-      "visit_count": 3694,
-      "create_date": "6 سال پیش",
-      "styled_create_date": "6 سال پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -49161,33 +49191,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T21:55:12.037Z"
     },
-    "Gw72sas": {
-      "video_code": "Gw72sas",
-      "title": "سینمایی ( زنبور دار ) THE BEEKEEPER دوبله فارسی 2024 IRAN FILM",
-      "sender_name": "video time",
-      "category_id": 3,
-      "duration": 6199,
-      "visit_count": 3701,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "iran",
-          "trendTitle": "iran",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "iran"
-          ],
-          "page": 7
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.037Z"
-    },
     "0COqKZG": {
       "video_code": "0COqKZG",
       "title": "آموزش قدم به قدم دوخت بالش گرد سنتی",
@@ -60326,34 +60329,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T21:55:12.052Z"
     },
-    "Y3okkz9": {
-      "video_code": "Y3okkz9",
-      "title": "حسن ریوندی - صیانت از گوگل ۲۰۲۲",
-      "sender_name": "کاربر فیلو",
-      "category_id": 2,
-      "duration": 613,
-      "visit_count": 3699,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 39
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.052Z"
-    },
     "IC04JlE": {
       "video_code": "IC04JlE",
       "title": "نظر دکتر حسن عباسی درباره محمود احمدی نژاد",
@@ -61302,33 +61277,6 @@
       "styled_create_date": "2 سال پیش",
       "active": 1,
       "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "بیت کوین زیر فشار داده‌های اشتغال؛ امیدی به برگشت دوباره هست؟",
-          "trendTitle": "بیتکوین",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:10:00 -0800",
-          "trendKeywords": [
-            "بیتکوین"
-          ],
-          "page": 40
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.073Z"
-    },
-    "utxLv4F": {
-      "video_code": "utxLv4F",
-      "title": "مسلسل بيت الطين الجزء الاول - الحلقة ٢٢",
-      "sender_name": "اهواز تی وی",
-      "category_id": 8,
-      "duration": 2954,
-      "visit_count": 3713,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -78150,44 +78098,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.365Z"
     },
-    "xTPKFqN": {
-      "video_code": "xTPKFqN",
-      "title": "سریال تازه عروس قسمت 86 دوبله فارس",
-      "sender_name": "منتخب فیلو✅",
-      "category_id": 3,
-      "duration": 2597,
-      "visit_count": 1360,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فارس",
-          "trendTitle": "فارس",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:30:00 -0800",
-          "trendKeywords": [
-            "فارس"
-          ],
-          "page": 18
-        },
-        {
-          "query": "خبرگزاری فارس",
-          "trendTitle": "خبرگزاری فارس",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:40:00 -0800",
-          "trendKeywords": [
-            "خبرگزاری",
-            "فارس"
-          ],
-          "page": 19
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.365Z"
-    },
     "g7fOLMm": {
       "video_code": "g7fOLMm",
       "title": "قایق تندرو سراج؛ شکارچیان ایرانی در خلیج فارس",
@@ -78991,33 +78901,6 @@
       "category_id": 7,
       "duration": 96,
       "visit_count": 14433,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "گندم",
-          "trendTitle": "گندم",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 10:50:00 -0800",
-          "trendKeywords": [
-            "گندم"
-          ],
-          "page": 28
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:56:47.338Z"
-    },
-    "FIz6hAV": {
-      "video_code": "FIz6hAV",
-      "title": "آموزش کاشت سبزه گندم سفالی برای عید نوروز",
-      "sender_name": "⭐ کلیپ آنلاین ⭐",
-      "category_id": 7,
-      "duration": 37,
-      "visit_count": 3689,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -94664,34 +94547,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.351Z"
     },
-    "cYfYvRy": {
-      "video_code": "cYfYvRy",
-      "title": "حسن ریوندی وتفاوت بنزین تموم کردن دخترها وپسرها",
-      "sender_name": "sajjad_abdollahi",
-      "category_id": 25,
-      "duration": 653,
-      "visit_count": 3706,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 54
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.351Z"
-    },
     "ehmIEgL": {
       "video_code": "ehmIEgL",
       "title": "حسن الأميري _ سيدي واقف انا _ حصرياً فيديو كليب 2021",
@@ -98523,34 +98378,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.358Z"
     },
-    "a0nealn": {
-      "video_code": "a0nealn",
-      "title": "آهنگ لری زیبا 🙂/پر از دردمو میدونم از دردم خبر داری تو فقط حرف میزنی و عمل نمیکنی..",
-      "sender_name": "m,i",
-      "category_id": 9,
-      "duration": 24,
-      "visit_count": 3693,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "شبکه خبر",
-          "trendTitle": "شبکه خبر",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
-          "trendKeywords": [
-            "شبکه",
-            "خبر"
-          ],
-          "page": 59
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.358Z"
-    },
     "adOqjk0": {
       "video_code": "adOqjk0",
       "title": "نماهنگ عیده پخش از شبکه نهال",
@@ -102055,43 +101882,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:16:57.070Z"
     },
-    "0rBmIAQ": {
-      "video_code": "0rBmIAQ",
-      "title": "بندرعباس عزیز تسلیت تصاویر دردناک از حادثه انفجار در بندرعباس",
-      "sender_name": "🍿فری تایم | freetime 🎬🎧",
-      "category_id": 1,
-      "duration": 24,
-      "visit_count": 1356,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "زنده - شنیده شدن صدای دست‌کم ۶ انفجار در جزیره قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 21
-        },
-        {
-          "query": "فوری؛ شنیده شدن صدای پنج انفجار در جزیره قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 21
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.070Z"
-    },
     "OZJZSMT": {
       "video_code": "OZJZSMT",
       "title": "مستند کیهان‌شناسی (10 انفجار بزرگی که در کیهان اتفاق افتاده) دوبله فارسی",
@@ -103423,43 +103213,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T22:16:57.071Z"
-    },
-    "QDuhuPh": {
-      "video_code": "QDuhuPh",
-      "title": "ربات انفجار دقیق و بدون خطا",
-      "sender_name": "نرگس",
-      "category_id": 2,
-      "duration": 8,
-      "visit_count": 1358,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "زنده - شنیده شدن صدای دست‌کم ۶ انفجار در جزیره قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 27
-        },
-        {
-          "query": "فوری؛ شنیده شدن صدای پنج انفجار در جزیره قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 27
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.072Z"
     },
     "JAfVTIh": {
       "video_code": "JAfVTIh",
@@ -106253,33 +106006,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:16:57.077Z"
     },
-    "1B3u6hl": {
-      "video_code": "1B3u6hl",
-      "title": "مشاهده ماری که دست و پا دارد جهرم فارس",
-      "sender_name": "مسلم حیدری",
-      "category_id": 22,
-      "duration": 30,
-      "visit_count": 3708,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فارس",
-          "trendTitle": "فارس",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:30:00 -0800",
-          "trendKeywords": [
-            "فارس"
-          ],
-          "page": 22
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.077Z"
-    },
     "1c3o8u6": {
       "video_code": "1c3o8u6",
       "title": "روز ملی خلیج_فارس مبارک باشه",
@@ -106343,33 +106069,6 @@
       "visit_count": 5135,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فارس",
-          "trendTitle": "فارس",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:30:00 -0800",
-          "trendKeywords": [
-            "فارس"
-          ],
-          "page": 23
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.078Z"
-    },
-    "HeAYxCN": {
-      "video_code": "HeAYxCN",
-      "title": "فیلم هندی اکشن و درام___استاد کونگ فو___the kung fu master___زیرنویس چسبیده فارس",
-      "sender_name": "d1400",
-      "category_id": 3,
-      "duration": 6851,
-      "visit_count": 3694,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -118103,33 +117802,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T04:05:15.874Z"
     },
-    "BkYRj0k": {
-      "video_code": "BkYRj0k",
-      "title": "ببینید | اولین‌ تصاویر پهپاد «نورثروپ گرومن» بعد از سرنگونی توسط قرارگاه پدافند",
-      "sender_name": "d1400",
-      "category_id": 1,
-      "duration": 55,
-      "visit_count": 3686,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پهپاد",
-          "trendTitle": "پهپاد",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 18:10:00 -0800",
-          "trendKeywords": [
-            "پهپاد"
-          ],
-          "page": 13
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T04:05:15.874Z"
-    },
     "lAI3o2T": {
       "video_code": "lAI3o2T",
       "title": "لحظه انهدام تانک اوکراینی توسط پهپاد روسیه + فیلم",
@@ -123983,34 +123655,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T04:55:53.642Z"
     },
-    "IwHRBoH": {
-      "video_code": "IwHRBoH",
-      "title": "ببینید/پیروزی جانانه علی رضایی بر حریف آمریکایی در فینال کشتی آزاد جوانان جهان",
-      "sender_name": "علیرضا",
-      "category_id": 11,
-      "duration": 51,
-      "visit_count": 3708,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
-          "trendTitle": "محمدباقر قالیباف",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
-          "trendKeywords": [
-            "محمدباقر",
-            "قالیباف"
-          ],
-          "page": 43
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T04:09:09.981Z"
-    },
     "rBPaI9h": {
       "video_code": "rBPaI9h",
       "title": "بزن بيرون از تنهايي برگرد كنارم? گرشا رضايي ?دريا نميرم",
@@ -128861,33 +128505,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T04:55:53.640Z"
     },
-    "PJnnFZC": {
-      "video_code": "PJnnFZC",
-      "title": "کشتی کج تگ تیم - شیلد vs نیودی",
-      "sender_name": "WWF Farsi",
-      "category_id": 11,
-      "duration": 1338,
-      "visit_count": 3689,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "کشتی",
-          "trendTitle": "کشتی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 18:30:00 -0800",
-          "trendKeywords": [
-            "کشتی"
-          ],
-          "page": 33
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.640Z"
-    },
     "RsUSdYH": {
       "video_code": "RsUSdYH",
       "title": "کشتی کج ... مبارزه فوق تماشایی جان سینا و دیوید باتیستا ... بهترین مسابقه در تاریخ کشتی کج جهان",
@@ -130940,33 +130557,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T04:55:53.643Z"
     },
-    "oK8DuqD": {
-      "video_code": "oK8DuqD",
-      "title": "کشتی کج چند نفره در قطار",
-      "sender_name": "مهدی",
-      "category_id": 11,
-      "duration": 33,
-      "visit_count": 3701,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "کشتی",
-          "trendTitle": "کشتی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 18:30:00 -0800",
-          "trendKeywords": [
-            "کشتی"
-          ],
-          "page": 40
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.643Z"
-    },
     "xAEfdTx": {
       "video_code": "xAEfdTx",
       "title": "کشتی کج مسابقه براک لزنر درمقابل آندرتیکر سامراسلم 2015",
@@ -132417,34 +132007,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-03T05:06:09.141Z"
-    },
-    "4BTJj7Q": {
-      "video_code": "4BTJj7Q",
-      "title": "سریال جنگل آسفالت قسمت ۳ نوید محمدزاده - فرشته حسینی. تیزر",
-      "sender_name": "Film$Series",
-      "category_id": 3,
-      "duration": 45,
-      "visit_count": 3710,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فرشته حسینی",
-          "trendTitle": "فرشته حسینی",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 20:30:00 -0800",
-          "trendKeywords": [
-            "فرشته",
-            "حسینی"
-          ],
-          "page": 5
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.143Z"
     },
     "MnIkiLn": {
       "video_code": "MnIkiLn",
@@ -134639,34 +134201,6 @@
       "visit_count": 8209,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فرشته حسینی",
-          "trendTitle": "فرشته حسینی",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 20:30:00 -0800",
-          "trendKeywords": [
-            "فرشته",
-            "حسینی"
-          ],
-          "page": 16
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.146Z"
-    },
-    "GomDIiQ": {
-      "video_code": "GomDIiQ",
-      "title": "نوحه سراسید محمد حسینی به فارسی",
-      "sender_name": "Ahmad",
-      "category_id": 8,
-      "duration": 63,
-      "visit_count": 3708,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -149078,34 +148612,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T10:07:05.000Z"
     },
-    "IbQdAn1": {
-      "video_code": "IbQdAn1",
-      "title": "بازیگر ایران فردین را کامل بشناسید",
-      "sender_name": "فالو مساوی با فالو",
-      "category_id": 3,
-      "duration": 437,
-      "visit_count": 3708,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فردین هدایتی",
-          "trendTitle": "فردین هدایتی",
-          "trendTraffic": 5000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
-          "trendKeywords": [
-            "فردین",
-            "هدایتی"
-          ],
-          "page": 16
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:07:05.000Z"
-    },
     "ajbs8KD": {
       "video_code": "ajbs8KD",
       "title": "فیلم | سالگرد محمد علی فردین",
@@ -149666,34 +149172,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T10:07:05.000Z"
     },
-    "LXaPgVk": {
-      "video_code": "LXaPgVk",
-      "title": "فردین فیلم های ایران قدیم",
-      "sender_name": "سعید",
-      "category_id": 3,
-      "duration": 436,
-      "visit_count": 3681,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فردین هدایتی",
-          "trendTitle": "فردین هدایتی",
-          "trendTraffic": 5000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
-          "trendKeywords": [
-            "فردین",
-            "هدایتی"
-          ],
-          "page": 17
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:07:05.000Z"
-    },
     "XJeYnb4": {
       "video_code": "XJeYnb4",
       "title": "رقص فردین در فیلم قدیمی",
@@ -149901,34 +149379,6 @@
       "styled_create_date": "3 سال پیش",
       "active": 1,
       "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فردین هدایتی",
-          "trendTitle": "فردین هدایتی",
-          "trendTraffic": 5000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
-          "trendKeywords": [
-            "فردین",
-            "هدایتی"
-          ],
-          "page": 18
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:07:05.001Z"
-    },
-    "3NNwqCS": {
-      "video_code": "3NNwqCS",
-      "title": "فردین ویدیویی باور نکردنی از مراسم خاکسپاری",
-      "sender_name": "ساسان(فالو =فالو)",
-      "category_id": 0,
-      "duration": 511,
-      "visit_count": 3709,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -154453,8 +153903,707 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-03T10:07:05.012Z"
+    },
+    "nTcuW9Y": {
+      "video_code": "nTcuW9Y",
+      "title": "سینمایی شهرزیبا ( ترانه علیدوستی)",
+      "sender_name": "shabinam",
+      "category_id": 3,
+      "duration": 5877,
+      "visit_count": 25411,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیماری ترانه علیدوستی",
+          "trendTitle": "بیماری ترانه علیدوستی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 00:50:00 -0800",
+          "trendKeywords": [
+            "بیماری",
+            "ترانه",
+            "علیدوستی"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.073Z"
+    },
+    "uiWM3Tx": {
+      "video_code": "uiWM3Tx",
+      "title": "فیلم اورکا با بازی ترانه علیدوستی",
+      "sender_name": "🍿فری تایم | freetime 🎬🎧",
+      "category_id": 3,
+      "duration": 112,
+      "visit_count": 22503,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیماری ترانه علیدوستی",
+          "trendTitle": "بیماری ترانه علیدوستی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 00:50:00 -0800",
+          "trendKeywords": [
+            "بیماری",
+            "ترانه",
+            "علیدوستی"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.073Z"
+    },
+    "NV8Z2sf": {
+      "video_code": "NV8Z2sf",
+      "title": "ترانه علیدوستی ??شهاب حسینی ??",
+      "sender_name": "عسل بانو",
+      "category_id": 9,
+      "duration": 46,
+      "visit_count": 7547,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیماری ترانه علیدوستی",
+          "trendTitle": "بیماری ترانه علیدوستی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 00:50:00 -0800",
+          "trendKeywords": [
+            "بیماری",
+            "ترانه",
+            "علیدوستی"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.073Z"
+    },
+    "ltjfVb0": {
+      "video_code": "ltjfVb0",
+      "title": "سکانس عاشقانه غمگین سریال شهرزاد با بازی شهاب حسینی و ترانه علیدوستی",
+      "sender_name": "رسانه ناروَن 24",
+      "category_id": 3,
+      "duration": 65,
+      "visit_count": 4623,
+      "create_date": "1 سال پیش",
+      "styled_create_date": "1 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیماری ترانه علیدوستی",
+          "trendTitle": "بیماری ترانه علیدوستی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 00:50:00 -0800",
+          "trendKeywords": [
+            "بیماری",
+            "ترانه",
+            "علیدوستی"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.073Z"
+    },
+    "1I6ehnb": {
+      "video_code": "1I6ehnb",
+      "title": "عصبانیت شهاب حسینی از حرفهای ترانه علیدوستی بخاطر گردنبد مرغ آمین",
+      "sender_name": "DinarTavalod",
+      "category_id": 9,
+      "duration": 47,
+      "visit_count": 4271,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیماری ترانه علیدوستی",
+          "trendTitle": "بیماری ترانه علیدوستی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 00:50:00 -0800",
+          "trendKeywords": [
+            "بیماری",
+            "ترانه",
+            "علیدوستی"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.073Z"
+    },
+    "cptKgTr": {
+      "video_code": "cptKgTr",
+      "title": "تعریف های علی نصیریان از ترانه علیدوستی",
+      "sender_name": "hanieh",
+      "category_id": 9,
+      "duration": 60,
+      "visit_count": 5153,
+      "create_date": "7 سال پیش",
+      "styled_create_date": "7 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیماری ترانه علیدوستی",
+          "trendTitle": "بیماری ترانه علیدوستی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 00:50:00 -0800",
+          "trendKeywords": [
+            "بیماری",
+            "ترانه",
+            "علیدوستی"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.073Z"
+    },
+    "KC8pQTD": {
+      "video_code": "KC8pQTD",
+      "title": "فیلم سینمایی ایرانی کمدی هر چی خدا بخواد حامد کمیلی ترانه علیدوستی رضا عطاران",
+      "sender_name": "رضا",
+      "category_id": 3,
+      "duration": 5279,
+      "visit_count": 7917,
+      "create_date": "1 سال پیش",
+      "styled_create_date": "1 سال پیش",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیماری ترانه علیدوستی",
+          "trendTitle": "بیماری ترانه علیدوستی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 00:50:00 -0800",
+          "trendKeywords": [
+            "بیماری",
+            "ترانه",
+            "علیدوستی"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.073Z"
+    },
+    "kTEAL7o": {
+      "video_code": "kTEAL7o",
+      "title": "سخنان ترانه علیدوستی در فرش قرمز جشنواره کن",
+      "sender_name": "🌙Moon clip",
+      "category_id": 9,
+      "duration": 143,
+      "visit_count": 4006,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیماری ترانه علیدوستی",
+          "trendTitle": "بیماری ترانه علیدوستی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 00:50:00 -0800",
+          "trendKeywords": [
+            "بیماری",
+            "ترانه",
+            "علیدوستی"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.074Z"
+    },
+    "eZ0zIoU": {
+      "video_code": "eZ0zIoU",
+      "title": "فیلم سینمایی زندگی با چشمان بسته٫درام عاشقانه٫بازی حامدبهداد٫ترانه علیدوستی",
+      "sender_name": "آی فیلوگرام❤2023❤",
+      "category_id": 3,
+      "duration": 5376,
+      "visit_count": 6331,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیماری ترانه علیدوستی",
+          "trendTitle": "بیماری ترانه علیدوستی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 00:50:00 -0800",
+          "trendKeywords": [
+            "بیماری",
+            "ترانه",
+            "علیدوستی"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.074Z"
+    },
+    "57IQrIg": {
+      "video_code": "57IQrIg",
+      "title": "تماشای فیلم سینمایی تفریق مانی حقیقی ترانه علیدوستی",
+      "sender_name": "مهدی ونائی",
+      "category_id": 3,
+      "duration": 55,
+      "visit_count": 4871,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیماری ترانه علیدوستی",
+          "trendTitle": "بیماری ترانه علیدوستی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 00:50:00 -0800",
+          "trendKeywords": [
+            "بیماری",
+            "ترانه",
+            "علیدوستی"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.074Z"
+    },
+    "BSiKvdB": {
+      "video_code": "BSiKvdB",
+      "title": "صحبتهای ترانه علیدوستی درباره برادران لیلا",
+      "sender_name": "Mohamad",
+      "category_id": 9,
+      "duration": 60,
+      "visit_count": 6304,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیماری ترانه علیدوستی",
+          "trendTitle": "بیماری ترانه علیدوستی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 00:50:00 -0800",
+          "trendKeywords": [
+            "بیماری",
+            "ترانه",
+            "علیدوستی"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.075Z"
+    },
+    "UbIUc3a": {
+      "video_code": "UbIUc3a",
+      "title": "جنگ خروس لاری با سگ ...به این میگن خروس",
+      "sender_name": "الناز",
+      "category_id": 13,
+      "duration": 117,
+      "visit_count": 11663,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خسوس میگل",
+          "trendTitle": "خسوس د میگل",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
+          "trendKeywords": [
+            "خسوس",
+            "میگل"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.089Z"
+    },
+    "d8wcoUt": {
+      "video_code": "d8wcoUt",
+      "title": "اسم این پرنده کیوی هست که صدایی مانند دایناسور ها میده . نواده دایناسور به این میگن نه مرغ و خروس 😎🥝",
+      "sender_name": "𝑺𝖆𝖑𝖊𝖍𝑻𝖓𝖙",
+      "category_id": 13,
+      "duration": 17,
+      "visit_count": 7731,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خسوس میگل",
+          "trendTitle": "خسوس د میگل",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
+          "trendKeywords": [
+            "خسوس",
+            "میگل"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.089Z"
+    },
+    "5tOv4Qw": {
+      "video_code": "5tOv4Qw",
+      "title": "ببینید&گریه های بی امان بیت سیاح پس از پس گرفتن مدال طلای پارالمپیک وی",
+      "sender_name": "خدیجه",
+      "category_id": 11,
+      "duration": 15,
+      "visit_count": 5190,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیت کوین زیر فشار داده‌های اشتغال؛ امیدی به برگشت دوباره هست؟",
+          "trendTitle": "بیتکوین",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "بیتکوین"
+          ],
+          "page": 41
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.095Z"
+    },
+    "sED4xKF": {
+      "video_code": "sED4xKF",
+      "title": "آموزش ساخت بیت دریل در اف ال استودیو",
+      "sender_name": "فروشگاه اینترنتی نادی کالا",
+      "category_id": 7,
+      "duration": 762,
+      "visit_count": 3899,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیت کوین زیر فشار داده‌های اشتغال؛ امیدی به برگشت دوباره هست؟",
+          "trendTitle": "بیتکوین",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "بیتکوین"
+          ],
+          "page": 42
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.095Z"
+    },
+    "feB58xW": {
+      "video_code": "feB58xW",
+      "title": "کارتون بلفی و لی لی بیت قسمت ۲۲ با دوبله فارسی",
+      "sender_name": "تماشا",
+      "category_id": 21,
+      "duration": 1211,
+      "visit_count": 4432,
+      "create_date": "7 سال پیش",
+      "styled_create_date": "7 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیت کوین زیر فشار داده‌های اشتغال؛ امیدی به برگشت دوباره هست؟",
+          "trendTitle": "بیتکوین",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "بیتکوین"
+          ],
+          "page": 43
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.095Z"
+    },
+    "J0i7Tt6": {
+      "video_code": "J0i7Tt6",
+      "title": "کارتون بلفی و لی لی بیت قسمت ۲۰ با دوبله فارسی",
+      "sender_name": "تماشا",
+      "category_id": 21,
+      "duration": 1211,
+      "visit_count": 4389,
+      "create_date": "7 سال پیش",
+      "styled_create_date": "7 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیت کوین زیر فشار داده‌های اشتغال؛ امیدی به برگشت دوباره هست؟",
+          "trendTitle": "بیتکوین",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "بیتکوین"
+          ],
+          "page": 44
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.096Z"
+    },
+    "C4wyW4Y": {
+      "video_code": "C4wyW4Y",
+      "title": "ببینید/ حرکت نمادین سربریدن باعث شد طلای صادق بیت سیاح پس گرفته شود",
+      "sender_name": "علیرضا",
+      "category_id": 1,
+      "duration": 17,
+      "visit_count": 12619,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیت کوین زیر فشار داده‌های اشتغال؛ امیدی به برگشت دوباره هست؟",
+          "trendTitle": "بیتکوین",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "بیتکوین"
+          ],
+          "page": 45
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.096Z"
+    },
+    "y8IG9OY": {
+      "video_code": "y8IG9OY",
+      "title": "موزیک ویدیو شاه بیت از مسیح و آرش AP (اجرای زنده)",
+      "sender_name": "نماهنگ",
+      "category_id": 9,
+      "duration": 230,
+      "visit_count": 7774,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیت کوین زیر فشار داده‌های اشتغال؛ امیدی به برگشت دوباره هست؟",
+          "trendTitle": "بیتکوین",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "بیتکوین"
+          ],
+          "page": 45
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.096Z"
+    },
+    "IQScF9Y": {
+      "video_code": "IQScF9Y",
+      "title": "و این هم لحظه حذف طلای پارالمپیک بیت سیاح و کارت زرد دوم بخاطر احترام به پرچم حضرت زهرا",
+      "sender_name": "خدیجه",
+      "category_id": 8,
+      "duration": 22,
+      "visit_count": 7817,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیت کوین زیر فشار داده‌های اشتغال؛ امیدی به برگشت دوباره هست؟",
+          "trendTitle": "بیتکوین",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "بیتکوین"
+          ],
+          "page": 47
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.096Z"
+    },
+    "3efjmJk": {
+      "video_code": "3efjmJk",
+      "title": "کارتون بلفی و لی لی بیت قسمت ۱۲",
+      "sender_name": "کاربر فیلو",
+      "category_id": 21,
+      "duration": 1359,
+      "visit_count": 4085,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیت کوین زیر فشار داده‌های اشتغال؛ امیدی به برگشت دوباره هست؟",
+          "trendTitle": "بیتکوین",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "بیتکوین"
+          ],
+          "page": 48
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.097Z"
+    },
+    "vU5ArXW": {
+      "video_code": "vU5ArXW",
+      "title": "ماجراهای استیسی و بابایی با داستان تماشای فیلم جنگل بیت",
+      "sender_name": "آماندا",
+      "category_id": 21,
+      "duration": 306,
+      "visit_count": 4425,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیت کوین زیر فشار داده‌های اشتغال؛ امیدی به برگشت دوباره هست؟",
+          "trendTitle": "بیتکوین",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "بیتکوین"
+          ],
+          "page": 53
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.099Z"
+    },
+    "ebVzbMM": {
+      "video_code": "ebVzbMM",
+      "title": "الن شو: مسابقه خنده دار الن و کوین هارت (زیرنویس)",
+      "sender_name": "آماندا",
+      "category_id": 6,
+      "duration": 224,
+      "visit_count": 5220,
+      "create_date": "7 سال پیش",
+      "styled_create_date": "7 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیت کوین زیر فشار داده‌های اشتغال؛ امیدی به برگشت دوباره هست؟",
+          "trendTitle": "بیتکوین",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "بیتکوین"
+          ],
+          "page": 55
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.099Z"
+    },
+    "Z0z06IS": {
+      "video_code": "Z0z06IS",
+      "title": "کارتون بلفی و لی لی بیت قسمت ۱۲ با دوبله فارسی",
+      "sender_name": "تماشا",
+      "category_id": 21,
+      "duration": 1213,
+      "visit_count": 5924,
+      "create_date": "7 سال پیش",
+      "styled_create_date": "7 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیت کوین زیر فشار داده‌های اشتغال؛ امیدی به برگشت دوباره هست؟",
+          "trendTitle": "بیتکوین",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "بیتکوین"
+          ],
+          "page": 55
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.099Z"
+    },
+    "z6qChNt": {
+      "video_code": "z6qChNt",
+      "title": "پارالمپیک ۲۰۲۴: شوک به کاروان ایران؛ طلای بیت سیاح پس گرفته شد ایران اعتراض کرد",
+      "sender_name": "سعید",
+      "category_id": 1,
+      "duration": 40,
+      "visit_count": 3954,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بیت کوین زیر فشار داده‌های اشتغال؛ امیدی به برگشت دوباره هست؟",
+          "trendTitle": "بیتکوین",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Mon, 2 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "بیتکوین"
+          ],
+          "page": 59
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-03T10:31:52.100Z"
     }
   },
-  "totalPagesFetched": 1761,
-  "totalVideosSeen": 32711
+  "totalPagesFetched": 1840,
+  "totalVideosSeen": 34156
 }
