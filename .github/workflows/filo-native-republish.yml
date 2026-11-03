@@ -8,6 +8,9 @@ on:
     branches: [main]
     paths:
       - "state/filo-native-republish-activation.json"
+      - "scripts/filo_native_republish.cjs"
+      - "scripts/score_filo_thumbnail.py"
+      - "scripts/test_filo_native_republish.cjs"
 
 permissions:
   contents: write
