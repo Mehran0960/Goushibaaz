@@ -485,12 +485,12 @@ async function extractHighResolutionSourceFrames(page,videoMetadata,sourceCode,d
   const cookieHeader=cookies.map(cookie=>cookie.name+'='+cookie.value).join('; ');
   const userAgent=await page.evaluate(()=>navigator.userAgent).catch(()=>'Mozilla/5.0');
   headers=[
-   'User-Agent: '+String(userAgent).replace(/[\\r\\n]/g,' '),
+   'User-Agent: '+String(userAgent).replace(/[\r\n]/g,' '),
    'Referer: '+BASE+'/republish/'+encodeURIComponent(sourceCode),
    ...(cookieHeader?['Cookie: '+cookieHeader]:[])
-  ].join('\\r\\n')+'\\r\\n';
+  ].join(String.fromCharCode(13,10))+String.fromCharCode(13,10);
  } catch {
-  headers='Referer: '+BASE+'/republish/'+encodeURIComponent(sourceCode)+'\\r\\n';
+  headers='Referer: '+BASE+'/republish/'+encodeURIComponent(sourceCode)+String.fromCharCode(13,10);
  }
  const probe=spawnSync('ffprobe',[
   '-v','error','-headers',headers,'-select_streams','v:0',
@@ -520,7 +520,7 @@ async function extractHighResolutionSourceFrames(page,videoMetadata,sourceCode,d
  const clipDuration=Math.max(1,duration*0.88);
  const startAt=Math.max(0.1,duration*0.06);
  const pattern=path.join(tempDir,'source-frame-%02d.jpg');
- const fps=String(frameCount)+'/'+clipDuration.toFixed(3);
+ const fps=(frameCount/clipDuration).toFixed(6);
  const extracted=spawnSync('ffmpeg',[
   '-hide_banner','-loglevel','error','-headers',headers,
   '-ss',startAt.toFixed(3),'-i',mediaUrl,'-t',clipDuration.toFixed(3),
@@ -528,7 +528,7 @@ async function extractHighResolutionSourceFrames(page,videoMetadata,sourceCode,d
   '-frames:v',String(frameCount),'-q:v','2','-y',pattern
  ],{encoding:'utf8',timeout:12000,maxBuffer:1024*1024});
  const names=fs.readdirSync(tempDir)
-  .filter(name=>/^source-frame-\\d+\\.jpg$/i.test(name)).sort();
+  .filter(name=>/^source-frame-\d+\.jpg$/i.test(name)).sort();
  if(extracted.error||extracted.status!==0||names.length<3){
   for(const name of names)fs.rmSync(path.join(tempDir,name),{force:true});
   report.status='source_frame_extraction_unavailable';
