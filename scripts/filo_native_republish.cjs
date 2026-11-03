@@ -1321,12 +1321,13 @@ async function cleanupLegacyRepostCaptions(page, state) {
 
 function isRecoverableCoverGuardBlock(result) {
   const failures = result && result.publishPayload && result.publishPayload.guardFailures;
+  const coverOnlyFailures = new Set(['cover_aspect_not_16_9', 'cover_frame_missing_or_invalid']);
   return Boolean(
     result &&
     result.status === 'blocked_before_filo_submission' &&
     Array.isArray(failures) &&
-    failures.length === 1 &&
-    failures[0] === 'cover_aspect_not_16_9'
+    failures.length > 0 &&
+    failures.every(failure => coverOnlyFailures.has(failure))
   );
 }
 
