@@ -77,6 +77,8 @@ assert.equal(
 );
 assert.equal(cleanLegacyRepostTitle('ماجرای بامزه‌ی «دستشویی رفتن آقایون»'), 'دستشویی رفتن آقایون');
 assert.equal(cleanLegacyRepostTitle('عنوان بدون پیشوند'), 'عنوان بدون پیشوند');
+assert.equal(cleanRepostCaptionTitle('دزد حرفه ای؛ روایتی از یک اتفاق غیرمنتظره'), 'دزد حرفه ای',
+  'generic editorial suffixes must not survive in a concise title');
 assert.equal(
   cleanLegacyRepostTitle('روایتی از یک اتفاق غیرمنتظره', 'کلیپ خنده دار دزد حرفه ای'),
   'دزد حرفه ای',
@@ -119,6 +121,14 @@ assert.doesNotMatch(rewritten.title, /روایت\s+تصویری|ماجرای\s+�
 assert.doesNotMatch(rewritten.description, /روایت\s+تصویری|اجازه|https?:\/\//i);
 assert.ok(rewritten.description.length >= 50);
 assert.equal(normalizeComparable(rewritten.description).includes(normalizeComparable(rewritten.title)), false);
+const unicodePromo = cleanRepostDescription(
+  'مادر و فرزند در حال آماده کردن سالاد ماکارونی هستند و مراحل را کنار هم انجام می‌دهند. 𝗝𝗈𝗂𝗇︎𝗨𝗌 𝗘𝗑︎𝖼︎𝗂𝗍𝖾𝖽 👾 𝗖𝗅︎𝖎𝖈𝖐↝',
+  'عنوان منبع متفاوت و طولانی',
+  'ویدئوی ماکارونی'
+);
+assert.match(unicodePromo, /سالاد ماکارونی/);
+assert.doesNotMatch(unicodePromo, /join\s+us|excited|click/i,
+  'Unicode-styled English promotions must be normalized and stripped');
 const alreadyCleanMetadata = createRepostMetadata({
   ...valid,
   title: 'مردی که روغن گریس میخورد!',
