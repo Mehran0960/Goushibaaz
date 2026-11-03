@@ -129,6 +129,13 @@ const unicodePromo = cleanRepostDescription(
 assert.match(unicodePromo, /سالاد ماکارونی/);
 assert.doesNotMatch(unicodePromo, /join\s+us|excited|click/i,
   'Unicode-styled English promotions must be normalized and stripped');
+const shortButUseful = cleanRepostDescription(
+  'بچه و مامانش سالاد ماکارونی درست میکنن 😂🤣 𝗝𝗈𝗂𝗇︎𝗨𝗌 𝗘𝗑︎𝖼︎𝗂𝗍𝖾𝖽 𝗖𝗅︎𝗂𝖼𝗄',
+  'عنوان منبع متفاوت و طولانی',
+  'ویدئوی ماکارونی'
+);
+assert.ok(shortButUseful.length >= 35 && shortButUseful.length < 50,
+  'a concise, factual description remains usable after promo and emoji cleanup');
 const alreadyCleanMetadata = createRepostMetadata({
   ...valid,
   title: 'مردی که روغن گریس میخورد!',
