@@ -508,7 +508,8 @@ async function composeFiloCoverDataUrl(page,sourceDataUrl) {
    context.shadowOffsetY=5;
    context.drawImage(image,x,y,foregroundWidth,foregroundHeight);
    context.restore();
-   return canvas.toDataURL('image/jpeg',0.94);
+   // Filo's native cover capture submits PNG data URLs; preserve that exact format.
+   return canvas.toDataURL('image/png');
   },sourceDataUrl);
   const dimensions=imageDimensionsFromDataUrl(dataUrl);
   const aspectRatio=dimensions?dimensions.width/dimensions.height:0;
