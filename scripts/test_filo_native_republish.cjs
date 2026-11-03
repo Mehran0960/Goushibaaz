@@ -248,7 +248,7 @@ async function testPortraitCoverComposition() {
     assert.deepEqual(composed.dimensions, { width: 640, height: 360 });
     assert.ok(composed.encodedLength <= 800000,
       'the complete URL-encoded selectedFrame field must stay below Filo’s request limit');
-    assert.equal(composed.strategy, 'blurred_background_full_frame_contain_v1');
+    assert.equal(composed.strategy, 'blurred_background_full_frame_contain_compact_png_v1');
     assert.equal(composed.dataUrl.startsWith('data:image/png;base64,'), true,
       'the composed cover must retain Filo native PNG data URL format');
 
