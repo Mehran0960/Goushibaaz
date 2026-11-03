@@ -12,7 +12,7 @@
       "monetizationReviewRequired": true,
       "monetizationReviewReason": "external_video_service_advertising: public/source description advertises آی‌آرمووی and asks viewers to request films/series; remove promotional metadata and verify media rights",
       "monetizationReviewAt": "2026-11-03T00:00:00.000Z",
-      "captionCleanupLastAttemptAt": "2026-11-02T22:11:51.915Z"
+      "captionCleanupLastAttemptAt": "2026-11-03T10:31:53.257Z"
     },
     {
       "sourceCode": "tIphXtG",
@@ -29,7 +29,7 @@
       "monetizationReviewRequired": true,
       "monetizationReviewReason": "external_video_service_advertising: source page promotes آی‌آرمووی and includes engagement/request calls to action",
       "monetizationReviewAt": "2026-11-03T00:00:00.000Z",
-      "captionCleanupLastAttemptAt": "2026-11-02T22:11:52.205Z"
+      "captionCleanupLastAttemptAt": "2026-11-03T10:31:53.611Z"
     },
     {
       "sourceCode": "kY9ikXv",
@@ -46,7 +46,7 @@
       "monetizationReviewRequired": true,
       "monetizationReviewReason": "external_video_service_advertising: source page promotes آی‌آرمووی and includes engagement/request calls to action",
       "monetizationReviewAt": "2026-11-03T00:00:00.000Z",
-      "captionCleanupLastAttemptAt": "2026-11-02T22:11:52.451Z"
+      "captionCleanupLastAttemptAt": "2026-11-03T10:31:53.920Z"
     },
     {
       "sourceCode": "j06ONXe",
@@ -63,7 +63,7 @@
       "monetizationReviewRequired": true,
       "monetizationReviewReason": "external_video_service_advertising: source page promotes آی‌آرمووی and includes engagement/request calls to action; repost title also contains generic filler",
       "monetizationReviewAt": "2026-11-03T00:00:00.000Z",
-      "captionCleanupLastAttemptAt": "2026-11-02T22:11:52.724Z"
+      "captionCleanupLastAttemptAt": "2026-11-03T10:31:54.236Z"
     },
     {
       "sourceCode": "fUSCn9m",
@@ -80,7 +80,7 @@
       "monetizationReviewRequired": true,
       "monetizationReviewReason": "copied_or_generic_metadata: public repost title/description substantially reuse source wording; distinct and complementary text needs verification",
       "monetizationReviewAt": "2026-11-03T00:00:00.000Z",
-      "captionCleanupLastAttemptAt": "2026-11-02T22:11:52.990Z"
+      "captionCleanupLastAttemptAt": "2026-11-03T10:31:54.568Z"
     },
     {
       "sourceCode": "9dJKTXV",
@@ -94,7 +94,7 @@
       "monetizationReviewRequired": true,
       "monetizationReviewReason": "copyright_review_required: source metadata explicitly refers to Prison Break/فرار از زندان; verify rights to the underlying audiovisual material before monetization",
       "monetizationReviewAt": "2026-11-03T00:00:00.000Z",
-      "captionCleanupLastAttemptAt": "2026-11-02T22:11:53.282Z"
+      "captionCleanupLastAttemptAt": "2026-11-03T10:31:54.908Z"
     },
     {
       "sourceCode": "yt6I7SX",
@@ -108,7 +108,7 @@
       "monetizationReviewRequired": true,
       "monetizationReviewReason": "metadata_review_required: source description is short and may not support a substantive distinct description; current public metadata needs verification",
       "monetizationReviewAt": "2026-11-03T00:00:00.000Z",
-      "captionCleanupLastAttemptAt": "2026-11-02T22:11:53.545Z"
+      "captionCleanupLastAttemptAt": "2026-11-03T10:31:55.268Z"
     },
     {
       "sourceCode": "sNk3BDJ",
@@ -122,7 +122,7 @@
       "monetizationReviewRequired": true,
       "monetizationReviewReason": "metadata_review_required: public repost title includes generic 'روایت تصویری' and source description is not substantive enough for a reliable rewrite",
       "monetizationReviewAt": "2026-11-03T00:00:00.000Z",
-      "captionCleanupLastAttemptAt": "2026-11-02T22:11:53.805Z"
+      "captionCleanupLastAttemptAt": "2026-11-03T10:31:55.586Z"
     },
     {
       "sourceCode": "qHQssk7",
@@ -136,7 +136,7 @@
       "monetizationReviewRequired": true,
       "monetizationReviewReason": "insult_or_defamation_review_required: source title/description explicitly describe an insulting message; actual audio/video needs human review before monetization",
       "monetizationReviewAt": "2026-11-03T00:00:00.000Z",
-      "captionCleanupLastAttemptAt": "2026-11-02T22:11:54.060Z"
+      "captionCleanupLastAttemptAt": "2026-11-03T10:31:55.941Z"
     },
     {
       "sourceCode": "t5CtEJP",
@@ -175,7 +175,36 @@
       "status": "rejected_by_filo",
       "reason": "filo_publish_not_accepted",
       "attemptedAt": "2026-11-03T05:05:41.438Z"
+    },
+    {
+      "sourceCode": "zGQ4nfu",
+      "status": "rejected_by_filo",
+      "reason": "filo_publish_not_accepted",
+      "httpStatus": 400,
+      "responseDiagnostics": {
+        "bodyKeys": [
+          "detail",
+          "status_code"
+        ],
+        "detail": "Field exceeded maximum size of 1024KB.",
+        "contentType": "application/json",
+        "httpStatusText": "",
+        "uiErrors": []
+      },
+      "attemptedAt": "2026-11-03T10:32:41.322Z"
+    },
+    {
+      "sourceCode": "iHTZIbJ",
+      "sourceTitle": "کلیپ عجیب و غریب از تجمع پرندگان در آمریکا",
+      "repostTitle": "عجیب و غریب از تجمع پرندگان در آمریکا",
+      "repostDescription": null,
+      "captionPolicyVersion": 3,
+      "newVideoCode": "thiZUXI",
+      "publicUrl": "https://ifilo.net/v/thiZUXI",
+      "status": "public_verified",
+      "score": 56.6,
+      "submittedAt": "2026-11-03T10:33:18.302Z"
     }
   ],
-  "updatedAt": "2026-11-03T05:06:38.083Z"
+  "updatedAt": "2026-11-03T10:33:18.302Z"
 }
