@@ -139,11 +139,11 @@ assert.ok(shortButUseful.length >= 35 && shortButUseful.length < 50,
 const alreadyCleanMetadata = createRepostMetadata({
   ...valid,
   title: 'مردی که روغن گریس میخورد!',
-  description: 'مردی هنگام خوردن روغن گریس دیده می‌شود و واکنش اطرافیان ثبت شده است. این رفتار غیرمعمول توجه افراد حاضر را جلب می‌کند.'
+  description: 'در این ویدئو، مردی در حال خوردن روغن گریس را نشان می‌دهد و واکنش اطرافیان دیده می‌شود. این رفتار غیرمعمول توجه افراد حاضر را جلب می‌کند.'
 }, 'AbC1238');
 assert.equal(alreadyCleanMetadata.title, 'مردی که روغن گریس میخورد!',
   'an already-clean title is valid metadata when its description is independently substantive');
-assert.notEqual(normalizeComparable(alreadyCleanMetadata.description), normalizeComparable('مردی هنگام خوردن روغن گریس دیده می‌شود و واکنش اطرافیان ثبت شده است. این رفتار غیرمعمول توجه افراد حاضر را جلب می‌کند.'));
+assert.notEqual(normalizeComparable(alreadyCleanMetadata.description), normalizeComparable('در این ویدئو، مردی در حال خوردن روغن گریس را نشان می‌دهد و واکنش اطرافیان دیده می‌شود. این رفتار غیرمعمول توجه افراد حاضر را جلب می‌کند.'));
 assert.throws(() => createRepostMetadata({ ...valid, description: 'توضیح کوتاه' }, 'AbC1235'), /repost_description_source_too_short/);
 assert.throws(() => createRepostMetadata({ ...valid, title: 'پیغام توهین آمیز به یک بازیکن', description: sourceDescription }, 'AbC1236'), /filo_policy_text_risk:insult_or_defamation/);
 assert.throws(() => createRepostMetadata({ ...valid, title: 'لینک https://example.com ویدئو', description: sourceDescription }, 'AbC1237'), /repost_source_title_contains_external_link/);
