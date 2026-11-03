@@ -189,6 +189,10 @@ assert.ok(buildNativePublishGuardFailures({...safePublishContext,canMakeMoney:'f
 assert.ok(buildNativePublishGuardFailures({...safePublishContext,canRepublish:'false'})
   .includes('native_republish_permission_missing'),
   'missing native repost permission must remain a hard publishing guard');
+assert.deepEqual(buildNativePublishGuardFailures({
+  ...safePublishContext,selectedFramePresent:false,coverAspectOk:false
+}),[],
+  'a missing cover and non-16:9 video frame must not block the publish request');
 assert.equal(buildNativePublishGuardFailures(safePublishContext).some(reason=>/cover|frame|thumbnail/i.test(reason)),false,
   'cover selection and aspect ratio must never block the publish request');
 assert.equal(safeApiDiagnosticValue({r:'خطا\nتکرار',items:[1,2,3]}).r,'خطا تکرار',
