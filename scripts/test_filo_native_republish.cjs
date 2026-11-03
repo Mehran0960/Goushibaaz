@@ -15,6 +15,9 @@ const {
   normalizeComparable,
   detailGate,
   isRecoverableCoverGuardBlock,
+  isRecoverableCoverPreparationError,
+  imageBufferFromDataUrl,
+  composeFiloCoverDataUrl,
   dailyCount
 } = require('./filo_native_republish.cjs');
 
@@ -133,6 +136,14 @@ assert.equal(isRecoverableCoverGuardBlock({
 }), true, 'a cover-only rejection must allow trying the next candidate');
 assert.equal(isRecoverableCoverGuardBlock({
   status: 'blocked_before_filo_submission',
+  publishPayload: { guardFailures: ['cover_frame_missing_or_invalid'], coverAspectOk: false }
+}), true, 'a missing cover frame must skip only this candidate');
+assert.equal(isRecoverableCoverGuardBlock({
+  status: 'blocked_before_filo_submission',
+  publishPayload: { guardFailures: ['cover_frame_missing_or_invalid', 'cover_aspect_not_16_9'], coverAspectOk: false }
+}), true, 'combined cover-only failures must remain candidate-local');
+assert.equal(isRecoverableCoverGuardBlock({
+  status: 'blocked_before_filo_submission',
   publishPayload: { guardFailures: ['cover_aspect_not_16_9', 'monetization_permission_missing'], coverAspectOk: false }
 }), false, 'never skip a candidate when any permission or policy guard also fails');
 assert.equal(isRecoverableCoverGuardBlock({
@@ -143,6 +154,14 @@ assert.equal(isRecoverableCoverGuardBlock({
   status: 'submitted_unconfirmed',
   publishPayload: { guardFailures: [], coverAspectOk: false }
 }), false, 'submitted items must never be retried as an alternate candidate');
+assert.equal(isRecoverableCoverPreparationError('filo_source_player_not_ready_for_cover'), true,
+  'a source-specific cover failure must skip only that candidate');
+assert.equal(isRecoverableCoverPreparationError('filo_cover_capture_control_unavailable'), true);
+assert.equal(isRecoverableCoverPreparationError('filo_permission_gate_changed_before_submission:permission_missing'), false,
+  'permission failures must never be treated as cover failures');
+const decodedSample=imageBufferFromDataUrl('data:image/png;base64,'+pngHeader.toString('base64'));
+assert.ok(decodedSample&&decodedSample.buffer.length===pngHeader.length,
+  'data URL decoding must provide the image bytes for the thumbnail scorer');
 assert.equal(detailGate({}, { ...valid }).eligible, false, 'global search must never bypass the native Filo permission gate');
 
 assert.deepEqual(detailGate({ is_republish: 1, stop_upload: 0 }, {
@@ -169,4 +188,57 @@ assert.equal(dailyCount(state, Date.parse('2026-11-03T00:05:00.000Z')), 1,
 assert.equal(dailyCount(state, Date.parse('2026-11-03T00:10:00.000Z')), 1,
   'a submission exactly 24 hours old remains inside the rolling window');
 
-console.log('FILO_NATIVE_REPUBLISH_TESTS_PASSED');
+async function testPortraitCoverComposition() {
+  const { chromium } = require('playwright');
+  const browser = await chromium.launch({ headless: true });
+  try {
+    const page = await browser.newPage();
+    const source = await page.evaluate(() => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 300;
+      canvas.height = 600;
+      const context = canvas.getContext('2d');
+      context.fillStyle = '#244caa';
+      context.fillRect(0, 0, 300, 600);
+      context.fillStyle = '#f02020';
+      context.fillRect(0, 0, 300, 28);
+      context.fillStyle = '#20d060';
+      context.fillRect(0, 572, 300, 28);
+      return canvas.toDataURL('image/jpeg', 0.96);
+    });
+    const composed = await composeFiloCoverDataUrl(page, source);
+    assert.equal(composed.ok, true, 'portrait cover must compose into a valid landscape image');
+    assert.deepEqual(composed.sourceDimensions, { width: 300, height: 600 });
+    assert.deepEqual(composed.dimensions, { width: 1280, height: 720 });
+    assert.equal(composed.strategy, 'blurred_background_full_frame_contain_v1');
+
+    const preserved = await page.evaluate(async dataUrl => {
+      const image = new Image();
+      image.src = dataUrl;
+      await image.decode();
+      const canvas = document.createElement('canvas');
+      canvas.width = image.naturalWidth;
+      canvas.height = image.naturalHeight;
+      const context = canvas.getContext('2d');
+      context.drawImage(image, 0, 0);
+      const top = context.getImageData(640, 10, 1, 1).data;
+      const bottom = context.getImageData(640, 710, 1, 1).data;
+      return { topRed: top[0], topGreen: top[1], bottomGreen: bottom[1], bottomRed: bottom[0] };
+    }, composed.dataUrl);
+    assert.ok(preserved.topRed > preserved.topGreen,
+      'the top of a portrait frame must remain visible in the landscape cover');
+    assert.ok(preserved.bottomGreen > preserved.bottomRed,
+      'the bottom of a portrait frame must remain visible in the landscape cover');
+  } finally {
+    await browser.close();
+  }
+}
+
+async function runAsyncTests() {
+  await testPortraitCoverComposition();
+  console.log('FILO_NATIVE_REPUBLISH_TESTS_PASSED');
+}
+runAsyncTests().catch(error => {
+  console.error(error);
+  process.exitCode = 1;
+});
