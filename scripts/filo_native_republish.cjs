@@ -350,7 +350,7 @@ function cleanRepostCaptionTitle(sourceTitle) {
     .replace(/\s+/g, ' ')
     .trim();
 
-  title = title.replace(/\s*[،؛:|\-]\s*(?:روایت\s+تصویری|روایتی\s+از|ماجرای\s+بامزه)\b.*$/iu, '').trim();
+  title = title.replace(/\s*[،؛:|\-]\s*(?:روایت\s+تصویری|روایتی\s+از|ماجرای\s+بامزه)(?=\s|$).*$/iu, '').trim();
 
   if (normalizeComparable(title) === normalizeComparable(original)) {
     title = title
