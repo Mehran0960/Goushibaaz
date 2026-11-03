@@ -17,6 +17,7 @@ const {
   isRecoverableCoverGuardBlock,
   isRecoverableCoverPreparationError,
   imageBufferFromDataUrl,
+  trustedFiloMediaUrl,
   composeFiloCoverDataUrl,
   dailyCount
 } = require('./filo_native_republish.cjs');
@@ -162,6 +163,14 @@ assert.equal(isRecoverableCoverPreparationError('filo_permission_gate_changed_be
 const decodedSample=imageBufferFromDataUrl('data:image/png;base64,'+pngHeader.toString('base64'));
 assert.ok(decodedSample&&decodedSample.buffer.length===pngHeader.length,
   'data URL decoding must provide the image bytes for the thumbnail scorer');
+assert.equal(trustedFiloMediaUrl('/media/source.mp4'),'https://ifilo.net/media/source.mp4',
+  'relative source media URLs must resolve against Filo');
+assert.equal(trustedFiloMediaUrl('https://cdn.ifilo.net/media/source.mp4'),'https://cdn.ifilo.net/media/source.mp4',
+  'Filo-owned CDN media URLs must be accepted');
+assert.equal(trustedFiloMediaUrl('http://ifilo.net/media/source.mp4'),null,
+  'insecure source media URLs must be rejected');
+assert.equal(trustedFiloMediaUrl('https://example.com/media/source.mp4'),null,
+  'untrusted external media URLs must never be fetched by the thumbnail extractor');
 assert.equal(detailGate({}, { ...valid }).eligible, false, 'global search must never bypass the native Filo permission gate');
 
 assert.deepEqual(detailGate({ is_republish: 1, stop_upload: 0 }, {

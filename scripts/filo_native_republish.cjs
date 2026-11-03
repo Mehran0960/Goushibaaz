@@ -458,6 +458,84 @@ function imageBufferFromDataUrl(value) {
  return {buffer:Buffer.from(match[2],'base64'),mimeType:match[1].toLowerCase()};
 }
 
+function trustedFiloMediaUrl(value) {
+ const raw=String(value||'').trim();
+ if(!raw)return null;
+ try {
+  const url=new URL(raw,BASE);
+  const host=url.hostname.toLowerCase();
+  if(url.protocol!=='https:'||(host!=='ifilo.net'&&!host.endsWith('.ifilo.net')))return null;
+  return url.toString();
+ } catch {
+  return null;
+ }
+}
+
+async function extractHighResolutionSourceFrames(page,videoMetadata,sourceCode,durationSeconds,frameCount,tempDir) {
+ const mediaUrl=trustedFiloMediaUrl(videoMetadata&&(videoMetadata.video_url||videoMetadata.videoUrl));
+ const report={attempted:Boolean(mediaUrl),status:'not_attempted',reason:null,width:null,height:null,framesExtracted:0};
+ if(!mediaUrl){
+  report.reason='trusted_source_video_url_unavailable';
+  return {ok:false,frames:[],report};
+ }
+ report.status='checking_source_media';
+ const userAgent=await page.evaluate(()=>navigator.userAgent).catch(()=>'Mozilla/5.0');
+ const headers=[
+  'User-Agent: '+String(userAgent).replace(/[\r\n]/g,' '),
+  'Referer: '+BASE+'/republish/'+encodeURIComponent(sourceCode)
+ ].join(String.fromCharCode(13,10))+String.fromCharCode(13,10);
+ const probe=spawnSync('ffprobe',[
+  '-v','error','-headers',headers,'-select_streams','v:0',
+  '-show_entries','stream=width,height:format=duration','-of','json',mediaUrl
+ ],{encoding:'utf8',timeout:6000,maxBuffer:1024*1024});
+ if(probe.error||probe.status!==0){
+  report.status='probe_unavailable';
+  report.reason=probe.error?String(probe.error.message||probe.error).slice(0,120):'source_media_probe_failed';
+  return {ok:false,frames:[],report};
+ }
+ const metadata=parseJson(probe.stdout);
+ const stream=metadata&&Array.isArray(metadata.streams)?metadata.streams[0]:null;
+ const width=num(stream&&stream.width),height=num(stream&&stream.height);
+ report.width=width||null;
+ report.height=height||null;
+ const duration=num(metadata&&metadata.format&&metadata.format.duration,durationSeconds);
+ if(!width||!height){
+  report.status='source_media_dimensions_unavailable';
+  report.reason='source_video_has_no_readable_video_stream';
+  return {ok:false,frames:[],report};
+ }
+ if(Math.max(width,height)<640||Math.min(width,height)<360){
+  report.status='source_media_not_high_resolution';
+  report.reason='source_video_resolution_below_quality_threshold';
+  return {ok:false,frames:[],report};
+ }
+ const clipDuration=Math.max(1,duration*0.88);
+ const startAt=Math.max(0.1,duration*0.06);
+ const pattern=path.join(tempDir,'source-frame-%02d.jpg');
+ const fps=(frameCount/clipDuration).toFixed(6);
+ const extracted=spawnSync('ffmpeg',[
+  '-hide_banner','-loglevel','error','-headers',headers,
+  '-ss',startAt.toFixed(3),'-i',mediaUrl,'-t',clipDuration.toFixed(3),
+  '-map','0:v:0','-an','-sn','-dn','-vf','fps='+fps,
+  '-frames:v',String(frameCount),'-q:v','2','-y',pattern
+ ],{encoding:'utf8',timeout:12000,maxBuffer:1024*1024});
+ const names=fs.readdirSync(tempDir)
+  .filter(name=>/^source-frame-\d+\.jpg$/i.test(name)).sort();
+ if(extracted.error||extracted.status!==0||names.length<3){
+  for(const name of names)fs.rmSync(path.join(tempDir,name),{force:true});
+  report.status='source_frame_extraction_unavailable';
+  report.reason=extracted.error?String(extracted.error.message||extracted.error).slice(0,120):'source_frame_extraction_failed';
+  return {ok:false,frames:[],report};
+ }
+ const frames=names.map((name,index)=>({
+  index,timeSeconds:Math.round((startAt+index*(clipDuration/frameCount))*100)/100,
+  path:path.join(tempDir,name),source:'original_video_file'
+ }));
+ report.status='high_resolution_frames_extracted';
+ report.framesExtracted=frames.length;
+ return {ok:true,frames,report};
+}
+
 async function captureVideoFrameDataUrl(page) {
  return page.locator('#plr video').first().evaluate(video=>{
   if(!video||video.readyState<2||!video.videoWidth||!video.videoHeight)return null;
@@ -783,7 +861,7 @@ async function seekVideoTo(page, targetSeconds) {
   }, targetSeconds);
 }
 
-async function selectThumbnailFrame(page, sourceCode, report) {
+async function selectThumbnailFrame(page, sourceCode, report, sourceVideo = null) {
   const fallback = async reason => {
     const info = await page.locator('#plr video').first().evaluate(video => ({
       duration: Number(video.duration) || 0
@@ -819,22 +897,34 @@ async function selectThumbnailFrame(page, sourceCode, report) {
   let selected = null;
 
   try {
-    const videoLocator = page.locator('#plr video').first();
-    for (let index = 0; index < frameCount; index += 1) {
-      const ratio = frameCount === 1 ? 0.5 : startRatio + (endRatio - startRatio) * index / (frameCount - 1);
-      const target = Math.max(0.15, Math.min(videoInfo.duration - 0.15, videoInfo.duration * ratio));
-      const seek = await seekVideoTo(page, target).catch(() => ({ ok: false }));
-      if (!seek || !seek.ok) continue;
-      const filePath = path.join(tempDir, 'frame-' + String(index).padStart(2, '0') + '.jpg');
-      try {
-        const frameDataUrl=await captureVideoFrameDataUrl(page);
-        const captured=imageBufferFromDataUrl(frameDataUrl);
-        let image=captured&&captured.buffer.length>1500?captured.buffer:null;
-        if(!image)image=await videoLocator.screenshot({type:'jpeg',quality:90,timeout:10000});
-        if(!image||image.length<1500)continue;
-        fs.writeFileSync(filePath,image);
-        frames.push({index,timeSeconds:Number(seek.timeSeconds||target),path:filePath});
-      } catch {}
+    const originalFrames = await extractHighResolutionSourceFrames(
+      page, sourceVideo, sourceCode, videoInfo.duration, frameCount, tempDir
+    ).catch(error => ({
+      ok:false,frames:[],
+      report:{attempted:true,status:'source_frame_extraction_error',reason:String(error&&error.message||error).slice(0,120),
+        width:null,height:null,framesExtracted:0}
+    }));
+    report.thumbnailSourceUpgrade = originalFrames.report;
+    if (originalFrames.ok) {
+      frames.push(...originalFrames.frames);
+    } else {
+      const videoLocator = page.locator('#plr video').first();
+      for (let index = 0; index < frameCount; index += 1) {
+        const ratio = frameCount === 1 ? 0.5 : startRatio + (endRatio - startRatio) * index / (frameCount - 1);
+        const target = Math.max(0.15, Math.min(videoInfo.duration - 0.15, videoInfo.duration * ratio));
+        const seek = await seekVideoTo(page, target).catch(() => ({ ok: false }));
+        if (!seek || !seek.ok) continue;
+        const filePath = path.join(tempDir, 'frame-' + String(index).padStart(2, '0') + '.jpg');
+        try {
+          const frameDataUrl=await captureVideoFrameDataUrl(page);
+          const captured=imageBufferFromDataUrl(frameDataUrl);
+          let image=captured&&captured.buffer.length>1500?captured.buffer:null;
+          if(!image)image=await videoLocator.screenshot({type:'jpeg',quality:90,timeout:10000});
+          if(!image||image.length<1500)continue;
+          fs.writeFileSync(filePath,image);
+          frames.push({index,timeSeconds:Number(seek.timeSeconds||target),path:filePath,source:'player_video_element'});
+        } catch {}
+      }
     }
 
     if (frames.length < 3) {
@@ -867,12 +957,23 @@ async function selectThumbnailFrame(page, sourceCode, report) {
       return recordThumbnailSelection(report,{...result,framesAnalyzed:frames.length});
     }
 
-    await seekVideoTo(page, selected.timeSeconds);
+    const selectedFromOriginal = selected.source === 'original_video_file';
+    let coverFrameDataUrl;
+    if (selectedFromOriginal) {
+      const selectedBytes=fs.readFileSync(selected.path);
+      coverFrameDataUrl='data:image/jpeg;base64,'+selectedBytes.toString('base64');
+    } else {
+      await seekVideoTo(page, selected.timeSeconds);
+      coverFrameDataUrl=await captureVideoFrameDataUrl(page);
+    }
     const summary = {
-      strategy: 'multi_frame_face_expression_visual_quality_v2_intrinsic_pixels',
-      fallback: false,
+      strategy: selectedFromOriginal
+        ? 'multi_frame_face_expression_visual_quality_v3_original_source_resolution'
+        : 'multi_frame_face_expression_visual_quality_v3_player_fallback',
+      fallback: !selectedFromOriginal,
       framesAnalyzed: frames.length,
       selectedTimeSeconds: Math.round(selected.timeSeconds * 100) / 100,
+      sourceFrameDimensions: imageDimensionsFromDataUrl(coverFrameDataUrl),
       score: analysis.selected && analysis.selected.score,
       faceDetected: Boolean(analysis.selected && analysis.selected.faceDetected),
       faceCount: analysis.selected && analysis.selected.faceCount || 0,
@@ -887,7 +988,7 @@ async function selectThumbnailFrame(page, sourceCode, report) {
         expressionScore: item.expressionScore
       }))
     };
-    return recordThumbnailSelection(report,{...summary,coverFrameDataUrl:await captureVideoFrameDataUrl(page)});
+    return recordThumbnailSelection(report,{...summary,coverFrameDataUrl});
   } finally {
     fs.rmSync(tempDir, { recursive: true, force: true });
   }
@@ -921,7 +1022,7 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
   }, null, { timeout: 25000 }).then(() => true).catch(() => false);
   if (!videoReady) throw new Error('filo_source_player_not_ready_for_cover');
 
-  const thumbnailSelection = await selectThumbnailFrame(page, code, report);
+  const thumbnailSelection = await selectThumbnailFrame(page, code, report, sourceVideo);
 
   const cropButton = page.locator('button.shot-btn').first();
   if(!(await cropButton.isVisible().catch(()=>false)))throw new Error('filo_cover_capture_control_unavailable');
@@ -1667,6 +1768,7 @@ module.exports = {
   isRecoverableCoverGuardBlock,
   isRecoverableCoverPreparationError,
   imageBufferFromDataUrl,
+  trustedFiloMediaUrl,
   composeFiloCoverDataUrl,
   dailyCount
 };
