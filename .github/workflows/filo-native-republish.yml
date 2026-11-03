@@ -3,7 +3,7 @@ name: Filo native authorized republisher
 on:
   workflow_dispatch:
   schedule:
-    - cron: "1-56/5 * * * *"
+    - cron: "2,7,12,17,22,27,32,37,42,47,52,57 * * * *"
   push:
     branches: [main]
     paths:
@@ -62,6 +62,12 @@ jobs:
           node --check scripts/test_filo_global_search.cjs
           node scripts/test_filo_global_search.cjs
           python3 scripts/test_filo_thumbnail.py
+
+      - name: Record native Filo scheduler trigger diagnostics
+        run: |
+          echo "event_name=${{ github.event_name }}"
+          echo "schedule=${{ github.event.schedule }}"
+          echo "runner_utc=$(date -u +%FT%TZ)"
 
       - name: Discover Filo videos with native repost permission and publish one
         env:
