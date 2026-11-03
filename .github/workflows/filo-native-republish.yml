@@ -3,7 +3,8 @@ name: Filo native authorized republisher
 on:
   workflow_dispatch:
   schedule:
-    - cron: "2,7,12,17,22,27,32,37,42,47,52,57 * * * *"
+    # Ten-minute cadence: leaves a margin over the longest recent full run (6m12s).
+    - cron: "3,13,23,33,43,53 * * * *"
   push:
     branches: [main]
     paths:
