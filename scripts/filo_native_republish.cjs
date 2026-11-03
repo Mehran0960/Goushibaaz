@@ -451,6 +451,86 @@ function imageDimensionsFromDataUrl(value) {
  }
  return null;
 }
+
+function imageBufferFromDataUrl(value) {
+ const match=/^data:image\/(png|jpe?g);base64,([A-Za-z0-9+/=\\s]+)$/i.exec(String(value||''));
+ if(!match)return null;
+ return {buffer:Buffer.from(match[2],'base64'),mimeType:match[1].toLowerCase()};
+}
+
+async function captureVideoFrameDataUrl(page) {
+ return page.locator('#plr video').first().evaluate(video=>{
+  if(!video||video.readyState<2||!video.videoWidth||!video.videoHeight)return null;
+  const canvas=document.createElement('canvas');
+  canvas.width=video.videoWidth;
+  canvas.height=video.videoHeight;
+  const context=canvas.getContext('2d');
+  if(!context)return null;
+  context.drawImage(video,0,0,canvas.width,canvas.height);
+  return canvas.toDataURL('image/jpeg',0.94);
+ }).catch(()=>null);
+}
+
+async function composeFiloCoverDataUrl(page,sourceDataUrl) {
+ const sourceDimensions=imageDimensionsFromDataUrl(sourceDataUrl);
+ if(!sourceDimensions)return {ok:false,reason:'cover_source_image_invalid',sourceDimensions:null};
+ try {
+  const dataUrl=await page.evaluate(async source=>{
+   const image=new Image();
+   image.src=source;
+   try{await image.decode();}catch{return null;}
+   if(!image.naturalWidth||!image.naturalHeight)return null;
+   const width=1280,height=720;
+   const canvas=document.createElement('canvas');
+   canvas.width=width;
+   canvas.height=height;
+   const context=canvas.getContext('2d');
+   if(!context)return null;
+   context.fillStyle='#10141b';
+   context.fillRect(0,0,width,height);
+   const backgroundScale=Math.max(width/image.naturalWidth,height/image.naturalHeight)*1.12;
+   const backgroundWidth=image.naturalWidth*backgroundScale;
+   const backgroundHeight=image.naturalHeight*backgroundScale;
+   context.save();
+   context.filter='blur(30px) brightness(0.58) saturate(0.82)';
+   context.drawImage(image,(width-backgroundWidth)/2,(height-backgroundHeight)/2,backgroundWidth,backgroundHeight);
+   context.restore();
+   context.fillStyle='rgba(5,8,13,0.12)';
+   context.fillRect(0,0,width,height);
+   const foregroundScale=Math.min(width/image.naturalWidth,height/image.naturalHeight);
+   const foregroundWidth=image.naturalWidth*foregroundScale;
+   const foregroundHeight=image.naturalHeight*foregroundScale;
+   const x=(width-foregroundWidth)/2;
+   const y=(height-foregroundHeight)/2;
+   context.save();
+   context.shadowColor='rgba(0,0,0,0.42)';
+   context.shadowBlur=22;
+   context.shadowOffsetY=5;
+   context.drawImage(image,x,y,foregroundWidth,foregroundHeight);
+   context.restore();
+   return canvas.toDataURL('image/jpeg',0.94);
+  },sourceDataUrl);
+  const dimensions=imageDimensionsFromDataUrl(dataUrl);
+  const aspectRatio=dimensions?dimensions.width/dimensions.height:0;
+  const ok=Boolean(dimensions&&Math.abs(aspectRatio-(16/9))<=0.02);
+  return {ok,dataUrl:ok?dataUrl:null,strategy:ok?'blurred_background_full_frame_contain_v1':null,
+   reason:ok?null:'cover_composition_output_invalid',sourceDimensions,dimensions,aspectRatio:aspectRatio||null};
+ } catch(error) {
+  return {ok:false,reason:'cover_composition_failed:'+String(error&&error.message||error).slice(0,140),
+   sourceDimensions,dimensions:null,aspectRatio:null};
+ }
+}
+
+function recordThumbnailSelection(report,selection) {
+ const {coverFrameDataUrl,...summary}=selection||{};
+ report.thumbnailSelection={...summary,coverFrameCaptureAvailable:Boolean(coverFrameDataUrl)};
+ return selection;
+}
+
+function isRecoverableCoverPreparationError(reason) {
+ return /^(?:filo_source_player_not_ready_for_cover|filo_cover_capture_control_unavailable|filo_cover_capture_click_failed|filo_thumbnail_frame_capture_failed)/i.test(String(reason||''));
+}
+
 function loadState() {
   try {
     const data = JSON.parse(fs.readFileSync(STATE_PATH, 'utf8'));
@@ -714,7 +794,8 @@ async function selectThumbnailFrame(page, sourceCode, report) {
       fallback: true,
       reason: String(reason || 'thumbnail_analysis_unavailable').slice(0, 240),
       selectedTimeSeconds: target,
-      framesAnalyzed: 0
+      framesAnalyzed: 0,
+      coverFrameDataUrl: await captureVideoFrameDataUrl(page)
     };
   };
 
@@ -726,8 +807,7 @@ async function selectThumbnailFrame(page, sourceCode, report) {
 
   if (!videoInfo || videoInfo.duration < 2 || !videoInfo.width || !videoInfo.height) {
     const result = await fallback('video_metadata_unavailable');
-    report.thumbnailSelection = result;
-    return result;
+    return recordThumbnailSelection(report,result);
   }
 
   const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'filo-thumbnail-'));
@@ -746,17 +826,19 @@ async function selectThumbnailFrame(page, sourceCode, report) {
       if (!seek || !seek.ok) continue;
       const filePath = path.join(tempDir, 'frame-' + String(index).padStart(2, '0') + '.jpg');
       try {
-        const image = await videoLocator.screenshot({ type: 'jpeg', quality: 88, timeout: 10000 });
-        if (!image || image.length < 1500) continue;
-        fs.writeFileSync(filePath, image);
-        frames.push({ index, timeSeconds: Number(seek.timeSeconds || target), path: filePath });
+        const frameDataUrl=await captureVideoFrameDataUrl(page);
+        const captured=imageBufferFromDataUrl(frameDataUrl);
+        let image=captured&&captured.buffer.length>1500?captured.buffer:null;
+        if(!image)image=await videoLocator.screenshot({type:'jpeg',quality:90,timeout:10000});
+        if(!image||image.length<1500)continue;
+        fs.writeFileSync(filePath,image);
+        frames.push({index,timeSeconds:Number(seek.timeSeconds||target),path:filePath});
       } catch {}
     }
 
     if (frames.length < 3) {
       const result = await fallback('insufficient_decoded_frames');
-      report.thumbnailSelection = { ...result, framesAnalyzed: frames.length };
-      return report.thumbnailSelection;
+      return recordThumbnailSelection(report,{...result,framesAnalyzed:frames.length});
     }
 
     const scored = spawnSync('python3', ['scripts/score_filo_thumbnail.py'], {
@@ -769,27 +851,24 @@ async function selectThumbnailFrame(page, sourceCode, report) {
     if (scored.error || scored.status !== 0) {
       const reason = scored.error ? scored.error.message : String(scored.stderr || 'thumbnail_scorer_failed').slice(0, 220);
       const result = await fallback(reason);
-      report.thumbnailSelection = { ...result, framesAnalyzed: frames.length };
-      return report.thumbnailSelection;
+      return recordThumbnailSelection(report,{...result,framesAnalyzed:frames.length});
     }
 
     const analysis = parseJson(scored.stdout);
     if (!analysis || !Number.isInteger(analysis.selectedIndex)) {
       const result = await fallback('thumbnail_scorer_returned_invalid_result');
-      report.thumbnailSelection = { ...result, framesAnalyzed: frames.length };
-      return report.thumbnailSelection;
+      return recordThumbnailSelection(report,{...result,framesAnalyzed:frames.length});
     }
 
     selected = frames.find(frame => frame.index === analysis.selectedIndex);
     if (!selected) {
       const result = await fallback('selected_thumbnail_frame_not_found');
-      report.thumbnailSelection = { ...result, framesAnalyzed: frames.length };
-      return report.thumbnailSelection;
+      return recordThumbnailSelection(report,{...result,framesAnalyzed:frames.length});
     }
 
     await seekVideoTo(page, selected.timeSeconds);
     const summary = {
-      strategy: 'multi_frame_face_expression_visual_quality_v1',
+      strategy: 'multi_frame_face_expression_visual_quality_v2_intrinsic_pixels',
       fallback: false,
       framesAnalyzed: frames.length,
       selectedTimeSeconds: Math.round(selected.timeSeconds * 100) / 100,
@@ -807,8 +886,7 @@ async function selectThumbnailFrame(page, sourceCode, report) {
         expressionScore: item.expressionScore
       }))
     };
-    report.thumbnailSelection = summary;
-    return summary;
+    return recordThumbnailSelection(report,{...summary,coverFrameDataUrl:await captureVideoFrameDataUrl(page)});
   } finally {
     fs.rmSync(tempDir, { recursive: true, force: true });
   }
@@ -845,8 +923,8 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
   const thumbnailSelection = await selectThumbnailFrame(page, code, report);
 
   const cropButton = page.locator('button.shot-btn').first();
-  await cropButton.waitFor({ state: 'visible', timeout: 10000 });
-  await cropButton.click();
+  if(!(await cropButton.isVisible().catch(()=>false)))throw new Error('filo_cover_capture_control_unavailable');
+  await cropButton.click().catch(()=>{throw new Error('filo_cover_capture_click_failed');});
   await page.waitForTimeout(500);
 
   // Refresh native repost permission immediately before submission. The scheduler
@@ -858,7 +936,23 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
   await page.route('**/api/v1/video/publish', async route => {
     const request = route.request();
     const params = new URLSearchParams(request.postData() || '');
-    const selectedFrame = params.get('selectedFrame') || '';
+    const postedFrame = params.get('selectedFrame') || '';
+    const preferredSourceFrame = thumbnailSelection.coverFrameDataUrl || postedFrame;
+    let coverComposition = await composeFiloCoverDataUrl(page,preferredSourceFrame);
+    if(!coverComposition.ok&&postedFrame&&postedFrame!==preferredSourceFrame){
+      coverComposition=await composeFiloCoverDataUrl(page,postedFrame);
+    }
+    let selectedFrame=coverComposition.ok?coverComposition.dataUrl:postedFrame;
+    if(!coverComposition.ok){
+      const nativeDimensions=imageDimensionsFromDataUrl(postedFrame);
+      const nativeAspect=nativeDimensions?nativeDimensions.width/nativeDimensions.height:0;
+      if(nativeDimensions&&Math.abs(nativeAspect-(16/9))<=0.02){
+        selectedFrame=postedFrame;
+        coverComposition={ok:true,strategy:'native_16_9_frame_fallback',reason:coverComposition.reason||null,
+          sourceDimensions:nativeDimensions,dimensions:nativeDimensions,aspectRatio:nativeAspect};
+      }
+    }
+    if(selectedFrame)params.set('selectedFrame',selectedFrame);
     const coverDimensions = imageDimensionsFromDataUrl(selectedFrame);
     const coverAspectRatio = coverDimensions ? coverDimensions.width / coverDimensions.height : 0;
     const coverAspectOk = Boolean(coverDimensions && Math.abs(coverAspectRatio - (16 / 9)) <= 0.02);
@@ -904,9 +998,15 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
       category: params.get('category') || '',
       selectedFrameLength: selectedFrame.length,
       selectedFrameType: selectedFrame.slice(0, 40),
+      coverSourceDimensions: coverComposition.sourceDimensions || null,
       coverDimensions,
       coverAspectRatio: coverAspectRatio || null,
       coverAspectOk,
+      coverComposition: {
+        ok: Boolean(coverComposition.ok),
+        strategy: coverComposition.strategy || null,
+        reason: coverComposition.reason || null
+      },
       guardFailures,
       thumbnailStrategy: report.thumbnailSelection && report.thumbnailSelection.strategy || 'legacy_fallback',
       thumbnailTimeSeconds: report.thumbnailSelection && report.thumbnailSelection.selectedTimeSeconds || null,
@@ -924,7 +1024,7 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
       await route.abort('blockedbyclient').catch(() => {});
       return;
     }
-    await route.continue();
+    await route.continue({postData:params.toString()});
   });
 
   const publishButton = page.getByRole('button', { name: /انتشار ویدیو|انتشار ویدئو/ }).first();
@@ -1365,7 +1465,12 @@ async function main() {
       .sort((a, b) => b.rank.score - a.rank.score);
 
     if (!ranked.length) {
-      report.status = 'no_eligible_filo_native_reposts';
+      report.status = 'no_candidate_published_this_cycle';
+      report.result = {
+        status: 'no_candidate_published_this_cycle',
+        reason: 'no_candidate_passed_feed_and_global_search_filters',
+        retryOnNextScheduledRun: true
+      };
       return;
     }
 
@@ -1373,6 +1478,7 @@ async function main() {
     let result = null;
     const checked = [];
     const coverGuardSkips = [];
+    const coverPreparationSkips = [];
     for (const entry of ranked.slice(0, MAX_DETAIL_CHECKS)) {
       const code = entry.item.video_code;
       const detail = await getRepublishDetail(page, code).catch(() => null);
@@ -1415,6 +1521,12 @@ async function main() {
           check.gate = 'permission_or_source_metadata_changed_before_submission';
           continue;
         }
+        if(isRecoverableCoverPreparationError(reason)){
+          check.gate='candidate_cover_preparation_unavailable';
+          check.publishAttempt='skipped_candidate_cover_preparation';
+          coverPreparationSkips.push({sourceCode:candidate.video_code,score:candidate.editorialScore,reason});
+          continue;
+        }
         throw error;
       }
 
@@ -1438,17 +1550,18 @@ async function main() {
     }
     report.discovery.detailChecks = checked;
     report.discovery.coverGuardSkips = coverGuardSkips;
+    report.discovery.coverPreparationSkips = coverPreparationSkips;
     if (!selected) {
-      if (coverGuardSkips.length) {
-        report.status = 'no_candidate_with_valid_16_9_cover';
-        report.result = {
-          status: 'blocked_before_filo_submission',
-          reason: 'all_checked_candidates_failed_only_the_16_9_cover_guard',
-          coverGuardSkips
-        };
-      } else {
-        report.status = 'no_candidate_passed_filo_native_permission_gate';
-      }
+      report.status = 'no_candidate_published_this_cycle';
+      report.result = {
+        status: 'no_candidate_published_this_cycle',
+        reason: coverGuardSkips.length || coverPreparationSkips.length
+          ? 'candidate_specific_cover_failures_exhausted_this_cycle'
+          : 'no_candidate_passed_native_permission_and_metadata_gates',
+        coverGuardSkips,
+        coverPreparationSkips,
+        retryOnNextScheduledRun: true
+      };
       return;
     }
 
@@ -1541,5 +1654,8 @@ module.exports = {
   normalizeComparable,
   detailGate,
   isRecoverableCoverGuardBlock,
+  isRecoverableCoverPreparationError,
+  imageBufferFromDataUrl,
+  composeFiloCoverDataUrl,
   dailyCount
 };
