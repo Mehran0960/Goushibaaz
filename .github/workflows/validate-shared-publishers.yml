@@ -10,12 +10,15 @@ on:
       - "scripts/telegram_publish.cjs"
       - "scripts/bale_publish.cjs"
       - "scripts/test_shared_publish.cjs"
+      - "scripts/cleanup_published_retention.cjs"
+      - "scripts/test_cleanup_published_retention.cjs"
       - ".github/workflows/prepare-shared-video.yml"
       - ".github/workflows/publish-shared-video-to-eitaa.yml"
       - ".github/workflows/publish-shared-video-to-jetra.yml"
       - ".github/workflows/publish-shared-video-to-rubika.yml"
       - ".github/workflows/publish-shared-video-to-bale.yml"
       - ".github/workflows/publish-shared-video-to-telegram.yml"
+      - ".github/workflows/cleanup-expired-published-posts.yml"
   workflow_dispatch:
 
 permissions:
@@ -40,8 +43,12 @@ jobs:
           node --check scripts/eitaa_publish_shared.cjs
           node --check scripts/jetra_publish_shared.cjs
           node --check scripts/test_shared_publish.cjs
+          node --check scripts/cleanup_published_retention.cjs
+          node --check scripts/test_cleanup_published_retention.cjs
       - name: Validate all five destinations in dry-run mode
         run: node scripts/test_shared_publish.cjs
+      - name: Test 48-hour channel retention behavior
+        run: node scripts/test_cleanup_published_retention.cjs
       - name: Parse publishing workflow YAML
         run: |
           ruby <<'RUBY'
@@ -49,6 +56,7 @@ jobs:
           files = %w[
             .github/workflows/prepare-shared-video.yml
             .github/workflows/publish-shared-video-to-telegram.yml
+            .github/workflows/cleanup-expired-published-posts.yml
             .github/workflows/publish-shared-video-to-bale.yml
             .github/workflows/publish-shared-video-to-rubika.yml
             .github/workflows/publish-shared-video-to-eitaa.yml
