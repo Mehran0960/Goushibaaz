@@ -159,6 +159,7 @@ async function main() {
     form.append('file', new Blob([bytes], { type: 'video/mp4' }), 'goushibaaz-short.mp4');
 
     entry.status = 'send_started';
+    entry.chatId = CHAT_ID;
     entry.botUsername = clean(bot.username, 80);
     state.posts.push(entry);
     state.lastOutcome = {
