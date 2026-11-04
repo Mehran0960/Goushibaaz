@@ -1195,22 +1195,29 @@ function nextCategoryDepthPage(currentPage) {
   return page>=MAX_PAGES_PER_CATEGORY?2:Math.max(2,page+1);
 }
 
+function buildCategoryPageRequestPayload(pageNo, windowWidth) {
+  return {
+    rowCount: 0,
+    page: Math.max(1, Math.trunc(num(pageNo, 1))),
+    needAllData: 0,
+    windowWidth: Math.max(1, Math.trunc(num(windowWidth, 1365)))
+  };
+}
+
 async function fetchCategoryPage(page, categoryId, pageNo) {
-  const result = await page.evaluate(async ({ categoryId, pageNo }) => {
-    const params = new URLSearchParams();
-    params.set('rowCount', '0');
-    params.set('page', String(pageNo));
-    params.set('needAllData', '0');
-    params.set('windowWidth', String(window.innerWidth || 1365));
+  // Filo's current VideoSection frontend posts this exact four-field object
+  // through Axios as JSON (not URL-encoded form data).
+  const windowWidth = await page.evaluate(() => Number(window.innerWidth) || 1365);
+  const requestPayload = buildCategoryPageRequestPayload(pageNo, windowWidth);
+  const result = await page.evaluate(async ({ categoryId, requestPayload }) => {
     const response = await fetch('/api/v1/video/category/' + categoryId, {
       method: 'POST',
       credentials: 'include',
       headers: {
         'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-        'X-Requested-With': 'XMLHttpRequest'
+        'Content-Type': 'application/json'
       },
-      body: params.toString(),
+      body: JSON.stringify(requestPayload),
       signal: AbortSignal.timeout(9000)
     });
     return {
@@ -1218,7 +1225,7 @@ async function fetchCategoryPage(page, categoryId, pageNo) {
       body: await response.text(),
       contentType: response.headers.get('content-type') || 'unknown'
     };
-  }, { categoryId, pageNo });
+  }, { categoryId, requestPayload });
 
   if (!result || result.status !== 200) {
     const hint = result ? categoryApiErrorHint(result) : 'empty_response';
@@ -2109,6 +2116,7 @@ module.exports = {
   buildUnconfirmedSubmissionResult,
   composeFiloCoverDataUrl,
   dailyCount,
+  buildCategoryPageRequestPayload,
   candidateMetricValue,
   candidateMetricSnapshot,
   updateCandidateMomentum,
