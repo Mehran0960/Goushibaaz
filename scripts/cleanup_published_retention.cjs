@@ -83,7 +83,7 @@ async function requestDelete(platform, config, token, chatId, messageId, fetchIm
   if (config.kind === 'rubika' || config.kind === 'eitaayar') {
     url = config.apiRoot + '/' + encodeURIComponent(token) + '/deleteMessage';
   } else if (config.kind === 'jetra') {
-    url = config.apiRoot + '/' + encodeURIComponent(token) + '/deleteMessage';
+    url = config.apiRoot + encodeURIComponent(token) + '/deleteMessage';
   } else {
     url = config.apiRoot + '/bot' + encodeURIComponent(token) + '/deleteMessage';
   }
