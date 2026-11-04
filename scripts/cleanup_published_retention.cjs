@@ -34,6 +34,26 @@ const PLATFORMS = {
     deleteAfterMs: 48 * HOUR,
     apiWindowMs: null,
     kind: 'rubika'
+  },
+  eitaa: {
+    tokenEnv: 'EITAAYAR_API_TOKEN',
+    chatEnv: 'EITAAYAR_CHAT_ID',
+    defaultChatId: '',
+    apiRoot: 'https://eitaayar.ir/api',
+    stateFile: 'state/eitaa-published.json',
+    deleteAfterMs: 46 * HOUR,
+    apiWindowMs: 48 * HOUR,
+    kind: 'eitaayar'
+  },
+  jetra: {
+    tokenEnv: 'JETRA_BOT_TOKEN',
+    chatEnv: 'JETRA_CHAT_ID',
+    defaultChatId: '@didobyn',
+    apiRoot: 'https://jetra.ir/bot',
+    stateFile: 'state/jetra-published.json',
+    deleteAfterMs: 46 * HOUR,
+    apiWindowMs: 48 * HOUR,
+    kind: 'jetra'
   }
 };
 
@@ -59,16 +79,23 @@ function parsePayload(raw) {
 }
 
 async function requestDelete(platform, config, token, chatId, messageId, fetchImpl) {
-  const url = platform === 'rubika'
-    ? config.apiRoot + '/' + encodeURIComponent(token) + '/deleteMessage'
-    : config.apiRoot + '/bot' + encodeURIComponent(token) + '/deleteMessage';
+  let url;
+  if (config.kind === 'rubika' || config.kind === 'eitaayar') {
+    url = config.apiRoot + '/' + encodeURIComponent(token) + '/deleteMessage';
+  } else if (config.kind === 'jetra') {
+    url = config.apiRoot + encodeURIComponent(token) + '/deleteMessage';
+  } else {
+    url = config.apiRoot + '/bot' + encodeURIComponent(token) + '/deleteMessage';
+  }
 
+  const params = { chat_id: chatId, message_id: String(messageId) };
+  const formBody = config.kind === 'eitaayar' ? new URLSearchParams(params) : null;
   let response;
   try {
     response = await fetchImpl(url, {
       method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ chat_id: chatId, message_id: String(messageId) }),
+      headers: formBody ? undefined : { 'content-type': 'application/json' },
+      body: formBody || JSON.stringify(params),
       signal: AbortSignal.timeout(20000)
     });
   } catch (error) {
