@@ -308,8 +308,8 @@ function editorialTitleTokens(value) {
     .toLocaleLowerCase('fa-IR')
     .replace(/[يى]/g, 'ی')
     .replace(/ك/g, 'ک')
-    .replace(/[^\\p{L}\\p{N}]+/gu, ' ')
-    .split(/\\s+/)
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .split(/\s+/)
     .map(token => token.trim())
     .filter(token => token.length > 1 && !EDITORIAL_TITLE_STOPWORDS.has(token)))];
 }
@@ -337,21 +337,21 @@ function characterBigramDice(left, right) {
 function createDistinctRepostTitle(sourceTitle) {
   const cleaned = cleanRepostCaptionTitle(sourceTitle);
   const rules = [
-    [/^طرز\\s+تهیه\\s+(.+)$/u, match => 'روش پخت ' + match[1]],
-    [/^دستور\\s+تهیه\\s+(.+)$/u, match => 'روش آماده‌سازی ' + match[1]],
-    [/^پاک\\s+کردن\\s+(.+?)\\s+به\\s+سبک\\s+(.+)$/u, match => 'روش ' + match[2] + ' برای پاک کردن ' + match[1]],
-    [/^(.+?)\\s+به\\s+سبک\\s+(.+)$/u, match => 'روش ' + match[2] + ' برای ' + match[1]],
-    [/^کتاب\\s+صوتی\\s+(.+?)\\s+با\\s+صدای\\s+(.+)$/u, match => 'شنیدن ' + match[1] + ' با صدای ' + match[2]],
-    [/^آموزش\\s+(.+)$/u, match => 'راهنمای ' + match[1]],
-    [/^چگونه\\s+(.+)$/u, match => 'روش ' + match[1]],
-    [/^(.+?)\\s+در\\s+(.+)$/u, match => match[2] + '؛ ' + match[1]],
-    [/^(.+?)\\s+با\\s+(.+)$/u, match => match[1] + ' همراه ' + match[2]]
+    [/^طرز\s+تهیه\s+(.+)$/u, match => 'روش پخت ' + match[1]],
+    [/^دستور\s+تهیه\s+(.+)$/u, match => 'روش آماده‌سازی ' + match[1]],
+    [/^پاک\s+کردن\s+(.+?)\s+به\s+سبک\s+(.+)$/u, match => 'روش ' + match[2] + ' برای پاک کردن ' + match[1]],
+    [/^(.+?)\s+به\s+سبک\s+(.+)$/u, match => 'روش ' + match[2] + ' برای ' + match[1]],
+    [/^کتاب\s+صوتی\s+(.+?)\s+با\s+صدای\s+(.+)$/u, match => 'شنیدن ' + match[1] + ' با صدای ' + match[2]],
+    [/^آموزش\s+(.+)$/u, match => 'راهنمای ' + match[1]],
+    [/^چگونه\s+(.+)$/u, match => 'روش ' + match[1]],
+    [/^(.+?)\s+در\s+(.+)$/u, match => match[2] + '؛ ' + match[1]],
+    [/^(.+?)\s+با\s+(.+)$/u, match => match[1] + ' همراه ' + match[2]]
   ];
   let candidate = cleaned;
   for (const [pattern, rewrite] of rules) {
     const match = cleaned.match(pattern);
     if (match) {
-      candidate = rewrite(match).replace(/\\s+/g, ' ').trim();
+      candidate = rewrite(match).replace(/\s+/g, ' ').trim();
       break;
     }
   }
@@ -800,7 +800,7 @@ function extractCategoryIds(payload) {
   const ids = new Set();
   const validId = value => {
     const raw = String(value == null ? '' : value).trim();
-    if (!/^\\d{1,6}$/.test(raw)) return null;
+    if (!/^\d{1,6}$/.test(raw)) return null;
     const n = Number(raw);
     return Number.isInteger(n) && n > 0 ? n : null;
   };
