@@ -17,6 +17,10 @@ const {
   composeFiloCoverDataUrl,
   dailyCount,
   buildCategoryPageRequestPayload,
+  buildVideoTagFeedPath,
+  normalizeVideoFeedItem,
+  extractVideoTagFeeds,
+  summarizeVideoTagPayload,
   candidateMetricValue,
   candidateMetricSnapshot,
   updateCandidateMomentum,
@@ -108,6 +112,44 @@ assert.deepEqual(buildCategoryPageRequestPayload(2, 1365), {
 assert.deepEqual(buildCategoryPageRequestPayload('3', 0), {
   rowCount: 0, page: 3, needAllData: 0, windowWidth: 1365
 }, 'invalid window width must safely use the same browser fallback');
+assert.equal(buildVideoTagFeedPath('q-طنز'), '/api/v1/video/ai-tag/q-%D8%B7%D9%86%D8%B2');
+assert.equal(buildVideoTagFeedPath('all'), '/api/v1/video/ai-tag/all');
+assert.throws(() => buildVideoTagFeedPath('../upload'), /filo_tag_key_invalid/);
+assert.deepEqual(extractVideoTagFeeds({
+  tags: [{ all: 'همه' }, { 'q-طنز': 'طنز' }, { 'q-آشپزی': 'آشپزی' }]
+}), [
+  { key: 'all', label: 'همه' },
+  { key: 'q-طنز', label: 'طنز' },
+  { key: 'q-آشپزی', label: 'آشپزی' }
+], 'tag feeds should follow Filo recommend-user-tags response');
+assert.deepEqual(extractVideoTagFeeds({
+  data: { tags: [{ 'q-آموزش': 'آموزش' }] }
+}), [{ key: 'q-آموزش', label: 'آموزش' }], 'wrapped tag payload should be supported');
+const compactFeedItem = normalizeVideoFeedItem({
+  v: 'AbC1234', t: 'یک کلیپ طنز', c: 6, du: 32, vc: 100, pd: 12,
+  cd: '۲ ساعت پیش', hst: 1, co: 1, cr: 1, ac: 1
+});
+assert.deepEqual({
+  video_code: compactFeedItem.video_code, title: compactFeedItem.title,
+  category_id: compactFeedItem.category_id, duration: compactFeedItem.duration,
+  visit_count: compactFeedItem.visit_count, play_count: compactFeedItem.play_count,
+  create_date: compactFeedItem.create_date, has_audio: compactFeedItem.has_audio,
+  can_republish: compactFeedItem.can_republish, can_make_money: compactFeedItem.can_make_money,
+  active: compactFeedItem.active
+}, {
+  video_code: 'AbC1234', title: 'یک کلیپ طنز', category_id: 6, duration: 32,
+  visit_count: 100, play_count: 12, create_date: '۲ ساعت پیش',
+  has_audio: 1, can_republish: 1, can_make_money: 1, active: 1
+}, 'compact Filo feed fields must be normalized before eligibility and momentum checks');
+assert.equal(feedCandidateEligible({
+  ...normalizeVideoFeedItem({v:'AbC1234',t:'یک چالش بامزه تازه و جذاب',c:6,du:28,vc:120,pd:10,cd:'۲ ساعت پیش',hst:1,co:1,cr:1,ac:1}),
+  status_id:1
+}, {posts:[]}), true, 'compact Filo records without an is_publish_able field pass discovery prefilter but still face detailGate');
+assert.equal(feedCandidateEligible({
+  ...normalizeVideoFeedItem({v:'AbC1234',t:'یک چالش بامزه تازه و جذاب',c:6,du:28,vc:120,pd:10,cd:'۲ ساعت پیش',hst:1,co:1,cr:1,ac:1}),
+  is_publish_able:0,status_id:1
+}, {posts:[]}), false, 'an explicit unpublishable feed flag remains a hard exclusion');
+
 assert.deepEqual(extractCategoryIds([{id:3},{id:4}]),[3,4],
   'direct category arrays must be supported');
 assert.deepEqual(extractCategoryIds({
