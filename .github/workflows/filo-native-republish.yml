@@ -60,7 +60,7 @@ jobs:
 
       - name: Persist idempotency ledger after a submission
         if: always()
-        run: bash scripts/persist_state_file.sh state/filo-native-republished.json "Record Filo native republish state"
+        run: bash scripts/persist_state_file.sh state/filo-native-republished.json "Record Filo native republish state [skip ci]"
 
       - name: Save execution report
         if: always()
