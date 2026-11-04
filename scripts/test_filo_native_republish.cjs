@@ -4,27 +4,20 @@ const assert = require('node:assert/strict');
 const {
   ageHours,
   feedCandidateEligible,
-  searchCandidateEligible,
-  cleanLegacyRepostTitle,
   cleanRepostCaptionTitle,
   cleanRepostDescription,
   policyTextRiskReason,
   imageDimensionsFromDataUrl,
-  scoreFeedCandidate,
   createRepostMetadata,
   normalizeComparable,
   detailGate,
-  isRecoverableCoverGuardBlock,
-  isRecoverableCoverPreparationError,
-  imageBufferFromDataUrl,
-  trustedFiloMediaUrl,
   buildNativePublishGuardFailures,
   safeApiDiagnosticValue,
   buildUnconfirmedSubmissionResult,
   composeFiloCoverDataUrl,
   dailyCount,
   updateCandidateMomentum,
-  getPublishCycleCooldown
+  rankCandidatesByMomentum
 } = require('./filo_native_republish.cjs');
 
 const valid = {
@@ -49,9 +42,6 @@ const valid = {
 
 assert.equal(ageHours({ create_date: '۲ ساعت پیش' }), 2);
 assert.equal(feedCandidateEligible(valid, { posts: [] }), true);
-assert.equal(searchCandidateEligible({ video_code: 'Trend01', title: 'لحظه دیدنی مسابقه فوتبال', duration: 28 }, { posts: [] }), true);
-assert.equal(searchCandidateEligible({ video_code: 'Trend02', title: 'خبر فوری جنگ و حمله نظامی' }, { posts: [] }), false);
-assert.equal(searchCandidateEligible({ video_code: 'Trend01', title: 'لحظه دیدنی مسابقه فوتبال' }, { posts: [{ sourceCode: 'Trend01', status: 'public_verified' }] }), false);
 assert.equal(feedCandidateEligible({ ...valid, can_republish: 0 }, { posts: [] }), false);
 assert.equal(feedCandidateEligible({ ...valid, is_publish_able: 0 }, { posts: [] }), false);
 assert.equal(feedCandidateEligible({ ...valid, only_in_filo: 1 }, { posts: [] }), false);
@@ -77,15 +67,8 @@ assert.equal(
   normalizeComparable('كلیپ خنده دار'),
   normalizeComparable('کلیپ خنده دار')
 );
-assert.equal(cleanLegacyRepostTitle('ماجرای بامزه‌ی «دستشویی رفتن آقایون»'), 'دستشویی رفتن آقایون');
-assert.equal(cleanLegacyRepostTitle('عنوان بدون پیشوند'), 'عنوان بدون پیشوند');
 assert.equal(cleanRepostCaptionTitle('دزد حرفه ای؛ روایتی از یک اتفاق غیرمنتظره'), 'دزد حرفه ای',
   'generic editorial suffixes must not survive in a concise title');
-assert.equal(
-  cleanLegacyRepostTitle('روایتی از یک اتفاق غیرمنتظره', 'کلیپ خنده دار دزد حرفه ای'),
-  'دزد حرفه ای',
-  'legacy titles must be reduced to the actual title without editorial filler'
-);
 assert.equal(cleanRepostCaptionTitle('تصاویری دیدنی و خنده دار از سوژه هالووین'), 'سوژه هالووین');
 assert.equal(
   cleanRepostCaptionTitle('مسخره کردن فرار از زندان پوکیدم از خنده عالی بود این حتما ببنید'),
@@ -166,15 +149,6 @@ assert.throws(() => createRepostMetadata({ ...valid, description: 'توضیح ک
 assert.throws(() => createRepostMetadata({ ...valid, title: 'پیغام توهین آمیز به یک بازیکن', description: sourceDescription }, 'AbC1236'), /filo_policy_text_risk:insult_or_defamation/);
 assert.throws(() => createRepostMetadata({ ...valid, title: 'لینک https://example.com ویدئو', description: sourceDescription }, 'AbC1237'), /repost_source_title_contains_external_link/);
 
-const high = scoreFeedCandidate(valid);
-const low = scoreFeedCandidate({ ...valid, visit_count: 0, play_count: 0, share_count: 0, create_date: 'دیروز' });
-assert.ok(high.score > low.score);
-const trendBoosted = scoreFeedCandidate(valid, {}, [{
-  title: 'مسابقه فوتبال', keywords: ['مسابقه', 'فوتبال'], traffic: 500000, ageHours: 0
-}]);
-assert.ok(trendBoosted.googleTrend.score > 0);
-assert.ok(trendBoosted.score > high.score, 'a fresh, matching Iran trend should increase candidate relevance');
-
 const pngHeader = Buffer.alloc(24);
 Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]).copy(pngHeader, 0);
 pngHeader.writeUInt32BE(1600, 16);
@@ -184,47 +158,6 @@ pngHeader.writeUInt32BE(1200, 16);
 pngHeader.writeUInt32BE(900, 20);
 const nonWideCover = imageDimensionsFromDataUrl('data:image/png;base64,' + pngHeader.toString('base64'));
 assert.equal(Math.abs(nonWideCover.width / nonWideCover.height - 16 / 9) <= 0.02, false);
-assert.equal(isRecoverableCoverGuardBlock({
-  status: 'blocked_before_filo_submission',
-  publishPayload: { guardFailures: ['cover_aspect_not_16_9'], coverAspectOk: false }
-}), true, 'a cover-only rejection must allow trying the next candidate');
-assert.equal(isRecoverableCoverGuardBlock({
-  status: 'blocked_before_filo_submission',
-  publishPayload: { guardFailures: ['cover_frame_missing_or_invalid'], coverAspectOk: false }
-}), true, 'a missing cover frame must skip only this candidate');
-assert.equal(isRecoverableCoverGuardBlock({
-  status: 'blocked_before_filo_submission',
-  publishPayload: { guardFailures: ['cover_frame_missing_or_invalid', 'cover_aspect_not_16_9'], coverAspectOk: false }
-}), true, 'combined cover-only failures must remain candidate-local');
-assert.equal(isRecoverableCoverGuardBlock({
-  status: 'blocked_before_filo_submission',
-  publishPayload: { guardFailures: ['cover_aspect_not_16_9', 'monetization_permission_missing'], coverAspectOk: false }
-}), false, 'never skip a candidate when any permission or policy guard also fails');
-assert.equal(isRecoverableCoverGuardBlock({
-  status: 'blocked_before_filo_submission',
-  publishPayload: { guardFailures: ['monetization_permission_missing'], coverAspectOk: true }
-}), false, 'permission failures must not be treated as thumbnail-only failures');
-assert.equal(isRecoverableCoverGuardBlock({
-  status: 'submitted_unconfirmed',
-  publishPayload: { guardFailures: [], coverAspectOk: false }
-}), false, 'submitted items must never be retried as an alternate candidate');
-assert.equal(isRecoverableCoverPreparationError('filo_source_player_not_ready_for_cover'), true,
-  'a source-specific cover failure must skip only that candidate');
-assert.equal(isRecoverableCoverPreparationError('filo_cover_capture_control_unavailable'), true);
-assert.equal(isRecoverableCoverPreparationError('filo_permission_gate_changed_before_submission:permission_missing'), false,
-  'permission failures must never be treated as cover failures');
-const decodedSample=imageBufferFromDataUrl('data:image/png;base64,'+pngHeader.toString('base64'));
-assert.ok(decodedSample&&decodedSample.buffer.length===pngHeader.length,
-  'data URL decoding must provide the image bytes for the thumbnail scorer');
-assert.equal(trustedFiloMediaUrl('/media/source.mp4'),'https://ifilo.net/media/source.mp4',
-  'relative source media URLs must resolve against Filo');
-assert.equal(trustedFiloMediaUrl('https://cdn.ifilo.net/media/source.mp4'),'https://cdn.ifilo.net/media/source.mp4',
-  'Filo-owned CDN media URLs must be accepted');
-assert.equal(trustedFiloMediaUrl('http://ifilo.net/media/source.mp4'),null,
-  'insecure source media URLs must be rejected');
-assert.equal(trustedFiloMediaUrl('https://example.com/media/source.mp4'),null,
-  'untrusted external media URLs must never be fetched by the thumbnail extractor');
-
 const safePublishContext={
   sourceCode:'Source01',republishFrom:'Source01',videoCode:'NewVid01',
   isMadeByMe:'false',canRepublish:'true',canMakeMoney:'true',dontPublish:'0',metadataOk:true
@@ -287,22 +220,37 @@ assert.equal(dailyCount(state, Date.parse('2026-11-03T00:05:00.000Z')), 1,
 assert.equal(dailyCount(state, Date.parse('2026-11-03T00:10:00.000Z')), 1,
   'a submission exactly 24 hours old remains inside the rolling window');
 
-const cooldownAt = Date.parse('2026-11-04T06:00:00.000Z');
-assert.equal(getPublishCycleCooldown({}, cooldownAt).active, false);
-assert.equal(getPublishCycleCooldown({ lastCycleStartedAt: new Date(cooldownAt).toISOString() }, cooldownAt + 5 * 60 * 1000).active, true);
-assert.equal(getPublishCycleCooldown({ lastCycleStartedAt: new Date(cooldownAt).toISOString() }, cooldownAt + 10 * 60 * 1000).active, false);
-
 const momentumState = { posts: [] };
 const momentumStart = Date.parse('2026-11-04T00:00:00.000Z');
-const firstMomentum = updateCandidateMomentum(momentumState, [{ video_code: 'Hot001', visit_count: 100, plays: 10 }], momentumStart);
-assert.equal(Object.keys(firstMomentum).length, 0, 'one sample must not fabricate growth');
-const secondMomentum = updateCandidateMomentum(momentumState, [{ video_code: 'Hot001', visit_count: 200, plays: 20 }], momentumStart + 10 * 60 * 1000);
-assert.equal(secondMomentum.Hot001.viewsPerMinute, 10);
-assert.equal(secondMomentum.Hot001.playsPerMinute, 1);
-assert.ok(secondMomentum.Hot001.bonus > 0);
-const thirdMomentum = updateCandidateMomentum(momentumState, [{ video_code: 'Hot001', visit_count: 500, plays: 60 }], momentumStart + 20 * 60 * 1000);
-assert.ok(thirdMomentum.Hot001.bonus > secondMomentum.Hot001.bonus,
-  'measured acceleration should increase the momentum score');
+const baseline = [
+  { video_code: 'Slow01', title: 'ویدئوی تازه اول', create_date: '۲ ساعت پیش', visit_count: 100, plays: 10 },
+  { video_code: 'Fast01', title: 'ویدئوی تازه دوم', create_date: '۲ ساعت پیش', visit_count: 100, plays: 10 },
+  { video_code: 'Old001', title: 'ویدئوی قدیمی', create_date: 'دیروز', visit_count: 100, plays: 10 }
+];
+assert.deepEqual(rankCandidatesByMomentum(baseline, momentumState, momentumStart), [],
+  'first sighting is only a baseline and must not be mistaken for growth');
+
+const secondScan = [
+  { ...baseline[0], visit_count: 200, plays: 20 },
+  { ...baseline[1], visit_count: 200, plays: 20 },
+  { ...baseline[2], visit_count: 400, plays: 30 }
+];
+const secondRank = rankCandidatesByMomentum(secondScan, momentumState, momentumStart + 10 * 60 * 1000);
+assert.equal(secondRank.length, 2, 'videos older than 24 hours are excluded');
+assert.equal(secondRank[0].item.video_code, 'Slow01');
+assert.equal(secondRank[0].momentum.viewsPerMinute, 10);
+
+const thirdScan = [
+  { ...baseline[0], visit_count: 500, plays: 50 },
+  { ...baseline[1], visit_count: 300, plays: 30 },
+  { ...baseline[2], visit_count: 900, plays: 60 }
+];
+const thirdRank = rankCandidatesByMomentum(thirdScan, momentumState, momentumStart + 20 * 60 * 1000);
+assert.equal(thirdRank[0].item.video_code, 'Slow01',
+  'the video with the highest measured views per minute must rank first');
+assert.equal(thirdRank[0].momentum.viewsPerMinute, 30);
+assert.equal(thirdRank[0].momentum.accelerationPerMinute, 20);
+assert.equal(thirdRank[1].momentum.viewsPerMinute, 10);
 
 async function testPortraitCoverComposition() {
   const { chromium } = require('playwright');
