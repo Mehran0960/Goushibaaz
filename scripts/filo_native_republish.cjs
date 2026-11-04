@@ -1227,7 +1227,7 @@ function extractVideoTagFeeds(payload) {
     if (!entry) continue;
     const [key, label] = entry;
     const cleanKey = key.trim();
-    if (!/^(?:all|q-[^/?#]{1,100})$/u.test(cleanKey) || seen.has(cleanKey)) continue;
+    if (!/^(?:all|\d{1,10}|q-[^/?#]{1,100})$/u.test(cleanKey) || seen.has(cleanKey)) continue;
     seen.add(cleanKey);
     feeds.push({ key: cleanKey, label: label.trim() });
   }
@@ -1340,7 +1340,7 @@ function buildCategoryPageRequestPayload(pageNo, windowWidth) {
 
 function buildVideoTagFeedPath(tagKey) {
   const key = String(tagKey || '').trim();
-  if (!/^(?:all|q-[^/?#]{1,100})$/u.test(key)) {
+  if (!/^(?:all|\d{1,10}|q-[^/?#]{1,100})$/u.test(key)) {
     throw new Error('filo_tag_key_invalid');
   }
   return '/api/v1/video/ai-tag/' + encodeURIComponent(key);
