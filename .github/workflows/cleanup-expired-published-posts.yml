@@ -34,22 +34,22 @@ jobs:
 
       - name: Delete expired posts independently on each supported destination
         env:
-          TELEGRAM_BOT_TOKEN: \${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: \${{ secrets.TELEGRAM_CHAT_ID }}
-          BALE_BOT_TOKEN: \${{ secrets.BALE_BOT_TOKEN }}
-          BALE_CHANNEL_ID: \${{ secrets.BALE_CHANNEL_ID }}
-          RUBIKA_BOT_TOKEN: \${{ secrets.RUBIKA_BOT_TOKEN }}
-          RUBIKA_CHAT_ID: \${{ secrets.RUBIKA_CHAT_ID }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          BALE_BOT_TOKEN: ${{ secrets.BALE_BOT_TOKEN }}
+          BALE_CHANNEL_ID: ${{ secrets.BALE_CHANNEL_ID }}
+          RUBIKA_BOT_TOKEN: ${{ secrets.RUBIKA_BOT_TOKEN }}
+          RUBIKA_CHAT_ID: ${{ secrets.RUBIKA_CHAT_ID }}
         run: node scripts/cleanup_published_retention.cjs
 
       - name: Persist Telegram retention state
-        if: \${{ always() && hashFiles('state/telegram-published.json') != '' }}
+        if: ${{ always() && hashFiles('state/telegram-published.json') != '' }}
         run: bash scripts/persist_state_file.sh state/telegram-published.json "Record Telegram retention cleanup"
 
       - name: Persist Bale retention state
-        if: \${{ always() && hashFiles('state/bale-published.json') != '' }}
+        if: ${{ always() && hashFiles('state/bale-published.json') != '' }}
         run: bash scripts/persist_state_file.sh state/bale-published.json "Record Bale retention cleanup"
 
       - name: Persist Rubika retention state
-        if: \${{ always() && hashFiles('state/rubika-published.json') != '' }}
+        if: ${{ always() && hashFiles('state/rubika-published.json') != '' }}
         run: bash scripts/persist_state_file.sh state/rubika-published.json "Record Rubika retention cleanup"
