@@ -83,7 +83,7 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
     const value = item[field];
     if (value === undefined || value === null || value === '') continue;
 
-    if (typeof value === 'number' || /^\\d{10,13}$/.test(String(value).trim())) {
+    if (typeof value === 'number' || /^\d{10,13}$/.test(String(value).trim())) {
       const numeric = Number(value);
       const timestamp = numeric > 1e12 ? numeric : numeric > 1e9 ? numeric * 1000 : NaN;
       if (Number.isFinite(timestamp)) {
@@ -95,9 +95,9 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
     const raw = normalizeDigits(value).trim().toLowerCase();
     if (!raw) continue;
 
-    const dayMatch = raw.match(/(\\d+(?:[.,]\\d+)?)\\s*(?:روز|day|days)\\b?/i);
-    const hourMatch = raw.match(/(\\d+(?:[.,]\\d+)?)\\s*(?:ساعت|hour|hours|hr|hrs)\\b?/i);
-    const minuteMatch = raw.match(/(\\d+(?:[.,]\\d+)?)\\s*(?:دقیقه|دقایق|min|mins|minute|minutes)\\b?/i);
+    const dayMatch = raw.match(/(\d+(?:[.,]\d+)?)\s*(?:روز|day|days)/i);
+    const hourMatch = raw.match(/(\d+(?:[.,]\d+)?)\s*(?:ساعت|hour|hours|hr|hrs)/i);
+    const minuteMatch = raw.match(/(\d+(?:[.,]\d+)?)\s*(?:دقیقه|دقایق|min|mins|minute|minutes)/i);
     if (dayMatch || hourMatch || minuteMatch) {
       const toNumber = match => match ? num(match[1].replace(',', '.')) : 0;
       const centerHours = toNumber(dayMatch) * 24 + toNumber(hourMatch) + toNumber(minuteMatch) / 60;
@@ -118,7 +118,7 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
     const absolute = Date.parse(raw);
     if (Number.isFinite(absolute)) {
       const centerHours = Math.max(0, (now - absolute) / 3600000);
-      const hasClock = /(?:t|\\b)\\d{1,2}:\\d{2}/i.test(raw);
+      const hasClock = /(?:t|\b)\d{1,2}:\d{2}/i.test(raw);
       const precisionHours = hasClock ? 1 / 3600 : 24;
       return {
         centerHours,
