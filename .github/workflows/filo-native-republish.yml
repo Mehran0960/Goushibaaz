@@ -2,9 +2,6 @@ name: Filo native authorized republisher
 
 on:
   workflow_dispatch:
-  schedule:
-    # Ten-minute cadence: leaves a margin over the longest recent full run (6m12s).
-    - cron: "3,13,23,33,43,53 * * * *"
   push:
     branches: [main]
     paths:
@@ -31,7 +28,7 @@ jobs:
           node-version: 22
           package-manager-cache: false
 
-      # Browser and Python wheel caches prevent the five-minute publisher from spending
+      # Browser and Python wheel caches prevent the ten-minute publisher from spending
       # most of each slot reinstalling the same toolchain.
       - name: Restore publisher tool caches
         uses: actions/cache@v4
