@@ -102,8 +102,16 @@ assert.equal(cleanRepostCaptionTitle('بدل بهنام بانی در قوچان
 assert.equal(cleanRepostCaptionTitle('مردی که روغن گریس میخورد!'), 'مردی که روغن گریس میخورد!',
   'an already meaningful title must retain its full meaning');
 assert.equal(cleanRepostCaptionTitle('اگه گفتی این بی مزه ها چرا انقدر موقع پخت ماکارونی میخندن'),
-  'اگه گفتی این بی مزه ها چرا انقدر موقع پخت ماکارونی میخندن',
-  'a clean conversational title may remain unchanged');
+  'چرا این‌قدر موقع پخت ماکارونی می‌خندند؟',
+  'clickbait phrasing must become a clear, factual question without the insulting lead-in');
+assert.equal(
+  cleanRepostCaptionTitle(
+    'ریمیک جدید گاد آف وار ۲ برای کنسول PS5',
+    'ریمیکی جذاب از یکی از طرفداران گاد آف وار برای شما عزیزان.'
+  ),
+  'ریمیک طرفداری از گاد آف وار ۲ برای PS5',
+  'fan-made attribution is allowed only when supported by the source description'
+);
 assert.throws(() => cleanRepostCaptionTitle('عنوان'), /no_clean_distinct_title_available_without_extra_words/);
 
 const sourceDescription = 'در این ویدئو، هنگام برگزاری مولودی واکنش خانواده به تنها ماندن یکی از اعضا دیده می‌شود و رفتار او باعث خنده اطرافیان می‌شود.';
@@ -136,6 +144,14 @@ const shortButUseful = cleanRepostDescription(
 );
 assert.ok(shortButUseful.length >= 35 && shortButUseful.length < 50,
   'a concise, factual description remains usable after promo and emoji cleanup');
+const promoCleaned = cleanRepostDescription(
+  'ریمیکی جذاب از یکی از طرفداران گاد آف وار برای شما عزیزان. همراه ما باشید و لذت ببرید. 🔥',
+  'ریمیک جدید گاد آف وار ۲ برای کنسول PS5',
+  'ریمیک طرفداری از گاد آف وار ۲ برای PS5'
+);
+assert.match(promoCleaned, /طرفداران گاد آف وار/);
+assert.doesNotMatch(promoCleaned, /برای شما عزیزان|همراه ما|لذت ببرید|🔥/,
+  'generic audience address, engagement prompts, and decorative emoji must be removed');
 const alreadyCleanMetadata = createRepostMetadata({
   ...valid,
   title: 'مردی که روغن گریس میخورد!',
