@@ -1,0 +1,55 @@
+name: Retain only recent Goushibaaz channel posts
+
+on:
+  schedule:
+    # Delete Telegram/Bale posts with a safety buffer before the Bot API 48-hour limit.
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: goushibaaz-retention-cleanup
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          package-manager-cache: false
+
+      - name: Validate retention cleanup
+        run: |
+          node --check scripts/cleanup_published_retention.cjs
+          node scripts/test_cleanup_published_retention.cjs
+
+      - name: Delete expired posts independently on each supported destination
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          BALE_BOT_TOKEN: ${{ secrets.BALE_BOT_TOKEN }}
+          BALE_CHANNEL_ID: ${{ secrets.BALE_CHANNEL_ID }}
+          RUBIKA_BOT_TOKEN: ${{ secrets.RUBIKA_BOT_TOKEN }}
+          RUBIKA_CHAT_ID: ${{ secrets.RUBIKA_CHAT_ID }}
+        run: node scripts/cleanup_published_retention.cjs
+
+      - name: Persist Telegram retention state
+        if: ${{ always() && hashFiles('state/telegram-published.json') != '' }}
+        run: bash scripts/persist_state_file.sh state/telegram-published.json "Record Telegram retention cleanup"
+
+      - name: Persist Bale retention state
+        if: ${{ always() && hashFiles('state/bale-published.json') != '' }}
+        run: bash scripts/persist_state_file.sh state/bale-published.json "Record Bale retention cleanup"
+
+      - name: Persist Rubika retention state
+        if: ${{ always() && hashFiles('state/rubika-published.json') != '' }}
+        run: bash scripts/persist_state_file.sh state/rubika-published.json "Record Rubika retention cleanup"

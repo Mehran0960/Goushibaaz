@@ -131,6 +131,7 @@ async function publish(platform) {
   }
 
   // Persist before sending so an ambiguous timeout cannot cause an automatic duplicate.
+  entry.chatId = resolvedChatId;
   entry.status = 'send_started';
   state.posts.push(entry);
   state.lastOutcome = { status: 'send_started', checkedAt: entry.attemptedAt, sourcePage: entry.sourcePage };
