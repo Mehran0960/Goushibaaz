@@ -71,8 +71,8 @@ function compactVideo(item) {
   const fields = [
     'video_code', 'title', 'description', 'sender_name',
     'category_id', 'duration', 'duration_seconds', 'duration_minutes',
-    'visit_count', 'view_count', 'views', 'play_count', 'share_count',
-    'favorite_count', 'create_date', 'styled_create_date', 'created_at',
+    'visit_count', 'view_count', 'views', 'visits', 'play_count', 'plays', 'playCount',
+    'share_count', 'shares', 'favorite_count', 'favorites', 'create_date', 'styled_create_date', 'created_at',
     'active', 'file_deleted', 'only_in_filo', 'has_audio',
     'can_republish', 'can_make_money', 'is_publish_able', 'status_id'
   ];
@@ -87,10 +87,10 @@ function compactVideo(item) {
 }
 
 function candidateRetentionScore(item) {
-  const views = safeNumber(item.visit_count ?? item.views ?? item.view_count);
-  const plays = safeNumber(item.play_count);
-  const shares = safeNumber(item.share_count);
-  const favorites = safeNumber(item.favorite_count);
+  const views = Math.max(safeNumber(item.visit_count), safeNumber(item.views), safeNumber(item.view_count), safeNumber(item.visits));
+  const plays = Math.max(safeNumber(item.play_count), safeNumber(item.plays), safeNumber(item.playCount));
+  const shares = Math.max(safeNumber(item.share_count), safeNumber(item.shares));
+  const favorites = Math.max(safeNumber(item.favorite_count), safeNumber(item.favorites));
   const engagement = views + 2 * plays + 3 * shares + 2 * favorites;
   const matches = Array.isArray(item.globalTrendSearchMatches) ? item.globalTrendSearchMatches.length : 0;
   const persianBonus = /[\u0600-\u06FF]/.test(String(item.title || '')) ? 4 : 0;
