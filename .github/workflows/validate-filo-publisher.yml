@@ -146,6 +146,12 @@ jobs:
           check_absent scripts/synchronized_scheduler.cjs 'publish-approved-video-to-filo.yml'
           check_contains scripts/synchronized_scheduler.cjs 'prepare-shared-video.yml'
           check_contains scripts/synchronized_scheduler.cjs 'slow Telegram/Bale/Rubika/Eitaa/Jetra delivery must never freeze fresh discovery slots'
+          check_contains scripts/synchronized_scheduler.cjs "'.github/workflows/publish-shared-video-to-eitaa.yml'"
+          check_contains scripts/synchronized_scheduler.cjs "'.github/workflows/publish-shared-video-to-jetra.yml'"
+          check_contains .github/workflows/prepare-shared-video.yml 'publish-shared-video-to-eitaa.yml'
+          check_contains .github/workflows/prepare-shared-video.yml 'publish-shared-video-to-jetra.yml'
+          check_absent .github/workflows/prepare-shared-video.yml '".github/workflows/prepare-shared-video.yml"'
+          check_absent .github/workflows/dispatch-short-publishers.yml '  push:'
           check_absent scripts/synchronized_scheduler.cjs 'publish-approved-video-to-rubika.yml'
           check_contains .github/workflows/publish-shared-video-to-telegram.yml 'workflow_dispatch:'
           check_contains .github/workflows/publish-shared-video-to-telegram.yml 'source_run_id:'
