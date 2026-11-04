@@ -9,6 +9,28 @@ const BASE = 'https://ifilo.net';
 const STATE_PATH = path.join('state', 'filo-native-republished.json');
 const REPORT_PATH = path.join('out', 'filo-native-republish.json');
 const FALLBACK_CATEGORY_IDS = [6, 11, 13, 29, 2, 22, 17, 25, 15, 3];
+const FALLBACK_VIDEO_TAG_FEEDS = [
+  { key: 'all', label: 'همه' },
+  { key: 'q-آهنگ', label: 'آهنگ' },
+  { key: 'q-آشپزی', label: 'آشپزی' },
+  { key: 'q-ورزش', label: 'ورزش' },
+  { key: 'q-خلاقیت', label: 'خلاقیت' },
+  { key: 'q-مذهبی', label: 'مذهبی' },
+  { key: 'q-خبری', label: 'خبری' },
+  { key: 'q-تکنولوژی', label: 'تکنولوژی' },
+  { key: 'q-بازی', label: 'بازی' },
+  { key: 'q-طبیعت', label: 'طبیعت' },
+  { key: 'q-فیلم', label: 'فیلم' },
+  { key: 'q-سریال', label: 'سریال' },
+  { key: 'q-کارتون', label: 'کارتون' },
+  { key: 'q-طنز', label: 'طنز' },
+  { key: 'q-مستند', label: 'مستند' },
+  { key: 'q-آموزش', label: 'آموزش' },
+  { key: 'q-سلامت', label: 'سلامت' },
+  { key: 'q-سفر', label: 'سفر' },
+  { key: 'q-حیوانات', label: 'حیوانات' },
+  { key: 'q-خودرو', label: 'خودرو' }
+];
 const MAX_DISCOVERED_CATEGORY_IDS = 64;
 const MAX_PAGES_PER_CATEGORY = 12;
 const MAX_TOTAL_CATEGORY_PAGE_REQUESTS = 96;
@@ -223,7 +245,9 @@ function feedCandidateEligible(item, ledger) {
   if (!item || typeof item !== 'object') return false;
   const code = String(item.video_code || item.videoCode || item.code || '').trim();
   if (!/^[A-Za-z0-9_-]{5,40}$/.test(code)) return false;
-  if (!isFlag(item.can_republish) || !isFlag(item.is_publish_able)) return false;
+  if (!isFlag(item.can_republish)) return false;
+  const publishableFlag = item.is_publish_able ?? item.isPublishable ?? item.publishable;
+  if (publishableFlag !== undefined && !isFlag(publishableFlag)) return false;
   if (item.active !== undefined && !isFlag(item.active)) return false;
   if (item.status_id !== undefined && num(item.status_id) !== 1) return false;
   if (isFlag(item.file_deleted)) return false;
@@ -381,7 +405,7 @@ function rankCandidatesByMomentum(items, state, now = Date.now()) {
   const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
   const currentRates = updateCandidateMomentum(state, items, nowMs);
   const recentCategories = (state && Array.isArray(state.posts) ? state.posts : [])
-    .filter(post => post && post.categoryId != null &&
+    .filter(post => post && (post.feedTag != null || post.categoryId != null) &&
       ['public_verified', 'submitted_pending_approval', 'submitted_unconfirmed'].includes(post.status))
     .filter(post => {
       const at = Date.parse(post.submittedAt || post.at || '');
@@ -389,7 +413,7 @@ function rankCandidatesByMomentum(items, state, now = Date.now()) {
     })
     .sort((a, b) => Date.parse(b.submittedAt || b.at || '') - Date.parse(a.submittedAt || a.at || ''))
     .slice(0, 2)
-    .map(post => String(post.categoryId));
+    .map(post => String(post.feedTag || post.categoryId));
   const recentCategorySet = new Set(recentCategories);
   return (Array.isArray(items) ? items : []).map(item => {
     const code = String(item && (item.video_code || item.videoCode || item.code) || '').trim();
@@ -399,7 +423,7 @@ function rankCandidatesByMomentum(items, state, now = Date.now()) {
     const recentSavedRate = Number.isFinite(lastRateAt) && nowMs - lastRateAt <= 15 * 60 * 1000
       ? lastRate : null;
     const momentum = currentRates[code] || recentSavedRate;
-    const categoryId = item && item.category_id != null ? String(item.category_id) : '';
+    const categoryId = item && (item.feed_tag || item.category_id != null) ? String(item.feed_tag || item.category_id) : '';
     const audienceFit = classifyAudienceFit(item);
     const hasPositivePlayGrowth = Boolean(momentum && momentum.playsAvailable === true &&
       momentum.playsPerMinute !== null && momentum.playsPerMinute !== undefined &&
@@ -1160,6 +1184,115 @@ async function discoverCategoryCatalog(page) {
   }
 }
 
+function normalizeVideoFeedItem(item) {
+  if (!item || typeof item !== 'object') return item;
+  const normalized = { ...item };
+  const alias = (target, keys) => {
+    if (normalized[target] !== undefined && normalized[target] !== null) return;
+    for (const key of keys) {
+      if (item[key] !== undefined && item[key] !== null) {
+        normalized[target] = item[key];
+        return;
+      }
+    }
+  };
+  alias('video_code', ['videoCode', 'code', 'v']);
+  alias('title', ['t']);
+  alias('description', ['desc', 'description_text', 'de']);
+  alias('category_id', ['categoryId', 'c']);
+  alias('duration', ['du']);
+  alias('visit_count', ['view_count', 'views', 'vc']);
+  alias('play_count', ['plays', 'playCount', 'pd']);
+  alias('create_date', ['styled_create_date', 'created_at', 'cd']);
+  alias('has_audio', ['hst']);
+  alias('can_republish', ['co']);
+  alias('can_make_money', ['cr']);
+  alias('active', ['ac']);
+  return normalized;
+}
+
+function extractVideoTagFeeds(payload) {
+  const root = parseApiBody(payload) || payload;
+  const tags = root && Array.isArray(root.tags) ? root.tags
+    : root && root.data && Array.isArray(root.data.tags) ? root.data.tags
+    : root && root.d && Array.isArray(root.d.tags) ? root.d.tags
+    : root && root.result && Array.isArray(root.result.tags) ? root.result.tags : [];
+  const feeds = [];
+  const seen = new Set();
+  for (const item of tags) {
+    if (!item || typeof item !== 'object' || Array.isArray(item)) continue;
+    const entry = Object.entries(item).find(([key, label]) =>
+      typeof key === 'string' && typeof label === 'string' && label.trim()
+    );
+    if (!entry) continue;
+    const [key, label] = entry;
+    const cleanKey = key.trim();
+    if (!/^(?:all|q-[^/?#]{1,100})$/u.test(cleanKey) || seen.has(cleanKey)) continue;
+    seen.add(cleanKey);
+    feeds.push({ key: cleanKey, label: label.trim() });
+  }
+  return feeds;
+}
+
+function summarizeVideoTagPayload(payload) {
+  const root = parseApiBody(payload) || payload;
+  const tags = root && Array.isArray(root.tags) ? root.tags
+    : root && root.data && Array.isArray(root.data.tags) ? root.data.tags
+    : root && root.d && Array.isArray(root.d.tags) ? root.d.tags : [];
+  return {
+    rootType: Array.isArray(root) ? 'array' : root === null ? 'null' : typeof root,
+    rootKeys: root && typeof root === 'object' && !Array.isArray(root)
+      ? Object.keys(root).slice(0, 24) : [],
+    tagCount: tags.length,
+    tagItemKeys: tags.slice(0, 4).map(item =>
+      item && typeof item === 'object' && !Array.isArray(item) ? Object.keys(item).slice(0, 4) : []
+    )
+  };
+}
+
+async function discoverVideoTagFeeds(page) {
+  try {
+    const result = await page.evaluate(async () => {
+      const response = await fetch('/api/v1/video/recommend-user-tags', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({}),
+        signal: AbortSignal.timeout(9000)
+      });
+      return {
+        status: response.status,
+        body: await response.text(),
+        contentType: response.headers.get('content-type') || 'unknown'
+      };
+    });
+    if (!result || result.status !== 200) {
+      const hint = result ? categoryApiErrorHint(result) : 'empty_response';
+      throw new Error('filo_tag_catalog_http_' + (result && result.status) + ':' + hint);
+    }
+    const payload = parseJson(result.body);
+    const feeds = extractVideoTagFeeds(payload);
+    if (!feeds.length) throw new Error('filo_tag_catalog_empty');
+    return {
+      feeds: feeds.slice(0, MAX_DISCOVERED_CATEGORY_IDS),
+      source: 'filo_recommend_user_tags',
+      error: null,
+      shape: summarizeVideoTagPayload(payload)
+    };
+  } catch (error) {
+    return {
+      feeds: FALLBACK_VIDEO_TAG_FEEDS.slice(),
+      source: 'static_filo_tag_fallback',
+      error: String(error && error.message || error).slice(0, 220),
+      shape: null
+    };
+  }
+}
+
 function categoryApiErrorHint(result) {
   const parsed = parseJson(result && result.body);
   if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
@@ -1195,22 +1328,39 @@ function nextCategoryDepthPage(currentPage) {
   return page>=MAX_PAGES_PER_CATEGORY?2:Math.max(2,page+1);
 }
 
+function buildCategoryPageRequestPayload(pageNo, windowWidth) {
+  const normalizedWidth = Math.trunc(num(windowWidth, 0));
+  return {
+    rowCount: 0,
+    page: Math.max(1, Math.trunc(num(pageNo, 1))),
+    needAllData: 0,
+    windowWidth: normalizedWidth > 0 ? normalizedWidth : 1365
+  };
+}
+
+function buildVideoTagFeedPath(tagKey) {
+  const key = String(tagKey || '').trim();
+  if (!/^(?:all|q-[^/?#]{1,100})$/u.test(key)) {
+    throw new Error('filo_tag_key_invalid');
+  }
+  return '/api/v1/video/ai-tag/' + encodeURIComponent(key);
+}
+
 async function fetchCategoryPage(page, categoryId, pageNo) {
-  const result = await page.evaluate(async ({ categoryId, pageNo }) => {
-    const params = new URLSearchParams();
-    params.set('rowCount', '0');
-    params.set('page', String(pageNo));
-    params.set('needAllData', '0');
-    params.set('windowWidth', String(window.innerWidth || 1365));
-    const response = await fetch('/api/v1/video/category/' + categoryId, {
+  // Match the current Filo VideoSection frontend: POST JSON to /video/ai-tag/{tagKey}.
+  const windowWidth = await page.evaluate(() => Number(window.innerWidth) || 1365);
+  const requestPayload = buildCategoryPageRequestPayload(pageNo, windowWidth);
+  const requestPath = buildVideoTagFeedPath(categoryId);
+  const result = await page.evaluate(async ({ requestPath, requestPayload }) => {
+    const response = await fetch(requestPath, {
       method: 'POST',
       credentials: 'include',
       headers: {
         'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+        'Content-Type': 'application/json',
         'X-Requested-With': 'XMLHttpRequest'
       },
-      body: params.toString(),
+      body: JSON.stringify(requestPayload),
       signal: AbortSignal.timeout(9000)
     });
     return {
@@ -1218,19 +1368,21 @@ async function fetchCategoryPage(page, categoryId, pageNo) {
       body: await response.text(),
       contentType: response.headers.get('content-type') || 'unknown'
     };
-  }, { categoryId, pageNo });
+  }, { requestPath, requestPayload });
 
   if (!result || result.status !== 200) {
     const hint = result ? categoryApiErrorHint(result) : 'empty_response';
-    throw new Error(('filo_category_http_' + (result && result.status) + ':' + hint).slice(0, 260));
+    throw new Error(('filo_tag_feed_http_' + (result && result.status) + ':' + hint).slice(0, 260));
   }
   const data = parseApiBody(result.body);
-  if (!data) throw new Error('filo_category_invalid_json');
+  if (!data) throw new Error('filo_tag_feed_invalid_json');
   const items = Array.isArray(data.items) ? data.items :
     Array.isArray(data.l) ? data.l :
     Array.isArray(data.v) ? data.v : [];
-  return items;
+  return items.map(normalizeVideoFeedItem);
 }
+
+
 async function getRepublishDetail(page, code) {
   const result = await page.evaluate(async code => {
     const response = await fetch('/api/v1/republish/' + encodeURIComponent(code), {
@@ -1628,6 +1780,7 @@ async function main() {
     status: 'started',
     discovery: {
       categories: [],
+      categoryLabels: {},
       paginationMode: 'rotating_recent_window',
       lookbackHours: CATEGORY_LOOKBACK_HOURS,
       depthCategoriesPerCycle: DEPTH_CATEGORIES_PER_CYCLE,
@@ -1678,16 +1831,18 @@ async function main() {
     if (report.reconciliation.changed) {
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
     }
-    const categoryCatalog = await discoverCategoryCatalog(page);
-    report.discovery.categories = categoryCatalog.ids;
+    const categoryCatalog = await discoverVideoTagFeeds(page);
+    const tagByKey = new Map(categoryCatalog.feeds.map(feed => [feed.key, feed]));
+    report.discovery.categories = categoryCatalog.feeds.map(feed => feed.key);
+    report.discovery.categoryLabels = Object.fromEntries(categoryCatalog.feeds.map(feed => [feed.key, feed.label]));
     report.discovery.categoryCatalogSource = categoryCatalog.source;
-    report.discovery.categoryCatalogCount = categoryCatalog.catalogIds.length;
+    report.discovery.categoryCatalogCount = categoryCatalog.feeds.length;
     report.discovery.categoryCatalogError = categoryCatalog.error;
     report.discovery.categoryCatalogShape = categoryCatalog.shape || null;
     const byCode = new Map();
     const categoryScanStartedAt = Date.now();
-    const categoryTrackers = categoryCatalog.ids.map(categoryId => ({
-      categoryId,pagesFetched:0,scannedItems:0,newestAgeHours:null,oldestAgeHours:null,
+    const categoryTrackers = categoryCatalog.feeds.map(feed => ({
+      categoryId:feed.key,categoryLabel:feed.label,pagesFetched:0,scannedItems:0,newestAgeHours:null,oldestAgeHours:null,
       chronologyVerified:false,depthPageNo:null,stopReason:'first_page_pending',coverageComplete:false
     }));
     const trackerById=new Map(categoryTrackers.map(tracker=>[String(tracker.categoryId),tracker]));
@@ -1695,15 +1850,25 @@ async function main() {
     let totalCategoryPageRequests=0;
     let paginationStopReason=null;
 
-    const ingestItems=(items,categoryId)=>{
-      for(const item of items||[]){
-        if(!item||typeof item!=='object')continue;
-        if(item.category_id===undefined||item.category_id===null)item.category_id=categoryId;
+    const ingestItems=(items,tagKey)=>{
+      const feed = tagByKey.get(String(tagKey));
+      for(const rawItem of items||[]){
+        if(!rawItem||typeof rawItem!=='object')continue;
+        const item=normalizeVideoFeedItem(rawItem);
         const code=String(item.video_code||item.videoCode||item.code||'');
         if(!code)continue;
-        const existing=byCode.get(code),candidate={...item,video_code:code};
-        if(!existing||num(candidate.visit_count)+num(candidate.play_count)>
-          num(existing.visit_count)+num(existing.play_count))byCode.set(code,candidate);
+        const candidate={...item,video_code:code,feed_tag:String(tagKey),
+          feed_tag_label:feed&&feed.label||String(tagKey)};
+        const existing=byCode.get(code);
+        if(!existing){byCode.set(code,candidate);continue;}
+        const mergedTags=[...new Set([...(existing.feed_tags||[existing.feed_tag]),tagKey].filter(Boolean))];
+        const preferredTag=existing.feed_tag&&existing.feed_tag!=='all'
+          ?existing.feed_tag:(tagKey!=='all'?tagKey:existing.feed_tag||tagKey);
+        const preferredFeed=tagByKey.get(String(preferredTag));
+        const chosen=num(candidate.visit_count)+num(candidate.play_count)>
+          num(existing.visit_count)+num(existing.play_count)?candidate:existing;
+        byCode.set(code,{...chosen,feed_tag:String(preferredTag),
+          feed_tag_label:preferredFeed&&preferredFeed.label||chosen.feed_tag_label,feed_tags:mergedTags});
       }
     };
 
@@ -1731,8 +1896,8 @@ async function main() {
     };
 
     // Refresh page one for every category each cycle to preserve timely growth samples.
-    const firstPageResults=await scanTasks(categoryCatalog.ids.map(categoryId=>({
-      categoryId,pageNo:1,scanType:'first'
+    const firstPageResults=await scanTasks(categoryCatalog.feeds.map(feed=>({
+      categoryId:feed.key,pageNo:1,scanType:'first'
     })));
     for(const result of firstPageResults){
       const tracker=trackerById.get(String(result.categoryId));
@@ -1758,7 +1923,7 @@ async function main() {
 
     // Deeper pages rotate across a bounded number of categories per cycle.
     const depthSelection=rotatingDepthSelection(
-      categoryCatalog.ids,state.categoryDepthCursor||0,DEPTH_CATEGORIES_PER_CYCLE
+      categoryCatalog.feeds.map(feed=>feed.key),state.categoryDepthCursor||0,DEPTH_CATEGORIES_PER_CYCLE
     );
     state.categoryDepthCursor=depthSelection.nextCursor;
     if(!state.categoryDepthPages||typeof state.categoryDepthPages!=='object')state.categoryDepthPages={};
@@ -1838,7 +2003,8 @@ async function main() {
     report.discovery.categoryScanElapsedMs=Date.now()-categoryScanStartedAt;
     report.discovery.paginationStopReason=paginationStopReason;
     report.discovery.categoryScan=categoryTrackers.map(tracker=>({
-      categoryId:tracker.categoryId,pagesFetched:tracker.pagesFetched,scannedItems:tracker.scannedItems,
+      categoryId:tracker.categoryId,categoryLabel:tracker.categoryLabel,
+      pagesFetched:tracker.pagesFetched,scannedItems:tracker.scannedItems,
       newestAgeHours:tracker.newestAgeHours,oldestAgeHours:tracker.oldestAgeHours,
       chronologyVerified:tracker.chronologyVerified,deepPageNo:tracker.depthPageNo,
       stopReason:tracker.stopReason,coverageComplete:tracker.coverageComplete
@@ -1870,6 +2036,8 @@ async function main() {
       viewsPerMinute: entry.momentum.viewsPerMinute,
       viewAccelerationPerMinute: entry.momentum.viewsAccelerationPerMinute ?? entry.momentum.accelerationPerMinute ?? 0,
       audienceFit: entry.audienceFit,
+      feedTag: entry.item.feed_tag || null,
+      feedTagLabel: entry.item.feed_tag_label || null,
       ageHours: entry.ageHours
     }));
     fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
@@ -2018,6 +2186,8 @@ async function main() {
       plays: candidateMetricValue(selected.detail.video, ['play_count', 'plays', 'playCount']),
       rankingMetric: selected.rankingMetric,
       audienceFit: selected.audienceFit,
+      feedTag: selected.feed_tag || null,
+      feedTagLabel: selected.feed_tag_label || null,
       playCounterPresent: selected.momentum.playCounterPresent === true,
       playsPerMinute: selected.momentum.playsPerMinute,
       playAccelerationPerMinute: selected.momentum.playsAccelerationPerMinute || 0,
@@ -2037,6 +2207,8 @@ async function main() {
         repostDescription: result.repostMetadata && result.repostMetadata.description || selectedMetadata.description,
         captionPolicyVersion: CAPTION_POLICY_VERSION,
         categoryId: selected.detail.video.category_id || selected.category_id || null,
+        feedTag: selected.feed_tag || null,
+        feedTagLabel: selected.feed_tag_label || null,
         newVideoCode: result.newVideoCode || null,
         publicUrl: result.publicUrl || null,
         status: result.status,
@@ -2109,6 +2281,11 @@ module.exports = {
   buildUnconfirmedSubmissionResult,
   composeFiloCoverDataUrl,
   dailyCount,
+  buildCategoryPageRequestPayload,
+  buildVideoTagFeedPath,
+  normalizeVideoFeedItem,
+  extractVideoTagFeeds,
+  summarizeVideoTagPayload,
   candidateMetricValue,
   candidateMetricSnapshot,
   updateCandidateMomentum,
