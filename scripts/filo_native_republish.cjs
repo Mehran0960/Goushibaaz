@@ -115,7 +115,7 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
     }
     if (/دیروز|yesterday|امروز|today/.test(raw)) continue;
     // Jalali date strings can be misread as ancient Gregorian dates by Date.parse.
-    if (/^14\\d{2}[\\/.-]\\d{1,2}[\\/.-]\\d{1,2}/.test(raw)) continue;
+    if (/^14\d{2}[\/.-]\d{1,2}[\/.-]\d{1,2}/.test(raw)) continue;
 
     const absolute = Date.parse(raw);
     if (Number.isFinite(absolute)) {
