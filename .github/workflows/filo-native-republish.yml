@@ -27,17 +27,16 @@ jobs:
           node-version: 22
           package-manager-cache: false
 
-      # Browser and Python wheel caches prevent the ten-minute publisher from spending
-      # most of each slot reinstalling the same toolchain.
+      # Reuse browser assets so each five-minute scan starts quickly.
       - name: Restore publisher tool caches
         uses: actions/cache@v4
         with:
           path: |
             ~/.cache/ms-playwright
             ~/.npm
-          key: ${{ runner.os }}-filo-native-tools-v1-${{ hashFiles('scripts/score_filo_thumbnail.py') }}
+          key: ${{ runner.os }}-filo-native-tools-v2
           restore-keys: |
-            ${{ runner.os }}-filo-native-tools-v1-
+            ${{ runner.os }}-filo-native-tools-v2-
 
       - name: Install browser and validate the Filo publisher
         run: |
