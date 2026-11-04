@@ -5,12 +5,6 @@ on:
     # GitHub polls every five minutes; the persisted cadence decides whether all publishers start.
     - cron: "*/5 * * * *"
   workflow_dispatch:
-  # Relevant scheduler-code pushes and manual starts execute one bounded tick; scheduled ticks continue every five minutes.
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/dispatch-short-publishers.yml"
-      - "scripts/synchronized_scheduler.cjs"
 
 permissions:
   actions: write
