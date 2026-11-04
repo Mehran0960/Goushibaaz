@@ -5,33 +5,13 @@ on:
     paths:
       - "scripts/filo_native_republish.cjs"
       - "scripts/test_filo_native_republish.cjs"
-      - "scripts/google_trends_iran.cjs"
-      - "scripts/test_google_trends_iran.cjs"
-      - "scripts/filo_global_search.cjs"
-      - "scripts/test_filo_global_search.cjs"
-      - "scripts/filo_trend_search_worker.cjs"
-      - "scripts/test_filo_trend_search_worker.cjs"
-      - ".github/workflows/filo-trend-search.yml"
-      - "scripts/score_filo_thumbnail.py"
-      - "scripts/test_filo_thumbnail.py"
       - ".github/workflows/filo-native-republish.yml"
-      - ".github/workflows/filo-cadence-watchdog.yml"
       - ".github/workflows/validate-filo-native-republish.yml"
   pull_request:
     paths:
       - "scripts/filo_native_republish.cjs"
       - "scripts/test_filo_native_republish.cjs"
-      - "scripts/google_trends_iran.cjs"
-      - "scripts/test_google_trends_iran.cjs"
-      - "scripts/filo_global_search.cjs"
-      - "scripts/test_filo_global_search.cjs"
-      - "scripts/filo_trend_search_worker.cjs"
-      - "scripts/test_filo_trend_search_worker.cjs"
-      - ".github/workflows/filo-trend-search.yml"
-      - "scripts/score_filo_thumbnail.py"
-      - "scripts/test_filo_thumbnail.py"
       - ".github/workflows/filo-native-republish.yml"
-      - ".github/workflows/filo-cadence-watchdog.yml"
       - ".github/workflows/validate-filo-native-republish.yml"
 
 permissions:
@@ -47,26 +27,13 @@ jobs:
         with:
           node-version: 22
           package-manager-cache: false
-      - name: Install Playwright and local face-landmark dependencies
+      - name: Install Playwright
         run: |
           npm init -y >/dev/null
           npm install --no-save playwright >/dev/null
           npx playwright install --with-deps chromium >/dev/null
-          python3 -m pip install --quiet --break-system-packages mediapipe==0.10.21
-      - name: Validate cadence watchdog workflow YAML
-        run: ruby -e "require 'yaml'; YAML.load_file('.github/workflows/filo-cadence-watchdog.yml'); puts 'FILO_CADENCE_WATCHDOG_YAML_VALID'"
-      - name: Syntax and deterministic policy tests
+      - name: Validate the simple Filo velocity selector
         run: |
           node --check scripts/filo_native_republish.cjs
           node --check scripts/test_filo_native_republish.cjs
           node scripts/test_filo_native_republish.cjs
-          node --check scripts/google_trends_iran.cjs
-          node --check scripts/test_google_trends_iran.cjs
-          node scripts/test_google_trends_iran.cjs
-          node --check scripts/filo_global_search.cjs
-          node --check scripts/test_filo_global_search.cjs
-          node scripts/test_filo_global_search.cjs
-          node --check scripts/filo_trend_search_worker.cjs
-          node scripts/test_filo_trend_search_worker.cjs
-          python3 -m py_compile scripts/score_filo_thumbnail.py scripts/test_filo_thumbnail.py
-          python3 scripts/test_filo_thumbnail.py

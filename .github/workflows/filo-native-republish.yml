@@ -2,10 +2,8 @@ name: Filo native authorized republisher
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "state/filo-native-republish-activation.json"
+  schedule:
+    - cron: "*/5 * * * *"
 
 permissions:
   contents: write
@@ -29,38 +27,24 @@ jobs:
           node-version: 22
           package-manager-cache: false
 
-      # Browser and Python wheel caches prevent the ten-minute publisher from spending
-      # most of each slot reinstalling the same toolchain.
+      # Reuse browser assets so each five-minute scan starts quickly.
       - name: Restore publisher tool caches
         uses: actions/cache@v4
         with:
           path: |
-            ~/.cache/pip
             ~/.cache/ms-playwright
             ~/.npm
-          key: ${{ runner.os }}-filo-native-tools-v1-${{ hashFiles('scripts/score_filo_thumbnail.py') }}
+          key: ${{ runner.os }}-filo-native-tools-v2
           restore-keys: |
-            ${{ runner.os }}-filo-native-tools-v1-
+            ${{ runner.os }}-filo-native-tools-v2-
 
-      - name: Install only missing runtime dependencies and validate the publisher
+      - name: Install browser and validate the Filo publisher
         run: |
-          if ! command -v ffprobe >/dev/null 2>&1 || ! command -v ffmpeg >/dev/null 2>&1; then
-            sudo apt-get update -qq
-            sudo apt-get install -y -qq ffmpeg
-          fi
-          python3 -m pip install --quiet --break-system-packages mediapipe==0.10.21
           npm init -y >/dev/null
           npm install --no-save playwright >/dev/null
           npx playwright install chromium >/dev/null
           node --check scripts/filo_native_republish.cjs
           node scripts/test_filo_native_republish.cjs
-          node --check scripts/google_trends_iran.cjs
-          node --check scripts/test_google_trends_iran.cjs
-          node scripts/test_google_trends_iran.cjs
-          node --check scripts/filo_global_search.cjs
-          node --check scripts/test_filo_global_search.cjs
-          node scripts/test_filo_global_search.cjs
-          python3 scripts/test_filo_thumbnail.py
 
       - name: Record native Filo scheduler trigger diagnostics
         run: |
@@ -76,7 +60,7 @@ jobs:
 
       - name: Persist idempotency ledger after a submission
         if: always()
-        run: bash scripts/persist_state_file.sh state/filo-native-republished.json "Record Filo native republish state"
+        run: bash scripts/persist_state_file.sh state/filo-native-republished.json "Record Filo native republish state [skip ci]"
 
       - name: Save execution report
         if: always()

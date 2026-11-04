@@ -3,10 +3,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { chromium } = require('playwright');
-const { fetchIranGoogleTrends, scoreGoogleTrendRelevance } = require('./google_trends_iran.cjs');
-const { queryTokens, normalizePersian } = require('./filo_global_search.cjs');
-const os = require('node:os');
-const { spawnSync } = require('node:child_process');
 
 const BASE = 'https://ifilo.net';
 const STATE_PATH = path.join('state', 'filo-native-republished.json');
@@ -18,8 +14,7 @@ const MIN_DURATION_SECONDS = 10;
 const MAX_DURATION_SECONDS = 180;
 const MAX_PUBLICATIONS_PER_24H = 288;
 const CAPTION_POLICY_VERSION = 5;
-const MIN_PUBLISH_CYCLE_INTERVAL_MS = 9.5 * 60 * 1000;
-const CANDIDATE_METRIC_HISTORY_TTL_MS = 8 * 60 * 60 * 1000;
+const CANDIDATE_METRIC_HISTORY_TTL_MS = 30 * 60 * 1000;
 const CANDIDATE_METRIC_SAMPLE_INTERVAL_MS = 5 * 60 * 1000;
 const MAX_TRACKED_CANDIDATE_METRICS = 1500;
 
@@ -66,28 +61,14 @@ function ageHours(item) {
   if (/لحظاتی پیش|همین الان|اکنون|just now|moments ago/.test(lower)) return 0.1;
   if (/دیروز|yesterday/.test(lower)) return 30;
   if (/امروز|today/.test(lower)) return 8;
+  const absolute = Date.parse(raw);
+  if (Number.isFinite(absolute)) return Math.max(0, (Date.now() - absolute) / 3600000);
   return 36;
 }
 
 function sourceText(item) {
   return [item && item.title, item && item.description, item && item.sender_name]
     .filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
-}
-
-function categoryBase(categoryId) {
-  const map = {
-    6: 30,   // طنز و سرگرمی
-    11: 27,  // ورزش
-    13: 25,  // حیوانات
-    29: 25,  // غذا
-    2: 23,   // علم و فناوری
-    22: 22,  // طبیعت و گردشگری
-    17: 22,  // بازی
-    25: 21,  // وسایل نقلیه
-    15: 20,  // فرهنگ و هنر
-    3: 19    // فیلم و سینما
-  };
-  return map[String(categoryId)] || 8;
 }
 
 const EXCLUDED = /(?:اخبار|خبر فوری|تحلیل سیاسی|سیاست|سیاسی|انتخابات|جنگ|حمله نظامی|موشک|انفجار|تروریست|ترور|اعدام|شلیک|سلاح|خشونت|مداحی|تبلیغات|کازینو|شرط.?بندی|قمار|محتوای بزرگسال|پورنو|قتل|خودکشی|خودآزاری|صحنه دلخراش|تصادف مرگبار|حیوان.?آزاری|رقص|حرکات موزون|تک.?خوانی.{0,8}زن|خوانندگی.{0,8}زن|فحاشی|الفاظ رکیک|افترا|تهمت|توهین|ناسزا|بددهنی|تحقیر|تمسخر|دوربین.?مداربسته|فیلم.?برداری.?مخفی|افشای اطلاعات|کد ملی|خبر جعلی|اطلاعات نادرست|فیلم سینمایی|فیلم ایرانی|سریال|مجموعه تلویزیونی|محصول نمایش خانگی|شبکه نمایش خانگی|صدا.?و.?سیما|فیلیمو|نماوا|فیلم.?نت|تلوبیون|آی.?آر.?مووی|IR.?Movie|مواد مخدر|مشروبات الکلی|برهنگی|محتوای جنسی)/i;
@@ -108,9 +89,6 @@ function policyTextRiskReason(item){
  for(const risk of POLICY_TEXT_RISKS)if(risk.pattern.test(text))return risk.reason;
  return EXCLUDED.test(text)?'prohibited_or_sensitive_content':null;
 }
-
-const HOOK = /(?:خنده|طنز|بامزه|سوتی|دوربین مخفی|چالش|غافلگیر|غیرمنتظره|باورنکردنی|عجیب|جالب|دیدنی|سوپرگل|گل تماشایی|مهارت|ترفند|قبل و بعد|بازسازی|واکنش|رقابت|مسابقه|رکورد|حیوان|گربه|سگ|آشپزی|غذا|فوتبال|کشتی|بسکتبال|والیبال|فناوری|گجت|funny|comedy|surprise|unexpected|challenge|trick|skill|goal|animal|cat|dog|cooking|satisfying)/i;
-const PERSIAN = /[\u0600-\u06FF]/;
 
 function feedCandidateEligible(item, ledger) {
   if (!item || typeof item !== 'object') return false;
@@ -133,129 +111,6 @@ function feedCandidateEligible(item, ledger) {
   if (text.length < 8 || policyTextRiskReason(item)) return false;
   return true;
 }
-
-function searchCandidateEligible(item, ledger) {
-  if (!item || typeof item !== 'object') return false;
-  const code = String(item.video_code || item.videoCode || item.code || '').trim();
-  if (!/^[A-Za-z0-9_-]{5,40}$/.test(code)) return false;
-  if (ledger && ledger.posts && ledger.posts.some(post =>
-    post && post.sourceCode === code &&
-    ['submitted_pending_approval', 'submitted_unconfirmed', 'public_verified', 'rejected_by_filo'].includes(post.status)
-  )) return false;
-  if (item.active !== undefined && !isFlag(item.active)) return false;
-  if (isFlag(item.file_deleted) || num(item.only_in_filo) === 1) return false;
-  const duration = num(item.duration, -1);
-  if (duration > 0 && (duration < MIN_DURATION_SECONDS || duration > MAX_DURATION_SECONDS)) return false;
-  const text = sourceText(item);
-  return text.length >= 8 && !policyTextRiskReason(item);
-}
-
-function globalSearchRelevanceBonus(item) {
-  const candidate = new Set(queryTokens(sourceText(item)));
-  const matches = Array.isArray(item && item.globalTrendSearchMatches)
-    ? item.globalTrendSearchMatches
-    : item && item.globalTrendSearch ? [item.globalTrendSearch] : [];
-  let best = { bonus: 0, trendTitle: null, overlap: [] };
-  for (const match of matches) {
-    const terms = Array.isArray(match && match.trendKeywords) ? match.trendKeywords : queryTokens(match && match.trendTitle);
-    const overlap = [...new Set(terms.map(String))].filter(token => candidate.has(token));
-    const bonus = overlap.length >= 4 ? Math.min(14, 3 + overlap.length * 2.5)
-      : overlap.length === 3 ? 9
-      : overlap.length === 2 ? 6
-      : overlap.length === 1 && overlap[0].length >= 4 ? 2 : 0;
-    if (bonus > best.bonus) best = {
-      bonus,
-      trendTitle: match.trendTitle || match.query || null,
-      overlap: overlap.slice(0, 6)
-    };
-  }
-  return { ...best, bonus: Math.round(best.bonus * 10) / 10 };
-}
-
-
-function loadGlobalSearchCache(currentTrends = [], now = Date.now()) {
-  const file = path.join('state', 'filo-global-search-candidates.json');
-  try {
-    const saved = JSON.parse(fs.readFileSync(file, 'utf8'));
-    const updatedAtMs = Date.parse(saved.updatedAt || '');
-    const ageMs = Number.isFinite(updatedAtMs) ? Math.max(0, now - updatedAtMs) : Infinity;
-    if (ageMs > 36 * 60 * 60 * 1000) {
-      return { status: 'stale', items: [], updatedAt: saved.updatedAt || null, ageMinutes: null };
-    }
-    const activeTitles = new Set((Array.isArray(currentTrends) ? currentTrends : [])
-      .map(item => normalizeComparable(item && item.title))
-      .filter(Boolean));
-    const items = Object.values(saved.items || {}).filter(item => {
-      const matches = Array.isArray(item && item.globalTrendSearchMatches)
-        ? item.globalTrendSearchMatches : [];
-      return matches.some(match => activeTitles.has(normalizeComparable(match && match.trendTitle)));
-    });
-    const queryValues = Object.values(saved.queries || {});
-    const completedQueries = queryValues.filter(query => query && query.complete).length;
-    const pagesFetched = queryValues.reduce((sum, query) => sum + Math.max(0, num(query && query.pagesFetched)), 0);
-    return {
-      status: queryValues.length && completedQueries === queryValues.length ? 'cached_complete' : 'cached_in_progress',
-      items,
-      updatedAt: saved.updatedAt || null,
-      ageMinutes: Math.round(ageMs / 60000),
-      topicsAvailable: Array.isArray(saved.trends) ? saved.trends.length : 0,
-      queriesRequested: queryValues.length,
-      queriesCompleted: completedQueries,
-      pagesFetched,
-      totalVideosRetained: Object.keys(saved.items || {}).length,
-      complete: queryValues.length > 0 && completedQueries === queryValues.length
-    };
-  } catch {
-    return {
-      status: 'awaiting_search_worker',
-      items: [],
-      updatedAt: null,
-      ageMinutes: null,
-      topicsAvailable: 0,
-      queriesRequested: 0,
-      queriesCompleted: 0,
-      pagesFetched: 0,
-      totalVideosRetained: 0,
-      complete: false
-    };
-  }
-}
-
-async function fetchFiloGlobalSearchPage(page, params) {
-  const result = await page.evaluate(async ({ query, pageNo, windowWidth }) => {
-    const response = await fetch('/api/v2/videos/search/' + encodeURIComponent(query), {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        rowCount: null,
-        page: pageNo,
-        needAllData: 0,
-        windowWidth
-      }),
-      signal: AbortSignal.timeout(15000)
-    });
-    const text = await response.text();
-    let body = null;
-    try { body = text ? JSON.parse(text) : {}; }
-    catch { body = { raw: text.slice(0, 500) }; }
-    return { status: response.status, body };
-  }, {
-    query: params.query,
-    pageNo: params.page,
-    windowWidth: params.windowWidth || 1365
-  });
-
-  if (!result || result.status !== 200) {
-    throw new Error('filo_global_search_http_' + (result && result.status || 'no_response'));
-  }
-  if (!result.body || result.body.raw) throw new Error('filo_global_search_invalid_json');
-  return { status: result.status, body: result.body };
-}
-
 
 function candidateMetricValue(item, keys) {
   const values = keys.map(key => item && item[key])
@@ -294,13 +149,10 @@ function updateCandidateMomentum(state, items, now = Date.now()) {
           const playsPerMinute = deltaPlays / elapsedMinutes;
           const previousRate = entry.lastRate && typeof entry.lastRate === 'object' ? entry.lastRate : null;
           const acceleration = previousRate ? Math.max(0, viewsPerMinute - Math.max(0, num(previousRate.viewsPerMinute))) : 0;
-          const baseBonus = Math.log1p(viewsPerMinute) * 2.6 + Math.log1p(playsPerMinute) * 2;
-          const accelerationBonus = Math.min(3, Math.log1p(acceleration) * 1.2);
           rate = {
             viewsPerMinute: Math.round(viewsPerMinute * 100) / 100,
             playsPerMinute: Math.round(playsPerMinute * 100) / 100,
             accelerationPerMinute: Math.round(acceleration * 100) / 100,
-            bonus: Math.round(Math.min(15, baseBonus + accelerationBonus) * 10) / 10,
             sampleCount: samples.length + 1
           };
         } else {
@@ -317,7 +169,7 @@ function updateCandidateMomentum(state, items, now = Date.now()) {
     }
     const nextEntry = { ...entry, samples, lastSeenAt: nowIso };
     if (rate) {
-      nextEntry.lastRate = { viewsPerMinute: rate.viewsPerMinute, playsPerMinute: rate.playsPerMinute, at: nowIso };
+      nextEntry.lastRate = { ...rate, at: nowIso };
       observed[code] = rate;
     }
     history[code] = nextEntry;
@@ -334,51 +186,27 @@ function updateCandidateMomentum(state, items, now = Date.now()) {
   return observed;
 }
 
-function getPublishCycleCooldown(state, now = Date.now()) {
+function rankCandidatesByMomentum(items, state, now = Date.now()) {
   const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
-  const lastStartedAt = Date.parse(state && state.lastCycleStartedAt || '');
-  if (!Number.isFinite(lastStartedAt)) return { active: false, elapsedMs: null, remainingMs: 0, lastCycleStartedAt: null };
-  const elapsedMs = Math.max(0, nowMs - lastStartedAt);
-  const remainingMs = Math.max(0, MIN_PUBLISH_CYCLE_INTERVAL_MS - elapsedMs);
-  return { active: remainingMs > 0, elapsedMs, remainingMs, lastCycleStartedAt: new Date(lastStartedAt).toISOString() };
-}
-
-function scoreFeedCandidate(item, trendWeights = {}, googleTrends = [], momentum = null) {
-  const text = sourceText(item);
-  const categoryId = num(item.category_id);
-  const duration = num(item.duration, 0);
-  const age = ageHours(item);
-  const visits = candidateMetricValue(item, ['visit_count', 'views', 'view_count', 'visits']);
-  const plays = candidateMetricValue(item, ['play_count', 'plays', 'playCount']);
-  const shares = candidateMetricValue(item, ['share_count', 'shares']);
-  const favorites = candidateMetricValue(item, ['favorite_count', 'favorites']);
-  const engagement = visits + 2 * plays + 3 * shares + 2 * favorites;
-
-  let score = categoryBase(categoryId);
-  score += Math.min(24, Math.log1p(engagement) * 4.2);
-  score += age <= 2 ? 14 : age <= 6 ? 11 : age <= 12 ? 8 : age <= 24 ? 4 : age <= 48 ? -4 : -14;
-  score += HOOK.test(text) ? 10 : -8;
-  score += PERSIAN.test(text) ? 7 : 0;
-  score += duration <= 30 ? 7 : duration <= 60 ? 5 : duration <= 120 ? 2 : -4;
-  const topic = String(item.category_id || '');
-  score += Math.min(5, num(trendWeights[topic]));
-  const googleTrend = scoreGoogleTrendRelevance(text, googleTrends);
-  score += googleTrend.score;
-  const momentumBonus = Math.min(15, Math.max(0, num(momentum && momentum.bonus)));
-  score += momentumBonus;
-  if (text.length < 16) score -= 5;
-
-  return {
-    score: Math.round(score * 10) / 10,
-    ageHours: Math.round(age * 10) / 10,
-    engagement,
-    categoryId,
-    durationSeconds: duration,
-    visits,
-    plays,
-    googleTrend,
-    momentum: momentum ? { ...momentum, bonus: momentumBonus } : null
-  };
+  const currentRates = updateCandidateMomentum(state, items, nowMs);
+  return (Array.isArray(items) ? items : []).map(item => {
+    const code = String(item && (item.video_code || item.videoCode || item.code) || '').trim();
+    const saved = state.candidateMomentum && state.candidateMomentum[code];
+    const lastRate = saved && saved.lastRate;
+    const lastRateAt = Date.parse(lastRate && lastRate.at || '');
+    const recentSavedRate = Number.isFinite(lastRateAt) && nowMs - lastRateAt <= 15 * 60 * 1000
+      ? lastRate : null;
+    const momentum = currentRates[code] || recentSavedRate;
+    return { item, momentum, ageHours: ageHours(item) };
+  }).filter(entry =>
+    entry.momentum &&
+    num(entry.momentum.viewsPerMinute) > 0 &&
+    entry.ageHours <= 24
+  ).sort((a, b) =>
+    num(b.momentum.viewsPerMinute) - num(a.momentum.viewsPerMinute) ||
+    num(b.momentum.accelerationPerMinute) - num(a.momentum.accelerationPerMinute) ||
+    a.ageHours - b.ageHours
+  );
 }
 
 function detailGate(root, video) {
@@ -403,7 +231,6 @@ function detailGate(root, video) {
   }
   return { eligible: true, reason: 'filo_native_republish_permitted' };
 }
-
 
 function normalizeComparable(value) {
   return String(value || '')
@@ -433,146 +260,49 @@ function normalizeCaptionEditorialText(value) {
     .trim();
 }
 
-function safeSpecificCaptionRewrite(title, sourceDescription = '') {
-  const normalizedTitle = normalizeCaptionEditorialText(title);
-  const normalizedDescription = normalizeCaptionEditorialText(sourceDescription);
-
-  // Remove a vague clickbait lead-in while preserving the observable question.
-  const question = normalizedTitle.match(/^اگه\s+گفتی\s+.+?\s+چرا\s+(.+)$/u);
-  if (question) {
-    let subject = question[1].trim();
-    const emphatic = /^(?:انقدر|اینقدر|این‌قدر)\s*/u.test(subject);
-    subject = subject
-      .replace(/^(?:انقدر|اینقدر|این‌قدر)\s*/u, '')
-      .replace(/میخندن[.!؟?]*$/u, 'می‌خندند')
-      .replace(/می‌خندن[.!؟?]*$/u, 'می‌خندند')
-      .replace(/میخندند[.!؟?]*$/u, 'می‌خندند')
-      .replace(/[.!؟?]+$/u, '')
-      .trim();
-    if (subject.length >= 8) {
-      return emphatic ? 'چرا این‌قدر ' + subject + '؟' : 'چرا ' + subject + '؟';
-    }
-  }
-
-  // Attribute a remake to a fan only when the source description explicitly says so.
-  const remake = normalizedTitle.match(/^ریمیک\s+جدید\s+(.+?)\s+برای\s+کنسول\s+(.+)$/u);
-  if (remake && /طرفدار/u.test(normalizedDescription)) {
-    return 'ریمیک طرفداری از ' + remake[1].trim() + ' برای ' + remake[2].trim();
-  }
-
-  return normalizedTitle;
-}
-
-function cleanRepostCaptionTitle(sourceTitle, sourceDescription = '') {
-  const original = normalizeCaptionEditorialText(sourceTitle)
-    .replace(/#[^\s#]+/g, ' ')
-    .replace(/[«»“”"]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-  if (original.length < 5) throw new Error('source_title_too_short_for_compliant_rewrite');
-
-  let title = original
+function cleanRepostCaptionTitle(sourceTitle) {
+  const title = normalizeCaptionEditorialText(sourceTitle)
+    .replace(/https?:\/\/\S+|www\.\S+/giu, ' ')
+    .replace(/#[^\s#]+/gu, ' ')
+    .replace(/@[\p{L}\p{N}_.-]+/gu, ' ')
     .replace(/^(?:(?:ماجرای\s+بامزه(?:‌ی|ی)?|روایت\s+تصویری|روایتی\s+از)\s*[:،؛-]?\s*)+/iu, '')
-    .replace(/^(?:(?:طنز|کلیپ|ویدیو|ویدئوی|ویدئو|فیلم|تصاویر|تصاویری)\s+)*(?:(?:خنده.?دار|بامزه|جالب|دیدنی|تماشایی|جذاب|کوتاه|باورنکردنی)(?:\s+و)?\s+)*(?:از\s+)?/iu, '')
-    .replace(/^[-:،؛|\s]+/, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-  title = title
+    .replace(/^\s*(?:کلیپ|ویدئو|ویدیو|فیلم)\s+/iu, '')
     .replace(/\s+(?:این\s+)?(?:حتماً?\s*)?(?:ببینید|ببنید|تماشا کنید|مشاهده کنید|از دست ندید|از دست ندهید)\s*$/iu, '')
-    .replace(/(?:\s+(?:پوکیدم از خنده|ترکیدم از خنده|عالی بود|خیلی عالی بود|خیلی خنده.?دار بود|خیلی باحال بود|بسیار جالب بود))+\s*$/iu, '')
-    .replace(/\s+(?:سرمربی|مربی|بازیکن|بازیگر|خواننده|قهرمان|مجری)\s+[\p{L}\p{N}‌_-]+(?:\s+[\p{L}\p{N}‌_-]+){0,2}(?=\s+(?:با|به|در|از)\s+)/u, ' ')
     .replace(/\s+/g, ' ')
     .trim();
-
-  title = title.replace(/\s*[،؛:|\-]\s*(?:روایت\s+تصویری|روایتی\s+از|ماجرای\s+بامزه)(?=\s|$).*$/iu, '').trim();
-
-  if (normalizeComparable(title) === normalizeComparable(original)) {
-    title = title
-      .replace(/(?:عجیب\s+و\s+توهین\s+آمیز|توهین\s+آمیز|عجیب|باورنکردنی|دیدنی|تماشایی|جالب|فوق\s+العاده|عالی|خنده.?دار|بامزه)/giu, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
-  }
-
-  title = safeSpecificCaptionRewrite(title, sourceDescription)
-    .replace(/[!！]+$/u, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-  title = trimAtWord(title, 176);
-  if (title.length < 8) {
-    throw new Error('no_clean_distinct_title_available_without_extra_words');
-  }
-  if (/(?:روایت\s+تصویری|ماجرای\s+بامزه|روایتی\s+از)/iu.test(title)) {
-    throw new Error('repost_title_contains_editorial_wrapper');
-  }
-  return title;
+  if (title.length < 5) throw new Error('source_title_too_short');
+  return trimAtWord(title, 176);
 }
 
-function removeLiteralPhrase(text, phrase) {
- const value=String(phrase||'').trim();
- if(value.length<10)return String(text||'').trim();
- const escaped=value.replace(/[.*+?^{}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s+');
- return String(text||'').replace(new RegExp(escaped,'giu'),' ').replace(/\s+/g,' ').trim();
-}
 function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
- const raw=normalizeCaptionEditorialText(sourceDescription);
- if(raw.length<50)throw new Error('repost_description_source_too_short');
- let description=raw
-  .replace(/https?:\/\/\S+|www\.\S+/giu,' ')
-  .replace(/#[^\s#]+/gu,' ')
-  .replace(/@[A-Za-z0-9_.-]+/g,' ')
-  .replace(/(?:لطفاً|لطفا)\s*(?:لایک|پسند|فالو|دنبال|عضویت|اشتراک).{0,160}$/iu,' ')
-  .replace(/(?:برای\s+(?:دیدن|تماشای|دنبال\s+کردن).{0,160})$/iu,' ')
-  .replace(/(?:حتماً|حتما)\s*(?:ببینید|ببنید|تماشا\s+کنید|مشاهده\s+کنید).{0,100}$/iu,' ')
-  .replace(/\b(?:join\s*us|click(?:\s+(?:here|below))?|follow\s*us|subscribe|like\s+and\s+subscribe|comment\s+below)\b[\s\S]{0,240}$/iu,' ')
-  .replace(/(?:این\s+نسخه\s+از\s+مسیر\s+بازنشر\s+رسمی\s+فیلو|بازنشر\s+از\s+مسیر\s+رسمی\s+فیلو).*$/iu,' ')
-  .replace(/^(?:(?:در\s+)?این\s+(?:ویدئو|ویدیو|کلیپ|فیلم)\s*[,،:؛-]?\s*)+/iu,'')
-  .replace(/برای\s+شما\s+(?:عزیزان|دوستان(?:\s+عزیز)?)/giu,' ')
-  .replace(/(?:دوستان\s+عزیز|عزیزانِ?\s+همراه)/giu,' ')
-  .replace(/(?:با\s+ما\s+همراه\s+باشید|همراه\s+ما\s+باشید)(?:\s+و\s+)?(?:لذت\s+ببرید)?/giu,' ')
-  .replace(/لذت\s+ببرید/giu,' ')
-  .replace(/(?:نظر(?:تان|تون)?\s+(?:را|رو)\s+(?:بنویسید|بگویید|بگید)|نظرتون\s+رو\s+(?:بنویسید|بگید)|کامنت\s+(?:بگذارید|بذارید|کنید)|در\s+کامنت(?:ها)?\s+بگویید)/giu,' ')
-  .replace(/(?:لایک\s+کنید|فالو\s+کنید|ما\s+را\s+دنبال\s+کنید|عضو\s+شوید)/giu,' ')
-  .replace(/\s+([،؛:,.!?؟])/gu,'$1')
-  .replace(/([،؛:,.!?؟]){2,}/gu,'$1')
-  .replace(/\s+/g,' ').trim();
- description=removeLiteralPhrase(description,sourceTitle);
- description=removeLiteralPhrase(description,repostTitle);
- description=description
-  .replace(/مشاهده\s+می‌کنید/giu,'دیده می‌شود')
-  .replace(/می‌بینید/giu,'دیده می‌شود')
-  .replace(/اتفاق\s+می‌افتد/giu,'رخ می‌دهد')
-  .replace(/اتفاق\s+افتاده/giu,'رخ داده')
-  .replace(/نشان\s+می‌دهد/giu,'نمایان می‌کند')
-  .replace(/(?:\s|[\p{Extended_Pictographic}\p{Emoji_Modifier}\uFE0F\u200D])+$/gu,' ')
-  .replace(/\s+/g,' ').trim();
- if(description.length<35)throw new Error('repost_description_lacks_substantive_detail');
- if(normalizeComparable(description)===normalizeComparable(raw))throw new Error('repost_description_not_rewritten_from_original');
- const descN=normalizeComparable(description),titleN=normalizeComparable(repostTitle),sourceTitleN=normalizeComparable(sourceTitle),sourceDescN=normalizeComparable(raw);
- if(titleN&&descN.includes(titleN))throw new Error('repost_description_repeats_repost_title');
- if(sourceTitleN&&sourceTitleN.length>=12&&descN.includes(sourceTitleN))throw new Error('repost_description_repeats_source_title');
- if(descN===sourceTitleN||descN===sourceDescN)throw new Error('repost_description_not_distinct_from_original');
- if(/(?:https?:\/\/|www\.)/i.test(description))throw new Error('repost_description_contains_unapproved_external_link');
- if(/(?:فیلیمو|نماوا|فیلم\s*نت|تلوبیون|تبلیغ\s+سرویس\s+اشتراک)/iu.test(description))throw new Error('repost_description_contains_video_service_promotion');
- const descTokens=new Set(queryTokens(description)),titleTokens=queryTokens(repostTitle).filter(t=>String(t).length>=3);
- if(!titleTokens.some(t=>descTokens.has(t)))throw new Error('repost_description_missing_relevant_title_keyword');
- const risk=policyTextRiskReason({title:repostTitle,description});
- if(risk)throw new Error('repost_description_policy_risk:'+risk);
- return trimAtWord(description,900);
+  const description = normalizeCaptionEditorialText(sourceDescription)
+    .replace(/https?:\/\/\S+|www\.\S+/giu, ' ')
+    .replace(/#[^\s#]+/gu, ' ')
+    .replace(/@[\p{L}\p{N}_.-]+/gu, ' ')
+    .replace(/برای\s+شما\s+(?:عزیزان|دوستان(?:\s+عزیز)?)/giu, ' ')
+    .replace(/(?:دوستان\s+عزیز|عزیزانِ?\s+همراه)/giu, ' ')
+    .replace(/(?:لطفاً|لطفا)\s*(?:لایک|پسند|فالو|دنبال|عضویت|اشتراک).{0,160}$/iu, ' ')
+    .replace(/(?:با\s+ما\s+همراه\s+باشید|همراه\s+ما\s+باشید)(?:\s+و\s+)?(?:لذت\s+ببرید)?/giu, ' ')
+    .replace(/لذت\s+ببرید/giu, ' ')
+    .replace(/(?:لایک\s+کنید|فالو\s+کنید|ما\s+را\s+دنبال\s+کنید|عضو\s+شوید)/giu, ' ')
+    .replace(/\s+([،؛:,.!?؟])/gu, '$1')
+    .replace(/\s+/g, ' ')
+    .trim();
+  // Keep source facts as supplied; a short caption is valid and no detail is invented.
+  return trimAtWord(description || String(repostTitle || sourceTitle || '').trim(), 900);
 }
+
 function createRepostMetadata(video, sourceCode) {
- const sourceTitle=String(video&&video.title||'').replace(/#[^\s#]+/g,' ').replace(/\s+/g,' ').trim();
- const sourceDescription=String(video&&video.description||'').replace(/\s+/g,' ').trim();
- if(/(?:https?:\/\/|www\.)/i.test(sourceTitle))throw new Error('repost_source_title_contains_external_link');
- const risk=policyTextRiskReason(video);
- if(risk)throw new Error('filo_policy_text_risk:'+risk);
- const title=cleanRepostCaptionTitle(sourceTitle,sourceDescription);
- const description=cleanRepostDescription(sourceDescription,sourceTitle,title);
- const titleN=normalizeComparable(title),sourceTitleN=normalizeComparable(sourceTitle),sourceDescN=normalizeComparable(sourceDescription);
- if(titleN===sourceDescN)throw new Error('repost_title_matches_source_description');
- if(/(?:https?:\/\/|www\.)/i.test(description))throw new Error('repost_description_contains_unapproved_external_link');
- return {title,description,sourceTitle,sourceDescription,sourceCode};
+  const sourceTitle = String(video && video.title || '').replace(/\s+/g, ' ').trim();
+  const sourceDescription = String(video && video.description || '').replace(/\s+/g, ' ').trim();
+  if (/(?:https?:\/\/|www\.)/i.test(sourceTitle)) throw new Error('repost_source_title_contains_external_link');
+  const risk = policyTextRiskReason(video);
+  if (risk) throw new Error('filo_policy_text_risk:' + risk);
+  const title = cleanRepostCaptionTitle(sourceTitle);
+  const description = cleanRepostDescription(sourceDescription, sourceTitle, title);
+  return { title, description, sourceTitle, sourceDescription, sourceCode };
 }
+
 function imageDimensionsFromDataUrl(value) {
  const match=/^data:image\/(png|jpe?g);base64,([A-Za-z0-9+/=\s]+)$/i.exec(String(value||''));
  if(!match)return null;
@@ -599,12 +329,6 @@ function imageDimensionsFromDataUrl(value) {
   offset+=length;
  }
  return null;
-}
-
-function imageBufferFromDataUrl(value) {
- const match=/^data:image\/(png|jpe?g);base64,([A-Za-z0-9+/=]+)$/i.exec(String(value||''));
- if(!match)return null;
- return {buffer:Buffer.from(match[2],'base64'),mimeType:match[1].toLowerCase()};
 }
 
 function buildNativePublishGuardFailures({
@@ -654,84 +378,6 @@ function buildUnconfirmedSubmissionResult({
 }
 
 
-
-function trustedFiloMediaUrl(value) {
- const raw=String(value||'').trim();
- if(!raw)return null;
- try {
-  const url=new URL(raw,BASE);
-  const host=url.hostname.toLowerCase();
-  if(url.protocol!=='https:'||(host!=='ifilo.net'&&!host.endsWith('.ifilo.net')))return null;
-  return url.toString();
- } catch {
-  return null;
- }
-}
-
-async function extractHighResolutionSourceFrames(page,videoMetadata,sourceCode,durationSeconds,frameCount,tempDir) {
- const mediaUrl=trustedFiloMediaUrl(videoMetadata&&(videoMetadata.video_url||videoMetadata.videoUrl));
- const report={attempted:Boolean(mediaUrl),status:'not_attempted',reason:null,width:null,height:null,framesExtracted:0};
- if(!mediaUrl){
-  report.reason='trusted_source_video_url_unavailable';
-  return {ok:false,frames:[],report};
- }
- report.status='checking_source_media';
- const userAgent=await page.evaluate(()=>navigator.userAgent).catch(()=>'Mozilla/5.0');
- const headers=[
-  'User-Agent: '+String(userAgent).replace(/[\r\n]/g,' '),
-  'Referer: '+BASE+'/republish/'+encodeURIComponent(sourceCode)
- ].join(String.fromCharCode(13,10))+String.fromCharCode(13,10);
- const probe=spawnSync('ffprobe',[
-  '-v','error','-headers',headers,'-select_streams','v:0',
-  '-show_entries','stream=width,height:format=duration','-of','json',mediaUrl
- ],{encoding:'utf8',timeout:6000,maxBuffer:1024*1024});
- if(probe.error||probe.status!==0){
-  report.status='probe_unavailable';
-  report.reason=probe.error?String(probe.error.message||probe.error).slice(0,120):'source_media_probe_failed';
-  return {ok:false,frames:[],report};
- }
- const metadata=parseJson(probe.stdout);
- const stream=metadata&&Array.isArray(metadata.streams)?metadata.streams[0]:null;
- const width=num(stream&&stream.width),height=num(stream&&stream.height);
- report.width=width||null;
- report.height=height||null;
- const duration=num(metadata&&metadata.format&&metadata.format.duration,durationSeconds);
- if(!width||!height){
-  report.status='source_media_dimensions_unavailable';
-  report.reason='source_video_has_no_readable_video_stream';
-  return {ok:false,frames:[],report};
- }
- if(Math.max(width,height)<640||Math.min(width,height)<360){
-  report.status='source_media_not_high_resolution';
-  report.reason='source_video_resolution_below_quality_threshold';
-  return {ok:false,frames:[],report};
- }
- const clipDuration=Math.max(1,duration*0.88);
- const startAt=Math.max(0.1,duration*0.06);
- const pattern=path.join(tempDir,'source-frame-%02d.jpg');
- const fps=(frameCount/clipDuration).toFixed(6);
- const extracted=spawnSync('ffmpeg',[
-  '-hide_banner','-loglevel','error','-headers',headers,
-  '-ss',startAt.toFixed(3),'-i',mediaUrl,'-t',clipDuration.toFixed(3),
-  '-map','0:v:0','-an','-sn','-dn','-vf','fps='+fps,
-  '-frames:v',String(frameCount),'-q:v','2','-y',pattern
- ],{encoding:'utf8',timeout:12000,maxBuffer:1024*1024});
- const names=fs.readdirSync(tempDir)
-  .filter(name=>/^source-frame-\d+\.jpg$/i.test(name)).sort();
- if(extracted.error||extracted.status!==0||names.length<3){
-  for(const name of names)fs.rmSync(path.join(tempDir,name),{force:true});
-  report.status='source_frame_extraction_unavailable';
-  report.reason=extracted.error?String(extracted.error.message||extracted.error).slice(0,120):'source_frame_extraction_failed';
-  return {ok:false,frames:[],report};
- }
- const frames=names.map((name,index)=>({
-  index,timeSeconds:Math.round((startAt+index*(clipDuration/frameCount))*100)/100,
-  path:path.join(tempDir,name),source:'original_video_file'
- }));
- report.status='high_resolution_frames_extracted';
- report.framesExtracted=frames.length;
- return {ok:true,frames,report};
-}
 
 async function captureVideoFrameDataUrl(page) {
  const canvasFrame=await page.locator('#plr video').first().evaluate(video=>{
@@ -828,10 +474,6 @@ function recordThumbnailSelection(report,selection) {
  const {coverFrameDataUrl,...summary}=selection||{};
  report.thumbnailSelection={...summary,coverFrameCaptureAvailable:Boolean(coverFrameDataUrl)};
  return selection;
-}
-
-function isRecoverableCoverPreparationError(reason) {
- return /^(?:filo_source_player_not_ready_for_cover|filo_cover_capture_control_unavailable|filo_cover_capture_click_failed|filo_thumbnail_frame_capture_failed)/i.test(String(reason||''));
 }
 
 function loadState() {
@@ -1087,137 +729,21 @@ async function seekVideoTo(page, targetSeconds) {
   }, targetSeconds);
 }
 
-async function selectThumbnailFrame(page, sourceCode, report, sourceVideo = null) {
-  const fallback = async reason => {
-    const info = await page.locator('#plr video').first().evaluate(video => ({
-      duration: Number(video.duration) || 0
-    })).catch(() => ({ duration: 0 }));
-    const target = info.duration > 2 ? Math.min(4, Math.max(1, info.duration * 0.12)) : 0.5;
-    await seekVideoTo(page, target).catch(() => null);
-    return {
-      strategy: 'legacy_early_frame_fallback',
-      fallback: true,
-      reason: String(reason || 'thumbnail_analysis_unavailable').slice(0, 240),
-      selectedTimeSeconds: target,
-      framesAnalyzed: 0,
-      coverFrameDataUrl: await captureVideoFrameDataUrl(page)
-    };
-  };
-
+async function selectThumbnailFrame(page, report) {
   const videoInfo = await page.locator('#plr video').first().evaluate(video => ({
-    duration: Number(video.duration) || 0,
-    width: Number(video.videoWidth) || 0,
-    height: Number(video.videoHeight) || 0
-  })).catch(() => null);
-
-  if (!videoInfo || videoInfo.duration < 2 || !videoInfo.width || !videoInfo.height) {
-    const result = await fallback('video_metadata_unavailable');
-    return recordThumbnailSelection(report,result);
-  }
-
-  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'filo-thumbnail-'));
-  const frameCount = 18;
-  const startRatio = 0.06;
-  const endRatio = 0.94;
-  const frames = [];
-  let selected = null;
-
-  try {
-    const originalFrames = await extractHighResolutionSourceFrames(
-      page, sourceVideo, sourceCode, videoInfo.duration, frameCount, tempDir
-    ).catch(error => ({
-      ok:false,frames:[],
-      report:{attempted:true,status:'source_frame_extraction_error',reason:String(error&&error.message||error).slice(0,120),
-        width:null,height:null,framesExtracted:0}
-    }));
-    report.thumbnailSourceUpgrade = originalFrames.report;
-    if (originalFrames.ok) {
-      frames.push(...originalFrames.frames);
-    } else {
-      const videoLocator = page.locator('#plr video').first();
-      for (let index = 0; index < frameCount; index += 1) {
-        const ratio = frameCount === 1 ? 0.5 : startRatio + (endRatio - startRatio) * index / (frameCount - 1);
-        const target = Math.max(0.15, Math.min(videoInfo.duration - 0.15, videoInfo.duration * ratio));
-        const seek = await seekVideoTo(page, target).catch(() => ({ ok: false }));
-        if (!seek || !seek.ok) continue;
-        const filePath = path.join(tempDir, 'frame-' + String(index).padStart(2, '0') + '.jpg');
-        try {
-          const frameDataUrl=await captureVideoFrameDataUrl(page);
-          const captured=imageBufferFromDataUrl(frameDataUrl);
-          let image=captured&&captured.buffer.length>1500?captured.buffer:null;
-          if(!image)image=await videoLocator.screenshot({type:'jpeg',quality:90,timeout:10000});
-          if(!image||image.length<1500)continue;
-          fs.writeFileSync(filePath,image);
-          frames.push({index,timeSeconds:Number(seek.timeSeconds||target),path:filePath,source:'player_video_element'});
-        } catch {}
-      }
-    }
-
-    if (frames.length < 3) {
-      const result = await fallback('insufficient_decoded_frames');
-      return recordThumbnailSelection(report,{...result,framesAnalyzed:frames.length});
-    }
-
-    const scored = spawnSync('python3', ['scripts/score_filo_thumbnail.py'], {
-      input: JSON.stringify({ frames }),
-      encoding: 'utf8',
-      timeout: 45000,
-      maxBuffer: 3 * 1024 * 1024
-    });
-
-    if (scored.error || scored.status !== 0) {
-      const reason = scored.error ? scored.error.message : String(scored.stderr || 'thumbnail_scorer_failed').slice(0, 220);
-      const result = await fallback(reason);
-      return recordThumbnailSelection(report,{...result,framesAnalyzed:frames.length});
-    }
-
-    const analysis = parseJson(scored.stdout);
-    if (!analysis || !Number.isInteger(analysis.selectedIndex)) {
-      const result = await fallback('thumbnail_scorer_returned_invalid_result');
-      return recordThumbnailSelection(report,{...result,framesAnalyzed:frames.length});
-    }
-
-    selected = frames.find(frame => frame.index === analysis.selectedIndex);
-    if (!selected) {
-      const result = await fallback('selected_thumbnail_frame_not_found');
-      return recordThumbnailSelection(report,{...result,framesAnalyzed:frames.length});
-    }
-
-    const selectedFromOriginal = selected.source === 'original_video_file';
-    let coverFrameDataUrl;
-    if (selectedFromOriginal) {
-      const selectedBytes=fs.readFileSync(selected.path);
-      coverFrameDataUrl='data:image/jpeg;base64,'+selectedBytes.toString('base64');
-    } else {
-      await seekVideoTo(page, selected.timeSeconds);
-      coverFrameDataUrl=await captureVideoFrameDataUrl(page);
-    }
-    const summary = {
-      strategy: selectedFromOriginal
-        ? 'multi_frame_face_expression_visual_quality_v3_original_source_resolution'
-        : 'multi_frame_face_expression_visual_quality_v3_player_fallback',
-      fallback: !selectedFromOriginal,
-      framesAnalyzed: frames.length,
-      selectedTimeSeconds: Math.round(selected.timeSeconds * 100) / 100,
-      sourceFrameDimensions: imageDimensionsFromDataUrl(coverFrameDataUrl),
-      score: analysis.selected && analysis.selected.score,
-      faceDetected: Boolean(analysis.selected && analysis.selected.faceDetected),
-      faceCount: analysis.selected && analysis.selected.faceCount || 0,
-      expressionScore: analysis.selected && analysis.selected.expressionScore,
-      sharpnessScore: analysis.selected && analysis.selected.sharpnessScore,
-      selectionReason: analysis.selectionReason || 'highest_composite_visual_score',
-      topCandidates: (analysis.ranked || []).slice(0, 3).map(item => ({
-        timeSeconds: Math.round(Number(item.timeSeconds) * 100) / 100,
-        score: item.score,
-        faceDetected: Boolean(item.faceDetected),
-        faceCount: item.faceCount || 0,
-        expressionScore: item.expressionScore
-      }))
-    };
-    return recordThumbnailSelection(report,{...summary,coverFrameDataUrl});
-  } finally {
-    fs.rmSync(tempDir, { recursive: true, force: true });
-  }
+    duration: Number(video.duration) || 0
+  })).catch(() => ({ duration: 0 }));
+  const target = videoInfo.duration > 2 ? Math.min(4, Math.max(1, videoInfo.duration * 0.12)) : 0.5;
+  const seek = await seekVideoTo(page, target).catch(() => ({ ok: false }));
+  const coverFrameDataUrl = await captureVideoFrameDataUrl(page).catch(() => null);
+  return recordThumbnailSelection(report, {
+    strategy: 'single_early_player_frame',
+    fallback: !seek || !seek.ok,
+    reason: !coverFrameDataUrl ? 'player_frame_unavailable' : null,
+    selectedTimeSeconds: target,
+    framesAnalyzed: coverFrameDataUrl ? 1 : 0,
+    coverFrameDataUrl
+  });
 }
 
 async function prepareAndPublish(page, candidate, detail, report, beforeSubmit = null) {
@@ -1250,7 +776,7 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
   let thumbnailSelection=null;
   try {
     thumbnailSelection=videoReady
-      ? await selectThumbnailFrame(page,code,report,sourceVideo)
+      ? await selectThumbnailFrame(page,report)
       : null;
   } catch(error) {
     report.thumbnailPreparationError=String(error&&error.message||error).slice(0,180);
@@ -1324,15 +850,10 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
     const outgoingDescriptionComparable = normalizeComparable(outgoingDescription);
     const sourceTitleComparable = normalizeComparable(repostMetadata.sourceTitle);
     const sourceDescriptionComparable = normalizeComparable(repostMetadata.sourceDescription);
-    const titleDistinct = outgoingTitleComparable !== sourceTitleComparable && outgoingTitleComparable !== sourceDescriptionComparable;
-    const titleNotSourceDescription = outgoingTitleComparable !== sourceDescriptionComparable;
-    const descriptionDistinct = outgoingDescriptionComparable !== sourceDescriptionComparable && outgoingDescriptionComparable !== sourceTitleComparable;
-    const descriptionDoesNotRepeatTitle = !outgoingDescriptionComparable.includes(outgoingTitleComparable);
     const metadataRisk = policyTextRiskReason({ title: outgoingTitle, description: outgoingDescription });
     const hasExternalLink = /(?:https?:\/\/|www\.)/i.test(outgoingTitle + ' ' + outgoingDescription);
-    const metadataOk = outgoingTitle.length >= 8 && outgoingTitle.length <= 180 &&
-      outgoingDescription.length >= 35 && outgoingDescription.length <= 1100 &&
-      titleNotSourceDescription && descriptionDistinct && descriptionDoesNotRepeatTitle && !metadataRisk && !hasExternalLink;
+    const metadataOk = outgoingTitle.length >= 5 && outgoingTitle.length <= 180 &&
+      outgoingDescription.length <= 1100 && !metadataRisk && !hasExternalLink;
     const frameOk = selectedFrame.startsWith('data:image/') && selectedFrame.length > 1000;
     const guardFailures = buildNativePublishGuardFailures({
       sourceCode:code,republishFrom,videoCode,isMadeByMe,canRepublish,canMakeMoney,dontPublish,metadataOk
@@ -1343,9 +864,6 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
       sourceCode: republishFrom,
       newVideoCode: videoCode,
       title: outgoingTitle.slice(0, 180),
-      descriptionDistinct,
-      titleDistinct,
-      titleNotSourceDescription,
       category: params.get('category') || '',
       selectedFramePresent: frameOk,
       coverStatus: !frameOk ? 'cover_omitted_optional'
@@ -1547,194 +1065,6 @@ async function reconcilePreviouslySubmitted(page, state) {
 }
 
 
-function cleanLegacyRepostTitle(value, sourceTitle = '') {
-  const source = String(sourceTitle || '').trim();
-  if (source) {
-    try {
-      return cleanRepostCaptionTitle(source);
-    } catch {
-      return String(value || source)
-        .replace(/^(?:(?:ماجرای\s+بامزه(?:‌ی|ی)?|روایت\s+تصویری|روایتی\s+از)\s*[:،؛-]?\s*)+/iu, '')
-        .replace(/[«»“”"]/g, '')
-        .trim();
-    }
-  }
-  return String(value || '')
-    .replace(/^(?:(?:ماجرای\s+بامزه(?:‌ی|ی)?|روایت\s+تصویری|روایتی\s+از)\s*[:،؛-]?\s*)+/iu, '')
-    .replace(/[«»“”"]/g, '')
-    .trim();
-}
-async function fetchOwnVideoForCaptionEdit(page, videoCode) {
-  const result = await page.evaluate(async ({ videoCode }) => {
-    const params = new URLSearchParams();
-    params.set('page', '1');
-    params.set('rowCount', '24');
-    params.set('vc', videoCode);
-    const response = await fetch('/api/v1/my/videos', {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' },
-      body: params.toString()
-    });
-    return { status: response.status, body: await response.text() };
-  }, { videoCode });
-
-  if (!result || result.status !== 200) return null;
-  const body = parseJson(result.body);
-  const root = body && body.data && typeof body.data === 'object' ? body.data : body;
-  const items = root && Array.isArray(root.items) ? root.items : [];
-  return items.find(item => String(item.video_code || item.code || item.v || '') === videoCode) || null;
-}
-
-async function editOwnVideoTitle(page, item, videoCode, newTitle, newDescription = null) {
-  const form = await page.evaluate(async ({ videoCode, id }) => {
-    const params = new URLSearchParams();
-    params.set('c', videoCode);
-    params.set('id', String(id));
-    const response = await fetch('/api/v1/video/edit', {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;' },
-      body: params.toString()
-    });
-    return { status: response.status, body: await response.text() };
-  }, { videoCode, id: item.id });
-
-  if (!form || form.status !== 200) return { ok: false, reason: 'edit_form_http_' + (form && form.status || 'no_response') };
-  const loaded = parseJson(form.body);
-  if (!loaded || !loaded.video) return { ok: false, reason: 'edit_form_invalid' };
-  if (loaded.isLockEdit === true || loaded.isLockEdit === 1 || loaded.isLockEdit === '1') {
-    return { ok: false, reason: 'filo_locked_video_edit' };
-  }
-  if (String(loaded.video.id) !== String(item.id)) {
-    return { ok: false, reason: 'edit_form_owner_id_mismatch' };
-  }
-  if (num(loaded.video.status_id) === 11) {
-    return { ok: false, reason: 'moderation_confirmation_required' };
-  }
-
-  const video = loaded.video;
-  const model = {
-    id: video.id,
-    title: newTitle,
-    description: newDescription === null ? String(video.description || '') : String(newDescription),
-    playlist_id: video.playlist_id ?? 0,
-    category_id: video.category_id ?? 0,
-    status_id: video.status_id ?? '',
-    has_comment: !!video.has_comment,
-    allow_download: !!video.allow_download,
-    only_in_filo: Number(video.only_in_filo) || 0,
-    made_for_kids: !!video.made_for_kids,
-    over18: !!video.over18,
-    can_republish: !!video.can_republish,
-    made_by_me: !!video.made_by_me,
-    is_republish: !!loaded.isRepublish,
-    video_url: video.video_url || '',
-    cards: Array.isArray(video.cards) ? video.cards : [],
-    subtitle_file_name: video.subtitle_file_name || video.subtitleFileName || '',
-    jost_save_cards: false
-  };
-
-  const saved = await page.evaluate(async model => {
-    const response = await fetch('/api/v1/video/edit', {
-      method: 'PUT',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(model)
-    });
-    const text = await response.text();
-    let body = null;
-    try { body = text ? JSON.parse(text) : {}; } catch {}
-    return { status: response.status, body };
-  }, model);
-
-  if (!saved || saved.status !== 200 || !saved.body || !isFlag(saved.body.s)) {
-    return {
-      ok: false,
-      reason: String(saved && saved.body && saved.body.r || 'filo_edit_not_accepted').slice(0, 180),
-      httpStatus: saved && saved.status || null
-    };
-  }
-  return { ok: true, httpStatus: saved.status };
-}
-
-async function cleanupLegacyRepostCaptions(page, state) {
- const cooldownMs=12*60*60*1000;
-  const targets=(state.posts||[]).filter(post=>{
-   if(!post||post.status!=='public_verified'||!post.newVideoCode||!post.sourceCode||
-      !(post.captionCleanupPending||post.captionPolicyVersion!==CAPTION_POLICY_VERSION))return false;
-   const lastAttempt=Date.parse(post.captionCleanupLastAttemptAt||'');
-   return !Number.isFinite(lastAttempt)||Date.now()-lastAttempt>=cooldownMs;
-  }).slice(0,1);
- const report={checked:targets.length,updated:[],pending:[],skipped:[],errors:[]};
- for(const post of targets){
-  const code=String(post.newVideoCode);
-  if(post.captionCleanupLastAttemptAt&&Date.now()-Date.parse(post.captionCleanupLastAttemptAt)<12*60*60*1000){
-   report.skipped.push({code,reason:'metadata_migration_retry_cooldown'});continue;
-  }
-  const markAttempt=()=>{post.captionCleanupLastAttemptAt=new Date().toISOString();state.updatedAt=post.captionCleanupLastAttemptAt;fs.writeFileSync(STATE_PATH,JSON.stringify(state,null,2)+'\n','utf8');};
-  try{
-   const sourceDetail=await getRepublishDetail(page,String(post.sourceCode)).catch(()=>null);
-   if(!sourceDetail||!sourceDetail.video){report.skipped.push({code,reason:'original_source_metadata_unavailable'});markAttempt();continue;}
-   const sourceGate=detailGate(sourceDetail.root,sourceDetail.video);
-   if(!sourceGate.eligible){
-    post.monetizationReviewRequired=true;
-    post.monetizationReviewReason='original_source_no_longer_eligible:'+sourceGate.reason;
-    post.monetizationReviewAt=new Date().toISOString();
-    report.skipped.push({code,reason:'original_source_no_longer_eligible',detail:sourceGate.reason,manualReviewRequired:true});
-    report.manualReview=(report.manualReview||[]).concat([{code,reason:post.monetizationReviewReason}]);
-    markAttempt();continue;
-   }
-   const metadata=createRepostMetadata(sourceDetail.video,String(post.sourceCode));
-   const newTitle=metadata.title,newDescription=metadata.description;
-   const ownVideo=await fetchOwnVideoForCaptionEdit(page,code);
-   if(!ownVideo){report.skipped.push({code,reason:'not_found_in_own_video_list'});markAttempt();continue;}
-   if(String(ownVideo.video_code||ownVideo.code||ownVideo.v||'')!==code){report.skipped.push({code,reason:'own_video_code_mismatch'});markAttempt();continue;}
-   const currentTitle=String(ownVideo.title||ownVideo.t||'').trim();
-   const currentDescription=String(ownVideo.description||ownVideo.d||'').trim();
-   if(normalizeComparable(currentTitle)===normalizeComparable(newTitle)&&normalizeComparable(currentDescription)===normalizeComparable(newDescription)){
-    const publicUrl=await verifyPublicVideo(page,code,newTitle).catch(()=>null);
-    if(publicUrl){
-     post.repostTitle=newTitle;post.repostDescription=newDescription;post.captionCleanupPending=false;post.captionPolicyVersion=CAPTION_POLICY_VERSION;post.monetizationReviewRequired=false;delete post.monetizationReviewReason;delete post.monetizationReviewAt;post.captionCleanupAt=new Date().toISOString();
-     markAttempt();report.updated.push({code,title:newTitle,descriptionUpdated:true,publicUrl,verified:true,unchanged:true});
-    }else{report.pending.push({code,title:newTitle,reason:'public_title_not_yet_verified'});markAttempt();}
-    continue;
-   }
-   if(!(ownVideo.canEdit===1||ownVideo.canEdit===true||ownVideo.canEdit==='1')){report.skipped.push({code,reason:'filo_can_edit_not_granted'});markAttempt();continue;}
-   const edit=await editOwnVideoTitle(page,ownVideo,code,newTitle,newDescription);
-   if(!edit.ok){report.skipped.push({code,reason:edit.reason});markAttempt();continue;}
-   post.repostTitle=newTitle;post.repostDescription=newDescription;post.captionCleanupPending=true;post.captionPolicyVersion=CAPTION_POLICY_VERSION;post.captionCleanupRequestedAt=new Date().toISOString();
-   const edited=await fetchOwnVideoForCaptionEdit(page,code).catch(()=>null);
-   const ownMetadataVerified=Boolean(edited&&normalizeComparable(String(edited.title||edited.t||''))===normalizeComparable(newTitle)&&normalizeComparable(String(edited.description||edited.d||''))===normalizeComparable(newDescription));
-   const publicUrl=ownMetadataVerified?await verifyPublicVideo(page,code,newTitle).catch(()=>null):null;
-   if(publicUrl){post.captionCleanupPending=false;post.captionCleanupAt=new Date().toISOString();post.monetizationReviewRequired=false;delete post.monetizationReviewReason;delete post.monetizationReviewAt;report.updated.push({code,title:newTitle,descriptionUpdated:true,publicUrl,verified:true});}
-   else report.pending.push({code,title:newTitle,reason:ownMetadataVerified?'public_title_not_yet_verified':'edited_metadata_not_yet_verified'});
-   markAttempt();
-  }catch(error){
-    const reason=String(error&&error.message||error).slice(0,200);
-    post.monetizationReviewRequired=true;
-    post.monetizationReviewReason='metadata_migration_requires_review:'+reason;
-    post.monetizationReviewAt=new Date().toISOString();
-    report.errors.push({code,error:reason,manualReviewRequired:true});
-    report.manualReview=(report.manualReview||[]).concat([{code,reason:post.monetizationReviewReason}]);
-    markAttempt();
-   }
- }
- return report;
-}
-
-function isRecoverableCoverGuardBlock(result) {
-  const failures = result && result.publishPayload && result.publishPayload.guardFailures;
-  const coverOnlyFailures = new Set(['cover_aspect_not_16_9', 'cover_frame_missing_or_invalid']);
-  return Boolean(
-    result &&
-    result.status === 'blocked_before_filo_submission' &&
-    Array.isArray(failures) &&
-    failures.length > 0 &&
-    failures.every(failure => coverOnlyFailures.has(failure))
-  );
-}
-
 async function main() {
   fs.mkdirSync(path.dirname(REPORT_PATH), { recursive: true });
   fs.mkdirSync(path.dirname(STATE_PATH), { recursive: true });
@@ -1742,20 +1072,13 @@ async function main() {
   const report = {
     createdAt: new Date().toISOString(),
     status: 'started',
-    discovery: { categories: CATEGORY_IDS, pagesPerCategory: PAGES_PER_CATEGORY, scannedItems: 0, eligibleFeedItems: 0, eligibleGlobalSearchItems: 0, combinedCandidates: 0, globalTrendSearch: null, errors: [] },
+    discovery: { categories: CATEGORY_IDS, pagesPerCategory: PAGES_PER_CATEGORY, scannedItems: 0, eligibleFeedItems: 0, measuredCandidates: 0, errors: [] },
     selected: null,
-    result: null,
-    googleTrends: { status: 'not_fetched', itemCount: 0, topTopics: [] }
+    result: null
   };
   let browser;
 
   try {
-    const cooldown = getPublishCycleCooldown(state, Date.parse(report.createdAt));
-    if (cooldown.active) {
-      report.status = 'publisher_cycle_cooldown_active';
-      report.cooldown = cooldown;
-      return;
-    }
     state.lastCycleStartedAt = report.createdAt;
     fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
 
@@ -1774,56 +1097,10 @@ async function main() {
     page.setDefaultTimeout(12000);
 
     report.login = await login(page);
-    const googleTrendsFeed = await fetchIranGoogleTrends({ timeoutMs: 8000, maxItems: 40 });
-    const googleTrends = googleTrendsFeed.items || [];
-    report.googleTrends = {
-      status: googleTrendsFeed.ok ? 'active' : 'unavailable_non_blocking',
-      source: googleTrendsFeed.source,
-      fetchedAt: googleTrendsFeed.fetchedAt,
-      itemCount: googleTrends.length,
-      error: googleTrendsFeed.error || null,
-      topTopics: googleTrends.slice(0, 12).map(item => ({
-        title: item.title,
-        traffic: item.traffic,
-        publishedAt: item.publishedAt
-      }))
-    };
     report.reconciliation = await reconcilePreviouslySubmitted(page, state);
     if (report.reconciliation.changed) {
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
     }
-    report.captionCleanup = await cleanupLegacyRepostCaptions(page, state).catch(error => ({
-       status:'maintenance_failed_non_blocking',checked:0,updated:[],pending:[],
-       errors:[String(error&&error.message||error).slice(0,180)]
-     }));
-    const trendWeights = {};
-    try {
-      const trend = JSON.parse(fs.readFileSync(path.join('state', 'platform-trends.json'), 'utf8'));
-      for (const key of Object.keys(trend || {})) {
-        const source = trend[key];
-        if (!source || typeof source !== 'object') continue;
-        for (const item of Object.values(source)) {
-          const categoryId = String(item && item.category_id || '');
-          if (categoryId) trendWeights[categoryId] = Math.min(5, (trendWeights[categoryId] || 0) + 0.25);
-        }
-      }
-    } catch {}
-
-    const globalSearchCache = loadGlobalSearchCache(googleTrends);
-    const globalSearchCandidates = globalSearchCache.items;
-    report.discovery.globalTrendSearch = {
-      status: globalSearchCache.status,
-      topicsAvailable: googleTrends.length,
-      queriesRequested: globalSearchCache.queriesRequested,
-      queriesCompleted: globalSearchCache.queriesCompleted,
-      pagesFetched: globalSearchCache.pagesFetched,
-      uniqueVideos: globalSearchCache.totalVideosRetained,
-      currentTrendMatches: globalSearchCandidates.length,
-      complete: globalSearchCache.complete,
-      cacheUpdatedAt: globalSearchCache.updatedAt,
-      cacheAgeMinutes: globalSearchCache.ageMinutes
-    };
-
     const byCode = new Map();
     for (const categoryId of CATEGORY_IDS) {
       for (let pageNo = 1; pageNo <= PAGES_PER_CATEGORY; pageNo++) {
@@ -1853,54 +1130,21 @@ async function main() {
     const feedCandidates = [...byCode.values()].filter(item => feedCandidateEligible(item, state));
     report.discovery.eligibleFeedItems = feedCandidates.length;
 
-    const globalCandidatesByCode = new Map();
-    for (const item of globalSearchCandidates) {
-      if (!searchCandidateEligible(item, state)) continue;
-      const code = String(item.video_code || '');
-      if (!code) continue;
-      globalCandidatesByCode.set(code, item);
-    }
-    report.discovery.eligibleGlobalSearchItems = globalCandidatesByCode.size;
-
-    const combinedByCode = new Map(feedCandidates.map(item => [String(item.video_code), item]));
-    for (const [code, searchItem] of globalCandidatesByCode) {
-      const existing = combinedByCode.get(code);
-      if (existing) {
-        const matches = [
-          ...(Array.isArray(existing.globalTrendSearchMatches) ? existing.globalTrendSearchMatches : []),
-          ...(Array.isArray(searchItem.globalTrendSearchMatches) ? searchItem.globalTrendSearchMatches : [])
-        ];
-        combinedByCode.set(code, { ...searchItem, ...existing, globalTrendSearchMatches: matches });
-      } else {
-        combinedByCode.set(code, searchItem);
-      }
-    }
-    report.discovery.combinedCandidates = combinedByCode.size;
-    const candidateMomentum = updateCandidateMomentum(state, [...combinedByCode.values()], Date.parse(report.createdAt));
+    const ranked = rankCandidatesByMomentum(feedCandidates, state, Date.parse(report.createdAt));
+    report.discovery.measuredCandidates = ranked.length;
+    report.discovery.topMomentum = ranked.slice(0, 5).map(entry => ({
+      code: String(entry.item.video_code),
+      viewsPerMinute: entry.momentum.viewsPerMinute,
+      accelerationPerMinute: entry.momentum.accelerationPerMinute || 0,
+      ageHours: entry.ageHours
+    }));
     fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
-    report.discovery.momentum = {
-      measuredCandidates: Object.keys(candidateMomentum).length,
-      strongest: Object.entries(candidateMomentum).sort((a, b) => b[1].bonus - a[1].bonus).slice(0, 5)
-        .map(([code, metrics]) => ({ code, ...metrics }))
-    };
-
-    const ranked = [...combinedByCode.values()]
-      .map(item => {
-        const momentum = candidateMomentum[String(item.video_code)] || null;
-        const rank = scoreFeedCandidate(item, trendWeights, googleTrends, momentum);
-        const searchBonus = globalSearchRelevanceBonus(item);
-        rank.score = Math.round((rank.score + searchBonus.bonus) * 10) / 10;
-        rank.globalSearchRelevance = searchBonus;
-        return { item, rank };
-      })
-      .filter(entry => entry.rank.score >= 30)
-      .sort((a, b) => b.rank.score - a.rank.score);
 
     if (!ranked.length) {
-      report.status = 'no_candidate_published_this_cycle';
+      report.status = 'waiting_for_measured_view_growth';
       report.result = {
-        status: 'no_candidate_published_this_cycle',
-        reason: 'no_candidate_passed_feed_and_global_search_filters',
+        status: report.status,
+        reason: 'no_fresh_candidate_has_positive_measured_view_growth_yet',
         retryOnNextScheduledRun: true
       };
       return;
@@ -1909,15 +1153,13 @@ async function main() {
     let selected = null;
     let result = null;
     const checked = [];
-    const coverGuardSkips = [];
-    const coverPreparationSkips = [];
     const filoRejections = [];
     const MAX_CONFIRMED_FILO_REJECTIONS_PER_CYCLE = 3;
     for (const entry of ranked.slice(0, MAX_DETAIL_CHECKS)) {
       const code = entry.item.video_code;
       const detail = await getRepublishDetail(page, code).catch(() => null);
       const gate = detail ? detailGate(detail.root, detail.video) : { eligible: false, reason: 'republish_detail_unavailable' };
-      const check = { code, score: entry.rank.score, gate: gate.reason };
+      const check = { code, viewsPerMinute: entry.momentum.viewsPerMinute, ageHours: entry.ageHours, gate: gate.reason };
       checked.push(check);
       if (!gate.eligible) continue;
 
@@ -1929,7 +1171,7 @@ async function main() {
         continue;
       }
 
-      const candidate = { ...entry.item, editorialScore: entry.rank.score, scoreDetails: entry.rank, detail };
+      const candidate = { ...entry.item, editorialScore: entry.momentum.viewsPerMinute, scoreDetails: entry.momentum, momentum: entry.momentum, ageHours: entry.ageHours, detail };
       let attemptResult;
       try {
         attemptResult = await prepareAndPublish(page, candidate, candidate.detail, report, async () => {
@@ -1955,12 +1197,6 @@ async function main() {
           check.gate = 'permission_or_source_metadata_changed_before_submission';
           continue;
         }
-        if(isRecoverableCoverPreparationError(reason)){
-          check.gate='candidate_cover_preparation_unavailable';
-          check.publishAttempt='skipped_candidate_cover_preparation';
-          coverPreparationSkips.push({sourceCode:candidate.video_code,score:candidate.editorialScore,reason});
-          continue;
-        }
         throw error;
       }
 
@@ -1981,29 +1217,11 @@ async function main() {
         continue;
       }
 
-      if (isRecoverableCoverGuardBlock(attemptResult)) {
-        coverGuardSkips.push({
-          sourceCode: candidate.video_code,
-          score: candidate.editorialScore,
-          reason: 'cover_aspect_not_16_9',
-          coverDimensions: attemptResult.publishPayload.coverDimensions || null,
-          coverAspectRatio: attemptResult.publishPayload.coverAspectRatio || null,
-          coverCompositionReason: attemptResult.publishPayload.coverComposition &&
-            attemptResult.publishPayload.coverComposition.reason || null
-        });
-        check.publishAttempt = 'skipped_before_submission_bad_cover_aspect';
-        // No POST was sent. Keep the candidate eligible for future runs, but try the next ranked
-        // source in this run so a bad thumbnail cannot waste the entire publishing slot.
-        continue;
-      }
-
       selected = candidate;
       result = attemptResult;
       break;
     }
     report.discovery.detailChecks = checked;
-    report.discovery.coverGuardSkips = coverGuardSkips;
-    report.discovery.coverPreparationSkips = coverPreparationSkips;
     report.discovery.filoRejections = filoRejections;
     for(const rejected of filoRejections){
       state.posts.push({
@@ -2030,8 +1248,6 @@ async function main() {
           ?'confirmed_candidate_rejections_exhausted_this_cycle'
           :'no_candidate_passed_native_permission_and_metadata_gates',
         filoRejections,
-        coverGuardSkips,
-        coverPreparationSkips,
         retryOnNextScheduledRun:true
       };
       return;
@@ -2044,10 +1260,11 @@ async function main() {
       repostTitle: selectedMetadata.title,
       categoryId: selected.detail.video.category_id,
       durationSeconds: num(selected.detail.video.duration),
-      visits: num(selected.detail.video.visit_count),
-      plays: num(selected.detail.video.play_count),
-      score: selected.editorialScore,
-      scoreDetails: selected.scoreDetails,
+      visits: candidateMetricValue(selected.detail.video, ['visit_count', 'views', 'view_count', 'visits']),
+      plays: candidateMetricValue(selected.detail.video, ['play_count', 'plays', 'playCount']),
+      viewsPerMinute: selected.momentum.viewsPerMinute,
+      accelerationPerMinute: selected.momentum.accelerationPerMinute || 0,
+      ageHours: selected.ageHours,
       repostDescriptionLength: selectedMetadata.description.length
     };
     report.result = result;
@@ -2097,9 +1314,6 @@ async function main() {
       result: report.result,
       filoRejections: report.discovery.filoRejections || [],
       errors: report.discovery.errors.slice(0, 8),
-      googleTrends: report.googleTrends,
-      globalTrendSearch: report.discovery.globalTrendSearch,
-      captionCleanup: report.captionCleanup,
       error: report.error
     }));
   }
@@ -2116,30 +1330,21 @@ if (require.main === module) {
 
 module.exports = {
   login,
-  fetchFiloGlobalSearchPage,
-  loadGlobalSearchCache,
   ageHours,
   feedCandidateEligible,
-  searchCandidateEligible,
-  cleanLegacyRepostTitle,
   cleanRepostCaptionTitle,
   cleanRepostDescription,
   policyTextRiskReason,
   imageDimensionsFromDataUrl,
-  scoreFeedCandidate,
+  rankCandidatesByMomentum,
   createRepostMetadata,
   normalizeComparable,
   detailGate,
-  isRecoverableCoverGuardBlock,
-  isRecoverableCoverPreparationError,
-  imageBufferFromDataUrl,
-  trustedFiloMediaUrl,
   buildNativePublishGuardFailures,
   safeApiDiagnosticValue,
   buildUnconfirmedSubmissionResult,
   composeFiloCoverDataUrl,
   dailyCount,
   candidateMetricValue,
-  updateCandidateMomentum,
-  getPublishCycleCooldown
+  updateCandidateMomentum
 };
