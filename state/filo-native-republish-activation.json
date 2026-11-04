@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "activatedAt": "2026-11-03T00:00:00Z",
-  "lastManualActivationAt": "2026-11-03T16:01:24.338Z",
-  "activationAttempts": 7,
+  "lastManualActivationAt": "2026-11-04T02:59:02.408Z",
+  "activationAttempts": 8,
   "purpose": "Controlled one-time activation of the Filo native republisher. Normal cadence is the ten-minute GitHub Actions schedule; this marker is not a publication queue.",
-  "lastManualActivationReason": "user_requested_safe_ten_minute_cadence_validation"
+  "lastManualActivationReason": "bootstrap_event_driven_ten_minute_publisher_and_twenty_minute_trend_search_watchdogs"
 }
