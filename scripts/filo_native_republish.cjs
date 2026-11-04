@@ -71,12 +71,6 @@ function sourceText(item) {
     .filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
 }
 
-function queryTokens(value) {
-  return String(value || '').normalize('NFKC').toLocaleLowerCase('fa-IR')
-    .replace(/[،؛:,.!?؟«»"'()]/g, ' ')
-    .split(/\s+/u).filter(token => token.length >= 2);
-}
-
 const EXCLUDED = /(?:اخبار|خبر فوری|تحلیل سیاسی|سیاست|سیاسی|انتخابات|جنگ|حمله نظامی|موشک|انفجار|تروریست|ترور|اعدام|شلیک|سلاح|خشونت|مداحی|تبلیغات|کازینو|شرط.?بندی|قمار|محتوای بزرگسال|پورنو|قتل|خودکشی|خودآزاری|صحنه دلخراش|تصادف مرگبار|حیوان.?آزاری|رقص|حرکات موزون|تک.?خوانی.{0,8}زن|خوانندگی.{0,8}زن|فحاشی|الفاظ رکیک|افترا|تهمت|توهین|ناسزا|بددهنی|تحقیر|تمسخر|دوربین.?مداربسته|فیلم.?برداری.?مخفی|افشای اطلاعات|کد ملی|خبر جعلی|اطلاعات نادرست|فیلم سینمایی|فیلم ایرانی|سریال|مجموعه تلویزیونی|محصول نمایش خانگی|شبکه نمایش خانگی|صدا.?و.?سیما|فیلیمو|نماوا|فیلم.?نت|تلوبیون|آی.?آر.?مووی|IR.?Movie|مواد مخدر|مشروبات الکلی|برهنگی|محتوای جنسی)/i;
 const POLICY_TEXT_RISKS = [
  {reason:'insult_or_defamation',pattern:/(?:توهین|توهین\s*آمیز|فحاشی|الفاظ\s*رکیک|ناسزا|بددهنی|افترا|تهمت|تحقیر|تمسخر)/i},
@@ -266,146 +260,49 @@ function normalizeCaptionEditorialText(value) {
     .trim();
 }
 
-function safeSpecificCaptionRewrite(title, sourceDescription = '') {
-  const normalizedTitle = normalizeCaptionEditorialText(title);
-  const normalizedDescription = normalizeCaptionEditorialText(sourceDescription);
-
-  // Remove a vague clickbait lead-in while preserving the observable question.
-  const question = normalizedTitle.match(/^اگه\s+گفتی\s+.+?\s+چرا\s+(.+)$/u);
-  if (question) {
-    let subject = question[1].trim();
-    const emphatic = /^(?:انقدر|اینقدر|این‌قدر)\s*/u.test(subject);
-    subject = subject
-      .replace(/^(?:انقدر|اینقدر|این‌قدر)\s*/u, '')
-      .replace(/میخندن[.!؟?]*$/u, 'می‌خندند')
-      .replace(/می‌خندن[.!؟?]*$/u, 'می‌خندند')
-      .replace(/میخندند[.!؟?]*$/u, 'می‌خندند')
-      .replace(/[.!؟?]+$/u, '')
-      .trim();
-    if (subject.length >= 8) {
-      return emphatic ? 'چرا این‌قدر ' + subject + '؟' : 'چرا ' + subject + '؟';
-    }
-  }
-
-  // Attribute a remake to a fan only when the source description explicitly says so.
-  const remake = normalizedTitle.match(/^ریمیک\s+جدید\s+(.+?)\s+برای\s+کنسول\s+(.+)$/u);
-  if (remake && /طرفدار/u.test(normalizedDescription)) {
-    return 'ریمیک طرفداری از ' + remake[1].trim() + ' برای ' + remake[2].trim();
-  }
-
-  return normalizedTitle;
-}
-
-function cleanRepostCaptionTitle(sourceTitle, sourceDescription = '') {
-  const original = normalizeCaptionEditorialText(sourceTitle)
-    .replace(/#[^\s#]+/g, ' ')
-    .replace(/[«»“”"]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-  if (original.length < 5) throw new Error('source_title_too_short_for_compliant_rewrite');
-
-  let title = original
+function cleanRepostCaptionTitle(sourceTitle) {
+  const title = normalizeCaptionEditorialText(sourceTitle)
+    .replace(/https?:\/\/\S+|www\.\S+/giu, ' ')
+    .replace(/#[^\s#]+/gu, ' ')
+    .replace(/@[\p{L}\p{N}_.-]+/gu, ' ')
     .replace(/^(?:(?:ماجرای\s+بامزه(?:‌ی|ی)?|روایت\s+تصویری|روایتی\s+از)\s*[:،؛-]?\s*)+/iu, '')
-    .replace(/^(?:(?:طنز|کلیپ|ویدیو|ویدئوی|ویدئو|فیلم|تصاویر|تصاویری)\s+)*(?:(?:خنده.?دار|بامزه|جالب|دیدنی|تماشایی|جذاب|کوتاه|باورنکردنی)(?:\s+و)?\s+)*(?:از\s+)?/iu, '')
-    .replace(/^[-:،؛|\s]+/, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-  title = title
+    .replace(/^\s*(?:کلیپ|ویدئو|ویدیو|فیلم)\s+/iu, '')
     .replace(/\s+(?:این\s+)?(?:حتماً?\s*)?(?:ببینید|ببنید|تماشا کنید|مشاهده کنید|از دست ندید|از دست ندهید)\s*$/iu, '')
-    .replace(/(?:\s+(?:پوکیدم از خنده|ترکیدم از خنده|عالی بود|خیلی عالی بود|خیلی خنده.?دار بود|خیلی باحال بود|بسیار جالب بود))+\s*$/iu, '')
-    .replace(/\s+(?:سرمربی|مربی|بازیکن|بازیگر|خواننده|قهرمان|مجری)\s+[\p{L}\p{N}‌_-]+(?:\s+[\p{L}\p{N}‌_-]+){0,2}(?=\s+(?:با|به|در|از)\s+)/u, ' ')
     .replace(/\s+/g, ' ')
     .trim();
-
-  title = title.replace(/\s*[،؛:|\-]\s*(?:روایت\s+تصویری|روایتی\s+از|ماجرای\s+بامزه)(?=\s|$).*$/iu, '').trim();
-
-  if (normalizeComparable(title) === normalizeComparable(original)) {
-    title = title
-      .replace(/(?:عجیب\s+و\s+توهین\s+آمیز|توهین\s+آمیز|عجیب|باورنکردنی|دیدنی|تماشایی|جالب|فوق\s+العاده|عالی|خنده.?دار|بامزه)/giu, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
-  }
-
-  title = safeSpecificCaptionRewrite(title, sourceDescription)
-    .replace(/[!！]+$/u, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-  title = trimAtWord(title, 176);
-  if (title.length < 8) {
-    throw new Error('no_clean_distinct_title_available_without_extra_words');
-  }
-  if (/(?:روایت\s+تصویری|ماجرای\s+بامزه|روایتی\s+از)/iu.test(title)) {
-    throw new Error('repost_title_contains_editorial_wrapper');
-  }
-  return title;
+  if (title.length < 5) throw new Error('source_title_too_short');
+  return trimAtWord(title, 176);
 }
 
-function removeLiteralPhrase(text, phrase) {
- const value=String(phrase||'').trim();
- if(value.length<10)return String(text||'').trim();
- const escaped=value.replace(/[.*+?^{}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s+');
- return String(text||'').replace(new RegExp(escaped,'giu'),' ').replace(/\s+/g,' ').trim();
-}
 function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
- const raw=normalizeCaptionEditorialText(sourceDescription);
- if(raw.length<50)throw new Error('repost_description_source_too_short');
- let description=raw
-  .replace(/https?:\/\/\S+|www\.\S+/giu,' ')
-  .replace(/#[^\s#]+/gu,' ')
-  .replace(/@[A-Za-z0-9_.-]+/g,' ')
-  .replace(/(?:لطفاً|لطفا)\s*(?:لایک|پسند|فالو|دنبال|عضویت|اشتراک).{0,160}$/iu,' ')
-  .replace(/(?:برای\s+(?:دیدن|تماشای|دنبال\s+کردن).{0,160})$/iu,' ')
-  .replace(/(?:حتماً|حتما)\s*(?:ببینید|ببنید|تماشا\s+کنید|مشاهده\s+کنید).{0,100}$/iu,' ')
-  .replace(/\b(?:join\s*us|click(?:\s+(?:here|below))?|follow\s*us|subscribe|like\s+and\s+subscribe|comment\s+below)\b[\s\S]{0,240}$/iu,' ')
-  .replace(/(?:این\s+نسخه\s+از\s+مسیر\s+بازنشر\s+رسمی\s+فیلو|بازنشر\s+از\s+مسیر\s+رسمی\s+فیلو).*$/iu,' ')
-  .replace(/^(?:(?:در\s+)?این\s+(?:ویدئو|ویدیو|کلیپ|فیلم)\s*[,،:؛-]?\s*)+/iu,'')
-  .replace(/برای\s+شما\s+(?:عزیزان|دوستان(?:\s+عزیز)?)/giu,' ')
-  .replace(/(?:دوستان\s+عزیز|عزیزانِ?\s+همراه)/giu,' ')
-  .replace(/(?:با\s+ما\s+همراه\s+باشید|همراه\s+ما\s+باشید)(?:\s+و\s+)?(?:لذت\s+ببرید)?/giu,' ')
-  .replace(/لذت\s+ببرید/giu,' ')
-  .replace(/(?:نظر(?:تان|تون)?\s+(?:را|رو)\s+(?:بنویسید|بگویید|بگید)|نظرتون\s+رو\s+(?:بنویسید|بگید)|کامنت\s+(?:بگذارید|بذارید|کنید)|در\s+کامنت(?:ها)?\s+بگویید)/giu,' ')
-  .replace(/(?:لایک\s+کنید|فالو\s+کنید|ما\s+را\s+دنبال\s+کنید|عضو\s+شوید)/giu,' ')
-  .replace(/\s+([،؛:,.!?؟])/gu,'$1')
-  .replace(/([،؛:,.!?؟]){2,}/gu,'$1')
-  .replace(/\s+/g,' ').trim();
- description=removeLiteralPhrase(description,sourceTitle);
- description=removeLiteralPhrase(description,repostTitle);
- description=description
-  .replace(/مشاهده\s+می‌کنید/giu,'دیده می‌شود')
-  .replace(/می‌بینید/giu,'دیده می‌شود')
-  .replace(/اتفاق\s+می‌افتد/giu,'رخ می‌دهد')
-  .replace(/اتفاق\s+افتاده/giu,'رخ داده')
-  .replace(/نشان\s+می‌دهد/giu,'نمایان می‌کند')
-  .replace(/(?:\s|[\p{Extended_Pictographic}\p{Emoji_Modifier}\uFE0F\u200D])+$/gu,' ')
-  .replace(/\s+/g,' ').trim();
- if(description.length<35)throw new Error('repost_description_lacks_substantive_detail');
- if(normalizeComparable(description)===normalizeComparable(raw))throw new Error('repost_description_not_rewritten_from_original');
- const descN=normalizeComparable(description),titleN=normalizeComparable(repostTitle),sourceTitleN=normalizeComparable(sourceTitle),sourceDescN=normalizeComparable(raw);
- if(titleN&&descN.includes(titleN))throw new Error('repost_description_repeats_repost_title');
- if(sourceTitleN&&sourceTitleN.length>=12&&descN.includes(sourceTitleN))throw new Error('repost_description_repeats_source_title');
- if(descN===sourceTitleN||descN===sourceDescN)throw new Error('repost_description_not_distinct_from_original');
- if(/(?:https?:\/\/|www\.)/i.test(description))throw new Error('repost_description_contains_unapproved_external_link');
- if(/(?:فیلیمو|نماوا|فیلم\s*نت|تلوبیون|تبلیغ\s+سرویس\s+اشتراک)/iu.test(description))throw new Error('repost_description_contains_video_service_promotion');
- const descTokens=new Set(queryTokens(description)),titleTokens=queryTokens(repostTitle).filter(t=>String(t).length>=3);
- if(!titleTokens.some(t=>descTokens.has(t)))throw new Error('repost_description_missing_relevant_title_keyword');
- const risk=policyTextRiskReason({title:repostTitle,description});
- if(risk)throw new Error('repost_description_policy_risk:'+risk);
- return trimAtWord(description,900);
+  const description = normalizeCaptionEditorialText(sourceDescription)
+    .replace(/https?:\/\/\S+|www\.\S+/giu, ' ')
+    .replace(/#[^\s#]+/gu, ' ')
+    .replace(/@[\p{L}\p{N}_.-]+/gu, ' ')
+    .replace(/برای\s+شما\s+(?:عزیزان|دوستان(?:\s+عزیز)?)/giu, ' ')
+    .replace(/(?:دوستان\s+عزیز|عزیزانِ?\s+همراه)/giu, ' ')
+    .replace(/(?:لطفاً|لطفا)\s*(?:لایک|پسند|فالو|دنبال|عضویت|اشتراک).{0,160}$/iu, ' ')
+    .replace(/(?:با\s+ما\s+همراه\s+باشید|همراه\s+ما\s+باشید)(?:\s+و\s+)?(?:لذت\s+ببرید)?/giu, ' ')
+    .replace(/لذت\s+ببرید/giu, ' ')
+    .replace(/(?:لایک\s+کنید|فالو\s+کنید|ما\s+را\s+دنبال\s+کنید|عضو\s+شوید)/giu, ' ')
+    .replace(/\s+([،؛:,.!?؟])/gu, '$1')
+    .replace(/\s+/g, ' ')
+    .trim();
+  // Keep source facts as supplied; a short caption is valid and no detail is invented.
+  return trimAtWord(description || String(repostTitle || sourceTitle || '').trim(), 900);
 }
+
 function createRepostMetadata(video, sourceCode) {
- const sourceTitle=String(video&&video.title||'').replace(/#[^\s#]+/g,' ').replace(/\s+/g,' ').trim();
- const sourceDescription=String(video&&video.description||'').replace(/\s+/g,' ').trim();
- if(/(?:https?:\/\/|www\.)/i.test(sourceTitle))throw new Error('repost_source_title_contains_external_link');
- const risk=policyTextRiskReason(video);
- if(risk)throw new Error('filo_policy_text_risk:'+risk);
- const title=cleanRepostCaptionTitle(sourceTitle,sourceDescription);
- const description=cleanRepostDescription(sourceDescription,sourceTitle,title);
- const titleN=normalizeComparable(title),sourceTitleN=normalizeComparable(sourceTitle),sourceDescN=normalizeComparable(sourceDescription);
- if(titleN===sourceDescN)throw new Error('repost_title_matches_source_description');
- if(/(?:https?:\/\/|www\.)/i.test(description))throw new Error('repost_description_contains_unapproved_external_link');
- return {title,description,sourceTitle,sourceDescription,sourceCode};
+  const sourceTitle = String(video && video.title || '').replace(/\s+/g, ' ').trim();
+  const sourceDescription = String(video && video.description || '').replace(/\s+/g, ' ').trim();
+  if (/(?:https?:\/\/|www\.)/i.test(sourceTitle)) throw new Error('repost_source_title_contains_external_link');
+  const risk = policyTextRiskReason(video);
+  if (risk) throw new Error('filo_policy_text_risk:' + risk);
+  const title = cleanRepostCaptionTitle(sourceTitle);
+  const description = cleanRepostDescription(sourceDescription, sourceTitle, title);
+  return { title, description, sourceTitle, sourceDescription, sourceCode };
 }
+
 function imageDimensionsFromDataUrl(value) {
  const match=/^data:image\/(png|jpe?g);base64,([A-Za-z0-9+/=\s]+)$/i.exec(String(value||''));
  if(!match)return null;
@@ -953,15 +850,10 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
     const outgoingDescriptionComparable = normalizeComparable(outgoingDescription);
     const sourceTitleComparable = normalizeComparable(repostMetadata.sourceTitle);
     const sourceDescriptionComparable = normalizeComparable(repostMetadata.sourceDescription);
-    const titleDistinct = outgoingTitleComparable !== sourceTitleComparable && outgoingTitleComparable !== sourceDescriptionComparable;
-    const titleNotSourceDescription = outgoingTitleComparable !== sourceDescriptionComparable;
-    const descriptionDistinct = outgoingDescriptionComparable !== sourceDescriptionComparable && outgoingDescriptionComparable !== sourceTitleComparable;
-    const descriptionDoesNotRepeatTitle = !outgoingDescriptionComparable.includes(outgoingTitleComparable);
     const metadataRisk = policyTextRiskReason({ title: outgoingTitle, description: outgoingDescription });
     const hasExternalLink = /(?:https?:\/\/|www\.)/i.test(outgoingTitle + ' ' + outgoingDescription);
-    const metadataOk = outgoingTitle.length >= 8 && outgoingTitle.length <= 180 &&
-      outgoingDescription.length >= 35 && outgoingDescription.length <= 1100 &&
-      titleNotSourceDescription && descriptionDistinct && descriptionDoesNotRepeatTitle && !metadataRisk && !hasExternalLink;
+    const metadataOk = outgoingTitle.length >= 5 && outgoingTitle.length <= 180 &&
+      outgoingDescription.length <= 1100 && !metadataRisk && !hasExternalLink;
     const frameOk = selectedFrame.startsWith('data:image/') && selectedFrame.length > 1000;
     const guardFailures = buildNativePublishGuardFailures({
       sourceCode:code,republishFrom,videoCode,isMadeByMe,canRepublish,canMakeMoney,dontPublish,metadataOk
@@ -972,9 +864,6 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
       sourceCode: republishFrom,
       newVideoCode: videoCode,
       title: outgoingTitle.slice(0, 180),
-      descriptionDistinct,
-      titleDistinct,
-      titleNotSourceDescription,
       category: params.get('category') || '',
       selectedFramePresent: frameOk,
       coverStatus: !frameOk ? 'cover_omitted_optional'
