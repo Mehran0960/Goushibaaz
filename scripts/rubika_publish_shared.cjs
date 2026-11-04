@@ -65,6 +65,7 @@ async function main(){
   entry.status='upload_started';state.posts.push(entry);state.lastOutcome={status:'upload_started',checkedAt:entry.attemptedAt,sourcePage:entry.sourcePage};saveState(state);
   try{
     const channelId=await resolveChannel();
+    entry.chatId=channelId;
     const fileId=await uploadVideo(bytes);
     entry.status='submitted_unconfirmed';entry.uploadedAt=new Date().toISOString();saveState(state);
     const sent=await api('sendFile',{chat_id:channelId,file_id:fileId,text:String(manifest.caption||'').slice(0,1000)});
