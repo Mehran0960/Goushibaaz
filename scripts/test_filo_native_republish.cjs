@@ -114,6 +114,8 @@ assert.deepEqual(buildCategoryPageRequestPayload('3', 0), {
 }, 'invalid window width must safely use the same browser fallback');
 assert.equal(buildVideoTagFeedPath('q-طنز'), '/api/v1/video/ai-tag/q-%D8%B7%D9%86%D8%B2');
 assert.equal(buildVideoTagFeedPath('all'), '/api/v1/video/ai-tag/all');
+assert.equal(buildVideoTagFeedPath('1058'), '/api/v1/video/ai-tag/1058',
+  'authenticated Filo sessions expose numeric tag keys and route them directly');
 assert.throws(() => buildVideoTagFeedPath('../upload'), /filo_tag_key_invalid/);
 assert.deepEqual(extractVideoTagFeeds({
   tags: [{ all: 'همه' }, { 'q-طنز': 'طنز' }, { 'q-آشپزی': 'آشپزی' }]
@@ -122,6 +124,13 @@ assert.deepEqual(extractVideoTagFeeds({
   { key: 'q-طنز', label: 'طنز' },
   { key: 'q-آشپزی', label: 'آشپزی' }
 ], 'tag feeds should follow Filo recommend-user-tags response');
+assert.deepEqual(extractVideoTagFeeds({
+  tags: [{ all: 'همه' }, { '1058': 'طنز' }, { '6': 'آشپزی' }]
+}), [
+  { key: 'all', label: 'همه' },
+  { key: '1058', label: 'طنز' },
+  { key: '6', label: 'آشپزی' }
+], 'numeric topic keys used by authenticated Filo sessions must be discovered');
 assert.deepEqual(extractVideoTagFeeds({
   data: { tags: [{ 'q-آموزش': 'آموزش' }] }
 }), [{ key: 'q-آموزش', label: 'آموزش' }], 'wrapped tag payload should be supported');
