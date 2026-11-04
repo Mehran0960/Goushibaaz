@@ -16,6 +16,7 @@ const {
   buildUnconfirmedSubmissionResult,
   composeFiloCoverDataUrl,
   dailyCount,
+  buildCategoryPageRequestPayload,
   candidateMetricValue,
   candidateMetricSnapshot,
   updateCandidateMomentum,
@@ -101,6 +102,12 @@ assert.deepEqual(extractCategoryIds({
 assert.deepEqual(extractCategoryIds({
   data:{result:{categories:[{category_id:14}]}}
 }),[14],'nested result/category collections must be supported');
+assert.deepEqual(buildCategoryPageRequestPayload(2, 1365), {
+  rowCount: 0, page: 2, needAllData: 0, windowWidth: 1365
+}, 'category feed body must match the current Filo JSON request contract');
+assert.deepEqual(buildCategoryPageRequestPayload('3', 0), {
+  rowCount: 0, page: 3, needAllData: 0, windowWidth: 1365
+}, 'invalid window width must safely use the same browser fallback');
 assert.deepEqual(extractCategoryIds([{id:3},{id:4}]),[3,4],
   'direct category arrays must be supported');
 assert.deepEqual(extractCategoryIds({
