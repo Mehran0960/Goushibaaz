@@ -371,7 +371,7 @@ function classifyAudienceFit(item) {
     {
       score: 2,
       label: 'secondary_interest',
-      pattern: /(?:فوتبال|ورزش|کشتی|بسکتبال|غذا|خوراک|حیوان|طبیعت|حیات.?وحش|سفر|گردشگری|دانستنی|معما|راز|علمی|خودرو|ماشین)/i
+      pattern: /(?:فوتبال|ورزش|کشتی|بسکتبال|غذا|خوراک|حیوان|طبیعت|جنگل|منظره|حیات.?وحش|سفر|گردشگری|دانستنی|معما|راز|علمی|خودرو|ماشین)/i
     }
   ];
   return groups.find(group => group.pattern.test(text)) || { score: 1, label: 'general' };
