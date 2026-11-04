@@ -2,9 +2,6 @@ name: Filo exhaustive Google Trends search worker
 
 on:
   workflow_dispatch:
-  schedule:
-    # Stagger exhaustive discovery between publisher slots to avoid concurrent Filo browser sessions.
-    - cron: "0,20,40 * * * *"
   push:
     branches: [main]
     paths:
