@@ -488,13 +488,13 @@
     }
   ],
   "updatedAt": "2026-11-04T19:08:54.717Z",
-  "lastCycleStartedAt": "2026-11-04T21:38:26.537Z",
+  "lastCycleStartedAt": "2026-11-04T21:43:28.336Z",
   "candidateMomentum": {},
-  "categoryDepthCursor": 12,
+  "categoryDepthCursor": 3,
   "categoryDepthPages": {
     "2": 9,
     "3": 9,
-    "6": 10,
+    "6": 11,
     "11": 9,
     "13": 9,
     "15": 9,
@@ -504,15 +504,24 @@
     "25": 9,
     "29": 9,
     "202": 3,
-    "1058": 3,
+    "277": 3,
+    "792": 3,
+    "1058": 4,
     "1741": 3,
+    "1906": 3,
+    "2740": 3,
     "2744": 3,
     "2816": 3,
+    "5074": 3,
     "5120": 3,
     "5241": 3,
     "7447": 3,
+    "12182": 3,
+    "35191": 3,
+    "52876": 3,
+    "169062": 3,
     "169302": 3,
-    "all": 4
+    "all": 5
   },
   "categoryDepthEvidence": {
     "2": {
@@ -536,11 +545,11 @@
       "chronologyVerified": true
     },
     "6": {
-      "lastPageNo": 9,
+      "lastPageNo": 10,
       "lastAgeBounds": {
-        "centerHours": 48,
-        "lowerHours": 36,
-        "upperHours": 60,
+        "centerHours": 72,
+        "lowerHours": 60,
+        "upperHours": 84,
         "precisionHours": 24
       },
       "chronologyVerified": false
@@ -610,12 +619,32 @@
       "lastAgeBounds": null,
       "chronologyVerified": false
     },
-    "1058": {
+    "277": {
       "lastPageNo": 2,
       "lastAgeBounds": null,
       "chronologyVerified": false
     },
+    "792": {
+      "lastPageNo": 2,
+      "lastAgeBounds": null,
+      "chronologyVerified": false
+    },
+    "1058": {
+      "lastPageNo": 3,
+      "lastAgeBounds": null,
+      "chronologyVerified": false
+    },
     "1741": {
+      "lastPageNo": 2,
+      "lastAgeBounds": null,
+      "chronologyVerified": false
+    },
+    "1906": {
+      "lastPageNo": 2,
+      "lastAgeBounds": null,
+      "chronologyVerified": false
+    },
+    "2740": {
       "lastPageNo": 2,
       "lastAgeBounds": null,
       "chronologyVerified": false
@@ -635,6 +664,11 @@
       "lastAgeBounds": null,
       "chronologyVerified": false
     },
+    "5074": {
+      "lastPageNo": 2,
+      "lastAgeBounds": null,
+      "chronologyVerified": false
+    },
     "5120": {
       "lastPageNo": 2,
       "lastAgeBounds": null,
@@ -650,13 +684,33 @@
       "lastAgeBounds": null,
       "chronologyVerified": false
     },
+    "12182": {
+      "lastPageNo": 2,
+      "lastAgeBounds": null,
+      "chronologyVerified": false
+    },
+    "35191": {
+      "lastPageNo": 2,
+      "lastAgeBounds": null,
+      "chronologyVerified": false
+    },
+    "52876": {
+      "lastPageNo": 2,
+      "lastAgeBounds": null,
+      "chronologyVerified": false
+    },
+    "169062": {
+      "lastPageNo": 2,
+      "lastAgeBounds": null,
+      "chronologyVerified": false
+    },
     "169302": {
       "lastPageNo": 2,
       "lastAgeBounds": null,
       "chronologyVerified": false
     },
     "all": {
-      "lastPageNo": 3,
+      "lastPageNo": 4,
       "lastAgeBounds": null,
       "chronologyVerified": false
     }
