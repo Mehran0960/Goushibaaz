@@ -15,15 +15,27 @@ fs.writeFileSync(path.join(dir,'manifest.json'),JSON.stringify({
   licenseUrl:'https://creativecommons.org/publicdomain/zero/1.0/',
   sha256,fileName:'video.mp4',caption:'Fixture caption'
 },null,2)+'\n');
-for(const script of ['scripts/rubika_publish_shared.cjs','scripts/telegram_publish.cjs','scripts/bale_publish.cjs']){
+for(const script of [
+  'scripts/rubika_publish_shared.cjs',
+  'scripts/telegram_publish.cjs',
+  'scripts/bale_publish.cjs',
+  'scripts/eitaa_publish_shared.cjs',
+  'scripts/jetra_publish_shared.cjs'
+]){
   const run=spawnSync(process.execPath,[script],{encoding:'utf8',env:{...process.env,
     GOUSHIBAAZ_PUBLIC_PUBLISH_ENABLED:'false',GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED:'false'}});
   process.stdout.write(run.stdout||'');process.stderr.write(run.stderr||'');
   if(run.status!==0)throw new Error(script+'_failed_'+run.status);
 }
-for(const file of ['state/rubika-published.json','state/telegram-published.json','state/bale-published.json']){
+for(const file of [
+  'state/rubika-published.json',
+  'state/telegram-published.json',
+  'state/bale-published.json',
+  'state/eitaa-published.json',
+  'state/jetra-published.json'
+]){
   const state=JSON.parse(fs.readFileSync(file,'utf8'));
   const item=(state.posts||[]).find(x=>x.sourcePage==='https://example.invalid/goushibaaz-adapter-test');
   if(!item||item.status!=='dry_run_ready_no_post_sent')throw new Error(file+'_dry_run_assertion_failed');
 }
-console.log('SHARED_PUBLISH_ADAPTER_TEST_SUCCESS: identical artifact accepted by Rubika, Telegram and Bale; zero public posts sent.');
+console.log('SHARED_PUBLISH_ADAPTER_TEST_SUCCESS: identical prepared artifact accepted by Telegram, Bale, Rubika, Eitaa and Jetra dry-runs; zero public posts sent.');

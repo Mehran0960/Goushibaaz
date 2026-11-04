@@ -17,7 +17,6 @@ on:
       - "scripts/telegram_publish.cjs"
       - "scripts/bale_publish.cjs"
       - "scripts/persist_state_file.sh"
-      - ".github/workflows/prepare-shared-video.yml"
 permissions:
   contents: write
   actions: write
@@ -68,7 +67,7 @@ jobs:
           DRY_RUN: "true"
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY || vars.PEXELS_API_KEY }}
         run: node scripts/rubika_publish_cc0.cjs
-      - name: Upload the same prepared video and manifest for Telegram, Rubika and Bale
+      - name: Upload the same prepared video and manifest for Telegram, Bale, Rubika, Eitaa and Jetra
         id: shared_artifact
         if: ${{ success() && hashFiles('work/shared-publish/manifest.json') != '' }}
         uses: actions/upload-artifact@v7
@@ -92,13 +91,15 @@ jobs:
           console.log('SHARED_CANDIDATE_GATE', JSON.stringify({ eligible }));
           NODE
 
-      - name: Dispatch Telegram, Bale and Rubika independently
+      - name: Dispatch Telegram, Bale, Rubika, Eitaa and Jetra independently
         if: ${{ steps.candidate.outputs.eligible == 'true' }}
         continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SOURCE_RUN_ID: ${{ github.run_id }}
           REPOSITORY: ${{ github.repository }}
+          EITAA_CONFIGURED: ${{ secrets.EITAAYAR_API_TOKEN != '' && secrets.EITAAYAR_CHAT_ID != '' }}
+          JETRA_CONFIGURED: ${{ secrets.JETRA_BOT_TOKEN != '' && secrets.JETRA_CHAT_ID != '' }}
         run: |
           node <<'NODE'
           const token = process.env.GH_TOKEN;
@@ -109,6 +110,16 @@ jobs:
             'publish-shared-video-to-bale.yml',
             'publish-shared-video-to-rubika.yml'
           ];
+          if (String(process.env.EITAA_CONFIGURED).toLowerCase() === 'true') {
+            workflows.push('publish-shared-video-to-eitaa.yml');
+          } else {
+            console.log('DESTINATION_DISPATCH_SKIPPED_NOT_CONFIGURED', JSON.stringify({ platform: 'eitaa' }));
+          }
+          if (String(process.env.JETRA_CONFIGURED).toLowerCase() === 'true') {
+            workflows.push('publish-shared-video-to-jetra.yml');
+          } else {
+            console.log('DESTINATION_DISPATCH_SKIPPED_NOT_CONFIGURED', JSON.stringify({ platform: 'jetra' }));
+          }
           async function dispatch(workflow) {
             try {
               const response = await fetch(`https://api.github.com/repos/${repository}/actions/workflows/${workflow}/dispatches`, {

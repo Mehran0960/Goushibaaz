@@ -1,0 +1,66 @@
+name: Publish Shared Video to Eitaa
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: "Run ID of the preparation workflow that uploaded the shared artifact"
+        required: true
+        type: string
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: goushibaaz-eitaa-destination
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - name: Download the exact shared candidate artifact
+        id: artifact
+        continue-on-error: true
+        uses: actions/download-artifact@v8
+        with:
+          name: goushibaaz-shared-candidate
+          run-id: ${{ inputs.source_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: work/shared-publish
+      - name: Check EitaaYar configuration without exposing credentials
+        id: config
+        if: steps.artifact.outcome == 'success'
+        env:
+          EITAAYAR_API_TOKEN: ${{ secrets.EITAAYAR_API_TOKEN }}
+          EITAAYAR_CHAT_ID: ${{ secrets.EITAAYAR_CHAT_ID }}
+        run: |
+          if [[ -n "$EITAAYAR_API_TOKEN" && -n "$EITAAYAR_CHAT_ID" ]]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+            echo "EITAAYAR_DESTINATION_CONFIGURED=true"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "EITAAYAR_DESTINATION_SKIPPED: add EITAAYAR_API_TOKEN and EITAAYAR_CHAT_ID secrets to activate."
+          fi
+      - name: Validate and independently publish to Eitaa
+        if: steps.artifact.outcome == 'success' && steps.config.outputs.configured == 'true'
+        env:
+          EITAAYAR_API_TOKEN: ${{ secrets.EITAAYAR_API_TOKEN }}
+          EITAAYAR_CHAT_ID: ${{ secrets.EITAAYAR_CHAT_ID }}
+          GOUSHIBAAZ_PUBLIC_PUBLISH_ENABLED: "true"
+          GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true" # the channel owner must have enabled this EitaaYar destination
+        run: |
+          node --check scripts/eitaa_publish_shared.cjs
+          node scripts/eitaa_publish_shared.cjs
+      - name: Persist Eitaa-only publication state
+        if: ${{ always() && steps.artifact.outcome == 'success' && steps.config.outputs.configured == 'true' && hashFiles('state/eitaa-published.json') != '' }}
+        run: bash scripts/persist_state_file.sh state/eitaa-published.json "Record Eitaa destination result"

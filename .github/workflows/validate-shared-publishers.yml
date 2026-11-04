@@ -1,0 +1,62 @@
+name: Validate independent shared video publishers
+
+on:
+  pull_request:
+    paths:
+      - "scripts/eitaa_publish_shared.cjs"
+      - "scripts/jetra_publish_shared.cjs"
+      - "scripts/rubika_publish_shared.cjs"
+      - "scripts/platform_publish.cjs"
+      - "scripts/telegram_publish.cjs"
+      - "scripts/bale_publish.cjs"
+      - "scripts/test_shared_publish.cjs"
+      - ".github/workflows/prepare-shared-video.yml"
+      - ".github/workflows/publish-shared-video-to-eitaa.yml"
+      - ".github/workflows/publish-shared-video-to-jetra.yml"
+      - ".github/workflows/publish-shared-video-to-rubika.yml"
+      - ".github/workflows/publish-shared-video-to-bale.yml"
+      - ".github/workflows/publish-shared-video-to-telegram.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  adapters:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - name: Validate every independent publisher's JavaScript
+        run: |
+          node --check scripts/platform_publish.cjs
+          node --check scripts/telegram_publish.cjs
+          node --check scripts/bale_publish.cjs
+          node --check scripts/rubika_publish_shared.cjs
+          node --check scripts/eitaa_publish_shared.cjs
+          node --check scripts/jetra_publish_shared.cjs
+          node --check scripts/test_shared_publish.cjs
+      - name: Validate all five destinations in dry-run mode
+        run: node scripts/test_shared_publish.cjs
+      - name: Parse publishing workflow YAML
+        run: |
+          ruby <<'RUBY'
+          require "yaml"
+          files = %w[
+            .github/workflows/prepare-shared-video.yml
+            .github/workflows/publish-shared-video-to-telegram.yml
+            .github/workflows/publish-shared-video-to-bale.yml
+            .github/workflows/publish-shared-video-to-rubika.yml
+            .github/workflows/publish-shared-video-to-eitaa.yml
+            .github/workflows/publish-shared-video-to-jetra.yml
+          ]
+          files.each do |path|
+            document = YAML.load_file(path, aliases: true)
+            abort "Invalid workflow mapping: #{path}" unless document.is_a?(Hash) && document["jobs"].is_a?(Hash)
+            puts "WORKFLOW_YAML_OK #{path}"
+          end
+          RUBY

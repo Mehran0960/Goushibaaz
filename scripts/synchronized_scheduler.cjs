@@ -5,14 +5,17 @@ const path = require('node:path');
 
 const STATE_DIR = '.scheduler-state';
 const STATE_PATH = path.join(STATE_DIR, 'state.json');
-// Dispatch one shared preparation run; its completion fans the same artifact out to three independent destination workflows.
+// Dispatch one shared preparation run; its completion fans the same artifact out to five independent destination workflows.
 const ACTIVE_PLATFORMS = [
   { key: 'shared', workflow: 'prepare-shared-video.yml', stateFile: 'state/shared-publications.json' }
 ];
-// Budget for the preparation workflow plus Telegram, Rubika and Bale destination runs.
-const FUTURE_PLATFORM_RESERVE = 3;
+// Three established destination workflows are always budgeted; Eitaa/Jetra consume capacity only when configured.
+const OPTIONAL_DESTINATION_RESERVE =
+  (process.env.EITAA_DESTINATION_CONFIGURED === 'true' ? 1 : 0) +
+  (process.env.JETRA_DESTINATION_CONFIGURED === 'true' ? 1 : 0);
+const FUTURE_PLATFORM_RESERVE = 3 + OPTIONAL_DESTINATION_RESERVE;
 const MAX_DESTINATION_STARTS_PER_UTC_DAY = 1200;
-const INTERVALS = [5, 10, 15, 20, 25, 30, 40, 50, 60, 90, 120, 180, 240, 360, 480, 720, 960, 1200, 1440];
+const INTERVALS = [5, 8, 10, 15, 20, 25, 30, 40, 50, 60, 90, 120, 180, 240, 360, 480, 720, 960, 1200, 1440];
 const API_VERSION = '2022-11-28';
 const TOKEN = process.env.GH_TOKEN;
 const CURRENT_REPO = process.env.GITHUB_REPOSITORY;
@@ -154,7 +157,7 @@ function intervalForPressure({ accountActive, recentRuns, remaining, outcomes, b
   if (noCandidates >= ACTIVE_PLATFORMS.length) floor = Math.max(floor, 15);
   else if (noCandidates > 0) floor = Math.max(floor, 10);
 
-  // The daily cap includes all three destination slots in its forecast.
+  // The daily cap includes all five destination slots in its forecast.
   const choices = INTERVALS.filter(n =>
     n >= floor && budgetedPlatforms * Math.ceil(1440 / n) <= MAX_DESTINATION_STARTS_PER_UTC_DAY
   );
@@ -223,7 +226,9 @@ async function readOnlyDiagnostics(now) {
     '.github/workflows/prepare-shared-video.yml',
     '.github/workflows/publish-shared-video-to-rubika.yml',
     '.github/workflows/publish-shared-video-to-bale.yml',
-    '.github/workflows/publish-shared-video-to-telegram.yml'
+    '.github/workflows/publish-shared-video-to-telegram.yml',
+    '.github/workflows/publish-shared-video-to-eitaa.yml',
+    '.github/workflows/publish-shared-video-to-jetra.yml'
   ]);
   const publishersActive = currentRuns.filter(run => observedPublisherPaths.has(run.path) &&
     ['queued', 'in_progress'].includes(run.status));
@@ -295,7 +300,7 @@ async function main() {
   const currentPayload = await runsResponse.json();
   const currentRuns = currentPayload.workflow_runs || [];
   // Only an in-flight preparation blocks the next candidate. Destination runs are isolated;
-  // slow Telegram/Bale/Rubika delivery must never freeze fresh discovery slots.
+  // slow Telegram/Bale/Rubika/Eitaa/Jetra delivery must never freeze fresh discovery slots.
   const publisherPathSet = new Set([
     '.github/workflows/prepare-shared-video.yml'
   ]);
