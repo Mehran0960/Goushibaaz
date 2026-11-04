@@ -18,6 +18,10 @@ const MIN_DURATION_SECONDS = 10;
 const MAX_DURATION_SECONDS = 180;
 const MAX_PUBLICATIONS_PER_24H = 288;
 const CAPTION_POLICY_VERSION = 5;
+const MIN_PUBLISH_CYCLE_INTERVAL_MS = 9.5 * 60 * 1000;
+const CANDIDATE_METRIC_HISTORY_TTL_MS = 8 * 60 * 60 * 1000;
+const CANDIDATE_METRIC_SAMPLE_INTERVAL_MS = 5 * 60 * 1000;
+const MAX_TRACKED_CANDIDATE_METRICS = 1500;
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -155,7 +159,9 @@ function globalSearchRelevanceBonus(item) {
   for (const match of matches) {
     const terms = Array.isArray(match && match.trendKeywords) ? match.trendKeywords : queryTokens(match && match.trendTitle);
     const overlap = [...new Set(terms.map(String))].filter(token => candidate.has(token));
-    const bonus = overlap.length >= 2 ? Math.min(7, 2 + overlap.length * 1.5)
+    const bonus = overlap.length >= 4 ? Math.min(14, 3 + overlap.length * 2.5)
+      : overlap.length === 3 ? 9
+      : overlap.length === 2 ? 6
       : overlap.length === 1 && overlap[0].length >= 4 ? 2 : 0;
     if (bonus > best.bonus) best = {
       bonus,
@@ -251,20 +257,106 @@ async function fetchFiloGlobalSearchPage(page, params) {
 }
 
 
-function scoreFeedCandidate(item, trendWeights = {}, googleTrends = []) {
+function candidateMetricValue(item, keys) {
+  const values = keys.map(key => item && item[key])
+    .filter(value => value !== undefined && value !== null && value !== '')
+    .map(value => num(value, -1)).filter(value => value >= 0);
+  return values.length ? Math.max(...values) : 0;
+}
+
+function updateCandidateMomentum(state, items, now = Date.now()) {
+  const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
+  const history = state.candidateMomentum && typeof state.candidateMomentum === 'object' ? state.candidateMomentum : {};
+  const observed = {};
+  const nowIso = new Date(nowMs).toISOString();
+
+  for (const item of Array.isArray(items) ? items : []) {
+    const code = String(item && (item.video_code || item.videoCode || item.code) || '').trim();
+    if (!/^[A-Za-z0-9_-]{5,40}$/.test(code)) continue;
+    const views = candidateMetricValue(item, ['visit_count', 'view_count', 'views', 'visits']);
+    const plays = candidateMetricValue(item, ['play_count', 'plays', 'playCount']);
+    const entry = history[code] && typeof history[code] === 'object' ? history[code] : {};
+    let samples = Array.isArray(entry.samples) ? entry.samples.filter(sample => {
+      const at = Date.parse(sample && sample.at || '');
+      return Number.isFinite(at) && nowMs - at >= 0 && nowMs - at <= CANDIDATE_METRIC_HISTORY_TTL_MS;
+    }).slice(-4) : [];
+    const previous = samples.at(-1) || null;
+    let rate = null;
+
+    if (previous) {
+      const elapsedMs = nowMs - Date.parse(previous.at);
+      if (elapsedMs >= CANDIDATE_METRIC_SAMPLE_INTERVAL_MS && elapsedMs <= CANDIDATE_METRIC_HISTORY_TTL_MS) {
+        const deltaViews = views - candidateMetricValue(previous, ['views']);
+        const deltaPlays = plays - candidateMetricValue(previous, ['plays']);
+        if (deltaViews >= 0 && deltaPlays >= 0) {
+          const elapsedMinutes = elapsedMs / 60000;
+          const viewsPerMinute = deltaViews / elapsedMinutes;
+          const playsPerMinute = deltaPlays / elapsedMinutes;
+          const previousRate = entry.lastRate && typeof entry.lastRate === 'object' ? entry.lastRate : null;
+          const acceleration = previousRate ? Math.max(0, viewsPerMinute - Math.max(0, num(previousRate.viewsPerMinute))) : 0;
+          const baseBonus = Math.log1p(viewsPerMinute) * 2.6 + Math.log1p(playsPerMinute) * 2;
+          const accelerationBonus = Math.min(3, Math.log1p(acceleration) * 1.2);
+          rate = {
+            viewsPerMinute: Math.round(viewsPerMinute * 100) / 100,
+            playsPerMinute: Math.round(playsPerMinute * 100) / 100,
+            accelerationPerMinute: Math.round(acceleration * 100) / 100,
+            bonus: Math.round(Math.min(15, baseBonus + accelerationBonus) * 10) / 10,
+            sampleCount: samples.length + 1
+          };
+        } else {
+          samples = [];
+          delete entry.lastRate;
+        }
+      }
+    }
+
+    const lastSampleAt = samples.length ? Date.parse(samples.at(-1).at) : NaN;
+    if (!Number.isFinite(lastSampleAt) || nowMs - lastSampleAt >= CANDIDATE_METRIC_SAMPLE_INTERVAL_MS) {
+      samples.push({ at: nowIso, views, plays });
+      samples = samples.slice(-4);
+    }
+    const nextEntry = { ...entry, samples, lastSeenAt: nowIso };
+    if (rate) {
+      nextEntry.lastRate = { viewsPerMinute: rate.viewsPerMinute, playsPerMinute: rate.playsPerMinute, at: nowIso };
+      observed[code] = rate;
+    }
+    history[code] = nextEntry;
+  }
+
+  const retained = Object.entries(history)
+    .filter(([, entry]) => {
+      const seenAt = Date.parse(entry && entry.lastSeenAt || '');
+      return Number.isFinite(seenAt) && nowMs - seenAt <= CANDIDATE_METRIC_HISTORY_TTL_MS;
+    })
+    .sort((a, b) => String(b[1].lastSeenAt || '').localeCompare(String(a[1].lastSeenAt || '')))
+    .slice(0, MAX_TRACKED_CANDIDATE_METRICS);
+  state.candidateMomentum = Object.fromEntries(retained);
+  return observed;
+}
+
+function getPublishCycleCooldown(state, now = Date.now()) {
+  const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
+  const lastStartedAt = Date.parse(state && state.lastCycleStartedAt || '');
+  if (!Number.isFinite(lastStartedAt)) return { active: false, elapsedMs: null, remainingMs: 0, lastCycleStartedAt: null };
+  const elapsedMs = Math.max(0, nowMs - lastStartedAt);
+  const remainingMs = Math.max(0, MIN_PUBLISH_CYCLE_INTERVAL_MS - elapsedMs);
+  return { active: remainingMs > 0, elapsedMs, remainingMs, lastCycleStartedAt: new Date(lastStartedAt).toISOString() };
+}
+
+function scoreFeedCandidate(item, trendWeights = {}, googleTrends = [], momentum = null) {
   const text = sourceText(item);
   const categoryId = num(item.category_id);
   const duration = num(item.duration, 0);
   const age = ageHours(item);
-  const visits = num(item.visit_count ?? item.views ?? item.view_count);
-  const plays = num(item.play_count);
-  const shares = num(item.share_count);
-  const favorites = num(item.favorite_count);
+  const visits = candidateMetricValue(item, ['visit_count', 'views', 'view_count', 'visits']);
+  const plays = candidateMetricValue(item, ['play_count', 'plays', 'playCount']);
+  const shares = candidateMetricValue(item, ['share_count', 'shares']);
+  const favorites = candidateMetricValue(item, ['favorite_count', 'favorites']);
   const engagement = visits + 2 * plays + 3 * shares + 2 * favorites;
 
   let score = categoryBase(categoryId);
   score += Math.min(24, Math.log1p(engagement) * 4.2);
-  score += age <= 2 ? 14 : age <= 6 ? 11 : age <= 12 ? 8 : age <= 24 ? 5 : age <= 48 ? 1 : -8;
+  score += age <= 2 ? 14 : age <= 6 ? 11 : age <= 12 ? 8 : age <= 24 ? 4 : age <= 48 ? -4 : -14;
   score += HOOK.test(text) ? 10 : -8;
   score += PERSIAN.test(text) ? 7 : 0;
   score += duration <= 30 ? 7 : duration <= 60 ? 5 : duration <= 120 ? 2 : -4;
@@ -272,6 +364,8 @@ function scoreFeedCandidate(item, trendWeights = {}, googleTrends = []) {
   score += Math.min(5, num(trendWeights[topic]));
   const googleTrend = scoreGoogleTrendRelevance(text, googleTrends);
   score += googleTrend.score;
+  const momentumBonus = Math.min(15, Math.max(0, num(momentum && momentum.bonus)));
+  score += momentumBonus;
   if (text.length < 16) score -= 5;
 
   return {
@@ -282,7 +376,8 @@ function scoreFeedCandidate(item, trendWeights = {}, googleTrends = []) {
     durationSeconds: duration,
     visits,
     plays,
-    googleTrend
+    googleTrend,
+    momentum: momentum ? { ...momentum, bonus: momentumBonus } : null
   };
 }
 
@@ -1655,6 +1750,15 @@ async function main() {
   let browser;
 
   try {
+    const cooldown = getPublishCycleCooldown(state, Date.parse(report.createdAt));
+    if (cooldown.active) {
+      report.status = 'publisher_cycle_cooldown_active';
+      report.cooldown = cooldown;
+      return;
+    }
+    state.lastCycleStartedAt = report.createdAt;
+    fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
+
     if (dailyCount(state) >= MAX_PUBLICATIONS_PER_24H) {
       report.status = 'daily_publication_cap_reached';
       report.dailyCount = dailyCount(state);
@@ -1772,10 +1876,18 @@ async function main() {
       }
     }
     report.discovery.combinedCandidates = combinedByCode.size;
+    const candidateMomentum = updateCandidateMomentum(state, [...combinedByCode.values()], Date.parse(report.createdAt));
+    fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
+    report.discovery.momentum = {
+      measuredCandidates: Object.keys(candidateMomentum).length,
+      strongest: Object.entries(candidateMomentum).sort((a, b) => b[1].bonus - a[1].bonus).slice(0, 5)
+        .map(([code, metrics]) => ({ code, ...metrics }))
+    };
 
     const ranked = [...combinedByCode.values()]
       .map(item => {
-        const rank = scoreFeedCandidate(item, trendWeights, googleTrends);
+        const momentum = candidateMomentum[String(item.video_code)] || null;
+        const rank = scoreFeedCandidate(item, trendWeights, googleTrends, momentum);
         const searchBonus = globalSearchRelevanceBonus(item);
         rank.score = Math.round((rank.score + searchBonus.bonus) * 10) / 10;
         rank.globalSearchRelevance = searchBonus;
@@ -2026,5 +2138,8 @@ module.exports = {
   safeApiDiagnosticValue,
   buildUnconfirmedSubmissionResult,
   composeFiloCoverDataUrl,
-  dailyCount
+  dailyCount,
+  candidateMetricValue,
+  updateCandidateMomentum,
+  getPublishCycleCooldown
 };

@@ -22,7 +22,9 @@ const {
   safeApiDiagnosticValue,
   buildUnconfirmedSubmissionResult,
   composeFiloCoverDataUrl,
-  dailyCount
+  dailyCount,
+  updateCandidateMomentum,
+  getPublishCycleCooldown
 } = require('./filo_native_republish.cjs');
 
 const valid = {
@@ -284,6 +286,23 @@ assert.equal(dailyCount(state, Date.parse('2026-11-03T00:05:00.000Z')), 1,
   'the 24-hour window must include recent submissions across UTC midnight');
 assert.equal(dailyCount(state, Date.parse('2026-11-03T00:10:00.000Z')), 1,
   'a submission exactly 24 hours old remains inside the rolling window');
+
+const cooldownAt = Date.parse('2026-11-04T06:00:00.000Z');
+assert.equal(getPublishCycleCooldown({}, cooldownAt).active, false);
+assert.equal(getPublishCycleCooldown({ lastCycleStartedAt: new Date(cooldownAt).toISOString() }, cooldownAt + 5 * 60 * 1000).active, true);
+assert.equal(getPublishCycleCooldown({ lastCycleStartedAt: new Date(cooldownAt).toISOString() }, cooldownAt + 10 * 60 * 1000).active, false);
+
+const momentumState = { posts: [] };
+const momentumStart = Date.parse('2026-11-04T00:00:00.000Z');
+const firstMomentum = updateCandidateMomentum(momentumState, [{ video_code: 'Hot001', visit_count: 100, plays: 10 }], momentumStart);
+assert.equal(Object.keys(firstMomentum).length, 0, 'one sample must not fabricate growth');
+const secondMomentum = updateCandidateMomentum(momentumState, [{ video_code: 'Hot001', visit_count: 200, plays: 20 }], momentumStart + 10 * 60 * 1000);
+assert.equal(secondMomentum.Hot001.viewsPerMinute, 10);
+assert.equal(secondMomentum.Hot001.playsPerMinute, 1);
+assert.ok(secondMomentum.Hot001.bonus > 0);
+const thirdMomentum = updateCandidateMomentum(momentumState, [{ video_code: 'Hot001', visit_count: 500, plays: 60 }], momentumStart + 20 * 60 * 1000);
+assert.ok(thirdMomentum.Hot001.bonus > secondMomentum.Hot001.bonus,
+  'measured acceleration should increase the momentum score');
 
 async function testPortraitCoverComposition() {
   const { chromium } = require('playwright');
