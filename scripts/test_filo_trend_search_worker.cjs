@@ -3,10 +3,22 @@
 const assert = require('node:assert/strict');
 const {
   mergeCandidate,
+  compactVideo,
+  candidateRetentionScore,
   refreshQueryDefinitions,
   selectQueriesForRun,
   applyQueryResult
 } = require('./filo_trend_search_worker.cjs');
+
+const metricAliases = compactVideo({
+  videoCode: 'Metric01', title: 'رشد بازدید و پخش', visit_count: 100,
+  plays: 75, shares: 5, favorites: 3
+});
+assert.equal(metricAliases.video_code, 'Metric01');
+assert.equal(metricAliases.plays, 75);
+assert.ok(candidateRetentionScore(metricAliases) > candidateRetentionScore({
+  ...metricAliases, plays: 0, shares: 0, favorites: 0
+}), 'cache retention must use normalized engagement aliases');
 
 const state = {
   schemaVersion: 1,
