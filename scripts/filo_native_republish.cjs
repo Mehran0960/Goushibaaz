@@ -1329,11 +1329,12 @@ function nextCategoryDepthPage(currentPage) {
 }
 
 function buildCategoryPageRequestPayload(pageNo, windowWidth) {
+  const normalizedWidth = Math.trunc(num(windowWidth, 0));
   return {
     rowCount: 0,
     page: Math.max(1, Math.trunc(num(pageNo, 1))),
     needAllData: 0,
-    windowWidth: Math.max(1, Math.trunc(num(windowWidth, 1365)))
+    windowWidth: normalizedWidth > 0 ? normalizedWidth : 1365
   };
 }
 
