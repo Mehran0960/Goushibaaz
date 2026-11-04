@@ -1840,8 +1840,8 @@ async function main() {
     report.discovery.categoryCatalogShape = categoryCatalog.shape || null;
     const byCode = new Map();
     const categoryScanStartedAt = Date.now();
-    const categoryTrackers = categoryCatalog.ids.map(categoryId => ({
-      categoryId,pagesFetched:0,scannedItems:0,newestAgeHours:null,oldestAgeHours:null,
+    const categoryTrackers = categoryCatalog.feeds.map(feed => ({
+      categoryId:feed.key,categoryLabel:feed.label,pagesFetched:0,scannedItems:0,newestAgeHours:null,oldestAgeHours:null,
       chronologyVerified:false,depthPageNo:null,stopReason:'first_page_pending',coverageComplete:false
     }));
     const trackerById=new Map(categoryTrackers.map(tracker=>[String(tracker.categoryId),tracker]));
@@ -2002,7 +2002,8 @@ async function main() {
     report.discovery.categoryScanElapsedMs=Date.now()-categoryScanStartedAt;
     report.discovery.paginationStopReason=paginationStopReason;
     report.discovery.categoryScan=categoryTrackers.map(tracker=>({
-      categoryId:tracker.categoryId,pagesFetched:tracker.pagesFetched,scannedItems:tracker.scannedItems,
+      categoryId:tracker.categoryId,categoryLabel:tracker.categoryLabel,
+      pagesFetched:tracker.pagesFetched,scannedItems:tracker.scannedItems,
       newestAgeHours:tracker.newestAgeHours,oldestAgeHours:tracker.oldestAgeHours,
       chronologyVerified:tracker.chronologyVerified,deepPageNo:tracker.depthPageNo,
       stopReason:tracker.stopReason,coverageComplete:tracker.coverageComplete
