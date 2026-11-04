@@ -9,10 +9,13 @@ const STATE_PATH = path.join(STATE_DIR, 'state.json');
 const ACTIVE_PLATFORMS = [
   { key: 'shared', workflow: 'prepare-shared-video.yml', stateFile: 'state/shared-publications.json' }
 ];
-// Budget for the preparation workflow plus five independent destination runs.
-const FUTURE_PLATFORM_RESERVE = 5;
+// Three established destination workflows are always budgeted; Eitaa/Jetra consume capacity only when configured.
+const OPTIONAL_DESTINATION_RESERVE =
+  (process.env.EITAA_DESTINATION_CONFIGURED === 'true' ? 1 : 0) +
+  (process.env.JETRA_DESTINATION_CONFIGURED === 'true' ? 1 : 0);
+const FUTURE_PLATFORM_RESERVE = 3 + OPTIONAL_DESTINATION_RESERVE;
 const MAX_DESTINATION_STARTS_PER_UTC_DAY = 1200;
-const INTERVALS = [5, 10, 15, 20, 25, 30, 40, 50, 60, 90, 120, 180, 240, 360, 480, 720, 960, 1200, 1440];
+const INTERVALS = [5, 8, 10, 15, 20, 25, 30, 40, 50, 60, 90, 120, 180, 240, 360, 480, 720, 960, 1200, 1440];
 const API_VERSION = '2022-11-28';
 const TOKEN = process.env.GH_TOKEN;
 const CURRENT_REPO = process.env.GITHUB_REPOSITORY;
