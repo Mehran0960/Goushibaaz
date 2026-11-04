@@ -40,6 +40,10 @@ jobs:
           BALE_CHANNEL_ID: ${{ secrets.BALE_CHANNEL_ID }}
           RUBIKA_BOT_TOKEN: ${{ secrets.RUBIKA_BOT_TOKEN }}
           RUBIKA_CHAT_ID: ${{ secrets.RUBIKA_CHAT_ID }}
+          EITAAYAR_API_TOKEN: ${{ secrets.EITAAYAR_API_TOKEN }}
+          EITAAYAR_CHAT_ID: ${{ secrets.EITAAYAR_CHAT_ID }}
+          JETRA_BOT_TOKEN: ${{ secrets.JETRA_BOT_TOKEN }}
+          JETRA_CHAT_ID: ${{ secrets.JETRA_CHAT_ID }}
         run: node scripts/cleanup_published_retention.cjs
 
       - name: Persist Telegram retention state
@@ -53,3 +57,11 @@ jobs:
       - name: Persist Rubika retention state
         if: ${{ always() && hashFiles('state/rubika-published.json') != '' }}
         run: bash scripts/persist_state_file.sh state/rubika-published.json "Record Rubika retention cleanup"
+
+      - name: Persist Eitaa retention state
+        if: ${{ always() && hashFiles('state/eitaa-published.json') != '' }}
+        run: bash scripts/persist_state_file.sh state/eitaa-published.json "Record Eitaa retention cleanup"
+
+      - name: Persist Jetra retention state
+        if: ${{ always() && hashFiles('state/jetra-published.json') != '' }}
+        run: bash scripts/persist_state_file.sh state/jetra-published.json "Record Jetra retention cleanup"
