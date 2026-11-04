@@ -1,0 +1,74 @@
+name: Publish Shared Video to Jetra
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: "Run ID of the preparation workflow that uploaded the shared artifact"
+        required: true
+        type: string
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: goushibaaz-jetra-destination
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - name: Download the exact shared candidate artifact
+        id: artifact
+        continue-on-error: true
+        uses: actions/download-artifact@v8
+        with:
+          name: goushibaaz-shared-candidate
+          run-id: ${{ inputs.source_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: work/shared-publish
+      - name: Check Jetra configuration without exposing credentials
+        id: config
+        if: steps.artifact.outcome == 'success'
+        env:
+          JETRA_BOT_TOKEN: ${{ secrets.JETRA_BOT_TOKEN }}
+          JETRA_CHAT_ID: ${{ secrets.JETRA_CHAT_ID }}
+        run: |
+          if [[ -n "$JETRA_BOT_TOKEN" && -n "$JETRA_CHAT_ID" ]]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+            echo "JETRA_DESTINATION_CONFIGURED=true"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "JETRA_DESTINATION_SKIPPED: add JETRA_BOT_TOKEN and JETRA_CHAT_ID secrets to activate."
+          fi
+      - name: Ensure FFmpeg is available for Jetra's 25 MB file limit
+        if: steps.artifact.outcome == 'success' && steps.config.outputs.configured == 'true'
+        run: |
+          if ! command -v ffmpeg >/dev/null 2>&1 || ! command -v ffprobe >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg
+          fi
+          ffmpeg -version | head -n 1
+      - name: Validate and independently publish to Jetra
+        if: steps.artifact.outcome == 'success' && steps.config.outputs.configured == 'true'
+        env:
+          JETRA_BOT_TOKEN: ${{ secrets.JETRA_BOT_TOKEN }}
+          JETRA_CHAT_ID: ${{ secrets.JETRA_CHAT_ID }}
+          GOUSHIBAAZ_PUBLIC_PUBLISH_ENABLED: "true"
+          GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED: "true" # the channel owner must have enabled this Jetra destination
+        run: |
+          node --check scripts/jetra_publish_shared.cjs
+          node scripts/jetra_publish_shared.cjs
+      - name: Persist Jetra-only publication state
+        if: ${{ always() && steps.artifact.outcome == 'success' && steps.config.outputs.configured == 'true' && hashFiles('state/jetra-published.json') != '' }}
+        run: bash scripts/persist_state_file.sh state/jetra-published.json "Record Jetra destination result"
