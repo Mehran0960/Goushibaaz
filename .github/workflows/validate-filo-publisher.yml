@@ -244,7 +244,8 @@ jobs:
           check_contains scripts/rubika_publish_cc0.cjs 'buildTrendSearches(undefined, { limit: 2 })'
           check_contains scripts/rubika_publish_cc0.cjs 'trendSearchAcceleration: search.trendAcceleration || undefined'
           node -e "const p=require('./config/content-policy.json'); const f=p.platform_profiles&&p.platform_profiles.filo; if(p.vertical_video.aspect_ratio!=='9:16'||p.vertical_video.output_width!==1080||p.vertical_video.output_height!==1920||!f||f.output_width!==720||f.output_height!==1280||f.cover_width!==720||f.cover_height!==1280||f.end_card_seconds!==1.6) process.exit(1); console.log('CONTENT_POLICY_CHECK_OK')"
-          check_contains .github/workflows/filo-native-republish.yml '    - cron: "1-56/5 * * * *"'
+          check_contains .github/workflows/filo-native-republish.yml 'workflow_dispatch:'
+          check_absent .github/workflows/filo-native-republish.yml '  schedule:'
           check_contains .github/workflows/publish-approved-video-to-filo.yml 'workflow_dispatch:'
           check_absent .github/workflows/publish-approved-video-to-filo.yml 'cron: "*/5 * * * *"'
           check_absent .github/workflows/publish-approved-video-to-filo.yml 'five-minute best-effort attempts'
