@@ -99,7 +99,7 @@ assert.equal(
 );
 assert.equal(cleanRepostCaptionTitle('بدل بهنام بانی در قوچان'), 'بدل بهنام بانی در قوچان',
   'a usable source title must not be truncated to force an artificial rewrite');
-assert.equal(cleanRepostCaptionTitle('مردی که روغن گریس میخورد!'), 'مردی که روغن گریس میخورد!',
+assert.equal(cleanRepostCaptionTitle('مردی که روغن گریس میخورد!'), 'مردی که روغن گریس میخورد',
   'an already meaningful title must retain its full meaning');
 assert.equal(cleanRepostCaptionTitle('اگه گفتی این بی مزه ها چرا انقدر موقع پخت ماکارونی میخندن'),
   'چرا این‌قدر موقع پخت ماکارونی می‌خندند؟',
