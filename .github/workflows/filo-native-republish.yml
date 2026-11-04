@@ -1,14 +1,7 @@
 name: Filo native authorized republisher
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - .github/workflows/filo-native-republish.yml
   workflow_dispatch:
-  schedule:
-    - cron: "*/5 * * * *"
 
 permissions:
   contents: write
@@ -32,7 +25,7 @@ jobs:
           node-version: 22
           package-manager-cache: false
 
-      # Reuse browser assets so each five-minute scan starts quickly.
+      # Reuse browser assets so each dispatched scan starts quickly.
       - name: Restore publisher tool caches
         uses: actions/cache@v4
         with:
@@ -54,7 +47,6 @@ jobs:
       - name: Record native Filo scheduler trigger diagnostics
         run: |
           echo "event_name=${{ github.event_name }}"
-          echo "schedule=${{ github.event.schedule }}"
           echo "runner_utc=$(date -u +%FT%TZ)"
 
       - name: Discover Filo videos with native repost permission and publish one
