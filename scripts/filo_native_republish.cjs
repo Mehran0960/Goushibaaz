@@ -10,7 +10,12 @@ const REPORT_PATH = path.join('out', 'filo-native-republish.json');
 const FALLBACK_CATEGORY_IDS = [6, 11, 13, 29, 2, 22, 17, 25, 15, 3];
 const CATEGORY_IDS = FALLBACK_CATEGORY_IDS;
 const MAX_DISCOVERED_CATEGORY_IDS = 48;
-const PAGES_PER_CATEGORY = 3;
+const MIN_PAGES_PER_CATEGORY = 3;
+const MAX_PAGES_PER_CATEGORY = 12;
+const MAX_TOTAL_CATEGORY_PAGE_REQUESTS = 240;
+const CATEGORY_PAGE_CONCURRENCY = 4;
+const CATEGORY_SCAN_BUDGET_MS = 8 * 60 * 1000;
+const CATEGORY_LOOKBACK_HOURS = 24;
 const TOPIC_DUPLICATE_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
 const MAX_DETAIL_CHECKS = 90;
 const MIN_DURATION_SECONDS = 10;
@@ -67,6 +72,123 @@ function ageHours(item) {
   const absolute = Date.parse(raw);
   if (Number.isFinite(absolute)) return Math.max(0, (Date.now() - absolute) / 3600000);
   return 36;
+}
+
+
+function reliableFeedAgeBounds(item, now = Date.now()) {
+  if (!item || typeof item !== 'object') return null;
+  const fields = ['create_date', 'styled_create_date', 'created_at', 'createdAt', 'created', 'date'];
+
+  for (const field of fields) {
+    const value = item[field];
+    if (value === undefined || value === null || value === '') continue;
+
+    if (typeof value === 'number' || /^\\d{10,13}$/.test(String(value).trim())) {
+      const numeric = Number(value);
+      const timestamp = numeric > 1e12 ? numeric : numeric > 1e9 ? numeric * 1000 : NaN;
+      if (Number.isFinite(timestamp)) {
+        const centerHours = Math.max(0, (now - timestamp) / 3600000);
+        return { centerHours, lowerHours: Math.max(0, centerHours - 1 / 7200), upperHours: centerHours + 1 / 7200, precisionHours: 1 / 3600 };
+      }
+    }
+
+    const raw = normalizeDigits(value).trim().toLowerCase();
+    if (!raw) continue;
+
+    const dayMatch = raw.match(/(\\d+(?:[.,]\\d+)?)\\s*(?:روز|day|days)\\b?/i);
+    const hourMatch = raw.match(/(\\d+(?:[.,]\\d+)?)\\s*(?:ساعت|hour|hours|hr|hrs)\\b?/i);
+    const minuteMatch = raw.match(/(\\d+(?:[.,]\\d+)?)\\s*(?:دقیقه|دقایق|min|mins|minute|minutes)\\b?/i);
+    if (dayMatch || hourMatch || minuteMatch) {
+      const toNumber = match => match ? num(match[1].replace(',', '.')) : 0;
+      const centerHours = toNumber(dayMatch) * 24 + toNumber(hourMatch) + toNumber(minuteMatch) / 60;
+      const precisionHours = minuteMatch ? 1 / 60 : hourMatch ? 1 : 24;
+      return {
+        centerHours: Math.max(0, centerHours),
+        lowerHours: Math.max(0, centerHours - precisionHours / 2),
+        upperHours: centerHours + precisionHours / 2,
+        precisionHours
+      };
+    }
+
+    if (/لحظاتی پیش|همین الان|اکنون|just now|moments ago/.test(raw)) {
+      return { centerHours: 0.1, lowerHours: 0, upperHours: 0.25, precisionHours: 0.25 };
+    }
+    if (/دیروز|yesterday|امروز|today/.test(raw)) continue;
+
+    const absolute = Date.parse(raw);
+    if (Number.isFinite(absolute)) {
+      const centerHours = Math.max(0, (now - absolute) / 3600000);
+      const hasClock = /(?:t|\\b)\\d{1,2}:\\d{2}/i.test(raw);
+      const precisionHours = hasClock ? 1 / 3600 : 24;
+      return {
+        centerHours,
+        lowerHours: Math.max(0, centerHours - precisionHours / 2),
+        upperHours: centerHours + precisionHours / 2,
+        precisionHours
+      };
+    }
+  }
+  return null;
+}
+
+function analyzeCategoryFeedPage(items, now = Date.now(), lookbackHours = CATEGORY_LOOKBACK_HOURS) {
+  const list = Array.isArray(items) ? items : [];
+  if (!list.length) {
+    return {
+      itemCount: 0,
+      ageDataComplete: true,
+      chronologyConsistent: true,
+      allItemsOlderThanLookback: false,
+      firstAgeBounds: null,
+      lastAgeBounds: null,
+      newestAgeHours: null,
+      oldestAgeHours: null
+    };
+  }
+
+  const ages = list.map(item => reliableFeedAgeBounds(item, now));
+  const ageDataComplete = ages.every(Boolean);
+  const precisionReliable = ageDataComplete && ages.every(age => age.precisionHours <= 1.1);
+  let chronologyConsistent = precisionReliable;
+
+  if (chronologyConsistent) {
+    for (let index = 1; index < ages.length; index++) {
+      const previous = ages[index - 1];
+      const current = ages[index];
+      const tolerance = Math.max(0.03, (previous.precisionHours + current.precisionHours) * 0.75);
+      if (current.centerHours + tolerance < previous.centerHours) {
+        chronologyConsistent = false;
+        break;
+      }
+    }
+  }
+
+  const centers = ages.filter(Boolean).map(age => age.centerHours);
+  return {
+    itemCount: list.length,
+    ageDataComplete,
+    chronologyConsistent,
+    allItemsOlderThanLookback: ageDataComplete && ages.every(age => age.lowerHours > lookbackHours),
+    firstAgeBounds: ages[0] || null,
+    lastAgeBounds: ages.at(-1) || null,
+    newestAgeHours: centers.length ? Math.min(...centers) : null,
+    oldestAgeHours: centers.length ? Math.max(...centers) : null
+  };
+}
+
+function categoryFeedBoundaryOrdered(previousLastAge, currentFirstAge) {
+  if (!previousLastAge || !currentFirstAge) return false;
+  const tolerance = Math.max(0.03, (previousLastAge.precisionHours + currentFirstAge.precisionHours) * 0.75);
+  return currentFirstAge.centerHours + tolerance >= previousLastAge.centerHours;
+}
+
+function shouldStopCategoryPagination({ pageCount, pageAnalysis, chronologyVerified, lookbackHours = CATEGORY_LOOKBACK_HOURS }) {
+  return Number(pageCount) >= 2 &&
+    chronologyVerified === true &&
+    pageAnalysis &&
+    pageAnalysis.allItemsOlderThanLookback === true &&
+    pageAnalysis.oldestAgeHours !== null &&
+    pageAnalysis.oldestAgeHours > lookbackHours;
 }
 
 function sourceText(item) {
@@ -1284,11 +1406,21 @@ async function main() {
     status: 'started',
     discovery: {
       categories: CATEGORY_IDS,
-      pagesPerCategory: PAGES_PER_CATEGORY,
+      paginationMode: 'adaptive_recent_window',
+      lookbackHours: CATEGORY_LOOKBACK_HOURS,
+      minPagesPerCategory: MIN_PAGES_PER_CATEGORY,
+      maxPagesPerCategory: MAX_PAGES_PER_CATEGORY,
+      maxTotalCategoryPageRequests: MAX_TOTAL_CATEGORY_PAGE_REQUESTS,
+      categoryPageConcurrency: CATEGORY_PAGE_CONCURRENCY,
+      categoryScanBudgetMs: CATEGORY_SCAN_BUDGET_MS,
       categoryCatalogSource: 'not_loaded',
       categoryCatalogCount: 0,
       categoryCatalogError: null,
       categoryPagesAttempted: 0,
+      categoryScan: [],
+      categoryCoverage: null,
+      categoryScanElapsedMs: 0,
+      paginationStopReason: null,
       scannedItems: 0,
       eligibleFeedItems: 0,
       measuredCandidates: 0,
@@ -1329,15 +1461,90 @@ async function main() {
     report.discovery.categoryCatalogCount = categoryCatalog.catalogIds.length;
     report.discovery.categoryCatalogError = categoryCatalog.error;
     const byCode = new Map();
-    for (const categoryId of categoryCatalog.ids) {
-      for (let pageNo = 1; pageNo <= PAGES_PER_CATEGORY; pageNo++) {
-        report.discovery.categoryPagesAttempted += 1;
-        try {
-          const items = await fetchCategoryPage(page, categoryId, pageNo);
+    const categoryScanStartedAt = Date.now();
+    const categoryTrackers = categoryCatalog.ids.map(categoryId => ({
+      categoryId,
+      pagesFetched: 0,
+      scannedItems: 0,
+      chronologyVerified: true,
+      lastAgeBounds: null,
+      newestAgeHours: null,
+      oldestAgeHours: null,
+      done: false,
+      stopReason: null
+    }));
+    let totalCategoryPageRequests = 0;
+    let paginationStopReason = null;
+
+    for (let pageNo = 1; pageNo <= MAX_PAGES_PER_CATEGORY; pageNo++) {
+      const pendingTrackers = categoryTrackers.filter(tracker => !tracker.done);
+      if (!pendingTrackers.length) break;
+
+      for (let offset = 0; offset < pendingTrackers.length; offset += CATEGORY_PAGE_CONCURRENCY) {
+        if (totalCategoryPageRequests >= MAX_TOTAL_CATEGORY_PAGE_REQUESTS) {
+          paginationStopReason = 'global_page_request_cap';
+          break;
+        }
+        if (Date.now() - categoryScanStartedAt >= CATEGORY_SCAN_BUDGET_MS) {
+          paginationStopReason = 'discovery_time_budget';
+          break;
+        }
+
+        const remaining = MAX_TOTAL_CATEGORY_PAGE_REQUESTS - totalCategoryPageRequests;
+        const batch = pendingTrackers.slice(offset, offset + Math.min(CATEGORY_PAGE_CONCURRENCY, remaining));
+        if (!batch.length) {
+          paginationStopReason = 'global_page_request_cap';
+          break;
+        }
+
+        totalCategoryPageRequests += batch.length;
+        report.discovery.categoryPagesAttempted = totalCategoryPageRequests;
+        const results = await Promise.all(batch.map(async tracker => {
+          try {
+            return {
+              tracker,
+              items: await fetchCategoryPage(page, tracker.categoryId, pageNo),
+              error: null
+            };
+          } catch (error) {
+            return {
+              tracker,
+              items: null,
+              error: String(error && error.message || error).slice(0, 240)
+            };
+          }
+        }));
+
+        for (const result of results) {
+          const tracker = result.tracker;
+          if (result.error) {
+            tracker.done = true;
+            tracker.stopReason = 'page_error';
+            report.discovery.errors.push({
+              categoryId: tracker.categoryId,
+              pageNo,
+              error: result.error
+            });
+            continue;
+          }
+
+          const items = result.items || [];
+          const pageAnalysis = analyzeCategoryFeedPage(items, Date.parse(report.createdAt));
+          const boundaryOrdered = tracker.pagesFetched === 0
+            ? true
+            : categoryFeedBoundaryOrdered(tracker.lastAgeBounds, pageAnalysis.firstAgeBounds);
+          const chronologyVerified = tracker.chronologyVerified &&
+            pageAnalysis.chronologyConsistent &&
+            boundaryOrdered;
+
           report.discovery.scannedItems += items.length;
+          tracker.scannedItems += items.length;
+          tracker.pagesFetched += 1;
+          tracker.chronologyVerified = chronologyVerified;
+
           for (const item of items) {
             if (!item || typeof item !== 'object') continue;
-            if (!item.category_id) item.category_id = categoryId;
+            if (item.category_id === undefined || item.category_id === null) item.category_id = tracker.categoryId;
             const code = String(item.video_code || item.videoCode || item.code || '');
             if (!code) continue;
             const existing = byCode.get(code);
@@ -1345,15 +1552,85 @@ async function main() {
             if (!existing || num(candidate.visit_count) + num(candidate.play_count) >
                 num(existing.visit_count) + num(existing.play_count)) byCode.set(code, candidate);
           }
-        } catch (error) {
-          report.discovery.errors.push({
-            categoryId,
-            pageNo,
-            error: String(error && error.message || error).slice(0, 240)
-          });
+
+          if (pageAnalysis.newestAgeHours !== null) {
+            tracker.newestAgeHours = tracker.newestAgeHours === null
+              ? pageAnalysis.newestAgeHours : Math.min(tracker.newestAgeHours, pageAnalysis.newestAgeHours);
+          }
+          if (pageAnalysis.oldestAgeHours !== null) {
+            tracker.oldestAgeHours = tracker.oldestAgeHours === null
+              ? pageAnalysis.oldestAgeHours : Math.max(tracker.oldestAgeHours, pageAnalysis.oldestAgeHours);
+          }
+
+          if (!items.length) {
+            tracker.done = true;
+            tracker.stopReason = 'empty_page';
+          } else if (shouldStopCategoryPagination({
+            pageCount: tracker.pagesFetched,
+            pageAnalysis,
+            chronologyVerified,
+            lookbackHours: CATEGORY_LOOKBACK_HOURS
+          })) {
+            tracker.done = true;
+            tracker.stopReason = 'lookback_window_reached';
+          } else if (pageNo === MAX_PAGES_PER_CATEGORY) {
+            tracker.done = true;
+            tracker.stopReason = 'max_pages_per_category';
+          }
+
+          tracker.lastAgeBounds = pageAnalysis.lastAgeBounds;
+        }
+
+        if (paginationStopReason) break;
+      }
+      if (paginationStopReason) break;
+    }
+
+    if (paginationStopReason) {
+      for (const tracker of categoryTrackers) {
+        if (!tracker.done) {
+          tracker.done = true;
+          tracker.stopReason = paginationStopReason;
+        }
+      }
+    } else {
+      for (const tracker of categoryTrackers) {
+        if (!tracker.done) {
+          tracker.done = true;
+          tracker.stopReason = 'max_pages_per_category';
         }
       }
     }
+
+    report.discovery.categoryScanElapsedMs = Date.now() - categoryScanStartedAt;
+    report.discovery.paginationStopReason = paginationStopReason;
+    report.discovery.categoryScan = categoryTrackers.map(tracker => ({
+      categoryId: tracker.categoryId,
+      pagesFetched: tracker.pagesFetched,
+      scannedItems: tracker.scannedItems,
+      newestAgeHours: tracker.newestAgeHours,
+      oldestAgeHours: tracker.oldestAgeHours,
+      chronologyVerified: tracker.chronologyVerified,
+      stopReason: tracker.stopReason,
+      coverageComplete: ['empty_page', 'lookback_window_reached'].includes(tracker.stopReason)
+    }));
+    report.discovery.categoryCoverage = {
+      categoriesTotal: categoryTrackers.length,
+      categoriesWithFirstPage: categoryTrackers.filter(tracker => tracker.pagesFetched >= 1).length,
+      categoriesWithBaselineDepth: categoryTrackers.filter(tracker =>
+        tracker.pagesFetched >= MIN_PAGES_PER_CATEGORY ||
+        ['empty_page', 'lookback_window_reached'].includes(tracker.stopReason)
+      ).length,
+      categoriesPastLookback: categoryTrackers.filter(tracker => tracker.stopReason === 'lookback_window_reached').length,
+      categoriesExhausted: categoryTrackers.filter(tracker => tracker.stopReason === 'empty_page').length,
+      categoriesAtPageCap: categoryTrackers.filter(tracker => tracker.stopReason === 'max_pages_per_category').length,
+      categoriesWithPageErrors: categoryTrackers.filter(tracker => tracker.stopReason === 'page_error').length,
+      categoriesLimitedByGlobalCap: categoryTrackers.filter(tracker => tracker.stopReason === 'global_page_request_cap').length,
+      categoriesLimitedByTimeBudget: categoryTrackers.filter(tracker => tracker.stopReason === 'discovery_time_budget').length,
+      complete24HourCoverage: categoryTrackers.every(tracker =>
+        ['empty_page', 'lookback_window_reached'].includes(tracker.stopReason)
+      )
+    };
 
     const feedCandidates = [...byCode.values()].filter(item => feedCandidateEligible(item, state));
     report.discovery.eligibleFeedItems = feedCandidates.length;
@@ -1552,6 +1829,9 @@ async function main() {
       status: report.status,
       scannedItems: report.discovery.scannedItems,
       eligibleFeedItems: report.discovery.eligibleFeedItems,
+      categoryPageRequests: report.discovery.categoryPagesAttempted,
+      categoryCoverage: report.discovery.categoryCoverage,
+      paginationStopReason: report.discovery.paginationStopReason,
       selected: report.selected,
       result: report.result,
       filoRejections: report.discovery.filoRejections || [],
@@ -1591,6 +1871,10 @@ module.exports = {
   updateCandidateMomentum,
   extractCategoryIds,
   discoverCategoryCatalog,
+  reliableFeedAgeBounds,
+  analyzeCategoryFeedPage,
+  categoryFeedBoundaryOrdered,
+  shouldStopCategoryPagination,
   editorialTitleTokens,
   characterBigramDice,
   createDistinctRepostTitle,
