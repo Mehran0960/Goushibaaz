@@ -155,7 +155,7 @@ function analyzeCategoryFeedPage(items, now = Date.now(), lookbackHours = CATEGO
     for (let index = 1; index < ages.length; index++) {
       const previous = ages[index - 1];
       const current = ages[index];
-      const tolerance = Math.max(0.03, (previous.precisionHours + current.precisionHours) * 0.75);
+      const tolerance = Math.max(0.03, (previous.precisionHours + current.precisionHours) * 0.5);
       if (current.centerHours + tolerance < previous.centerHours) {
         chronologyConsistent = false;
         break;
@@ -178,7 +178,7 @@ function analyzeCategoryFeedPage(items, now = Date.now(), lookbackHours = CATEGO
 
 function categoryFeedBoundaryOrdered(previousLastAge, currentFirstAge) {
   if (!previousLastAge || !currentFirstAge) return false;
-  const tolerance = Math.max(0.03, (previousLastAge.precisionHours + currentFirstAge.precisionHours) * 0.75);
+  const tolerance = Math.max(0.03, (previousLastAge.precisionHours + currentFirstAge.precisionHours) * 0.5);
   return currentFirstAge.centerHours + tolerance >= previousLastAge.centerHours;
 }
 
