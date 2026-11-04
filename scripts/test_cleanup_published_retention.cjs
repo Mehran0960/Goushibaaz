@@ -60,6 +60,11 @@ async function main() {
   });
 
   assert.equal(calls.length, 4, 'Telegram, Eitaa, and Jetra at 47h plus Rubika at 60h should be deleted');
+  assert.ok(calls.some(call => call.url === 'https://api.telegram.org/bottest-telegram/deleteMessage'));
+  assert.ok(calls.some(call => call.url === 'https://botapi.rubika.ir/v3/test-rubika/deleteMessage'));
+  assert.ok(calls.some(call => call.url === 'https://eitaayar.ir/api/test-eitaa/deleteMessage'));
+  assert.ok(calls.some(call => call.url === 'https://jetra.ir/bottest-jetra/deleteMessage'));
+  assert.ok(calls.every(call => call.body.chat_id && call.body.message_id));
   assert.equal(report.platforms.telegram.deleted, 1);
   assert.equal(report.platforms.telegram.outsideApiWindow, 1);
   assert.equal(report.platforms.bale.deleted, 0);
