@@ -158,7 +158,8 @@ async function runCleanup(options = {}) {
 
     const state = readState(statePath);
     let changed = false;
-    let chatIdFallback = String(env[config.chatEnv] || config.defaultChatId || '').trim();
+    let chatIdFallback = String(env[config.chatEnv] || '').trim();
+    if (platform !== 'rubika' && !chatIdFallback) chatIdFallback = config.defaultChatId;
 
     if (platform === 'rubika' && !chatIdFallback) {
       try {
