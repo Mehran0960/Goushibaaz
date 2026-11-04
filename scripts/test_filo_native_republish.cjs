@@ -16,7 +16,10 @@ const {
   buildUnconfirmedSubmissionResult,
   composeFiloCoverDataUrl,
   dailyCount,
+  candidateMetricValue,
+  candidateMetricSnapshot,
   updateCandidateMomentum,
+  classifyAudienceFit,
   rankCandidatesByMomentum,
   extractCategoryIds,
   summarizeCategoryCatalogPayload,
@@ -100,6 +103,15 @@ assert.deepEqual(extractCategoryIds({
 }),[14],'nested result/category collections must be supported');
 assert.deepEqual(extractCategoryIds([{id:3},{id:4}]),[3,4],
   'direct category arrays must be supported');
+assert.deepEqual(extractCategoryIds({
+  c: [{ i: 6, n: 'طنز' }, { i: 14, n: 'آموزش' }],
+  cfs: [{ i: 29, n: 'آشپزی' }]
+}), [6, 14, 29], 'compact catalogue entries may expose category IDs as i');
+const compactShape = summarizeCategoryCatalogPayload({
+  c: [{ i: 6, n: 'طنز' }], cfs: [{ i: 14, n: 'آموزش' }]
+});
+assert.deepEqual(compactShape.nested.c.itemKeys[0], ['i', 'n'],
+  'catalogue diagnostics should expose item field names without raw values');
 assert.deepEqual(rotatingDepthSelection([1,2,3,4,5],3,2),
   {categoryIds:[4,5],nextCursor:0});
 assert.deepEqual(rotatingDepthSelection([1,2,3],2,12),
@@ -359,35 +371,56 @@ assert.equal(dailyCount(state, Date.parse('2026-11-03T00:10:00.000Z')), 1,
 const momentumState = { posts: [] };
 const momentumStart = Date.parse('2026-11-04T00:00:00.000Z');
 const baseline = [
-  { video_code: 'Slow01', title: 'ویدئوی تازه اول', create_date: '۲ ساعت پیش', visit_count: 100, plays: 10 },
-  { video_code: 'Fast01', title: 'ویدئوی تازه دوم', create_date: '۲ ساعت پیش', visit_count: 100, plays: 10 },
-  { video_code: 'Old001', title: 'ویدئوی قدیمی', create_date: 'دیروز', visit_count: 100, plays: 10 }
+  { video_code: 'Comedy01', title: 'طنز خنده دار تازه', create_date: '۲ ساعت پیش', visit_count: 100, plays: 10 },
+  { video_code: 'Tutorial1', title: 'ترفند کاربردی تازه', create_date: '۲ ساعت پیش', visit_count: 100, plays: 10 },
+  { video_code: 'Old001', title: 'ویدئوی قدیمی', create_date: 'دیروز', visit_count: 100, plays: 10 },
+  { video_code: 'ViewsOnly', title: 'ویدئوی بدون شمارنده پخش', create_date: '۲ ساعت پیش', visit_count: 100 }
 ];
 assert.deepEqual(rankCandidatesByMomentum(baseline, momentumState, momentumStart), [],
   'first sighting is only a baseline and must not be mistaken for growth');
 
 const secondScan = [
-  { ...baseline[0], visit_count: 200, plays: 20 },
-  { ...baseline[1], visit_count: 200, plays: 20 },
-  { ...baseline[2], visit_count: 400, plays: 30 }
+  { ...baseline[0], visit_count: 200, plays: 30 },
+  { ...baseline[1], visit_count: 250, plays: 20 },
+  { ...baseline[2], visit_count: 400, plays: 30 },
+  { ...baseline[3], visit_count: 250 }
 ];
 const secondRank = rankCandidatesByMomentum(secondScan, momentumState, momentumStart + 10 * 60 * 1000);
-assert.equal(secondRank.length, 2, 'videos older than 24 hours are excluded');
-assert.equal(secondRank[0].item.video_code, 'Slow01');
+assert.equal(secondRank.length, 3, 'older videos are excluded but views-only fallback remains available');
+assert.equal(secondRank[0].item.video_code, 'Comedy01',
+  'measured plays growth must outrank higher views growth');
+assert.equal(secondRank[0].momentum.playsPerMinute, 2);
 assert.equal(secondRank[0].momentum.viewsPerMinute, 10);
+assert.equal(secondRank[0].rankingMetric, 'plays');
+assert.equal(secondRank[1].item.video_code, 'Tutorial1');
+assert.equal(secondRank[1].momentum.playsPerMinute, 1);
+assert.equal(secondRank[2].item.video_code, 'ViewsOnly');
+assert.equal(secondRank[2].rankingMetric, 'views',
+  'a candidate with no play counter may fall back to measured view growth');
 
 const thirdScan = [
   { ...baseline[0], visit_count: 500, plays: 50 },
   { ...baseline[1], visit_count: 300, plays: 30 },
-  { ...baseline[2], visit_count: 900, plays: 60 }
+  { ...baseline[2], visit_count: 900, plays: 60 },
+  { ...baseline[3], visit_count: 500 }
 ];
 const thirdRank = rankCandidatesByMomentum(thirdScan, momentumState, momentumStart + 20 * 60 * 1000);
-assert.equal(thirdRank[0].item.video_code, 'Slow01',
-  'the video with the highest measured views per minute must rank first');
+assert.equal(thirdRank[0].item.video_code, 'Comedy01');
+assert.equal(thirdRank[0].momentum.playsPerMinute, 2);
+assert.equal(thirdRank[0].momentum.playsAccelerationPerMinute, 0);
 assert.equal(thirdRank[0].momentum.viewsPerMinute, 30);
-assert.equal(thirdRank[0].momentum.accelerationPerMinute, 20);
-assert.equal(thirdRank[1].momentum.viewsPerMinute, 10);
+assert.equal(thirdRank[2].item.video_code, 'ViewsOnly');
 
+assert.equal(candidateMetricSnapshot({ plays: 0 }, ['play_count', 'plays']).available, true,
+  'an explicit zero is a real counter value, not a missing field');
+assert.equal(candidateMetricSnapshot({}, ['play_count', 'plays']).available, false,
+  'missing play metrics must remain distinguishable from a zero counter');
+
+assert.equal(classifyAudienceFit({ title: 'طنز و خنده در یک موقعیت عجیب' }).label, 'comedy_entertainment');
+assert.equal(classifyAudienceFit({ title: 'ترفند کاربردی برای تعمیر شیر آب' }).label, 'practical_tutorial');
+assert.equal(classifyAudienceFit({ title: 'واکنش یک بازیگر معروف در برنامه زنده' }).label, 'celebrity_pop_culture');
+assert.equal(classifyAudienceFit({ title: 'منظره‌ای از جنگل در شمال' }).score, 2);
+assert.equal(classifyAudienceFit({ title: 'یک ویدئوی معمولی' }).score, 1);
 async function testPortraitCoverComposition() {
   const { chromium } = require('playwright');
   const browser = await chromium.launch({ headless: true });
