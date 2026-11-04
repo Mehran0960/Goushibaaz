@@ -120,6 +120,8 @@ const ambiguousPage = analyzeCategoryFeedPage([
 assert.equal(ambiguousPage.chronologyConsistent, false,
   'ambiguous relative labels must not be treated as proof of chronological ordering');
 
+assert.equal(reliableFeedAgeBounds({ create_date: '۱۴۰۵/۰۸/۱۴ ۰۹:۳۰' }, feedNow), null,
+  'Jalali calendar strings must not be misparsed as Gregorian timestamps');
 const previousPageLast = reliableFeedAgeBounds({ create_date: '۲۴ ساعت پیش' }, feedNow);
 const nextPageFirst = reliableFeedAgeBounds({ create_date: '۲۵ ساعت پیش' }, feedNow);
 const outOfOrderPageFirst = reliableFeedAgeBounds({ create_date: '۲۲ ساعت پیش' }, feedNow);
