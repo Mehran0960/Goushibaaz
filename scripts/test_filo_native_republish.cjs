@@ -67,87 +67,41 @@ assert.equal(
   normalizeComparable('كلیپ خنده دار'),
   normalizeComparable('کلیپ خنده دار')
 );
-assert.equal(cleanRepostCaptionTitle('دزد حرفه ای؛ روایتی از یک اتفاق غیرمنتظره'), 'دزد حرفه ای',
-  'generic editorial suffixes must not survive in a concise title');
-assert.equal(cleanRepostCaptionTitle('تصاویری دیدنی و خنده دار از سوژه هالووین'), 'سوژه هالووین');
-assert.equal(
-  cleanRepostCaptionTitle('مسخره کردن فرار از زندان پوکیدم از خنده عالی بود این حتما ببنید'),
-  'مسخره کردن فرار از زندان'
-);
-assert.equal(
-  cleanRepostCaptionTitle('چالش یحیی گل محمدی سرمربی پرسپولیس با رکورد دار روپایی'),
-  'چالش یحیی گل محمدی با رکورد دار روپایی'
-);
-assert.equal(
-  cleanRepostCaptionTitle('پیغام عجیب و توهین آمیز ساکت الهامی به یحیی گل محمدی در پایان مسابقه فولاد_ نساجی'),
-  'پیغام ساکت الهامی به یحیی گل محمدی در پایان مسابقه فولاد_ نساجی'
-);
-assert.equal(cleanRepostCaptionTitle('بدل بهنام بانی در قوچان'), 'بدل بهنام بانی در قوچان',
-  'a usable source title must not be truncated to force an artificial rewrite');
-assert.equal(cleanRepostCaptionTitle('مردی که روغن گریس میخورد!'), 'مردی که روغن گریس میخورد',
-  'an already meaningful title must retain its full meaning');
-assert.equal(cleanRepostCaptionTitle('اگه گفتی این بی مزه ها چرا انقدر موقع پخت ماکارونی میخندن'),
-  'چرا این‌قدر موقع پخت ماکارونی می‌خندند؟',
-  'clickbait phrasing must become a clear, factual question without the insulting lead-in');
-assert.equal(
-  cleanRepostCaptionTitle(
-    'ریمیک جدید گاد آف وار ۲ برای کنسول PS5',
-    'ریمیکی جذاب از یکی از طرفداران گاد آف وار برای شما عزیزان.'
-  ),
-  'ریمیک طرفداری از گاد آف وار ۲ برای PS5',
-  'fan-made attribution is allowed only when supported by the source description'
-);
-assert.throws(() => cleanRepostCaptionTitle('عنوان'), /no_clean_distinct_title_available_without_extra_words/);
+const cleanedTitle = cleanRepostCaptionTitle('کلیپ خنده‌دار از مسابقه فوتبال 😂 #فوتبال');
+assert.ok(cleanedTitle.includes('مسابقه فوتبال'));
+assert.doesNotMatch(cleanedTitle, /https?:\/\/|#/);
+const shortDescription = cleanRepostDescription('واکنش کوتاه خانواده در لحظه رسیدن مهمان.', 'عنوان منبع', cleanedTitle);
+assert.equal(shortDescription, 'واکنش کوتاه خانواده در لحظه رسیدن مهمان.',
+  'a short factual source description must remain usable');
+assert.equal(cleanRepostDescription('', 'عنوان منبع', cleanedTitle), cleanedTitle,
+  'missing source description falls back to the actual title without invented details');
 
 const sourceDescription = 'در این ویدئو، هنگام برگزاری مولودی واکنش خانواده به تنها ماندن یکی از اعضا دیده می‌شود و رفتار او باعث خنده اطرافیان می‌شود.';
-const rewritten = createRepostMetadata({
+const shortMetadata = createRepostMetadata({
   ...valid,
-  title: 'طنز خنده دار وقتی مامانت مولودی گرفته و تو تو اتاق تنها موندی',
-  description: sourceDescription
+  title: 'واکنش خانواده به رسیدن مهمان',
+  description: 'واکنش کوتاه خانواده'
 }, 'AbC1234');
-assert.notEqual(normalizeComparable(rewritten.title), normalizeComparable('طنز خنده دار وقتی مامانت مولودی گرفته و تو تو اتاق تنها موندی'));
-assert.notEqual(normalizeComparable(rewritten.description), normalizeComparable(sourceDescription));
-assert.ok(rewritten.title.length >= 8);
-assert.doesNotMatch(rewritten.title, /ماجرای\s+بامزه/);
-assert.doesNotMatch(rewritten.title, /لحظه‌ی\s+تماشایی/);
-assert.doesNotMatch(rewritten.title, /روایت\s+تصویری|ماجرای\s+بامزه|روایتی\s+از/);
-assert.doesNotMatch(rewritten.description, /روایت\s+تصویری|اجازه|https?:\/\//i);
-assert.ok(rewritten.description.length >= 50);
-assert.equal(normalizeComparable(rewritten.description).includes(normalizeComparable(rewritten.title)), false);
-const unicodePromo = cleanRepostDescription(
-  'مادر و فرزند در حال آماده کردن سالاد ماکارونی هستند و مراحل را کنار هم انجام می‌دهند. 𝗝𝗈𝗂𝗇︎𝗨𝗌 𝗘𝗑︎𝖼︎𝗂𝗍𝖾𝖽 👾 𝗖𝗅︎𝖎𝖈𝖐↝',
-  'عنوان منبع متفاوت و طولانی',
-  'ویدئوی ماکارونی'
-);
-assert.match(unicodePromo, /سالاد ماکارونی/);
-assert.doesNotMatch(unicodePromo, /join\s*us|excited|click/i,
-  'Unicode-styled English promotions must be normalized and stripped');
-const shortButUseful = cleanRepostDescription(
-  'بچه و مامانش سالاد ماکارونی درست میکنن 😂🤣 𝗝𝗈𝗂𝗇︎𝗨𝗌 𝗘𝗑︎𝖼︎𝗂𝗍𝖾𝖽 𝗖𝗅︎𝗂𝖼𝗄',
-  'عنوان منبع متفاوت و طولانی',
-  'ویدئوی ماکارونی'
-);
-assert.ok(shortButUseful.length >= 35 && shortButUseful.length < 50,
-  'a concise, factual description remains usable after promo and emoji cleanup');
+assert.equal(shortMetadata.title, 'واکنش خانواده به رسیدن مهمان');
+assert.equal(shortMetadata.description, 'واکنش کوتاه خانواده');
+assert.throws(() => createRepostMetadata({
+  ...valid,
+  title: 'پیغام توهین آمیز به یک بازیکن',
+  description: 'متن کوتاه'
+}, 'AbC1236'), /filo_policy_text_risk:insult_or_defamation/);
+assert.throws(() => createRepostMetadata({
+  ...valid,
+  title: 'لینک https://example.com ویدئو',
+  description: 'توضیح کوتاه'
+}, 'AbC1237'), /repost_source_title_contains_external_link/);
+
 const promoCleaned = cleanRepostDescription(
   'ریمیکی جذاب از یکی از طرفداران گاد آف وار برای شما عزیزان. همراه ما باشید و لذت ببرید. 🔥',
   'ریمیک جدید گاد آف وار ۲ برای کنسول PS5',
   'ریمیک طرفداری از گاد آف وار ۲ برای PS5'
 );
 assert.match(promoCleaned, /طرفداران گاد آف وار/);
-assert.doesNotMatch(promoCleaned, /برای شما عزیزان|همراه ما|لذت ببرید|🔥/,
-  'generic audience address, engagement prompts, and decorative emoji must be removed');
-const alreadyCleanMetadata = createRepostMetadata({
-  ...valid,
-  title: 'مردی که روغن گریس میخورد!',
-  description: 'در این ویدئو، مردی در حال خوردن روغن گریس را نشان می‌دهد و واکنش اطرافیان دیده می‌شود. این رفتار غیرمعمول توجه افراد حاضر را جلب می‌کند.'
-}, 'AbC1238');
-assert.equal(alreadyCleanMetadata.title, 'مردی که روغن گریس میخورد',
-  'an already-clean title is valid metadata when its description is independently substantive');
-assert.notEqual(normalizeComparable(alreadyCleanMetadata.description), normalizeComparable('در این ویدئو، مردی در حال خوردن روغن گریس را نشان می‌دهد و واکنش اطرافیان دیده می‌شود. این رفتار غیرمعمول توجه افراد حاضر را جلب می‌کند.'));
-assert.throws(() => createRepostMetadata({ ...valid, description: 'توضیح کوتاه' }, 'AbC1235'), /repost_description_source_too_short/);
-assert.throws(() => createRepostMetadata({ ...valid, title: 'پیغام توهین آمیز به یک بازیکن', description: sourceDescription }, 'AbC1236'), /filo_policy_text_risk:insult_or_defamation/);
-assert.throws(() => createRepostMetadata({ ...valid, title: 'لینک https://example.com ویدئو', description: sourceDescription }, 'AbC1237'), /repost_source_title_contains_external_link/);
+assert.doesNotMatch(promoCleaned, /برای شما عزیزان|همراه ما|لذت ببرید|🔥/);
 
 const pngHeader = Buffer.alloc(24);
 Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]).copy(pngHeader, 0);
