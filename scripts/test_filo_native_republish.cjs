@@ -19,6 +19,10 @@ const {
   updateCandidateMomentum,
   rankCandidatesByMomentum,
   extractCategoryIds,
+  reliableFeedAgeBounds,
+  analyzeCategoryFeedPage,
+  categoryFeedBoundaryOrdered,
+  shouldStopCategoryPagination,
   editorialTitleTokens,
   createDistinctRepostTitle,
   topicDuplicateMatch,
@@ -82,6 +86,60 @@ assert.deepEqual(
   [6, 7, 42],
   'the live Filo category catalogue should be read from both main and side category collections'
 );
+
+const feedNow = Date.parse('2026-11-04T12:00:00.000Z');
+const recentOrderedPage = analyzeCategoryFeedPage([
+  { create_date: '۳ ساعت پیش' },
+  { create_date: '۴ ساعت پیش' },
+  { create_date: '۵ ساعت پیش' }
+], feedNow);
+assert.equal(recentOrderedPage.chronologyConsistent, true,
+  'a newest-to-oldest feed page with reliable relative timestamps should be recognized');
+assert.equal(recentOrderedPage.allItemsOlderThanLookback, false);
+
+const oldOrderedPage = analyzeCategoryFeedPage([
+  { create_date: '۲۵ ساعت پیش' },
+  { create_date: '۲۶ ساعت پیش' },
+  { create_date: '۲۷ ساعت پیش' }
+], feedNow);
+assert.equal(oldOrderedPage.chronologyConsistent, true);
+assert.equal(oldOrderedPage.allItemsOlderThanLookback, true,
+  'the 24-hour cutoff must account for relative-time rounding');
+
+const reversedPage = analyzeCategoryFeedPage([
+  { create_date: '۵ ساعت پیش' },
+  { create_date: '۲ ساعت پیش' }
+], feedNow);
+assert.equal(reversedPage.chronologyConsistent, false,
+  'a page with a material newest/oldest inversion must never authorize early pagination stop');
+
+const ambiguousPage = analyzeCategoryFeedPage([
+  { create_date: 'دیروز' },
+  { create_date: '۲ روز پیش' }
+], feedNow);
+assert.equal(ambiguousPage.chronologyConsistent, false,
+  'ambiguous relative labels must not be treated as proof of chronological ordering');
+
+assert.equal(reliableFeedAgeBounds({ create_date: '۱۴۰۵/۰۸/۱۴ ۰۹:۳۰' }, feedNow), null,
+  'Jalali calendar strings must not be misparsed as Gregorian timestamps');
+const previousPageLast = reliableFeedAgeBounds({ create_date: '۲۴ ساعت پیش' }, feedNow);
+const nextPageFirst = reliableFeedAgeBounds({ create_date: '۲۵ ساعت پیش' }, feedNow);
+const outOfOrderPageFirst = reliableFeedAgeBounds({ create_date: '۲۲ ساعت پیش' }, feedNow);
+assert.equal(categoryFeedBoundaryOrdered(previousPageLast, nextPageFirst), true,
+  'successive page boundaries should remain newest-to-oldest');
+assert.equal(categoryFeedBoundaryOrdered(previousPageLast, outOfOrderPageFirst), false,
+  'a newer item on a later page invalidates the pagination ordering assumption');
+
+assert.equal(shouldStopCategoryPagination({
+  pageCount: 1, pageAnalysis: oldOrderedPage, chronologyVerified: true
+}), false, 'the first page alone cannot establish cross-page ordering');
+assert.equal(shouldStopCategoryPagination({
+  pageCount: 2, pageAnalysis: oldOrderedPage, chronologyVerified: true
+}), true, 'two consistent old pages can safely close the 24-hour window');
+assert.equal(shouldStopCategoryPagination({
+  pageCount: 3, pageAnalysis: oldOrderedPage, chronologyVerified: false
+}), false, 'unverified category ordering must continue to the configured safety cap');
+
 assert.ok(editorialTitleTokens('کلیپ طنز بهرام افشاری').includes('بهرام'));
 assert.equal(
   createDistinctRepostTitle('طرز تهیه خورشت بامیه با مرغ'),
