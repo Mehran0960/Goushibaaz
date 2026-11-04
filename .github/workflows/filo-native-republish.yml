@@ -1,6 +1,11 @@
 name: Filo native authorized republisher
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/filo-native-republish.yml
   workflow_dispatch:
   schedule:
     - cron: "*/5 * * * *"
