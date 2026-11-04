@@ -2,21 +2,22 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
+const crypto = require('node:crypto');
 const { chromium } = require('playwright');
 
 const BASE = 'https://ifilo.net';
 const STATE_PATH = path.join('state', 'filo-native-republished.json');
 const REPORT_PATH = path.join('out', 'filo-native-republish.json');
 const FALLBACK_CATEGORY_IDS = [6, 11, 13, 29, 2, 22, 17, 25, 15, 3];
-const CATEGORY_IDS = FALLBACK_CATEGORY_IDS;
-const MAX_DISCOVERED_CATEGORY_IDS = 48;
-const MIN_PAGES_PER_CATEGORY = 3;
+const MAX_DISCOVERED_CATEGORY_IDS = 64;
 const MAX_PAGES_PER_CATEGORY = 12;
-const MAX_TOTAL_CATEGORY_PAGE_REQUESTS = 240;
+const MAX_TOTAL_CATEGORY_PAGE_REQUESTS = 96;
 const CATEGORY_PAGE_CONCURRENCY = 4;
-const CATEGORY_SCAN_BUDGET_MS = 8 * 60 * 1000;
+const CATEGORY_SCAN_BUDGET_MS = 4 * 60 * 1000;
 const CATEGORY_LOOKBACK_HOURS = 24;
-const TOPIC_DUPLICATE_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
+const DEPTH_CATEGORIES_PER_CYCLE = 12;
+const TOPIC_DUPLICATE_WINDOW_MS = 48 * 60 * 60 * 1000;
+const CANDIDATE_REJECTION_TTL_MS = 6 * 60 * 60 * 1000;
 const MAX_DETAIL_CHECKS = 90;
 const MIN_DURATION_SECONDS = 10;
 const MAX_DURATION_SECONDS = 180;
@@ -458,33 +459,58 @@ function characterBigramDice(left, right) {
   return (2 * overlap) / (a.length + b.length - 2);
 }
 
-function createDistinctRepostTitle(sourceTitle) {
-  const cleaned = cleanRepostCaptionTitle(sourceTitle);
-  const rules = [
-    [/^طرز\s+تهیه\s+(.+)$/u, match => 'روش پخت ' + match[1]],
-    [/^دستور\s+تهیه\s+(.+)$/u, match => 'روش آماده‌سازی ' + match[1]],
-    [/^پاک\s+کردن\s+(.+?)\s+به\s+سبک\s+(.+)$/u, match => 'روش ' + match[2] + ' برای پاک کردن ' + match[1]],
-    [/^(.+?)\s+به\s+سبک\s+(.+)$/u, match => 'روش ' + match[2] + ' برای ' + match[1]],
-    [/^کتاب\s+صوتی\s+(.+?)\s+با\s+صدای\s+(.+)$/u, match => 'شنیدن ' + match[1] + ' با صدای ' + match[2]],
-    [/^آموزش\s+(.+)$/u, match => 'راهنمای ' + match[1]],
-    [/^چگونه\s+(.+)$/u, match => 'روش ' + match[1]],
-    [/^(.+?)\s+در\s+(.+)$/u, match => match[2] + '؛ ' + match[1]],
-    [/^(.+?)\s+با\s+(.+)$/u, match => match[1] + ' همراه ' + match[2]]
-  ];
-  let candidate = cleaned;
-  for (const [pattern, rewrite] of rules) {
-    const match = cleaned.match(pattern);
-    if (match) {
-      candidate = rewrite(match).replace(/\s+/g, ' ').trim();
-      break;
+function removeRepeatedTrailingPhrase(value) {
+  const words=String(value||'').trim().split(/\s+/).filter(Boolean);
+  if(words.length<4)return words.join(' ');
+  const normalizeWord=word=>normalizeCaptionEditorialText(word).toLocaleLowerCase('fa-IR');
+  for(let n=Math.min(3,Math.floor(words.length/2));n>=1;n--){
+    const tail=words.slice(-n).map(normalizeWord);
+    for(let start=0;start<=words.length-(2*n);start++){
+      const prior=words.slice(start,start+n).map(normalizeWord);
+      if(prior.every((word,index)=>word&&word===tail[index])){
+        const reduced=words.slice(0,-n).join(' ').trim();
+        if(editorialTitleTokens(reduced).length>=3)return reduced;
+      }
     }
   }
-  const tokens = editorialTitleTokens(candidate);
-  if (tokens.length < 3) throw new Error('repost_title_not_informative_enough');
-  const similarity = characterBigramDice(sourceTitle, candidate);
-  if (similarity > 0.86) throw new Error('title_not_distinct_enough');
-  if (candidate.length < 10 || candidate.length > 176) throw new Error('repost_title_length_invalid');
-  return candidate;
+  return words.join(' ');
+}
+
+function createDistinctRepostTitle(sourceTitle) {
+  const cleaned=cleanRepostCaptionTitle(sourceTitle);
+  const rules=[
+    [/^طرز\s+تهیه\s+(.+)$/u,m=>['روش پخت '+m[1],'پخت '+m[1]]],
+    [/^دستور\s+تهیه\s+(.+)$/u,m=>['روش آماده‌سازی '+m[1],'آماده‌سازی '+m[1]]],
+    [/^پاک\s+کردن\s+(.+?)\s+به\s+سبک\s+(.+)$/u,m=>['روش '+m[2]+' برای پاک کردن '+m[1]]],
+    [/^(.+?)\s+به\s+سبک\s+(.+)$/u,m=>['روش '+m[2]+' برای '+m[1]]],
+    [/^کتاب\s+صوتی\s+(.+?)\s+با\s+صدای\s+(.+)$/u,m=>['شنیدن '+m[1]+' با صدای '+m[2]]],
+    [/^آموزش\s+(.+)$/u,m=>['راهنمای '+m[1]]],
+    [/^چگونه\s+(.+)$/u,m=>['روش '+m[1]]],
+    [/^(.+?)\s+در\s+(.+)$/u,m=>[m[2]+'؛ '+m[1]]]
+  ];
+  let drafts=[];
+  for(const [pattern,rewrite] of rules){
+    const match=cleaned.match(pattern);
+    if(match){drafts=rewrite(match);break;}
+  }
+  if(!drafts.length)throw new Error('title_without_safe_editorial_rewrite');
+  const candidates=[];
+  for(const draft of drafts){
+    const candidate=removeRepeatedTrailingPhrase(draft).replace(/\s+/g,' ').trim();
+    if(candidates.includes(candidate))continue;
+    const tokens=editorialTitleTokens(candidate);
+    if(tokens.length<3||candidate.length<10||candidate.length>176)continue;
+    const contentWords=normalizeCaptionEditorialText(candidate).toLocaleLowerCase('fa-IR')
+      .replace(/[يى]/g,'ی').replace(/ك/g,'ک').replace(/[^\p{L}\p{N}]+/gu,' ')
+      .split(/\s+/).filter(token=>token.length>1&&!EDITORIAL_TITLE_STOPWORDS.has(token));
+    const counts=new Map();
+    for(const token of contentWords)counts.set(token,(counts.get(token)||0)+1);
+    if([...counts.values()].some(count=>count>1))continue;
+    if(characterBigramDice(sourceTitle,candidate)>0.86)continue;
+    candidates.push(candidate);
+  }
+  if(!candidates.length)throw new Error('title_not_distinct_or_editorially_clean');
+  return candidates[0];
 }
 
 function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
@@ -516,40 +542,74 @@ function createRepostMetadata(video, sourceCode) {
   return { title, description, sourceTitle, sourceDescription, sourceCode };
 }
 
-function topicDuplicateMatch(state, title, now = Date.now()) {
-  const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
-  const tokens = editorialTitleTokens(title);
-  if (tokens.length < 2) return { duplicate: false, reason: 'insufficient_topic_tokens' };
-  const current = new Set(tokens);
-  const recent = (state && Array.isArray(state.posts) ? state.posts : [])
-    .filter(post => post && ['public_verified', 'submitted_pending_approval', 'submitted_unconfirmed'].includes(post.status))
-    .filter(post => {
-      const at = Date.parse(post.submittedAt || post.at || '');
-      return Number.isFinite(at) && at <= nowMs && nowMs - at <= TOPIC_DUPLICATE_WINDOW_MS;
+function topicDuplicateMatch(state,title,now=Date.now()) {
+  const nowMs=Number.isFinite(Number(now))?Number(now):Date.now();
+  const tokens=editorialTitleTokens(title);
+  if(tokens.length<3)return {duplicate:false,reason:'insufficient_topic_tokens'};
+  const current=new Set(tokens);
+  const recent=(state&&Array.isArray(state.posts)?state.posts:[])
+    .filter(post=>post&&['public_verified','submitted_pending_approval','submitted_unconfirmed'].includes(post.status))
+    .filter(post=>{
+      const at=Date.parse(post.submittedAt||post.at||'');
+      return Number.isFinite(at)&&at<=nowMs&&nowMs-at<=TOPIC_DUPLICATE_WINDOW_MS;
     })
-    .sort((a, b) => Date.parse(b.submittedAt || b.at || '') - Date.parse(a.submittedAt || a.at || ''));
-  for (const post of recent) {
-    const previousTitle = post.repostTitle || post.sourceTitle || '';
-    const previous = new Set(editorialTitleTokens(previousTitle));
-    if (previous.size < 2) continue;
-    const common = [...current].filter(token => previous.has(token));
-    const unionSize = new Set([...current, ...previous]).size;
-    const jaccard = common.length / unionSize;
-    const smallerSetCoverage = common.length / Math.min(current.size, previous.size);
-    const characterSimilarity = characterBigramDice(title, previousTitle);
-    if ((common.length >= 2 && (jaccard >= 0.5 || smallerSetCoverage >= 0.8)) ||
-        characterSimilarity >= 0.84) {
+    .sort((a,b)=>Date.parse(b.submittedAt||b.at||'')-Date.parse(a.submittedAt||a.at||''));
+  for(const post of recent){
+    const previousTitle=post.repostTitle||post.sourceTitle||'';
+    const previous=new Set(editorialTitleTokens(previousTitle));
+    if(previous.size<3)continue;
+    const common=[...current].filter(token=>previous.has(token));
+    const unionSize=new Set([...current,...previous]).size;
+    const jaccard=common.length/unionSize;
+    const smallerSetCoverage=common.length/Math.min(current.size,previous.size);
+    const characterSimilarity=characterBigramDice(title,previousTitle);
+    const sameSpecificTopic=common.length>=3&&jaccard>=0.65&&smallerSetCoverage>=0.9;
+    const nearlySameTitle=characterSimilarity>=0.91;
+    if(sameSpecificTopic||nearlySameTitle){
       return {
-        duplicate: true,
-        matchedTitle: String(previousTitle).slice(0, 180),
-        matchedSourceCode: post.sourceCode || null,
-        commonTokens: common.slice(0, 8),
-        jaccard: Math.round(jaccard * 100) / 100,
-        characterSimilarity: Math.round(characterSimilarity * 100) / 100
+        duplicate:true,matchedTitle:String(previousTitle).slice(0,180),
+        matchedSourceCode:post.sourceCode||null,commonTokens:common.slice(0,8),
+        jaccard:Math.round(jaccard*100)/100,
+        characterSimilarity:Math.round(characterSimilarity*100)/100
       };
     }
   }
-  return { duplicate: false };
+  return {duplicate:false};
+}
+
+function candidateMetadataFingerprint(video) {
+  const title=normalizeCaptionEditorialText(video&&video.title||'');
+  const description=normalizeCaptionEditorialText(video&&video.description||'');
+  return crypto.createHash('sha256').update(title+'\0'+description).digest('hex');
+}
+
+function getCachedCandidateRejection(state,code,video,now=Date.now()) {
+  const cache=state&&state.candidateRejections&&typeof state.candidateRejections==='object'
+    ?state.candidateRejections:{};
+  const key=String(code||'').trim(),entry=cache[key];
+  if(!entry)return null;
+  const retryAt=Date.parse(entry.retryAfterAt||'');
+  if(entry.fingerprint!==candidateMetadataFingerprint(video)||!Number.isFinite(retryAt)||retryAt<=now){
+    delete cache[key];
+    return null;
+  }
+  return entry;
+}
+
+function cacheCandidateRejection(state,code,video,reason,now=Date.now(),ttlMs=CANDIDATE_REJECTION_TTL_MS) {
+  if(!state||!/^[A-Za-z0-9_-]{5,40}$/.test(String(code||'')))return;
+  if(!state.candidateRejections||typeof state.candidateRejections!=='object')state.candidateRejections={};
+  state.candidateRejections[code]={
+    fingerprint:candidateMetadataFingerprint(video),
+    reason:String(reason||'static_metadata_rejection').slice(0,220),
+    rejectedAt:new Date(now).toISOString(),
+    retryAfterAt:new Date(now+ttlMs).toISOString()
+  };
+  state.candidateRejections=Object.fromEntries(
+    Object.entries(state.candidateRejections)
+      .sort((a,b)=>String(b[1].rejectedAt||'').localeCompare(String(a[1].rejectedAt||'')))
+      .slice(0,400)
+  );
 }
 
 function isCandidateLevelFiloRejection(result) {
@@ -911,78 +971,119 @@ async function login(page) {
 }
 
 function extractCategoryIds(payload) {
-  const root = payload && payload.data && typeof payload.data === 'object' &&
-    (payload.data.c || payload.data.cfs || payload.data.categories)
-    ? payload.data : payload;
-  const roots = [
-    root && root.c,
-    root && root.cfs,
-    root && root.categories,
-    root && root.categoriesForSide,
-    root && root.categories_for_side
-  ].filter(Boolean);
-  const ids = new Set();
-  const validId = value => {
-    const raw = String(value == null ? '' : value).trim();
-    if (!/^\d{1,6}$/.test(raw)) return null;
-    const n = Number(raw);
-    return Number.isInteger(n) && n > 0 ? n : null;
+  const ids=new Set();
+  const categoryKeys=new Set([
+    'c','cfs','categories','categoriesforside','categories_for_side',
+    'category','categorylist','category_list','maincategories','main_categories',
+    'sidecategories','side_categories','categorydata','category_data',
+    'categoryitems','category_items'
+  ]);
+  const wrapperKeys=new Set([
+    'data','d','r','result','payload','master','response','content',
+    'bind','binding','menu','menus','site','config'
+  ]);
+  const validId=value=>{
+    const raw=String(value==null?'':value).trim();
+    if(!/^\d{1,6}$/.test(raw))return null;
+    const n=Number(raw);
+    return Number.isInteger(n)&&n>0?n:null;
   };
-  const visit = (node, depth = 0) => {
-    if (!node || depth > 7) return;
-    if (Array.isArray(node)) {
-      for (const item of node) visit(item, depth + 1);
+  const visitCollection=(node,depth=0)=>{
+    if(!node||depth>8)return;
+    if(Array.isArray(node)){
+      for(const item of node)visitCollection(item,depth+1);
       return;
     }
-    if (typeof node !== 'object') return;
-    const idKeys = ['id', 'category_id', 'categoryId', 'categoryID', 'cid', 'cat_id', 'catId', 'c_id'];
-    for (const key of idKeys) {
-      const id = validId(node[key]);
-      if (id !== null) { ids.add(id); break; }
+    if(typeof node!=='object')return;
+    for(const key of ['id','category_id','categoryId','categoryID','cid','cat_id','catId','c_id']){
+      const id=validId(node[key]);
+      if(id!==null){ids.add(id);break;}
     }
-    for (const [key, value] of Object.entries(node)) {
-      const mapId = validId(key);
-      if (mapId !== null && value && typeof value === 'object') ids.add(mapId);
-      if (value && typeof value === 'object') visit(value, depth + 1);
+    for(const [key,value] of Object.entries(node)){
+      const mapId=validId(key);
+      if(mapId!==null&&value&&typeof value==='object')ids.add(mapId);
+      if(value&&typeof value==='object')visitCollection(value,depth+1);
     }
   };
-  for (const value of roots) visit(value);
-  return [...ids].sort((a, b) => a - b);
+  const findCollections=(node,depth=0)=>{
+    if(!node||depth>6)return;
+    if(Array.isArray(node)){
+      if(depth===0)visitCollection(node);
+      return;
+    }
+    if(typeof node!=='object')return;
+    for(const [key,value] of Object.entries(node)){
+      const normalizedKey=String(key).replace(/[-\s]/g,'').toLowerCase();
+      if(categoryKeys.has(normalizedKey))visitCollection(value);
+      else if(wrapperKeys.has(normalizedKey)&&value&&typeof value==='object')findCollections(value,depth+1);
+      else if(value&&typeof value==='object'&&depth<2)findCollections(value,depth+1);
+    }
+  };
+  findCollections(payload);
+  return [...ids].sort((a,b)=>a-b);
+}
+
+function summarizeCategoryCatalogPayload(payload) {
+  const keysOf=value=>value&&typeof value==='object'&&!Array.isArray(value)
+    ?Object.keys(value).slice(0,24):[];
+  const topLevelKeys=keysOf(payload);
+  const nested={};
+  for(const key of topLevelKeys.slice(0,12)){
+    const value=payload[key];
+    if(value&&typeof value==='object'){
+      nested[key]=Array.isArray(value)
+        ?{type:'array',length:value.length}
+        :{type:'object',keys:keysOf(value).slice(0,20)};
+    }
+  }
+  return {
+    rootType:Array.isArray(payload)?'array':payload===null?'null':typeof payload,
+    rootArrayLength:Array.isArray(payload)?payload.length:null,
+    topLevelKeys,nested
+  };
 }
 
 async function discoverCategoryCatalog(page) {
   try {
-    const payload = await page.evaluate(async () => {
-      const response = await fetch('/api/v1/bind/master', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-        },
-        body: '',
-        signal: AbortSignal.timeout(9000)
+    const payload=await page.evaluate(async()=>{
+      const response=await fetch('/api/v1/bind/master',{
+        method:'POST',credentials:'include',
+        headers:{'Accept':'application/json','Content-Type':'application/x-www-form-urlencoded;charset=utf-8'},
+        body:'',signal:AbortSignal.timeout(9000)
       });
-      if (!response.ok) throw new Error('category_catalog_http_' + response.status);
+      if(!response.ok)throw new Error('category_catalog_http_'+response.status);
       return await response.json();
     });
-    const catalogIds = extractCategoryIds(payload);
-    const ids = [...new Set([...catalogIds, ...FALLBACK_CATEGORY_IDS])]
-      .slice(0, MAX_DISCOVERED_CATEGORY_IDS);
+    const shape=summarizeCategoryCatalogPayload(payload);
+    const catalogIds=extractCategoryIds(payload);
+    const ids=[...new Set([...catalogIds,...FALLBACK_CATEGORY_IDS])].slice(0,MAX_DISCOVERED_CATEGORY_IDS);
     return {
-      ids,
-      catalogIds,
-      source: catalogIds.length ? 'filo_bind_master_plus_legacy_fallback' : 'legacy_fallback',
-      error: null
+      ids,catalogIds,shape,
+      source:catalogIds.length?'filo_bind_master_plus_legacy_fallback':'legacy_fallback',
+      error:null
     };
-  } catch (error) {
+  } catch(error) {
     return {
-      ids: [...FALLBACK_CATEGORY_IDS],
-      catalogIds: [],
-      source: 'legacy_fallback',
-      error: String(error && error.message || error).slice(0, 220)
+      ids:[...FALLBACK_CATEGORY_IDS],catalogIds:[],shape:null,source:'legacy_fallback',
+      error:String(error&&error.message||error).slice(0,220)
     };
   }
+}
+
+function rotatingDepthSelection(categoryIds,cursor,limit=DEPTH_CATEGORIES_PER_CYCLE) {
+  const ids=Array.isArray(categoryIds)?categoryIds:[];
+  if(!ids.length)return {categoryIds:[],nextCursor:0};
+  const start=((num(cursor,0)%ids.length)+ids.length)%ids.length;
+  const count=Math.min(ids.length,Math.max(0,Math.trunc(num(limit,DEPTH_CATEGORIES_PER_CYCLE))));
+  return {
+    categoryIds:Array.from({length:count},(_,index)=>ids[(start+index)%ids.length]),
+    nextCursor:(start+count)%ids.length
+  };
+}
+
+function nextCategoryDepthPage(currentPage) {
+  const page=Math.trunc(num(currentPage,2));
+  return page>=MAX_PAGES_PER_CATEGORY?2:Math.max(2,page+1);
 }
 
 async function fetchCategoryPage(page, categoryId, pageNo) {
@@ -1407,10 +1508,10 @@ async function main() {
     createdAt: new Date().toISOString(),
     status: 'started',
     discovery: {
-      categories: CATEGORY_IDS,
-      paginationMode: 'adaptive_recent_window',
+      categories: [],
+      paginationMode: 'rotating_recent_window',
       lookbackHours: CATEGORY_LOOKBACK_HOURS,
-      minPagesPerCategory: MIN_PAGES_PER_CATEGORY,
+      depthCategoriesPerCycle: DEPTH_CATEGORIES_PER_CYCLE,
       maxPagesPerCategory: MAX_PAGES_PER_CATEGORY,
       maxTotalCategoryPageRequests: MAX_TOTAL_CATEGORY_PAGE_REQUESTS,
       categoryPageConcurrency: CATEGORY_PAGE_CONCURRENCY,
@@ -1418,6 +1519,7 @@ async function main() {
       categoryCatalogSource: 'not_loaded',
       categoryCatalogCount: 0,
       categoryCatalogError: null,
+      categoryCatalogShape: null,
       categoryPagesAttempted: 0,
       categoryScan: [],
       categoryCoverage: null,
@@ -1462,176 +1564,177 @@ async function main() {
     report.discovery.categoryCatalogSource = categoryCatalog.source;
     report.discovery.categoryCatalogCount = categoryCatalog.catalogIds.length;
     report.discovery.categoryCatalogError = categoryCatalog.error;
+    report.discovery.categoryCatalogShape = categoryCatalog.shape || null;
     const byCode = new Map();
     const categoryScanStartedAt = Date.now();
     const categoryTrackers = categoryCatalog.ids.map(categoryId => ({
-      categoryId,
-      pagesFetched: 0,
-      scannedItems: 0,
-      chronologyVerified: true,
-      lastAgeBounds: null,
-      newestAgeHours: null,
-      oldestAgeHours: null,
-      done: false,
-      stopReason: null
+      categoryId,pagesFetched:0,scannedItems:0,newestAgeHours:null,oldestAgeHours:null,
+      chronologyVerified:false,depthPageNo:null,stopReason:'first_page_pending',coverageComplete:false
     }));
-    let totalCategoryPageRequests = 0;
-    let paginationStopReason = null;
+    const trackerById=new Map(categoryTrackers.map(tracker=>[String(tracker.categoryId),tracker]));
+    const firstPageAnalysis=new Map();
+    let totalCategoryPageRequests=0;
+    let paginationStopReason=null;
 
-    for (let pageNo = 1; pageNo <= MAX_PAGES_PER_CATEGORY; pageNo++) {
-      const pendingTrackers = categoryTrackers.filter(tracker => !tracker.done);
-      if (!pendingTrackers.length) break;
+    const ingestItems=(items,categoryId)=>{
+      for(const item of items||[]){
+        if(!item||typeof item!=='object')continue;
+        if(item.category_id===undefined||item.category_id===null)item.category_id=categoryId;
+        const code=String(item.video_code||item.videoCode||item.code||'');
+        if(!code)continue;
+        const existing=byCode.get(code),candidate={...item,video_code:code};
+        if(!existing||num(candidate.visit_count)+num(candidate.play_count)>
+          num(existing.visit_count)+num(existing.play_count))byCode.set(code,candidate);
+      }
+    };
 
-      for (let offset = 0; offset < pendingTrackers.length; offset += CATEGORY_PAGE_CONCURRENCY) {
-        if (totalCategoryPageRequests >= MAX_TOTAL_CATEGORY_PAGE_REQUESTS) {
-          paginationStopReason = 'global_page_request_cap';
-          break;
+    const scanTasks=async tasks=>{
+      const results=[];
+      for(let offset=0;offset<tasks.length;offset+=CATEGORY_PAGE_CONCURRENCY){
+        if(totalCategoryPageRequests>=MAX_TOTAL_CATEGORY_PAGE_REQUESTS){
+          paginationStopReason='global_page_request_cap';break;
         }
-        if (Date.now() - categoryScanStartedAt >= CATEGORY_SCAN_BUDGET_MS) {
-          paginationStopReason = 'discovery_time_budget';
-          break;
+        if(Date.now()-categoryScanStartedAt>=CATEGORY_SCAN_BUDGET_MS){
+          paginationStopReason='discovery_time_budget';break;
         }
-
-        const remaining = MAX_TOTAL_CATEGORY_PAGE_REQUESTS - totalCategoryPageRequests;
-        const batch = pendingTrackers.slice(offset, offset + Math.min(CATEGORY_PAGE_CONCURRENCY, remaining));
-        if (!batch.length) {
-          paginationStopReason = 'global_page_request_cap';
-          break;
-        }
-
-        totalCategoryPageRequests += batch.length;
-        report.discovery.categoryPagesAttempted = totalCategoryPageRequests;
-        const results = await Promise.all(batch.map(async tracker => {
-          try {
-            return {
-              tracker,
-              items: await fetchCategoryPage(page, tracker.categoryId, pageNo),
-              error: null
-            };
-          } catch (error) {
-            return {
-              tracker,
-              items: null,
-              error: String(error && error.message || error).slice(0, 240)
-            };
-          }
+        const remaining=MAX_TOTAL_CATEGORY_PAGE_REQUESTS-totalCategoryPageRequests;
+        const batch=tasks.slice(offset,offset+Math.min(CATEGORY_PAGE_CONCURRENCY,remaining));
+        if(!batch.length){paginationStopReason='global_page_request_cap';break;}
+        totalCategoryPageRequests+=batch.length;
+        report.discovery.categoryPagesAttempted=totalCategoryPageRequests;
+        const batchResults=await Promise.all(batch.map(async task=>{
+          try{return {...task,items:await fetchCategoryPage(page,task.categoryId,task.pageNo),error:null};}
+          catch(error){return {...task,items:null,error:String(error&&error.message||error).slice(0,240)};}
         }));
-
-        for (const result of results) {
-          const tracker = result.tracker;
-          if (result.error) {
-            tracker.done = true;
-            tracker.stopReason = 'page_error';
-            report.discovery.errors.push({
-              categoryId: tracker.categoryId,
-              pageNo,
-              error: result.error
-            });
-            continue;
-          }
-
-          const items = result.items || [];
-          const pageAnalysis = analyzeCategoryFeedPage(items, Date.parse(report.createdAt));
-          const boundaryOrdered = tracker.pagesFetched === 0
-            ? true
-            : categoryFeedBoundaryOrdered(tracker.lastAgeBounds, pageAnalysis.firstAgeBounds);
-          const chronologyVerified = tracker.chronologyVerified &&
-            pageAnalysis.chronologyConsistent &&
-            boundaryOrdered;
-
-          report.discovery.scannedItems += items.length;
-          tracker.scannedItems += items.length;
-          tracker.pagesFetched += 1;
-          tracker.chronologyVerified = chronologyVerified;
-
-          for (const item of items) {
-            if (!item || typeof item !== 'object') continue;
-            if (item.category_id === undefined || item.category_id === null) item.category_id = tracker.categoryId;
-            const code = String(item.video_code || item.videoCode || item.code || '');
-            if (!code) continue;
-            const existing = byCode.get(code);
-            const candidate = { ...item, video_code: code };
-            if (!existing || num(candidate.visit_count) + num(candidate.play_count) >
-                num(existing.visit_count) + num(existing.play_count)) byCode.set(code, candidate);
-          }
-
-          if (pageAnalysis.newestAgeHours !== null) {
-            tracker.newestAgeHours = tracker.newestAgeHours === null
-              ? pageAnalysis.newestAgeHours : Math.min(tracker.newestAgeHours, pageAnalysis.newestAgeHours);
-          }
-          if (pageAnalysis.oldestAgeHours !== null) {
-            tracker.oldestAgeHours = tracker.oldestAgeHours === null
-              ? pageAnalysis.oldestAgeHours : Math.max(tracker.oldestAgeHours, pageAnalysis.oldestAgeHours);
-          }
-
-          if (!items.length) {
-            tracker.done = true;
-            tracker.stopReason = 'empty_page';
-          } else if (shouldStopCategoryPagination({
-            pageCount: tracker.pagesFetched,
-            pageAnalysis,
-            chronologyVerified,
-            lookbackHours: CATEGORY_LOOKBACK_HOURS
-          })) {
-            tracker.done = true;
-            tracker.stopReason = 'lookback_window_reached';
-          } else if (pageNo === MAX_PAGES_PER_CATEGORY) {
-            tracker.done = true;
-            tracker.stopReason = 'max_pages_per_category';
-          }
-
-          tracker.lastAgeBounds = pageAnalysis.lastAgeBounds;
-        }
-
-        if (paginationStopReason) break;
+        results.push(...batchResults);
       }
-      if (paginationStopReason) break;
+      return results;
+    };
+
+    // Refresh page one for every category each cycle to preserve timely growth samples.
+    const firstPageResults=await scanTasks(categoryCatalog.ids.map(categoryId=>({
+      categoryId,pageNo:1,scanType:'first'
+    })));
+    for(const result of firstPageResults){
+      const tracker=trackerById.get(String(result.categoryId));
+      if(!tracker)continue;
+      if(result.error){
+        tracker.stopReason='first_page_error';
+        report.discovery.errors.push({categoryId:result.categoryId,pageNo:1,error:result.error});
+        continue;
+      }
+      const items=result.items||[];
+      const analysis=analyzeCategoryFeedPage(items,Date.parse(report.createdAt));
+      firstPageAnalysis.set(String(result.categoryId),analysis);
+      tracker.pagesFetched++;
+      tracker.scannedItems+=items.length;
+      report.discovery.scannedItems+=items.length;
+      tracker.newestAgeHours=analysis.newestAgeHours;
+      tracker.oldestAgeHours=analysis.oldestAgeHours;
+      tracker.chronologyVerified=analysis.chronologyConsistent;
+      ingestItems(items,result.categoryId);
+      tracker.stopReason=items.length?'first_page_scanned':'empty_first_page';
+      tracker.coverageComplete=items.length===0;
     }
 
-    if (paginationStopReason) {
-      for (const tracker of categoryTrackers) {
-        if (!tracker.done) {
-          tracker.done = true;
-          tracker.stopReason = paginationStopReason;
-        }
+    // Deeper pages rotate across a bounded number of categories per cycle.
+    const depthSelection=rotatingDepthSelection(
+      categoryCatalog.ids,state.categoryDepthCursor||0,DEPTH_CATEGORIES_PER_CYCLE
+    );
+    state.categoryDepthCursor=depthSelection.nextCursor;
+    if(!state.categoryDepthPages||typeof state.categoryDepthPages!=='object')state.categoryDepthPages={};
+    if(!state.categoryDepthEvidence||typeof state.categoryDepthEvidence!=='object')state.categoryDepthEvidence={};
+    const depthTasks=[];
+    for(const categoryId of depthSelection.categoryIds){
+      const tracker=trackerById.get(String(categoryId));
+      if(!tracker||tracker.stopReason==='empty_first_page'||!firstPageAnalysis.has(String(categoryId)))continue;
+      let pageNo=Math.trunc(num(state.categoryDepthPages[String(categoryId)],2));
+      if(pageNo<2||pageNo>MAX_PAGES_PER_CATEGORY)pageNo=2;
+      tracker.depthPageNo=pageNo;
+      depthTasks.push({categoryId,pageNo,scanType:'depth'});
+    }
+
+    const depthResults=await scanTasks(depthTasks);
+    for(const result of depthResults){
+      const tracker=trackerById.get(String(result.categoryId));
+      if(!tracker)continue;
+      if(result.error){
+        tracker.stopReason='depth_page_error';
+        report.discovery.errors.push({categoryId:result.categoryId,pageNo:result.pageNo,error:result.error});
+        continue;
       }
-    } else {
-      for (const tracker of categoryTrackers) {
-        if (!tracker.done) {
-          tracker.done = true;
-          tracker.stopReason = 'max_pages_per_category';
-        }
+      const items=result.items||[];
+      const analysis=analyzeCategoryFeedPage(items,Date.parse(report.createdAt));
+      tracker.pagesFetched++;
+      tracker.scannedItems+=items.length;
+      report.discovery.scannedItems+=items.length;
+      if(analysis.newestAgeHours!==null)tracker.newestAgeHours=tracker.newestAgeHours===null
+        ?analysis.newestAgeHours:Math.min(tracker.newestAgeHours,analysis.newestAgeHours);
+      if(analysis.oldestAgeHours!==null)tracker.oldestAgeHours=tracker.oldestAgeHours===null
+        ?analysis.oldestAgeHours:Math.max(tracker.oldestAgeHours,analysis.oldestAgeHours);
+      ingestItems(items,result.categoryId);
+      const pageKey=String(result.categoryId);
+
+      if(!items.length){
+        state.categoryDepthPages[pageKey]=2;
+        delete state.categoryDepthEvidence[pageKey];
+        tracker.stopReason='empty_depth_page';
+        tracker.coverageComplete=true;
+        continue;
+      }
+
+      const previousEvidence=state.categoryDepthEvidence[pageKey]||null;
+      const previousAgeBounds=result.pageNo===2
+        ?(firstPageAnalysis.get(pageKey)||{}).lastAgeBounds
+        :previousEvidence&&previousEvidence.lastPageNo===result.pageNo-1?previousEvidence.lastAgeBounds:null;
+      const previousChronologyVerified=result.pageNo===2
+        ?Boolean((firstPageAnalysis.get(pageKey)||{}).chronologyConsistent)
+        :Boolean(previousEvidence&&previousEvidence.lastPageNo===result.pageNo-1&&previousEvidence.chronologyVerified);
+      const boundaryOrdered=categoryFeedBoundaryOrdered(previousAgeBounds,analysis.firstAgeBounds);
+      const chronologyVerified=Boolean(analysis.chronologyConsistent&&previousChronologyVerified&&boundaryOrdered);
+      tracker.chronologyVerified=chronologyVerified;
+      state.categoryDepthEvidence[pageKey]={
+        lastPageNo:result.pageNo,lastAgeBounds:analysis.lastAgeBounds,chronologyVerified
+      };
+
+      if(shouldStopCategoryPagination({
+        pageCount:result.pageNo,pageAnalysis:analysis,chronologyVerified,
+        lookbackHours:CATEGORY_LOOKBACK_HOURS
+      })){
+        state.categoryDepthPages[pageKey]=2;
+        tracker.stopReason='lookback_window_reached';
+        tracker.coverageComplete=true;
+      }else if(result.pageNo>=MAX_PAGES_PER_CATEGORY){
+        state.categoryDepthPages[pageKey]=2;
+        tracker.stopReason='max_pages_per_category_cycle';
+      }else{
+        state.categoryDepthPages[pageKey]=nextCategoryDepthPage(result.pageNo);
+        tracker.stopReason='depth_page_scanned';
       }
     }
 
-    report.discovery.categoryScanElapsedMs = Date.now() - categoryScanStartedAt;
-    report.discovery.paginationStopReason = paginationStopReason;
-    report.discovery.categoryScan = categoryTrackers.map(tracker => ({
-      categoryId: tracker.categoryId,
-      pagesFetched: tracker.pagesFetched,
-      scannedItems: tracker.scannedItems,
-      newestAgeHours: tracker.newestAgeHours,
-      oldestAgeHours: tracker.oldestAgeHours,
-      chronologyVerified: tracker.chronologyVerified,
-      stopReason: tracker.stopReason,
-      coverageComplete: ['empty_page', 'lookback_window_reached'].includes(tracker.stopReason)
+    for(const tracker of categoryTrackers){
+      if(tracker.stopReason==='first_page_pending')tracker.stopReason='first_page_not_scanned';
+    }
+    report.discovery.categoryScanElapsedMs=Date.now()-categoryScanStartedAt;
+    report.discovery.paginationStopReason=paginationStopReason;
+    report.discovery.categoryScan=categoryTrackers.map(tracker=>({
+      categoryId:tracker.categoryId,pagesFetched:tracker.pagesFetched,scannedItems:tracker.scannedItems,
+      newestAgeHours:tracker.newestAgeHours,oldestAgeHours:tracker.oldestAgeHours,
+      chronologyVerified:tracker.chronologyVerified,deepPageNo:tracker.depthPageNo,
+      stopReason:tracker.stopReason,coverageComplete:tracker.coverageComplete
     }));
-    report.discovery.categoryCoverage = {
-      categoriesTotal: categoryTrackers.length,
-      categoriesWithFirstPage: categoryTrackers.filter(tracker => tracker.pagesFetched >= 1).length,
-      categoriesWithBaselineDepth: categoryTrackers.filter(tracker =>
-        tracker.pagesFetched >= MIN_PAGES_PER_CATEGORY ||
-        ['empty_page', 'lookback_window_reached'].includes(tracker.stopReason)
-      ).length,
-      categoriesPastLookback: categoryTrackers.filter(tracker => tracker.stopReason === 'lookback_window_reached').length,
-      categoriesExhausted: categoryTrackers.filter(tracker => tracker.stopReason === 'empty_page').length,
-      categoriesAtPageCap: categoryTrackers.filter(tracker => tracker.stopReason === 'max_pages_per_category').length,
-      categoriesWithPageErrors: categoryTrackers.filter(tracker => tracker.stopReason === 'page_error').length,
-      categoriesLimitedByGlobalCap: categoryTrackers.filter(tracker => tracker.stopReason === 'global_page_request_cap').length,
-      categoriesLimitedByTimeBudget: categoryTrackers.filter(tracker => tracker.stopReason === 'discovery_time_budget').length,
-      complete24HourCoverage: categoryTrackers.every(tracker =>
-        ['empty_page', 'lookback_window_reached'].includes(tracker.stopReason)
-      )
+    report.discovery.categoryCoverage={
+      categoriesTotal:categoryTrackers.length,
+      categoriesWithFirstPage:categoryTrackers.filter(x=>x.pagesFetched>=1).length,
+      firstPageCoverageComplete:categoryTrackers.every(x=>x.pagesFetched>=1||x.stopReason==='empty_first_page'),
+      depthPageRequests:depthResults.length,
+      depthPagesSucceeded:depthResults.filter(x=>!x.error).length,
+      categoriesPastLookback:categoryTrackers.filter(x=>x.stopReason==='lookback_window_reached').length,
+      categoriesExhausted:categoryTrackers.filter(x=>x.stopReason==='empty_depth_page'||x.stopReason==='empty_first_page').length,
+      categoriesAtPageCap:categoryTrackers.filter(x=>x.stopReason==='max_pages_per_category_cycle').length,
+      categoriesWithPageErrors:categoryTrackers.filter(x=>x.stopReason==='first_page_error'||x.stopReason==='depth_page_error').length,
+      complete24HourCoverage:categoryTrackers.every(x=>x.coverageComplete)
     };
 
     const feedCandidates = [...byCode.values()].filter(item => feedCandidateEligible(item, state));
@@ -1670,12 +1773,20 @@ async function main() {
       checked.push(check);
       if (!gate.eligible) continue;
 
+      const cachedRejection = getCachedCandidateRejection(state,code,detail.video,Date.parse(report.createdAt));
+      if(cachedRejection){
+        check.gate='cached_metadata_rejection';
+        check.cachedReason=cachedRejection.reason;
+        check.retryAfterAt=cachedRejection.retryAfterAt;
+        continue;
+      }
       let candidateMetadata;
       try {
         candidateMetadata = createRepostMetadata(detail.video, code);
       } catch (error) {
         check.gate = 'metadata_not_compliant';
         check.metadataError = String(error && error.message || error).slice(0, 160);
+        cacheCandidateRejection(state,code,detail.video,check.metadataError,Date.parse(report.createdAt));
         continue;
       }
 
@@ -1731,6 +1842,7 @@ async function main() {
           attemptedAt:new Date().toISOString()
         };
         filoRejections.push(rejection);
+        cacheCandidateRejection(state,candidate.video_code,candidate.detail.video,rejection.reason,Date.parse(report.createdAt));
         check.publishAttempt='rejected_by_filo_candidate_level';
         check.filoHttpStatus=attemptResult.httpStatus;
         check.filoReason=rejection.reason;
@@ -1754,11 +1866,10 @@ async function main() {
         attemptedAt:rejected.attemptedAt
       });
     }
-    if(filoRejections.length){
-      state.posts=state.posts.slice(-1200);
-      state.updatedAt=new Date().toISOString();
-      fs.writeFileSync(STATE_PATH,JSON.stringify(state,null,2)+'\n','utf8');
-    }
+    state.posts=state.posts.slice(-1200);
+    state.updatedAt=new Date().toISOString();
+    // Persist momentum, depth rotation and metadata cooldowns together.
+    fs.writeFileSync(STATE_PATH,JSON.stringify(state,null,2)+'\n','utf8');
     if (!selected) {
       report.status = 'no_candidate_published_this_cycle';
       report.result = {
@@ -1872,6 +1983,13 @@ module.exports = {
   candidateMetricValue,
   updateCandidateMomentum,
   extractCategoryIds,
+  summarizeCategoryCatalogPayload,
+  rotatingDepthSelection,
+  nextCategoryDepthPage,
+  candidateMetadataFingerprint,
+  getCachedCandidateRejection,
+  cacheCandidateRejection,
+  removeRepeatedTrailingPhrase,
   discoverCategoryCatalog,
   reliableFeedAgeBounds,
   analyzeCategoryFeedPage,
