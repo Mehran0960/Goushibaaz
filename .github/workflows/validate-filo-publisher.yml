@@ -185,6 +185,9 @@ jobs:
           check_contains scripts/jetra_publish_shared.cjs 'convertToPortrait(VIDEO, OUTPUT_VIDEO'
           check_contains .github/workflows/prepare-shared-video.yml 'publish-shared-video-to-eitaa.yml'
           check_contains .github/workflows/prepare-shared-video.yml 'publish-shared-video-to-jetra.yml'
+          check_contains .github/workflows/prepare-shared-video.yml 'EITAA_CONFIGURED:'
+          check_contains .github/workflows/prepare-shared-video.yml 'JETRA_CONFIGURED:'
+          check_contains .github/workflows/prepare-shared-video.yml 'DESTINATION_DISPATCH_SKIPPED_NOT_CONFIGURED'
                     check_contains scripts/platform_publish.cjs "entry.status = 'failed_retryable';"
                     check_contains scripts/filo_publish_cc0.cjs "status: 'failed_retryable'"
           check_contains scripts/platform_publish.cjs 'GOUSHIBAAZ_FIRST_PUBLICATION_APPROVED'
