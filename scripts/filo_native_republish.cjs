@@ -241,11 +241,18 @@ function feedCandidateEligible(item, ledger) {
   return true;
 }
 
+function candidateMetricSnapshot(item, keys) {
+  const values = keys.map(key => ({ key, raw: item && item[key] }))
+    .filter(entry => entry.raw !== undefined && entry.raw !== null && entry.raw !== '')
+    .map(entry => ({ key: entry.key, value: num(entry.raw, -1) }))
+    .filter(entry => entry.value >= 0);
+  if (!values.length) return { value: 0, available: false, field: null };
+  const selected = values.reduce((best, entry) => entry.value > best.value ? entry : best);
+  return { value: selected.value, available: true, field: selected.key };
+}
+
 function candidateMetricValue(item, keys) {
-  const values = keys.map(key => item && item[key])
-    .filter(value => value !== undefined && value !== null && value !== '')
-    .map(value => num(value, -1)).filter(value => value >= 0);
-  return values.length ? Math.max(...values) : 0;
+  return candidateMetricSnapshot(item, keys).value;
 }
 
 function updateCandidateMomentum(state, items, now = Date.now()) {
@@ -257,8 +264,10 @@ function updateCandidateMomentum(state, items, now = Date.now()) {
   for (const item of Array.isArray(items) ? items : []) {
     const code = String(item && (item.video_code || item.videoCode || item.code) || '').trim();
     if (!/^[A-Za-z0-9_-]{5,40}$/.test(code)) continue;
-    const views = candidateMetricValue(item, ['visit_count', 'view_count', 'views', 'visits']);
-    const plays = candidateMetricValue(item, ['play_count', 'plays', 'playCount']);
+    const viewMetric = candidateMetricSnapshot(item, ['visit_count', 'view_count', 'views', 'visits']);
+    const playMetric = candidateMetricSnapshot(item, ['play_count', 'plays', 'playCount']);
+    const views = viewMetric.value;
+    const plays = playMetric.value;
     const entry = history[code] && typeof history[code] === 'object' ? history[code] : {};
     let samples = Array.isArray(entry.samples) ? entry.samples.filter(sample => {
       const at = Date.parse(sample && sample.at || '');
@@ -270,30 +279,51 @@ function updateCandidateMomentum(state, items, now = Date.now()) {
     if (previous) {
       const elapsedMs = nowMs - Date.parse(previous.at);
       if (elapsedMs >= CANDIDATE_METRIC_SAMPLE_INTERVAL_MS && elapsedMs <= CANDIDATE_METRIC_HISTORY_TTL_MS) {
-        const deltaViews = views - candidateMetricValue(previous, ['views']);
-        const deltaPlays = plays - candidateMetricValue(previous, ['plays']);
-        if (deltaViews >= 0 && deltaPlays >= 0) {
-          const elapsedMinutes = elapsedMs / 60000;
-          const viewsPerMinute = deltaViews / elapsedMinutes;
-          const playsPerMinute = deltaPlays / elapsedMinutes;
-          const previousRate = entry.lastRate && typeof entry.lastRate === 'object' ? entry.lastRate : null;
-          const acceleration = previousRate ? Math.max(0, viewsPerMinute - Math.max(0, num(previousRate.viewsPerMinute))) : 0;
+        const elapsedMinutes = elapsedMs / 60000;
+        const previousViewsAvailable = previous.viewsAvailable !== false &&
+          previous.views !== undefined && previous.views !== null;
+        const previousPlaysAvailable = previous.playsAvailable === true;
+        const deltaViews = viewMetric.available && previousViewsAvailable
+          ? views - candidateMetricValue(previous, ['views']) : null;
+        const deltaPlays = playMetric.available && previousPlaysAvailable
+          ? plays - candidateMetricValue(previous, ['plays']) : null;
+        const viewsPerMinute = deltaViews !== null && deltaViews >= 0
+          ? deltaViews / elapsedMinutes : null;
+        const playsPerMinute = deltaPlays !== null && deltaPlays >= 0
+          ? deltaPlays / elapsedMinutes : null;
+        const previousRate = entry.lastRate && typeof entry.lastRate === 'object' ? entry.lastRate : null;
+        const viewsAcceleration = viewsPerMinute !== null && previousRate &&
+          previousRate.viewsPerMinute !== null && previousRate.viewsPerMinute !== undefined
+          ? Math.max(0, viewsPerMinute - Math.max(0, num(previousRate.viewsPerMinute))) : 0;
+        const playsAcceleration = playsPerMinute !== null && previousRate &&
+          previousRate.playsAvailable === true && previousRate.playsPerMinute !== null &&
+          previousRate.playsPerMinute !== undefined
+          ? Math.max(0, playsPerMinute - Math.max(0, num(previousRate.playsPerMinute))) : 0;
+
+        if (viewsPerMinute !== null || playsPerMinute !== null) {
           rate = {
-            viewsPerMinute: Math.round(viewsPerMinute * 100) / 100,
-            playsPerMinute: Math.round(playsPerMinute * 100) / 100,
-            accelerationPerMinute: Math.round(acceleration * 100) / 100,
+            viewsPerMinute: viewsPerMinute === null ? null : Math.round(viewsPerMinute * 100) / 100,
+            playsPerMinute: playsPerMinute === null ? null : Math.round(playsPerMinute * 100) / 100,
+            viewsAccelerationPerMinute: Math.round(viewsAcceleration * 100) / 100,
+            playsAccelerationPerMinute: Math.round(playsAcceleration * 100) / 100,
+            accelerationPerMinute: Math.round(viewsAcceleration * 100) / 100,
+            playsAvailable: playsPerMinute !== null,
+            playCounterPresent: playMetric.available,
             sampleCount: samples.length + 1
           };
-        } else {
-          samples = [];
-          delete entry.lastRate;
         }
       }
     }
 
     const lastSampleAt = samples.length ? Date.parse(samples.at(-1).at) : NaN;
     if (!Number.isFinite(lastSampleAt) || nowMs - lastSampleAt >= CANDIDATE_METRIC_SAMPLE_INTERVAL_MS) {
-      samples.push({ at: nowIso, views, plays });
+      samples.push({
+        at: nowIso,
+        views,
+        viewsAvailable: viewMetric.available,
+        plays,
+        playsAvailable: playMetric.available
+      });
       samples = samples.slice(-4);
     }
     const nextEntry = { ...entry, samples, lastSeenAt: nowIso };
@@ -313,6 +343,38 @@ function updateCandidateMomentum(state, items, now = Date.now()) {
     .slice(0, MAX_TRACKED_CANDIDATE_METRICS);
   state.candidateMomentum = Object.fromEntries(retained);
   return observed;
+}
+
+function classifyAudienceFit(item) {
+  const text = [
+    item && item.title, item && item.description,
+    item && item.category_name, item && item.category_title,
+    item && item.category
+  ].filter(Boolean).join(' ').toLocaleLowerCase('fa-IR');
+
+  const groups = [
+    {
+      score: 3,
+      label: 'comedy_entertainment',
+      pattern: /(?:طنز|خنده|خنده.?دار|بامزه|کمدی|شوخی|سرگرمی|استند.?آپ|دوربین.?مخفی|سوتی|واکنش.?خنده.?دار)/i
+    },
+    {
+      score: 3,
+      label: 'practical_tutorial',
+      pattern: /(?:ترفند|آموزش|چگونه|روشِ?\s|روش\s|راهنما|کاربردی|نکته.?آموزشی|تعمیر|ساختن?|آشپزی|طرز.?تهیه|طرز.?پخت|دستور.?تهیه|مهارت)/i
+    },
+    {
+      score: 3,
+      label: 'celebrity_pop_culture',
+      pattern: /(?:سلبریتی|بازیگر|خواننده|هنرمند|مجری|فوتبالیست|چهره.?معروف|ستاره|بهنام.?بانی|بهرام.?افشاری|حواشی.?چهره)/i
+    },
+    {
+      score: 2,
+      label: 'secondary_interest',
+      pattern: /(?:فوتبال|ورزش|کشتی|بسکتبال|غذا|خوراک|حیوان|طبیعت|حیات.?وحش|سفر|گردشگری|دانستنی|معما|راز|علمی|خودرو|ماشین)/i
+    }
+  ];
+  return groups.find(group => group.pattern.test(text)) || { score: 1, label: 'general' };
 }
 
 function rankCandidatesByMomentum(items, state, now = Date.now()) {
@@ -338,22 +400,45 @@ function rankCandidatesByMomentum(items, state, now = Date.now()) {
       ? lastRate : null;
     const momentum = currentRates[code] || recentSavedRate;
     const categoryId = item && item.category_id != null ? String(item.category_id) : '';
+    const audienceFit = classifyAudienceFit(item);
+    const hasPositivePlayGrowth = Boolean(momentum && momentum.playsAvailable === true &&
+      momentum.playsPerMinute !== null && momentum.playsPerMinute !== undefined &&
+      num(momentum.playsPerMinute) > 0);
     return {
       item,
       momentum,
       ageHours: ageHours(item),
+      hasPositivePlayGrowth,
+      rankingMetric: hasPositivePlayGrowth ? 'plays' : 'views',
+      audienceFit: audienceFit.label,
+      audienceFitScore: audienceFit.score,
       recentCategoryPenalty: categoryId && recentCategorySet.has(categoryId) ? 1 : 0
     };
   }).filter(entry =>
     entry.momentum &&
-    num(entry.momentum.viewsPerMinute) > 0 &&
+    (entry.hasPositivePlayGrowth ||
+      (entry.momentum.viewsPerMinute !== null && entry.momentum.viewsPerMinute !== undefined &&
+       num(entry.momentum.viewsPerMinute) > 0)) &&
     entry.ageHours <= 24
-  ).sort((a, b) =>
-    num(b.momentum.viewsPerMinute) - num(a.momentum.viewsPerMinute) ||
-    num(b.momentum.accelerationPerMinute) - num(a.momentum.accelerationPerMinute) ||
-    a.recentCategoryPenalty - b.recentCategoryPenalty ||
-    a.ageHours - b.ageHours
-  );
+  ).sort((a, b) => {
+    if (a.hasPositivePlayGrowth !== b.hasPositivePlayGrowth) {
+      return Number(b.hasPositivePlayGrowth) - Number(a.hasPositivePlayGrowth);
+    }
+    if (a.hasPositivePlayGrowth && b.hasPositivePlayGrowth) {
+      const playVelocity = num(b.momentum.playsPerMinute) - num(a.momentum.playsPerMinute);
+      if (playVelocity) return playVelocity;
+      const playAcceleration = num(b.momentum.playsAccelerationPerMinute) - num(a.momentum.playsAccelerationPerMinute);
+      if (playAcceleration) return playAcceleration;
+    }
+    const viewVelocity = num(b.momentum.viewsPerMinute) - num(a.momentum.viewsPerMinute);
+    if (viewVelocity) return viewVelocity;
+    const viewAcceleration = num(b.momentum.viewsAccelerationPerMinute ?? b.momentum.accelerationPerMinute) -
+      num(a.momentum.viewsAccelerationPerMinute ?? a.momentum.accelerationPerMinute);
+    if (viewAcceleration) return viewAcceleration;
+    return b.audienceFitScore - a.audienceFitScore ||
+      a.recentCategoryPenalty - b.recentCategoryPenalty ||
+      a.ageHours - b.ageHours;
+  });
 }
 
 function detailGate(root, video) {
@@ -995,7 +1080,7 @@ function extractCategoryIds(payload) {
       return;
     }
     if(typeof node!=='object')return;
-    for(const key of ['id','category_id','categoryId','categoryID','cid','cat_id','catId','c_id']){
+    for(const key of ['id','i','category_id','categoryId','categoryID','cid','cat_id','catId','c_id','ci']){
       const id=validId(node[key]);
       if(id!==null){ids.add(id);break;}
     }
@@ -1028,11 +1113,16 @@ function summarizeCategoryCatalogPayload(payload) {
     ?Object.keys(value).slice(0,24):[];
   const topLevelKeys=keysOf(payload);
   const nested={};
-  for(const key of topLevelKeys.slice(0,12)){
+  for(const key of topLevelKeys.slice(0,16)){
     const value=payload[key];
     if(value&&typeof value==='object'){
       nested[key]=Array.isArray(value)
-        ?{type:'array',length:value.length}
+        ?{
+          type:'array',
+          length:value.length,
+          itemKeys:value.filter(item=>item&&typeof item==='object'&&!Array.isArray(item))
+            .slice(0,3).map(item=>Object.keys(item).slice(0,24))
+        }
         :{type:'object',keys:keysOf(value).slice(0,20)};
     }
   }
@@ -1070,6 +1160,25 @@ async function discoverCategoryCatalog(page) {
   }
 }
 
+function categoryApiErrorHint(result) {
+  const parsed = parseJson(result && result.body);
+  if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+    const keys = Object.keys(parsed).slice(0, 12);
+    for (const key of ['r', 'message', 'detail', 'error', 'errors', 'reason']) {
+      const value = parsed[key];
+      if (typeof value === 'string' && value.trim()) {
+        const safe = value.replace(/[\r\n]+/g, ' ').replace(/https?:\/\/\S+/gi, '[url]').trim();
+        if (!/(?:token|password|secret|cookie|authorization|session)/i.test(safe)) {
+          return ('message:' + safe.slice(0, 180));
+        }
+      }
+    }
+    return 'body_keys:' + keys.join(',');
+  }
+  const contentType = String(result && result.contentType || 'unknown').split(';')[0].slice(0, 70);
+  return 'non_json_body;content_type:' + contentType;
+}
+
 function rotatingDepthSelection(categoryIds,cursor,limit=DEPTH_CATEGORIES_PER_CYCLE) {
   const ids=Array.isArray(categoryIds)?categoryIds:[];
   if(!ids.length)return {categoryIds:[],nextCursor:0};
@@ -1096,14 +1205,25 @@ async function fetchCategoryPage(page, categoryId, pageNo) {
     const response = await fetch('/api/v1/video/category/' + categoryId, {
       method: 'POST',
       credentials: 'include',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' },
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+        'X-Requested-With': 'XMLHttpRequest'
+      },
       body: params.toString(),
-      signal: AbortSignal.timeout(7000)
+      signal: AbortSignal.timeout(9000)
     });
-    return { status: response.status, body: await response.text() };
+    return {
+      status: response.status,
+      body: await response.text(),
+      contentType: response.headers.get('content-type') || 'unknown'
+    };
   }, { categoryId, pageNo });
 
-  if (!result || result.status !== 200) throw new Error('filo_category_http_' + (result && result.status));
+  if (!result || result.status !== 200) {
+    const hint = result ? categoryApiErrorHint(result) : 'empty_response';
+    throw new Error(('filo_category_http_' + (result && result.status) + ':' + hint).slice(0, 260));
+  }
   const data = parseApiBody(result.body);
   if (!data) throw new Error('filo_category_invalid_json');
   const items = Array.isArray(data.items) ? data.items :
@@ -1111,7 +1231,6 @@ async function fetchCategoryPage(page, categoryId, pageNo) {
     Array.isArray(data.v) ? data.v : [];
   return items;
 }
-
 async function getRepublishDetail(page, code) {
   const result = await page.evaluate(async code => {
     const response = await fetch('/api/v1/republish/' + encodeURIComponent(code), {
@@ -1744,8 +1863,13 @@ async function main() {
     report.discovery.measuredCandidates = ranked.length;
     report.discovery.topMomentum = ranked.slice(0, 5).map(entry => ({
       code: String(entry.item.video_code),
+      rankingMetric: entry.rankingMetric,
+      hasPlayCounter: entry.momentum.playCounterPresent === true,
+      playsPerMinute: entry.momentum.playsPerMinute,
+      playAccelerationPerMinute: entry.momentum.playsAccelerationPerMinute || 0,
       viewsPerMinute: entry.momentum.viewsPerMinute,
-      accelerationPerMinute: entry.momentum.accelerationPerMinute || 0,
+      viewAccelerationPerMinute: entry.momentum.viewsAccelerationPerMinute ?? entry.momentum.accelerationPerMinute ?? 0,
+      audienceFit: entry.audienceFit,
       ageHours: entry.ageHours
     }));
     fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
@@ -1754,7 +1878,7 @@ async function main() {
       report.status = 'waiting_for_measured_view_growth';
       report.result = {
         status: report.status,
-        reason: 'no_fresh_candidate_has_positive_measured_view_growth_yet',
+        reason: 'no_fresh_candidate_has_positive_measured_play_or_view_growth_yet',
         retryOnNextScheduledRun: true
       };
       return;
@@ -1803,7 +1927,7 @@ async function main() {
         continue;
       }
 
-      const candidate = { ...entry.item, editorialScore: entry.momentum.viewsPerMinute, scoreDetails: entry.momentum, momentum: entry.momentum, ageHours: entry.ageHours, detail };
+      const candidate = { ...entry.item, editorialScore: entry.hasPositivePlayGrowth ? entry.momentum.playsPerMinute : entry.momentum.viewsPerMinute, scoreDetails: entry.momentum, momentum: entry.momentum, rankingMetric: entry.rankingMetric, audienceFit: entry.audienceFit, ageHours: entry.ageHours, detail };
       let attemptResult;
       try {
         attemptResult = await prepareAndPublish(page, candidate, candidate.detail, report, async () => {
@@ -1892,8 +2016,13 @@ async function main() {
       durationSeconds: num(selected.detail.video.duration),
       visits: candidateMetricValue(selected.detail.video, ['visit_count', 'views', 'view_count', 'visits']),
       plays: candidateMetricValue(selected.detail.video, ['play_count', 'plays', 'playCount']),
+      rankingMetric: selected.rankingMetric,
+      audienceFit: selected.audienceFit,
+      playCounterPresent: selected.momentum.playCounterPresent === true,
+      playsPerMinute: selected.momentum.playsPerMinute,
+      playAccelerationPerMinute: selected.momentum.playsAccelerationPerMinute || 0,
       viewsPerMinute: selected.momentum.viewsPerMinute,
-      accelerationPerMinute: selected.momentum.accelerationPerMinute || 0,
+      viewAccelerationPerMinute: selected.momentum.viewsAccelerationPerMinute ?? selected.momentum.accelerationPerMinute ?? 0,
       ageHours: selected.ageHours,
       repostDescriptionLength: selectedMetadata.description.length
     };
@@ -1981,7 +2110,9 @@ module.exports = {
   composeFiloCoverDataUrl,
   dailyCount,
   candidateMetricValue,
+  candidateMetricSnapshot,
   updateCandidateMomentum,
+  classifyAudienceFit,
   extractCategoryIds,
   summarizeCategoryCatalogPayload,
   rotatingDepthSelection,
