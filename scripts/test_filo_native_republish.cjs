@@ -17,7 +17,12 @@ const {
   composeFiloCoverDataUrl,
   dailyCount,
   updateCandidateMomentum,
-  rankCandidatesByMomentum
+  rankCandidatesByMomentum,
+  extractCategoryIds,
+  editorialTitleTokens,
+  createDistinctRepostTitle,
+  topicDuplicateMatch,
+  isCandidateLevelFiloRejection
 } = require('./filo_native_republish.cjs');
 
 const valid = {
@@ -54,6 +59,8 @@ assert.equal(feedCandidateEligible({ ...valid, title: 'پیغام توهین آ�
 assert.equal(feedCandidateEligible({ ...valid, title: 'سکانس سریال ایرانی' }, { posts: [] }), false);
 assert.equal(feedCandidateEligible({ ...valid, title: 'تصاویر دوربین مداربسته بدون رضایت افراد' }, { posts: [] }), false);
 assert.equal(policyTextRiskReason({ title: 'پیغام توهین آمیز به یک بازیکن' }), 'insult_or_defamation');
+assert.equal(policyTextRiskReason({ title: 'شبیه ساز بمب اتم در تهران' }), 'weapons_or_explosives');
+assert.equal(feedCandidateEligible({ ...valid, title: 'شبیه ساز بمب اتم در تهران' }, { posts: [] }), false);
 assert.equal(policyTextRiskReason({ description: 'دانلود و تماشای رایگان جدیدترین ویدیوها با کیفیت عالی در رسانه آی‌آرمووی.' }), 'external_video_service_advertising');
 assert.equal(feedCandidateEligible({ ...valid, title: 'رقص و حرکات موزون' }, { posts: [] }), false);
 assert.equal(feedCandidateEligible({ ...valid, title: 'صحنه اعدام با سلاح' }, { posts: [] }), false);
@@ -67,6 +74,66 @@ assert.equal(
   normalizeComparable('كلیپ خنده دار'),
   normalizeComparable('کلیپ خنده دار')
 );
+assert.deepEqual(
+  extractCategoryIds({
+    c: [{ id: 6, name: 'طنز' }, { category_id: '42', title: 'تکنولوژی' }],
+    cfs: { 7: { name: 'ورزش' } }
+  }),
+  [6, 7, 42],
+  'the live Filo category catalogue should be read from both main and side category collections'
+);
+assert.ok(editorialTitleTokens('کلیپ طنز بهرام افشاری').includes('بهرام'));
+assert.equal(
+  createDistinctRepostTitle('طرز تهیه خورشت بامیه با مرغ'),
+  'روش پخت خورشت بامیه با مرغ',
+  'a safe recipe-title rewrite should preserve the facts while making the title distinct'
+);
+assert.equal(
+  createDistinctRepostTitle('پاک کردن انار به سبک یزدی ها'),
+  'روش یزدی ها برای پاک کردن انار',
+  'a safe style-based title rewrite should keep the original claim and vary its wording'
+);
+assert.throws(
+  () => createDistinctRepostTitle('کلیپ های طنز و خنده//بهرام افشاری'),
+  /repost_title_not_informative_enough/,
+  'generic channel filler plus a name is not a sufficiently descriptive title'
+);
+const duplicateState = {
+  posts: [{
+    sourceCode: 'Bahram01',
+    status: 'public_verified',
+    repostTitle: 'لحظه طنز بهرام افشاری',
+    submittedAt: '2026-11-04T12:00:00.000Z'
+  }]
+};
+assert.equal(
+  topicDuplicateMatch(duplicateState, 'ویدیوی تازه با حضور بهرام افشاری', Date.parse('2026-11-04T13:00:00.000Z')).duplicate,
+  true,
+  'different source IDs must still be caught when their recent editorial topic is the same'
+);
+assert.equal(
+  topicDuplicateMatch(duplicateState, 'روش پخت خورشت بامیه با مرغ', Date.parse('2026-11-04T13:00:00.000Z')).duplicate,
+  false,
+  'unrelated topics must not be suppressed'
+);
+assert.equal(
+  isCandidateLevelFiloRejection({
+    status: 'rejected_by_filo',
+    httpStatus: 200,
+    responseDiagnostics: { bodyKeys: ['r'], r: 'طول عنوان ویدیو بسیار کم است!' }
+  }),
+  true,
+  'Filo can explicitly reject a post inside HTTP 200 and it must be classified as candidate-level'
+);
+assert.equal(
+  isCandidateLevelFiloRejection({
+    status: 'retryable_filo_failure',
+    httpStatus: 429,
+    responseDiagnostics: { bodyKeys: ['r'], r: 'rate limited' }
+  }),
+  false,
+  'transient API failures must not be consumed as candidate-level rejections'
+);
 const cleanedTitle = cleanRepostCaptionTitle('کلیپ خنده‌دار از مسابقه فوتبال 😂 #فوتبال');
 assert.ok(cleanedTitle.includes('مسابقه فوتبال'));
 assert.doesNotMatch(cleanedTitle, /https?:\/\/|#/);
@@ -79,10 +146,10 @@ assert.equal(cleanRepostDescription('', 'عنوان منبع', cleanedTitle), cl
 const sourceDescription = 'در این ویدئو، هنگام برگزاری مولودی واکنش خانواده به تنها ماندن یکی از اعضا دیده می‌شود و رفتار او باعث خنده اطرافیان می‌شود.';
 const shortMetadata = createRepostMetadata({
   ...valid,
-  title: 'واکنش خانواده به رسیدن مهمان',
+  title: 'طرز تهیه خورشت بامیه با مرغ',
   description: 'واکنش کوتاه خانواده'
 }, 'AbC1234');
-assert.equal(shortMetadata.title, 'واکنش خانواده به رسیدن مهمان');
+assert.equal(shortMetadata.title, 'روش پخت خورشت بامیه با مرغ');
 assert.equal(shortMetadata.description, 'واکنش کوتاه خانواده');
 assert.throws(() => createRepostMetadata({
   ...valid,

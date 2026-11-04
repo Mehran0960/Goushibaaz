@@ -7,8 +7,11 @@ const { chromium } = require('playwright');
 const BASE = 'https://ifilo.net';
 const STATE_PATH = path.join('state', 'filo-native-republished.json');
 const REPORT_PATH = path.join('out', 'filo-native-republish.json');
-const CATEGORY_IDS = [6, 11, 13, 29, 2, 22, 17, 25, 15, 3];
+const FALLBACK_CATEGORY_IDS = [6, 11, 13, 29, 2, 22, 17, 25, 15, 3];
+const CATEGORY_IDS = FALLBACK_CATEGORY_IDS;
+const MAX_DISCOVERED_CATEGORY_IDS = 48;
 const PAGES_PER_CATEGORY = 3;
+const TOPIC_DUPLICATE_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
 const MAX_DETAIL_CHECKS = 90;
 const MIN_DURATION_SECONDS = 10;
 const MAX_DURATION_SECONDS = 180;
@@ -71,8 +74,9 @@ function sourceText(item) {
     .filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
 }
 
-const EXCLUDED = /(?:اخبار|خبر فوری|تحلیل سیاسی|سیاست|سیاسی|انتخابات|جنگ|حمله نظامی|موشک|انفجار|تروریست|ترور|اعدام|شلیک|سلاح|خشونت|مداحی|تبلیغات|کازینو|شرط.?بندی|قمار|محتوای بزرگسال|پورنو|قتل|خودکشی|خودآزاری|صحنه دلخراش|تصادف مرگبار|حیوان.?آزاری|رقص|حرکات موزون|تک.?خوانی.{0,8}زن|خوانندگی.{0,8}زن|فحاشی|الفاظ رکیک|افترا|تهمت|توهین|ناسزا|بددهنی|تحقیر|تمسخر|دوربین.?مداربسته|فیلم.?برداری.?مخفی|افشای اطلاعات|کد ملی|خبر جعلی|اطلاعات نادرست|فیلم سینمایی|فیلم ایرانی|سریال|مجموعه تلویزیونی|محصول نمایش خانگی|شبکه نمایش خانگی|صدا.?و.?سیما|فیلیمو|نماوا|فیلم.?نت|تلوبیون|آی.?آر.?مووی|IR.?Movie|مواد مخدر|مشروبات الکلی|برهنگی|محتوای جنسی)/i;
+const EXCLUDED = /(?:اخبار|خبر فوری|تحلیل سیاسی|سیاست|سیاسی|انتخابات|جنگ|حمله نظامی|موشک|انفجار|تروریست|ترور|اعدام|شلیک|سلاح|بمب|هسته.?ای|مواد منفجره|ساخت.?(?:بمب|سلاح|موشک)|شبیه.?ساز.{0,24}(?:بمب|موشک|سلاح)|پهپاد نظامی|مهمات|خشونت|مداحی|تبلیغات|کازینو|شرط.?بندی|قمار|محتوای بزرگسال|پورنو|قتل|خودکشی|خودآزاری|صحنه دلخراش|تصادف مرگبار|حیوان.?آزاری|رقص|حرکات موزون|تک.?خوانی.{0,8}زن|خوانندگی.{0,8}زن|فحاشی|الفاظ رکیک|افترا|تهمت|توهین|ناسزا|بددهنی|تحقیر|تمسخر|دوربین.?مداربسته|فیلم.?برداری.?مخفی|افشای اطلاعات|کد ملی|خبر جعلی|اطلاعات نادرست|فیلم سینمایی|فیلم ایرانی|سریال|مجموعه تلویزیونی|محصول نمایش خانگی|شبکه نمایش خانگی|صدا.?و.?سیما|فیلیمو|نماوا|فیلم.?نت|تلوبیون|آی.?آر.?مووی|IR.?Movie|مواد مخدر|مشروبات الکلی|برهنگی|محتوای جنسی)/i;
 const POLICY_TEXT_RISKS = [
+ {reason:'weapons_or_explosives',pattern:/(?:بمب\s*(?:اتم|هسته.?ای)?|سلاح\s*هسته.?ای|انفجار\s*هسته.?ای|مواد\s*منفجره|ساخت\s*(?:بمب|سلاح|موشک)|شبیه.?ساز.{0,24}(?:بمب|موشک|سلاح)|پهپاد\s*نظامی|مهمات)/i},
  {reason:'insult_or_defamation',pattern:/(?:توهین|توهین\s*آمیز|فحاشی|الفاظ\s*رکیک|ناسزا|بددهنی|افترا|تهمت|تحقیر|تمسخر)/i},
  {reason:'privacy_exposure',pattern:/(?:دوربین\s*مداربسته|\bCCTV\b|افشای\s*(?:اطلاعات|آدرس|شماره)|کد\s*ملی|شماره\s*(?:موبایل|تلفن)|آدرس\s*منزل|بدون\s*رضایت|فیلم.?برداری\s*مخفی)/i},
  {reason:'group_harassment',pattern:/(?:(?:تمسخر|توهین|تحقیر|نفرت.?پراکنی|نژاد.?پرستی|قوم.?ستیزی).{0,30}(?:قوم|نژاد|دین|مذهب|جنسیت|اقلیت)|(?:قوم|نژاد|دین|مذهب|جنسیت|اقلیت).{0,30}(?:تمسخر|توهین|تحقیر|نفرت.?پراکنی|نژاد.?پرستی|قوم.?ستیزی))/i},
@@ -189,6 +193,17 @@ function updateCandidateMomentum(state, items, now = Date.now()) {
 function rankCandidatesByMomentum(items, state, now = Date.now()) {
   const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
   const currentRates = updateCandidateMomentum(state, items, nowMs);
+  const recentCategories = (state && Array.isArray(state.posts) ? state.posts : [])
+    .filter(post => post && post.categoryId != null &&
+      ['public_verified', 'submitted_pending_approval', 'submitted_unconfirmed'].includes(post.status))
+    .filter(post => {
+      const at = Date.parse(post.submittedAt || post.at || '');
+      return Number.isFinite(at) && nowMs - at <= 48 * 60 * 60 * 1000;
+    })
+    .sort((a, b) => Date.parse(b.submittedAt || b.at || '') - Date.parse(a.submittedAt || a.at || ''))
+    .slice(0, 2)
+    .map(post => String(post.categoryId));
+  const recentCategorySet = new Set(recentCategories);
   return (Array.isArray(items) ? items : []).map(item => {
     const code = String(item && (item.video_code || item.videoCode || item.code) || '').trim();
     const saved = state.candidateMomentum && state.candidateMomentum[code];
@@ -197,7 +212,13 @@ function rankCandidatesByMomentum(items, state, now = Date.now()) {
     const recentSavedRate = Number.isFinite(lastRateAt) && nowMs - lastRateAt <= 15 * 60 * 1000
       ? lastRate : null;
     const momentum = currentRates[code] || recentSavedRate;
-    return { item, momentum, ageHours: ageHours(item) };
+    const categoryId = item && item.category_id != null ? String(item.category_id) : '';
+    return {
+      item,
+      momentum,
+      ageHours: ageHours(item),
+      recentCategoryPenalty: categoryId && recentCategorySet.has(categoryId) ? 1 : 0
+    };
   }).filter(entry =>
     entry.momentum &&
     num(entry.momentum.viewsPerMinute) > 0 &&
@@ -205,6 +226,7 @@ function rankCandidatesByMomentum(items, state, now = Date.now()) {
   ).sort((a, b) =>
     num(b.momentum.viewsPerMinute) - num(a.momentum.viewsPerMinute) ||
     num(b.momentum.accelerationPerMinute) - num(a.momentum.accelerationPerMinute) ||
+    a.recentCategoryPenalty - b.recentCategoryPenalty ||
     a.ageHours - b.ageHours
   );
 }
@@ -274,6 +296,73 @@ function cleanRepostCaptionTitle(sourceTitle) {
   return trimAtWord(title, 176);
 }
 
+const EDITORIAL_TITLE_STOPWORDS = new Set([
+  'و', 'در', 'به', 'با', 'از', 'برای', 'که', 'این', 'آن', 'یک', 'را', 'های', 'ها',
+  'کرد', 'شد', 'است', 'هست', 'هم', 'اما', 'یا', 'روی', 'تا', 'بر', 'پس', 'قبل',
+  'کلیپ', 'ویدئو', 'ویدیو', 'فیلم', 'تصویر', 'تصاویر', 'طنز', 'خنده', 'بامزه',
+  'جالب', 'دیدنی', 'لحظه', 'روایت', 'آموزشی'
+]);
+
+function editorialTitleTokens(value) {
+  return [...new Set(normalizeCaptionEditorialText(value)
+    .toLocaleLowerCase('fa-IR')
+    .replace(/[يى]/g, 'ی')
+    .replace(/ك/g, 'ک')
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .split(/\s+/)
+    .map(token => token.trim())
+    .filter(token => token.length > 1 && !EDITORIAL_TITLE_STOPWORDS.has(token)))];
+}
+
+function characterBigramDice(left, right) {
+  const a = normalizeComparable(left);
+  const b = normalizeComparable(right);
+  if (!a || !b) return 0;
+  if (a === b) return 1;
+  if (a.length < 2 || b.length < 2) return 0;
+  const grams = value => {
+    const counts = new Map();
+    for (let i = 0; i < value.length - 1; i++) {
+      const gram = value.slice(i, i + 2);
+      counts.set(gram, (counts.get(gram) || 0) + 1);
+    }
+    return counts;
+  };
+  const aa = grams(a), bb = grams(b);
+  let overlap = 0;
+  for (const [gram, count] of aa) overlap += Math.min(count, bb.get(gram) || 0);
+  return (2 * overlap) / (a.length + b.length - 2);
+}
+
+function createDistinctRepostTitle(sourceTitle) {
+  const cleaned = cleanRepostCaptionTitle(sourceTitle);
+  const rules = [
+    [/^طرز\s+تهیه\s+(.+)$/u, match => 'روش پخت ' + match[1]],
+    [/^دستور\s+تهیه\s+(.+)$/u, match => 'روش آماده‌سازی ' + match[1]],
+    [/^پاک\s+کردن\s+(.+?)\s+به\s+سبک\s+(.+)$/u, match => 'روش ' + match[2] + ' برای پاک کردن ' + match[1]],
+    [/^(.+?)\s+به\s+سبک\s+(.+)$/u, match => 'روش ' + match[2] + ' برای ' + match[1]],
+    [/^کتاب\s+صوتی\s+(.+?)\s+با\s+صدای\s+(.+)$/u, match => 'شنیدن ' + match[1] + ' با صدای ' + match[2]],
+    [/^آموزش\s+(.+)$/u, match => 'راهنمای ' + match[1]],
+    [/^چگونه\s+(.+)$/u, match => 'روش ' + match[1]],
+    [/^(.+?)\s+در\s+(.+)$/u, match => match[2] + '؛ ' + match[1]],
+    [/^(.+?)\s+با\s+(.+)$/u, match => match[1] + ' همراه ' + match[2]]
+  ];
+  let candidate = cleaned;
+  for (const [pattern, rewrite] of rules) {
+    const match = cleaned.match(pattern);
+    if (match) {
+      candidate = rewrite(match).replace(/\s+/g, ' ').trim();
+      break;
+    }
+  }
+  const tokens = editorialTitleTokens(candidate);
+  if (tokens.length < 3) throw new Error('repost_title_not_informative_enough');
+  const similarity = characterBigramDice(sourceTitle, candidate);
+  if (similarity > 0.86) throw new Error('title_not_distinct_enough');
+  if (candidate.length < 10 || candidate.length > 176) throw new Error('repost_title_length_invalid');
+  return candidate;
+}
+
 function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
   const description = normalizeCaptionEditorialText(sourceDescription)
     .replace(/https?:\/\/\S+|www\.\S+/giu, ' ')
@@ -298,9 +387,55 @@ function createRepostMetadata(video, sourceCode) {
   if (/(?:https?:\/\/|www\.)/i.test(sourceTitle)) throw new Error('repost_source_title_contains_external_link');
   const risk = policyTextRiskReason(video);
   if (risk) throw new Error('filo_policy_text_risk:' + risk);
-  const title = cleanRepostCaptionTitle(sourceTitle);
+  const title = createDistinctRepostTitle(sourceTitle);
   const description = cleanRepostDescription(sourceDescription, sourceTitle, title);
   return { title, description, sourceTitle, sourceDescription, sourceCode };
+}
+
+function topicDuplicateMatch(state, title, now = Date.now()) {
+  const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
+  const tokens = editorialTitleTokens(title);
+  if (tokens.length < 2) return { duplicate: false, reason: 'insufficient_topic_tokens' };
+  const current = new Set(tokens);
+  const recent = (state && Array.isArray(state.posts) ? state.posts : [])
+    .filter(post => post && ['public_verified', 'submitted_pending_approval', 'submitted_unconfirmed'].includes(post.status))
+    .filter(post => {
+      const at = Date.parse(post.submittedAt || post.at || '');
+      return Number.isFinite(at) && at <= nowMs && nowMs - at <= TOPIC_DUPLICATE_WINDOW_MS;
+    })
+    .sort((a, b) => Date.parse(b.submittedAt || b.at || '') - Date.parse(a.submittedAt || a.at || ''));
+  for (const post of recent) {
+    const previousTitle = post.repostTitle || post.sourceTitle || '';
+    const previous = new Set(editorialTitleTokens(previousTitle));
+    if (previous.size < 2) continue;
+    const common = [...current].filter(token => previous.has(token));
+    const unionSize = new Set([...current, ...previous]).size;
+    const jaccard = common.length / unionSize;
+    const smallerSetCoverage = common.length / Math.min(current.size, previous.size);
+    const characterSimilarity = characterBigramDice(title, previousTitle);
+    if ((common.length >= 2 && (jaccard >= 0.5 || smallerSetCoverage >= 0.8)) ||
+        characterSimilarity >= 0.84) {
+      return {
+        duplicate: true,
+        matchedTitle: String(previousTitle).slice(0, 180),
+        matchedSourceCode: post.sourceCode || null,
+        commonTokens: common.slice(0, 8),
+        jaccard: Math.round(jaccard * 100) / 100,
+        characterSimilarity: Math.round(characterSimilarity * 100) / 100
+      };
+    }
+  }
+  return { duplicate: false };
+}
+
+function isCandidateLevelFiloRejection(result) {
+  if (!result || result.status !== 'rejected_by_filo' || !result.responseDiagnostics) return false;
+  const diagnostics = result.responseDiagnostics;
+  const keys = Array.isArray(diagnostics.bodyKeys) ? diagnostics.bodyKeys : [];
+  const explicitKeys = new Set(['r', 'message', 'error', 'errors', 'reason', 'detail', 'details', 'status']);
+  return keys.some(key => explicitKeys.has(String(key))) ||
+    Boolean(diagnostics.r || diagnostics.message || diagnostics.error || diagnostics.reason || diagnostics.detail) ||
+    (Array.isArray(diagnostics.uiErrors) && diagnostics.uiErrors.length > 0);
 }
 
 function imageDimensionsFromDataUrl(value) {
@@ -649,6 +784,81 @@ async function login(page) {
     responseKeys,
     hasSessionCookie
   };
+}
+
+function extractCategoryIds(payload) {
+  const root = payload && payload.data && typeof payload.data === 'object' &&
+    (payload.data.c || payload.data.cfs || payload.data.categories)
+    ? payload.data : payload;
+  const roots = [
+    root && root.c,
+    root && root.cfs,
+    root && root.categories,
+    root && root.categoriesForSide,
+    root && root.categories_for_side
+  ].filter(Boolean);
+  const ids = new Set();
+  const validId = value => {
+    const raw = String(value == null ? '' : value).trim();
+    if (!/^\d{1,6}$/.test(raw)) return null;
+    const n = Number(raw);
+    return Number.isInteger(n) && n > 0 ? n : null;
+  };
+  const visit = (node, depth = 0) => {
+    if (!node || depth > 7) return;
+    if (Array.isArray(node)) {
+      for (const item of node) visit(item, depth + 1);
+      return;
+    }
+    if (typeof node !== 'object') return;
+    const idKeys = ['id', 'category_id', 'categoryId', 'categoryID', 'cid', 'cat_id', 'catId', 'c_id'];
+    for (const key of idKeys) {
+      const id = validId(node[key]);
+      if (id !== null) { ids.add(id); break; }
+    }
+    for (const [key, value] of Object.entries(node)) {
+      const mapId = validId(key);
+      if (mapId !== null && value && typeof value === 'object') ids.add(mapId);
+      if (value && typeof value === 'object') visit(value, depth + 1);
+    }
+  };
+  for (const value of roots) visit(value);
+  return [...ids].sort((a, b) => a - b);
+}
+
+async function discoverCategoryCatalog(page) {
+  try {
+    const payload = await page.evaluate(async () => {
+      const response = await fetch('/api/v1/bind/master', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+        },
+        body: '',
+        signal: AbortSignal.timeout(9000)
+      });
+      if (!response.ok) throw new Error('category_catalog_http_' + response.status);
+      return await response.json();
+    });
+    const catalogIds = extractCategoryIds(payload);
+    const ids = [...new Set([...catalogIds, ...FALLBACK_CATEGORY_IDS])]
+      .slice(0, MAX_DISCOVERED_CATEGORY_IDS);
+    return {
+      ids,
+      catalogIds,
+      source: catalogIds.length ? 'filo_bind_master_plus_legacy_fallback' : 'legacy_fallback',
+      error: null
+    };
+  } catch (error) {
+    return {
+      ids: [...FALLBACK_CATEGORY_IDS],
+      catalogIds: [],
+      source: 'legacy_fallback',
+      error: String(error && error.message || error).slice(0, 220)
+    };
+  }
 }
 
 async function fetchCategoryPage(page, categoryId, pageNo) {
@@ -1072,7 +1282,19 @@ async function main() {
   const report = {
     createdAt: new Date().toISOString(),
     status: 'started',
-    discovery: { categories: CATEGORY_IDS, pagesPerCategory: PAGES_PER_CATEGORY, scannedItems: 0, eligibleFeedItems: 0, measuredCandidates: 0, errors: [] },
+    discovery: {
+      categories: CATEGORY_IDS,
+      pagesPerCategory: PAGES_PER_CATEGORY,
+      categoryCatalogSource: 'not_loaded',
+      categoryCatalogCount: 0,
+      categoryCatalogError: null,
+      categoryPagesAttempted: 0,
+      scannedItems: 0,
+      eligibleFeedItems: 0,
+      measuredCandidates: 0,
+      duplicateTopicsSkipped: [],
+      errors: []
+    },
     selected: null,
     result: null
   };
@@ -1101,9 +1323,15 @@ async function main() {
     if (report.reconciliation.changed) {
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
     }
+    const categoryCatalog = await discoverCategoryCatalog(page);
+    report.discovery.categories = categoryCatalog.ids;
+    report.discovery.categoryCatalogSource = categoryCatalog.source;
+    report.discovery.categoryCatalogCount = categoryCatalog.catalogIds.length;
+    report.discovery.categoryCatalogError = categoryCatalog.error;
     const byCode = new Map();
-    for (const categoryId of CATEGORY_IDS) {
+    for (const categoryId of categoryCatalog.ids) {
       for (let pageNo = 1; pageNo <= PAGES_PER_CATEGORY; pageNo++) {
+        report.discovery.categoryPagesAttempted += 1;
         try {
           const items = await fetchCategoryPage(page, categoryId, pageNo);
           report.discovery.scannedItems += items.length;
@@ -1163,11 +1391,25 @@ async function main() {
       checked.push(check);
       if (!gate.eligible) continue;
 
+      let candidateMetadata;
       try {
-        createRepostMetadata(detail.video, code);
+        candidateMetadata = createRepostMetadata(detail.video, code);
       } catch (error) {
         check.gate = 'metadata_not_compliant';
         check.metadataError = String(error && error.message || error).slice(0, 160);
+        continue;
+      }
+
+      const duplicateTopic = topicDuplicateMatch(state, candidateMetadata.title, Date.parse(report.createdAt));
+      if (duplicateTopic.duplicate) {
+        check.gate = 'recent_topic_duplicate';
+        check.duplicateTopic = duplicateTopic;
+        report.discovery.duplicateTopicsSkipped.push({
+          sourceCode: code,
+          title: candidateMetadata.title,
+          matchedTitle: duplicateTopic.matchedTitle,
+          matchedSourceCode: duplicateTopic.matchedSourceCode
+        });
         continue;
       }
 
@@ -1200,7 +1442,7 @@ async function main() {
         throw error;
       }
 
-      if(attemptResult.status==='rejected_by_filo'&&[400,422].includes(Number(attemptResult.httpStatus))){
+      if(isCandidateLevelFiloRejection(attemptResult)){
         const rejection={
           sourceCode:candidate.video_code,
           score:candidate.editorialScore,
@@ -1239,16 +1481,14 @@ async function main() {
       fs.writeFileSync(STATE_PATH,JSON.stringify(state,null,2)+'\n','utf8');
     }
     if (!selected) {
-      report.status = filoRejections.length
-        ? 'filo_rejected_candidates_no_success'
-        : 'no_candidate_published_this_cycle';
+      report.status = 'no_candidate_published_this_cycle';
       report.result = {
-        status:report.status,
-        reason:filoRejections.length
-          ?'confirmed_candidate_rejections_exhausted_this_cycle'
-          :'no_candidate_passed_native_permission_and_metadata_gates',
+        status: report.status,
+        reason: filoRejections.length
+          ? 'Filo explicitly rejected the checked candidates; the slot was closed safely and will retry on the next scheduled run'
+          : 'no_candidate_passed_native_permission_and_metadata_gates',
         filoRejections,
-        retryOnNextScheduledRun:true
+        retryOnNextScheduledRun: true
       };
       return;
     }
@@ -1277,6 +1517,7 @@ async function main() {
         repostTitle: result.repostMetadata && result.repostMetadata.title || selectedMetadata.title,
         repostDescription: result.repostMetadata && result.repostMetadata.description || selectedMetadata.description,
         captionPolicyVersion: CAPTION_POLICY_VERSION,
+        categoryId: selected.detail.video.category_id || selected.category_id || null,
         newVideoCode: result.newVideoCode || null,
         publicUrl: result.publicUrl || null,
         status: result.status,
@@ -1291,6 +1532,7 @@ async function main() {
         sourceCode: selected.video_code,
         sourceTitle: report.selected.title,
         status: 'rejected_by_filo',
+        categoryId: selected.detail.video.category_id || selected.category_id || null,
         reason: result.reason || '',
         httpStatus: result.httpStatus || null,
         responseDiagnostics: result.responseDiagnostics || null,
@@ -1346,5 +1588,12 @@ module.exports = {
   composeFiloCoverDataUrl,
   dailyCount,
   candidateMetricValue,
-  updateCandidateMomentum
+  updateCandidateMomentum,
+  extractCategoryIds,
+  discoverCategoryCatalog,
+  editorialTitleTokens,
+  characterBigramDice,
+  createDistinctRepostTitle,
+  topicDuplicateMatch,
+  isCandidateLevelFiloRejection
 };
