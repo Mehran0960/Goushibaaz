@@ -157,7 +157,7 @@ const alreadyCleanMetadata = createRepostMetadata({
   title: 'مردی که روغن گریس میخورد!',
   description: 'در این ویدئو، مردی در حال خوردن روغن گریس را نشان می‌دهد و واکنش اطرافیان دیده می‌شود. این رفتار غیرمعمول توجه افراد حاضر را جلب می‌کند.'
 }, 'AbC1238');
-assert.equal(alreadyCleanMetadata.title, 'مردی که روغن گریس میخورد!',
+assert.equal(alreadyCleanMetadata.title, 'مردی که روغن گریس میخورد',
   'an already-clean title is valid metadata when its description is independently substantive');
 assert.notEqual(normalizeComparable(alreadyCleanMetadata.description), normalizeComparable('در این ویدئو، مردی در حال خوردن روغن گریس را نشان می‌دهد و واکنش اطرافیان دیده می‌شود. این رفتار غیرمعمول توجه افراد حاضر را جلب می‌کند.'));
 assert.throws(() => createRepostMetadata({ ...valid, description: 'توضیح کوتاه' }, 'AbC1235'), /repost_description_source_too_short/);
