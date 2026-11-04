@@ -19,6 +19,12 @@ const {
   updateCandidateMomentum,
   rankCandidatesByMomentum,
   extractCategoryIds,
+  summarizeCategoryCatalogPayload,
+  rotatingDepthSelection,
+  nextCategoryDepthPage,
+  getCachedCandidateRejection,
+  cacheCandidateRejection,
+  removeRepeatedTrailingPhrase,
   reliableFeedAgeBounds,
   analyzeCategoryFeedPage,
   categoryFeedBoundaryOrdered,
@@ -85,6 +91,24 @@ assert.deepEqual(
   }),
   [6, 7, 42],
   'the live Filo category catalogue should be read from both main and side category collections'
+);
+assert.deepEqual(extractCategoryIds({
+  s:true,d:{c:[{id:8},{categoryId:'51'}],cfs:{9:{title:'ورزش'}}}
+}),[8,9,51],'wrapped Filo response envelope must be supported');
+assert.deepEqual(extractCategoryIds({
+  data:{result:{categories:[{category_id:14}]}}
+}),[14],'nested result/category collections must be supported');
+assert.deepEqual(extractCategoryIds([{id:3},{id:4}]),[3,4],
+  'direct category arrays must be supported');
+assert.deepEqual(rotatingDepthSelection([1,2,3,4,5],3,2),
+  {categoryIds:[4,5],nextCursor:0});
+assert.deepEqual(rotatingDepthSelection([1,2,3],2,12),
+  {categoryIds:[3,1,2],nextCursor:2});
+assert.equal(nextCategoryDepthPage(2),3);
+assert.equal(nextCategoryDepthPage(12),2);
+assert.deepEqual(
+  Object.keys(summarizeCategoryCatalogPayload({s:true,d:{c:[],cfs:[]}}).nested),
+  ['d']
 );
 
 const feedNow = Date.parse('2026-11-04T12:00:00.000Z');
@@ -153,8 +177,15 @@ assert.equal(
 );
 assert.throws(
   () => createDistinctRepostTitle('کلیپ های طنز و خنده//بهرام افشاری'),
-  /repost_title_not_informative_enough/,
-  'generic channel filler plus a name is not a sufficiently descriptive title'
+  /title_without_safe_editorial_rewrite|title_not_distinct_or_editorially_clean/,
+  'generic channel filler plus a name must be skipped rather than padded'
+);
+assert.equal(removeRepeatedTrailingPhrase('لوبیا فرنگی پلو همراه مرغ لوبیا فرنگی'),
+  'لوبیا فرنگی پلو همراه مرغ');
+assert.equal(
+  createDistinctRepostTitle('طرز تهیه لوبیا فرنگی پلو همراه مرغ لوبیا فرنگی'),
+  'روش پخت لوبیا فرنگی پلو همراه مرغ',
+  'repeated trailing phrase should be removed from final title'
 );
 const duplicateState = {
   posts: [{
@@ -166,9 +197,22 @@ const duplicateState = {
 };
 assert.equal(
   topicDuplicateMatch(duplicateState, 'ویدیوی تازه با حضور بهرام افشاری', Date.parse('2026-11-04T13:00:00.000Z')).duplicate,
-  true,
-  'different source IDs must still be caught when their recent editorial topic is the same'
+  false,
+  'sharing only a named person must not suppress a distinct video'
 );
+assert.equal(topicDuplicateMatch({
+  posts:[{sourceCode:'SameEvent1',status:'public_verified',
+    repostTitle:'درگیری لفظی بهرام افشاری در برنامه زنده تلویزیونی',
+    submittedAt:'2026-11-04T12:00:00.000Z'}]
+},'ماجرای درگیری لفظی بهرام افشاری در برنامه زنده تلویزیونی',
+Date.parse('2026-11-04T13:00:00.000Z')).duplicate,true,
+'a strongly overlapping story must still be suppressed within 48 hours');
+assert.equal(topicDuplicateMatch({
+  posts:[{sourceCode:'OldStory1',status:'public_verified',
+    repostTitle:'روش پخت خورشت بامیه با مرغ',
+    submittedAt:'2026-11-01T12:00:00.000Z'}]
+},'روش پخت خورشت بامیه با مرغ',Date.parse('2026-11-04T13:00:00.000Z')).duplicate,false,
+'a topic older than 48 hours must not remain a hard duplicate');
 assert.equal(
   topicDuplicateMatch(duplicateState, 'روش پخت خورشت بامیه با مرغ', Date.parse('2026-11-04T13:00:00.000Z')).duplicate,
   false,
@@ -192,6 +236,19 @@ assert.equal(
   false,
   'transient API failures must not be consumed as candidate-level rejections'
 );
+const rejectionCacheState={posts:[]};
+const cacheVideo={title:'عنوان غیرقابل بازنویسی',description:'توضیح ثابت'};
+cacheCandidateRejection(rejectionCacheState,'Cache01',cacheVideo,
+  'title_without_safe_editorial_rewrite',Date.parse('2026-11-04T12:00:00.000Z'));
+assert.ok(getCachedCandidateRejection(rejectionCacheState,'Cache01',cacheVideo,
+  Date.parse('2026-11-04T13:00:00.000Z')));
+assert.equal(getCachedCandidateRejection(rejectionCacheState,'Cache01',
+  {...cacheVideo,description:'توضیح تغییر کرده'},Date.parse('2026-11-04T13:00:00.000Z')),null,
+  'changed source metadata must invalidate rejection cache immediately');
+assert.equal(getCachedCandidateRejection(rejectionCacheState,'Cache01',cacheVideo,
+  Date.parse('2026-11-04T19:00:01.000Z')),null,
+  'static metadata rejection must be eligible for retry after six hours');
+
 const cleanedTitle = cleanRepostCaptionTitle('کلیپ خنده‌دار از مسابقه فوتبال 😂 #فوتبال');
 assert.ok(cleanedTitle.includes('مسابقه فوتبال'));
 assert.doesNotMatch(cleanedTitle, /https?:\/\/|#/);
