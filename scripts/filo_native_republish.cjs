@@ -852,7 +852,7 @@ function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
     .replace(/لذت\s+ببرید/giu, ' ')
     .replace(/\s+([،؛:,.!?؟])/gu, '$1')
     .replace(/\s+/g, ' ')
-    .replace(/^[،؛:,.!?؟\s]+|[،؛:,.!?؟\s]+$/gu, '')
+    .replace(/^[،؛:,.!?؟\s]+/gu, '')
     .trim();
   // Never propagate source-channel engagement prompts as repost captions.
   return trimAtWord(description || String(repostTitle || '').trim(), 900);
@@ -1380,7 +1380,7 @@ async function login(page) {
     hasFileInput: false,
     hasUploadForm: false,
     loginPrompt: true,
-    accessDenied: true
+    accessDenied: false
   }));
 
   const cookieNames = (await page.context().cookies(BASE))
