@@ -4,6 +4,7 @@ const assert = require('node:assert/strict');
 const {
   ageHours,
   feedCandidateEligible,
+  summarizeFeedGateSignals,
   cleanRepostCaptionTitle,
   cleanRepostDescription,
   policyTextRiskReason,
