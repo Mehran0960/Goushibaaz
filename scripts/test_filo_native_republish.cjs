@@ -46,6 +46,7 @@ const {
   categoryFeedBoundaryOrdered,
   shouldStopCategoryPagination,
   editorialTitleTokens,
+  editorialTitleQualityReason,
   createDistinctRepostTitle,
   descriptionBasedTitleCandidate,
   topicDuplicateMatch,
@@ -265,6 +266,10 @@ assert.equal(shouldStopCategoryPagination({
 }), false, 'unverified category ordering must continue to the configured safety cap');
 
 assert.ok(editorialTitleTokens('کلیپ طنز بهرام افشاری').includes('بهرام'));
+assert.equal(editorialTitleQualityReason('من و رفیقام طنز دیلان برای کلیپ های بیشتر کانال مارا دنبال کنید'), 'promotional_or_engagement_title');
+assert.equal(editorialTitleQualityReason('خنده دار پارت ۱۹ طنز کمدی'), 'generic_part_only_title');
+assert.equal(editorialTitleQualityReason('روش پخت خورشت بامیه با مرغ'), null);
+assert.throws(() => createDistinctRepostTitle('من و رفیقام طنز دیلان برای کلیپ های بیشتر کانال مارا دنبال کنید'), /title_without_safe_editorial_rewrite|title_not_distinct_or_editorially_clean/, 'engagement prompts must never be republished as editorial titles');
 assert.equal(
   createDistinctRepostTitle('طرز تهیه خورشت بامیه با مرغ'),
   'روش پخت خورشت بامیه با مرغ',
