@@ -1834,7 +1834,10 @@ async function getRepublishDetail(page, code) {
     if (!result) throw new Error('republish_detail_empty_response');
     if (result.status !== 200) {
       const disposition = detailFetchHttpDisposition(result.status);
-      if (disposition === 'candidate_access_denied') throw new Error('republish_detail_forbidden_403');
+      if (disposition === 'candidate_access_denied') {
+        const safeHint = categoryApiErrorHint(result);
+        throw new Error('republish_detail_forbidden_403:' + safeHint);
+      }
       if (disposition === 'session_expired') throw new Error('republish_detail_session_expired_401');
       lastError = 'republish_detail_http_' + Number(result.status || 0);
       if (disposition === 'retryable' && attempt < 2) {
@@ -2612,10 +2615,11 @@ async function main() {
       const check = {
         code, rankingMetric: entry.rankingMetric, selectionMode: entry.selectionMode,
         playsPerMinute: entry.momentum.playsPerMinute, viewsPerMinute: entry.momentum.viewsPerMinute,
-        ageHours: entry.ageHours, sourceTitle: String(detail && detail.video && detail.video.title || '').slice(0, 180),
+        ageHours: entry.ageHours,
+        sourceTitle: String(detail && detail.video && detail.video.title || entry.item.title || '').slice(0, 180),
         feedTag: entry.item.feed_tag || null, detailFetchError, gate: null
       };
-      if(!detail&&detailFetchError==='republish_detail_forbidden_403'){
+      if(!detail&&detailFetchError&&detailFetchError.startsWith('republish_detail_forbidden_403')){
         const retryAt=Date.parse(report.createdAt)+6*60*60*1000;
         cacheCandidateRejection(state,code,entry.item,'detail_fetch:forbidden_403',Date.parse(report.createdAt),6*60*60*1000);
         check.gate='republish_detail_access_denied_403';
@@ -2891,6 +2895,7 @@ module.exports = {
   serializeFiloPublishRequestBody,
   setJsonPublishBodyField,
   safeApiDiagnosticValue,
+  categoryApiErrorHint,
   buildUnconfirmedSubmissionResult,
   composeFiloCoverDataUrl,
   dailyCount,
