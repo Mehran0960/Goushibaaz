@@ -1273,10 +1273,14 @@ async function visibleFirst(page, selectors) {
 async function login(page) {
   if (!process.env.FILO_USER || !process.env.FILO_PASS) throw new Error('filo_credentials_missing');
 
-  await page.goto(BASE + '/login?m=3&r=%2Fupload', {
+  const loginPageResponse = await page.goto(BASE + '/login?m=3&r=%2Fupload', {
     waitUntil: 'domcontentloaded',
     timeout: 30000
   });
+  const loginPageHttpStatus = loginPageResponse ? loginPageResponse.status() : null;
+  if (loginPageHttpStatus !== null && loginPageHttpStatus >= 400) {
+    throw new Error('filo_login_page_http_' + loginPageHttpStatus);
+  }
   const password = page.locator('input[type="password"]').first();
   await password.waitFor({ state: 'visible', timeout: 15000 });
   await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
@@ -1342,7 +1346,8 @@ async function login(page) {
   }
 
   await sleep(1800);
-  await page.goto(BASE + '/upload', { waitUntil: 'domcontentloaded', timeout: 30000 });
+  const uploadRouteResponse = await page.goto(BASE + '/upload', { waitUntil: 'domcontentloaded', timeout: 30000 });
+  const uploadRouteHttpStatus = uploadRouteResponse ? uploadRouteResponse.status() : null;
   await sleep(1200);
 
   const pageEvidence = await page.evaluate(() => {
@@ -1356,6 +1361,7 @@ async function login(page) {
     const hasFileInput = Boolean(document.querySelector('input[type="file"]'));
     const hasUploadForm = Boolean(document.querySelector('form[action*="upload" i], [data-upload-form], .upload-form'));
     const loginPrompt = /ورود به حساب|وارد حساب شوید|لطفا وارد شوید|رمز عبور|sign in to|please log in|login required/i.test(bodyText);
+    const accessDenied = /دسترسی غیرمجاز|access denied|forbidden/i.test(document.title + ' ' + bodyText);
     return {
       path,
       title: document.title || '',
@@ -1363,7 +1369,8 @@ async function login(page) {
       hasPasswordField,
       hasFileInput,
       hasUploadForm,
-      loginPrompt
+      loginPrompt,
+      accessDenied
     };
   }).catch(() => ({
     path: new URL(page.url()).pathname,
@@ -1372,7 +1379,8 @@ async function login(page) {
     hasPasswordField: false,
     hasFileInput: false,
     hasUploadForm: false,
-    loginPrompt: true
+    loginPrompt: true,
+    accessDenied: true
   }));
 
   const cookieNames = (await page.context().cookies(BASE))
@@ -1384,6 +1392,15 @@ async function login(page) {
     !pageEvidence.hasPasswordField &&
     !pageEvidence.loginPrompt &&
     !/\/login(?:\/|$)/i.test(pageEvidence.path);
+  if ((uploadRouteHttpStatus !== null && uploadRouteHttpStatus >= 400) || pageEvidence.accessDenied) {
+    throw new Error('filo_upload_route_access_denied:' + JSON.stringify({
+      loginPageHttpStatus,
+      loginApiHttpStatus: responseStatus,
+      uploadRouteHttpStatus,
+      pageTitle: String(pageEvidence.title || '').slice(0, 120)
+    }));
+  }
+
   const verifiedBy = pageEvidence.hasLogoutLink
     ? 'logout_link'
     : routeHasNoLoginScreen && (hasSessionCookie || pageEvidence.hasFileInput || pageEvidence.hasUploadForm)
@@ -1392,7 +1409,9 @@ async function login(page) {
 
   if (!verifiedBy) {
     throw new Error('filo_login_not_confirmed:' + JSON.stringify({
-      httpStatus: responseStatus,
+      loginPageHttpStatus,
+      loginApiHttpStatus: responseStatus,
+      uploadRouteHttpStatus,
       responseKeys,
       hasSessionCookie,
       cookieNames: cookieNames.slice(0, 12),
@@ -1404,7 +1423,9 @@ async function login(page) {
     authenticated: true,
     route: pageEvidence.path,
     verifiedBy,
-    httpStatus: responseStatus,
+    loginPageHttpStatus,
+    loginApiHttpStatus: responseStatus,
+    uploadRouteHttpStatus,
     responseKeys,
     hasSessionCookie
   };
