@@ -32,7 +32,7 @@ const FALLBACK_VIDEO_TAG_FEEDS = [
   { key: 'q-خودرو', label: 'خودرو' }
 ];
 const MAX_DISCOVERED_CATEGORY_IDS = 64;
-const MAX_PAGES_PER_CATEGORY = 12;
+const MAX_PAGES_PER_CATEGORY = 18;
 const MAX_TOTAL_CATEGORY_PAGE_REQUESTS = 96;
 const CATEGORY_PAGE_CONCURRENCY = 4;
 const CATEGORY_SCAN_BUDGET_MS = 4 * 60 * 1000;
@@ -83,9 +83,11 @@ function normalizeDigits(value) {
   });
 }
 
-function ageHours(item) {
+function ageHours(item, now = Date.now()) {
   const raw = normalizeDigits(item && (item.create_date || item.styled_create_date || item.created_at) || '');
   const lower = raw.toLowerCase();
+  const jalaliTimestamp = jalaliDateToGregorianTimestamp(raw);
+  if (jalaliTimestamp !== null) return Math.max(0, (now - jalaliTimestamp) / 3600000);
   let m = lower.match(/(\d+(?:\.\d+)?)\s*(?:دقیقه|min)/);
   if (m) return Math.max(0, num(m[1]) / 60);
   m = lower.match(/(\d+(?:\.\d+)?)\s*(?:ساعت|hour|hr)/);
@@ -96,7 +98,7 @@ function ageHours(item) {
   if (/دیروز|yesterday/.test(lower)) return 30;
   if (/امروز|today/.test(lower)) return 8;
   const absolute = Date.parse(raw);
-  if (Number.isFinite(absolute)) return Math.max(0, (Date.now() - absolute) / 3600000);
+  if (Number.isFinite(absolute)) return Math.max(0, (now - absolute) / 3600000);
   return 36;
 }
 
@@ -1324,10 +1326,14 @@ async function visibleFirst(page, selectors) {
 async function login(page) {
   if (!process.env.FILO_USER || !process.env.FILO_PASS) throw new Error('filo_credentials_missing');
 
-  await page.goto(BASE + '/login?m=3&r=%2Fupload', {
+  const loginPageResponse = await page.goto(BASE + '/login?m=3&r=%2Fupload', {
     waitUntil: 'domcontentloaded',
     timeout: 30000
   });
+  const loginPageHttpStatus = loginPageResponse ? loginPageResponse.status() : null;
+  if (loginPageHttpStatus !== null && loginPageHttpStatus >= 400) {
+    throw new Error('filo_login_page_http_' + loginPageHttpStatus);
+  }
   const password = page.locator('input[type="password"]').first();
   await password.waitFor({ state: 'visible', timeout: 15000 });
   await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
@@ -1393,7 +1399,8 @@ async function login(page) {
   }
 
   await sleep(1800);
-  await page.goto(BASE + '/upload', { waitUntil: 'domcontentloaded', timeout: 30000 });
+  const uploadRouteResponse = await page.goto(BASE + '/upload', { waitUntil: 'domcontentloaded', timeout: 30000 });
+  const uploadRouteHttpStatus = uploadRouteResponse ? uploadRouteResponse.status() : null;
   await sleep(1200);
 
   const pageEvidence = await page.evaluate(() => {
@@ -1407,6 +1414,7 @@ async function login(page) {
     const hasFileInput = Boolean(document.querySelector('input[type="file"]'));
     const hasUploadForm = Boolean(document.querySelector('form[action*="upload" i], [data-upload-form], .upload-form'));
     const loginPrompt = /ورود به حساب|وارد حساب شوید|لطفا وارد شوید|رمز عبور|sign in to|please log in|login required/i.test(bodyText);
+    const accessDenied = /دسترسی غیرمجاز|access denied|forbidden/i.test(document.title + ' ' + bodyText);
     return {
       path,
       title: document.title || '',
@@ -1414,7 +1422,8 @@ async function login(page) {
       hasPasswordField,
       hasFileInput,
       hasUploadForm,
-      loginPrompt
+      loginPrompt,
+      accessDenied
     };
   }).catch(() => ({
     path: new URL(page.url()).pathname,
@@ -1423,7 +1432,8 @@ async function login(page) {
     hasPasswordField: false,
     hasFileInput: false,
     hasUploadForm: false,
-    loginPrompt: true
+    loginPrompt: true,
+    accessDenied: false
   }));
 
   const cookieNames = (await page.context().cookies(BASE))
@@ -1435,6 +1445,15 @@ async function login(page) {
     !pageEvidence.hasPasswordField &&
     !pageEvidence.loginPrompt &&
     !/\/login(?:\/|$)/i.test(pageEvidence.path);
+  if ((uploadRouteHttpStatus !== null && uploadRouteHttpStatus >= 400) || pageEvidence.accessDenied) {
+    throw new Error('filo_upload_route_access_denied:' + JSON.stringify({
+      loginPageHttpStatus,
+      loginApiHttpStatus: responseStatus,
+      uploadRouteHttpStatus,
+      pageTitle: String(pageEvidence.title || '').slice(0, 120)
+    }));
+  }
+
   const verifiedBy = pageEvidence.hasLogoutLink
     ? 'logout_link'
     : routeHasNoLoginScreen && (hasSessionCookie || pageEvidence.hasFileInput || pageEvidence.hasUploadForm)
@@ -1443,7 +1462,9 @@ async function login(page) {
 
   if (!verifiedBy) {
     throw new Error('filo_login_not_confirmed:' + JSON.stringify({
-      httpStatus: responseStatus,
+      loginPageHttpStatus,
+      loginApiHttpStatus: responseStatus,
+      uploadRouteHttpStatus,
       responseKeys,
       hasSessionCookie,
       cookieNames: cookieNames.slice(0, 12),
@@ -1455,7 +1476,9 @@ async function login(page) {
     authenticated: true,
     route: pageEvidence.path,
     verifiedBy,
-    httpStatus: responseStatus,
+    loginPageHttpStatus,
+    loginApiHttpStatus: responseStatus,
+    uploadRouteHttpStatus,
     responseKeys,
     hasSessionCookie
   };
@@ -1710,6 +1733,16 @@ function nextCategoryDepthPage(currentPage) {
   return page>=MAX_PAGES_PER_CATEGORY?2:Math.max(2,page+1);
 }
 
+function resolveDepthScanStartPage(currentPage, evidence) {
+  let pageNo = Math.trunc(num(currentPage, 2));
+  if (pageNo < 2 || pageNo > MAX_PAGES_PER_CATEGORY) pageNo = 2;
+  const lastPageNo = Math.trunc(num(evidence && evidence.lastPageNo, 0));
+  // Previous runs wrapped page 12 back to page 2 but retained pagination evidence.
+  if (pageNo === 2 && lastPageNo >= 12 && lastPageNo < MAX_PAGES_PER_CATEGORY) return lastPageNo + 1;
+  if (pageNo > 2 && (!evidence || lastPageNo !== pageNo - 1)) return 2;
+  return pageNo;
+}
+
 function buildCategoryPageRequestPayload(pageNo, windowWidth) {
   const normalizedWidth = Math.trunc(num(windowWidth, 0));
   return {
@@ -1801,7 +1834,10 @@ async function getRepublishDetail(page, code) {
     if (!result) throw new Error('republish_detail_empty_response');
     if (result.status !== 200) {
       const disposition = detailFetchHttpDisposition(result.status);
-      if (disposition === 'candidate_access_denied') throw new Error('republish_detail_forbidden_403');
+      if (disposition === 'candidate_access_denied') {
+        const safeHint = categoryApiErrorHint(result);
+        throw new Error('republish_detail_forbidden_403:' + safeHint);
+      }
       if (disposition === 'session_expired') throw new Error('republish_detail_session_expired_401');
       lastError = 'republish_detail_http_' + Number(result.status || 0);
       if (disposition === 'retryable' && attempt < 2) {
@@ -2393,14 +2429,14 @@ async function main() {
     for(const categoryId of depthSelection.categoryIds){
       const tracker=trackerById.get(String(categoryId));
       if(!tracker||tracker.stopReason==='empty_first_page'||!firstPageAnalysis.has(String(categoryId)))continue;
-      let pageNo=Math.trunc(num(state.categoryDepthPages[String(categoryId)],2));
-      if(pageNo<2||pageNo>MAX_PAGES_PER_CATEGORY)pageNo=2;
-      const evidence=state.categoryDepthEvidence[String(categoryId)];
-      if(pageNo>2&&(!evidence||evidence.lastPageNo!==pageNo-1)){
-        pageNo=2;
-        delete state.categoryDepthEvidence[String(categoryId)];
+      const categoryKey=String(categoryId);
+      const evidence=state.categoryDepthEvidence[categoryKey];
+      const pageNo=resolveDepthScanStartPage(state.categoryDepthPages[categoryKey],evidence);
+      state.categoryDepthPages[categoryKey]=pageNo;
+      if(pageNo===2 && evidence && Math.trunc(num(evidence.lastPageNo,0))!==1){
+        delete state.categoryDepthEvidence[categoryKey];
       }
-      nextDepthPageByCategory.set(String(categoryId),pageNo);
+      nextDepthPageByCategory.set(categoryKey,pageNo);
     }
 
     const depthResults=[];
@@ -2579,10 +2615,11 @@ async function main() {
       const check = {
         code, rankingMetric: entry.rankingMetric, selectionMode: entry.selectionMode,
         playsPerMinute: entry.momentum.playsPerMinute, viewsPerMinute: entry.momentum.viewsPerMinute,
-        ageHours: entry.ageHours, sourceTitle: String(detail && detail.video && detail.video.title || '').slice(0, 180),
+        ageHours: entry.ageHours,
+        sourceTitle: String(detail && detail.video && detail.video.title || entry.item.title || '').slice(0, 180),
         feedTag: entry.item.feed_tag || null, detailFetchError, gate: null
       };
-      if(!detail&&detailFetchError==='republish_detail_forbidden_403'){
+      if(!detail&&detailFetchError&&detailFetchError.startsWith('republish_detail_forbidden_403')){
         const retryAt=Date.parse(report.createdAt)+6*60*60*1000;
         cacheCandidateRejection(state,code,entry.item,'detail_fetch:forbidden_403',Date.parse(report.createdAt),6*60*60*1000);
         check.gate='republish_detail_access_denied_403';
@@ -2858,6 +2895,7 @@ module.exports = {
   serializeFiloPublishRequestBody,
   setJsonPublishBodyField,
   safeApiDiagnosticValue,
+  categoryApiErrorHint,
   buildUnconfirmedSubmissionResult,
   composeFiloCoverDataUrl,
   dailyCount,
@@ -2874,6 +2912,7 @@ module.exports = {
   summarizeCategoryCatalogPayload,
   rotatingDepthSelection,
   nextCategoryDepthPage,
+  resolveDepthScanStartPage,
   candidateMetadataFingerprint,
   getCachedCandidateRejection,
   isTitleRewriteRejectionReason,
