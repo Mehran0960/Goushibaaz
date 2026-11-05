@@ -37,7 +37,7 @@ const MAX_TOTAL_CATEGORY_PAGE_REQUESTS = 96;
 const CATEGORY_PAGE_CONCURRENCY = 4;
 const CATEGORY_SCAN_BUDGET_MS = 4 * 60 * 1000;
 const CATEGORY_LOOKBACK_HOURS = 24;
-const DEPTH_CATEGORIES_PER_CYCLE = 12;
+const DEPTH_CATEGORIES_PER_CYCLE = 21;
 const TOPIC_DUPLICATE_WINDOW_MS = 48 * 60 * 60 * 1000;
 const CANDIDATE_REJECTION_TTL_MS = 6 * 60 * 60 * 1000;
 const MAX_DETAIL_CHECKS = 90;
@@ -245,24 +245,80 @@ function feedCandidateEligible(item, ledger) {
   if (!item || typeof item !== 'object') return false;
   const code = String(item.video_code || item.videoCode || item.code || '').trim();
   if (!/^[A-Za-z0-9_-]{5,40}$/.test(code)) return false;
-  if (!isFlag(item.can_republish)) return false;
-  const publishableFlag = item.is_publish_able ?? item.isPublishable ?? item.publishable;
-  if (publishableFlag !== undefined && !isFlag(publishableFlag)) return false;
-  if (item.active !== undefined && !isFlag(item.active)) return false;
-  if (item.status_id !== undefined && num(item.status_id) !== 1) return false;
-  if (isFlag(item.file_deleted)) return false;
-  if (num(item.only_in_filo) === 1) return false;
-  const duration = num(item.duration, -1);
-  if (duration < MIN_DURATION_SECONDS || duration > MAX_DURATION_SECONDS) return false;
-  if (item.has_audio !== undefined && !isFlag(item.has_audio)) return false;
-  if (item.can_make_money !== undefined && !isFlag(item.can_make_money)) return false;
-  if (ledger && ledger.posts && ledger.posts.some(post =>
+  if (ledger && Array.isArray(ledger.posts) && ledger.posts.some(post =>
     post && post.sourceCode === code &&
     ['submitted_pending_approval', 'submitted_unconfirmed', 'public_verified', 'rejected_by_filo'].includes(post.status)
   )) return false;
   const text = sourceText(item);
   if (text.length < 8 || policyTextRiskReason(item)) return false;
+
+  // Feed flags are hints, not authorization. Every candidate still passes
+  // detailGate() and the immediate pre-submission permission recheck.
   return true;
+}
+
+function feedGateHintScore(item) {
+  const fields = ['can_republish', 'is_publish_able', 'active', 'has_audio', 'can_make_money'];
+  let score = 0;
+  for (const field of fields) {
+    if (item && item[field] !== undefined && item[field] !== null) {
+      score += isFlag(item[field]) ? 2 : -2;
+    }
+  }
+  if (item && item.status_id !== undefined && item.status_id !== null) {
+    score += num(item.status_id) === 1 ? 1 : -2;
+  }
+  if (item && item.duration !== undefined && item.duration !== null) {
+    const duration = num(item.duration, -1);
+    score += duration >= MIN_DURATION_SECONDS && duration <= MAX_DURATION_SECONDS ? 1 : -1;
+  }
+  if (isFlag(item && item.file_deleted)) score -= 4;
+  if (num(item && item.only_in_filo) === 1) score -= 4;
+  return score;
+}
+
+function summarizeFeedGateSignals(items, ledger) {
+  const fields = ['can_republish', 'is_publish_able', 'active', 'has_audio', 'can_make_money'];
+  const summary = {
+    totalItems: Array.isArray(items) ? items.length : 0,
+    flags: Object.fromEntries(fields.map(field => [field, { true: 0, false: 0, missing: 0 }])),
+    duration: { inRange: 0, outOfRange: 0, missing: 0 },
+    status: { publishable: 0, other: 0, missing: 0 },
+    hardPrefilter: { invalidCode: 0, duplicateOrAlreadyAttempted: 0, textTooShort: 0, policyRisk: 0, passed: 0 }
+  };
+  for (const item of Array.isArray(items) ? items : []) {
+    for (const field of fields) {
+      const value = item && item[field];
+      if (value === undefined || value === null || value === '') summary.flags[field].missing++;
+      else if (isFlag(value)) summary.flags[field].true++;
+      else summary.flags[field].false++;
+    }
+    const duration = item && item.duration;
+    if (duration === undefined || duration === null || duration === '') summary.duration.missing++;
+    else {
+      const value = num(duration, -1);
+      if (value >= MIN_DURATION_SECONDS && value <= MAX_DURATION_SECONDS) summary.duration.inRange++;
+      else summary.duration.outOfRange++;
+    }
+    if (!item || item.status_id === undefined || item.status_id === null || item.status_id === '') {
+      summary.status.missing++;
+    } else if (num(item.status_id) === 1) summary.status.publishable++;
+    else summary.status.other++;
+
+    const code = String(item && (item.video_code || item.videoCode || item.code) || '').trim();
+    if (!/^[A-Za-z0-9_-]{5,40}$/.test(code)) summary.hardPrefilter.invalidCode++;
+    else {
+      const ledgerDuplicate = Boolean(ledger && Array.isArray(ledger.posts) && ledger.posts.some(post =>
+        post && post.sourceCode === code &&
+        ['submitted_pending_approval', 'submitted_unconfirmed', 'public_verified', 'rejected_by_filo'].includes(post.status)
+      ));
+      if (ledgerDuplicate) summary.hardPrefilter.duplicateOrAlreadyAttempted++;
+      else if (sourceText(item).length < 8) summary.hardPrefilter.textTooShort++;
+      else if (policyTextRiskReason(item)) summary.hardPrefilter.policyRisk++;
+      else summary.hardPrefilter.passed++;
+    }
+  }
+  return summary;
 }
 
 function candidateMetricSnapshot(item, keys) {
@@ -415,56 +471,107 @@ function rankCandidatesByMomentum(items, state, now = Date.now()) {
     .slice(0, 2)
     .map(post => String(post.feedTag || post.categoryId));
   const recentCategorySet = new Set(recentCategories);
+
   return (Array.isArray(items) ? items : []).map(item => {
     const code = String(item && (item.video_code || item.videoCode || item.code) || '').trim();
-    const saved = state.candidateMomentum && state.candidateMomentum[code];
+    const saved = state && state.candidateMomentum && state.candidateMomentum[code];
     const lastRate = saved && saved.lastRate;
     const lastRateAt = Date.parse(lastRate && lastRate.at || '');
     const recentSavedRate = Number.isFinite(lastRateAt) && nowMs - lastRateAt <= 15 * 60 * 1000
       ? lastRate : null;
-    const momentum = currentRates[code] || recentSavedRate;
-    const categoryId = item && (item.feed_tag || item.category_id != null) ? String(item.feed_tag || item.category_id) : '';
+    const playMetric = candidateMetricSnapshot(item, ['play_count', 'plays', 'playCount']);
+    const viewMetric = candidateMetricSnapshot(item, ['visit_count', 'view_count', 'views', 'visits']);
+    const momentum = currentRates[code] || recentSavedRate || {
+      viewsPerMinute: null,
+      playsPerMinute: null,
+      viewsAccelerationPerMinute: 0,
+      playsAccelerationPerMinute: 0,
+      accelerationPerMinute: 0,
+      playsAvailable: playMetric.available,
+      playCounterPresent: playMetric.available,
+      sampleCount: 1
+    };
+    const categoryId = item && (item.feed_tag || item.category_id != null)
+      ? String(item.feed_tag || item.category_id) : '';
     const audienceFit = classifyAudienceFit(item);
-    const hasPositivePlayGrowth = Boolean(momentum && momentum.playsAvailable === true &&
+    const hasPositivePlayGrowth = Boolean(momentum.playsAvailable === true &&
       momentum.playsPerMinute !== null && momentum.playsPerMinute !== undefined &&
       num(momentum.playsPerMinute) > 0);
+    const hasPositiveViewGrowth = Boolean(momentum.viewsPerMinute !== null &&
+      momentum.viewsPerMinute !== undefined && num(momentum.viewsPerMinute) > 0);
+    const age = ageHours(item);
+    const feedHintScore = feedGateHintScore(item);
+    let rankingMetric = 'freshness';
+    let rankingScore = Math.max(0, 24 - age);
+    let selectionMode = 'freshness_fallback';
+    if (hasPositivePlayGrowth) {
+      rankingMetric = 'plays';
+      rankingScore = num(momentum.playsPerMinute);
+      selectionMode = 'measured_play_growth';
+    } else if (hasPositiveViewGrowth) {
+      rankingMetric = 'views';
+      rankingScore = num(momentum.viewsPerMinute);
+      selectionMode = 'measured_view_growth';
+    } else if (playMetric.available && playMetric.value > 0) {
+      rankingMetric = 'cumulative_plays';
+      rankingScore = playMetric.value;
+      selectionMode = 'cumulative_play_fallback';
+    } else if (viewMetric.available && viewMetric.value > 0) {
+      rankingMetric = 'cumulative_views';
+      rankingScore = viewMetric.value;
+      selectionMode = 'cumulative_view_fallback';
+    }
     return {
       item,
       momentum,
-      ageHours: ageHours(item),
+      playMetric,
+      viewMetric,
+      ageHours: age,
       hasPositivePlayGrowth,
-      rankingMetric: hasPositivePlayGrowth ? 'plays' : 'views',
+      hasPositiveViewGrowth,
+      hasMeasuredGrowth: hasPositivePlayGrowth || hasPositiveViewGrowth,
+      rankingMetric,
+      rankingScore,
+      selectionMode,
+      feedHintScore,
       audienceFit: audienceFit.label,
       audienceFitScore: audienceFit.score,
       recentCategoryPenalty: categoryId && recentCategorySet.has(categoryId) ? 1 : 0
     };
-  }).filter(entry =>
-    entry.momentum &&
-    (entry.hasPositivePlayGrowth ||
-      (entry.momentum.viewsPerMinute !== null && entry.momentum.viewsPerMinute !== undefined &&
-       num(entry.momentum.viewsPerMinute) > 0)) &&
-    entry.ageHours <= 24
-  ).sort((a, b) => {
-    if (a.hasPositivePlayGrowth !== b.hasPositivePlayGrowth) {
-      return Number(b.hasPositivePlayGrowth) - Number(a.hasPositivePlayGrowth);
-    }
-    if (a.hasPositivePlayGrowth && b.hasPositivePlayGrowth) {
-      const playVelocity = num(b.momentum.playsPerMinute) - num(a.momentum.playsPerMinute);
-      if (playVelocity) return playVelocity;
-      const playAcceleration = num(b.momentum.playsAccelerationPerMinute) - num(a.momentum.playsAccelerationPerMinute);
-      if (playAcceleration) return playAcceleration;
-    }
-    const viewVelocity = num(b.momentum.viewsPerMinute) - num(a.momentum.viewsPerMinute);
-    if (viewVelocity) return viewVelocity;
-    const viewAcceleration = num(b.momentum.viewsAccelerationPerMinute ?? b.momentum.accelerationPerMinute) -
-      num(a.momentum.viewsAccelerationPerMinute ?? a.momentum.accelerationPerMinute);
-    if (viewAcceleration) return viewAcceleration;
-    return b.audienceFitScore - a.audienceFitScore ||
-      a.recentCategoryPenalty - b.recentCategoryPenalty ||
-      a.ageHours - b.ageHours;
-  });
+  }).filter(entry => entry.ageHours <= 24)
+    .sort((a, b) => {
+      // Prefer candidates whose feed metadata already suggests they can pass
+      // the native permission gate; this only affects ordering, never eligibility.
+      if (a.feedHintScore !== b.feedHintScore) return b.feedHintScore - a.feedHintScore;
+      if (a.hasPositivePlayGrowth !== b.hasPositivePlayGrowth) {
+        return Number(b.hasPositivePlayGrowth) - Number(a.hasPositivePlayGrowth);
+      }
+      if (a.hasPositivePlayGrowth && b.hasPositivePlayGrowth) {
+        const playVelocity = num(b.momentum.playsPerMinute) - num(a.momentum.playsPerMinute);
+        if (playVelocity) return playVelocity;
+        const playAcceleration = num(b.momentum.playsAccelerationPerMinute) - num(a.momentum.playsAccelerationPerMinute);
+        if (playAcceleration) return playAcceleration;
+      }
+      if (a.hasPositiveViewGrowth !== b.hasPositiveViewGrowth) {
+        return Number(b.hasPositiveViewGrowth) - Number(a.hasPositiveViewGrowth);
+      }
+      if (a.hasPositiveViewGrowth && b.hasPositiveViewGrowth) {
+        const viewVelocity = num(b.momentum.viewsPerMinute) - num(a.momentum.viewsPerMinute);
+        if (viewVelocity) return viewVelocity;
+      }
+      if (a.playMetric.available !== b.playMetric.available) {
+        return Number(b.playMetric.available) - Number(a.playMetric.available);
+      }
+      if (a.playMetric.value !== b.playMetric.value) return b.playMetric.value - a.playMetric.value;
+      if (a.viewMetric.value !== b.viewMetric.value) return b.viewMetric.value - a.viewMetric.value;
+      const viewAcceleration = num(b.momentum.viewsAccelerationPerMinute ?? b.momentum.accelerationPerMinute) -
+        num(a.momentum.viewsAccelerationPerMinute ?? a.momentum.accelerationPerMinute);
+      if (viewAcceleration) return viewAcceleration;
+      return b.audienceFitScore - a.audienceFitScore ||
+        a.recentCategoryPenalty - b.recentCategoryPenalty ||
+        a.ageHours - b.ageHours;
+    });
 }
-
 function detailGate(root, video) {
   if (!root || !video) return { eligible: false, reason: 'republish_detail_missing' };
   if (!isFlag(root.is_republish)) return { eligible: false, reason: 'filo_republish_route_not_allowed' };
@@ -2022,13 +2129,21 @@ async function main() {
       complete24HourCoverage:categoryTrackers.every(x=>x.coverageComplete)
     };
 
-    const feedCandidates = [...byCode.values()].filter(item => feedCandidateEligible(item, state));
+    const discoveredItems = [...byCode.values()];
+    report.discovery.feedGateSignals = summarizeFeedGateSignals(discoveredItems, state);
+    const feedCandidates = discoveredItems.filter(item => feedCandidateEligible(item, state));
     report.discovery.eligibleFeedItems = feedCandidates.length;
 
     const ranked = rankCandidatesByMomentum(feedCandidates, state, Date.parse(report.createdAt));
-    report.discovery.measuredCandidates = ranked.length;
+    report.discovery.rankedCandidates = ranked.length;
+    report.discovery.measuredCandidates = ranked.filter(entry => entry.hasMeasuredGrowth).length;
+    report.discovery.selectionFallbackUsed = ranked.length > 0 && !ranked.some(entry => entry.hasMeasuredGrowth);
     report.discovery.topMomentum = ranked.slice(0, 5).map(entry => ({
       code: String(entry.item.video_code),
+      selectionMode: entry.selectionMode,
+      feedHintScore: entry.feedHintScore,
+      cumulativePlays: entry.playMetric.value,
+      cumulativeViews: entry.viewMetric.value,
       rankingMetric: entry.rankingMetric,
       hasPlayCounter: entry.momentum.playCounterPresent === true,
       playsPerMinute: entry.momentum.playsPerMinute,
@@ -2043,10 +2158,12 @@ async function main() {
     fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
 
     if (!ranked.length) {
-      report.status = 'waiting_for_measured_view_growth';
+      report.status = feedCandidates.length ? 'no_recent_feed_candidates' : 'no_feed_candidates_after_safety_filters';
       report.result = {
         status: report.status,
-        reason: 'no_fresh_candidate_has_positive_measured_play_or_view_growth_yet',
+        reason: feedCandidates.length
+          ? 'no_candidate_has_reliable_age_metadata_within_the_24_hour_window'
+          : 'all_discovered_items_failed_code_deduplication_or_content_safety_prefilters',
         retryOnNextScheduledRun: true
       };
       return;
@@ -2061,9 +2178,32 @@ async function main() {
       const code = entry.item.video_code;
       const detail = await getRepublishDetail(page, code).catch(() => null);
       const gate = detail ? detailGate(detail.root, detail.video) : { eligible: false, reason: 'republish_detail_unavailable' };
-      const check = { code, viewsPerMinute: entry.momentum.viewsPerMinute, ageHours: entry.ageHours, gate: gate.reason };
+      const check = {
+        code, rankingMetric: entry.rankingMetric, selectionMode: entry.selectionMode,
+        playsPerMinute: entry.momentum.playsPerMinute, viewsPerMinute: entry.momentum.viewsPerMinute,
+        ageHours: entry.ageHours, gate: gate.reason
+      };
       checked.push(check);
-      if (!gate.eligible) continue;
+      if (!gate.eligible) {
+        const globalBlockReasons = new Set([
+          'filo_republish_route_not_allowed',
+          'filo_upload_temporarily_stopped',
+          'filo_daily_upload_limit_reached'
+        ]);
+        if (globalBlockReasons.has(gate.reason)) {
+          report.discovery.globalGateBlock = gate.reason;
+          break;
+        }
+        if (detail && detail.video && gate.reason !== 'republish_detail_missing') {
+          cacheCandidateRejection(
+            state, code, detail.video, 'detail_gate:' + gate.reason,
+            Date.parse(report.createdAt), 60 * 60 * 1000
+          );
+          if (!Array.isArray(report.discovery.detailGateRejections)) report.discovery.detailGateRejections = [];
+          report.discovery.detailGateRejections.push({ code, reason: gate.reason });
+        }
+        continue;
+      }
 
       const cachedRejection = getCachedCandidateRejection(state,code,detail.video,Date.parse(report.createdAt));
       if(cachedRejection){
@@ -2095,7 +2235,7 @@ async function main() {
         continue;
       }
 
-      const candidate = { ...entry.item, editorialScore: entry.hasPositivePlayGrowth ? entry.momentum.playsPerMinute : entry.momentum.viewsPerMinute, scoreDetails: entry.momentum, momentum: entry.momentum, rankingMetric: entry.rankingMetric, audienceFit: entry.audienceFit, ageHours: entry.ageHours, detail };
+      const candidate = { ...entry.item, editorialScore: entry.rankingScore, scoreDetails: entry.momentum, momentum: entry.momentum, rankingMetric: entry.rankingMetric, selectionMode: entry.selectionMode, audienceFit: entry.audienceFit, ageHours: entry.ageHours, detail };
       let attemptResult;
       try {
         attemptResult = await prepareAndPublish(page, candidate, candidate.detail, report, async () => {
@@ -2163,12 +2303,16 @@ async function main() {
     // Persist momentum, depth rotation and metadata cooldowns together.
     fs.writeFileSync(STATE_PATH,JSON.stringify(state,null,2)+'\n','utf8');
     if (!selected) {
-      report.status = 'no_candidate_published_this_cycle';
+      report.status = report.discovery.globalGateBlock ? 'filo_global_publish_gate_blocked' : 'no_candidate_published_this_cycle';
       report.result = {
         status: report.status,
-        reason: filoRejections.length
-          ? 'Filo explicitly rejected the checked candidates; the slot was closed safely and will retry on the next scheduled run'
-          : 'no_candidate_passed_native_permission_and_metadata_gates',
+        reason: report.discovery.globalGateBlock
+          ? report.discovery.globalGateBlock
+          : filoRejections.length
+            ? 'Filo explicitly rejected the checked candidates; the slot was closed safely and will retry on the next scheduled run'
+            : 'no_candidate_passed_authoritative_native_permission_and_metadata_gates',
+        checkedCandidates: checked.length,
+        detailGateRejections: report.discovery.detailGateRejections || [],
         filoRejections,
         retryOnNextScheduledRun: true
       };
@@ -2185,6 +2329,7 @@ async function main() {
       visits: candidateMetricValue(selected.detail.video, ['visit_count', 'views', 'view_count', 'visits']),
       plays: candidateMetricValue(selected.detail.video, ['play_count', 'plays', 'playCount']),
       rankingMetric: selected.rankingMetric,
+      selectionMode: selected.selectionMode,
       audienceFit: selected.audienceFit,
       feedTag: selected.feed_tag || null,
       feedTagLabel: selected.feed_tag_label || null,
@@ -2250,6 +2395,8 @@ async function main() {
       result: report.result,
       filoRejections: report.discovery.filoRejections || [],
       errors: report.discovery.errors.slice(0, 8),
+      feedGateSignals: report.discovery.feedGateSignals,
+      detailGateRejections: (report.discovery.detailGateRejections || []).slice(0, 10),
       error: report.error
     }));
   }
@@ -2268,6 +2415,8 @@ module.exports = {
   login,
   ageHours,
   feedCandidateEligible,
+  feedGateHintScore,
+  summarizeFeedGateSignals,
   cleanRepostCaptionTitle,
   cleanRepostDescription,
   policyTextRiskReason,
