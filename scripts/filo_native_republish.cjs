@@ -277,7 +277,7 @@ function feedGateHintScore(item) {
   return score;
 }
 
-function summarizeFeedGateSignals(items) {
+function summarizeFeedGateSignals(items, ledger) {
   const fields = ['can_republish', 'is_publish_able', 'active', 'has_audio', 'can_make_money'];
   const summary = {
     totalItems: Array.isArray(items) ? items.length : 0,
@@ -308,7 +308,10 @@ function summarizeFeedGateSignals(items) {
     const code = String(item && (item.video_code || item.videoCode || item.code) || '').trim();
     if (!/^[A-Za-z0-9_-]{5,40}$/.test(code)) summary.hardPrefilter.invalidCode++;
     else {
-      const ledgerDuplicate = false;
+      const ledgerDuplicate = Boolean(ledger && Array.isArray(ledger.posts) && ledger.posts.some(post =>
+        post && post.sourceCode === code &&
+        ['submitted_pending_approval', 'submitted_unconfirmed', 'public_verified', 'rejected_by_filo'].includes(post.status)
+      ));
       if (ledgerDuplicate) summary.hardPrefilter.duplicateOrAlreadyAttempted++;
       else if (sourceText(item).length < 8) summary.hardPrefilter.textTooShort++;
       else if (policyTextRiskReason(item)) summary.hardPrefilter.policyRisk++;
@@ -2127,7 +2130,7 @@ async function main() {
     };
 
     const discoveredItems = [...byCode.values()];
-    report.discovery.feedGateSignals = summarizeFeedGateSignals(discoveredItems);
+    report.discovery.feedGateSignals = summarizeFeedGateSignals(discoveredItems, state);
     const feedCandidates = discoveredItems.filter(item => feedCandidateEligible(item, state));
     report.discovery.eligibleFeedItems = feedCandidates.length;
 
@@ -2412,6 +2415,8 @@ module.exports = {
   login,
   ageHours,
   feedCandidateEligible,
+  feedGateHintScore,
+  summarizeFeedGateSignals,
   cleanRepostCaptionTitle,
   cleanRepostDescription,
   policyTextRiskReason,
