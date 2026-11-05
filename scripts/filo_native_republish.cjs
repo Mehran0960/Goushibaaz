@@ -37,6 +37,7 @@ const MAX_TOTAL_CATEGORY_PAGE_REQUESTS = 96;
 const CATEGORY_PAGE_CONCURRENCY = 4;
 const CATEGORY_SCAN_BUDGET_MS = 4 * 60 * 1000;
 const CATEGORY_LOOKBACK_HOURS = 24;
+const MIN_CYCLE_INTERVAL_MS = 4 * 60 * 1000;
 const DEPTH_CATEGORIES_PER_CYCLE = 21;
 const TOPIC_DUPLICATE_WINDOW_MS = 48 * 60 * 60 * 1000;
 const CANDIDATE_REJECTION_TTL_MS = 6 * 60 * 60 * 1000;
@@ -98,6 +99,13 @@ function ageHours(item) {
   return 36;
 }
 
+
+function shouldStartPublishingCycle(lastStartedAt, now = Date.now(), minIntervalMs = MIN_CYCLE_INTERVAL_MS) {
+  const previous = Date.parse(lastStartedAt || '');
+  const current = Number.isFinite(Number(now)) ? Number(now) : Date.now();
+  if (!Number.isFinite(previous)) return true;
+  return current - previous >= Math.max(0, Number(minIntervalMs) || 0);
+}
 
 function reliableFeedAgeBounds(item, now = Date.now()) {
   if (!item || typeof item !== 'object') return null;
@@ -1980,6 +1988,21 @@ async function main() {
   let browser;
 
   try {
+    const previousCycleStartedAt = state.lastCycleStartedAt || null;
+    if (!shouldStartPublishingCycle(previousCycleStartedAt, Date.parse(report.createdAt))) {
+      report.status = 'cycle_throttled';
+      report.cycleThrottle = {
+        minimumIntervalMs: MIN_CYCLE_INTERVAL_MS,
+        previousCycleStartedAt,
+        note: 'A more recent Filo cycle already started; this overlapping scheduler trigger was safely skipped.'
+      };
+      report.result = {
+        status: report.status,
+        reason: 'minimum_cycle_interval_not_elapsed',
+        retryOnNextScheduledRun: true
+      };
+      return;
+    }
     state.lastCycleStartedAt = report.createdAt;
     fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
 
@@ -2488,6 +2511,7 @@ if (require.main === module) {
 
 module.exports = {
   login,
+  shouldStartPublishingCycle,
   ageHours,
   feedCandidateEligible,
   feedGateHintScore,
