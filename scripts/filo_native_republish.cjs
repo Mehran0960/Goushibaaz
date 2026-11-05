@@ -46,7 +46,9 @@ const MAX_DETAIL_CHECKS = 90;
 const MIN_DURATION_SECONDS = 10;
 const MAX_DURATION_SECONDS = 180;
 const MAX_PUBLICATIONS_PER_24H = 288;
-const CAPTION_POLICY_VERSION = 6;
+// Shortest caption observed in a public_verified record was 31 characters.
+const MIN_REPOST_DESCRIPTION_LENGTH = 31;
+const CAPTION_POLICY_VERSION = 7;
 const TITLE_REWRITE_POLICY_VERSION = 4;
 const CANDIDATE_METRIC_HISTORY_TTL_MS = 30 * 60 * 1000;
 const CANDIDATE_METRIC_SAMPLE_INTERVAL_MS = 5 * 60 * 1000;
@@ -885,8 +887,27 @@ function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
     .replace(/\s+([،؛:,.!?؟])/gu, '$1')
     .replace(/\s+/g, ' ')
     .trim();
-  // Keep source facts as supplied; a short caption is valid and no detail is invented.
-  return trimAtWord(description || String(repostTitle || sourceTitle || '').trim(), 900);
+  let finalDescription = description;
+  if (finalDescription.length < MIN_REPOST_DESCRIPTION_LENGTH) {
+    const topic = normalizeCaptionEditorialText(repostTitle || sourceTitle)
+      .replace(/https?:\/\/\S+|www\.\S+/giu, ' ')
+      .replace(/#[^\s#]+/gu, ' ')
+      .replace(/@[\p{L}\p{N}_.-]+/gu, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    const topicKey = normalizeComparable(topic);
+    const descriptionAlreadyNamesTopic = Boolean(
+      topicKey && normalizeComparable(description).includes(topicKey)
+    );
+    const parts = [];
+    if (description && !descriptionAlreadyNamesTopic) parts.push(description);
+    if (topic) parts.push('موضوع ویدئو: ' + topic);
+    finalDescription = parts.join('؛ ').trim();
+  }
+  if (finalDescription.length < MIN_REPOST_DESCRIPTION_LENGTH) {
+    throw new Error('repost_description_too_short');
+  }
+  return trimAtWord(finalDescription, 900);
 }
 
 function createRepostMetadata(video, sourceCode) {
