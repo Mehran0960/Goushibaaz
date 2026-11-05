@@ -11,7 +11,10 @@
       "status": "published",
       "attemptedAt": "2026-10-31T10:18:37.313Z",
       "messageId": "3",
-      "publishedAt": "2026-10-31T10:18:40.051Z"
+      "publishedAt": "2026-10-31T10:18:40.051Z",
+      "retentionStatus": "outside_api_window",
+      "retentionFailure": "platform_bot_api_cannot_delete_messages_at_or_after_48_hours",
+      "retentionCheckedAt": "2026-11-05T00:18:32.760Z"
     },
     {
       "sourcePage": "https://commons.wikimedia.org/wiki/File:Recipe_of_mutton_and_fish_curry_in_Achami_dialect_of_Doteli_language.webm",
@@ -23,7 +26,10 @@
       "status": "published",
       "attemptedAt": "2026-10-31T10:41:55.198Z",
       "messageId": "4",
-      "publishedAt": "2026-10-31T10:41:58.476Z"
+      "publishedAt": "2026-10-31T10:41:58.476Z",
+      "retentionStatus": "outside_api_window",
+      "retentionFailure": "platform_bot_api_cannot_delete_messages_at_or_after_48_hours",
+      "retentionCheckedAt": "2026-11-05T00:18:32.760Z"
     },
     {
       "sourcePage": "https://commons.wikimedia.org/wiki/File:Redcurrant_jam_recipe_19.webm",
@@ -35,7 +41,10 @@
       "status": "published",
       "attemptedAt": "2026-10-31T16:12:11.028Z",
       "messageId": "5",
-      "publishedAt": "2026-10-31T16:12:14.276Z"
+      "publishedAt": "2026-10-31T16:12:14.276Z",
+      "retentionStatus": "outside_api_window",
+      "retentionFailure": "platform_bot_api_cannot_delete_messages_at_or_after_48_hours",
+      "retentionCheckedAt": "2026-11-05T00:18:32.760Z"
     },
     {
       "sourcePage": "https://archive.org/details/jack-jenny-and-director",
@@ -47,7 +56,10 @@
       "status": "published",
       "attemptedAt": "2026-11-01T20:32:26.227Z",
       "messageId": "6",
-      "publishedAt": "2026-11-01T20:32:28.924Z"
+      "publishedAt": "2026-11-01T20:32:28.924Z",
+      "retentionStatus": "outside_api_window",
+      "retentionFailure": "platform_bot_api_cannot_delete_messages_at_or_after_48_hours",
+      "retentionCheckedAt": "2026-11-05T00:18:32.760Z"
     }
   ],
   "lastOutcome": {
@@ -56,5 +68,11 @@
     "sourcePage": "https://archive.org/details/jack-jenny-and-director",
     "messageId": "6",
     "sha256": "2fabc35c527073461a0619b2839cf4ea95c2fd66728f46f3f21e82cb89eb0e61"
+  },
+  "lastRetentionRun": {
+    "checkedAt": "2026-11-05T00:18:32.760Z",
+    "deleted": 0,
+    "outsideApiWindow": 4,
+    "failed": 0
   }
 }
