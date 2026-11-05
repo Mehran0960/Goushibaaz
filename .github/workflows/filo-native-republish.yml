@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: filo-native-republish-${{ contains(fromJSON('["workflow_dispatch","schedule"]'), github.event_name) && 'publisher' || github.run_id }}
+  group: filo-native-republish-${{ github.event_name == 'pull_request' && github.run_id || 'publisher' }}
   cancel-in-progress: false
 
 jobs:
