@@ -2183,6 +2183,7 @@ async function main() {
       paginationMode: 'rotating_recent_window',
       lookbackHours: CATEGORY_LOOKBACK_HOURS,
       depthCategoriesPerCycle: DEPTH_CATEGORIES_PER_CYCLE,
+      depthPagesPerCategoryPerCycle: DEPTH_PAGES_PER_CATEGORY_PER_CYCLE,
       maxPagesPerCategory: MAX_PAGES_PER_CATEGORY,
       maxTotalCategoryPageRequests: MAX_TOTAL_CATEGORY_PAGE_REQUESTS,
       categoryPageConcurrency: CATEGORY_PAGE_CONCURRENCY,
@@ -2335,80 +2336,109 @@ async function main() {
       tracker.coverageComplete=items.length===0;
     }
 
-    // Deeper pages rotate across a bounded number of categories per cycle.
+    // Scan up to three consecutive deep pages for each selected category per cycle.
     const depthSelection=rotatingDepthSelection(
       categoryCatalog.feeds.map(feed=>feed.key),state.categoryDepthCursor||0,DEPTH_CATEGORIES_PER_CYCLE
     );
     state.categoryDepthCursor=depthSelection.nextCursor;
     if(!state.categoryDepthPages||typeof state.categoryDepthPages!=='object')state.categoryDepthPages={};
     if(!state.categoryDepthEvidence||typeof state.categoryDepthEvidence!=='object')state.categoryDepthEvidence={};
-    const depthTasks=[];
+    const nextDepthPageByCategory=new Map();
     for(const categoryId of depthSelection.categoryIds){
       const tracker=trackerById.get(String(categoryId));
       if(!tracker||tracker.stopReason==='empty_first_page'||!firstPageAnalysis.has(String(categoryId)))continue;
       let pageNo=Math.trunc(num(state.categoryDepthPages[String(categoryId)],2));
       if(pageNo<2||pageNo>MAX_PAGES_PER_CATEGORY)pageNo=2;
-      tracker.depthPageNo=pageNo;
-      depthTasks.push({categoryId,pageNo,scanType:'depth'});
+      const evidence=state.categoryDepthEvidence[String(categoryId)];
+      if(pageNo>2&&(!evidence||evidence.lastPageNo!==pageNo-1)){
+        pageNo=2;
+        delete state.categoryDepthEvidence[String(categoryId)];
+      }
+      nextDepthPageByCategory.set(String(categoryId),pageNo);
     }
 
-    const depthResults=await scanTasks(depthTasks);
-    for(const result of depthResults){
-      const tracker=trackerById.get(String(result.categoryId));
-      if(!tracker)continue;
-      if(result.error){
-        tracker.stopReason='depth_page_error';
-        report.discovery.errors.push({categoryId:result.categoryId,pageNo:result.pageNo,error:result.error});
-        continue;
-      }
-      const items=result.items||[];
-      const analysis=analyzeCategoryFeedPage(items,Date.parse(report.createdAt));
-      tracker.pagesFetched++;
-      tracker.scannedItems+=items.length;
-      report.discovery.scannedItems+=items.length;
-      if(analysis.newestAgeHours!==null)tracker.newestAgeHours=tracker.newestAgeHours===null
-        ?analysis.newestAgeHours:Math.min(tracker.newestAgeHours,analysis.newestAgeHours);
-      if(analysis.oldestAgeHours!==null)tracker.oldestAgeHours=tracker.oldestAgeHours===null
-        ?analysis.oldestAgeHours:Math.max(tracker.oldestAgeHours,analysis.oldestAgeHours);
-      ingestItems(items,result.categoryId);
-      const pageKey=String(result.categoryId);
+    const depthResults=[];
+    for(let round=0;round<DEPTH_PAGES_PER_CATEGORY_PER_CYCLE;round++){
+      const depthTasks=[...nextDepthPageByCategory.entries()].map(([categoryId,pageNo])=>({
+        categoryId,pageNo,scanType:'depth'
+      }));
+      if(!depthTasks.length)break;
+      const roundResults=await scanTasks(depthTasks);
+      depthResults.push(...roundResults);
+      for(const result of roundResults){
+        const pageKey=String(result.categoryId);
+        const tracker=trackerById.get(pageKey);
+        if(!tracker)continue;
+        if(result.error){
+          tracker.stopReason='depth_page_error';
+          state.categoryDepthPages[pageKey]=result.pageNo;
+          nextDepthPageByCategory.delete(pageKey);
+          report.discovery.errors.push({categoryId:result.categoryId,pageNo:result.pageNo,error:result.error});
+          continue;
+        }
 
-      if(!items.length){
-        state.categoryDepthPages[pageKey]=2;
-        delete state.categoryDepthEvidence[pageKey];
-        tracker.stopReason='empty_depth_page';
-        tracker.coverageComplete=true;
-        continue;
-      }
+        const items=result.items||[];
+        const analysis=analyzeCategoryFeedPage(items,Date.parse(report.createdAt));
+        tracker.pagesFetched++;
+        tracker.scannedItems+=items.length;
+        report.discovery.scannedItems+=items.length;
+        tracker.depthPageNo=result.pageNo;
+        if(analysis.newestAgeHours!==null)tracker.newestAgeHours=tracker.newestAgeHours===null
+          ?analysis.newestAgeHours:Math.min(tracker.newestAgeHours,analysis.newestAgeHours);
+        if(analysis.oldestAgeHours!==null)tracker.oldestAgeHours=tracker.oldestAgeHours===null
+          ?analysis.oldestAgeHours:Math.max(tracker.oldestAgeHours,analysis.oldestAgeHours);
+        ingestItems(items,result.categoryId);
 
-      const previousEvidence=state.categoryDepthEvidence[pageKey]||null;
-      const previousAgeBounds=result.pageNo===2
-        ?(firstPageAnalysis.get(pageKey)||{}).lastAgeBounds
-        :previousEvidence&&previousEvidence.lastPageNo===result.pageNo-1?previousEvidence.lastAgeBounds:null;
-      const previousChronologyVerified=result.pageNo===2
-        ?Boolean((firstPageAnalysis.get(pageKey)||{}).chronologyConsistent)
-        :Boolean(previousEvidence&&previousEvidence.lastPageNo===result.pageNo-1&&previousEvidence.chronologyVerified);
-      const boundaryOrdered=categoryFeedBoundaryOrdered(previousAgeBounds,analysis.firstAgeBounds);
-      const chronologyVerified=Boolean(analysis.chronologyConsistent&&previousChronologyVerified&&boundaryOrdered);
-      tracker.chronologyVerified=chronologyVerified;
-      state.categoryDepthEvidence[pageKey]={
-        lastPageNo:result.pageNo,lastAgeBounds:analysis.lastAgeBounds,chronologyVerified
-      };
+        if(!items.length){
+          state.categoryDepthPages[pageKey]=2;
+          delete state.categoryDepthEvidence[pageKey];
+          tracker.stopReason='empty_depth_page';
+          tracker.coverageComplete=true;
+          nextDepthPageByCategory.delete(pageKey);
+          continue;
+        }
 
-      if(shouldStopCategoryPagination({
-        pageCount:result.pageNo,pageAnalysis:analysis,chronologyVerified,
-        lookbackHours:CATEGORY_LOOKBACK_HOURS
-      })){
-        state.categoryDepthPages[pageKey]=2;
-        tracker.stopReason='lookback_window_reached';
-        tracker.coverageComplete=true;
-      }else if(result.pageNo>=MAX_PAGES_PER_CATEGORY){
-        state.categoryDepthPages[pageKey]=2;
-        tracker.stopReason='max_pages_per_category_cycle';
-      }else{
-        state.categoryDepthPages[pageKey]=nextCategoryDepthPage(result.pageNo);
-        tracker.stopReason='depth_page_scanned';
+        const previousEvidence=state.categoryDepthEvidence[pageKey]||null;
+        const previousAgeBounds=result.pageNo===2
+          ?(firstPageAnalysis.get(pageKey)||{}).lastAgeBounds
+          :previousEvidence&&previousEvidence.lastPageNo===result.pageNo-1?previousEvidence.lastAgeBounds:null;
+        const previousChronologyVerified=result.pageNo===2
+          ?Boolean((firstPageAnalysis.get(pageKey)||{}).chronologyConsistent)
+          :Boolean(previousEvidence&&previousEvidence.lastPageNo===result.pageNo-1&&previousEvidence.chronologyVerified);
+        const boundaryOrdered=categoryFeedBoundaryOrdered(previousAgeBounds,analysis.firstAgeBounds);
+        const chronologyVerified=Boolean(analysis.chronologyConsistent&&previousChronologyVerified&&boundaryOrdered);
+        tracker.chronologyVerified=chronologyVerified;
+        state.categoryDepthEvidence[pageKey]={
+          lastPageNo:result.pageNo,lastAgeBounds:analysis.lastAgeBounds,chronologyVerified
+        };
+
+        if(shouldStopCategoryPagination({
+          pageCount:result.pageNo,pageAnalysis:analysis,chronologyVerified,
+          lookbackHours:CATEGORY_LOOKBACK_HOURS
+        })){
+          state.categoryDepthPages[pageKey]=2;
+          delete state.categoryDepthEvidence[pageKey];
+          tracker.stopReason='lookback_window_reached';
+          tracker.coverageComplete=true;
+          nextDepthPageByCategory.delete(pageKey);
+        }else if(result.pageNo>=MAX_PAGES_PER_CATEGORY){
+          state.categoryDepthPages[pageKey]=2;
+          delete state.categoryDepthEvidence[pageKey];
+          tracker.stopReason='max_pages_per_category_cycle';
+          nextDepthPageByCategory.delete(pageKey);
+        }else{
+          const nextPageNo=nextCategoryDepthPage(result.pageNo);
+          state.categoryDepthPages[pageKey]=nextPageNo;
+          tracker.stopReason='depth_page_scanned';
+          nextDepthPageByCategory.set(pageKey,nextPageNo);
+        }
       }
+      if(roundResults.length<depthTasks.length)break;
+    }
+
+    for(const [categoryId] of nextDepthPageByCategory){
+      const tracker=trackerById.get(categoryId);
+      if(tracker&&tracker.stopReason==='first_page_scanned')tracker.stopReason='depth_scan_deferred_or_incomplete';
     }
 
     for(const tracker of categoryTrackers){
