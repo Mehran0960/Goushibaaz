@@ -40,6 +40,7 @@ const {
   shouldStopCategoryPagination,
   editorialTitleTokens,
   createDistinctRepostTitle,
+  descriptionBasedTitleCandidate,
   topicDuplicateMatch,
   isCandidateLevelFiloRejection
 } = require('./filo_native_republish.cjs');
@@ -263,6 +264,27 @@ assert.throws(
   () => createDistinctRepostTitle('کلیپ های طنز و خنده//بهرام افشاری'),
   /title_without_safe_editorial_rewrite|title_not_distinct_or_editorially_clean/,
   'generic channel filler plus a name must be skipped rather than padded'
+);
+assert.equal(
+  descriptionBasedTitleCandidate('در این ویدئو، واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را ببینید. برای ما لایک کنید.'),
+  'واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را',
+  'description fallback must strip the generic video lead-in and use the first factual sentence only'
+);
+assert.equal(
+  createDistinctRepostTitle(
+    'کلیپ های طنز و خنده//بهرام افشاری',
+    'در این ویدئو، واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را ببینید.'
+  ),
+  'واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را',
+  'a safe title can be derived from a factual source description when the title itself has no approved rewrite pattern'
+);
+assert.throws(
+  () => createDistinctRepostTitle(
+    'کلیپ های طنز و خنده//بهرام افشاری',
+    'کلیپ های طنز و خنده با بهرام افشاری'
+  ),
+  /title_not_distinct_or_editorially_clean/,
+  'a description that merely repeats the source title must not be used as a fake rewrite'
 );
 assert.equal(removeRepeatedTrailingPhrase('لوبیا فرنگی پلو همراه مرغ لوبیا فرنگی'),
   'لوبیا فرنگی پلو همراه مرغ');
