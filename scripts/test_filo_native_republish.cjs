@@ -32,6 +32,7 @@ const {
   rotatingDepthSelection,
   nextCategoryDepthPage,
   getCachedCandidateRejection,
+  isTitleRewriteRejectionReason,
   cacheCandidateRejection,
   removeRepeatedTrailingPhrase,
   reliableFeedAgeBounds,
@@ -348,6 +349,22 @@ cacheCandidateRejection(rejectionCacheState,'Cache01',cacheVideo,
   'title_without_safe_editorial_rewrite',Date.parse('2026-11-04T12:00:00.000Z'));
 assert.ok(getCachedCandidateRejection(rejectionCacheState,'Cache01',cacheVideo,
   Date.parse('2026-11-04T13:00:00.000Z')));
+assert.equal(rejectionCacheState.candidateRejections.Cache01.titleRewritePolicyVersion, 2);
+assert.equal(isTitleRewriteRejectionReason('title_without_safe_editorial_rewrite'), true);
+assert.equal(isTitleRewriteRejectionReason('detail_gate:duration_out_of_short_form_range'), false);
+const staleTitleCacheState = {candidateRejections:{Legacy:{...rejectionCacheState.candidateRejections.Cache01}}};
+delete staleTitleCacheState.candidateRejections.Legacy.titleRewritePolicyVersion;
+assert.equal(getCachedCandidateRejection(staleTitleCacheState, 'Legacy', cacheVideo,
+  Date.parse('2026-11-04T13:00:00.000Z')), null,
+  'a title rejection from an older rewrite policy must be retried immediately after the policy changes');
+assert.equal(staleTitleCacheState.candidateRejections.Legacy, undefined);
+const detailCacheState = {posts:[]};
+cacheCandidateRejection(detailCacheState,'Detail01',cacheVideo,
+  'detail_gate:duration_out_of_short_form_range',Date.parse('2026-11-04T12:00:00.000Z'));
+assert.equal(detailCacheState.candidateRejections.Detail01.titleRewritePolicyVersion, null);
+assert.ok(getCachedCandidateRejection(detailCacheState,'Detail01',cacheVideo,
+  Date.parse('2026-11-04T13:00:00.000Z')),
+  'detail-gate cooldowns must remain valid across title-only policy upgrades');
 assert.equal(getCachedCandidateRejection(rejectionCacheState,'Cache01',
   {...cacheVideo,description:'توضیح تغییر کرده'},Date.parse('2026-11-04T13:00:00.000Z')),null,
   'changed source metadata must invalidate rejection cache immediately');
