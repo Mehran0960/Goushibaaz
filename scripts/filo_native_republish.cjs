@@ -86,6 +86,8 @@ function normalizeDigits(value) {
 function ageHours(item, now = Date.now()) {
   const raw = normalizeDigits(item && (item.create_date || item.styled_create_date || item.created_at) || '');
   const lower = raw.toLowerCase();
+  const jalaliTimestamp = jalaliDateToGregorianTimestamp(raw);
+  if (jalaliTimestamp !== null) return Math.max(0, (now - jalaliTimestamp) / 3600000);
   let m = lower.match(/(\d+(?:\.\d+)?)\s*(?:دقیقه|min)/);
   if (m) return Math.max(0, num(m[1]) / 60);
   m = lower.match(/(\d+(?:\.\d+)?)\s*(?:ساعت|hour|hr)/);
@@ -95,8 +97,6 @@ function ageHours(item, now = Date.now()) {
   if (/لحظاتی پیش|همین الان|اکنون|just now|moments ago/.test(lower)) return 0.1;
   if (/دیروز|yesterday/.test(lower)) return 30;
   if (/امروز|today/.test(lower)) return 8;
-  const jalaliTimestamp = jalaliDateToGregorianTimestamp(raw);
-  if (jalaliTimestamp !== null) return Math.max(0, (now - jalaliTimestamp) / 3600000);
   const absolute = Date.parse(raw);
   if (Number.isFinite(absolute)) return Math.max(0, (now - absolute) / 3600000);
   return 36;
