@@ -395,7 +395,7 @@ assert.throws(
     'کلیپ های طنز و خنده//بهرام افشاری',
     'کلیپ های طنز و خنده با بهرام افشاری'
   ),
-  /title_not_distinct_or_editorially_clean/,
+  /title_without_safe_editorial_rewrite|title_not_distinct_or_editorially_clean/,
   'a description that merely repeats the source title must not be used as a fake rewrite'
 );
 assert.equal(removeRepeatedTrailingPhrase('لوبیا فرنگی پلو همراه مرغ لوبیا فرنگی'),
