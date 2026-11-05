@@ -914,7 +914,7 @@ function imageDimensionsFromDataUrl(value) {
 }
 
 function normalizePublishFieldName(value) {
-  return String(value || '').replace(/[^\\p{L}\\p{N}]/gu, '').toLocaleLowerCase('en');
+  return String(value || '').replace(/[^\p{L}\p{N}]/gu, '').toLocaleLowerCase('en');
 }
 
 function flattenPublishBodyObject(value, params, depth = 0) {
@@ -936,13 +936,13 @@ function parseMultipartPublishBody(body, boundary) {
   const chunks = String(body || '').split(delimiter);
   for (const chunk of chunks.slice(1)) {
     if (chunk.startsWith('--')) continue;
-    const normalized = chunk.replace(/^\\r?\\n/, '').replace(/\\r?\\n$/, '');
-    const separator = normalized.indexOf('\\r\\n\\r\\n');
+    const normalized = chunk.replace(/^\r?\n/, '').replace(/\r?\n$/, '');
+    const separator = normalized.indexOf('\r\n\r\n');
     if (separator < 0) continue;
     const headers = normalized.slice(0, separator);
-    const name = (headers.match(/content-disposition:[^\\r\\n]*\\bname="([^"]+)"/i) || [])[1];
+    const name = (headers.match(/content-disposition:[^\r\n]*\bname="([^"]+)"/i) || [])[1];
     if (!name) continue;
-    const value = normalized.slice(separator + 4).replace(/\\r?\\n$/, '');
+    const value = normalized.slice(separator + 4).replace(/\r?\n$/, '');
     params.set(name, value);
   }
   return params;
@@ -951,7 +951,7 @@ function parseMultipartPublishBody(body, boundary) {
 function parseFiloPublishRequestBody(body, contentType = '') {
   const raw = String(body || '');
   const type = String(contentType || '').toLowerCase();
-  if (type.includes('application/json') || (!type && /^\\s*[\\[{]/.test(raw))) {
+  if (type.includes('application/json') || (!type && /^\s*[\[{]/.test(raw))) {
     try {
       const json = JSON.parse(raw);
       const params = new Map();
