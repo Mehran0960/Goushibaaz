@@ -914,7 +914,7 @@ function imageDimensionsFromDataUrl(value) {
 }
 
 function normalizePublishFieldName(value) {
-  return String(value || '').replace(/[^\p{L}\p{N}]/gu, '').toLocaleLowerCase('en');
+  return String(value || '').replace(/[^a-z0-9\u0600-\u06ff]/gi, '').toLocaleLowerCase('en');
 }
 
 function flattenPublishBodyObject(value, params, depth = 0) {
