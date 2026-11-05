@@ -221,7 +221,8 @@ assert.equal(resolveDepthScanStartPage(2,{lastPageNo:9}),2,
   'ordinary early pagination state must keep its current cursor');
 assert.equal(resolveDepthScanStartPage(14,{lastPageNo:12}),2,
   'a non-contiguous stored cursor must restart safely');
-assert.equal(nextCategoryDepthPage(12),2);
+assert.equal(nextCategoryDepthPage(12),13);
+assert.equal(nextCategoryDepthPage(18),2, 'the expanded page ceiling still wraps only after page eighteen');
 assert.deepEqual(
   Object.keys(summarizeCategoryCatalogPayload({s:true,d:{c:[],cfs:[]}}).nested),
   ['d']
