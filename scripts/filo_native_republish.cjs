@@ -44,7 +44,8 @@ const MAX_DETAIL_CHECKS = 90;
 const MIN_DURATION_SECONDS = 10;
 const MAX_DURATION_SECONDS = 180;
 const MAX_PUBLICATIONS_PER_24H = 288;
-const CAPTION_POLICY_VERSION = 5;
+const CAPTION_POLICY_VERSION = 6;
+const TITLE_REWRITE_POLICY_VERSION = 2;
 const CANDIDATE_METRIC_HISTORY_TTL_MS = 30 * 60 * 1000;
 const CANDIDATE_METRIC_SAMPLE_INTERVAL_MS = 5 * 60 * 1000;
 const MAX_TRACKED_CANDIDATE_METRICS = 1500;
@@ -818,13 +819,22 @@ function candidateMetadataFingerprint(video) {
   return crypto.createHash('sha256').update(title+'\0'+description).digest('hex');
 }
 
+function isTitleRewriteRejectionReason(reason) {
+  return reason === 'title_without_safe_editorial_rewrite' ||
+    reason === 'title_not_distinct_or_editorially_clean' ||
+    reason === 'source_title_too_short';
+}
+
 function getCachedCandidateRejection(state,code,video,now=Date.now()) {
   const cache=state&&state.candidateRejections&&typeof state.candidateRejections==='object'
     ?state.candidateRejections:{};
   const key=String(code||'').trim(),entry=cache[key];
   if(!entry)return null;
   const retryAt=Date.parse(entry.retryAfterAt||'');
-  if(entry.fingerprint!==candidateMetadataFingerprint(video)||!Number.isFinite(retryAt)||retryAt<=now){
+  const titlePolicyStale = isTitleRewriteRejectionReason(entry.reason) &&
+    entry.titleRewritePolicyVersion !== TITLE_REWRITE_POLICY_VERSION;
+  if(titlePolicyStale || entry.fingerprint!==candidateMetadataFingerprint(video)||
+     !Number.isFinite(retryAt)||retryAt<=now){
     delete cache[key];
     return null;
   }
@@ -834,9 +844,11 @@ function getCachedCandidateRejection(state,code,video,now=Date.now()) {
 function cacheCandidateRejection(state,code,video,reason,now=Date.now(),ttlMs=CANDIDATE_REJECTION_TTL_MS) {
   if(!state||!/^[A-Za-z0-9_-]{5,40}$/.test(String(code||'')))return;
   if(!state.candidateRejections||typeof state.candidateRejections!=='object')state.candidateRejections={};
+  const normalizedReason=String(reason||'static_metadata_rejection').slice(0,220);
   state.candidateRejections[code]={
     fingerprint:candidateMetadataFingerprint(video),
-    reason:String(reason||'static_metadata_rejection').slice(0,220),
+    reason:normalizedReason,
+    titleRewritePolicyVersion:isTitleRewriteRejectionReason(normalizedReason)?TITLE_REWRITE_POLICY_VERSION:null,
     rejectedAt:new Date(now).toISOString(),
     retryAfterAt:new Date(now+ttlMs).toISOString()
   };
@@ -2500,6 +2512,7 @@ module.exports = {
   nextCategoryDepthPage,
   candidateMetadataFingerprint,
   getCachedCandidateRejection,
+  isTitleRewriteRejectionReason,
   cacheCandidateRejection,
   removeRepeatedTrailingPhrase,
   discoverCategoryCatalog,
