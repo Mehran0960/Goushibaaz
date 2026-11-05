@@ -37,6 +37,8 @@ const {
   summarizeCategoryCatalogPayload,
   rotatingDepthSelection,
   nextCategoryDepthPage,
+  resolveCategoryDepthPage,
+  parseJalaliDateTime,
   getCachedCandidateRejection,
   isTitleRewriteRejectionReason,
   cacheCandidateRejection,
@@ -206,7 +208,25 @@ assert.deepEqual(rotatingDepthSelection([1,2,3,4,5],3,2),
 assert.deepEqual(rotatingDepthSelection([1,2,3],2,12),
   {categoryIds:[3,1,2],nextCursor:2});
 assert.equal(nextCategoryDepthPage(2),3);
-assert.equal(nextCategoryDepthPage(12),2);
+assert.equal(nextCategoryDepthPage(12),13,
+  'reaching the former page cap must advance, not silently wrap to page two');
+assert.equal(nextCategoryDepthPage(18),19);
+const legacyDepthState = {
+  categoryDepthPages: { '6': 2 },
+  categoryDepthEvidence: { '6': { lastPageNo: 12 } }
+};
+assert.equal(resolveCategoryDepthPage(legacyDepthState, '6', Date.parse('2026-11-05T12:00:00.000Z')), 13,
+  'old persisted state that wrapped at page twelve must resume at page thirteen');
+assert.equal(legacyDepthState.categoryDepthPages['6'], 13);
+const cappedDepthState = {
+  categoryDepthPages: { '6': 19 },
+  categoryDepthCappedAt: { '6': '2026-11-05T12:00:00.000Z' },
+  categoryDepthEvidence: { '6': { lastPageNo: 18 } }
+};
+assert.equal(resolveCategoryDepthPage(cappedDepthState, '6', Date.parse('2026-11-05T13:00:00.000Z')), 19,
+  'a capped category must not restart every five-minute cycle');
+assert.equal(resolveCategoryDepthPage(cappedDepthState, '6', Date.parse('2026-11-05T19:00:01.000Z')), 2,
+  'a capped category may be refreshed after the six-hour cooldown');
 assert.deepEqual(
   Object.keys(summarizeCategoryCatalogPayload({s:true,d:{c:[],cfs:[]}}).nested),
   ['d']
@@ -245,8 +265,18 @@ const ambiguousPage = analyzeCategoryFeedPage([
 assert.equal(ambiguousPage.chronologyConsistent, false,
   'ambiguous relative labels must not be treated as proof of chronological ordering');
 
-assert.equal(reliableFeedAgeBounds({ create_date: '۱۴۰۵/۰۸/۱۴ ۰۹:۳۰' }, feedNow), null,
-  'Jalali calendar strings must not be misparsed as Gregorian timestamps');
+const jalaliInstant = Date.parse('2026-11-05T06:00:00.000Z');
+const jalaliParsed = parseJalaliDateTime('۱۴۰۵/۰۸/۱۴ ۰۹:۳۰');
+assert.ok(jalaliParsed, 'Persian calendar date/time should be parsed');
+assert.equal(jalaliParsed.timestamp, jalaliInstant,
+  '1405/08/14 09:30 in Tehran must map to 2026-11-05 06:00 UTC');
+assert.equal(ageHours({ create_date: '۱۴۰۵/۰۸/۱۴ ۰۹:۳۰' }, jalaliInstant), 0);
+const jalaliBounds = reliableFeedAgeBounds({ create_date: '۱۴۰۵/۰۸/۱۴ ۰۹:۳۰' }, jalaliInstant);
+assert.equal(jalaliBounds.centerHours, 0,
+  'Jalali feed timestamps must be available to the 24-hour candidate filter');
+assert.equal(jalaliBounds.precisionHours, 1 / 60);
+assert.equal(parseJalaliDateTime('۱۴۰۵/۱۳/۱۴ ۰۹:۳۰'), null,
+  'invalid Jalali months must be rejected instead of parsed approximately');
 const previousPageLast = reliableFeedAgeBounds({ create_date: '۲۴ ساعت پیش' }, feedNow);
 const nextPageFirst = reliableFeedAgeBounds({ create_date: '۲۵ ساعت پیش' }, feedNow);
 const outOfOrderPageFirst = reliableFeedAgeBounds({ create_date: '۲۲ ساعت پیش' }, feedNow);
@@ -461,6 +491,13 @@ const promoCleaned = cleanRepostDescription(
 );
 assert.match(promoCleaned, /طرفداران گاد آف وار/);
 assert.doesNotMatch(promoCleaned, /برای شما عزیزان|همراه ما|لذت ببرید|🔥/);
+const ctaDescription = 'این ترانه بلوچی قدیمی است. برای دیدن فیلم های بیشتر عضو کانال شوید کانال';
+assert.equal(cleanRepostDescription(ctaDescription, 'عنوان منبع', 'ترانه بلوچی «نمونه»'),
+  'این ترانه بلوچی قدیمی است.',
+  'repost descriptions must remove channel membership calls while retaining factual context');
+assert.equal(cleanRepostDescription('برای دیدن فیلم های بیشتر عضو کانال شوید کانال',
+  'عنوان منبع', 'ترانه بلوچی «نمونه»'), 'ترانه بلوچی «نمونه»',
+  'promotional-only source descriptions must fall back to the cleaned repost title');
 
 const pngHeader = Buffer.alloc(24);
 Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]).copy(pngHeader, 0);
