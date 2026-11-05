@@ -11,7 +11,10 @@
       "status": "published",
       "attemptedAt": "2026-10-30T15:05:41.569Z",
       "messageId": "1116",
-      "publishedAt": "2026-10-30T15:05:46.111Z"
+      "publishedAt": "2026-10-30T15:05:46.111Z",
+      "retentionStatus": "outside_api_window",
+      "retentionFailure": "platform_bot_api_cannot_delete_messages_at_or_after_48_hours",
+      "retentionCheckedAt": "2026-11-05T00:18:32.760Z"
     },
     {
       "sourcePage": "https://images.nasa.gov/details/ksc_021607_themis_wx",
@@ -23,7 +26,10 @@
       "status": "published",
       "attemptedAt": "2026-10-30T16:59:02.101Z",
       "messageId": "1117",
-      "publishedAt": "2026-10-30T16:59:08.292Z"
+      "publishedAt": "2026-10-30T16:59:08.292Z",
+      "retentionStatus": "outside_api_window",
+      "retentionFailure": "platform_bot_api_cannot_delete_messages_at_or_after_48_hours",
+      "retentionCheckedAt": "2026-11-05T00:18:32.760Z"
     },
     {
       "sourcePage": "https://images.nasa.gov/details/KSC-20211001-VP-MWC02-001-KENNEDYCOUNTDOWN-3287405",
@@ -35,7 +41,10 @@
       "status": "published",
       "attemptedAt": "2026-10-30T17:03:26.933Z",
       "messageId": "1119",
-      "publishedAt": "2026-10-30T17:03:32.548Z"
+      "publishedAt": "2026-10-30T17:03:32.548Z",
+      "retentionStatus": "outside_api_window",
+      "retentionFailure": "platform_bot_api_cannot_delete_messages_at_or_after_48_hours",
+      "retentionCheckedAt": "2026-11-05T00:18:32.760Z"
     },
     {
       "sourcePage": "https://commons.wikimedia.org/wiki/File:Commons_challenge.webm",
@@ -47,7 +56,10 @@
       "status": "published",
       "attemptedAt": "2026-10-31T10:18:34.535Z",
       "messageId": "1147",
-      "publishedAt": "2026-10-31T10:18:38.789Z"
+      "publishedAt": "2026-10-31T10:18:38.789Z",
+      "retentionStatus": "outside_api_window",
+      "retentionFailure": "platform_bot_api_cannot_delete_messages_at_or_after_48_hours",
+      "retentionCheckedAt": "2026-11-05T00:18:32.760Z"
     },
     {
       "sourcePage": "https://commons.wikimedia.org/wiki/File:Recipe_of_mutton_and_fish_curry_in_Achami_dialect_of_Doteli_language.webm",
@@ -70,7 +82,10 @@
       "status": "published",
       "attemptedAt": "2026-10-31T16:12:15.873Z",
       "messageId": "1149",
-      "publishedAt": "2026-10-31T16:12:19.362Z"
+      "publishedAt": "2026-10-31T16:12:19.362Z",
+      "retentionStatus": "outside_api_window",
+      "retentionFailure": "platform_bot_api_cannot_delete_messages_at_or_after_48_hours",
+      "retentionCheckedAt": "2026-11-05T00:18:32.760Z"
     },
     {
       "sourcePage": "https://archive.org/details/jack-jenny-and-director",
@@ -82,7 +97,10 @@
       "status": "published",
       "attemptedAt": "2026-11-01T20:32:26.767Z",
       "messageId": "1265",
-      "publishedAt": "2026-11-01T20:32:31.602Z"
+      "publishedAt": "2026-11-01T20:32:31.602Z",
+      "retentionStatus": "outside_api_window",
+      "retentionFailure": "platform_bot_api_cannot_delete_messages_at_or_after_48_hours",
+      "retentionCheckedAt": "2026-11-05T00:18:32.760Z"
     }
   ],
   "lastOutcome": {
@@ -91,5 +109,11 @@
     "sourcePage": "https://archive.org/details/jack-jenny-and-director",
     "messageId": "1265",
     "sha256": "2fabc35c527073461a0619b2839cf4ea95c2fd66728f46f3f21e82cb89eb0e61"
+  },
+  "lastRetentionRun": {
+    "checkedAt": "2026-11-05T00:18:32.760Z",
+    "deleted": 0,
+    "outsideApiWindow": 6,
+    "failed": 0
   }
 }
