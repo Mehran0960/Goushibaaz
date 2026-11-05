@@ -1826,8 +1826,14 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
           sourceDimensions:nativeDimensions,dimensions:nativeDimensions,aspectRatio:nativeAspect};
       }
     }
-    if(selectedFrame)params.set('selectedFrame',selectedFrame);
-    else params.delete('selectedFrame');
+    if(selectedFrame) {
+      params.set('selectedFrame',selectedFrame);
+      if (parsedBody.format === 'json') {
+        setJsonPublishBodyField(parsedBody.json, 'selectedFrame', selectedFrame);
+      }
+    } else {
+      params.delete('selectedFrame');
+    }
     const coverDimensions = imageDimensionsFromDataUrl(selectedFrame);
     const coverAspectRatio = coverDimensions ? coverDimensions.width / coverDimensions.height : 0;
     const coverAspectOk = Boolean(coverDimensions && Math.abs(coverAspectRatio - (16 / 9)) <= 0.02);
