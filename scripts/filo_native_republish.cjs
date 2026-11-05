@@ -162,7 +162,7 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
       const timestamp = numeric > 1e12 ? numeric : numeric > 1e9 ? numeric * 1000 : NaN;
       if (Number.isFinite(timestamp)) {
         const centerHours = Math.max(0, (now - timestamp) / 3600000);
-        return { centerHours, lowerHours: Math.max(0, centerHours - 1 / 7200), upperHours: centerHours + 1 / 7200, precisionHours: 1 / 3600 };
+        return { centerHours, lowerHours: Math.max(0, centerHours - 1 / 7200), upperHours: centerHours + 1 / 7200, precisionHours: 1 / 3600, chronologyReliable: true };
       }
     }
 
@@ -178,7 +178,8 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
         centerHours,
         lowerHours: Math.max(0, centerHours - precisionHours / 2),
         upperHours: centerHours + precisionHours / 2,
-        precisionHours
+        precisionHours,
+        chronologyReliable: hasClock
       };
     }
 
@@ -193,18 +194,19 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
         centerHours: Math.max(0, centerHours),
         lowerHours: Math.max(0, centerHours - precisionHours / 2),
         upperHours: centerHours + precisionHours / 2,
-        precisionHours
+        precisionHours,
+        chronologyReliable: Boolean(hourMatch || minuteMatch)
       };
     }
 
     if (/لحظاتی پیش|همین الان|اکنون|just now|moments ago/.test(raw)) {
-      return { centerHours: 0.1, lowerHours: 0, upperHours: 0.25, precisionHours: 0.25 };
+      return { centerHours: 0.1, lowerHours: 0, upperHours: 0.25, precisionHours: 0.25, chronologyReliable: true };
     }
     if (/دیروز|yesterday/.test(raw)) {
-      return { centerHours: 36, lowerHours: 24, upperHours: 48, precisionHours: 24 };
+      return { centerHours: 36, lowerHours: 24, upperHours: 48, precisionHours: 24, chronologyReliable: false };
     }
     if (/امروز|today/.test(raw)) {
-      return { centerHours: 12, lowerHours: 0, upperHours: 24, precisionHours: 24 };
+      return { centerHours: 12, lowerHours: 0, upperHours: 24, precisionHours: 24, chronologyReliable: false };
     }
 
     const absolute = Date.parse(raw);
@@ -240,7 +242,7 @@ function analyzeCategoryFeedPage(items, now = Date.now(), lookbackHours = CATEGO
 
   const ages = list.map(item => reliableFeedAgeBounds(item, now));
   const ageDataComplete = ages.every(Boolean);
-  const precisionReliable = ageDataComplete && ages.every(age => age.precisionHours <= 24.01);
+  const precisionReliable = ageDataComplete && ages.every(age => age.precisionHours <= 24.01 && age.chronologyReliable !== false);
   let chronologyConsistent = precisionReliable;
 
   if (chronologyConsistent) {
