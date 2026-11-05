@@ -1491,20 +1491,45 @@ async function fetchCategoryPage(page, categoryId, pageNo) {
 
 
 async function getRepublishDetail(page, code) {
-  const result = await page.evaluate(async code => {
-    const response = await fetch('/api/v1/republish/' + encodeURIComponent(code), {
-      method: 'GET',
-      credentials: 'include',
-      headers: { 'Accept': 'application/json' },
-      signal: AbortSignal.timeout(7000)
-    });
-    return { status: response.status, body: await response.text() };
-  }, code);
+  let lastError = null;
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    let result;
+    try {
+      result = await page.evaluate(async code => {
+        const response = await fetch('/api/v1/republish/' + encodeURIComponent(code), {
+          method: 'GET',
+          credentials: 'include',
+          headers: { 'Accept': 'application/json' },
+          signal: AbortSignal.timeout(7000)
+        });
+        return { status: response.status, body: await response.text() };
+      }, code);
+    } catch (error) {
+      lastError = 'republish_detail_network_error:' + String(error && error.message || error).slice(0, 140);
+      if (attempt < 2) {
+        await sleep(350 * attempt);
+        continue;
+      }
+      throw new Error(lastError);
+    }
 
-  if (!result || result.status !== 200) return null;
-  const root = parseApiBody(result.body);
-  if (!root || typeof root !== 'object') return null;
-  return { root, video: root.republish_video || root.video || null };
+    if (!result) throw new Error('republish_detail_empty_response');
+    if (result.status !== 200) {
+      lastError = 'republish_detail_http_' + Number(result.status || 0);
+      if ((result.status === 408 || result.status === 425 || result.status === 429 || result.status >= 500) && attempt < 2) {
+        await sleep(350 * attempt);
+        continue;
+      }
+      throw new Error(lastError);
+    }
+
+    const root = parseApiBody(result.body);
+    if (!root || typeof root !== 'object') throw new Error('republish_detail_invalid_json');
+    const video = root.republish_video || root.video || null;
+    if (!video || typeof video !== 'object') throw new Error('republish_detail_video_missing');
+    return { root, video };
+  }
+  throw new Error(lastError || 'republish_detail_unavailable');
 }
 
 async function seekVideoTo(page, targetSeconds) {
@@ -2176,11 +2201,18 @@ async function main() {
     const MAX_CONFIRMED_FILO_REJECTIONS_PER_CYCLE = 3;
     for (const entry of ranked.slice(0, MAX_DETAIL_CHECKS)) {
       const code = entry.item.video_code;
-      const detail = await getRepublishDetail(page, code).catch(() => null);
+      let detail = null;
+      let detailFetchError = null;
+      try {
+        detail = await getRepublishDetail(page, code);
+      } catch (error) {
+        detailFetchError = String(error && error.message || error).slice(0, 180);
+      }
       const check = {
         code, rankingMetric: entry.rankingMetric, selectionMode: entry.selectionMode,
         playsPerMinute: entry.momentum.playsPerMinute, viewsPerMinute: entry.momentum.viewsPerMinute,
-        ageHours: entry.ageHours, gate: null
+        ageHours: entry.ageHours, sourceTitle: String(detail && detail.video && detail.video.title || '').slice(0, 180),
+        feedTag: entry.item.feed_tag || null, detailFetchError, gate: null
       };
       if (detail && detail.video) {
         const cachedRejection = getCachedCandidateRejection(state, code, detail.video, Date.parse(report.createdAt));
@@ -2192,7 +2224,7 @@ async function main() {
           continue;
         }
       }
-      const gate = detail ? detailGate(detail.root, detail.video) : { eligible: false, reason: 'republish_detail_unavailable' };
+      const gate = detail ? detailGate(detail.root, detail.video) : { eligible: false, reason: detailFetchError ? 'republish_detail_fetch_failed' : 'republish_detail_unavailable' };
       check.gate = gate.reason;
       checked.push(check);
       if (!gate.eligible) {
