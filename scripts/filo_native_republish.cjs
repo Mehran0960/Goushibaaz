@@ -692,7 +692,23 @@ function removeRepeatedTrailingPhrase(value) {
   return words.join(' ');
 }
 
-function createDistinctRepostTitle(sourceTitle) {
+function descriptionBasedTitleCandidate(sourceDescription) {
+  let value = normalizeCaptionEditorialText(sourceDescription)
+    .replace(/https?:\/\/\S+|www\.\S+/giu, ' ')
+    .replace(/#[^\s#]+/gu, ' ')
+    .replace(/@[\p{L}\p{N}_.-]+/gu, ' ')
+    .replace(/^(?:(?:در\s+این\s+(?:ویدئو|ویدیو|کلیپ|فیلم)|موضوع\s+(?:این\s+)?ویدئو)\s*[:،؛-]?\s*)+/iu, '')
+    .replace(/^(?:(?:لطفاً|لطفا)\s*)?(?:این\s+)?(?:ویدئو|ویدیو|کلیپ)\s+(?:را\s+)?(?:ببینید|تماشا کنید|مشاهده کنید)\s*[:،؛-]?\s*/iu, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (!value) return null;
+  value = value.split(/[.!؟\n\r]+/u)[0].trim();
+  value = cleanRepostCaptionTitle(value);
+  if (value.length < 10) return null;
+  return trimAtWord(value, 150);
+}
+
+function createDistinctRepostTitle(sourceTitle, sourceDescription = '') {
   const cleaned=cleanRepostCaptionTitle(sourceTitle);
   const rules=[
     [/^طرز\s+تهیه\s+(.+)$/u,m=>['روش پخت '+m[1],'پخت '+m[1]]],
@@ -709,6 +725,8 @@ function createDistinctRepostTitle(sourceTitle) {
     const match=cleaned.match(pattern);
     if(match){drafts=rewrite(match);break;}
   }
+  const descriptionCandidate = descriptionBasedTitleCandidate(sourceDescription);
+  if (descriptionCandidate) drafts.push(descriptionCandidate);
   if(!drafts.length)throw new Error('title_without_safe_editorial_rewrite');
   const candidates=[];
   for(const draft of drafts){
@@ -723,6 +741,7 @@ function createDistinctRepostTitle(sourceTitle) {
     for(const token of contentWords)counts.set(token,(counts.get(token)||0)+1);
     if([...counts.values()].some(count=>count>1))continue;
     if(characterBigramDice(sourceTitle,candidate)>0.86)continue;
+    if(policyTextRiskReason({title:candidate}))continue;
     candidates.push(candidate);
   }
   if(!candidates.length)throw new Error('title_not_distinct_or_editorially_clean');
@@ -753,7 +772,7 @@ function createRepostMetadata(video, sourceCode) {
   if (/(?:https?:\/\/|www\.)/i.test(sourceTitle)) throw new Error('repost_source_title_contains_external_link');
   const risk = policyTextRiskReason(video);
   if (risk) throw new Error('filo_policy_text_risk:' + risk);
-  const title = createDistinctRepostTitle(sourceTitle);
+  const title = createDistinctRepostTitle(sourceTitle, sourceDescription);
   const description = cleanRepostDescription(sourceDescription, sourceTitle, title);
   return { title, description, sourceTitle, sourceDescription, sourceCode };
 }
@@ -2491,6 +2510,7 @@ module.exports = {
   editorialTitleTokens,
   characterBigramDice,
   createDistinctRepostTitle,
+  descriptionBasedTitleCandidate,
   topicDuplicateMatch,
   isCandidateLevelFiloRejection
 };
