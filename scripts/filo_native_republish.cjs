@@ -32,7 +32,8 @@ const FALLBACK_VIDEO_TAG_FEEDS = [
   { key: 'q-خودرو', label: 'خودرو' }
 ];
 const MAX_DISCOVERED_CATEGORY_IDS = 64;
-const MAX_PAGES_PER_CATEGORY = 12;
+const MAX_PAGES_PER_CATEGORY = 18;
+const CATEGORY_DEPTH_CAP_COOLDOWN_MS = 6 * 60 * 60 * 1000;
 const MAX_TOTAL_CATEGORY_PAGE_REQUESTS = 96;
 const CATEGORY_PAGE_CONCURRENCY = 4;
 const CATEGORY_SCAN_BUDGET_MS = 4 * 60 * 1000;
@@ -82,7 +83,61 @@ function normalizeDigits(value) {
   });
 }
 
-function ageHours(item) {
+const FILO_TIME_ZONE = 'Asia/Tehran';
+const jalaliCalendarFormatter = new Intl.DateTimeFormat('en-US-u-ca-persian', {
+  timeZone: FILO_TIME_ZONE, year: 'numeric', month: 'numeric', day: 'numeric'
+});
+const gregorianUtcFormatter = new Intl.DateTimeFormat('en-US', {
+  timeZone: 'UTC', year: 'numeric', month: 'numeric', day: 'numeric'
+});
+const tehranClockFormatter = new Intl.DateTimeFormat('en-US', {
+  timeZone: FILO_TIME_ZONE, year: 'numeric', month: 'numeric', day: 'numeric',
+  hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'
+});
+
+function dateParts(formatter, date) {
+  return Object.fromEntries(formatter.formatToParts(date)
+    .filter(part => part.type !== 'literal')
+    .map(part => [part.type, Number(part.value)]));
+}
+
+function parseJalaliDateTime(value) {
+  const raw = normalizeDigits(value).trim();
+  const match = raw.match(/^(14\d{2})[\/.-](\d{1,2})[\/.-](\d{1,2})(?:[ T،,]+(\d{1,2}):(\d{2})(?::(\d{2}))?)?$/u);
+  if (!match) return null;
+  const year = Number(match[1]), month = Number(match[2]), day = Number(match[3]);
+  const hasClock = match[4] !== undefined;
+  const hour = hasClock ? Number(match[4]) : 12;
+  const minute = hasClock ? Number(match[5]) : 0;
+  const second = hasClock && match[6] !== undefined ? Number(match[6]) : 0;
+  if (month < 1 || month > 12 || day < 1 || day > 31 ||
+      hour > 23 || minute > 59 || second > 59) return null;
+
+  const dayOfYear = month <= 6
+    ? (month - 1) * 31 + day - 1
+    : 186 + (month - 7) * 30 + day - 1;
+  const approximateUtc = Date.UTC(year + 621, 2, 20) + dayOfYear * 86400000;
+  for (let offsetDays = -4; offsetDays <= 4; offsetDays++) {
+    const candidateUtc = approximateUtc + offsetDays * 86400000;
+    const candidateDate = new Date(candidateUtc);
+    const jalali = dateParts(jalaliCalendarFormatter, candidateDate);
+    if (jalali.year !== year || jalali.month !== month || jalali.day !== day) continue;
+    const gregorian = dateParts(gregorianUtcFormatter, candidateDate);
+    const tehran = dateParts(tehranClockFormatter, candidateDate);
+    const tehranOffsetMs = Date.UTC(
+      tehran.year, tehran.month - 1, tehran.day,
+      tehran.hour, tehran.minute, tehran.second
+    ) - candidateUtc;
+    const timestamp = Date.UTC(
+      gregorian.year, gregorian.month - 1, gregorian.day,
+      hour, minute, second
+    ) - tehranOffsetMs;
+    return { timestamp, precisionHours: !hasClock ? 24 : match[6] !== undefined ? 1 / 3600 : 1 / 60 };
+  }
+  return null;
+}
+
+function ageHours(item, now = Date.now()) {
   const raw = normalizeDigits(item && (item.create_date || item.styled_create_date || item.created_at) || '');
   const lower = raw.toLowerCase();
   let m = lower.match(/(\d+(?:\.\d+)?)\s*(?:دقیقه|min)/);
@@ -94,8 +149,10 @@ function ageHours(item) {
   if (/لحظاتی پیش|همین الان|اکنون|just now|moments ago/.test(lower)) return 0.1;
   if (/دیروز|yesterday/.test(lower)) return 30;
   if (/امروز|today/.test(lower)) return 8;
+  const jalali = parseJalaliDateTime(raw);
+  if (jalali) return Math.max(0, (now - jalali.timestamp) / 3600000);
   const absolute = Date.parse(raw);
-  if (Number.isFinite(absolute)) return Math.max(0, (Date.now() - absolute) / 3600000);
+  if (Number.isFinite(absolute)) return Math.max(0, (now - absolute) / 3600000);
   return 36;
 }
 
@@ -114,6 +171,16 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
   for (const field of fields) {
     const value = item[field];
     if (value === undefined || value === null || value === '') continue;
+
+    const jalali = parseJalaliDateTime(value);
+    if (jalali) {
+      const centerHours = Math.max(0, (now - jalali.timestamp) / 3600000);
+      const precisionHours = jalali.precisionHours;
+      return {
+        centerHours, lowerHours: Math.max(0, centerHours - precisionHours / 2),
+        upperHours: centerHours + precisionHours / 2, precisionHours
+      };
+    }
 
     if (typeof value === 'number' || /^\d{10,13}$/.test(String(value).trim())) {
       const numeric = Number(value);
@@ -146,9 +213,6 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
       return { centerHours: 0.1, lowerHours: 0, upperHours: 0.25, precisionHours: 0.25 };
     }
     if (/دیروز|yesterday|امروز|today/.test(raw)) continue;
-    // Jalali date strings can be misread as ancient Gregorian dates by Date.parse.
-    if (/^14\d{2}[\/.-]\d{1,2}[\/.-]\d{1,2}/.test(raw)) continue;
-
     const absolute = Date.parse(raw);
     if (Number.isFinite(absolute)) {
       const centerHours = Math.max(0, (now - absolute) / 3600000);
@@ -783,15 +847,15 @@ function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
     .replace(/@[\p{L}\p{N}_.-]+/gu, ' ')
     .replace(/برای\s+شما\s+(?:عزیزان|دوستان(?:\s+عزیز)?)/giu, ' ')
     .replace(/(?:دوستان\s+عزیز|عزیزانِ?\s+همراه)/giu, ' ')
-    .replace(/(?:لطفاً|لطفا)\s*(?:لایک|پسند|فالو|دنبال|عضویت|اشتراک).{0,160}$/iu, ' ')
+    .replace(/(?:برای\s+(?:دیدن|تماشای)\s+(?:فیلم|کلیپ|ویدئو|ویدیو)[^.!؟\n]{0,120}(?:عضو|دنبال)[^.!؟\n]*|(?:لایک|پسند|فالو|ساب(?:سکرایب)?|عضو\s+شوید|دنبال\s+کنید|حمایت\s+کنید)[^.!؟\n]*)/giu, ' ')
     .replace(/(?:با\s+ما\s+همراه\s+باشید|همراه\s+ما\s+باشید)(?:\s+و\s+)?(?:لذت\s+ببرید)?/giu, ' ')
     .replace(/لذت\s+ببرید/giu, ' ')
-    .replace(/(?:لایک\s+کنید|فالو\s+کنید|ما\s+را\s+دنبال\s+کنید|عضو\s+شوید)/giu, ' ')
     .replace(/\s+([،؛:,.!?؟])/gu, '$1')
     .replace(/\s+/g, ' ')
+    .replace(/^[،؛:,.!?؟\s]+|[،؛:,.!?؟\s]+$/gu, '')
     .trim();
-  // Keep source facts as supplied; a short caption is valid and no detail is invented.
-  return trimAtWord(description || String(repostTitle || sourceTitle || '').trim(), 900);
+  // Never propagate source-channel engagement prompts as repost captions.
+  return trimAtWord(description || String(repostTitle || '').trim(), 900);
 }
 
 function createRepostMetadata(video, sourceCode) {
@@ -1591,8 +1655,35 @@ function rotatingDepthSelection(categoryIds,cursor,limit=DEPTH_CATEGORIES_PER_CY
 }
 
 function nextCategoryDepthPage(currentPage) {
-  const page=Math.trunc(num(currentPage,2));
-  return page>=MAX_PAGES_PER_CATEGORY?2:Math.max(2,page+1);
+  return Math.max(2, Math.trunc(num(currentPage, 2)) + 1);
+}
+
+function resolveCategoryDepthPage(state, categoryId, now = Date.now()) {
+  const key = String(categoryId);
+  if (!state.categoryDepthPages || typeof state.categoryDepthPages !== 'object') state.categoryDepthPages = {};
+  if (!state.categoryDepthEvidence || typeof state.categoryDepthEvidence !== 'object') state.categoryDepthEvidence = {};
+  if (!state.categoryDepthCappedAt || typeof state.categoryDepthCappedAt !== 'object') state.categoryDepthCappedAt = {};
+
+  let page = Math.trunc(num(state.categoryDepthPages[key], 2));
+  if (page < 2) page = 2;
+  const lastScannedPage = Math.trunc(num(state.categoryDepthEvidence[key] && state.categoryDepthEvidence[key].lastPageNo, 0));
+  if (page === 2 && lastScannedPage >= 12 && lastScannedPage < MAX_PAGES_PER_CATEGORY) {
+    page = lastScannedPage + 1;
+    state.categoryDepthPages[key] = page;
+  }
+  if (page > MAX_PAGES_PER_CATEGORY) {
+    const cappedAt = Date.parse(state.categoryDepthCappedAt[key] || '');
+    if (!Number.isFinite(cappedAt)) {
+      state.categoryDepthCappedAt[key] = new Date(now).toISOString();
+      return MAX_PAGES_PER_CATEGORY + 1;
+    }
+    if (now - cappedAt < CATEGORY_DEPTH_CAP_COOLDOWN_MS) return MAX_PAGES_PER_CATEGORY + 1;
+    delete state.categoryDepthCappedAt[key];
+    delete state.categoryDepthEvidence[key];
+    page = 2;
+    state.categoryDepthPages[key] = page;
+  }
+  return page;
 }
 
 function buildCategoryPageRequestPayload(pageNo, windowWidth) {
@@ -1662,7 +1753,11 @@ async function getRepublishDetail(page, code) {
           headers: { 'Accept': 'application/json' },
           signal: AbortSignal.timeout(7000)
         });
-        return { status: response.status, body: await response.text() };
+        return {
+          status: response.status,
+          body: await response.text(),
+          contentType: response.headers.get('content-type') || 'unknown'
+        };
       }, code);
     } catch (error) {
       lastError = 'republish_detail_network_error:' + String(error && error.message || error).slice(0, 140);
@@ -1675,7 +1770,7 @@ async function getRepublishDetail(page, code) {
 
     if (!result) throw new Error('republish_detail_empty_response');
     if (result.status !== 200) {
-      lastError = 'republish_detail_http_' + Number(result.status || 0);
+      lastError = 'republish_detail_http_' + Number(result.status || 0) + ':' + categoryApiErrorHint(result);
       if ((result.status === 408 || result.status === 425 || result.status === 429 || result.status >= 500) && attempt < 2) {
         await sleep(350 * attempt);
         continue;
@@ -2264,8 +2359,11 @@ async function main() {
     for(const categoryId of depthSelection.categoryIds){
       const tracker=trackerById.get(String(categoryId));
       if(!tracker||tracker.stopReason==='empty_first_page'||!firstPageAnalysis.has(String(categoryId)))continue;
-      let pageNo=Math.trunc(num(state.categoryDepthPages[String(categoryId)],2));
-      if(pageNo<2||pageNo>MAX_PAGES_PER_CATEGORY)pageNo=2;
+      const pageNo = resolveCategoryDepthPage(state, categoryId, Date.parse(report.createdAt));
+      if (pageNo > MAX_PAGES_PER_CATEGORY) {
+        tracker.stopReason = 'max_pages_per_category_reached';
+        continue;
+      }
       tracker.depthPageNo=pageNo;
       depthTasks.push({categoryId,pageNo,scanType:'depth'});
     }
@@ -2321,8 +2419,10 @@ async function main() {
         tracker.stopReason='lookback_window_reached';
         tracker.coverageComplete=true;
       }else if(result.pageNo>=MAX_PAGES_PER_CATEGORY){
-        state.categoryDepthPages[pageKey]=2;
-        tracker.stopReason='max_pages_per_category_cycle';
+        state.categoryDepthPages[pageKey]=MAX_PAGES_PER_CATEGORY+1;
+        if(!state.categoryDepthCappedAt||typeof state.categoryDepthCappedAt!=='object')state.categoryDepthCappedAt={};
+        state.categoryDepthCappedAt[pageKey]=new Date(Date.parse(report.createdAt)).toISOString();
+        tracker.stopReason='max_pages_per_category_reached';
       }else{
         state.categoryDepthPages[pageKey]=nextCategoryDepthPage(result.pageNo);
         tracker.stopReason='depth_page_scanned';
@@ -2349,7 +2449,7 @@ async function main() {
       depthPagesSucceeded:depthResults.filter(x=>!x.error).length,
       categoriesPastLookback:categoryTrackers.filter(x=>x.stopReason==='lookback_window_reached').length,
       categoriesExhausted:categoryTrackers.filter(x=>x.stopReason==='empty_depth_page'||x.stopReason==='empty_first_page').length,
-      categoriesAtPageCap:categoryTrackers.filter(x=>x.stopReason==='max_pages_per_category_cycle').length,
+      categoriesAtPageCap:categoryTrackers.filter(x=>x.stopReason==='max_pages_per_category_reached').length,
       categoriesWithPageErrors:categoryTrackers.filter(x=>x.stopReason==='first_page_error'||x.stopReason==='depth_page_error').length,
       complete24HourCoverage:categoryTrackers.every(x=>x.coverageComplete)
     };
@@ -2401,6 +2501,19 @@ async function main() {
     const MAX_CONFIRMED_FILO_REJECTIONS_PER_CYCLE = 3;
     for (const entry of ranked.slice(0, MAX_DETAIL_CHECKS)) {
       const code = entry.item.video_code;
+      const priorFetchRejection = state.candidateRejections && state.candidateRejections[code];
+      if (priorFetchRejection && priorFetchRejection.reason === 'republish_detail_http_403') {
+        const cached = getCachedCandidateRejection(state, code, entry.item, Date.parse(report.createdAt));
+        if (cached) {
+          checked.push({
+            code, rankingMetric: entry.rankingMetric, selectionMode: entry.selectionMode,
+            ageHours: entry.ageHours, sourceTitle: String(entry.item.title || '').slice(0, 180),
+            feedTag: entry.item.feed_tag || null, gate: 'detail_fetch_forbidden_cooldown',
+            retryAfterAt: cached.retryAfterAt
+          });
+          continue;
+        }
+      }
       let detail = null;
       let detailFetchError = null;
       try {
@@ -2411,9 +2524,24 @@ async function main() {
       const check = {
         code, rankingMetric: entry.rankingMetric, selectionMode: entry.selectionMode,
         playsPerMinute: entry.momentum.playsPerMinute, viewsPerMinute: entry.momentum.viewsPerMinute,
-        ageHours: entry.ageHours, sourceTitle: String(detail && detail.video && detail.video.title || '').slice(0, 180),
+        ageHours: entry.ageHours, sourceTitle: String(detail && detail.video && detail.video.title || entry.item.title || '').slice(0, 180),
         feedTag: entry.item.feed_tag || null, detailFetchError, gate: null
       };
+      if (!detail && detailFetchError && detailFetchError.startsWith('republish_detail_http_401')) {
+        check.gate = 'detail_api_session_unauthorized';
+        checked.push(check);
+        report.discovery.globalDetailAccessFailure = 'http_401';
+        break;
+      }
+      if (!detail && detailFetchError && detailFetchError.startsWith('republish_detail_http_403')) {
+        cacheCandidateRejection(
+          state, code, entry.item, 'republish_detail_http_403',
+          Date.parse(report.createdAt), 6 * 60 * 60 * 1000
+        );
+        check.gate = 'detail_fetch_forbidden_candidate_cooldown';
+        checked.push(check);
+        continue;
+      }
       if (detail && detail.video) {
         const cachedRejection = getCachedCandidateRejection(state, code, detail.video, Date.parse(report.createdAt));
         if (cachedRejection) {
@@ -2685,6 +2813,8 @@ module.exports = {
   summarizeCategoryCatalogPayload,
   rotatingDepthSelection,
   nextCategoryDepthPage,
+  resolveCategoryDepthPage,
+  parseJalaliDateTime,
   candidateMetadataFingerprint,
   getCachedCandidateRejection,
   isTitleRewriteRejectionReason,
