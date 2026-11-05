@@ -14,6 +14,10 @@ const {
   normalizeComparable,
   detailGate,
   buildNativePublishGuardFailures,
+  parseFiloPublishRequestBody,
+  parseMultipartPublishBody,
+  getPublishBodyParam,
+  serializeFiloPublishRequestBody,
   safeApiDiagnosticValue,
   buildUnconfirmedSubmissionResult,
   composeFiloCoverDataUrl,
@@ -467,6 +471,57 @@ const safePublishContext={
 };
 assert.deepEqual(buildNativePublishGuardFailures(safePublishContext),[],
   'a valid source must pass native safety guards');
+const urlEncodedPublishBody = parseFiloPublishRequestBody(
+  'republishFrom=Source01&videoCode=NewVid01&canRepublish=true&canMakeMoney=true&isMadeByMe=false&dontPublish=0&title=New+title',
+  'application/x-www-form-urlencoded; charset=UTF-8'
+);
+assert.equal(urlEncodedPublishBody.format, 'urlencoded');
+assert.equal(getPublishBodyParam(urlEncodedPublishBody.params, 'republish_from'), 'Source01');
+assert.equal(getPublishBodyParam(urlEncodedPublishBody.params, 'video_code'), 'NewVid01');
+assert.equal(serializeFiloPublishRequestBody(urlEncodedPublishBody),
+  'republishFrom=Source01&videoCode=NewVid01&canRepublish=true&canMakeMoney=true&isMadeByMe=false&dontPublish=0&title=New+title');
+
+const jsonPublishBody = parseFiloPublishRequestBody(
+  JSON.stringify({ data: { republishFrom: 'Source02', videoCode: 'NewVid02', canRepublish: true, canMakeMoney: true } }),
+  'application/json'
+);
+assert.equal(jsonPublishBody.format, 'json');
+assert.equal(getPublishBodyParam(jsonPublishBody.params, 'republish_from'), 'Source02');
+assert.equal(getPublishBodyParam(jsonPublishBody.params, 'video_code'), 'NewVid02');
+setJsonPublishBodyField(jsonPublishBody.json, 'selectedFrame', 'data:image/png;base64,AAAA');
+assert.equal(JSON.parse(serializeFiloPublishRequestBody(jsonPublishBody)).data.selectedFrame,
+  'data:image/png;base64,AAAA');
+
+const multipartBoundary = '----FiloBoundary123';
+const multipartBody = [
+  '--' + multipartBoundary,
+  'Content-Disposition: form-data; name="republishFrom"',
+  '',
+  'Source03',
+  '--' + multipartBoundary,
+  'Content-Disposition: form-data; name="videoCode"',
+  '',
+  'NewVid03',
+  '--' + multipartBoundary,
+  'Content-Disposition: form-data; name="canRepublish"',
+  '',
+  'true',
+  '--' + multipartBoundary,
+  'Content-Disposition: form-data; name="canMakeMoney"',
+  '',
+  'true',
+  '--' + multipartBoundary + '--',
+  ''
+].join('\\r\\n');
+const multipartPublishBody = parseFiloPublishRequestBody(
+  multipartBody, 'multipart/form-data; boundary=' + multipartBoundary
+);
+assert.equal(multipartPublishBody.format, 'multipart');
+assert.equal(getPublishBodyParam(multipartPublishBody.params, 'republish_from'), 'Source03');
+assert.equal(getPublishBodyParam(multipartPublishBody.params, 'video_code'), 'NewVid03');
+assert.deepEqual([...parseMultipartPublishBody(multipartBody, multipartBoundary).keys()],
+  ['republishFrom', 'videoCode', 'canRepublish', 'canMakeMoney']);
+
 assert.deepEqual(buildNativePublishGuardFailures({...safePublishContext,metadataOk:false}),
   ['metadata_policy_guard_failed'],
   'metadata policy must remain a hard publishing guard');
