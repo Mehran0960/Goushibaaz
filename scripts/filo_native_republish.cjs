@@ -934,6 +934,25 @@ function isTitleRewriteRejectionReason(reason) {
     reason === 'title_generic_praise_without_subject';
 }
 
+function detailFetchHttpDisposition(status) {
+  const code = Number(status);
+  if (code === 401) return 'session_expired';
+  if (code === 403) return 'candidate_access_denied';
+  if (code === 408 || code === 425 || code === 429 || code >= 500) return 'retryable';
+  return 'permanent';
+}
+
+function getCachedDetailAccessRejection(state,code,now=Date.now()) {
+  const entry = state && state.candidateRejections && state.candidateRejections[String(code || '').trim()];
+  if (!entry || entry.reason !== 'detail_fetch:forbidden_403') return null;
+  const retryAt = Date.parse(entry.retryAfterAt || '');
+  if (!Number.isFinite(retryAt) || retryAt <= now) {
+    delete state.candidateRejections[String(code || '').trim()];
+    return null;
+  }
+  return entry;
+}
+
 function getCachedCandidateRejection(state,code,video,now=Date.now()) {
   const cache=state&&state.candidateRejections&&typeof state.candidateRejections==='object'
     ?state.candidateRejections:{};
@@ -1741,10 +1760,20 @@ async function getRepublishDetail(page, code) {
         const response = await fetch('/api/v1/republish/' + encodeURIComponent(code), {
           method: 'GET',
           credentials: 'include',
-          headers: { 'Accept': 'application/json' },
+          referrer: location.origin + '/republish/' + encodeURIComponent(code),
+          referrerPolicy: 'same-origin',
+          headers: {
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          cache: 'no-store',
           signal: AbortSignal.timeout(7000)
         });
-        return { status: response.status, body: await response.text() };
+        return {
+          status: response.status,
+          body: await response.text(),
+          contentType: response.headers.get('content-type') || 'unknown'
+        };
       }, code);
     } catch (error) {
       lastError = 'republish_detail_network_error:' + String(error && error.message || error).slice(0, 140);
@@ -1757,9 +1786,12 @@ async function getRepublishDetail(page, code) {
 
     if (!result) throw new Error('republish_detail_empty_response');
     if (result.status !== 200) {
+      const disposition = detailFetchHttpDisposition(result.status);
+      if (disposition === 'candidate_access_denied') throw new Error('republish_detail_forbidden_403');
+      if (disposition === 'session_expired') throw new Error('republish_detail_session_expired_401');
       lastError = 'republish_detail_http_' + Number(result.status || 0);
-      if ((result.status === 408 || result.status === 425 || result.status === 429 || result.status >= 500) && attempt < 2) {
-        await sleep(350 * attempt);
+      if (disposition === 'retryable' && attempt < 2) {
+        await sleep(500 * attempt);
         continue;
       }
       throw new Error(lastError);
@@ -2513,6 +2545,16 @@ async function main() {
     const MAX_CONFIRMED_FILO_REJECTIONS_PER_CYCLE = 3;
     for (const entry of ranked.slice(0, MAX_DETAIL_CHECKS)) {
       const code = entry.item.video_code;
+      const cachedAccessRejection = getCachedDetailAccessRejection(state,code,Date.parse(report.createdAt));
+      if(cachedAccessRejection){
+        checked.push({
+          code,sourceTitle:String(entry.item.title||'').slice(0,180),
+          feedTag:entry.item.feed_tag||null,detailFetchError:'republish_detail_forbidden_403',
+          gate:'republish_detail_access_denied_403_cached',
+          retryAfterAt:cachedAccessRejection.retryAfterAt
+        });
+        continue;
+      }
       let detail = null;
       let detailFetchError = null;
       try {
@@ -2526,6 +2568,22 @@ async function main() {
         ageHours: entry.ageHours, sourceTitle: String(detail && detail.video && detail.video.title || '').slice(0, 180),
         feedTag: entry.item.feed_tag || null, detailFetchError, gate: null
       };
+      if(!detail&&detailFetchError==='republish_detail_forbidden_403'){
+        const retryAt=Date.parse(report.createdAt)+6*60*60*1000;
+        cacheCandidateRejection(state,code,entry.item,'detail_fetch:forbidden_403',Date.parse(report.createdAt),6*60*60*1000);
+        check.gate='republish_detail_access_denied_403';
+        check.detailFetchDisposition='candidate_specific_forbidden';
+        check.retryAfterAt=new Date(retryAt).toISOString();
+        checked.push(check);
+        continue;
+      }
+      if(!detail&&detailFetchError==='republish_detail_session_expired_401'){
+        check.gate='filo_session_expired_401';
+        check.detailFetchDisposition='global_session_failure';
+        checked.push(check);
+        report.discovery.globalGateBlock='filo_session_expired_401';
+        break;
+      }
       if (detail && detail.video) {
         const cachedRejection = getCachedCandidateRejection(state, code, detail.video, Date.parse(report.createdAt));
         if (cachedRejection) {
@@ -2543,7 +2601,8 @@ async function main() {
         const globalBlockReasons = new Set([
           'filo_republish_route_not_allowed',
           'filo_upload_temporarily_stopped',
-          'filo_daily_upload_limit_reached'
+          'filo_daily_upload_limit_reached',
+          'filo_session_expired_401'
         ]);
         if (globalBlockReasons.has(gate.reason)) {
           report.discovery.globalGateBlock = gate.reason;
@@ -2775,6 +2834,10 @@ module.exports = {
   normalizeComparable,
   detailGate,
   buildNativePublishGuardFailures,
+  detailFetchHttpDisposition,
+  getCachedDetailAccessRejection,
+  jalaliDateToGregorianTimestamp,
+  editorialTitleQualityReason,
   parseFiloPublishRequestBody,
   parseMultipartPublishBody,
   getPublishBodyParam,
