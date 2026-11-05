@@ -20,6 +20,10 @@ const {
   serializeFiloPublishRequestBody,
   setJsonPublishBodyField,
   safeApiDiagnosticValue,
+  detailFetchHttpDisposition,
+  getCachedDetailAccessRejection,
+  jalaliDateToGregorianTimestamp,
+  editorialTitleQualityReason,
   buildUnconfirmedSubmissionResult,
   composeFiloCoverDataUrl,
   dailyCount,
@@ -46,7 +50,6 @@ const {
   categoryFeedBoundaryOrdered,
   shouldStopCategoryPagination,
   editorialTitleTokens,
-  editorialTitleQualityReason,
   createDistinctRepostTitle,
   descriptionBasedTitleCandidate,
   topicDuplicateMatch,
@@ -245,8 +248,34 @@ const ambiguousPage = analyzeCategoryFeedPage([
 assert.equal(ambiguousPage.chronologyConsistent, false,
   'ambiguous relative labels must not be treated as proof of chronological ordering');
 
-assert.equal(reliableFeedAgeBounds({ create_date: '۱۴۰۵/۰۸/۱۴ ۰۹:۳۰' }, feedNow), null,
-  'Jalali calendar strings must not be misparsed as Gregorian timestamps');
+const jalaliTimestamp = jalaliDateToGregorianTimestamp('۱۴۰۵/۰۸/۱۴ ۰۹:۳۰');
+assert.equal(new Date(jalaliTimestamp).toISOString(), '2026-11-05T06:00:00.000Z',
+  'a Jalali datetime must be converted to its correct Gregorian UTC instant');
+const jalaliAge = reliableFeedAgeBounds(
+  { create_date: '۱۴۰۵/۰۸/۱۴ ساعت ۰۹:۳۰' },
+  Date.parse('2026-11-05T06:30:00.000Z')
+);
+assert.equal(jalaliAge.centerHours, 0.5,
+  'Filo Solar Hijri timestamps must use Tehran local time and preserve minute precision');
+const jalaliDateOnlyAge = reliableFeedAgeBounds(
+  { create_date: '۱۴۰۵/۰۸/۱۲' },
+  Date.parse('2026-11-05T06:30:00.000Z')
+);
+assert.equal(jalaliDateOnlyAge.precisionHours, 24,
+  'date-only Jalali values must retain conservative day-level uncertainty');
+assert.ok(jalaliDateOnlyAge.lowerHours > 24,
+  'a Jalali date safely older than the 24-hour lookback can establish the cutoff');
+const yesterdayBounds = reliableFeedAgeBounds({ create_date: 'دیروز' }, feedNow);
+assert.equal(yesterdayBounds.lowerHours, 24,
+  'the label yesterday must retain the exact conservative lower boundary');
+const jalaliOrderedPage = analyzeCategoryFeedPage([
+  { create_date: '۱۴۰۵/۰۸/۱۲' },
+  { create_date: '۱۴۰۵/۰۸/۱۱' }
+], Date.parse('2026-11-05T06:30:00.000Z'));
+assert.equal(jalaliOrderedPage.ageDataComplete, true);
+assert.equal(jalaliOrderedPage.chronologyConsistent, true);
+assert.equal(jalaliOrderedPage.allItemsOlderThanLookback, true,
+  'consecutive Jalali date-only feed entries can safely prove a full page is older than 24 hours');
 const previousPageLast = reliableFeedAgeBounds({ create_date: '۲۴ ساعت پیش' }, feedNow);
 const nextPageFirst = reliableFeedAgeBounds({ create_date: '۲۵ ساعت پیش' }, feedNow);
 const outOfOrderPageFirst = reliableFeedAgeBounds({ create_date: '۲۲ ساعت پیش' }, feedNow);
@@ -254,6 +283,19 @@ assert.equal(categoryFeedBoundaryOrdered(previousPageLast, nextPageFirst), true,
   'successive page boundaries should remain newest-to-oldest');
 assert.equal(categoryFeedBoundaryOrdered(previousPageLast, outOfOrderPageFirst), false,
   'a newer item on a later page invalidates the pagination ordering assumption');
+const sameDateBoundary = {
+  centerHours: 48, lowerHours: 36, upperHours: 60, precisionHours: 24, chronologyReliable: true
+};
+const ambiguousDateBoundary = {
+  centerHours: 48, lowerHours: 36, upperHours: 60, precisionHours: 24, chronologyReliable: true
+};
+const nextDayBoundary = {
+  centerHours: 72, lowerHours: 60, upperHours: 84, precisionHours: 24, chronologyReliable: true
+};
+assert.equal(categoryFeedBoundaryOrdered(sameDateBoundary, ambiguousDateBoundary), false,
+  'same-day date-only pagination boundaries cannot prove ordering within a day');
+assert.equal(categoryFeedBoundaryOrdered(sameDateBoundary, nextDayBoundary), true,
+  'non-overlapping consecutive date ranges can prove day-level pagination order');
 
 assert.equal(shouldStopCategoryPagination({
   pageCount: 1, pageAnalysis: oldOrderedPage, chronologyVerified: true
@@ -266,10 +308,16 @@ assert.equal(shouldStopCategoryPagination({
 }), false, 'unverified category ordering must continue to the configured safety cap');
 
 assert.ok(editorialTitleTokens('کلیپ طنز بهرام افشاری').includes('بهرام'));
-assert.equal(editorialTitleQualityReason('من و رفیقام طنز دیلان برای کلیپ های بیشتر کانال مارا دنبال کنید'), 'promotional_or_engagement_title');
-assert.equal(editorialTitleQualityReason('خنده دار پارت ۱۹ طنز کمدی'), 'generic_part_only_title');
-assert.equal(editorialTitleQualityReason('روش پخت خورشت بامیه با مرغ'), null);
-assert.throws(() => createDistinctRepostTitle('من و رفیقام طنز دیلان برای کلیپ های بیشتر کانال مارا دنبال کنید'), /title_without_safe_editorial_rewrite|title_not_distinct_or_editorially_clean/, 'engagement prompts must never be republished as editorial titles');
+
+assert.equal(editorialTitleQualityReason('من و رفیقام طنز دیلان برای کلیپ های بیشتر کانال مارا دنبال کنید'),
+  'title_promotional_or_call_to_action',
+  'the actual promotional title seen in the live ledger must be rejected');
+assert.equal(editorialTitleQualityReason('خنده دار پارت ۱۹ طنز کمدی'),
+  'title_generic_episode_label',
+  'generic part-only comedy titles must be rejected');
+assert.equal(editorialTitleQualityReason('روش پخت خورشت بامیه با مرغ'), null,
+  'specific subject-driven cooking titles must remain eligible');
+
 assert.equal(
   createDistinctRepostTitle('طرز تهیه خورشت بامیه با مرغ'),
   'روش پخت خورشت بامیه با مرغ',
@@ -315,6 +363,38 @@ assert.equal(
   'شوخی با دیدار پاریس ژرمن و بارسلونا',
   'a humor-tagged sports title should retain both teams and the meeting context'
 );
+assert.equal(editorialTitleQualityReason('لایک فالو حمایت یادتون نره عزیزای دلم'),
+  'title_promotional_or_call_to_action',
+  'pure engagement prompts must never be used as video titles');
+assert.equal(editorialTitleQualityReason('خنده دار پارت ۳۲ طنز کمدی'),
+  'title_generic_episode_label',
+  'a generic numbered clip title without a real subject must be rejected');
+assert.equal(editorialTitleQualityReason('یک فیلم بسیار زیبا و رمانتیک که کار رو تموم میکنه'),
+  'title_generic_praise_without_subject',
+  'vague praise without an identifiable subject must be rejected');
+assert.equal(editorialTitleQualityReason('شوخی با دیدار پاریس ژرمن و بارسلونا'), null,
+  'grounded subject-specific titles remain eligible');
+assert.equal(
+  descriptionBasedTitleCandidate('لایک فالو حمایت یادتون نره عزیزای دلم. در این ویدئو، واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را ببینید.'),
+  'واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را',
+  'a CTA-only opening sentence must be skipped in favor of the first factual sentence'
+);
+assert.throws(
+  () => createDistinctRepostTitle('لایک فالو حمایت یادتون نره عزیزای دلم'),
+  /title_without_safe_editorial_rewrite|title_not_distinct_or_editorially_clean/,
+  'a promotional source title without factual description must be rejected'
+);
+assert.throws(
+  () => createDistinctRepostTitle('خنده دار پارت ۳۲ 😂 طنز کمدی'),
+  /title_without_safe_editorial_rewrite|title_not_distinct_or_editorially_clean/,
+  'generic numbered comedy placeholders must not be published'
+);
+assert.doesNotMatch(cleanRepostDescription(
+  'موضوع ویدئو: شوخی در خرید لباس. لایک فالو حمایت یادتون نره عزیزای دلم. برای کلیپ های بیشتر کانال ما را دنبال کنید.',
+  'عنوان منبع',
+  'شوخی در خرید لباس در فروشگاه'
+), /لایک|فالو|حمایت|دنبال کنید|کلیپ های بیشتر/);
+
 assert.throws(
   () => createDistinctRepostTitle('کلیپ های طنز و خنده//بهرام افشاری'),
   /title_without_safe_editorial_rewrite|title_not_distinct_or_editorially_clean/,
@@ -338,7 +418,7 @@ assert.throws(
     'کلیپ های طنز و خنده//بهرام افشاری',
     'کلیپ های طنز و خنده با بهرام افشاری'
   ),
-  /title_not_distinct_or_editorially_clean/,
+  /title_without_safe_editorial_rewrite|title_not_distinct_or_editorially_clean/,
   'a description that merely repeats the source title must not be used as a fake rewrite'
 );
 assert.equal(removeRepeatedTrailingPhrase('لوبیا فرنگی پلو همراه مرغ لوبیا فرنگی'),
@@ -403,8 +483,11 @@ cacheCandidateRejection(rejectionCacheState,'Cache01',cacheVideo,
   'title_without_safe_editorial_rewrite',Date.parse('2026-11-04T12:00:00.000Z'));
 assert.ok(getCachedCandidateRejection(rejectionCacheState,'Cache01',cacheVideo,
   Date.parse('2026-11-04T13:00:00.000Z')));
-assert.equal(rejectionCacheState.candidateRejections.Cache01.titleRewritePolicyVersion, 3);
+assert.equal(rejectionCacheState.candidateRejections.Cache01.titleRewritePolicyVersion, 4);
 assert.equal(isTitleRewriteRejectionReason('title_without_safe_editorial_rewrite'), true);
+assert.equal(isTitleRewriteRejectionReason('title_promotional_or_call_to_action'), true);
+assert.equal(isTitleRewriteRejectionReason('title_generic_episode_label'), true);
+
 assert.equal(isTitleRewriteRejectionReason('detail_gate:duration_out_of_short_form_range'), false);
 const staleTitleCacheState = {candidateRejections:{Legacy:{...rejectionCacheState.candidateRejections.Cache01}}};
 delete staleTitleCacheState.candidateRejections.Legacy.titleRewritePolicyVersion;
@@ -412,6 +495,20 @@ assert.equal(getCachedCandidateRejection(staleTitleCacheState, 'Legacy', cacheVi
   Date.parse('2026-11-04T13:00:00.000Z')), null,
   'a title rejection from an older rewrite policy must be retried immediately after the policy changes');
 assert.equal(staleTitleCacheState.candidateRejections.Legacy, undefined);
+assert.equal(detailFetchHttpDisposition(403), 'candidate_access_denied');
+assert.equal(detailFetchHttpDisposition(401), 'session_expired');
+assert.equal(detailFetchHttpDisposition(429), 'retryable');
+assert.equal(detailFetchHttpDisposition(503), 'retryable');
+assert.equal(detailFetchHttpDisposition(404), 'permanent');
+const forbiddenCacheState = {candidateRejections:{}};
+cacheCandidateRejection(forbiddenCacheState,'Forbidden1',cacheVideo,
+  'detail_fetch:forbidden_403',Date.parse('2026-11-05T10:00:00.000Z'),6*60*60*1000);
+assert.ok(getCachedDetailAccessRejection(forbiddenCacheState,'Forbidden1',
+  Date.parse('2026-11-05T11:00:00.000Z')),
+  'a per-video 403 should be held in a six-hour candidate cooldown instead of retried every five minutes');
+assert.equal(getCachedDetailAccessRejection(forbiddenCacheState,'Forbidden1',
+  Date.parse('2026-11-05T16:00:00.000Z')), null,
+  'the per-video 403 cooldown must expire so a later permission change can be rechecked');
 const detailCacheState = {posts:[]};
 cacheCandidateRejection(detailCacheState,'Detail01',cacheVideo,
   'detail_gate:duration_out_of_short_form_range',Date.parse('2026-11-04T12:00:00.000Z'));
