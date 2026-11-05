@@ -795,6 +795,7 @@ function descriptionBasedTitleCandidate(sourceDescription) {
     const sentence = rawSentence
       .replace(/^(?:(?:در\s+این\s+(?:ویدئو|ویدیو|کلیپ|فیلم)|موضوع\s+(?:این\s+)?ویدئو)\s*[:،؛-]?\s*)+/iu, '')
       .replace(/^(?:(?:لطفاً|لطفا)\s*)?(?:این\s+)?(?:ویدئو|ویدیو|کلیپ)\s+(?:را\s+)?(?:ببینید|تماشا کنید|مشاهده کنید)\s*[:،؛-]?\s*/iu, '')
+      .replace(/[.!؟،؛,;]+$/u, '')
       .trim();
     if (sentence.length < 10) continue;
     let candidate;
