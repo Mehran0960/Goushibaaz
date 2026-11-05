@@ -179,7 +179,7 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
         lowerHours: Math.max(0, centerHours - precisionHours / 2),
         upperHours: centerHours + precisionHours / 2,
         precisionHours,
-        chronologyReliable: hasClock
+        chronologyReliable: true
       };
     }
 
