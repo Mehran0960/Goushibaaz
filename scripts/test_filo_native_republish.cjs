@@ -512,7 +512,7 @@ const multipartBody = [
   'true',
   '--' + multipartBoundary + '--',
   ''
-].join('\\r\\n');
+].join('\r\n');
 const multipartPublishBody = parseFiloPublishRequestBody(
   multipartBody, 'multipart/form-data; boundary=' + multipartBoundary
 );
