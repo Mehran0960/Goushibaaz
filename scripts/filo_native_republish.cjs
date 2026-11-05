@@ -39,6 +39,7 @@ const CATEGORY_SCAN_BUDGET_MS = 4 * 60 * 1000;
 const CATEGORY_LOOKBACK_HOURS = 24;
 const MIN_CYCLE_INTERVAL_MS = 4 * 60 * 1000;
 const DEPTH_CATEGORIES_PER_CYCLE = 21;
+const DEPTH_PAGES_PER_CATEGORY_PER_CYCLE = 3;
 const TOPIC_DUPLICATE_WINDOW_MS = 48 * 60 * 60 * 1000;
 const CANDIDATE_REJECTION_TTL_MS = 6 * 60 * 60 * 1000;
 const MAX_DETAIL_CHECKS = 90;
@@ -46,7 +47,7 @@ const MIN_DURATION_SECONDS = 10;
 const MAX_DURATION_SECONDS = 180;
 const MAX_PUBLICATIONS_PER_24H = 288;
 const CAPTION_POLICY_VERSION = 6;
-const TITLE_REWRITE_POLICY_VERSION = 3;
+const TITLE_REWRITE_POLICY_VERSION = 4;
 const CANDIDATE_METRIC_HISTORY_TTL_MS = 30 * 60 * 1000;
 const CANDIDATE_METRIC_SAMPLE_INTERVAL_MS = 5 * 60 * 1000;
 const MAX_TRACKED_CANDIDATE_METRICS = 1500;
@@ -107,9 +108,50 @@ function shouldStartPublishingCycle(lastStartedAt, now = Date.now(), minInterval
   return current - previous >= Math.max(0, Number(minIntervalMs) || 0);
 }
 
+function jalaliDateToGregorianTimestamp(value) {
+  const raw = normalizeDigits(String(value || '').trim());
+  const match = raw.match(/(?:^|[^\d])(13\d{2}|14\d{2})[\/.-](\d{1,2})[\/.-](\d{1,2})(?:[^\d]{0,12}(\d{1,2}):(\d{2})(?::(\d{2}))?)?/u);
+  if (!match) return null;
+  const jy = Number(match[1]), jm = Number(match[2]), jd = Number(match[3]);
+  const hour = Number(match[4] || 0), minute = Number(match[5] || 0), second = Number(match[6] || 0);
+  if (jm < 1 || jm > 12 || jd < 1 || jd > 31 || hour > 23 || minute > 59 || second > 59) return null;
+
+  // Jalali (Solar Hijri) to Gregorian conversion. Filo date strings use Tehran local time.
+  const y = jy + 1595;
+  let days = -355668 + 365 * y + Math.floor(y / 33) * 8 + Math.floor((y % 33 + 3) / 4) + jd;
+  days += jm < 7 ? (jm - 1) * 31 : (jm - 7) * 30 + 186;
+  let gy = 400 * Math.floor(days / 146097);
+  days %= 146097;
+  if (days > 36524) {
+    gy += 100 * Math.floor(--days / 36524);
+    days %= 36524;
+    if (days >= 365) days++;
+  }
+  gy += 4 * Math.floor(days / 1461);
+  days %= 1461;
+  if (days > 365) {
+    gy += Math.floor((days - 1) / 365);
+    days = (days - 1) % 365;
+  }
+  let gd = days + 1;
+  const leap = (gy % 4 === 0 && gy % 100 !== 0) || gy % 400 === 0;
+  const monthDays = [0, 31, leap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  let gm = 1;
+  while (gm <= 12 && gd > monthDays[gm]) {
+    gd -= monthDays[gm];
+    gm++;
+  }
+  if (gm > 12) return null;
+  const tehranOffsetMs = 210 * 60 * 1000;
+  return Date.UTC(gy, gm - 1, gd, hour, minute, second) - tehranOffsetMs;
+}
+
 function reliableFeedAgeBounds(item, now = Date.now()) {
   if (!item || typeof item !== 'object') return null;
-  const fields = ['create_date', 'styled_create_date', 'created_at', 'createdAt', 'created', 'date'];
+  const fields = [
+    'create_date', 'styled_create_date', 'created_at', 'createdAt', 'created',
+    'created_time', 'create_time', 'published_at', 'publish_date', 'post_date', 'date', 'cd'
+  ];
 
   for (const field of fields) {
     const value = item[field];
@@ -126,6 +168,19 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
 
     const raw = normalizeDigits(value).trim().toLowerCase();
     if (!raw) continue;
+
+    const jalaliTimestamp = jalaliDateToGregorianTimestamp(raw);
+    if (jalaliTimestamp !== null) {
+      const centerHours = Math.max(0, (now - jalaliTimestamp) / 3600000);
+      const hasClock = /(?:^|[^\d])\d{1,2}:\d{2}/u.test(raw);
+      const precisionHours = hasClock ? 1 / 60 : 24;
+      return {
+        centerHours,
+        lowerHours: Math.max(0, centerHours - precisionHours / 2),
+        upperHours: centerHours + precisionHours / 2,
+        precisionHours
+      };
+    }
 
     const dayMatch = raw.match(/(\d+(?:[.,]\d+)?)\s*(?:روز|day|days)/i);
     const hourMatch = raw.match(/(\d+(?:[.,]\d+)?)\s*(?:ساعت|hour|hours|hr|hrs)/i);
@@ -145,15 +200,18 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
     if (/لحظاتی پیش|همین الان|اکنون|just now|moments ago/.test(raw)) {
       return { centerHours: 0.1, lowerHours: 0, upperHours: 0.25, precisionHours: 0.25 };
     }
-    if (/دیروز|yesterday|امروز|today/.test(raw)) continue;
-    // Jalali date strings can be misread as ancient Gregorian dates by Date.parse.
-    if (/^14\d{2}[\/.-]\d{1,2}[\/.-]\d{1,2}/.test(raw)) continue;
+    if (/دیروز|yesterday/.test(raw)) {
+      return { centerHours: 36, lowerHours: 24, upperHours: 48, precisionHours: 24 };
+    }
+    if (/امروز|today/.test(raw)) {
+      return { centerHours: 12, lowerHours: 0, upperHours: 24, precisionHours: 24 };
+    }
 
     const absolute = Date.parse(raw);
     if (Number.isFinite(absolute)) {
       const centerHours = Math.max(0, (now - absolute) / 3600000);
       const hasClock = /(?:t|\b)\d{1,2}:\d{2}/i.test(raw);
-      const precisionHours = hasClock ? 1 / 3600 : 24;
+      const precisionHours = hasClock ? 1 / 60 : 24;
       return {
         centerHours,
         lowerHours: Math.max(0, centerHours - precisionHours / 2),
@@ -182,7 +240,7 @@ function analyzeCategoryFeedPage(items, now = Date.now(), lookbackHours = CATEGO
 
   const ages = list.map(item => reliableFeedAgeBounds(item, now));
   const ageDataComplete = ages.every(Boolean);
-  const precisionReliable = ageDataComplete && ages.every(age => age.precisionHours <= 1.1);
+  const precisionReliable = ageDataComplete && ages.every(age => age.precisionHours <= 24.01);
   let chronologyConsistent = precisionReliable;
 
   if (chronologyConsistent) {
@@ -664,6 +722,26 @@ function editorialTitleTokens(value) {
     .filter(token => token.length > 1 && !EDITORIAL_TITLE_STOPWORDS.has(token)))];
 }
 
+function editorialTitleQualityReason(value) {
+  const title = normalizeCaptionEditorialText(value);
+  if (!title) return 'title_without_safe_editorial_rewrite';
+  if (/(?:لایک|لایك|فالو|فالوو|حمایت(?:\s*کنید|\s*کنین)?|یادتون\s+نره|دنبال(?:\s*کنید|\s*کنین)|عضو\s*(?:شوید|بشید)|سابسکرایب|زنگوله|برای\s+کلیپ(?:های)?\s+بیشتر|کانال\s*(?:ما|مارا|رو|را))/iu.test(title)) {
+    return 'title_promotional_or_call_to_action';
+  }
+  const tokens = editorialTitleTokens(title);
+  const substantive = tokens.filter(token =>
+    !/^(?:پارت|قسمت|بخش|part|episode|کمدی|طنز|خنده|دار|کلیپ|ویدئو|ویدیو|فیلم|شماره|\d+)$/iu.test(token)
+  );
+  if (/(?:پارت|قسمت|episode|part)\s*[0-9۰-۹]+/iu.test(title) && substantive.length < 2) {
+    return 'title_generic_episode_label';
+  }
+  if (/^(?:یک\s+)?(?:فیلم|کلیپ|ویدئو|ویدیو)\s+(?:بسیار\s+|خیلی\s+)?(?:زیبا|جذاب|عالی|رمانتیک|فوق.?العاده)(?:\s+و\s+(?:بسیار\s+)?(?:زیبا|جذاب|عالی|رمانتیک))?.{0,70}$/iu.test(title)) {
+    return 'title_generic_praise_without_subject';
+  }
+  if (tokens.length < 3) return 'title_not_distinct_or_editorially_clean';
+  return null;
+}
+
 function characterBigramDice(left, right) {
   const a = normalizeComparable(left);
   const b = normalizeComparable(right);
@@ -702,19 +780,25 @@ function removeRepeatedTrailingPhrase(value) {
 }
 
 function descriptionBasedTitleCandidate(sourceDescription) {
-  let value = normalizeCaptionEditorialText(sourceDescription)
+  const raw = normalizeCaptionEditorialText(sourceDescription)
     .replace(/https?:\/\/\S+|www\.\S+/giu, ' ')
     .replace(/#[^\s#]+/gu, ' ')
     .replace(/@[\p{L}\p{N}_.-]+/gu, ' ')
     .replace(/^(?:(?:در\s+این\s+(?:ویدئو|ویدیو|کلیپ|فیلم)|موضوع\s+(?:این\s+)?ویدئو)\s*[:،؛-]?\s*)+/iu, '')
-    .replace(/^(?:(?:لطفاً|لطفا)\s*)?(?:این\s+)?(?:ویدئو|ویدیو|کلیپ)\s+(?:را\s+)?(?:ببینید|تماشا کنید|مشاهده کنید)\s*[:،؛-]?\s*/iu, '')
     .replace(/\s+/g, ' ')
     .trim();
-  if (!value) return null;
-  value = value.split(/[.!؟\n\r]+/u)[0].trim();
-  value = cleanRepostCaptionTitle(value);
-  if (value.length < 10) return null;
-  return trimAtWord(value, 150);
+  if (!raw) return null;
+  const sentences = raw.split(/(?<=[.!؟])\s+|[\n\r]+/u);
+  for (const rawSentence of sentences) {
+    const sentence = rawSentence.replace(/^(?:(?:لطفاً|لطفا)\s*)?(?:این\s+)?(?:ویدئو|ویدیو|کلیپ)\s+(?:را\s+)?(?:ببینید|تماشا کنید|مشاهده کنید)\s*[:،؛-]?\s*/iu, '').trim();
+    if (sentence.length < 10) continue;
+    let candidate;
+    try { candidate = cleanRepostCaptionTitle(sentence); } catch { continue; }
+    if (editorialTitleQualityReason(candidate)) continue;
+    if (policyTextRiskReason({ title: candidate })) continue;
+    return trimAtWord(candidate, 150);
+  }
+  return null;
 }
 
 function createDistinctRepostTitle(sourceTitle, sourceDescription = '') {
@@ -749,6 +833,8 @@ function createDistinctRepostTitle(sourceTitle, sourceDescription = '') {
   for(const draft of drafts){
     const candidate=removeRepeatedTrailingPhrase(draft).replace(/\s+/g,' ').trim();
     if(candidates.includes(candidate))continue;
+    const qualityReason=editorialTitleQualityReason(candidate);
+    if(qualityReason)continue;
     const tokens=editorialTitleTokens(candidate);
     if(tokens.length<3||candidate.length<10||candidate.length>176)continue;
     const contentWords=normalizeCaptionEditorialText(candidate).toLocaleLowerCase('fa-IR')
@@ -766,7 +852,11 @@ function createDistinctRepostTitle(sourceTitle, sourceDescription = '') {
 }
 
 function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
-  const description = normalizeCaptionEditorialText(sourceDescription)
+  const source = normalizeCaptionEditorialText(sourceDescription)
+    .split(/(?<=[.!؟])\s+|[\n\r]+/u)
+    .filter(part => !/(?:لایک|لایك|فالو|حمایت|یادتون\s+نره|دنبال(?:\s*کنید|\s*کنین)|عضو\s*(?:شوید|بشید)|سابسکرایب|برای\s+کلیپ(?:های)?\s+بیشتر|کانال\s*(?:ما|مارا|رو|را)|لذت\s+ببرید)/iu.test(part))
+    .join(' ');
+  const description = normalizeCaptionEditorialText(source)
     .replace(/https?:\/\/\S+|www\.\S+/giu, ' ')
     .replace(/#[^\s#]+/gu, ' ')
     .replace(/@[\p{L}\p{N}_.-]+/gu, ' ')
@@ -838,7 +928,10 @@ function candidateMetadataFingerprint(video) {
 function isTitleRewriteRejectionReason(reason) {
   return reason === 'title_without_safe_editorial_rewrite' ||
     reason === 'title_not_distinct_or_editorially_clean' ||
-    reason === 'source_title_too_short';
+    reason === 'source_title_too_short' ||
+    reason === 'title_promotional_or_call_to_action' ||
+    reason === 'title_generic_episode_label' ||
+    reason === 'title_generic_praise_without_subject';
 }
 
 function getCachedCandidateRejection(state,code,video,now=Date.now()) {
@@ -1459,7 +1552,7 @@ function normalizeVideoFeedItem(item) {
   alias('duration', ['du']);
   alias('visit_count', ['view_count', 'views', 'vc']);
   alias('play_count', ['plays', 'playCount', 'pd']);
-  alias('create_date', ['styled_create_date', 'created_at', 'cd']);
+  alias('create_date', ['styled_create_date', 'created_at', 'createdAt', 'created_time', 'create_time', 'published_at', 'publish_date', 'post_date', 'date', 'cd']);
   alias('has_audio', ['hst']);
   alias('can_republish', ['co']);
   alias('can_make_money', ['cr']);
