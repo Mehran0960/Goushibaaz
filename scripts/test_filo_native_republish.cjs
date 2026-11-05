@@ -550,20 +550,33 @@ assert.equal(getCachedCandidateRejection(rejectionCacheState,'Cache01',cacheVide
 const cleanedTitle = cleanRepostCaptionTitle('کلیپ خنده‌دار از مسابقه فوتبال 😂 #فوتبال');
 assert.ok(cleanedTitle.includes('مسابقه فوتبال'));
 assert.doesNotMatch(cleanedTitle, /https?:\/\/|#/);
-const shortDescription = cleanRepostDescription('واکنش کوتاه خانواده در لحظه رسیدن مهمان.', 'عنوان منبع', cleanedTitle);
-assert.equal(shortDescription, 'واکنش کوتاه خانواده در لحظه رسیدن مهمان.',
-  'a short factual source description must remain usable');
-assert.equal(cleanRepostDescription('', 'عنوان منبع', cleanedTitle), cleanedTitle,
-  'missing source description falls back to the actual title without invented details');
+const normalDescription = cleanRepostDescription('واکنش کوتاه خانواده در لحظه رسیدن مهمان.', 'عنوان منبع', cleanedTitle);
+assert.equal(normalDescription, 'واکنش کوتاه خانواده در لحظه رسیدن مهمان.',
+  'a sufficiently detailed factual source description must remain unchanged');
+const enrichedDescription = cleanRepostDescription(
+  'پخت خورشت بامیه',
+  'طرز تهیه خورشت بامیه با مرغ',
+  'روش پخت خورشت بامیه با مرغ'
+);
+assert.equal(enrichedDescription,
+  'پخت خورشت بامیه؛ موضوع ویدئو: روش پخت خورشت بامیه با مرغ');
+assert.ok(enrichedDescription.length >= 31,
+  'short source descriptions must be enriched only with the source-grounded repost topic');
+assert.equal(cleanRepostDescription('', 'عنوان منبع', cleanedTitle),
+  'موضوع ویدئو: ' + cleanedTitle,
+  'missing source description falls back to a clearly labelled source-grounded topic');
+assert.throws(() => cleanRepostDescription('', '', 'کلیپ'),
+  /repost_description_too_short/,
+  'metadata with no sufficiently descriptive source topic must be skipped before upload');
 
 const sourceDescription = 'در این ویدئو، هنگام برگزاری مولودی واکنش خانواده به تنها ماندن یکی از اعضا دیده می‌شود و رفتار او باعث خنده اطرافیان می‌شود.';
 const shortMetadata = createRepostMetadata({
   ...valid,
   title: 'طرز تهیه خورشت بامیه با مرغ',
-  description: 'واکنش کوتاه خانواده'
+  description: 'پخت خورشت بامیه'
 }, 'AbC1234');
 assert.equal(shortMetadata.title, 'روش پخت خورشت بامیه با مرغ');
-assert.equal(shortMetadata.description, 'واکنش کوتاه خانواده');
+assert.equal(shortMetadata.description, 'پخت خورشت بامیه؛ موضوع ویدئو: روش پخت خورشت بامیه با مرغ');
 assert.throws(() => createRepostMetadata({
   ...valid,
   title: 'پیغام توهین آمیز به یک بازیکن',
