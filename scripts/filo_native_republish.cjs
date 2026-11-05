@@ -712,7 +712,7 @@ function descriptionBasedTitleCandidate(sourceDescription) {
 function createDistinctRepostTitle(sourceTitle, sourceDescription = '') {
   const cleaned=cleanRepostCaptionTitle(sourceTitle);
   const rules=[
-    [/^کلیپ\s+بلوچی\s+آهنگ\s+بلوچی\s+(.+)$/u,m=>['ترانه بلوچی «'+m[1]+'»']],
+    [/^بلوچی\s+آهنگ\s+بلوچی\s+(.+)$/u,m=>['ترانه بلوچی «'+m[1]+'»']],
     [/^دانلود\s+آهنگ(?:\s+جدید)?\s+(.+?)\s+به\s+نام\s+(.+)$/u,m=>['ترانه «'+m[2]+'» از '+m[1]]],
     [/^آهنگ\s+(.+?)\s+و\s+(.+?)\s+(.+)$/u,m=>['همخوانی '+m[1]+' و '+m[2]+' با ترانه «'+m[3]+'»']],
     [/^([0-9۰-۹]{1,2})\s+آبان\s+ماهی\s+عزیز\s+تولدت\s+مبارک$/u,m=>['تبریک تولد به متولد '+m[1]+' آبان']],
