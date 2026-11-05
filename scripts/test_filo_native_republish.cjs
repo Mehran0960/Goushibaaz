@@ -283,6 +283,19 @@ assert.equal(categoryFeedBoundaryOrdered(previousPageLast, nextPageFirst), true,
   'successive page boundaries should remain newest-to-oldest');
 assert.equal(categoryFeedBoundaryOrdered(previousPageLast, outOfOrderPageFirst), false,
   'a newer item on a later page invalidates the pagination ordering assumption');
+const sameDateBoundary = {
+  centerHours: 48, lowerHours: 36, upperHours: 60, precisionHours: 24, chronologyReliable: true
+};
+const ambiguousDateBoundary = {
+  centerHours: 48, lowerHours: 36, upperHours: 60, precisionHours: 24, chronologyReliable: true
+};
+const nextDayBoundary = {
+  centerHours: 72, lowerHours: 60, upperHours: 84, precisionHours: 24, chronologyReliable: true
+};
+assert.equal(categoryFeedBoundaryOrdered(sameDateBoundary, ambiguousDateBoundary), false,
+  'same-day date-only pagination boundaries cannot prove ordering within a day');
+assert.equal(categoryFeedBoundaryOrdered(sameDateBoundary, nextDayBoundary), true,
+  'non-overlapping consecutive date ranges can prove day-level pagination order');
 
 assert.equal(shouldStopCategoryPagination({
   pageCount: 1, pageAnalysis: oldOrderedPage, chronologyVerified: true
