@@ -658,7 +658,7 @@ function editorialTitleQualityReason(value) {
   if (!text) return 'empty_title';
   const promotional = /(?:لایک|پسند|فالو|دنبال(?:\s+کنید|\s+کنین)?|ساب(?:سکرایب)?|عضو(?:\s+شوید|\s+بشید)?|حمایت(?:\s+کنید|\s+کنین)?|کانال\s+(?:ما|مارا)|برای\s+کلیپ\s+های\s+بیشتر|پیج\s+(?:ما|مارا))/iu;
   if (promotional.test(text)) return 'promotional_or_engagement_title';
-  if (/^(?:(?:کلیپ|ویدئو|ویدیو|طنز|خنده\s*دار)\s+)*(?:پارت|قسمت|بخش)\s*[0-9۰-۹]+(?: \s+.*)?$/iu.test(text)) return 'generic_part_only_title';
+  if (/^(?:(?:کلیپ|ویدئو|ویدیو|طنز|خنده\s*دار)\s+)*(?:پارت|قسمت|بخش)\s*[0-9۰-۹]+(?:\s+.*)?$/iu.test(text)) return 'generic_part_only_title';
   if (/^(?:پارت|قسمت|بخش)\s*[0-9۰-۹]+$/iu.test(text)) return 'generic_part_only_title';
   return null;
 }
