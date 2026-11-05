@@ -3,6 +3,7 @@
 const assert = require('node:assert/strict');
 const {
   ageHours,
+  shouldStartPublishingCycle,
   feedCandidateEligible,
   summarizeFeedGateSignals,
   cleanRepostCaptionTitle,
@@ -67,6 +68,14 @@ const valid = {
 };
 
 assert.equal(ageHours({ create_date: '۲ ساعت پیش' }), 2);
+assert.equal(shouldStartPublishingCycle(null, Date.parse('2026-11-05T04:20:00.000Z')), true,
+  'the first publishing cycle should start immediately');
+assert.equal(shouldStartPublishingCycle('2026-11-05T04:17:00.000Z',
+  Date.parse('2026-11-05T04:20:59.000Z')), false,
+  'a second scheduler source must not start a duplicate cycle inside the four-minute cooldown');
+assert.equal(shouldStartPublishingCycle('2026-11-05T04:17:00.000Z',
+  Date.parse('2026-11-05T04:21:00.000Z')), true,
+  'a new cycle becomes eligible as soon as the four-minute cooldown elapses');
 assert.equal(feedCandidateEligible(valid, { posts: [] }), true);
 assert.equal(feedCandidateEligible({ ...valid, can_republish: 0 }, { posts: [] }), true,
   'feed permission bits are advisory; final permission is checked against the detail endpoint');
