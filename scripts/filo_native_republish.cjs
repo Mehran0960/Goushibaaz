@@ -2656,6 +2656,7 @@ module.exports = {
   parseMultipartPublishBody,
   getPublishBodyParam,
   serializeFiloPublishRequestBody,
+  setJsonPublishBodyField,
   safeApiDiagnosticValue,
   buildUnconfirmedSubmissionResult,
   composeFiloCoverDataUrl,
