@@ -65,13 +65,17 @@ const valid = {
 
 assert.equal(ageHours({ create_date: '۲ ساعت پیش' }), 2);
 assert.equal(feedCandidateEligible(valid, { posts: [] }), true);
-assert.equal(feedCandidateEligible({ ...valid, can_republish: 0 }, { posts: [] }), false);
-assert.equal(feedCandidateEligible({ ...valid, is_publish_able: 0 }, { posts: [] }), false);
-assert.equal(feedCandidateEligible({ ...valid, only_in_filo: 1 }, { posts: [] }), false);
-assert.equal(feedCandidateEligible({ ...valid, duration: 8 }, { posts: [] }), false);
-assert.equal(feedCandidateEligible({ ...valid, duration: 9 }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, can_republish: 0 }, { posts: [] }), true,
+  'feed permission bits are advisory; final permission is checked against the detail endpoint');
+assert.equal(feedCandidateEligible({ ...valid, is_publish_able: 0 }, { posts: [] }), true,
+  'a stale feed publishable bit must not block the authoritative detail check');
+assert.equal(feedCandidateEligible({ ...valid, only_in_filo: 1 }, { posts: [] }), true,
+  'the authoritative detail gate owns only-in-Filo restrictions');
+assert.equal(feedCandidateEligible({ ...valid, duration: 8 }, { posts: [] }), true,
+  'compact duration is a hint and the detail duration gate remains authoritative');
+assert.equal(feedCandidateEligible({ ...valid, duration: 9 }, { posts: [] }), true);
 assert.equal(feedCandidateEligible({ ...valid, duration: 10 }, { posts: [] }), true);
-assert.equal(feedCandidateEligible({ ...valid, duration: 240 }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, duration: 240 }, { posts: [] }), true);
 assert.equal(feedCandidateEligible({ ...valid, title: 'خبر فوری جنگ و حمله نظامی' }, { posts: [] }), false);
 assert.equal(feedCandidateEligible({ ...valid, title: 'پیغام توهین آمیز در پایان مسابقه' }, { posts: [] }), false);
 assert.equal(feedCandidateEligible({ ...valid, title: 'سکانس سریال ایرانی' }, { posts: [] }), false);
@@ -157,7 +161,16 @@ assert.equal(feedCandidateEligible({
 assert.equal(feedCandidateEligible({
   ...normalizeVideoFeedItem({v:'AbC1234',t:'یک چالش بامزه تازه و جذاب',c:6,du:28,vc:120,pd:10,cd:'۲ ساعت پیش',hst:1,co:1,cr:1,ac:1}),
   is_publish_able:0,status_id:1
-}, {posts:[]}), false, 'an explicit unpublishable feed flag remains a hard exclusion');
+}, {posts:[]}), true, 'an explicit unpublishable feed flag is rechecked against authoritative details');
+const feedSignals = summarizeFeedGateSignals([
+  normalizeVideoFeedItem({v:'AbC1234',t:'ویدیوی تازه و مفید',du:28,vc:90,pd:5,hst:0,co:0,cr:1,ac:1}),
+  normalizeVideoFeedItem({v:'ZzY9876',t:'ویدیوی تازه و مفید',du:240,vc:50,pd:0,hst:1,co:1,cr:1,ac:1})
+], {posts:[]});
+assert.equal(feedSignals.totalItems, 2);
+assert.equal(feedSignals.flags.can_republish.false, 1);
+assert.equal(feedSignals.flags.has_audio.false, 1);
+assert.equal(feedSignals.duration.outOfRange, 1,
+  'diagnostics must identify the advisory feed fields that need authoritative detail checks');
 
 assert.deepEqual(extractCategoryIds([{id:3},{id:4}]),[3,4],
   'direct category arrays must be supported');
@@ -434,8 +447,12 @@ const baseline = [
   { video_code: 'Old001', title: 'ویدئوی قدیمی', create_date: 'دیروز', visit_count: 100, plays: 10 },
   { video_code: 'ViewsOnly', title: 'ویدئوی بدون شمارنده پخش', create_date: '۲ ساعت پیش', visit_count: 100 }
 ];
-assert.deepEqual(rankCandidatesByMomentum(baseline, momentumState, momentumStart), [],
-  'first sighting is only a baseline and must not be mistaken for growth');
+const firstRank = rankCandidatesByMomentum(baseline, momentumState, momentumStart);
+assert.equal(firstRank.length, 3,
+  'a first sighting must use safe cumulative-count fallback instead of stalling the publishing cycle');
+assert.equal(firstRank[0].rankingMetric, 'cumulative_plays');
+assert.equal(firstRank[0].selectionMode, 'cumulative_play_fallback');
+assert.equal(firstRank.every(entry => !entry.hasMeasuredGrowth), true);
 
 const secondScan = [
   { ...baseline[0], visit_count: 200, plays: 30 },
