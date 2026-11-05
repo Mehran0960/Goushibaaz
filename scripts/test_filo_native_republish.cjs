@@ -41,6 +41,7 @@ const {
   summarizeCategoryCatalogPayload,
   rotatingDepthSelection,
   nextCategoryDepthPage,
+  resolveDepthScanStartPage,
   getCachedCandidateRejection,
   isTitleRewriteRejectionReason,
   cacheCandidateRejection,
@@ -77,6 +78,11 @@ const valid = {
 };
 
 assert.equal(ageHours({ create_date: '۲ ساعت پیش' }), 2);
+const jalaliNow = Date.parse('2026-11-05T06:30:00.000Z');
+assert.equal(ageHours({ create_date: '۱۴۰۵/۰۸/۱۴ ساعت ۰۹:۳۰' }, jalaliNow), 0.5,
+  'Jalali timestamps must also drive candidate ranking and the 24-hour cutoff');
+assert.equal(ageHours({ create_date: '۱۴۰۵/۰۸/۱۴' }, jalaliNow), 10,
+  'date-only Jalali values use the conservative start of the Tehran day');
 assert.equal(shouldStartPublishingCycle(null, Date.parse('2026-11-05T04:20:00.000Z')), true,
   'the first publishing cycle should start immediately');
 assert.equal(shouldStartPublishingCycle('2026-11-05T04:17:00.000Z',
@@ -209,6 +215,12 @@ assert.deepEqual(rotatingDepthSelection([1,2,3,4,5],3,2),
 assert.deepEqual(rotatingDepthSelection([1,2,3],2,12),
   {categoryIds:[3,1,2],nextCursor:2});
 assert.equal(nextCategoryDepthPage(2),3);
+assert.equal(resolveDepthScanStartPage(2,{lastPageNo:12}),13,
+  'old state that wrapped at page twelve must resume at page thirteen');
+assert.equal(resolveDepthScanStartPage(2,{lastPageNo:9}),2,
+  'ordinary early pagination state must keep its current cursor');
+assert.equal(resolveDepthScanStartPage(14,{lastPageNo:12}),2,
+  'a non-contiguous stored cursor must restart safely');
 assert.equal(nextCategoryDepthPage(12),2);
 assert.deepEqual(
   Object.keys(summarizeCategoryCatalogPayload({s:true,d:{c:[],cfs:[]}}).nested),
