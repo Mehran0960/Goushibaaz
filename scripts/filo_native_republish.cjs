@@ -653,6 +653,16 @@ const EDITORIAL_TITLE_STOPWORDS = new Set([
   'جالب', 'دیدنی', 'لحظه', 'روایت', 'آموزشی'
 ]);
 
+function editorialTitleQualityReason(value) {
+  const text = normalizeCaptionEditorialText(value).replace(/\s+/g, ' ').trim();
+  if (!text) return 'empty_title';
+  const promotional = /(?:لایک|پسند|فالو|دنبال(?:\s+کنید|\s+کنین)?|ساب(?:سکرایب)?|عضو(?:\s+شوید|\s+بشید)?|حمایت(?:\s+کنید|\s+کنین)?|کانال\s+(?:ما|مارا)|برای\s+کلیپ\s+های\s+بیشتر|پیج\s+(?:ما|مارا))/iu;
+  if (promotional.test(text)) return 'promotional_or_engagement_title';
+  if (/^(?:(?:کلیپ|ویدئو|ویدیو|طنز|خنده\s*دار)\s+)*(?:پارت|قسمت|بخش)\s*[0-9۰-۹]+(?:\s+.*)?$/iu.test(text)) return 'generic_part_only_title';
+  if (/^(?:پارت|قسمت|بخش)\s*[0-9۰-۹]+$/iu.test(text)) return 'generic_part_only_title';
+  return null;
+}
+
 function editorialTitleTokens(value) {
   return [...new Set(normalizeCaptionEditorialText(value)
     .toLocaleLowerCase('fa-IR')
@@ -749,6 +759,7 @@ function createDistinctRepostTitle(sourceTitle, sourceDescription = '') {
   for(const draft of drafts){
     const candidate=removeRepeatedTrailingPhrase(draft).replace(/\s+/g,' ').trim();
     if(candidates.includes(candidate))continue;
+    if(editorialTitleQualityReason(candidate))continue;
     const tokens=editorialTitleTokens(candidate);
     if(tokens.length<3||candidate.length<10||candidate.length>176)continue;
     const contentWords=normalizeCaptionEditorialText(candidate).toLocaleLowerCase('fa-IR')
@@ -2685,6 +2696,7 @@ module.exports = {
   categoryFeedBoundaryOrdered,
   shouldStopCategoryPagination,
   editorialTitleTokens,
+  editorialTitleQualityReason,
   characterBigramDice,
   createDistinctRepostTitle,
   descriptionBasedTitleCandidate,
