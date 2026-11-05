@@ -20,6 +20,7 @@ const {
   serializeFiloPublishRequestBody,
   setJsonPublishBodyField,
   safeApiDiagnosticValue,
+  categoryApiErrorHint,
   detailFetchHttpDisposition,
   getCachedDetailAccessRejection,
   jalaliDateToGregorianTimestamp,
@@ -513,6 +514,16 @@ assert.equal(detailFetchHttpDisposition(401), 'session_expired');
 assert.equal(detailFetchHttpDisposition(429), 'retryable');
 assert.equal(detailFetchHttpDisposition(503), 'retryable');
 assert.equal(detailFetchHttpDisposition(404), 'permanent');
+assert.equal(categoryApiErrorHint({
+  status: 403, contentType: 'application/json; charset=utf-8',
+  body: JSON.stringify({ message: 'permission denied for this video' })
+}), 'message:permission denied for this video',
+'403 diagnostics should preserve a safe, useful API denial message');
+assert.equal(categoryApiErrorHint({
+  status: 403, contentType: 'application/json',
+  body: JSON.stringify({ message: 'session token secret is invalid' })
+}), 'body_keys:message',
+'403 diagnostics must not expose authentication or session messages');
 const forbiddenCacheState = {candidateRejections:{}};
 cacheCandidateRejection(forbiddenCacheState,'Forbidden1',cacheVideo,
   'detail_fetch:forbidden_403',Date.parse('2026-11-05T10:00:00.000Z'),6*60*60*1000);
