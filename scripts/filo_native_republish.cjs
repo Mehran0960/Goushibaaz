@@ -272,7 +272,15 @@ function analyzeCategoryFeedPage(items, now = Date.now(), lookbackHours = CATEGO
 
 function categoryFeedBoundaryOrdered(previousLastAge, currentFirstAge) {
   if (!previousLastAge || !currentFirstAge) return false;
-  const tolerance = Math.max(0.03, (previousLastAge.precisionHours + currentFirstAge.precisionHours) * 0.5);
+  const previousPrecision = Number(previousLastAge.precisionHours) || 0;
+  const currentPrecision = Number(currentFirstAge.precisionHours) || 0;
+  if (previousPrecision > 1.1 || currentPrecision > 1.1) {
+    // For day-level timestamps, prove the ranges do not overlap; same-day ordering is unknown.
+    return Number.isFinite(previousLastAge.upperHours) &&
+      Number.isFinite(currentFirstAge.lowerHours) &&
+      currentFirstAge.lowerHours >= previousLastAge.upperHours - 0.01;
+  }
+  const tolerance = Math.max(0.03, (previousPrecision + currentPrecision) * 0.5);
   return currentFirstAge.centerHours + tolerance >= previousLastAge.centerHours;
 }
 
