@@ -2177,12 +2177,23 @@ async function main() {
     for (const entry of ranked.slice(0, MAX_DETAIL_CHECKS)) {
       const code = entry.item.video_code;
       const detail = await getRepublishDetail(page, code).catch(() => null);
-      const gate = detail ? detailGate(detail.root, detail.video) : { eligible: false, reason: 'republish_detail_unavailable' };
       const check = {
         code, rankingMetric: entry.rankingMetric, selectionMode: entry.selectionMode,
         playsPerMinute: entry.momentum.playsPerMinute, viewsPerMinute: entry.momentum.viewsPerMinute,
-        ageHours: entry.ageHours, gate: gate.reason
+        ageHours: entry.ageHours, gate: null
       };
+      if (detail && detail.video) {
+        const cachedRejection = getCachedCandidateRejection(state, code, detail.video, Date.parse(report.createdAt));
+        if (cachedRejection) {
+          check.gate = 'cached_candidate_rejection';
+          check.cachedReason = cachedRejection.reason;
+          check.retryAfterAt = cachedRejection.retryAfterAt;
+          checked.push(check);
+          continue;
+        }
+      }
+      const gate = detail ? detailGate(detail.root, detail.video) : { eligible: false, reason: 'republish_detail_unavailable' };
+      check.gate = gate.reason;
       checked.push(check);
       if (!gate.eligible) {
         const globalBlockReasons = new Set([
@@ -2205,13 +2216,6 @@ async function main() {
         continue;
       }
 
-      const cachedRejection = getCachedCandidateRejection(state,code,detail.video,Date.parse(report.createdAt));
-      if(cachedRejection){
-        check.gate='cached_metadata_rejection';
-        check.cachedReason=cachedRejection.reason;
-        check.retryAfterAt=cachedRejection.retryAfterAt;
-        continue;
-      }
       let candidateMetadata;
       try {
         candidateMetadata = createRepostMetadata(detail.video, code);
