@@ -488,18 +488,18 @@
     }
   ],
   "updatedAt": "2026-11-04T19:08:54.717Z",
-  "lastCycleStartedAt": "2026-11-05T03:58:29.174Z",
+  "lastCycleStartedAt": "2026-11-05T04:03:26.951Z",
   "candidateMomentum": {},
-  "categoryDepthCursor": 0,
+  "categoryDepthCursor": 12,
   "categoryDepthPages": {
     "2": 9,
     "3": 9,
-    "6": 9,
+    "6": 10,
     "11": 9,
     "13": 9,
     "15": 9,
     "17": 9,
-    "21": 2,
+    "21": 3,
     "22": 9,
     "25": 9,
     "29": 9,
@@ -507,25 +507,25 @@
     "202": 2,
     "277": 3,
     "792": 2,
-    "1058": 2,
+    "1058": 3,
     "1269": 8,
-    "1488": 12,
+    "1488": 2,
     "1741": 2,
-    "1906": 2,
-    "2740": 6,
-    "2744": 2,
-    "2816": 2,
+    "1906": 3,
+    "2740": 2,
+    "2744": 3,
+    "2816": 3,
     "2854": 5,
     "5074": 2,
-    "5120": 2,
+    "5120": 3,
     "5241": 2,
     "7447": 2,
     "12182": 10,
     "35191": 12,
     "52876": 5,
     "169062": 8,
-    "169302": 2,
-    "all": 3
+    "169302": 3,
+    "all": 4
   },
   "categoryDepthEvidence": {
     "2": {
@@ -549,7 +549,7 @@
       "chronologyVerified": true
     },
     "6": {
-      "lastPageNo": 8,
+      "lastPageNo": 9,
       "lastAgeBounds": {
         "centerHours": 48,
         "lowerHours": 36,
@@ -594,7 +594,7 @@
       "chronologyVerified": false
     },
     "21": {
-      "lastPageNo": 12,
+      "lastPageNo": 2,
       "lastAgeBounds": null,
       "chronologyVerified": false
     },
@@ -634,7 +634,7 @@
       "chronologyVerified": false
     },
     "1058": {
-      "lastPageNo": 12,
+      "lastPageNo": 2,
       "lastAgeBounds": null,
       "chronologyVerified": false
     },
@@ -644,7 +644,7 @@
       "chronologyVerified": false
     },
     "1488": {
-      "lastPageNo": 11,
+      "lastPageNo": 12,
       "lastAgeBounds": null,
       "chronologyVerified": false
     },
@@ -654,22 +654,22 @@
       "chronologyVerified": false
     },
     "1906": {
-      "lastPageNo": 12,
-      "lastAgeBounds": null,
-      "chronologyVerified": false
-    },
-    "2740": {
-      "lastPageNo": 5,
+      "lastPageNo": 2,
       "lastAgeBounds": null,
       "chronologyVerified": false
     },
     "2744": {
-      "lastPageNo": 12,
-      "lastAgeBounds": null,
+      "lastPageNo": 2,
+      "lastAgeBounds": {
+        "centerHours": 72,
+        "lowerHours": 60,
+        "upperHours": 84,
+        "precisionHours": 24
+      },
       "chronologyVerified": false
     },
     "2816": {
-      "lastPageNo": 12,
+      "lastPageNo": 2,
       "lastAgeBounds": null,
       "chronologyVerified": false
     },
@@ -684,7 +684,7 @@
       "chronologyVerified": false
     },
     "5120": {
-      "lastPageNo": 12,
+      "lastPageNo": 2,
       "lastAgeBounds": null,
       "chronologyVerified": false
     },
@@ -719,13 +719,18 @@
       "chronologyVerified": false
     },
     "169302": {
-      "lastPageNo": 12,
+      "lastPageNo": 2,
       "lastAgeBounds": null,
       "chronologyVerified": false
     },
     "all": {
-      "lastPageNo": 2,
-      "lastAgeBounds": null,
+      "lastPageNo": 3,
+      "lastAgeBounds": {
+        "centerHours": 144,
+        "lowerHours": 132,
+        "upperHours": 156,
+        "precisionHours": 24
+      },
       "chronologyVerified": false
     }
   },
