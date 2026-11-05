@@ -261,6 +261,41 @@ assert.equal(
   'روش یزدی ها برای پاک کردن انار',
   'a safe style-based title rewrite should keep the original claim and vary its wording'
 );
+assert.equal(
+  createDistinctRepostTitle('کلیپ بلوچی آهنگ بلوچی ورنهایه'),
+  'ترانه بلوچی «ورنهایه»',
+  'a music clip title should become a concise title anchored to the source song'
+);
+assert.equal(
+  createDistinctRepostTitle('۱۳ آبان ماهی عزیز تولدت مبارک'),
+  'تبریک تولد به متولد ۱۳ آبان',
+  'a date-specific birthday title should retain the date and greeting'
+);
+assert.equal(
+  createDistinctRepostTitle('آهنگ افشین آذری و وفا شریفوا آخشاملار هوالار قارالان کیمی'),
+  'همخوانی افشین آذری و وفا شریفوا با ترانه «آخشاملار هوالار قارالان کیمی»',
+  'music title rewriting should preserve the named artists and song name'
+);
+assert.equal(
+  createDistinctRepostTitle('دانلود آهنگ جدید دومان به نام من همانم'),
+  'ترانه «من همانم» از دومان',
+  'a download-style music title should become a clean title with artist and song'
+);
+assert.equal(
+  createDistinctRepostTitle('طنر بازی کردن با غذا'),
+  'بازی با غذا در قالب طنز',
+  'a common typo in a comedy title should be corrected without inventing a subject'
+);
+assert.equal(
+  createDistinctRepostTitle('طنز بهترین رفیق ها'),
+  'بهترین رفیق‌ها در قاب طنز',
+  'a specific comedy topic should be retained while removing generic lead-in'
+);
+assert.equal(
+  createDistinctRepostTitle('طنز دیدار پاریس ژرمن و بارسلونا'),
+  'شوخی با دیدار پاریس ژرمن و بارسلونا',
+  'a humor-tagged sports title should retain both teams and the meeting context'
+);
 assert.throws(
   () => createDistinctRepostTitle('کلیپ های طنز و خنده//بهرام افشاری'),
   /title_without_safe_editorial_rewrite|title_not_distinct_or_editorially_clean/,
