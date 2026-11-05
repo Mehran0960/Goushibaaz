@@ -913,6 +913,108 @@ function imageDimensionsFromDataUrl(value) {
  return null;
 }
 
+function normalizePublishFieldName(value) {
+  return String(value || '').replace(/[^a-z0-9\u0600-\u06ff]/gi, '').toLocaleLowerCase('en');
+}
+
+function flattenPublishBodyObject(value, params, depth = 0) {
+  if (!value || typeof value !== 'object' || Array.isArray(value) || depth > 5) return;
+  for (const [key, item] of Object.entries(value)) {
+    if (item === null || item === undefined) continue;
+    if (typeof item === 'string' || typeof item === 'number' || typeof item === 'boolean') {
+      if (!params.has(key)) params.set(key, String(item));
+    } else if (typeof item === 'object' && !Array.isArray(item)) {
+      flattenPublishBodyObject(item, params, depth + 1);
+    }
+  }
+}
+
+function parseMultipartPublishBody(body, boundary) {
+  const params = new Map();
+  if (!boundary) return params;
+  const delimiter = '--' + boundary;
+  const chunks = String(body || '').split(delimiter);
+  for (const chunk of chunks.slice(1)) {
+    if (chunk.startsWith('--')) continue;
+    const normalized = chunk.replace(/^\r?\n/, '').replace(/\r?\n$/, '');
+    const separator = normalized.indexOf('\r\n\r\n');
+    if (separator < 0) continue;
+    const headers = normalized.slice(0, separator);
+    const name = (headers.match(/content-disposition:[^\r\n]*\bname="([^"]+)"/i) || [])[1];
+    if (!name) continue;
+    const value = normalized.slice(separator + 4).replace(/\r?\n$/, '');
+    params.set(name, value);
+  }
+  return params;
+}
+
+function parseFiloPublishRequestBody(body, contentType = '') {
+  const raw = String(body || '');
+  const type = String(contentType || '').toLowerCase();
+  if (type.includes('application/json') || (!type && /^\s*[\[{]/.test(raw))) {
+    try {
+      const json = JSON.parse(raw);
+      const params = new Map();
+      flattenPublishBodyObject(json, params);
+      return { format: 'json', contentType: String(contentType || ''), raw, json, params, keys: [...params.keys()] };
+    } catch {
+      if (type.includes('application/json')) {
+        return { format: 'invalid_json', contentType: String(contentType || ''), raw, json: null, params: new Map(), keys: [] };
+      }
+    }
+  }
+  if (type.includes('multipart/form-data')) {
+    const boundary = (String(contentType).match(/boundary=(?:"([^"]+)"|([^;]+))/i) || [])[1] ||
+      (String(contentType).match(/boundary=(?:"([^"]+)"|([^;]+))/i) || [])[2] || '';
+    const params = parseMultipartPublishBody(raw, boundary.trim());
+    return { format: 'multipart', contentType: String(contentType || ''), raw, boundary: boundary.trim(), json: null, params, keys: [...params.keys()] };
+  }
+  if (type.includes('application/x-www-form-urlencoded') || !type) {
+    const params = new URLSearchParams(raw);
+    if (params.size || !raw) {
+      return { format: 'urlencoded', contentType: String(contentType || ''), raw, json: null, params: new Map(params.entries()), keys: [...params.keys()] };
+    }
+  }
+  return { format: 'unknown', contentType: String(contentType || ''), raw, json: null, params: new Map(), keys: [] };
+}
+
+function getPublishBodyParam(params, ...aliases) {
+  const entries = params instanceof Map ? [...params.entries()] : [];
+  const normalized = new Map(entries.map(([key, value]) => [normalizePublishFieldName(key), value]));
+  for (const alias of aliases) {
+    const key = normalizePublishFieldName(alias);
+    if (normalized.has(key)) return normalized.get(key);
+  }
+  return '';
+}
+
+function setJsonPublishBodyField(json, key, value, depth = 0) {
+  if (!json || typeof json !== 'object' || Array.isArray(json) || depth > 5) return false;
+  if (Object.prototype.hasOwnProperty.call(json, key)) {
+    json[key] = value;
+    return true;
+  }
+  for (const child of Object.values(json)) {
+    if (child && typeof child === 'object' && !Array.isArray(child) &&
+        setJsonPublishBodyField(child, key, value, depth + 1)) return true;
+  }
+  json[key] = value;
+  return true;
+}
+
+function serializeFiloPublishRequestBody(parsed) {
+  if (!parsed || !(parsed.params instanceof Map)) return null;
+  if (parsed.format === 'urlencoded') {
+    const params = new URLSearchParams();
+    for (const [key, value] of parsed.params.entries()) params.append(key, value);
+    return params.toString();
+  }
+  if (parsed.format === 'json') return JSON.stringify(parsed.json);
+  // Multipart bodies may contain binary or browser-managed fields. Preserve byte-for-byte;
+  // the cover is optional and must never force a malformed multipart reconstruction.
+  return null;
+}
+
 function buildNativePublishGuardFailures({
  sourceCode,republishFrom,videoCode,isMadeByMe,canRepublish,canMakeMoney,dontPublish,metadataOk
 }) {
@@ -1698,8 +1800,14 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
   const thumbnailGuardBlockPromise=new Promise(resolve=>{resolveThumbnailGuardBlock=resolve;});
   await page.route('**/api/v1/video/publish', async route => {
     const request = route.request();
-    const params = new URLSearchParams(request.postData() || '');
-    const postedFrame = params.get('selectedFrame') || '';
+    const requestHeaders = request.headers();
+    const parsedBody = parseFiloPublishRequestBody(
+      request.postData() || '',
+      requestHeaders['content-type'] || requestHeaders['Content-Type'] || ''
+    );
+    const params = parsedBody.params;
+    const readParam = (...aliases) => getPublishBodyParam(params, ...aliases);
+    const postedFrame = readParam('selectedFrame', 'selected_frame') || '';
     const preferredSourceFrame = thumbnailSelection.coverFrameDataUrl || postedFrame;
     let coverComposition = await composeFiloCoverDataUrl(page,preferredSourceFrame);
     if(!coverComposition.ok&&postedFrame&&postedFrame!==preferredSourceFrame){
@@ -1718,19 +1826,25 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
           sourceDimensions:nativeDimensions,dimensions:nativeDimensions,aspectRatio:nativeAspect};
       }
     }
-    if(selectedFrame)params.set('selectedFrame',selectedFrame);
-    else params.delete('selectedFrame');
+    if(selectedFrame) {
+      params.set('selectedFrame',selectedFrame);
+      if (parsedBody.format === 'json') {
+        setJsonPublishBodyField(parsedBody.json, 'selectedFrame', selectedFrame);
+      }
+    } else {
+      params.delete('selectedFrame');
+    }
     const coverDimensions = imageDimensionsFromDataUrl(selectedFrame);
     const coverAspectRatio = coverDimensions ? coverDimensions.width / coverDimensions.height : 0;
     const coverAspectOk = Boolean(coverDimensions && Math.abs(coverAspectRatio - (16 / 9)) <= 0.02);
-    const republishFrom = params.get('republishFrom') || '';
-    const videoCode = params.get('videoCode') || '';
-    const isMadeByMe = params.get('isMadeByMe');
-    const canRepublish = params.get('canRepublish');
-    const canMakeMoney = params.get('canMakeMoney');
-    const dontPublish = params.get('dontPublish');
-    const outgoingTitle = params.get('title') || '';
-    const outgoingDescription = params.get('description') || '';
+    const republishFrom = readParam('republishFrom', 'republish_from', 'sourceCode', 'source_code', 'from_code');
+    const videoCode = readParam('videoCode', 'video_code', 'newVideoCode', 'new_video_code');
+    const isMadeByMe = readParam('isMadeByMe', 'is_made_by_me');
+    const canRepublish = readParam('canRepublish', 'can_republish');
+    const canMakeMoney = readParam('canMakeMoney', 'can_make_money');
+    const dontPublish = readParam('dontPublish', 'dont_publish', 'do_not_publish');
+    const outgoingTitle = readParam('title', 'videoTitle', 'video_title') || '';
+    const outgoingDescription = readParam('description', 'videoDescription', 'video_description') || '';
     const outgoingTitleComparable = normalizeComparable(outgoingTitle);
     const outgoingDescriptionComparable = normalizeComparable(outgoingDescription);
     const sourceTitleComparable = normalizeComparable(repostMetadata.sourceTitle);
@@ -1749,7 +1863,7 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
       sourceCode: republishFrom,
       newVideoCode: videoCode,
       title: outgoingTitle.slice(0, 180),
-      category: params.get('category') || '',
+      category: readParam('category', 'categoryId', 'category_id') || '',
       selectedFramePresent: frameOk,
       coverStatus: !frameOk ? 'cover_omitted_optional'
         : coverAspectOk ? 'cover_ready_16_9' : 'video_frame_fallback_non_16_9',
@@ -1759,6 +1873,10 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
       coverDimensions,
       coverAspectRatio: coverAspectRatio || null,
       coverAspectOk,
+      requestBodyFormat: parsedBody.format,
+      requestContentType: parsedBody.contentType || null,
+      requestBodyKeys: parsedBody.keys.slice(0, 40),
+      requestBodyLength: parsedBody.raw.length,
       coverComposition: {
         ok: Boolean(coverComposition.ok),
         strategy: coverComposition.strategy || null,
@@ -1783,7 +1901,16 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
       await route.abort('blockedbyclient').catch(() => {});
       return;
     }
-    await route.continue({postData:params.toString()});
+    if (parsedBody.format === 'multipart' || parsedBody.format === 'unknown' || parsedBody.format === 'invalid_json') {
+      await route.continue();
+      return;
+    }
+    const serializedBody = serializeFiloPublishRequestBody(parsedBody);
+    if (serializedBody === null) {
+      await route.continue();
+      return;
+    }
+    await route.continue({ postData: serializedBody });
   });
 
   const publishButton = page.getByRole('button', { name: /انتشار ویدیو|انتشار ویدئو/ }).first();
@@ -2525,6 +2652,11 @@ module.exports = {
   normalizeComparable,
   detailGate,
   buildNativePublishGuardFailures,
+  parseFiloPublishRequestBody,
+  parseMultipartPublishBody,
+  getPublishBodyParam,
+  serializeFiloPublishRequestBody,
+  setJsonPublishBodyField,
   safeApiDiagnosticValue,
   buildUnconfirmedSubmissionResult,
   composeFiloCoverDataUrl,
