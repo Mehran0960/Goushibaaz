@@ -890,10 +890,10 @@ function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
   let finalDescription = description;
   if (finalDescription.length < MIN_REPOST_DESCRIPTION_LENGTH) {
     const topic = normalizeCaptionEditorialText(repostTitle || sourceTitle)
-      .replace(/https?:\\/\\/\\S+|www\\.\\S+/giu, ' ')
-      .replace(/#[^\\s#]+/gu, ' ')
-      .replace(/@[\\p{L}\\p{N}_.-]+/gu, ' ')
-      .replace(/\\s+/g, ' ')
+      .replace(/https?:\/\/\S+|www\.\S+/giu, ' ')
+      .replace(/#[^\s#]+/gu, ' ')
+      .replace(/@[\p{L}\p{N}_.-]+/gu, ' ')
+      .replace(/\s+/g, ' ')
       .trim();
     const topicKey = normalizeComparable(topic);
     const descriptionAlreadyNamesTopic = Boolean(
