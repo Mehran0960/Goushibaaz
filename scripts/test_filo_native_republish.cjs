@@ -915,6 +915,7 @@ const topicSecondScan = [
   { ...topicBaseline[2], visit_count:120, plays:20 }
 ];
 const topicRank = rankCandidatesByMomentum(topicSecondScan, topicState, topicStart + 5 * 60 * 1000);
+console.log('TOPIC_RANK_DEBUG', JSON.stringify(topicRank.map(entry => ({code:entry.item.video_code,topicKey:entry.topicKey,topicDemandScore:entry.topicDemandScore,momentumScore:entry.momentumScore,rankingScore:entry.rankingScore,tier:entry.rankingTier,duration:entry.durationPreferenceScore,rate:entry.momentum.playsPerMinute}))));
 assert.equal(topicRank[0].item.video_code, 'HotA',
   'a corroborated topic cohort may lift a slightly slower candidate above a similarly paced isolated candidate');
 assert.ok(topicRank[0].topicDemandScore > topicRank[2].topicDemandScore,
