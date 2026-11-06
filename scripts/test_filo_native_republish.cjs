@@ -101,6 +101,8 @@ assert.equal(shouldStartPublishingCycle('2026-11-05T04:17:00.000Z',
   Date.parse('2026-11-05T04:21:00.000Z')), true,
   'a new cycle becomes eligible as soon as the four-minute cooldown elapses');
 assert.equal(feedCandidateEligible(valid, { posts: [] }), true);
+assert.equal(feedCandidateEligible({ ...valid, video_code:'TinyTitle', title:'کم', description:'', sender_name:'' }, { posts:[] }), true,
+  'a very short or missing source title must not block discovery; title fallback happens later');
 assert.equal(feedCandidateEligible({ ...valid, can_republish: 0 }, { posts: [] }), true,
   'feed permission bits are advisory; final permission is checked against the detail endpoint');
 assert.equal(feedCandidateEligible({ ...valid, is_publish_able: 0 }, { posts: [] }), true,
@@ -243,13 +245,18 @@ assert.equal(feedCandidateEligible({
 const feedSignals = summarizeFeedGateSignals([
   normalizeVideoFeedItem({v:'AbC1234',t:'ویدیوی تازه و مفید',du:28,vc:90,pd:5,hst:0,co:0,cr:1,ac:1}),
   normalizeVideoFeedItem({v:'ZzY9876',t:'ویدیوی تازه و مفید',du:240,vc:50,pd:0,hst:1,co:1,cr:1,ac:1}),
-  normalizeVideoFeedItem({v:'QqW0001',t:'ویدئوی کوتاه',du:8})
+  normalizeVideoFeedItem({v:'QqW0001',t:'ویدئوی کوتاه',du:8}),
+  normalizeVideoFeedItem({v:'Tiny001',t:'کم',du:12})
 ], {posts:[]});
-assert.equal(feedSignals.totalItems, 3);
+assert.equal(feedSignals.totalItems, 4);
 assert.equal(feedSignals.flags.can_republish.false, 1);
 assert.equal(feedSignals.flags.has_audio.false, 1);
 assert.equal(feedSignals.duration.belowMinimum, 1,
   'duration diagnostics must count only videos below the monetization minimum; long videos remain eligible for detail review');
+assert.equal(feedSignals.hardPrefilter.sparseText, 1,
+  'sparse title/description text should be reported diagnostically, not excluded');
+assert.equal(feedSignals.hardPrefilter.passed, 4,
+  'sparse but non-risky metadata must still pass the discovery prefilter');
 
 assert.deepEqual(extractCategoryIds([{id:3},{id:4}]),[3,4],
   'direct category arrays must be supported');

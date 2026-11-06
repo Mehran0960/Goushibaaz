@@ -390,8 +390,7 @@ function feedCandidateEligible(item, ledger) {
   const code = String(item.video_code || item.videoCode || item.code || '').trim();
   if (!/^[A-Za-z0-9_-]{5,40}$/.test(code)) return false;
   if (isSourceAlreadyAttempted(ledger, code)) return false;
-  const text = sourceText(item);
-  if (text.length < 8 || policyTextRiskReason(item)) return false;
+  if (policyTextRiskReason(item)) return false;
 
   // Feed flags are hints, not authorization. Every candidate still passes
   // detailGate() and the immediate pre-submission permission recheck.
@@ -425,7 +424,7 @@ function summarizeFeedGateSignals(items, ledger) {
     flags: Object.fromEntries(fields.map(field => [field, { true: 0, false: 0, missing: 0 }])),
     duration: { meetsMinimum: 0, belowMinimum: 0, missing: 0 },
     status: { publishable: 0, other: 0, missing: 0 },
-    hardPrefilter: { invalidCode: 0, duplicateOrAlreadyAttempted: 0, metadataPolicyRetryEligible: 0, textTooShort: 0, policyRisk: 0, passed: 0 }
+    hardPrefilter: { invalidCode: 0, duplicateOrAlreadyAttempted: 0, metadataPolicyRetryEligible: 0, sparseText: 0, policyRisk: 0, passed: 0 }
   };
   for (const item of Array.isArray(items) ? items : []) {
     for (const field of fields) {
@@ -452,9 +451,11 @@ function summarizeFeedGateSignals(items, ledger) {
       const ledgerDuplicate = isSourceAlreadyAttempted(ledger, code);
       if (ledgerDuplicate) summary.hardPrefilter.duplicateOrAlreadyAttempted++;
       else if (hasRetryableMetadataRejection(ledger, code)) summary.hardPrefilter.metadataPolicyRetryEligible++;
-      else if (sourceText(item).length < 8) summary.hardPrefilter.textTooShort++;
-      else if (policyTextRiskReason(item)) summary.hardPrefilter.policyRisk++;
-      else summary.hardPrefilter.passed++;
+      else {
+        if (sourceText(item).length < 8) summary.hardPrefilter.sparseText++;
+        if (policyTextRiskReason(item)) summary.hardPrefilter.policyRisk++;
+        else summary.hardPrefilter.passed++;
+      }
     }
   }
   return summary;
