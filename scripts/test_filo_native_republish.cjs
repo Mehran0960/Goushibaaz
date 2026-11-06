@@ -35,6 +35,11 @@ const {
   buildUnconfirmedSubmissionResult,
   composeFiloCoverDataUrl,
   dailyCount,
+  getPublicationOperationTimes,
+  getPublicationPacingGate,
+  cleanRepostCaptionTitle,
+  cleanRepostDescription,
+  editorialTitleQualityReason,
   buildCategoryPageRequestPayload,
   buildVideoTagFeedPath,
   normalizeVideoFeedItem,
@@ -129,6 +134,18 @@ const metadataRejectedLedger = {posts:[{
   reason:'توضیح بسیار کوتاه است!',
   responseDiagnostics:{uiErrors:['توضیح بسیار کوتاه است!']}
 }]};
+assert.equal(cleanRepostCaptionTitle('🎈🎈 یک اتفاق جالب!!! در بازی فوتبال 😂'), 'یک اتفاق جالب! در بازی فوتبال');
+assert.equal(editorialTitleQualityReason('و نظر خود را بنویسید'), 'title_engagement_bait_without_subject');
+const cleanedDescription = cleanRepostDescription(
+  'این ویدئو درباره فوتبال است. لطفاً لایک کنید و نظر خود را بنویسید. این ویدئو درباره فوتبال است.',
+  'فوتبال',
+  'یک صحنه از مسابقه فوتبال'
+);
+assert.ok(!/لایک کنید|نظر خود را بنویسید/u.test(cleanedDescription),
+  'engagement bait must not leak into the searchable description');
+assert.ok(cleanedDescription.startsWith('این ویدئو درباره فوتبال است.'),
+  'the first descriptive sentence must be retained');
+assert.ok(cleanedDescription.length >= 30);
 assert.equal(isMetadataValidationRejectionReason('توضیح بسیار کوتاه است!'),true);
 assert.equal(hasRetryableMetadataRejection(metadataRejectedLedger,valid.video_code),true);
 assert.equal(isSourceAlreadyAttempted(metadataRejectedLedger,valid.video_code),false,
@@ -962,6 +979,28 @@ assert.ok(topicRank[0].topicDemandScore > topicRank[2].topicDemandScore,
 assert.ok(topicRank[0].rankingScore > 0);
 assert.ok(topicRank[0].durationPreferenceScore > topicRank[1].durationPreferenceScore,
   'duration preference must be present as a separate soft ranking feature');
+const nonGrowingTopicDemand = summarizeTopicDemand([
+  { topicKey:'broad-no-growth', hasPositivePlayGrowth:false, hasPositiveViewGrowth:false, momentum:{} },
+  { topicKey:'broad-no-growth', hasPositivePlayGrowth:false, hasPositiveViewGrowth:false, momentum:{} },
+  { topicKey:'broad-no-growth', hasPositivePlayGrowth:false, hasPositiveViewGrowth:false, momentum:{} }
+]);
+assert.equal(nonGrowingTopicDemand['broad-no-growth'].demandScore, 0,
+  'a broad feed with no measured growth must not be presented as a hot topic');
+const singleGrowingTopicDemand = summarizeTopicDemand([
+  { topicKey:'weak-growth', hasPositivePlayGrowth:true, hasPositiveViewGrowth:false,
+    momentum:{playsPerMinute:3,playsAccelerationPerMinute:1} },
+  { topicKey:'weak-growth', hasPositivePlayGrowth:false, hasPositiveViewGrowth:false, momentum:{} }
+]);
+assert.equal(singleGrowingTopicDemand['weak-growth'].demandScore, 0,
+  'topic-level demand needs at least two distinct growing candidates');
+const corroboratedTopicDemand = summarizeTopicDemand([
+  { topicKey:'corroborated', hasPositivePlayGrowth:true, hasPositiveViewGrowth:false,
+    momentum:{playsPerMinute:3,playsAccelerationPerMinute:1} },
+  { topicKey:'corroborated', hasPositivePlayGrowth:false, hasPositiveViewGrowth:true,
+    momentum:{viewsPerMinute:5,viewsAccelerationPerMinute:2} }
+]);
+assert.ok(corroboratedTopicDemand.corroborated.demandScore > 0,
+  'two independently growing videos can establish in-Filo topic demand');
 assert.equal(topicRank.some(entry => entry.item.video_code === 'HotB01'), true,
   'longer eligible content remains in the ranking rather than being hard-rejected');
 const trendSignalNow = Date.parse('2026-11-06T12:00:00.000Z');
@@ -1057,6 +1096,47 @@ assert.equal(durationTieRank[0].item.video_code, 'Short01',
   'short-form preference must decide an otherwise identical candidate comparison');
 assert.equal(durationTieRank.some(entry => entry.item.video_code === 'Longer1'), true,
   'the soft duration preference must not remove eligible long videos');
+
+const pacingNow = Date.parse('2026-11-06T12:00:00.000Z');
+const oneRecentPublication = { posts: [
+  { status:'public_verified', submittedAt:new Date(pacingNow - 10*60*1000).toISOString() }
+] };
+const blockedByGap = getPublicationPacingGate(oneRecentPublication, pacingNow);
+assert.equal(blockedByGap.blocked, true);
+assert.deepEqual(blockedByGap.reasons, ['minimum_gap_between_republish_operations']);
+assert.equal(blockedByGap.nextEligibleAt, new Date(pacingNow + 10*60*1000).toISOString());
+assert.equal(getPublicationPacingGate(oneRecentPublication, pacingNow + 10*60*1000).blocked, false,
+  'the next repost becomes eligible at the 20-minute minimum gap');
+
+const rollingHourState = { posts: [
+  { status:'public_verified', submittedAt:new Date(pacingNow - 50*60*1000).toISOString() },
+  { status:'public_verified', submittedAt:new Date(pacingNow - 30*60*1000).toISOString() },
+  { status:'rejected_by_filo', attemptedAt:new Date(pacingNow - 10*60*1000).toISOString() }
+] };
+const blockedByHour = getPublicationPacingGate(rollingHourState, pacingNow);
+assert.equal(blockedByHour.blocked, true,
+  'rejected upload attempts count toward the rolling-hour safety budget');
+assert.ok(blockedByHour.reasons.includes('rolling_hour_operation_cap'));
+assert.equal(blockedByHour.rollingHourOperations, 3);
+assert.equal(blockedByHour.nextEligibleAt, new Date(pacingNow + 10*60*1000).toISOString(),
+  'the next slot opens when the oldest operation leaves the rolling hour');
+
+const dailyPacingState = { posts: Array.from({length:36},(_,index)=>({
+  status:'public_verified',
+  submittedAt:new Date(pacingNow - (23*60+index)*60*1000).toISOString()
+})) };
+const blockedByDay = getPublicationPacingGate(dailyPacingState, pacingNow);
+assert.equal(blockedByDay.blocked, true);
+assert.ok(blockedByDay.reasons.includes('rolling_24h_operation_cap'));
+assert.equal(dailyCount(dailyPacingState,pacingNow),36);
+
+const quotaBackoffState = {};
+const quotaFirst = setAccountRepublishQuotaCooldown(quotaBackoffState,pacingNow);
+assert.equal(quotaFirst.cooldownMs,2*60*60*1000);
+const quotaSecond = setAccountRepublishQuotaCooldown(quotaBackoffState,pacingNow+60*60*1000);
+assert.equal(quotaSecond.cooldownMs,4*60*60*1000,
+  'a repeated account quota response within 24h must increase the cooldown');
+assert.equal(quotaSecond.occurrenceCountIn24h,2);
 
 async function testPortraitCoverComposition() {
   const { chromium } = require('playwright');
