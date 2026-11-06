@@ -1180,6 +1180,7 @@ function createDistinctRepostTitle(sourceTitle, sourceDescription = '', sourceCo
     if (value.length < 5 || policyTextRiskReason({ title: value })) continue;
     const qualityReason = editorialTitleQualityReason(value);
     if (qualityReason === 'title_promotional_or_call_to_action' ||
+        qualityReason === 'title_engagement_bait_without_subject' ||
         qualityReason === 'title_generic_episode_label' ||
         qualityReason === 'title_generic_praise_without_subject' ||
         qualityReason === 'title_not_distinct_or_editorially_clean') continue;
@@ -1191,10 +1192,17 @@ function createDistinctRepostTitle(sourceTitle, sourceDescription = '', sourceCo
 }
 
 function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
-  const source = normalizeCaptionEditorialText(sourceDescription)
+  const sourceParts = normalizeCaptionEditorialText(sourceDescription)
     .split(/(?<=[.!؟])\s+|[\n\r]+/u)
-    .filter(part => !/(?:لایک|لایك|فالو|حمایت|یادتون\s+نره|دنبال(?:\s*کنید|\s*کنین)|عضو\s*(?:شوید|بشید)|سابسکرایب|برای\s+کلیپ(?:های)?\s+بیشتر|کانال\s*(?:ما|مارا|رو|را)|لذت\s+ببرید)/iu.test(part))
-    .join(' ');
+    .map(part => part.trim())
+    .filter(part => part && !/(?:لایک|لایك|فالو|حمایت|یادتون\s+نره|دنبال(?:\s*کنید|\s*کنین)|عضو\s*(?:شوید|بشید)|سابسکرایب|برای\s+کلیپ(?:های)?\s+بیشتر|کانال\s*(?:ما|مارا|رو|را)|لذت\s+ببرید|نظر\s+خود\s+را\s+بنویسید|نظرت(?:ان|ون)\s+رو\s+بگید|کامنت\s+بگذارید)/iu.test(part));
+  const seenDescriptionParts = new Set();
+  const source = sourceParts.filter(part => {
+    const key = normalizeComparable(part);
+    if (!key || seenDescriptionParts.has(key)) return false;
+    seenDescriptionParts.add(key);
+    return true;
+  }).join(' ');
   const description = source
     .replace(/https?:\/\/\S+|www\.\S+/giu, ' ')
     .replace(/#[^\s#]+/gu, ' ')
