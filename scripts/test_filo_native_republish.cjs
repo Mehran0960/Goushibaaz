@@ -127,6 +127,20 @@ assert.equal(hasRetryableMetadataRejection(metadataRejectedLedger,valid.video_co
   'a metadata-policy retry must be consumed only once per policy version');
 assert.equal(feedCandidateEligible(valid,metadataRejectedLedger),false,
   'the same rejected source must not cycle repeatedly after its single retry');
+const legacyMetadataCache = {
+  posts: metadataRejectedLedger.posts,
+  candidateRejections: {
+    [valid.video_code]: {
+      reason:'filo_publish_not_accepted',
+      fingerprint:'legacy-generic-fingerprint',
+      retryAfterAt:'2026-11-06T06:00:00.000Z'
+    }
+  }
+};
+assert.equal(getCachedCandidateRejection(legacyMetadataCache,valid.video_code,valid,
+  Date.parse('2026-11-06T00:30:00.000Z')),null,
+  'a generic legacy API cache must not block the one-time retry when the ledger proves a specific metadata rejection');
+assert.equal(legacyMetadataCache.candidateRejections[valid.video_code],undefined);
 const nonMetadataRejectedLedger = {posts:[{sourceCode:valid.video_code,status:'rejected_by_filo',reason:'403 forbidden'}]};
 assert.equal(feedCandidateEligible(valid,nonMetadataRejectedLedger),false,
   'permission/access failures must not be re-opened by a metadata-only retry');
