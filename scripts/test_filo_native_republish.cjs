@@ -5,6 +5,7 @@ const {
   ageHours,
   shouldStartPublishingCycle,
   feedCandidateEligible,
+  feedGateHintScore,
   isMetadataValidationRejectionReason,
   hasRetryableMetadataRejection,
   isSourceAlreadyAttempted,
@@ -50,6 +51,7 @@ const {
   nextCategoryDepthPage,
   resolveDepthScanStartPage,
   getCachedCandidateRejection,
+  candidateMetadataFingerprint,
   isTitleRewriteRejectionReason,
   cacheCandidateRejection,
   removeRepeatedTrailingPhrase,
@@ -240,13 +242,14 @@ assert.equal(feedCandidateEligible({
 }, {posts:[]}), true, 'an explicit unpublishable feed flag is rechecked against authoritative details');
 const feedSignals = summarizeFeedGateSignals([
   normalizeVideoFeedItem({v:'AbC1234',t:'ویدیوی تازه و مفید',du:28,vc:90,pd:5,hst:0,co:0,cr:1,ac:1}),
-  normalizeVideoFeedItem({v:'ZzY9876',t:'ویدیوی تازه و مفید',du:240,vc:50,pd:0,hst:1,co:1,cr:1,ac:1})
+  normalizeVideoFeedItem({v:'ZzY9876',t:'ویدیوی تازه و مفید',du:240,vc:50,pd:0,hst:1,co:1,cr:1,ac:1}),
+  normalizeVideoFeedItem({v:'QqW0001',t:'ویدئوی کوتاه',du:8})
 ], {posts:[]});
-assert.equal(feedSignals.totalItems, 2);
+assert.equal(feedSignals.totalItems, 3);
 assert.equal(feedSignals.flags.can_republish.false, 1);
 assert.equal(feedSignals.flags.has_audio.false, 1);
-assert.equal(feedSignals.duration.outOfRange, 1,
-  'diagnostics must identify the advisory feed fields that need authoritative detail checks');
+assert.equal(feedSignals.duration.belowMinimum, 1,
+  'duration diagnostics must count only videos below the monetization minimum; long videos remain eligible for detail review');
 
 assert.deepEqual(extractCategoryIds([{id:3},{id:4}]),[3,4],
   'direct category arrays must be supported');
@@ -441,27 +444,18 @@ assert.equal(
   'واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را',
   'a CTA-only opening sentence must be skipped in favor of the first factual sentence'
 );
-assert.throws(
-  () => createDistinctRepostTitle('لایک فالو حمایت یادتون نره عزیزای دلم'),
-  /title_without_safe_editorial_rewrite|title_not_distinct_or_editorially_clean/,
-  'a promotional source title without factual description must be rejected'
-);
-assert.throws(
-  () => createDistinctRepostTitle('خنده دار پارت ۳۲ 😂 طنز کمدی'),
-  /title_without_safe_editorial_rewrite|title_not_distinct_or_editorially_clean/,
-  'generic numbered comedy placeholders must not be published'
-);
+assert.match(createDistinctRepostTitle('لایک فالو حمایت یادتون نره عزیزای دلم', '', 'Promo01'), /Promo01/,
+  'a promotional-only title must fall back safely instead of rejecting an otherwise eligible video');
+assert.match(createDistinctRepostTitle('خنده دار پارت ۳۲ 😂 طنز کمدی', '', 'Episode01'), /Episode01/,
+  'generic episode labels must receive a neutral fallback rather than blocking an eligible video');
 assert.doesNotMatch(cleanRepostDescription(
   'موضوع ویدئو: شوخی در خرید لباس. لایک فالو حمایت یادتون نره عزیزای دلم. برای کلیپ های بیشتر کانال ما را دنبال کنید.',
   'عنوان منبع',
   'شوخی در خرید لباس در فروشگاه'
 ), /لایک|فالو|حمایت|دنبال کنید|کلیپ های بیشتر/);
 
-assert.throws(
-  () => createDistinctRepostTitle('کلیپ های طنز و خنده//بهرام افشاری'),
-  /title_without_safe_editorial_rewrite|title_not_distinct_or_editorially_clean/,
-  'generic channel filler plus a name must be skipped rather than padded'
-);
+assert.doesNotThrow(() => createDistinctRepostTitle('کلیپ های طنز و خنده//بهرام افشاری', '', 'Channel01'),
+  'a weak channel-style title must never become an eligibility rejection');
 assert.equal(
   descriptionBasedTitleCandidate('در این ویدئو، واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را ببینید. برای ما لایک کنید.'),
   'واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را',
@@ -475,14 +469,11 @@ assert.equal(
   'واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را',
   'a safe title can be derived from a factual source description when the title itself has no approved rewrite pattern'
 );
-assert.throws(
-  () => createDistinctRepostTitle(
-    'کلیپ های طنز و خنده//بهرام افشاری',
-    'کلیپ های طنز و خنده با بهرام افشاری'
-  ),
-  /title_without_safe_editorial_rewrite|title_not_distinct_or_editorially_clean/,
-  'a description that merely repeats the source title must not be used as a fake rewrite'
-);
+assert.doesNotThrow(() => createDistinctRepostTitle(
+  'کلیپ های طنز و خنده//بهرام افشاری',
+  'کلیپ های طنز و خنده با بهرام افشاری',
+  'Repeated01'
+), 'when title and description provide no strong rewrite, use a safe fallback rather than rejecting the video');
 assert.equal(removeRepeatedTrailingPhrase('لوبیا فرنگی پلو همراه مرغ لوبیا فرنگی'),
   'لوبیا فرنگی پلو همراه مرغ');
 assert.equal(
@@ -545,7 +536,7 @@ cacheCandidateRejection(rejectionCacheState,'Cache01',cacheVideo,
   'title_without_safe_editorial_rewrite',Date.parse('2026-11-04T12:00:00.000Z'));
 assert.ok(getCachedCandidateRejection(rejectionCacheState,'Cache01',cacheVideo,
   Date.parse('2026-11-04T13:00:00.000Z')));
-assert.equal(rejectionCacheState.candidateRejections.Cache01.titleRewritePolicyVersion, 5);
+assert.equal(rejectionCacheState.candidateRejections.Cache01.titleRewritePolicyVersion, 6);
 assert.equal(isTitleRewriteRejectionReason('title_without_safe_editorial_rewrite'), true);
 assert.equal(isTitleRewriteRejectionReason('title_promotional_or_call_to_action'), true);
 assert.equal(isTitleRewriteRejectionReason('title_generic_episode_label'), true);
@@ -583,11 +574,20 @@ assert.equal(getCachedDetailAccessRejection(forbiddenCacheState,'Forbidden1',
   'the per-video 403 cooldown must expire so a later permission change can be rechecked');
 const detailCacheState = {posts:[]};
 cacheCandidateRejection(detailCacheState,'Detail01',cacheVideo,
-  'detail_gate:duration_out_of_short_form_range',Date.parse('2026-11-04T12:00:00.000Z'));
+  'detail_gate:duration_below_monetization_minimum',Date.parse('2026-11-04T12:00:00.000Z'));
 assert.equal(detailCacheState.candidateRejections.Detail01.titleRewritePolicyVersion, null);
 assert.ok(getCachedCandidateRejection(detailCacheState,'Detail01',cacheVideo,
   Date.parse('2026-11-04T13:00:00.000Z')),
-  'detail-gate cooldowns must remain valid across title-only policy upgrades');
+  'below-minimum duration cooldowns must remain valid across title-only policy upgrades');
+const oldLongDurationCache = {candidateRejections:{Long01:{
+  fingerprint:candidateMetadataFingerprint(cacheVideo),
+  reason:'detail_gate:duration_out_of_short_form_range',
+  retryAfterAt:'2026-11-06T23:00:00.000Z'
+}}};
+assert.equal(getCachedCandidateRejection(oldLongDurationCache,'Long01',cacheVideo,
+  Date.parse('2026-11-06T12:00:00.000Z')),null,
+  'the obsolete local 180-second rejection must be invalidated immediately');
+assert.equal(oldLongDurationCache.candidateRejections.Long01,undefined);
 assert.equal(getCachedCandidateRejection(rejectionCacheState,'Cache01',
   {...cacheVideo,description:'توضیح تغییر کرده'},Date.parse('2026-11-04T13:00:00.000Z')),null,
   'changed source metadata must invalidate rejection cache immediately');
@@ -618,8 +618,8 @@ assert.match(shortMetadata.description, /این ویدئو دربارهٔ/);
 assert.match(shortMetadata.description, /واکنش کوتاه خانواده/);
 assert.ok(shortMetadata.description.length >= 30,
   'short captions must be expanded only with a neutral sentence grounded in the source title');
-assert.ok(shortMetadata.title.length >= 20 && shortMetadata.title.length <= 96,
-  'generated titles must remain inside the validated Filo title length range');
+assert.ok(shortMetadata.title.length >= 5 && shortMetadata.title.length <= 180,
+  'generated titles must satisfy only the payload safety bounds; the 20–96 character editorial target is not an eligibility gate');
 const shortTitle = createDistinctRepostTitle('طرز تهیه چای', '');
 assert.ok(shortTitle.length >= 20 && shortTitle.length <= 96,
   'short but meaningful source titles should be expanded without inventing new facts');
@@ -633,11 +633,13 @@ assert.throws(() => createRepostMetadata({
   title: 'پیغام توهین آمیز به یک بازیکن',
   description: 'متن کوتاه'
 }, 'AbC1236'), /filo_policy_text_risk:insult_or_defamation/);
-assert.throws(() => createRepostMetadata({
+const linkedTitleMetadata = createRepostMetadata({
   ...valid,
   title: 'لینک https://example.com ویدئو',
   description: 'توضیح کوتاه'
-}, 'AbC1237'), /repost_source_title_contains_external_link/);
+}, 'AbC1237');
+assert.doesNotMatch(linkedTitleMetadata.title, /https?:\/\//i,
+  'external links in source titles should be stripped rather than causing a title-only rejection');
 
 const promoCleaned = cleanRepostDescription(
   'ریمیکی جذاب از یکی از طرفداران گاد آف وار برای شما عزیزان. همراه ما باشید و لذت ببرید. 🔥',
@@ -754,7 +756,14 @@ assert.equal(detailGate({ is_republish: 1 }, { ...valid, can_republish: 0, durat
 assert.equal(detailGate({ is_republish: 0 }, { ...valid, duration: 32 }).eligible, false);
 assert.equal(detailGate({ is_republish: 1, stop_upload: 1 }, { ...valid, duration: 32 }).eligible, false);
 assert.equal(detailGate({ is_republish: 1 }, { ...valid, only_in_filo: 1, duration: 32 }).eligible, false);
-assert.equal(detailGate({ is_republish: 1 }, { ...valid, duration: 9 }).eligible, false);
+assert.equal(detailGate({ is_republish: 1 }, { ...valid, duration: 9 }).eligible, false,
+  'videos under ten seconds remain ineligible for monetization');
+assert.equal(detailGate({ is_republish: 1 }, { ...valid, duration: 181 }).eligible, true,
+  'videos longer than 180 seconds must pass the local duration gate when all authoritative Filo flags pass');
+assert.equal(detailGate({ is_republish: 1 }, { ...valid, duration: 900 }).eligible, true,
+  'there is no local upper-duration cap for authorized, monetizable source videos');
+assert.equal(feedGateHintScore({ ...valid, duration: 240 }), feedGateHintScore({ ...valid, duration: 30 }),
+  'long videos must not receive a lower feed hint score solely because of duration');
 
 const state = {
   posts: [
