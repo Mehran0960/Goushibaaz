@@ -42,6 +42,7 @@ const DEPTH_CATEGORIES_PER_CYCLE = 21;
 const DEPTH_PAGES_PER_CATEGORY_PER_CYCLE = 4;
 const TOPIC_DUPLICATE_WINDOW_MS = 48 * 60 * 60 * 1000;
 const CANDIDATE_REJECTION_TTL_MS = 6 * 60 * 60 * 1000;
+const ACCOUNT_REPUBLISH_QUOTA_COOLDOWN_MS = 2 * 60 * 60 * 1000;
 const MAX_DETAIL_CHECKS = 90;
 const MIN_DURATION_SECONDS = 10;
 const MAX_PUBLICATIONS_PER_24H = 288;
@@ -614,6 +615,99 @@ function classifyAudienceFit(item) {
   return groups.find(group => group.pattern.test(text)) || { score: 1, label: 'general' };
 }
 
+
+function candidateTopicKey(item, audienceFit = classifyAudienceFit(item)) {
+  const feedTag = String(item && item.feed_tag || '').trim().toLocaleLowerCase('fa-IR');
+  if (feedTag && feedTag !== 'all') return 'feed:' + feedTag;
+  const categoryId = String(item && item.category_id != null ? item.category_id : '').trim();
+  if (categoryId) return 'category:' + categoryId;
+  const categoryLabel = String(item && (item.category_name || item.category_title) || '')
+    .replace(/\s+/g, ' ').trim().toLocaleLowerCase('fa-IR');
+  if (categoryLabel) return 'category-label:' + categoryLabel;
+  return 'audience:' + audienceFit.label;
+}
+
+function durationPreferenceScore(item) {
+  const raw = item && item.duration;
+  if (raw === undefined || raw === null || raw === '') return 50;
+  const duration = num(raw, -1);
+  if (duration < MIN_DURATION_SECONDS) return 0;
+  if (duration <= 30) return 100;
+  if (duration <= 60) return 90;
+  if (duration <= 100) return 75;
+  if (duration <= 180) return 55;
+  if (duration <= 600) return 30;
+  return 10;
+}
+
+function logScaleScore(value, ceiling) {
+  const n = Math.max(0, num(value));
+  const cap = Math.max(1, num(ceiling, 1));
+  return Math.max(0, Math.min(100, Math.log1p(n) / Math.log1p(cap) * 100));
+}
+
+function summarizeTopicDemand(entries) {
+  const groups = new Map();
+  for (const entry of Array.isArray(entries) ? entries : []) {
+    const key = String(entry && entry.topicKey || '');
+    if (!key) continue;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(entry);
+  }
+
+  const result = {};
+  for (const [key, group] of groups.entries()) {
+    const growing = group.filter(entry => entry.hasPositivePlayGrowth || entry.hasPositiveViewGrowth);
+    const velocities = growing.map(entry => entry.hasPositivePlayGrowth
+      ? num(entry.momentum.playsPerMinute)
+      : num(entry.momentum.viewsPerMinute));
+    const accelerations = growing.map(entry => entry.hasPositivePlayGrowth
+      ? num(entry.momentum.playsAccelerationPerMinute)
+      : num(entry.momentum.viewsAccelerationPerMinute ?? entry.momentum.accelerationPerMinute));
+    const averageVelocity = velocities.length
+      ? velocities.reduce((sum, value) => sum + value, 0) / velocities.length : 0;
+    const averageAcceleration = accelerations.length
+      ? accelerations.reduce((sum, value) => sum + value, 0) / accelerations.length : 0;
+    const growthShareScore = group.length ? growing.length / group.length * 100 : 0;
+    const activityIntensityScore =
+      0.6 * logScaleScore(averageVelocity, 20) +
+      0.4 * logScaleScore(averageAcceleration, 5);
+    const breadthScore = logScaleScore(group.length, 10);
+    // A single item cannot establish topic-wide demand. Require corroboration
+    // from at least two distinct candidates in the current Filo feed scan.
+    const demandScore = group.length < 2 ? 0 :
+      Math.round((0.55 * growthShareScore + 0.30 * activityIntensityScore + 0.15 * breadthScore) * 100) / 100;
+    result[key] = {
+      demandScore,
+      candidateCount: group.length,
+      growingCandidateCount: growing.length,
+      averageVelocity: Math.round(averageVelocity * 100) / 100,
+      averageAcceleration: Math.round(averageAcceleration * 100) / 100
+    };
+  }
+  return result;
+}
+
+function candidateMomentumScore(entry) {
+  if (entry.hasPositivePlayGrowth) {
+    return 0.65 * logScaleScore(entry.momentum.playsPerMinute, 20) +
+      0.35 * logScaleScore(entry.momentum.playsAccelerationPerMinute, 5);
+  }
+  if (entry.hasPositiveViewGrowth) {
+    return 0.65 * logScaleScore(entry.momentum.viewsPerMinute, 20) +
+      0.35 * logScaleScore(
+        entry.momentum.viewsAccelerationPerMinute ?? entry.momentum.accelerationPerMinute, 5
+      );
+  }
+  if (entry.playMetric.available && entry.playMetric.value > 0) {
+    return logScaleScore(entry.playMetric.value, 1000000);
+  }
+  if (entry.viewMetric.available && entry.viewMetric.value > 0) {
+    return logScaleScore(entry.viewMetric.value, 1000000);
+  }
+  return 0;
+}
+
 function rankCandidatesByMomentum(items, state, now = Date.now()) {
   const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
   const currentRates = updateCandidateMomentum(state, items, nowMs);
@@ -629,7 +723,7 @@ function rankCandidatesByMomentum(items, state, now = Date.now()) {
     .map(post => String(post.feedTag || post.categoryId));
   const recentCategorySet = new Set(recentCategories);
 
-  return (Array.isArray(items) ? items : []).map(item => {
+  const prepared = (Array.isArray(items) ? items : []).map(item => {
     const code = String(item && (item.video_code || item.videoCode || item.code) || '').trim();
     const saved = state && state.candidateMomentum && state.candidateMomentum[code];
     const lastRate = saved && saved.lastRate;
@@ -648,9 +742,9 @@ function rankCandidatesByMomentum(items, state, now = Date.now()) {
       playCounterPresent: playMetric.available,
       sampleCount: 1
     };
+    const audienceFit = classifyAudienceFit(item);
     const categoryId = item && (item.feed_tag || item.category_id != null)
       ? String(item.feed_tag || item.category_id) : '';
-    const audienceFit = classifyAudienceFit(item);
     const hasPositivePlayGrowth = Boolean(momentum.playsAvailable === true &&
       momentum.playsPerMinute !== null && momentum.playsPerMinute !== undefined &&
       num(momentum.playsPerMinute) > 0);
@@ -659,26 +753,25 @@ function rankCandidatesByMomentum(items, state, now = Date.now()) {
     const age = ageHours(item);
     const feedHintScore = feedGateHintScore(item);
     let rankingMetric = 'freshness';
-    let rankingScore = Math.max(0, 24 - age);
     let selectionMode = 'freshness_fallback';
     if (hasPositivePlayGrowth) {
       rankingMetric = 'plays';
-      rankingScore = num(momentum.playsPerMinute);
       selectionMode = 'measured_play_growth';
     } else if (hasPositiveViewGrowth) {
       rankingMetric = 'views';
-      rankingScore = num(momentum.viewsPerMinute);
       selectionMode = 'measured_view_growth';
     } else if (playMetric.available && playMetric.value > 0) {
       rankingMetric = 'cumulative_plays';
-      rankingScore = playMetric.value;
       selectionMode = 'cumulative_play_fallback';
     } else if (viewMetric.available && viewMetric.value > 0) {
       rankingMetric = 'cumulative_views';
-      rankingScore = viewMetric.value;
       selectionMode = 'cumulative_view_fallback';
     }
-    return {
+    const rankingTier = hasPositivePlayGrowth ? 4
+      : hasPositiveViewGrowth ? 3
+      : playMetric.available && playMetric.value > 0 ? 2
+      : viewMetric.available && viewMetric.value > 0 ? 1 : 0;
+    const entry = {
       item,
       momentum,
       playMetric,
@@ -688,49 +781,62 @@ function rankCandidatesByMomentum(items, state, now = Date.now()) {
       hasPositiveViewGrowth,
       hasMeasuredGrowth: hasPositivePlayGrowth || hasPositiveViewGrowth,
       rankingMetric,
-      rankingScore,
       selectionMode,
+      rankingTier,
       feedHintScore,
       audienceFit: audienceFit.label,
       audienceFitScore: audienceFit.score,
+      topicKey: candidateTopicKey(item, audienceFit),
+      topicLabel: String(item && (item.feed_tag_label || item.category_name || item.category_title) ||
+        audienceFit.label),
+      durationPreferenceScore: durationPreferenceScore(item),
+      freshnessScore: Math.max(0, Math.min(100, (24 - age) / 24 * 100)),
       recentCategoryPenalty: categoryId && recentCategorySet.has(categoryId) ? 1 : 0
     };
-  }).filter(entry => entry.ageHours <= 24)
-    .sort((a, b) => {
-      // Measured growth is primary. Feed flags are weak hints and must never
-      // put a slower candidate above a faster or more rapidly accelerating one.
-      if (a.hasPositivePlayGrowth !== b.hasPositivePlayGrowth) {
-        return Number(b.hasPositivePlayGrowth) - Number(a.hasPositivePlayGrowth);
-      }
-      if (a.hasPositivePlayGrowth && b.hasPositivePlayGrowth) {
-        const playAcceleration = num(b.momentum.playsAccelerationPerMinute) - num(a.momentum.playsAccelerationPerMinute);
-        if (playAcceleration) return playAcceleration;
-        const playVelocity = num(b.momentum.playsPerMinute) - num(a.momentum.playsPerMinute);
-        if (playVelocity) return playVelocity;
-      }
-      if (a.hasPositiveViewGrowth !== b.hasPositiveViewGrowth) {
-        return Number(b.hasPositiveViewGrowth) - Number(a.hasPositiveViewGrowth);
-      }
-      if (a.hasPositiveViewGrowth && b.hasPositiveViewGrowth) {
-        const viewAcceleration = num(b.momentum.viewsAccelerationPerMinute ?? b.momentum.accelerationPerMinute) -
-          num(a.momentum.viewsAccelerationPerMinute ?? a.momentum.accelerationPerMinute);
-        if (viewAcceleration) return viewAcceleration;
-        const viewVelocity = num(b.momentum.viewsPerMinute) - num(a.momentum.viewsPerMinute);
-        if (viewVelocity) return viewVelocity;
-      }
-      // Feed signals, cumulative counts, audience fit and freshness are
-      // tie-breakers only when measured momentum does not distinguish candidates.
-      if (a.feedHintScore !== b.feedHintScore) return b.feedHintScore - a.feedHintScore;
-      if (a.playMetric.available !== b.playMetric.available) {
-        return Number(b.playMetric.available) - Number(a.playMetric.available);
-      }
-      if (a.playMetric.value !== b.playMetric.value) return b.playMetric.value - a.playMetric.value;
-      if (a.viewMetric.value !== b.viewMetric.value) return b.viewMetric.value - a.viewMetric.value;
-      return b.audienceFitScore - a.audienceFitScore ||
-        a.recentCategoryPenalty - b.recentCategoryPenalty ||
-        a.ageHours - b.ageHours;
-    });
+    entry.momentumScore = candidateMomentumScore(entry);
+    return entry;
+  }).filter(entry => entry.ageHours <= 24);
+
+  const topicDemand = summarizeTopicDemand(prepared);
+  return prepared.map(entry => {
+    const topic = topicDemand[entry.topicKey] || {
+      demandScore: 0, candidateCount: 1, growingCandidateCount: 0,
+      averageVelocity: 0, averageAcceleration: 0
+    };
+    const rankingScore =
+      0.76 * entry.momentumScore +
+      0.14 * topic.demandScore +
+      0.08 * entry.durationPreferenceScore +
+      0.02 * entry.freshnessScore;
+    return {
+      ...entry,
+      topicDemandScore: topic.demandScore,
+      topicCandidateCount: topic.candidateCount,
+      topicGrowingCandidateCount: topic.growingCandidateCount,
+      topicAverageVelocity: topic.averageVelocity,
+      topicAverageAcceleration: topic.averageAcceleration,
+      rankingScore: Math.round(rankingScore * 100) / 100
+    };
+  }).sort((a, b) => {
+    // Keep the established evidence hierarchy: measured plays growth first,
+    // then measured views growth, then cumulative counters, then freshness.
+    if (a.rankingTier !== b.rankingTier) return b.rankingTier - a.rankingTier;
+    if (Math.abs(b.rankingScore - a.rankingScore) > 0.001) {
+      return b.rankingScore - a.rankingScore;
+    }
+    if (a.feedHintScore !== b.feedHintScore) return b.feedHintScore - a.feedHintScore;
+    if (a.playMetric.available !== b.playMetric.available) {
+      return Number(b.playMetric.available) - Number(a.playMetric.available);
+    }
+    if (a.playMetric.value !== b.playMetric.value) return b.playMetric.value - a.playMetric.value;
+    if (a.viewMetric.value !== b.viewMetric.value) return b.viewMetric.value - a.viewMetric.value;
+    return b.audienceFitScore - a.audienceFitScore ||
+      a.recentCategoryPenalty - b.recentCategoryPenalty ||
+      b.durationPreferenceScore - a.durationPreferenceScore ||
+      a.ageHours - b.ageHours;
+  });
 }
+
 function detailGate(root, video) {
   if (!root || !video) return { eligible: false, reason: 'republish_detail_missing' };
   if (!isFlag(root.is_republish)) return { eligible: false, reason: 'filo_republish_route_not_allowed' };
@@ -1088,6 +1194,38 @@ function detailFetchHttpDisposition(status) {
   if (code === 403) return 'candidate_access_denied';
   if (code === 408 || code === 425 || code === 429 || code >= 500) return 'retryable';
   return 'permanent';
+}
+
+
+function isAccountRepublishQuotaMessage(value) {
+  const text = String(value || '').replace(/[\r\n]+/g, ' ')
+    .replace(/\s+/g, ' ').trim().toLocaleLowerCase('fa-IR');
+  return /سقف.{0,35}(?:بازنشر|انتشار|آپلود).{0,40}(?:تموم|تمام|پر|تکمیل|به پایان)|(?:ساعاتی|چند ساعت).{0,30}(?:بعد|دیگر).{0,30}(?:بازنشر|انتشار|مراجعه)|(?:repost|republish|upload).{0,30}(?:limit|quota).{0,30}(?:reached|exceeded|used up)/iu.test(text);
+}
+
+function setAccountRepublishQuotaCooldown(state, now = Date.now()) {
+  if (!state || typeof state !== 'object') return null;
+  const detectedAt = Number.isFinite(Number(now)) ? Number(now) : Date.now();
+  const entry = {
+    reason: 'filo_account_republish_quota_reached',
+    detectedAt: new Date(detectedAt).toISOString(),
+    retryAfterAt: new Date(detectedAt + ACCOUNT_REPUBLISH_QUOTA_COOLDOWN_MS).toISOString(),
+    cooldownMs: ACCOUNT_REPUBLISH_QUOTA_COOLDOWN_MS
+  };
+  state.accountRepublishQuotaCooldown = entry;
+  return entry;
+}
+
+function getAccountRepublishQuotaCooldown(state, now = Date.now()) {
+  const entry = state && state.accountRepublishQuotaCooldown;
+  if (!entry) return null;
+  const retryAfter = Date.parse(entry.retryAfterAt || '');
+  const current = Number.isFinite(Number(now)) ? Number(now) : Date.now();
+  if (!Number.isFinite(retryAfter) || retryAfter <= current) {
+    delete state.accountRepublishQuotaCooldown;
+    return null;
+  }
+  return { ...entry, remainingMs: retryAfter - current };
 }
 
 function getCachedDetailAccessRejection(state,code,now=Date.now()) {
@@ -2718,8 +2856,27 @@ async function main() {
       audienceFit: entry.audienceFit,
       feedTag: entry.item.feed_tag || null,
       feedTagLabel: entry.item.feed_tag_label || null,
+      topicLabel: entry.topicLabel,
+      topicDemandScore: entry.topicDemandScore,
+      topicCandidateCount: entry.topicCandidateCount,
+      topicGrowingCandidateCount: entry.topicGrowingCandidateCount,
+      durationPreferenceScore: entry.durationPreferenceScore,
+      momentumScore: Math.round(entry.momentumScore * 100) / 100,
+      rankingScore: entry.rankingScore,
       ageHours: entry.ageHours
     }));
+    report.discovery.topicDemandSummary = [...new Map(ranked.map(entry => [entry.topicKey, {
+      topicKey: entry.topicKey,
+      topicLabel: entry.topicLabel,
+      demandScore: entry.topicDemandScore,
+      candidateCount: entry.topicCandidateCount,
+      growingCandidateCount: entry.topicGrowingCandidateCount,
+      averageVelocity: entry.topicAverageVelocity,
+      averageAcceleration: entry.topicAverageAcceleration
+    }])).values()]
+      .sort((a, b) => b.demandScore - a.demandScore || b.candidateCount - a.candidateCount)
+      .slice(0, 12);
+    const activeAccountQuotaCooldown = getAccountRepublishQuotaCooldown(state, Date.parse(report.createdAt));
     fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
 
     if (!ranked.length) {
@@ -2730,6 +2887,20 @@ async function main() {
           ? 'no_candidate_has_reliable_age_metadata_within_the_24_hour_window'
           : 'all_discovered_items_failed_code_deduplication_or_content_safety_prefilters',
         retryOnNextScheduledRun: true
+      };
+      return;
+    }
+
+    if (activeAccountQuotaCooldown) {
+      report.discovery.globalGateBlock = 'filo_account_republish_quota_cooldown';
+      report.discovery.globalGateRetryAfterAt = activeAccountQuotaCooldown.retryAfterAt;
+      report.status = 'filo_global_publish_gate_blocked';
+      report.result = {
+        status: report.status,
+        reason: 'Filo reported the account repost quota is exhausted; fresh feed discovery and momentum sampling continue, but detail and publish requests are deferred during the cooldown',
+        retryAfterAt: activeAccountQuotaCooldown.retryAfterAt,
+        retryOnNextScheduledRun: true,
+        discoveryContinues: true
       };
       return;
     }
@@ -2765,6 +2936,16 @@ async function main() {
         sourceTitle: String(detail && detail.video && detail.video.title || entry.item.title || '').slice(0, 180),
         feedTag: entry.item.feed_tag || null, detailFetchError, gate: null
       };
+      if (!detail && detailFetchError && isAccountRepublishQuotaMessage(detailFetchError)) {
+        const cooldown = setAccountRepublishQuotaCooldown(state, Date.parse(report.createdAt));
+        check.gate = 'filo_account_republish_quota_reached';
+        check.detailFetchDisposition = 'global_account_quota_block';
+        check.retryAfterAt = cooldown && cooldown.retryAfterAt || null;
+        checked.push(check);
+        report.discovery.globalGateBlock = 'filo_account_republish_quota_reached';
+        report.discovery.globalGateRetryAfterAt = check.retryAfterAt;
+        break;
+      }
       if(!detail&&detailFetchError&&detailFetchError.startsWith('republish_detail_forbidden_403')){
         const retryAt=Date.parse(report.createdAt)+6*60*60*1000;
         cacheCandidateRejection(state,code,entry.item,'detail_fetch:forbidden_403',Date.parse(report.createdAt),6*60*60*1000);
@@ -2945,6 +3126,13 @@ async function main() {
       audienceFit: selected.audienceFit,
       feedTag: selected.feed_tag || null,
       feedTagLabel: selected.feed_tag_label || null,
+      topicLabel: selected.topicLabel,
+      topicDemandScore: selected.topicDemandScore,
+      topicCandidateCount: selected.topicCandidateCount,
+      topicGrowingCandidateCount: selected.topicGrowingCandidateCount,
+      durationPreferenceScore: selected.durationPreferenceScore,
+      momentumScore: Math.round(selected.momentumScore * 100) / 100,
+      rankingScore: selected.rankingScore,
       playCounterPresent: selected.momentum.playCounterPresent === true,
       playsPerMinute: selected.momentum.playsPerMinute,
       playAccelerationPerMinute: selected.momentum.playsAccelerationPerMinute || 0,
@@ -3046,6 +3234,11 @@ module.exports = {
   detailGate,
   buildNativePublishGuardFailures,
   detailFetchHttpDisposition,
+  isAccountRepublishQuotaMessage,
+  setAccountRepublishQuotaCooldown,
+  getAccountRepublishQuotaCooldown,
+  durationPreferenceScore,
+  summarizeTopicDemand,
   getCachedDetailAccessRejection,
   jalaliDateToGregorianTimestamp,
   editorialTitleQualityReason,

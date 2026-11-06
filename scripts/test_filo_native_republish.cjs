@@ -44,6 +44,11 @@ const {
   candidateMetricSnapshot,
   updateCandidateMomentum,
   classifyAudienceFit,
+  durationPreferenceScore,
+  summarizeTopicDemand,
+  isAccountRepublishQuotaMessage,
+  setAccountRepublishQuotaCooldown,
+  getAccountRepublishQuotaCooldown,
   rankCandidatesByMomentum,
   extractCategoryIds,
   summarizeCategoryCatalogPayload,
@@ -866,7 +871,59 @@ assert.equal(classifyAudienceFit({ title: 'طنز و خنده در یک موقع
 assert.equal(classifyAudienceFit({ title: 'ترفند کاربردی برای تعمیر شیر آب' }).label, 'practical_tutorial');
 assert.equal(classifyAudienceFit({ title: 'واکنش یک بازیگر معروف در برنامه زنده' }).label, 'celebrity_pop_culture');
 assert.equal(classifyAudienceFit({ title: 'منظره‌ای از جنگل در شمال' }).score, 2);
+
 assert.equal(classifyAudienceFit({ title: 'یک ویدئوی معمولی' }).score, 1);
+
+assert.ok(durationPreferenceScore({ duration: 20 }) > durationPreferenceScore({ duration: 240 }),
+  'short videos receive a soft preference over longer videos');
+assert.ok(durationPreferenceScore({ duration: 240 }) > durationPreferenceScore({ duration: 1200 }),
+  'very long videos are down-ranked softly, not rejected');
+assert.equal(durationPreferenceScore({ duration: 1200 }) > 0, true,
+  'there must be no local maximum-duration rejection');
+assert.equal(durationPreferenceScore({}) , 50,
+  'missing duration metadata must remain neutral rather than inventing a penalty');
+
+const quotaMessage = 'سقف بازنشر شما تموم شده؛ ساعاتی بعد برای بازنشر مراجعه کن';
+assert.equal(isAccountRepublishQuotaMessage(quotaMessage), true,
+  'Filo account repost quota errors must be identified as a global account gate');
+assert.equal(isAccountRepublishQuotaMessage('republish limit reached; try again later'), true,
+  'English quota responses must also be recognized');
+assert.equal(isAccountRepublishQuotaMessage('permission denied for this single video'), false,
+  'ordinary candidate-specific 403 responses must not pause the whole account');
+
+const quotaState = {};
+const quotaStart = Date.parse('2026-11-06T09:00:00.000Z');
+const quotaCooldown = setAccountRepublishQuotaCooldown(quotaState, quotaStart);
+assert.equal(quotaCooldown.retryAfterAt, '2026-11-06T11:00:00.000Z');
+assert.ok(getAccountRepublishQuotaCooldown(quotaState, quotaStart + 60 * 60 * 1000),
+  'account cooldown must suppress repeated detail requests during the cooldown window');
+assert.equal(getAccountRepublishQuotaCooldown(quotaState, quotaStart + 2 * 60 * 60 * 1000), null,
+  'account cooldown must expire and allow a fresh authoritative recheck');
+assert.equal(quotaState.accountRepublishQuotaCooldown, undefined);
+
+const topicState = { posts: [] };
+const topicStart = Date.parse('2026-11-06T00:00:00.000Z');
+const topicBaseline = [
+  { video_code:'HotA', title:'موضوع داغ اول', feed_tag:'q-hot-topic', feed_tag_label:'موضوع داغ', create_date:'۱ ساعت پیش', duration:25, visit_count:100, plays:10 },
+  { video_code:'HotB', title:'موضوع داغ دوم', feed_tag:'q-hot-topic', feed_tag_label:'موضوع داغ', create_date:'۱ ساعت پیش', duration:45, visit_count:100, plays:10 },
+  { video_code:'ColdA', title:'موضوع مستقل', feed_tag:'q-cold-topic', feed_tag_label:'موضوع مستقل', create_date:'۱ ساعت پیش', duration:25, visit_count:100, plays:10 }
+];
+rankCandidatesByMomentum(topicBaseline, topicState, topicStart);
+const topicSecondScan = [
+  { ...topicBaseline[0], visit_count:120, plays:20 },
+  { ...topicBaseline[1], visit_count:115, plays:15 },
+  { ...topicBaseline[2], visit_count:120, plays:19 }
+];
+const topicRank = rankCandidatesByMomentum(topicSecondScan, topicState, topicStart + 5 * 60 * 1000);
+assert.equal(topicRank[0].item.video_code, 'HotA',
+  'a corroborated topic cohort may lift a slightly slower candidate above a similarly paced isolated candidate');
+assert.ok(topicRank[0].topicDemandScore > topicRank[2].topicDemandScore,
+  'topic demand must be derived from multiple candidates showing measured growth');
+assert.ok(topicRank[0].rankingScore > 0);
+assert.ok(topicRank[0].durationPreferenceScore > topicRank[1].durationPreferenceScore,
+  'duration preference must be present as a separate soft ranking feature');
+assert.equal(topicRank.some(entry => entry.item.video_code === 'HotB'), true,
+  'longer eligible content remains in the ranking rather than being hard-rejected');
 async function testPortraitCoverComposition() {
   const { chromium } = require('playwright');
   const browser = await chromium.launch({ headless: true });
