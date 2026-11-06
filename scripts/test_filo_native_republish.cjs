@@ -146,6 +146,16 @@ assert.ok(!/لایک کنید|نظر خود را بنویسید/u.test(cleanedDe
 assert.ok(cleanedDescription.startsWith('این ویدئو درباره فوتبال است.'),
   'the first descriptive sentence must be retained');
 assert.ok(cleanedDescription.length >= 30);
+assert.equal(cleanedDescription.split('این ویدئو درباره فوتبال است').length - 1, 1,
+  'duplicate description sentences must be removed');
+assert.equal(createDistinctRepostTitle('و نظر خود را بنویسید', '', 'AbC1234'),
+  'ویدئوی بازنشرشده AbC1234',
+  'a generic engagement prompt must never become the repost title');
+assert.equal(candidateExternalTopicKey({
+  title:'ویدئوی کوتاه',
+  feed_tag_label:'تولد'
+}), 'heartwarming',
+  'explicit celebration feeds should map into the shared heartwarming topic');
 assert.equal(isMetadataValidationRejectionReason('توضیح بسیار کوتاه است!'),true);
 assert.equal(hasRetryableMetadataRejection(metadataRejectedLedger,valid.video_code),true);
 assert.equal(isSourceAlreadyAttempted(metadataRejectedLedger,valid.video_code),false,
