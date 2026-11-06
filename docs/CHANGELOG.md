@@ -141,3 +141,14 @@
 - تغییر: حداقل طول متن از `feedCandidateEligible()` حذف شد. متن کم‌حجم فقط در `hardPrefilter.sparseText` گزارش می‌شود و به‌تنهایی مانع ورود به بررسی جزئیات نیست. فیلتر محتوای ممنوع/پرخطر همچنان حذف‌کننده است.
 - آزمون جدید: نامزد با عنوان دوحرفی و بدون توضیح باید از پیش‌فیلتر عبور کند؛ شمارش diagnostics نیز باید آن را sparse بداند اما در passed لحاظ کند.
 - اثر انتشار: این اصلاح پس از ادغام PR قبلی در شاخهٔ جداگانه آماده شده و تا عبور CI و ادغام PR جدید فعال محسوب نمی‌شود.
+
+
+## 2026-11-06 — تکمیل ادغام حداقل‌متن و تأیید عملی ویدئوی بلند
+
+- PR تکمیلی: [#62 — Do not block Filo discovery on sparse source titles](https://github.com/Mehran0960/Goushibaaz/pull/62)، ادغام‌شده در `2026-11-06T08:44:08Z` با commit `d10a906d7c48162feb5ccbe73f6af8bc9a767223`.
+- CI روی head PR #62 با SHA `5365e4622ee4309bf02c54745c5947c56f000d75`: [workflow اصلی #42189699626](https://github.com/Mehran0960/Goushibaaz/actions/runs/42189699626) و [validator مستقل #42189699709](https://github.com/Mehran0960/Goushibaaz/actions/runs/42189699709) هر دو success شدند. [اعتبارسنجی push پس از ادغام #42189808261](https://github.com/Mehran0960/Goushibaaz/actions/runs/42189808261) نیز success شد.
+- **اثبات انتشار واقعی ویدئوی بلند پس از PR #61:** [Run #42189688189](https://github.com/Mehran0960/Goushibaaz/actions/runs/42189688189)، event برابر `workflow_dispatch` و SHA اجرای publisher برابر `7e835498b939a6d6b895d4c224bf9fc3d19292d7` بود؛ این SHA شامل PR #61 است اما هنوز PR #62 را شامل نمی‌شود. نتیجهٔ واقعی `public_verified` شد.
+- نامزد انتخاب‌شده: منبع `XJMTGD1`، مدت **۱۰۱۶ ثانیه (۱۶ دقیقه و ۵۶ ثانیه)**، معیار انتخاب `measured_view_growth` با `viewsPerMinute=0.2` و `viewAccelerationPerMinute=0.2`. فیلو با HTTP 200 پذیرفت و صفحهٔ عمومی بازنشر با کد `2QTZ8FY` تأیید شد: https://ifilo.net/v/2QTZ8FY.
+- آمار چرخهٔ مذکور: ۹۰۸ اسکن، ۸۱۸ مورد واجد فیلتر اولیه، ۷۸ درخواست صفحهٔ دسته، ۵۷/۵۷ صفحهٔ عمیق موفق، پوشش صفحهٔ اول ۲۱/۲۱، بدون خطای صفحه‌بندی؛ `complete24HourCoverage=false`. یک انتشار عمومی تأییدشده در همین چرخه ثبت شد.
+- snapshot ledger پس از انتشار: ۶۵ `public_verified`، ۱۱ `rejected_by_filo`، یک `submitted_unconfirmed` و صفر `submitted_pending_approval`.
+- نتیجه: حذف سقف محلی ۱۸۰ ثانیه فقط یک تغییر نظری/تستی نماند؛ یک ویدئوی مجاز ۱۰۱۶ثانیه‌ای عملاً از فیلترها عبور کرد و به‌صورت عمومی تأیید شد. حداقل ۱۰ ثانیه و تمام گیت‌های سخت دیگر حفظ شده‌اند.
