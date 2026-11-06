@@ -242,9 +242,10 @@ assert.equal(feedCandidateEligible({
 }, {posts:[]}), true, 'an explicit unpublishable feed flag is rechecked against authoritative details');
 const feedSignals = summarizeFeedGateSignals([
   normalizeVideoFeedItem({v:'AbC1234',t:'ویدیوی تازه و مفید',du:28,vc:90,pd:5,hst:0,co:0,cr:1,ac:1}),
-  normalizeVideoFeedItem({v:'ZzY9876',t:'ویدیوی تازه و مفید',du:240,vc:50,pd:0,hst:1,co:1,cr:1,ac:1})
+  normalizeVideoFeedItem({v:'ZzY9876',t:'ویدیوی تازه و مفید',du:240,vc:50,pd:0,hst:1,co:1,cr:1,ac:1}),
+  normalizeVideoFeedItem({v:'QqW0001',t:'ویدئوی کوتاه',du:8})
 ], {posts:[]});
-assert.equal(feedSignals.totalItems, 2);
+assert.equal(feedSignals.totalItems, 3);
 assert.equal(feedSignals.flags.can_republish.false, 1);
 assert.equal(feedSignals.flags.has_audio.false, 1);
 assert.equal(feedSignals.duration.belowMinimum, 1,
