@@ -76,6 +76,7 @@
 
 - محدوده: main، آخرین workflow، artifact/log همان اجرا و دفتر `state/filo-native-republished.json`.
 - شواهد: [Run #42173049045](https://github.com/Mehran0960/Goushibaaz/actions/runs/42173049045)؛ نتیجهٔ فنی success اما `no_candidate_published_this_cycle`.
+- آخرین اجراهای اخیر با فاصلهٔ حدود پنج دقیقه آغاز شده‌اند؛ event ثبت‌شده برای Run #42173049045 برابر `workflow_dispatch` است. در شش اجرای native اخیرِ نمونه‌برداری‌شده رویداد `schedule` دیده نشد؛ caller واقعی dispatch هنوز مشخص نیست.
 - آمار چرخه: ۹۱۱ اسکن، ۸۲۸ واجد فیلتر فید، ۲۱/۲۱ صفحهٔ اول، ۵۸/۵۸ صفحهٔ عمیق موفق، بدون خطای صفحه‌بندی، پوشش کامل ۲۴ ساعت false، ۵۷ بررسی نامزد، یک رد جزئیات به‌علت مدت نامناسب و بدون انتشار در همین چرخه.
 - دفتر وضعیت پس از همان اجرا: ۶۱ `public_verified`، یازده `rejected_by_filo`، یک `submitted_unconfirmed`; در ۲۴ ساعت قبل ۱۹ انتشار تأییدشده و ۷ رد.
 - آخرین انتشار تأییدشده: https://ifilo.net/v/Vh31UVu در `2026-11-06T06:09:34.128Z`.
