@@ -1011,6 +1011,16 @@ assert.deepEqual(buildFreshPlatformTrendWeights({
   'a future-dated trend snapshot beyond clock tolerance must be ignored');
 assert.equal(candidateExternalTopicKey({ title: 'دموی فناوری و ربات هوشمند' }), 'technology_demo');
 assert.equal(candidateExternalTopicKey({ title: 'طنز ویدئوی بامزه و خنده دار' }), 'persian_comedy');
+assert.equal(candidateExternalTopicKey({
+  title: 'کلیپ بلوچی آهنگ بلوچی دوردو',
+  feed_tag_label: 'آهنگ'
+}), 'performance_magic',
+  'Filo music feed labels must map into the shared music/dance topic instead of generic entertainment');
+assert.equal(candidateExternalTopicKey({
+  title: 'ویدئوی کوتاه',
+  feed_tag_label: 'هوش مصنوعی'
+}), 'technology_demo',
+  'Filo AI labels must map into the shared technology topic when the title itself is generic');
 
 const crossPlatformState = { posts: [] };
 const crossPlatformBaseline = [
