@@ -33,21 +33,24 @@ const FALLBACK_VIDEO_TAG_FEEDS = [
 ];
 const MAX_DISCOVERED_CATEGORY_IDS = 64;
 const MAX_PAGES_PER_CATEGORY = 18;
-const MAX_TOTAL_CATEGORY_PAGE_REQUESTS = 96;
+const MAX_TOTAL_CATEGORY_PAGE_REQUESTS = 112;
 const CATEGORY_PAGE_CONCURRENCY = 4;
 const CATEGORY_SCAN_BUDGET_MS = 4 * 60 * 1000;
 const CATEGORY_LOOKBACK_HOURS = 24;
 const MIN_CYCLE_INTERVAL_MS = 4 * 60 * 1000;
 const DEPTH_CATEGORIES_PER_CYCLE = 21;
-const DEPTH_PAGES_PER_CATEGORY_PER_CYCLE = 3;
+const DEPTH_PAGES_PER_CATEGORY_PER_CYCLE = 4;
 const TOPIC_DUPLICATE_WINDOW_MS = 48 * 60 * 60 * 1000;
 const CANDIDATE_REJECTION_TTL_MS = 6 * 60 * 60 * 1000;
 const MAX_DETAIL_CHECKS = 90;
 const MIN_DURATION_SECONDS = 10;
 const MAX_DURATION_SECONDS = 180;
 const MAX_PUBLICATIONS_PER_24H = 288;
-const CAPTION_POLICY_VERSION = 6;
-const TITLE_REWRITE_POLICY_VERSION = 4;
+const CAPTION_POLICY_VERSION = 7;
+const TITLE_REWRITE_POLICY_VERSION = 5;
+const FILO_TITLE_MIN_CHARS = 20;
+const FILO_TITLE_MAX_CHARS = 96;
+const FILO_DESCRIPTION_MIN_CHARS = 30;
 const CANDIDATE_METRIC_HISTORY_TTL_MS = 30 * 60 * 1000;
 const CANDIDATE_METRIC_SAMPLE_INTERVAL_MS = 5 * 60 * 1000;
 const MAX_TRACKED_CANDIDATE_METRICS = 1500;
@@ -320,14 +323,74 @@ function policyTextRiskReason(item){
  return EXCLUDED.test(text)?'prohibited_or_sensitive_content':null;
 }
 
+function isMetadataValidationRejectionReason(value) {
+  const text = String(value || '').replace(/\s+/g, ' ').trim();
+  if (!text) return false;
+  return /(?:توضیح|شرح).{0,40}(?:بسیار\s+)?(?:کوتاه|کم)|(?:description).{0,30}(?:too\s+short|too\s+brief)|(?:طول\s+عنوان|عنوان).{0,70}(?:کمتر\s+از|بیشتر\s+از|حداکثر|بسیار\s+کم|خیلی\s+کوتاه|بسیار\s+کوتاه|۱۰۰|100)|(?:title).{0,50}(?:too\s+short|100\s+characters|maximum)/iu.test(text);
+}
+
+function metadataValidationReasonFromPost(post) {
+  if (!post || post.status !== 'rejected_by_filo') return null;
+  const diagnostics = post.responseDiagnostics && typeof post.responseDiagnostics === 'object'
+    ? post.responseDiagnostics : {};
+  const messages = [
+    post.reason,
+    ...(Array.isArray(diagnostics.uiErrors) ? diagnostics.uiErrors : []),
+    diagnostics.detail,
+    diagnostics.message
+  ];
+  return messages.find(isMetadataValidationRejectionReason) || null;
+}
+
+function hasRetryableMetadataRejection(ledger, code) {
+  const posts = ledger && Array.isArray(ledger.posts) ? ledger.posts : [];
+  const sameSource = posts.filter(post => post && post.sourceCode === code);
+  if (sameSource.some(post =>
+    ['submitted_pending_approval', 'submitted_unconfirmed', 'public_verified'].includes(post.status)
+  )) return false;
+  const rejectedPosts = sameSource.filter(post => post && post.status === 'rejected_by_filo');
+  // A metadata retry is safe only when every rejection for this source is a
+  // recognized title/description validation failure. Never let a second,
+  // non-metadata rejection be hidden by a metadata-retry exception.
+  if (!rejectedPosts.length || rejectedPosts.some(post => !metadataValidationReasonFromPost(post))) return false;
+  const metadataRejections = rejectedPosts;
+  return !metadataRejections.some(post =>
+    post.metadataRetryTitlePolicyVersion === TITLE_REWRITE_POLICY_VERSION &&
+    post.metadataRetryCaptionPolicyVersion === CAPTION_POLICY_VERSION
+  );
+}
+
+function isSourceAlreadyAttempted(ledger, code) {
+  const posts = ledger && Array.isArray(ledger.posts) ? ledger.posts : [];
+  const sameSource = posts.filter(post => post && post.sourceCode === code);
+  if (sameSource.some(post =>
+    ['submitted_pending_approval', 'submitted_unconfirmed', 'public_verified'].includes(post.status)
+  )) return true;
+  if (sameSource.some(post => post.status === 'rejected_by_filo')) {
+    return !hasRetryableMetadataRejection(ledger, code);
+  }
+  return false;
+}
+
+function markMetadataPolicyRetry(ledger, code, now = Date.now()) {
+  if (!hasRetryableMetadataRejection(ledger, code)) return false;
+  const posts = ledger && Array.isArray(ledger.posts) ? ledger.posts : [];
+  const target = [...posts].reverse().find(post =>
+    post && post.sourceCode === code && metadataValidationReasonFromPost(post) &&
+    post.metadataRetryTitlePolicyVersion !== TITLE_REWRITE_POLICY_VERSION
+  );
+  if (!target) return false;
+  target.metadataRetryTitlePolicyVersion = TITLE_REWRITE_POLICY_VERSION;
+  target.metadataRetryCaptionPolicyVersion = CAPTION_POLICY_VERSION;
+  target.metadataRetryAt = new Date(Number(now) || Date.now()).toISOString();
+  return true;
+}
+
 function feedCandidateEligible(item, ledger) {
   if (!item || typeof item !== 'object') return false;
   const code = String(item.video_code || item.videoCode || item.code || '').trim();
   if (!/^[A-Za-z0-9_-]{5,40}$/.test(code)) return false;
-  if (ledger && Array.isArray(ledger.posts) && ledger.posts.some(post =>
-    post && post.sourceCode === code &&
-    ['submitted_pending_approval', 'submitted_unconfirmed', 'public_verified', 'rejected_by_filo'].includes(post.status)
-  )) return false;
+  if (isSourceAlreadyAttempted(ledger, code)) return false;
   const text = sourceText(item);
   if (text.length < 8 || policyTextRiskReason(item)) return false;
 
@@ -363,7 +426,7 @@ function summarizeFeedGateSignals(items, ledger) {
     flags: Object.fromEntries(fields.map(field => [field, { true: 0, false: 0, missing: 0 }])),
     duration: { inRange: 0, outOfRange: 0, missing: 0 },
     status: { publishable: 0, other: 0, missing: 0 },
-    hardPrefilter: { invalidCode: 0, duplicateOrAlreadyAttempted: 0, textTooShort: 0, policyRisk: 0, passed: 0 }
+    hardPrefilter: { invalidCode: 0, duplicateOrAlreadyAttempted: 0, metadataPolicyRetryEligible: 0, textTooShort: 0, policyRisk: 0, passed: 0 }
   };
   for (const item of Array.isArray(items) ? items : []) {
     for (const field of fields) {
@@ -387,17 +450,32 @@ function summarizeFeedGateSignals(items, ledger) {
     const code = String(item && (item.video_code || item.videoCode || item.code) || '').trim();
     if (!/^[A-Za-z0-9_-]{5,40}$/.test(code)) summary.hardPrefilter.invalidCode++;
     else {
-      const ledgerDuplicate = Boolean(ledger && Array.isArray(ledger.posts) && ledger.posts.some(post =>
-        post && post.sourceCode === code &&
-        ['submitted_pending_approval', 'submitted_unconfirmed', 'public_verified', 'rejected_by_filo'].includes(post.status)
-      ));
+      const ledgerDuplicate = isSourceAlreadyAttempted(ledger, code);
       if (ledgerDuplicate) summary.hardPrefilter.duplicateOrAlreadyAttempted++;
+      else if (hasRetryableMetadataRejection(ledger, code)) summary.hardPrefilter.metadataPolicyRetryEligible++;
       else if (sourceText(item).length < 8) summary.hardPrefilter.textTooShort++;
       else if (policyTextRiskReason(item)) summary.hardPrefilter.policyRisk++;
       else summary.hardPrefilter.passed++;
     }
   }
   return summary;
+}
+
+function summarizeCandidateChecks(checked) {
+  const reasonCounts = {};
+  const detailFetchErrors = {};
+  let metadataFailures = 0;
+  let cachedRejections = 0;
+  for (const item of Array.isArray(checked) ? checked : []) {
+    const reason = String(item && (item.metadataError || item.publishError || item.gate) || 'unknown');
+    reasonCounts[reason] = (reasonCounts[reason] || 0) + 1;
+    if (item && item.metadataError) metadataFailures++;
+    if (item && item.gate === 'cached_candidate_rejection') cachedRejections++;
+    if (item && item.detailFetchError) {
+      detailFetchErrors[item.detailFetchError] = (detailFetchErrors[item.detailFetchError] || 0) + 1;
+    }
+  }
+  return { total: Array.isArray(checked) ? checked.length : 0, reasonCounts, detailFetchErrors, metadataFailures, cachedRejections };
 }
 
 function candidateMetricSnapshot(item, keys) {
@@ -619,33 +697,35 @@ function rankCandidatesByMomentum(items, state, now = Date.now()) {
     };
   }).filter(entry => entry.ageHours <= 24)
     .sort((a, b) => {
-      // Prefer candidates whose feed metadata already suggests they can pass
-      // the native permission gate; this only affects ordering, never eligibility.
-      if (a.feedHintScore !== b.feedHintScore) return b.feedHintScore - a.feedHintScore;
+      // Measured growth is primary. Feed flags are weak hints and must never
+      // put a slower candidate above a faster or more rapidly accelerating one.
       if (a.hasPositivePlayGrowth !== b.hasPositivePlayGrowth) {
         return Number(b.hasPositivePlayGrowth) - Number(a.hasPositivePlayGrowth);
       }
       if (a.hasPositivePlayGrowth && b.hasPositivePlayGrowth) {
-        const playVelocity = num(b.momentum.playsPerMinute) - num(a.momentum.playsPerMinute);
-        if (playVelocity) return playVelocity;
         const playAcceleration = num(b.momentum.playsAccelerationPerMinute) - num(a.momentum.playsAccelerationPerMinute);
         if (playAcceleration) return playAcceleration;
+        const playVelocity = num(b.momentum.playsPerMinute) - num(a.momentum.playsPerMinute);
+        if (playVelocity) return playVelocity;
       }
       if (a.hasPositiveViewGrowth !== b.hasPositiveViewGrowth) {
         return Number(b.hasPositiveViewGrowth) - Number(a.hasPositiveViewGrowth);
       }
       if (a.hasPositiveViewGrowth && b.hasPositiveViewGrowth) {
+        const viewAcceleration = num(b.momentum.viewsAccelerationPerMinute ?? b.momentum.accelerationPerMinute) -
+          num(a.momentum.viewsAccelerationPerMinute ?? a.momentum.accelerationPerMinute);
+        if (viewAcceleration) return viewAcceleration;
         const viewVelocity = num(b.momentum.viewsPerMinute) - num(a.momentum.viewsPerMinute);
         if (viewVelocity) return viewVelocity;
       }
+      // Feed signals, cumulative counts, audience fit and freshness are
+      // tie-breakers only when measured momentum does not distinguish candidates.
+      if (a.feedHintScore !== b.feedHintScore) return b.feedHintScore - a.feedHintScore;
       if (a.playMetric.available !== b.playMetric.available) {
         return Number(b.playMetric.available) - Number(a.playMetric.available);
       }
       if (a.playMetric.value !== b.playMetric.value) return b.playMetric.value - a.playMetric.value;
       if (a.viewMetric.value !== b.viewMetric.value) return b.viewMetric.value - a.viewMetric.value;
-      const viewAcceleration = num(b.momentum.viewsAccelerationPerMinute ?? b.momentum.accelerationPerMinute) -
-        num(a.momentum.viewsAccelerationPerMinute ?? a.momentum.accelerationPerMinute);
-      if (viewAcceleration) return viewAcceleration;
       return b.audienceFitScore - a.audienceFitScore ||
         a.recentCategoryPenalty - b.recentCategoryPenalty ||
         a.ageHours - b.ageHours;
@@ -716,6 +796,16 @@ function cleanRepostCaptionTitle(sourceTitle) {
   return trimAtWord(title, 176);
 }
 
+function fitFiloTitleLength(value) {
+  let title = String(value || '').replace(/\s+/g, ' ').trim();
+  if (title.length > FILO_TITLE_MAX_CHARS) title = trimAtWord(title, FILO_TITLE_MAX_CHARS);
+  if (title.length < FILO_TITLE_MIN_CHARS) {
+    title = `نگاهی کوتاه دربارهٔ ${title}`;
+    if (title.length > FILO_TITLE_MAX_CHARS) title = trimAtWord(title, FILO_TITLE_MAX_CHARS);
+  }
+  return title;
+}
+
 const EDITORIAL_TITLE_STOPWORDS = new Set([
   'و', 'در', 'به', 'با', 'از', 'برای', 'که', 'این', 'آن', 'یک', 'را', 'های', 'ها',
   'کرد', 'شد', 'است', 'هست', 'هم', 'اما', 'یا', 'روی', 'تا', 'بر', 'پس', 'قبل',
@@ -750,7 +840,7 @@ function editorialTitleQualityReason(value) {
   if (/^(?:یک\s+)?(?:فیلم|کلیپ|ویدئو|ویدیو)\s+(?:بسیار\s+|خیلی\s+)?(?:زیبا|جذاب|عالی|رمانتیک|فوق.?العاده)(?:\s+و\s+(?:بسیار\s+)?(?:زیبا|جذاب|عالی|رمانتیک))?.{0,70}$/iu.test(title)) {
     return 'title_generic_praise_without_subject';
   }
-  if (tokens.length < 3) return 'title_not_distinct_or_editorially_clean';
+  if (tokens.length < 2) return 'title_not_distinct_or_editorially_clean';
   return null;
 }
 
@@ -784,14 +874,18 @@ function removeRepeatedTrailingPhrase(value) {
       const prior=words.slice(start,start+n).map(normalizeWord);
       if(prior.every((word,index)=>word&&word===tail[index])){
         const reduced=words.slice(0,-n).join(' ').trim();
-        if(editorialTitleTokens(reduced).length>=3)return reduced;
+        if(editorialTitleTokens(reduced).length>=2)return reduced;
       }
     }
   }
   return words.join(' ');
 }
 
-function descriptionBasedTitleCandidate(sourceDescription) {
+function descriptionBasedTitleCandidate(sourceDescription, sourceTitle = '') {
+  const normalizedSourceTitle = String(sourceTitle || '').trim();
+  const cleanedSourceTitle = normalizedSourceTitle
+    ? cleanRepostCaptionTitle(normalizedSourceTitle)
+    : '';
   const raw = normalizeCaptionEditorialText(sourceDescription)
     .replace(/https?:\/\/\S+|www\.\S+/giu, ' ')
     .replace(/#[^\s#]+/gu, ' ')
@@ -810,9 +904,12 @@ function descriptionBasedTitleCandidate(sourceDescription) {
     if (sentence.length < 10) continue;
     let candidate;
     try { candidate = cleanRepostCaptionTitle(sentence); } catch { continue; }
+    // A description is useful only when it contributes a genuinely distinct
+    // factual subject. Rewording the same generic source title is not a rewrite.
+    if (cleanedSourceTitle && characterBigramDice(cleanedSourceTitle, candidate) >= 0.72) continue;
     if (editorialTitleQualityReason(candidate)) continue;
     if (policyTextRiskReason({ title: candidate })) continue;
-    return trimAtWord(candidate, 150);
+    return fitFiloTitleLength(candidate);
   }
   return null;
 }
@@ -842,17 +939,17 @@ function createDistinctRepostTitle(sourceTitle, sourceDescription = '') {
     const match=cleaned.match(pattern);
     if(match){drafts=rewrite(match);break;}
   }
-  const descriptionCandidate = descriptionBasedTitleCandidate(sourceDescription);
+  const descriptionCandidate = descriptionBasedTitleCandidate(sourceDescription, sourceTitle);
   if (descriptionCandidate) drafts.push(descriptionCandidate);
   if(!drafts.length)throw new Error('title_without_safe_editorial_rewrite');
   const candidates=[];
   for(const draft of drafts){
-    const candidate=removeRepeatedTrailingPhrase(draft).replace(/\s+/g,' ').trim();
+    const candidate=fitFiloTitleLength(removeRepeatedTrailingPhrase(draft));
     if(candidates.includes(candidate))continue;
     const qualityReason=editorialTitleQualityReason(candidate);
     if(qualityReason)continue;
     const tokens=editorialTitleTokens(candidate);
-    if(tokens.length<3||candidate.length<10||candidate.length>176)continue;
+    if(tokens.length<2||candidate.length<FILO_TITLE_MIN_CHARS||candidate.length>FILO_TITLE_MAX_CHARS)continue;
     const contentWords=normalizeCaptionEditorialText(candidate).toLocaleLowerCase('fa-IR')
       .replace(/[يى]/g,'ی').replace(/ك/g,'ک').replace(/[^\p{L}\p{N}]+/gu,' ')
       .split(/\s+/).filter(token=>token.length>1&&!EDITORIAL_TITLE_STOPWORDS.has(token));
@@ -885,8 +982,15 @@ function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
     .replace(/\s+([،؛:,.!?؟])/gu, '$1')
     .replace(/\s+/g, ' ')
     .trim();
-  // Keep source facts as supplied; a short caption is valid and no detail is invented.
-  return trimAtWord(description || String(repostTitle || sourceTitle || '').trim(), 900);
+  // A concise factual fallback avoids Filo's "description too short" rejection.
+  // It is grounded only in the already-authorized source title and preserves any
+  // remaining factual source description; it does not invent scene details.
+  const topic = String(repostTitle || sourceTitle || '').trim();
+  const groundedFallback = topic ? `این ویدئو دربارهٔ «${topic}» است.` : '';
+  const finalDescription = description.length >= FILO_DESCRIPTION_MIN_CHARS
+    ? description
+    : [groundedFallback, description].filter(Boolean).join(' ');
+  return trimAtWord(finalDescription || topic, 900);
 }
 
 function createRepostMetadata(video, sourceCode) {
@@ -974,10 +1078,20 @@ function getCachedCandidateRejection(state,code,video,now=Date.now()) {
     ?state.candidateRejections:{};
   const key=String(code||'').trim(),entry=cache[key];
   if(!entry)return null;
+  // Older publisher versions cached explicit Filo metadata rejections under the
+  // generic API reason. If the ledger proves this source was rejected only for
+  // title/description validation, let the one-time new-policy retry proceed.
+  if(entry.reason==='filo_publish_not_accepted' && hasRetryableMetadataRejection(state,key)){
+    delete cache[key];
+    return null;
+  }
   const retryAt=Date.parse(entry.retryAfterAt||'');
   const titlePolicyStale = isTitleRewriteRejectionReason(entry.reason) &&
     entry.titleRewritePolicyVersion !== TITLE_REWRITE_POLICY_VERSION;
-  if(titlePolicyStale || entry.fingerprint!==candidateMetadataFingerprint(video)||
+  const filoMetadataPolicyStale = isMetadataValidationRejectionReason(entry.reason) &&
+    (entry.titleRewritePolicyVersion !== TITLE_REWRITE_POLICY_VERSION ||
+     entry.captionPolicyVersion !== CAPTION_POLICY_VERSION);
+  if(titlePolicyStale || filoMetadataPolicyStale || entry.fingerprint!==candidateMetadataFingerprint(video)||
      !Number.isFinite(retryAt)||retryAt<=now){
     delete cache[key];
     return null;
@@ -992,7 +1106,8 @@ function cacheCandidateRejection(state,code,video,reason,now=Date.now(),ttlMs=CA
   state.candidateRejections[code]={
     fingerprint:candidateMetadataFingerprint(video),
     reason:normalizedReason,
-    titleRewritePolicyVersion:isTitleRewriteRejectionReason(normalizedReason)?TITLE_REWRITE_POLICY_VERSION:null,
+    titleRewritePolicyVersion:(isTitleRewriteRejectionReason(normalizedReason)||isMetadataValidationRejectionReason(normalizedReason))?TITLE_REWRITE_POLICY_VERSION:null,
+    captionPolicyVersion:CAPTION_POLICY_VERSION,
     rejectedAt:new Date(now).toISOString(),
     retryAfterAt:new Date(now+ttlMs).toISOString()
   };
@@ -2722,11 +2837,17 @@ async function main() {
         throw error;
       }
 
+      if (markMetadataPolicyRetry(state, candidate.video_code, Date.parse(report.createdAt))) {
+        check.metadataPolicyRetryAttempted = true;
+      }
       if(isCandidateLevelFiloRejection(attemptResult)){
+        const validationMessage = (attemptResult.responseDiagnostics &&
+          Array.isArray(attemptResult.responseDiagnostics.uiErrors)
+          ? attemptResult.responseDiagnostics.uiErrors : []).find(isMetadataValidationRejectionReason);
         const rejection={
           sourceCode:candidate.video_code,
           score:candidate.editorialScore,
-          reason:attemptResult.reason||'filo_publish_not_accepted',
+          reason:validationMessage || attemptResult.reason||'filo_publish_not_accepted',
           httpStatus:attemptResult.httpStatus,
           responseDiagnostics:attemptResult.responseDiagnostics||null,
           attemptedAt:new Date().toISOString()
@@ -2745,6 +2866,7 @@ async function main() {
       break;
     }
     report.discovery.detailChecks = checked;
+    report.discovery.checkedCandidateSummary = summarizeCandidateChecks(checked);
     report.discovery.filoRejections = filoRejections;
     for(const rejected of filoRejections){
       state.posts.push({
@@ -2770,6 +2892,7 @@ async function main() {
             ? 'Filo explicitly rejected the checked candidates; the slot was closed safely and will retry on the next scheduled run'
             : 'no_candidate_passed_authoritative_native_permission_and_metadata_gates',
         checkedCandidates: checked.length,
+        checkedCandidateSummary: report.discovery.checkedCandidateSummary,
         detailGateRejections: report.discovery.detailGateRejections || [],
         filoRejections,
         retryOnNextScheduledRun: true
@@ -2874,8 +2997,14 @@ module.exports = {
   shouldStartPublishingCycle,
   ageHours,
   feedCandidateEligible,
+  isMetadataValidationRejectionReason,
+  hasRetryableMetadataRejection,
+  isSourceAlreadyAttempted,
+  markMetadataPolicyRetry,
   feedGateHintScore,
   summarizeFeedGateSignals,
+  summarizeCandidateChecks,
+  fitFiloTitleLength,
   cleanRepostCaptionTitle,
   cleanRepostDescription,
   policyTextRiskReason,
