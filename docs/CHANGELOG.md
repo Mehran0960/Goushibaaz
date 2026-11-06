@@ -50,6 +50,13 @@
 - آخرین پست تأییدشده در ledger: https://ifilo.net/v/WARIz1p، زمان `2026-11-06T05:44:38.725Z`.
 - این baseline باید با شواهد اجرای جدید جایگزین/تکمیل شود؛ اعداد فعلی را نباید به‌عنوان وضعیت همیشگی نگه داشت.
 
+## 2026-11-06 — وضعیت دسترسی Branch Protection
+
+- تلاش برای خواندن تنظیمات حفاظت شاخهٔ `main` از طریق اتصال GitHub با پاسخ 403 (`Resource not accessible by integration`) رد شد.
+- وضعیت required checks و محدودیت push مستقیم قابل‌تأیید نیست؛ این به معنی فعال یا غیرفعال بودن آن‌ها نیست.
+- Guard اعتبارسنجی و PR template در PR #59 پیاده شده‌اند، اما برای جلوگیری قطعی از merge با check شکست‌خورده، maintainer باید check مربوط به `Filo native authorized republisher / validate` را در Branch Protection/Rulesets اجباری کند.
+- مرجع: [PR #59](https://github.com/Mehran0960/Goushibaaz/pull/59).
+
 ## الگوی ثبت تغییرات بعدی
 
 برای هر اقدام/تغییر بعدی، یک بخش جدید با قالب زیر اضافه شود:
