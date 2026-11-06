@@ -99,3 +99,14 @@
 - اصلاحات CI: دو شکست واقعی در نسخه‌های اولیهٔ این PR به‌ترتیب ناشی از پذیرش توضیح تکراری عنوان منبع و انتظار قدیمی نسخهٔ سیاست عنوان بود؛ کنترل شباهت عنوان/توضیح و نسخهٔ تست اصلاح شد. همچنین بازآزمایی ردهای metadata محدود شد تا هر رد غیرمتادیتایی برای همان منبع، استثنا را مسدود کند.
 - اثر انتشار: PR کد منتشر نمی‌کند و هیچ انتشار تازه‌ای از آن ادعا نمی‌شود.
 - مرجع: [PR #60](https://github.com/Mehran0960/Goushibaaz/pull/60)، [validator مستقل](https://github.com/Mehran0960/Goushibaaz/actions/runs/42178520185).
+
+## 2026-11-06 — ادغام و تأیید CI برای بهبود استمرار بازنشر
+
+- PR: [#60 — Increase Filo republishing continuity and prioritize measured momentum](https://github.com/Mehran0960/Goushibaaz/pull/60)
+- زمان ادغام: `2026-11-06T07:08:45Z`.
+- merge commit در main: `c1ac80555e30ba16da220014cd6a304c6055a7ef`.
+- اعتبارسنجی در PR روی آخرین نسخهٔ مستندشده: [Run #42178808124](https://github.com/Mehran0960/Goushibaaz/actions/runs/42178808124) با نتیجهٔ success؛ کنترل مستندسازی، syntax و تست رگرسیون کامل شدند؛ job انتشار در PR skipped بود.
+- اعتبارسنجی push پس از ادغام روی merge commit: [Run #42178941388](https://github.com/Mehran0960/Goushibaaz/actions/runs/42178941388) با نتیجهٔ success.
+- آخرین اجرای واقعی publisher قابل مشاهده هنگام ادغام: [Run #42178876528](https://github.com/Mehran0960/Goushibaaz/actions/runs/42178876528)، SHA قبلی `8aed05360a45f16ead9786a3ba780ea3c86ae9ca`؛ ۸۵۲ اسکن، ۷۴۶ واجد فیلتر فید، ۵۴/۵۴ صفحهٔ عمیق موفق، بدون خطای صفحه‌بندی، `complete24HourCoverage=false`، نتیجهٔ همان چرخه `no_candidate_published_this_cycle`. این اجرا پیش از ادغام آغاز شده بود و تغییرات PR #60 را اجرا نکرد.
+- دفتر انتشار در snapshot پس از ادغام: ۶۱ `public_verified`، یازده `rejected_by_filo` و یک `submitted_unconfirmed`؛ آخرین پست تأییدشدهٔ ثبت‌شده `Vh31UVu` در `2026-11-06T06:09:34.128Z`.
+- اثر عملیاتی: انتشار جدیدی به PR یا اجرای تست نسبت داده نمی‌شود. اولین اجرای واقعی روی merge commit جدید باید جداگانه بررسی شود؛ موفقیت CI به‌تنهایی اثبات انتشار نیست.
