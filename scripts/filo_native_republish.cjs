@@ -1228,6 +1228,32 @@ function getAccountRepublishQuotaCooldown(state, now = Date.now()) {
   return { ...entry, remainingMs: retryAfter - current };
 }
 
+
+function releaseOneLegacy403CacheForAccountQuotaProbe(state, ranked, now = Date.now()) {
+  if (!state || state.accountQuota403ProbeMigrationAt) return null;
+  const current = Number.isFinite(Number(now)) ? Number(now) : Date.now();
+  if (getAccountRepublishQuotaCooldown(state, current)) return null;
+  const cache = state.candidateRejections && typeof state.candidateRejections === 'object'
+    ? state.candidateRejections : {};
+  for (const entry of (Array.isArray(ranked) ? ranked : []).slice(0, MAX_DETAIL_CHECKS)) {
+    const code = String(entry && entry.item && entry.item.video_code || '').trim();
+    if (!code) continue;
+    const rejection = cache[code];
+    if (!rejection || rejection.reason !== 'detail_fetch:forbidden_403') continue;
+    const retryAt = Date.parse(rejection.retryAfterAt || '');
+    if (!Number.isFinite(retryAt) || retryAt <= current) continue;
+    // Historical versions cached Filo's account-wide quota message as a
+    // per-video 403. Release exactly one top-ranked entry to obtain one
+    // authoritative detail response; never fan out retries across the cache.
+    delete cache[code];
+    state.accountQuota403ProbeMigrationAt = new Date(current).toISOString();
+    state.accountQuota403ProbeCode = code;
+    return code;
+  }
+  state.accountQuota403ProbeMigrationAt = new Date(current).toISOString();
+  return null;
+}
+
 function getCachedDetailAccessRejection(state,code,now=Date.now()) {
   const entry = state && state.candidateRejections && state.candidateRejections[String(code || '').trim()];
   if (!entry || entry.reason !== 'detail_fetch:forbidden_403') return null;
@@ -2876,7 +2902,12 @@ async function main() {
     }])).values()]
       .sort((a, b) => b.demandScore - a.demandScore || b.candidateCount - a.candidateCount)
       .slice(0, 12);
-    const activeAccountQuotaCooldown = getAccountRepublishQuotaCooldown(state, Date.parse(report.createdAt));
+    const quotaCheckAt = Date.parse(report.createdAt);
+    const activeAccountQuotaCooldown = getAccountRepublishQuotaCooldown(state, quotaCheckAt);
+    const legacy403ProbeCode = activeAccountQuotaCooldown
+      ? null
+      : releaseOneLegacy403CacheForAccountQuotaProbe(state, ranked, quotaCheckAt);
+    report.discovery.legacy403QuotaProbeTriggered = Boolean(legacy403ProbeCode);
     fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
 
     if (!ranked.length) {
@@ -3237,6 +3268,7 @@ module.exports = {
   isAccountRepublishQuotaMessage,
   setAccountRepublishQuotaCooldown,
   getAccountRepublishQuotaCooldown,
+  releaseOneLegacy403CacheForAccountQuotaProbe,
   durationPreferenceScore,
   summarizeTopicDemand,
   getCachedDetailAccessRejection,

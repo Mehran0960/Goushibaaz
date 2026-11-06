@@ -49,6 +49,7 @@ const {
   isAccountRepublishQuotaMessage,
   setAccountRepublishQuotaCooldown,
   getAccountRepublishQuotaCooldown,
+  releaseOneLegacy403CacheForAccountQuotaProbe,
   rankCandidatesByMomentum,
   extractCategoryIds,
   summarizeCategoryCatalogPayload,
@@ -899,7 +900,44 @@ assert.ok(getAccountRepublishQuotaCooldown(quotaState, quotaStart + 60 * 60 * 10
   'account cooldown must suppress repeated detail requests during the cooldown window');
 assert.equal(getAccountRepublishQuotaCooldown(quotaState, quotaStart + 2 * 60 * 60 * 1000), null,
   'account cooldown must expire and allow a fresh authoritative recheck');
+
 assert.equal(quotaState.accountRepublishQuotaCooldown, undefined);
+
+const legacyQuotaState = {
+  candidateRejections: {
+    BestCode1: { reason: 'detail_fetch:forbidden_403', retryAfterAt: '2026-11-06T15:00:00.000Z' },
+    NextCode2: { reason: 'detail_fetch:forbidden_403', retryAfterAt: '2026-11-06T15:00:00.000Z' }
+  }
+};
+const legacyProbe = releaseOneLegacy403CacheForAccountQuotaProbe(legacyQuotaState, [
+  { item: { video_code: 'BestCode1' } },
+  { item: { video_code: 'NextCode2' } }
+], quotaStart);
+assert.equal(legacyProbe, 'BestCode1',
+  'one top-ranked legacy 403 cache entry must be released to obtain an authoritative account-level quota response');
+assert.equal(legacyQuotaState.candidateRejections.BestCode1, undefined);
+assert.ok(legacyQuotaState.candidateRejections.NextCode2,
+  'the migration must not clear the remaining per-video rejection cache');
+assert.equal(legacyQuotaState.accountQuota403ProbeCode, 'BestCode1');
+assert.equal(releaseOneLegacy403CacheForAccountQuotaProbe(legacyQuotaState, [
+  { item: { video_code: 'NextCode2' } }
+], quotaStart), null,
+  'the legacy quota probe migration must run only once');
+
+const activeQuotaState = {
+  accountRepublishQuotaCooldown: {
+    retryAfterAt: '2026-11-06T11:00:00.000Z'
+  },
+  candidateRejections: {
+    BestCode1: { reason: 'detail_fetch:forbidden_403', retryAfterAt: '2026-11-06T15:00:00.000Z' }
+  }
+};
+assert.equal(releaseOneLegacy403CacheForAccountQuotaProbe(activeQuotaState, [
+  { item: { video_code: 'BestCode1' } }
+], quotaStart), null,
+  'the migration must not probe while the account-level cooldown is active');
+assert.equal(activeQuotaState.candidateRejections.BestCode1.reason, 'detail_fetch:forbidden_403');
+
 
 const topicState = { posts: [] };
 const topicStart = Date.parse('2026-11-06T00:00:00.000Z');
