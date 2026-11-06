@@ -877,7 +877,11 @@ function removeRepeatedTrailingPhrase(value) {
   return words.join(' ');
 }
 
-function descriptionBasedTitleCandidate(sourceDescription) {
+function descriptionBasedTitleCandidate(sourceDescription, sourceTitle = '') {
+  const normalizedSourceTitle = String(sourceTitle || '').trim();
+  const cleanedSourceTitle = normalizedSourceTitle
+    ? cleanRepostCaptionTitle(normalizedSourceTitle)
+    : '';
   const raw = normalizeCaptionEditorialText(sourceDescription)
     .replace(/https?:\/\/\S+|www\.\S+/giu, ' ')
     .replace(/#[^\s#]+/gu, ' ')
@@ -896,6 +900,9 @@ function descriptionBasedTitleCandidate(sourceDescription) {
     if (sentence.length < 10) continue;
     let candidate;
     try { candidate = cleanRepostCaptionTitle(sentence); } catch { continue; }
+    // A description is useful only when it contributes a genuinely distinct
+    // factual subject. Rewording the same generic source title is not a rewrite.
+    if (cleanedSourceTitle && characterBigramDice(cleanedSourceTitle, candidate) >= 0.72) continue;
     if (editorialTitleQualityReason(candidate)) continue;
     if (policyTextRiskReason({ title: candidate })) continue;
     return fitFiloTitleLength(candidate);
@@ -928,7 +935,7 @@ function createDistinctRepostTitle(sourceTitle, sourceDescription = '') {
     const match=cleaned.match(pattern);
     if(match){drafts=rewrite(match);break;}
   }
-  const descriptionCandidate = descriptionBasedTitleCandidate(sourceDescription);
+  const descriptionCandidate = descriptionBasedTitleCandidate(sourceDescription, sourceTitle);
   if (descriptionCandidate) drafts.push(descriptionCandidate);
   if(!drafts.length)throw new Error('title_without_safe_editorial_rewrite');
   const candidates=[];
