@@ -11,7 +11,9 @@
 - وضعیت آزمون: پس از اجرای PR، نتیجهٔ واقعی تست و validator به همین ورودی تکمیل می‌شود.
 - اثر انتشار: صرف مستندسازی هیچ پستی منتشر نمی‌کند و نباید به‌عنوان بهبود انتشار گزارش شود.
 - مرجع: [PR #59 — مستندسازی و الزام changelog](https://github.com/Mehran0960/Goushibaaz/pull/59). PR باز است؛ ادغام آن تا تکمیل کنترل‌های نهایی ادعا نمی‌شود.
-- کنترل اولیهٔ PR: [اجرای #42172930480](https://github.com/Mehran0960/Goushibaaz/actions/runs/42172930480)؛ کنترل مستندسازی، نصب Playwright، بررسی syntax و تست رگرسیون در این revision موفق شدند. پس از تکمیل guard برای workflow اعتبارسنجی دوم، PR check جدید نیز باید موفق شود.
+- کنترل اولیهٔ PR: [اجرای #42172930480](https://github.com/Mehran0960/Goushibaaz/actions/runs/42172930480) موفق بود.
+- پس از تکمیل guard برای workflow اعتبارسنجی دوم، [اجرای #42173030482](https://github.com/Mehran0960/Goushibaaz/actions/runs/42173030482) روی SHA مربوط به workflow نهایی موفق شد؛ کنترل مستندسازی، syntax و تست‌های رگرسیون همگی pass شدند.
+- پس از ثبت مرجع PR و شواهد در همین changelog، [اجرای #42173070577](https://github.com/Mehran0960/Goushibaaz/actions/runs/42173070577) روی head مستندات با نتیجهٔ success تکمیل شد؛ job انتشار به‌درستی skipped بود و هیچ انتشار تازه‌ای از این PR انجام نشد.
 
 ## نقاط عطف قبلی — سوابق PR تأییدشده
 
