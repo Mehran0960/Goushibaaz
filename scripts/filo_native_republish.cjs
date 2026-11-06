@@ -46,9 +46,11 @@ const DEPTH_PAGES_PER_CATEGORY_PER_CYCLE = 4;
 const TOPIC_DUPLICATE_WINDOW_MS = 48 * 60 * 60 * 1000;
 const CANDIDATE_REJECTION_TTL_MS = 6 * 60 * 60 * 1000;
 const ACCOUNT_REPUBLISH_QUOTA_COOLDOWN_MS = 2 * 60 * 60 * 1000;
+const MIN_PUBLISH_GAP_MS = 20 * 60 * 1000;
+const MAX_PUBLICATIONS_PER_ROLLING_HOUR = 3;
+const MAX_PUBLICATIONS_PER_24H = 36;
 const MAX_DETAIL_CHECKS = 90;
 const MIN_DURATION_SECONDS = 10;
-const MAX_PUBLICATIONS_PER_24H = 288;
 const CAPTION_POLICY_VERSION = 7;
 const TITLE_REWRITE_POLICY_VERSION = 6;
 const FILO_TITLE_MIN_CHARS = 20;
@@ -678,7 +680,7 @@ function summarizeTopicDemand(entries) {
     const breadthScore = logScaleScore(group.length, 10);
     // A single item cannot establish topic-wide demand. Require corroboration
     // from at least two distinct candidates in the current Filo feed scan.
-    const demandScore = group.length < 2 ? 0 :
+    const demandScore = group.length < 2 || growing.length < 2 ? 0 :
       Math.round((0.55 * growthShareScore + 0.30 * activityIntensityScore + 0.15 * breadthScore) * 100) / 100;
     result[key] = {
       demandScore,
@@ -772,7 +774,8 @@ function candidateExternalTopicKey(item) {
     { topic: 'pets_animals', pattern: /گربه|سگ|حیوان|جانور|پرنده|طوطی|حیات وحش|cats?|dogs?|animals?|wildlife/i },
     { topic: 'science_tech', pattern: /علمی|آزمایش|نجوم|فیزیک|کهکشان|خطای دید|معما|science|experiment|astronomy|puzzle/i },
     { topic: 'satisfying_craft', pattern: /کاردستی|ساختنی|نجاری|سفال|بازسازی|رضایت.?بخش|craft|restoration|woodworking/i },
-    { topic: 'surprise_reveal', pattern: /غافلگیر|غیرمنتظره|راز|نتیجه نهایی|آخرش|surprise|unexpected|reveal/i }
+    { topic: 'surprise_reveal', pattern: /غافلگیر|غیرمنتظره|راز|نتیجه نهایی|آخرش|surprise|unexpected|reveal/i },
+    { topic: 'heartwarming', pattern: /تولد|روز دختر|روز پدر|ولادت|تبریک|جشن|مبارک|birthday|celebration|congratulations/i }
   ];
   for (const alias of labelAliases) {
     if (alias.pattern.test(feedLabels)) return alias.topic;
@@ -975,7 +978,11 @@ function cleanRepostCaptionTitle(sourceTitle) {
     .replace(/@[\p{L}\p{N}_.-]+/gu, ' ')
     .replace(/^(?:(?:ماجرای\s+بامزه(?:‌ی|ی)?|روایت\s+تصویری|روایتی\s+از)\s*[:،؛-]?\s*)+/iu, '')
     .replace(/^\s*(?:کلیپ|ویدئو|ویدیو|فیلم)\s+/iu, '')
+    .replace(/\p{Extended_Pictographic}|[\uFE0E\uFE0F]/gu, ' ')
+    .replace(/([!?؟،؛:,.…–—-])\1+/gu, '$1')
+    .replace(/([^\s\p{P}\p{S}])\1{3,}/gu, '$1$1')
     .replace(/\s+(?:این\s+)?(?:حتماً?\s*)?(?:ببینید|ببنید|تماشا کنید|مشاهده کنید|از دست ندید|از دست ندهید)\s*$/iu, '')
+    .replace(/\s+([،؛:,.!?؟])/gu, '$1')
     .replace(/\s+/g, ' ')
     .trim();
   return trimAtWord(title, 176);
@@ -1012,6 +1019,10 @@ function editorialTitleTokens(value) {
 function editorialTitleQualityReason(value) {
   const title = normalizeCaptionEditorialText(value);
   if (!title) return 'title_without_safe_editorial_rewrite';
+  if (/^(?:و\s*)?(?:نظر\s+خود\s+را\s+بنویسید|نظرت(?:ان|ون)\s+را?\s+بنویسید|نظرت(?:ان|ون)\s+رو\s+بگید|کامنت\s+بگذارید|نظر\s+بدید|نظرت(?:ان|ون)\s+چیه)\s*[!؟.]*$/iu.test(title) ||
+      /(?:نظر\s+خود\s+را\s+بنویسید|نظرت(?:ان|ون)\s+رو\s+بگید|کامنت\s+بگذارید)\s*[!؟.]*$/iu.test(title)) {
+    return 'title_engagement_bait_without_subject';
+  }
   if (/(?:لایک|لایك|فالو|فالوو|حمایت(?:\s*کنید|\s*کنین)?|یادتون\s+نره|دنبال(?:\s*کنید|\s*کنین)|عضو\s*(?:شوید|بشید)|سابسکرایب|زنگوله|برای\s+کلیپ(?:های)?\s+بیشتر|کانال\s*(?:ما|مارا|رو|را))/iu.test(title)) {
     return 'title_promotional_or_call_to_action';
   }
@@ -1169,6 +1180,7 @@ function createDistinctRepostTitle(sourceTitle, sourceDescription = '', sourceCo
     if (value.length < 5 || policyTextRiskReason({ title: value })) continue;
     const qualityReason = editorialTitleQualityReason(value);
     if (qualityReason === 'title_promotional_or_call_to_action' ||
+        qualityReason === 'title_engagement_bait_without_subject' ||
         qualityReason === 'title_generic_episode_label' ||
         qualityReason === 'title_generic_praise_without_subject' ||
         qualityReason === 'title_not_distinct_or_editorially_clean') continue;
@@ -1180,11 +1192,18 @@ function createDistinctRepostTitle(sourceTitle, sourceDescription = '', sourceCo
 }
 
 function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
-  const source = normalizeCaptionEditorialText(sourceDescription)
+  const sourceParts = normalizeCaptionEditorialText(sourceDescription)
     .split(/(?<=[.!؟])\s+|[\n\r]+/u)
-    .filter(part => !/(?:لایک|لایك|فالو|حمایت|یادتون\s+نره|دنبال(?:\s*کنید|\s*کنین)|عضو\s*(?:شوید|بشید)|سابسکرایب|برای\s+کلیپ(?:های)?\s+بیشتر|کانال\s*(?:ما|مارا|رو|را)|لذت\s+ببرید)/iu.test(part))
-    .join(' ');
-  const description = normalizeCaptionEditorialText(source)
+    .map(part => part.trim())
+    .filter(part => part && !/(?:لایک|لایك|فالو|حمایت|یادتون\s+نره|دنبال(?:\s*کنید|\s*کنین)|عضو\s*(?:شوید|بشید)|سابسکرایب|برای\s+کلیپ(?:های)?\s+بیشتر|کانال\s*(?:ما|مارا|رو|را)|لذت\s+ببرید|نظر\s+خود\s+را\s+بنویسید|نظرت(?:ان|ون)\s+رو\s+بگید|کامنت\s+بگذارید)/iu.test(part));
+  const seenDescriptionParts = new Set();
+  const source = sourceParts.filter(part => {
+    const key = normalizeComparable(part);
+    if (!key || seenDescriptionParts.has(key)) return false;
+    seenDescriptionParts.add(key);
+    return true;
+  }).join(' ');
+  const description = source
     .replace(/https?:\/\/\S+|www\.\S+/giu, ' ')
     .replace(/#[^\s#]+/gu, ' ')
     .replace(/@[\p{L}\p{N}_.-]+/gu, ' ')
@@ -1261,6 +1280,7 @@ function candidateMetadataFingerprint(video) {
 
 function isTitleRewriteRejectionReason(reason) {
   return reason === 'title_without_safe_editorial_rewrite' ||
+    reason === 'title_engagement_bait_without_subject' ||
     reason === 'title_not_distinct_or_editorially_clean' ||
     reason === 'source_title_too_short' ||
     reason === 'title_promotional_or_call_to_action' ||
@@ -1286,11 +1306,26 @@ function isAccountRepublishQuotaMessage(value) {
 function setAccountRepublishQuotaCooldown(state, now = Date.now()) {
   if (!state || typeof state !== 'object') return null;
   const detectedAt = Number.isFinite(Number(now)) ? Number(now) : Date.now();
+  const recentEvents = (Array.isArray(state.accountRepublishQuotaEvents)
+    ? state.accountRepublishQuotaEvents : [])
+    .map(value => Date.parse(value))
+    .filter(at => Number.isFinite(at) && at <= detectedAt && detectedAt - at <= 24 * 60 * 60 * 1000);
+  recentEvents.push(detectedAt);
+  state.accountRepublishQuotaEvents = recentEvents
+    .sort((a, b) => a - b)
+    .slice(-6)
+    .map(at => new Date(at).toISOString());
+  const occurrenceCount = state.accountRepublishQuotaEvents.length;
+  const cooldownMs = occurrenceCount === 1
+    ? ACCOUNT_REPUBLISH_QUOTA_COOLDOWN_MS
+    : Math.min(6 * 60 * 60 * 1000,
+      ACCOUNT_REPUBLISH_QUOTA_COOLDOWN_MS * Math.pow(2, occurrenceCount - 1));
   const entry = {
     reason: 'filo_account_republish_quota_reached',
     detectedAt: new Date(detectedAt).toISOString(),
-    retryAfterAt: new Date(detectedAt + ACCOUNT_REPUBLISH_QUOTA_COOLDOWN_MS).toISOString(),
-    cooldownMs: ACCOUNT_REPUBLISH_QUOTA_COOLDOWN_MS
+    retryAfterAt: new Date(detectedAt + cooldownMs).toISOString(),
+    cooldownMs,
+    occurrenceCountIn24h: occurrenceCount
   };
   state.accountRepublishQuotaCooldown = entry;
   return entry;
@@ -1686,15 +1721,75 @@ function loadState() {
   return { schemaVersion: 1, posts: [] };
 }
 
+function publicationOperationTimestamp(post) {
+  const value = post && (post.submittedAt || post.attemptedAt || post.at);
+  const at = Date.parse(value || '');
+  return Number.isFinite(at) ? at : null;
+}
+
+function isPublicationOperation(post) {
+  return Boolean(post && [
+    'public_verified',
+    'submitted_pending_approval',
+    'submitted_unconfirmed',
+    'rejected_by_filo'
+  ].includes(post.status));
+}
+
+function getPublicationOperationTimes(state, now = Date.now()) {
+  const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
+  return (state && Array.isArray(state.posts) ? state.posts : [])
+    .filter(isPublicationOperation)
+    .map(post => publicationOperationTimestamp(post))
+    .filter(at => Number.isFinite(at) && at <= nowMs)
+    .sort((a, b) => a - b);
+}
+
 function dailyCount(state, now = Date.now()) {
   const windowStart = now - 24 * 60 * 60 * 1000;
-  return state.posts.filter(post => {
-    const submittedAt = Date.parse(post && post.submittedAt || '');
-    return Number.isFinite(submittedAt) &&
-      submittedAt >= windowStart &&
-      submittedAt <= now &&
-      ['submitted_pending_approval', 'submitted_unconfirmed', 'public_verified'].includes(post.status);
-  }).length;
+  return getPublicationOperationTimes(state, now)
+    .filter(at => at > windowStart).length;
+}
+
+function getPublicationPacingGate(state, now = Date.now()) {
+  const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
+  const times = getPublicationOperationTimes(state, nowMs);
+  const hourStart = nowMs - 60 * 60 * 1000;
+  const dayStart = nowMs - 24 * 60 * 60 * 1000;
+  const rollingHour = times.filter(at => at > hourStart);
+  const rolling24h = times.filter(at => at > dayStart);
+  const latestOperationAt = times.at(-1) ?? null;
+  const nextEligibleCandidates = [];
+  const reasons = [];
+
+  if (latestOperationAt !== null && nowMs - latestOperationAt < MIN_PUBLISH_GAP_MS) {
+    reasons.push('minimum_gap_between_republish_operations');
+    nextEligibleCandidates.push(latestOperationAt + MIN_PUBLISH_GAP_MS);
+  }
+  if (rollingHour.length >= MAX_PUBLICATIONS_PER_ROLLING_HOUR) {
+    reasons.push('rolling_hour_operation_cap');
+    nextEligibleCandidates.push(rollingHour[rollingHour.length - MAX_PUBLICATIONS_PER_ROLLING_HOUR] +
+      60 * 60 * 1000);
+  }
+  if (rolling24h.length >= MAX_PUBLICATIONS_PER_24H) {
+    reasons.push('rolling_24h_operation_cap');
+    nextEligibleCandidates.push(rolling24h[rolling24h.length - MAX_PUBLICATIONS_PER_24H] +
+      24 * 60 * 60 * 1000);
+  }
+
+  const nextEligibleAt = nextEligibleCandidates.length
+    ? Math.max(nowMs, ...nextEligibleCandidates) : null;
+  return {
+    blocked: reasons.length > 0 && nextEligibleAt > nowMs,
+    reasons,
+    nextEligibleAt: nextEligibleAt === null ? null : new Date(nextEligibleAt).toISOString(),
+    minimumGapMs: MIN_PUBLISH_GAP_MS,
+    maxOperationsPerRollingHour: MAX_PUBLICATIONS_PER_ROLLING_HOUR,
+    maxOperationsPerRolling24h: MAX_PUBLICATIONS_PER_24H,
+    lastOperationAt: latestOperationAt === null ? null : new Date(latestOperationAt).toISOString(),
+    rollingHourOperations: rollingHour.length,
+    rolling24hOperations: rolling24h.length
+  };
 }
 
 function parseApiBody(raw) {
@@ -2720,11 +2815,6 @@ async function main() {
     state.lastCycleStartedAt = report.createdAt;
     fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
 
-    if (dailyCount(state) >= MAX_PUBLICATIONS_PER_24H) {
-      report.status = 'daily_publication_cap_reached';
-      report.dailyCount = dailyCount(state);
-      return;
-    }
     browser = await chromium.launch({ headless: true });
     const context = await browser.newContext({
       locale: 'fa-IR',
@@ -3037,6 +3127,21 @@ async function main() {
         status: report.status,
         reason: 'Filo reported the account repost quota is exhausted; fresh feed discovery and momentum sampling continue, but detail and publish requests are deferred during the cooldown',
         retryAfterAt: activeAccountQuotaCooldown.retryAfterAt,
+        retryOnNextScheduledRun: true,
+        discoveryContinues: true
+      };
+      return;
+    }
+
+    const publicationPacing = getPublicationPacingGate(state, quotaCheckAt);
+    report.discovery.publicationPacing = publicationPacing;
+    report.discovery.dailyPublicationOperationCount = dailyCount(state, quotaCheckAt);
+    if (publicationPacing.blocked) {
+      report.status = 'filo_publication_pacing_deferred';
+      report.result = {
+        status: report.status,
+        reason: publicationPacing.reasons.join(','),
+        retryAfterAt: publicationPacing.nextEligibleAt,
         retryOnNextScheduledRun: true,
         discoveryContinues: true
       };
@@ -3397,6 +3502,8 @@ module.exports = {
   buildUnconfirmedSubmissionResult,
   composeFiloCoverDataUrl,
   dailyCount,
+  getPublicationOperationTimes,
+  getPublicationPacingGate,
   buildCategoryPageRequestPayload,
   buildVideoTagFeedPath,
   normalizeVideoFeedItem,
