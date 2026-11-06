@@ -6,6 +6,7 @@ on:
       - "scripts/filo_native_republish.cjs"
       - "scripts/test_filo_native_republish.cjs"
       - ".github/workflows/filo-native-republish.yml"
+      - ".github/workflows/validate-filo-native-republish.yml"
       - "docs/FILO-NATIVE-REPUBLICATION.md"
       - "docs/CHANGELOG.md"
       - ".github/pull_request_template.md"
@@ -42,7 +43,7 @@ jobs:
         run: |
           set -euo pipefail
           git diff --name-only "$BASE_SHA...$HEAD_SHA" > "$RUNNER_TEMP/filo-changed-files.txt"
-          if grep -Eq '^(scripts/filo_native_republish\.cjs|scripts/test_filo_native_republish\.cjs|\.github/workflows/filo-native-republish\.yml)$' "$RUNNER_TEMP/filo-changed-files.txt"; then
+          if grep -Eq '^(scripts/filo_native_republish\.cjs|scripts/test_filo_native_republish\.cjs|\.github/workflows/filo-native-republish\.yml|\.github/workflows/validate-filo-native-republish\.yml)$' "$RUNNER_TEMP/filo-changed-files.txt"; then
             if ! grep -Fxq 'docs/CHANGELOG.md' "$RUNNER_TEMP/filo-changed-files.txt"; then
               echo "::error::Native Filo code/workflow changes require an entry in docs/CHANGELOG.md."
               exit 1
