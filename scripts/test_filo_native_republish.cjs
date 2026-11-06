@@ -637,7 +637,7 @@ const linkedTitleMetadata = createRepostMetadata({
   title: 'لینک https://example.com ویدئو',
   description: 'توضیح کوتاه'
 }, 'AbC1237');
-assert.doesNotMatch(linkedTitleMetadata.title, /https?:\\/\\//i,
+assert.doesNotMatch(linkedTitleMetadata.title, /https?:\/\//i,
   'external links in source titles should be stripped rather than causing a title-only rejection');
 
 const promoCleaned = cleanRepostDescription(
