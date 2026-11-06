@@ -144,6 +144,12 @@ assert.equal(legacyMetadataCache.candidateRejections[valid.video_code],undefined
 const nonMetadataRejectedLedger = {posts:[{sourceCode:valid.video_code,status:'rejected_by_filo',reason:'403 forbidden'}]};
 assert.equal(feedCandidateEligible(valid,nonMetadataRejectedLedger),false,
   'permission/access failures must not be re-opened by a metadata-only retry');
+const mixedRejectionLedger = {posts:[
+  {sourceCode:valid.video_code,status:'rejected_by_filo',reason:'توضیح بسیار کوتاه است!',responseDiagnostics:{uiErrors:['توضیح بسیار کوتاه است!']}},
+  {sourceCode:valid.video_code,status:'rejected_by_filo',reason:'creator_republish_permission_missing'}
+]};
+assert.equal(feedCandidateEligible(valid,mixedRejectionLedger),false,
+  'any non-metadata rejection for the same source must block the metadata-only retry exception');
 assert.equal(feedCandidateEligible(valid,{posts:[{sourceCode:valid.video_code,status:'public_verified'}]}),false,
   'a previously verified publication must never be submitted again');
 assert.equal(feedCandidateEligible({ ...valid, title: 'خبر فوری جنگ و حمله نظامی' }, { posts: [] }), false);
