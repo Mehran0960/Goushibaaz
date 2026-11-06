@@ -750,7 +750,34 @@ function candidateExternalTopicKey(item) {
     item && item.feed_tag_label,
     item && item.feed_tag
   ].filter(Boolean).join(' ');
-  return categoryFor(sourceText) || 'general_entertainment';
+  const detectedTopic = categoryFor(sourceText);
+  if (detectedTopic !== 'general_entertainment') return detectedTopic;
+
+  // Filo's native category labels do not always use the vocabulary of the
+  // shared trend classifier (for example, "آهنگ" and "موزیک ویدیو").
+  // Bridge explicit feed labels to the existing taxonomy rather than
+  // treating these known categories as generic entertainment.
+  const feedLabels = [
+    item && item.feed_tag_label,
+    item && item.category_name,
+    item && item.category_title
+  ].filter(Boolean).join(' ').toLocaleLowerCase('fa');
+  const labelAliases = [
+    { topic: 'performance_magic', pattern: /آهنگ|ترانه|موزیک|موسیقی|خوانندگی|نوازندگی|دابسمش|رقص|music video|music performance|singer|song|dance/i },
+    { topic: 'persian_comedy', pattern: /طنز|خنده|بامزه|کمدی|شوخی|دوربین مخفی|comedy|funny|humou?r/i },
+    { topic: 'technology_demo', pattern: /هوش مصنوعی|فناوری|تکنولوژی|ربات|گجت|دستگاه هوشمند|technology|robot|gadget|AI/i },
+    { topic: 'food_cooking', pattern: /آشپزی|غذا|خوراکی|دستور پخت|شیرینی|نان.?پزی|cooking|recipe|food/i },
+    { topic: 'travel_culture', pattern: /سفر|گردشگری|ایرانگردی|جاذبه|معماری|فرهنگ|travel|tourism|culture/i },
+    { topic: 'sports_skill', pattern: /ورزش|فوتبال|بسکتبال|والیبال|ورزشکار|sports?|football|basketball/i },
+    { topic: 'pets_animals', pattern: /گربه|سگ|حیوان|جانور|پرنده|طوطی|حیات وحش|cats?|dogs?|animals?|wildlife/i },
+    { topic: 'science_tech', pattern: /علمی|آزمایش|نجوم|فیزیک|کهکشان|خطای دید|معما|science|experiment|astronomy|puzzle/i },
+    { topic: 'satisfying_craft', pattern: /کاردستی|ساختنی|نجاری|سفال|بازسازی|رضایت.?بخش|craft|restoration|woodworking/i },
+    { topic: 'surprise_reveal', pattern: /غافلگیر|غیرمنتظره|راز|نتیجه نهایی|آخرش|surprise|unexpected|reveal/i }
+  ];
+  for (const alias of labelAliases) {
+    if (alias.pattern.test(feedLabels)) return alias.topic;
+  }
+  return detectedTopic;
 }
 
 function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicWeights = {}) {
