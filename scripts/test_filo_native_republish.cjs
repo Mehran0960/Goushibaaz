@@ -5,7 +5,13 @@ const {
   ageHours,
   shouldStartPublishingCycle,
   feedCandidateEligible,
+  isMetadataValidationRejectionReason,
+  hasRetryableMetadataRejection,
+  isSourceAlreadyAttempted,
+  markMetadataPolicyRetry,
   summarizeFeedGateSignals,
+  summarizeCandidateChecks,
+  fitFiloTitleLength,
   cleanRepostCaptionTitle,
   cleanRepostDescription,
   policyTextRiskReason,
@@ -104,6 +110,28 @@ assert.equal(feedCandidateEligible({ ...valid, duration: 8 }, { posts: [] }), tr
 assert.equal(feedCandidateEligible({ ...valid, duration: 9 }, { posts: [] }), true);
 assert.equal(feedCandidateEligible({ ...valid, duration: 10 }, { posts: [] }), true);
 assert.equal(feedCandidateEligible({ ...valid, duration: 240 }, { posts: [] }), true);
+
+const metadataRejectedLedger = {posts:[{
+  sourceCode:valid.video_code,
+  status:'rejected_by_filo',
+  reason:'توضیح بسیار کوتاه است!',
+  responseDiagnostics:{uiErrors:['توضیح بسیار کوتاه است!']}
+}]};
+assert.equal(isMetadataValidationRejectionReason('توضیح بسیار کوتاه است!'),true);
+assert.equal(hasRetryableMetadataRejection(metadataRejectedLedger,valid.video_code),true);
+assert.equal(isSourceAlreadyAttempted(metadataRejectedLedger,valid.video_code),false,
+  'a known Filo metadata rejection may be retried once after the metadata policy upgrade');
+assert.equal(feedCandidateEligible(valid,metadataRejectedLedger),true);
+assert.equal(markMetadataPolicyRetry(metadataRejectedLedger,valid.video_code,Date.parse('2026-11-06T00:00:00.000Z')),true);
+assert.equal(hasRetryableMetadataRejection(metadataRejectedLedger,valid.video_code),false,
+  'a metadata-policy retry must be consumed only once per policy version');
+assert.equal(feedCandidateEligible(valid,metadataRejectedLedger),false,
+  'the same rejected source must not cycle repeatedly after its single retry');
+const nonMetadataRejectedLedger = {posts:[{sourceCode:valid.video_code,status:'rejected_by_filo',reason:'403 forbidden'}]};
+assert.equal(feedCandidateEligible(valid,nonMetadataRejectedLedger),false,
+  'permission/access failures must not be re-opened by a metadata-only retry');
+assert.equal(feedCandidateEligible(valid,{posts:[{sourceCode:valid.video_code,status:'public_verified'}]}),false,
+  'a previously verified publication must never be submitted again');
 assert.equal(feedCandidateEligible({ ...valid, title: 'خبر فوری جنگ و حمله نظامی' }, { posts: [] }), false);
 assert.equal(feedCandidateEligible({ ...valid, title: 'پیغام توهین آمیز در پایان مسابقه' }, { posts: [] }), false);
 assert.equal(feedCandidateEligible({ ...valid, title: 'سکانس سریال ایرانی' }, { posts: [] }), false);
@@ -552,9 +580,12 @@ assert.ok(cleanedTitle.includes('مسابقه فوتبال'));
 assert.doesNotMatch(cleanedTitle, /https?:\/\/|#/);
 const shortDescription = cleanRepostDescription('واکنش کوتاه خانواده در لحظه رسیدن مهمان.', 'عنوان منبع', cleanedTitle);
 assert.equal(shortDescription, 'واکنش کوتاه خانواده در لحظه رسیدن مهمان.',
-  'a short factual source description must remain usable');
-assert.equal(cleanRepostDescription('', 'عنوان منبع', cleanedTitle), cleanedTitle,
-  'missing source description falls back to the actual title without invented details');
+  'a factual source description above the safe minimum remains unchanged');
+const missingDescriptionFallback = cleanRepostDescription('', 'عنوان منبع', cleanedTitle);
+assert.ok(missingDescriptionFallback.includes('این ویدئو دربارهٔ'));
+assert.ok(missingDescriptionFallback.includes(cleanedTitle));
+assert.ok(missingDescriptionFallback.length >= 30,
+  'missing descriptions receive a neutral source-title-based description rather than filler');
 
 const sourceDescription = 'در این ویدئو، هنگام برگزاری مولودی واکنش خانواده به تنها ماندن یکی از اعضا دیده می‌شود و رفتار او باعث خنده اطرافیان می‌شود.';
 const shortMetadata = createRepostMetadata({
@@ -563,7 +594,20 @@ const shortMetadata = createRepostMetadata({
   description: 'واکنش کوتاه خانواده'
 }, 'AbC1234');
 assert.equal(shortMetadata.title, 'روش پخت خورشت بامیه با مرغ');
-assert.equal(shortMetadata.description, 'واکنش کوتاه خانواده');
+assert.match(shortMetadata.description, /این ویدئو دربارهٔ/);
+assert.match(shortMetadata.description, /واکنش کوتاه خانواده/);
+assert.ok(shortMetadata.description.length >= 30,
+  'short captions must be expanded only with a neutral sentence grounded in the source title');
+assert.ok(shortMetadata.title.length >= 20 && shortMetadata.title.length <= 96,
+  'generated titles must remain inside the validated Filo title length range');
+const shortTitle = createDistinctRepostTitle('طرز تهیه چای', '');
+assert.ok(shortTitle.length >= 20 && shortTitle.length <= 96,
+  'short but meaningful source titles should be expanded without inventing new facts');
+const fittedLongTitle = fitFiloTitleLength('ترانهٔ بسیار زیبا و شنیدنی از خوانندهٔ محبوب و پرطرفدار برای یک شب بارانی در شهر و کوچه‌های قدیمی با صدای گرم و دلنشین');
+assert.ok(fittedLongTitle.length <= 96 && fittedLongTitle.length >= 20,
+  'long titles must be safely trimmed below Filo’s 100-character rejection boundary');
+assert.equal(editorialTitleQualityReason('ترفند آشپزی'), null,
+  'two informative terms are sufficient when the resulting title remains meaningful and within Filo limits');
 assert.throws(() => createRepostMetadata({
   ...valid,
   title: 'پیغام توهین آمیز به یک بازیکن',
@@ -739,6 +783,21 @@ assert.equal(secondRank[2].item.video_code, 'ViewsOnly');
 assert.equal(secondRank[2].rankingMetric, 'views',
   'a candidate with no play counter may fall back to measured view growth');
 
+const hintPriorityState = {posts:[]};
+const hintPriorityStart = Date.parse('2026-11-04T01:00:00.000Z');
+const hintBaseline = [
+  {video_code:'FastGrowth',title:'رشد سریع بازدید یک ویدئو',create_date:'۲ ساعت پیش',visit_count:100,plays:10,can_republish:0,has_audio:0,can_make_money:0,duration:30},
+  {video_code:'SlowGrowth',title:'ویدئوی محبوب با رشد آرام',create_date:'۲ ساعت پیش',visit_count:100,plays:10,can_republish:1,has_audio:1,can_make_money:1,duration:30}
+];
+rankCandidatesByMomentum(hintBaseline,hintPriorityState,hintPriorityStart);
+const hintSecondScan = [
+  {...hintBaseline[0],visit_count:700,plays:210},
+  {...hintBaseline[1],visit_count:150,plays:20}
+];
+const hintRank = rankCandidatesByMomentum(hintSecondScan,hintPriorityState,hintPriorityStart+5*60*1000);
+assert.equal(hintRank[0].item.video_code,'FastGrowth',
+  'measured play momentum must outrank a slower candidate with more favorable feed hints');
+
 const thirdScan = [
   { ...baseline[0], visit_count: 500, plays: 50 },
   { ...baseline[1], visit_count: 300, plays: 30 },
@@ -756,6 +815,16 @@ assert.equal(candidateMetricSnapshot({ plays: 0 }, ['play_count', 'plays']).avai
   'an explicit zero is a real counter value, not a missing field');
 assert.equal(candidateMetricSnapshot({}, ['play_count', 'plays']).available, false,
   'missing play metrics must remain distinguishable from a zero counter');
+const checkSummary = summarizeCandidateChecks([
+  {code:'A',gate:'creator_republish_permission_missing'},
+  {code:'B',gate:'metadata_not_compliant',metadataError:'title_too_long'},
+  {code:'C',gate:'republish_detail_fetch_failed',detailFetchError:'republish_detail_forbidden_403'}
+]);
+assert.equal(checkSummary.total,3);
+assert.equal(checkSummary.reasonCounts.creator_republish_permission_missing,1);
+assert.equal(checkSummary.reasonCounts.title_too_long,1);
+assert.equal(checkSummary.detailFetchErrors.republish_detail_forbidden_403,1);
+assert.equal(checkSummary.metadataFailures,1);
 
 assert.equal(classifyAudienceFit({ title: 'طنز و خنده در یک موقعیت عجیب' }).label, 'comedy_entertainment');
 assert.equal(classifyAudienceFit({ title: 'ترفند کاربردی برای تعمیر شیر آب' }).label, 'practical_tutorial');
