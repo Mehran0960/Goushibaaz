@@ -904,9 +904,9 @@ assert.equal(quotaState.accountRepublishQuotaCooldown, undefined);
 const topicState = { posts: [] };
 const topicStart = Date.parse('2026-11-06T00:00:00.000Z');
 const topicBaseline = [
-  { video_code:'HotA', title:'موضوع داغ اول', feed_tag:'q-hot-topic', feed_tag_label:'موضوع داغ', create_date:'۱ ساعت پیش', duration:25, visit_count:100, plays:10 },
-  { video_code:'HotB', title:'موضوع داغ دوم', feed_tag:'q-hot-topic', feed_tag_label:'موضوع داغ', create_date:'۱ ساعت پیش', duration:45, visit_count:100, plays:10 },
-  { video_code:'ColdA', title:'موضوع مستقل', feed_tag:'q-cold-topic', feed_tag_label:'موضوع مستقل', create_date:'۱ ساعت پیش', duration:25, visit_count:100, plays:10 }
+  { video_code:'HotA01', title:'موضوع داغ اول', feed_tag:'q-hot-topic', feed_tag_label:'موضوع داغ', create_date:'۱ ساعت پیش', duration:25, visit_count:100, plays:10 },
+  { video_code:'HotB01', title:'موضوع داغ دوم', feed_tag:'q-hot-topic', feed_tag_label:'موضوع داغ', create_date:'۱ ساعت پیش', duration:45, visit_count:100, plays:10 },
+  { video_code:'ColdA01', title:'موضوع مستقل', feed_tag:'q-cold-topic', feed_tag_label:'موضوع مستقل', create_date:'۱ ساعت پیش', duration:25, visit_count:100, plays:10 }
 ];
 rankCandidatesByMomentum(topicBaseline, topicState, topicStart);
 const topicSecondScan = [
@@ -915,15 +915,14 @@ const topicSecondScan = [
   { ...topicBaseline[2], visit_count:120, plays:20 }
 ];
 const topicRank = rankCandidatesByMomentum(topicSecondScan, topicState, topicStart + 5 * 60 * 1000);
-console.log('TOPIC_RANK_DEBUG', JSON.stringify(topicRank.map(entry => ({code:entry.item.video_code,topicKey:entry.topicKey,topicDemandScore:entry.topicDemandScore,momentumScore:entry.momentumScore,rankingScore:entry.rankingScore,tier:entry.rankingTier,duration:entry.durationPreferenceScore,rate:entry.momentum.playsPerMinute}))));
-assert.equal(topicRank[0].item.video_code, 'HotA',
+assert.equal(topicRank[0].item.video_code, 'HotA01',
   'a corroborated topic cohort may lift a slightly slower candidate above a similarly paced isolated candidate');
 assert.ok(topicRank[0].topicDemandScore > topicRank[2].topicDemandScore,
   'topic demand must be derived from multiple candidates showing measured growth');
 assert.ok(topicRank[0].rankingScore > 0);
 assert.ok(topicRank[0].durationPreferenceScore > topicRank[1].durationPreferenceScore,
   'duration preference must be present as a separate soft ranking feature');
-assert.equal(topicRank.some(entry => entry.item.video_code === 'HotB'), true,
+assert.equal(topicRank.some(entry => entry.item.video_code === 'HotB01'), true,
   'longer eligible content remains in the ranking rather than being hard-rejected');
 async function testPortraitCoverComposition() {
   const { chromium } = require('playwright');
