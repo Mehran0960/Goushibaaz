@@ -140,8 +140,8 @@ const cleanedDescription = cleanRepostDescription(
 );
 assert.ok(!/لایک کنید|نظر خود را بنویسید/u.test(cleanedDescription),
   'engagement bait must not leak into the searchable description');
-assert.ok(cleanedDescription.startsWith('این ویدئو درباره فوتبال است.'),
-  'the first descriptive sentence must be retained');
+assert.ok(cleanedDescription.includes('این ویدئو درباره فوتبال است.'),
+  'the first descriptive sentence must be retained even when a factual minimum-length prefix is added');
 assert.ok(cleanedDescription.length >= 30);
 assert.equal(cleanedDescription.split('این ویدئو درباره فوتبال است').length - 1, 1,
   'duplicate description sentences must be removed');
