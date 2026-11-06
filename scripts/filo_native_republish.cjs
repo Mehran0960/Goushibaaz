@@ -1074,6 +1074,13 @@ function getCachedCandidateRejection(state,code,video,now=Date.now()) {
     ?state.candidateRejections:{};
   const key=String(code||'').trim(),entry=cache[key];
   if(!entry)return null;
+  // Older publisher versions cached explicit Filo metadata rejections under the
+  // generic API reason. If the ledger proves this source was rejected only for
+  // title/description validation, let the one-time new-policy retry proceed.
+  if(entry.reason==='filo_publish_not_accepted' && hasRetryableMetadataRejection(state,key)){
+    delete cache[key];
+    return null;
+  }
   const retryAt=Date.parse(entry.retryAfterAt||'');
   const titlePolicyStale = isTitleRewriteRejectionReason(entry.reason) &&
     entry.titleRewritePolicyVersion !== TITLE_REWRITE_POLICY_VERSION;
