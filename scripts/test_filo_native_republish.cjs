@@ -912,7 +912,7 @@ rankCandidatesByMomentum(topicBaseline, topicState, topicStart);
 const topicSecondScan = [
   { ...topicBaseline[0], visit_count:120, plays:20 },
   { ...topicBaseline[1], visit_count:115, plays:15 },
-  { ...topicBaseline[2], visit_count:120, plays:19 }
+  { ...topicBaseline[2], visit_count:120, plays:20 }
 ];
 const topicRank = rankCandidatesByMomentum(topicSecondScan, topicState, topicStart + 5 * 60 * 1000);
 assert.equal(topicRank[0].item.video_code, 'HotA',
