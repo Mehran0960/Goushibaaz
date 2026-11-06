@@ -811,11 +811,12 @@ const state = {
     { sourceCode: 'rejected', status: 'rejected_by_filo', attemptedAt: '2026-11-02T00:20:00.000Z' }
   ]
 };
-assert.equal(dailyCount(state, Date.parse('2026-11-02T12:00:00.000Z')), 2);
-assert.equal(dailyCount(state, Date.parse('2026-11-03T00:05:00.000Z')), 1,
-  'the 24-hour window must include recent submissions across UTC midnight');
+assert.equal(dailyCount(state, Date.parse('2026-11-02T12:00:00.000Z')), 3,
+  'rejected Filo attempts must consume the internal operation budget as well as successful submissions');
+assert.equal(dailyCount(state, Date.parse('2026-11-03T00:05:00.000Z')), 2,
+  'the rolling 24-hour window includes pending and rejected operations across UTC midnight');
 assert.equal(dailyCount(state, Date.parse('2026-11-03T00:10:00.000Z')), 1,
-  'a submission exactly 24 hours old remains inside the rolling window');
+  'an operation older than 24 hours expires while the later rejected attempt remains counted');
 
 const momentumState = { posts: [] };
 const momentumStart = Date.parse('2026-11-04T00:00:00.000Z');
