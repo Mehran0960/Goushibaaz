@@ -1000,6 +1000,17 @@ const staleTrendWeights = buildFreshPlatformTrendWeights({
 }, trendSignalNow);
 assert.deepEqual(staleTrendWeights, {},
   'stale platform trend snapshots must not influence Filo candidate ranking');
+assert.deepEqual(buildFreshPlatformTrendWeights(null, trendSignalNow), {},
+  'a missing trend snapshot must safely disable only the external topic bonus');
+assert.deepEqual(buildFreshPlatformTrendWeights([], trendSignalNow), {},
+  'a malformed trend snapshot must safely disable only the external topic bonus');
+assert.deepEqual(buildFreshPlatformTrendWeights({
+  ...trendSignalSnapshot,
+  updated_at: new Date(trendSignalNow + 6 * 60 * 1000).toISOString()
+}, trendSignalNow), {},
+  'a future-dated trend snapshot beyond clock tolerance must be ignored');
+assert.equal(candidateExternalTopicKey({ title: 'دموی فناوری و ربات هوشمند' }), 'technology_demo');
+assert.equal(candidateExternalTopicKey({ title: 'طنز ویدئوی بامزه و خنده دار' }), 'persian_comedy');
 
 const crossPlatformState = { posts: [] };
 const crossPlatformBaseline = [
