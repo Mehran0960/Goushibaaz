@@ -193,7 +193,11 @@ Workflow فعال در main در حال حاضر این محرک‌ها را ت�
 - ثبت خودکار هر اجرای معمولی در ledger، تغییر عملیاتی داده است و نیاز به یک changelog انسانی برای هر چرخه ندارد؛ اما تغییر در منطق تولید/تفسیر ledger باید مستند شود.
 - هیچ توکن، رمز، cookie، session، دادهٔ شخصی یا بدنهٔ حساس پاسخ API در اسناد/گزارش عمومی ثبت نشود.
 
-### الگوی ورودی changelog
+#### محدودیت دسترسی در الزام نهایی ادغام
+
+کنترل PR و الگوی PR در مخزن اضافه شده‌اند و job اعتبارسنجی در PR باید در صورت نبود ورودی changelog شکست بخورد. بااین‌حال، تلاش برای خواندن تنظیمات Branch Protection شاخهٔ `main` از طریق اتصال GitHub با پاسخ 403 (`Resource not accessible by integration`) رد شد. بنابراین فعال بودن یا نبودن الزام status checkها و جلوگیری از push مستقیم **تأیید نشده** است. برای الزام غیرقابل‌دورزدن، maintainer مخزن باید در GitHub Settings → Branches یا Rulesets، ادغام به `main` را منوط به Pull Request و موفقیت check با نام `Filo native authorized republisher / validate` کند و push مستقیم را محدود کند. تا آن زمان، guard در PR موجود است ولی نمی‌توان ادعا کرد تنظیمات branch protection هم enforce شده‌اند.
+
+## الگوی ورودی changelog
 
 ```markdown
 ## YYYY-MM-DD — عنوان تغییر
