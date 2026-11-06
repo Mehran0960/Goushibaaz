@@ -348,8 +348,12 @@ function hasRetryableMetadataRejection(ledger, code) {
   if (sameSource.some(post =>
     ['submitted_pending_approval', 'submitted_unconfirmed', 'public_verified'].includes(post.status)
   )) return false;
-  const metadataRejections = sameSource.filter(post => metadataValidationReasonFromPost(post));
-  if (!metadataRejections.length) return false;
+  const rejectedPosts = sameSource.filter(post => post && post.status === 'rejected_by_filo');
+  // A metadata retry is safe only when every rejection for this source is a
+  // recognized title/description validation failure. Never let a second,
+  // non-metadata rejection be hidden by a metadata-retry exception.
+  if (!rejectedPosts.length || rejectedPosts.some(post => !metadataValidationReasonFromPost(post))) return false;
+  const metadataRejections = rejectedPosts;
   return !metadataRejections.some(post =>
     post.metadataRetryTitlePolicyVersion === TITLE_REWRITE_POLICY_VERSION &&
     post.metadataRetryCaptionPolicyVersion === CAPTION_POLICY_VERSION
