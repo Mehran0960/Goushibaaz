@@ -44,10 +44,9 @@ const TOPIC_DUPLICATE_WINDOW_MS = 48 * 60 * 60 * 1000;
 const CANDIDATE_REJECTION_TTL_MS = 6 * 60 * 60 * 1000;
 const MAX_DETAIL_CHECKS = 90;
 const MIN_DURATION_SECONDS = 10;
-const MAX_DURATION_SECONDS = 180;
 const MAX_PUBLICATIONS_PER_24H = 288;
 const CAPTION_POLICY_VERSION = 7;
-const TITLE_REWRITE_POLICY_VERSION = 5;
+const TITLE_REWRITE_POLICY_VERSION = 6;
 const FILO_TITLE_MIN_CHARS = 20;
 const FILO_TITLE_MAX_CHARS = 96;
 const FILO_DESCRIPTION_MIN_CHARS = 30;
@@ -412,7 +411,7 @@ function feedGateHintScore(item) {
   }
   if (item && item.duration !== undefined && item.duration !== null) {
     const duration = num(item.duration, -1);
-    score += duration >= MIN_DURATION_SECONDS && duration <= MAX_DURATION_SECONDS ? 1 : -1;
+    score += duration >= MIN_DURATION_SECONDS ? 1 : -1;
   }
   if (isFlag(item && item.file_deleted)) score -= 4;
   if (num(item && item.only_in_filo) === 1) score -= 4;
@@ -424,7 +423,7 @@ function summarizeFeedGateSignals(items, ledger) {
   const summary = {
     totalItems: Array.isArray(items) ? items.length : 0,
     flags: Object.fromEntries(fields.map(field => [field, { true: 0, false: 0, missing: 0 }])),
-    duration: { inRange: 0, outOfRange: 0, missing: 0 },
+    duration: { meetsMinimum: 0, belowMinimum: 0, missing: 0 },
     status: { publishable: 0, other: 0, missing: 0 },
     hardPrefilter: { invalidCode: 0, duplicateOrAlreadyAttempted: 0, metadataPolicyRetryEligible: 0, textTooShort: 0, policyRisk: 0, passed: 0 }
   };
@@ -439,8 +438,8 @@ function summarizeFeedGateSignals(items, ledger) {
     if (duration === undefined || duration === null || duration === '') summary.duration.missing++;
     else {
       const value = num(duration, -1);
-      if (value >= MIN_DURATION_SECONDS && value <= MAX_DURATION_SECONDS) summary.duration.inRange++;
-      else summary.duration.outOfRange++;
+      if (value >= MIN_DURATION_SECONDS) summary.duration.meetsMinimum++;
+      else summary.duration.belowMinimum++;
     }
     if (!item || item.status_id === undefined || item.status_id === null || item.status_id === '') {
       summary.status.missing++;
@@ -748,8 +747,8 @@ function detailGate(root, video) {
   if (!isFlag(video.has_audio)) return { eligible: false, reason: 'source_audio_missing' };
   if (!isFlag(video.can_make_money)) return { eligible: false, reason: 'source_monetization_not_enabled' };
   const duration = num(video.duration, 0);
-  if (duration < MIN_DURATION_SECONDS || duration > MAX_DURATION_SECONDS) {
-    return { eligible: false, reason: 'duration_out_of_short_form_range' };
+  if (duration < MIN_DURATION_SECONDS) {
+    return { eligible: false, reason: 'duration_below_monetization_minimum' };
   }
   return { eligible: true, reason: 'filo_native_republish_permitted' };
 }
@@ -792,7 +791,6 @@ function cleanRepostCaptionTitle(sourceTitle) {
     .replace(/\s+(?:این\s+)?(?:حتماً?\s*)?(?:ببینید|ببنید|تماشا کنید|مشاهده کنید|از دست ندید|از دست ندهید)\s*$/iu, '')
     .replace(/\s+/g, ' ')
     .trim();
-  if (title.length < 5) throw new Error('source_title_too_short');
   return trimAtWord(title, 176);
 }
 
@@ -914,9 +912,11 @@ function descriptionBasedTitleCandidate(sourceDescription, sourceTitle = '') {
   return null;
 }
 
-function createDistinctRepostTitle(sourceTitle, sourceDescription = '') {
-  const cleaned=cleanRepostCaptionTitle(sourceTitle);
-  const rules=[
+function createDistinctRepostTitle(sourceTitle, sourceDescription = '', sourceCode = '') {
+  let cleaned = '';
+  try { cleaned = cleanRepostCaptionTitle(sourceTitle); } catch { cleaned = ''; }
+
+  const rules = [
     [/^بلوچی\s+آهنگ\s+بلوچی\s+(.+)$/u,m=>['ترانه بلوچی «'+m[1]+'»']],
     [/^دانلود\s+آهنگ(?:\s+جدید)?\s+(.+?)\s+به\s+نام\s+(.+)$/u,m=>['ترانه «'+m[2]+'» از '+m[1]]],
     [/^آهنگ\s+(افشین\s+آذری)\s+و\s+(وفا\s+شریفوا)\s+(.+)$/u,m=>['همخوانی '+m[1]+' و '+m[2]+' با ترانه «'+m[3]+'»']],
@@ -934,34 +934,62 @@ function createDistinctRepostTitle(sourceTitle, sourceDescription = '') {
     [/^چگونه\s+(.+)$/u,m=>['روش '+m[1]]],
     [/^(.+?)\s+در\s+(.+)$/u,m=>[m[2]+'؛ '+m[1]]]
   ];
-  let drafts=[];
-  for(const [pattern,rewrite] of rules){
-    const match=cleaned.match(pattern);
-    if(match){drafts=rewrite(match);break;}
+
+  const drafts = [];
+  for (const [pattern, rewrite] of rules) {
+    const match = cleaned.match(pattern);
+    if (match) { drafts.push(...rewrite(match)); break; }
   }
   const descriptionCandidate = descriptionBasedTitleCandidate(sourceDescription, sourceTitle);
   if (descriptionCandidate) drafts.push(descriptionCandidate);
-  if(!drafts.length)throw new Error('title_without_safe_editorial_rewrite');
-  const candidates=[];
-  for(const draft of drafts){
-    const candidate=fitFiloTitleLength(removeRepeatedTrailingPhrase(draft));
-    if(candidates.includes(candidate))continue;
-    const qualityReason=editorialTitleQualityReason(candidate);
-    if(qualityReason)continue;
-    const tokens=editorialTitleTokens(candidate);
-    if(tokens.length<2||candidate.length<FILO_TITLE_MIN_CHARS||candidate.length>FILO_TITLE_MAX_CHARS)continue;
-    const contentWords=normalizeCaptionEditorialText(candidate).toLocaleLowerCase('fa-IR')
-      .replace(/[يى]/g,'ی').replace(/ك/g,'ک').replace(/[^\p{L}\p{N}]+/gu,' ')
-      .split(/\s+/).filter(token=>token.length>1&&!EDITORIAL_TITLE_STOPWORDS.has(token));
-    const counts=new Map();
-    for(const token of contentWords)counts.set(token,(counts.get(token)||0)+1);
-    if([...counts.values()].some(count=>count>1))continue;
-    if(characterBigramDice(sourceTitle,candidate)>0.86)continue;
-    if(policyTextRiskReason({title:candidate}))continue;
+  if (cleaned && !editorialTitleQualityReason(cleaned) && !policyTextRiskReason({ title: cleaned })) {
+    drafts.push('نگاهی به ' + cleaned);
+  }
+
+  const candidates = [];
+  for (const draft of drafts) {
+    const candidate = fitFiloTitleLength(removeRepeatedTrailingPhrase(draft));
+    if (candidates.includes(candidate)) continue;
+    if (editorialTitleQualityReason(candidate)) continue;
+    const tokens = editorialTitleTokens(candidate);
+    if (tokens.length < 2 || candidate.length < FILO_TITLE_MIN_CHARS || candidate.length > FILO_TITLE_MAX_CHARS) continue;
+    const contentWords = normalizeCaptionEditorialText(candidate).toLocaleLowerCase('fa-IR')
+      .replace(/[يى]/g, 'ی').replace(/ك/g, 'ک').replace(/[^\p{L}\p{N}]+/gu, ' ')
+      .split(/\s+/).filter(token => token.length > 1 && !EDITORIAL_TITLE_STOPWORDS.has(token));
+    const counts = new Map();
+    for (const token of contentWords) counts.set(token, (counts.get(token) || 0) + 1);
+    if ([...counts.values()].some(count => count > 1)) continue;
+    if (characterBigramDice(sourceTitle, candidate) > 0.86) continue;
+    if (policyTextRiskReason({ title: candidate })) continue;
     candidates.push(candidate);
   }
-  if(!candidates.length)throw new Error('title_not_distinct_or_editorially_clean');
-  return candidates[0];
+  if (candidates.length) return candidates[0];
+
+  // Editorial quality rules are preferences, not eligibility gates. When a
+  // rewrite cannot be built, use safe, sanitized source text if available.
+  const fallbackDescription = normalizeCaptionEditorialText(sourceDescription)
+    .replace(/https?:\/\/\S+|www\.\S+/giu, ' ')
+    .replace(/#[^\s#]+/gu, ' ')
+    .replace(/@[\p{L}\p{N}_.-]+/gu, ' ')
+    .split(/(?<=[.!؟])\s+|[\n\r]+/u)
+    .map(part => cleanRepostCaptionTitle(part))
+    .find(part => part.length >= 5 &&
+      !editorialTitleQualityReason(part) &&
+      !policyTextRiskReason({ title: part }));
+
+  for (const fallback of [cleaned, fallbackDescription]) {
+    const value = String(fallback || '').trim();
+    if (value.length < 5 || policyTextRiskReason({ title: value })) continue;
+    const qualityReason = editorialTitleQualityReason(value);
+    if (qualityReason === 'title_promotional_or_call_to_action' ||
+        qualityReason === 'title_generic_episode_label' ||
+        qualityReason === 'title_generic_praise_without_subject' ||
+        qualityReason === 'title_not_distinct_or_editorially_clean') continue;
+    return fitFiloTitleLength(value);
+  }
+
+  const safeCode = String(sourceCode || '').replace(/[^A-Za-z0-9_-]/g, '').slice(0, 40);
+  return safeCode ? 'ویدئوی بازنشرشده ' + safeCode : 'ویدئوی بازنشرشده';
 }
 
 function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
@@ -996,10 +1024,9 @@ function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
 function createRepostMetadata(video, sourceCode) {
   const sourceTitle = String(video && video.title || '').replace(/\s+/g, ' ').trim();
   const sourceDescription = String(video && video.description || '').replace(/\s+/g, ' ').trim();
-  if (/(?:https?:\/\/|www\.)/i.test(sourceTitle)) throw new Error('repost_source_title_contains_external_link');
   const risk = policyTextRiskReason(video);
   if (risk) throw new Error('filo_policy_text_risk:' + risk);
-  const title = createDistinctRepostTitle(sourceTitle, sourceDescription);
+  const title = createDistinctRepostTitle(sourceTitle, sourceDescription, sourceCode);
   const description = cleanRepostDescription(sourceDescription, sourceTitle, title);
   return { title, description, sourceTitle, sourceDescription, sourceCode };
 }
@@ -1091,7 +1118,10 @@ function getCachedCandidateRejection(state,code,video,now=Date.now()) {
   const filoMetadataPolicyStale = isMetadataValidationRejectionReason(entry.reason) &&
     (entry.titleRewritePolicyVersion !== TITLE_REWRITE_POLICY_VERSION ||
      entry.captionPolicyVersion !== CAPTION_POLICY_VERSION);
-  if(titlePolicyStale || filoMetadataPolicyStale || entry.fingerprint!==candidateMetadataFingerprint(video)||
+  // Older runs cached durations above 180 seconds as ineligible. That cap is
+  // removed, so those stale local rejections must be reconsidered immediately.
+  const obsoleteDurationMaximum = entry.reason === 'detail_gate:duration_out_of_short_form_range';
+  if(titlePolicyStale || filoMetadataPolicyStale || obsoleteDurationMaximum || entry.fingerprint!==candidateMetadataFingerprint(video)||
      !Number.isFinite(retryAt)||retryAt<=now){
     delete cache[key];
     return null;
