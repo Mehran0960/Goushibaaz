@@ -6,7 +6,12 @@ on:
       - "scripts/filo_native_republish.cjs"
       - "scripts/test_filo_native_republish.cjs"
       - ".github/workflows/filo-native-republish.yml"
-  # Native five-minute backup trigger; external dispatch may continue as a redundant source.
+      - ".github/workflows/validate-filo-native-republish.yml"
+      - "docs/FILO-NATIVE-REPUBLICATION.md"
+      - "docs/CHANGELOG.md"
+      - ".github/pull_request_template.md"
+      - "README.md"
+  # Native five-minute trigger; workflow_dispatch remains available for manual or authorized external dispatch.
   schedule:
     - cron: "*/5 * * * *"
   workflow_dispatch:
@@ -25,10 +30,25 @@ jobs:
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
           node-version: 22
           package-manager-cache: false
+      - name: Enforce documentation for native publisher changes
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          git diff --name-only "$BASE_SHA...$HEAD_SHA" > "$RUNNER_TEMP/filo-changed-files.txt"
+          if grep -Eq '^(scripts/filo_native_republish\.cjs|scripts/test_filo_native_republish\.cjs|\.github/workflows/filo-native-republish\.yml|\.github/workflows/validate-filo-native-republish\.yml)$' "$RUNNER_TEMP/filo-changed-files.txt"; then
+            if ! grep -Fxq 'docs/CHANGELOG.md' "$RUNNER_TEMP/filo-changed-files.txt"; then
+              echo "::error::Native Filo code/workflow changes require an entry in docs/CHANGELOG.md."
+              exit 1
+            fi
+          fi
       - name: Install Playwright
         run: |
           npm init -y >/dev/null
