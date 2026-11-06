@@ -4,10 +4,13 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const { chromium } = require('playwright');
+const { buildTrendWeights, categoryFor } = require('./quality_rank.cjs');
 
 const BASE = 'https://ifilo.net';
 const STATE_PATH = path.join('state', 'filo-native-republished.json');
 const REPORT_PATH = path.join('out', 'filo-native-republish.json');
+const PLATFORM_TRENDS_PATH = path.join('state', 'platform-trends.json');
+const PLATFORM_TRENDS_MAX_AGE_MS = 48 * 60 * 60 * 1000;
 const FALLBACK_CATEGORY_IDS = [6, 11, 13, 29, 2, 22, 17, 25, 15, 3];
 const FALLBACK_VIDEO_TAG_FEEDS = [
   { key: 'all', label: 'همه' },
@@ -708,9 +711,53 @@ function candidateMomentumScore(entry) {
   return 0;
 }
 
-function rankCandidatesByMomentum(items, state, now = Date.now()) {
+function loadPlatformTrendSnapshot() {
+  try {
+    const snapshot = JSON.parse(fs.readFileSync(PLATFORM_TRENDS_PATH, 'utf8'));
+    return snapshot && typeof snapshot === 'object' && !Array.isArray(snapshot) ? snapshot : null;
+  } catch {
+    return null;
+  }
+}
+
+function buildFreshPlatformTrendWeights(snapshot, now = Date.now()) {
+  const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
+  if (!snapshot || typeof snapshot !== 'object' || Array.isArray(snapshot)) return {};
+  const updatedAt = Date.parse(snapshot.updated_at || snapshot.updatedAt || '');
+  if (!Number.isFinite(updatedAt) ||
+      nowMs - updatedAt > PLATFORM_TRENDS_MAX_AGE_MS ||
+      updatedAt > nowMs + 5 * 60 * 1000) return {};
+  const hasSupportedSource = ['telegram', 'aparat', 'youtube_cc'].some(group =>
+    snapshot[group] && typeof snapshot[group] === 'object' && !Array.isArray(snapshot[group])
+  );
+  if (!hasSupportedSource) return {};
+  try {
+    // Reuse the project's shared, tested trend aggregation. It scores
+    // corroborated observations from Telegram, Aparat and YouTube CC;
+    // stale per-item records are filtered by buildTrendWeights itself.
+    return buildTrendWeights(snapshot, nowMs);
+  } catch {
+    return {};
+  }
+}
+
+function candidateExternalTopicKey(item) {
+  const sourceText = [
+    item && item.title,
+    item && item.description,
+    item && item.category_name,
+    item && item.category_title,
+    item && item.feed_tag_label,
+    item && item.feed_tag
+  ].filter(Boolean).join(' ');
+  return categoryFor(sourceText) || 'general_entertainment';
+}
+
+function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicWeights = {}) {
   const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
   const currentRates = updateCandidateMomentum(state, items, nowMs);
+  const trendWeights = platformTopicWeights && typeof platformTopicWeights === 'object'
+    ? platformTopicWeights : {};
   const recentCategories = (state && Array.isArray(state.posts) ? state.posts : [])
     .filter(post => post && (post.feedTag != null || post.categoryId != null) &&
       ['public_verified', 'submitted_pending_approval', 'submitted_unconfirmed'].includes(post.status))
@@ -787,6 +834,7 @@ function rankCandidatesByMomentum(items, state, now = Date.now()) {
       audienceFit: audienceFit.label,
       audienceFitScore: audienceFit.score,
       topicKey: candidateTopicKey(item, audienceFit),
+      externalTopicKey: candidateExternalTopicKey(item),
       topicLabel: String(item && (item.feed_tag_label || item.category_name || item.category_title) ||
         audienceFit.label),
       durationPreferenceScore: durationPreferenceScore(item),
@@ -803,14 +851,19 @@ function rankCandidatesByMomentum(items, state, now = Date.now()) {
       demandScore: 0, candidateCount: 1, growingCandidateCount: 0,
       averageVelocity: 0, averageAcceleration: 0
     };
+    const externalTopicTrendScore = Math.max(0, Math.min(100,
+      num(trendWeights[entry.externalTopicKey]) * 10
+    ));
     const rankingScore =
-      0.76 * entry.momentumScore +
-      0.14 * topic.demandScore +
+      0.68 * entry.momentumScore +
+      0.10 * topic.demandScore +
+      0.12 * externalTopicTrendScore +
       0.08 * entry.durationPreferenceScore +
       0.02 * entry.freshnessScore;
     return {
       ...entry,
       topicDemandScore: topic.demandScore,
+      externalTopicTrendScore,
       topicCandidateCount: topic.candidateCount,
       topicGrowingCandidateCount: topic.growingCandidateCount,
       topicAverageVelocity: topic.averageVelocity,
@@ -2598,6 +2651,27 @@ async function main() {
     selected: null,
     result: null
   };
+  const platformTrendSnapshot = loadPlatformTrendSnapshot();
+  const platformTopicWeights = buildFreshPlatformTrendWeights(
+    platformTrendSnapshot, Date.parse(report.createdAt)
+  );
+  const platformTrendUpdatedAt = Date.parse(
+    platformTrendSnapshot && (platformTrendSnapshot.updated_at || platformTrendSnapshot.updatedAt) || ''
+  );
+  report.discovery.crossPlatformTrendSignals = {
+    source: PLATFORM_TRENDS_PATH,
+    snapshotAvailable: Boolean(platformTrendSnapshot),
+    snapshotUpdatedAt: Number.isFinite(platformTrendUpdatedAt)
+      ? new Date(platformTrendUpdatedAt).toISOString() : null,
+    snapshotAgeMinutes: Number.isFinite(platformTrendUpdatedAt)
+      ? Math.round((Date.parse(report.createdAt) - platformTrendUpdatedAt) / 60000) : null,
+    weightsAvailable: Object.keys(platformTopicWeights).length > 0,
+    activeTopicCount: Object.keys(platformTopicWeights).length,
+    topTopics: Object.entries(platformTopicWeights)
+      .sort((a, b) => Number(b[1]) - Number(a[1]))
+      .slice(0, 8)
+      .map(([topic, score]) => ({ topic, score }))
+  };
   let browser;
 
   try {
@@ -2863,7 +2937,9 @@ async function main() {
     const feedCandidates = discoveredItems.filter(item => feedCandidateEligible(item, state));
     report.discovery.eligibleFeedItems = feedCandidates.length;
 
-    const ranked = rankCandidatesByMomentum(feedCandidates, state, Date.parse(report.createdAt));
+    const ranked = rankCandidatesByMomentum(
+      feedCandidates, state, Date.parse(report.createdAt), platformTopicWeights
+    );
     report.discovery.rankedCandidates = ranked.length;
     report.discovery.measuredCandidates = ranked.filter(entry => entry.hasMeasuredGrowth).length;
     report.discovery.selectionFallbackUsed = ranked.length > 0 && !ranked.some(entry => entry.hasMeasuredGrowth);
@@ -2884,6 +2960,8 @@ async function main() {
       feedTagLabel: entry.item.feed_tag_label || null,
       topicLabel: entry.topicLabel,
       topicDemandScore: entry.topicDemandScore,
+      externalTopicKey: entry.externalTopicKey,
+      externalTopicTrendScore: entry.externalTopicTrendScore,
       topicCandidateCount: entry.topicCandidateCount,
       topicGrowingCandidateCount: entry.topicGrowingCandidateCount,
       durationPreferenceScore: entry.durationPreferenceScore,
@@ -2894,6 +2972,8 @@ async function main() {
     report.discovery.topicDemandSummary = [...new Map(ranked.map(entry => [entry.topicKey, {
       topicKey: entry.topicKey,
       topicLabel: entry.topicLabel,
+      externalTopicKey: entry.externalTopicKey,
+      externalTopicTrendScore: entry.externalTopicTrendScore,
       demandScore: entry.topicDemandScore,
       candidateCount: entry.topicCandidateCount,
       growingCandidateCount: entry.topicGrowingCandidateCount,
@@ -3158,6 +3238,8 @@ async function main() {
       feedTag: selected.feed_tag || null,
       feedTagLabel: selected.feed_tag_label || null,
       topicLabel: selected.topicLabel,
+      externalTopicKey: selected.externalTopicKey,
+      externalTopicTrendScore: selected.externalTopicTrendScore,
       topicDemandScore: selected.topicDemandScore,
       topicCandidateCount: selected.topicCandidateCount,
       topicGrowingCandidateCount: selected.topicGrowingCandidateCount,
@@ -3185,6 +3267,8 @@ async function main() {
         categoryId: selected.detail.video.category_id || selected.category_id || null,
         feedTag: selected.feed_tag || null,
         feedTagLabel: selected.feed_tag_label || null,
+        externalTopicKey: selected.externalTopicKey,
+        externalTopicTrendScore: selected.externalTopicTrendScore,
         newVideoCode: result.newVideoCode || null,
         publicUrl: result.publicUrl || null,
         status: result.status,
@@ -3271,6 +3355,8 @@ module.exports = {
   releaseOneLegacy403CacheForAccountQuotaProbe,
   durationPreferenceScore,
   summarizeTopicDemand,
+  buildFreshPlatformTrendWeights,
+  candidateExternalTopicKey,
   getCachedDetailAccessRejection,
   jalaliDateToGregorianTimestamp,
   editorialTitleQualityReason,

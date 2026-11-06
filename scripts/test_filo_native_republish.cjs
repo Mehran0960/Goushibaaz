@@ -46,6 +46,8 @@ const {
   classifyAudienceFit,
   durationPreferenceScore,
   summarizeTopicDemand,
+  buildFreshPlatformTrendWeights,
+  candidateExternalTopicKey,
   isAccountRepublishQuotaMessage,
   setAccountRepublishQuotaCooldown,
   getAccountRepublishQuotaCooldown,
@@ -962,6 +964,90 @@ assert.ok(topicRank[0].durationPreferenceScore > topicRank[1].durationPreference
   'duration preference must be present as a separate soft ranking feature');
 assert.equal(topicRank.some(entry => entry.item.video_code === 'HotB01'), true,
   'longer eligible content remains in the ranking rather than being hard-rejected');
+const trendSignalNow = Date.parse('2026-11-06T12:00:00.000Z');
+const trendSignalSnapshot = {
+  schemaVersion: 3,
+  updated_at: new Date(trendSignalNow).toISOString(),
+  telegram: {
+    comedyTelegram: {
+      lane: 'comedy',
+      last_seen_at: new Date(trendSignalNow).toISOString(),
+      last_views: 1100,
+      history: [
+        { at: new Date(trendSignalNow - 60 * 60 * 1000).toISOString(), views: 100 },
+        { at: new Date(trendSignalNow).toISOString(), views: 1100 }
+      ]
+    }
+  },
+  youtube_cc: {
+    comedyYoutube: {
+      lane: 'comedy',
+      last_seen_at: new Date(trendSignalNow).toISOString(),
+      last_views: 2200,
+      history: [
+        { at: new Date(trendSignalNow - 60 * 60 * 1000).toISOString(), views: 200 },
+        { at: new Date(trendSignalNow).toISOString(), views: 2200 }
+      ]
+    }
+  }
+};
+const freshTrendWeights = buildFreshPlatformTrendWeights(trendSignalSnapshot, trendSignalNow);
+assert.equal(freshTrendWeights.persian_comedy, 10,
+  'fresh cross-platform trend state must be converted through the shared topic taxonomy');
+const staleTrendWeights = buildFreshPlatformTrendWeights({
+  ...trendSignalSnapshot,
+  updated_at: new Date(trendSignalNow - 49 * 60 * 60 * 1000).toISOString()
+}, trendSignalNow);
+assert.deepEqual(staleTrendWeights, {},
+  'stale platform trend snapshots must not influence Filo candidate ranking');
+assert.deepEqual(buildFreshPlatformTrendWeights(null, trendSignalNow), {},
+  'a missing trend snapshot must safely disable only the external topic bonus');
+assert.deepEqual(buildFreshPlatformTrendWeights([], trendSignalNow), {},
+  'a malformed trend snapshot must safely disable only the external topic bonus');
+assert.deepEqual(buildFreshPlatformTrendWeights({
+  ...trendSignalSnapshot,
+  updated_at: new Date(trendSignalNow + 6 * 60 * 1000).toISOString()
+}, trendSignalNow), {},
+  'a future-dated trend snapshot beyond clock tolerance must be ignored');
+assert.equal(candidateExternalTopicKey({ title: 'دموی فناوری و ربات هوشمند' }), 'technology_demo');
+assert.equal(candidateExternalTopicKey({ title: 'طنز ویدئوی بامزه و خنده دار' }), 'persian_comedy');
+
+const crossPlatformState = { posts: [] };
+const crossPlatformBaseline = [
+  { video_code:'ComedyT1', title:'طنز ویدئوی بامزه و خنده دار', create_date:'۱ ساعت پیش', duration:30, visit_count:100, plays:10 },
+  { video_code:'TechT01', title:'دموی فناوری و ربات هوشمند', create_date:'۱ ساعت پیش', duration:30, visit_count:100, plays:10 }
+];
+rankCandidatesByMomentum(crossPlatformBaseline, crossPlatformState, trendSignalNow);
+const crossPlatformSecondScan = crossPlatformBaseline.map(item => ({ ...item, visit_count:120, plays:20 }));
+const crossPlatformRank = rankCandidatesByMomentum(
+  crossPlatformSecondScan,
+  crossPlatformState,
+  trendSignalNow + 5 * 60 * 1000,
+  { persian_comedy: 0, technology_demo: 10 }
+);
+assert.equal(crossPlatformRank[0].item.video_code, 'TechT01',
+  'a currently trending topic across platforms must lift an otherwise equally growing Filo candidate');
+assert.equal(crossPlatformRank[0].externalTopicKey, 'technology_demo');
+assert.equal(crossPlatformRank[0].externalTopicTrendScore, 100);
+assert.equal(crossPlatformRank[1].externalTopicTrendScore, 0);
+assert.ok(crossPlatformRank[0].rankingScore > crossPlatformRank[1].rankingScore);
+
+const durationTieState = { posts: [] };
+const durationTieBaseline = [
+  { video_code:'Short01', title:'ویدئوی سرگرم کننده', feed_tag:'q-same-topic', create_date:'۱ ساعت پیش', duration:20, visit_count:100, plays:10 },
+  { video_code:'Longer1', title:'ویدئوی سرگرم کننده', feed_tag:'q-same-topic', create_date:'۱ ساعت پیش', duration:240, visit_count:100, plays:10 }
+];
+rankCandidatesByMomentum(durationTieBaseline, durationTieState, trendSignalNow);
+const durationTieRank = rankCandidatesByMomentum(
+  durationTieBaseline.map(item => ({ ...item, visit_count:120, plays:20 })),
+  durationTieState,
+  trendSignalNow + 5 * 60 * 1000
+);
+assert.equal(durationTieRank[0].item.video_code, 'Short01',
+  'short-form preference must decide an otherwise identical candidate comparison');
+assert.equal(durationTieRank.some(entry => entry.item.video_code === 'Longer1'), true,
+  'the soft duration preference must not remove eligible long videos');
+
 async function testPortraitCoverComposition() {
   const { chromium } = require('playwright');
   const browser = await chromium.launch({ headless: true });
