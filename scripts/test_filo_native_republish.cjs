@@ -45,6 +45,8 @@ const {
   candidateMetricValue,
   candidateMetricSnapshot,
   updateCandidateMomentum,
+  update24HourCandidateCatalog,
+  candidateAccelerationEvidence,
   classifyAudienceFit,
   durationPreferenceScore,
   summarizeTopicDemand,
@@ -879,6 +881,84 @@ assert.equal(thirdRank[0].momentum.playsPerMinute, 2);
 assert.equal(thirdRank[0].momentum.playsAccelerationPerMinute, 0);
 assert.equal(thirdRank[0].momentum.viewsPerMinute, 30);
 assert.equal(thirdRank[2].item.video_code, 'ViewsOnly');
+
+const accelerationState = { posts: [] };
+const accelerationStart = Date.parse('2026-11-06T00:00:00.000Z');
+const accelerationBaseline = [
+  { video_code:'AccelPlay', title:'رشد شتاب‌دار پخش', create_date:'۲ ساعت پیش', visit_count:100, plays:100 },
+  { video_code:'StablePlay', title:'رشد ثابت پخش', create_date:'۲ ساعت پیش', visit_count:100, plays:100 },
+  { video_code:'AccelViews', title:'رشد شتاب‌دار بازدید', create_date:'۲ ساعت پیش', visit_count:100 }
+];
+const accelerationFirst = rankCandidatesByMomentum(
+  accelerationBaseline, accelerationState, accelerationStart
+);
+assert.equal(accelerationFirst.filter(entry => entry.hasPositiveAcceleration).length, 0,
+  'one observation cannot satisfy the acceleration gate');
+const accelerationSecond = rankCandidatesByMomentum([
+  { ...accelerationBaseline[0], visit_count:110, plays:110 },
+  { ...accelerationBaseline[1], visit_count:110, plays:110 },
+  { ...accelerationBaseline[2], visit_count:110 }
+], accelerationState, accelerationStart + 5 * 60 * 1000);
+assert.equal(accelerationSecond.filter(entry => entry.hasPositiveAcceleration).length, 0,
+  'two observations establish velocity but not acceleration');
+const accelerationThird = rankCandidatesByMomentum([
+  { ...accelerationBaseline[0], visit_count:130, plays:130 },
+  { ...accelerationBaseline[1], visit_count:120, plays:120 },
+  { ...accelerationBaseline[2], visit_count:130 }
+], accelerationState, accelerationStart + 10 * 60 * 1000);
+const playAccelerator = accelerationThird.find(entry => entry.item.video_code === 'AccelPlay');
+const stableVelocity = accelerationThird.find(entry => entry.item.video_code === 'StablePlay');
+const viewAccelerator = accelerationThird.find(entry => entry.item.video_code === 'AccelViews');
+assert.equal(playAccelerator.accelerationEvidence.metric, 'plays');
+assert.equal(playAccelerator.hasPositiveAcceleration, true,
+  'a positive increase in play velocity across three observations must pass');
+assert.equal(stableVelocity.hasPositiveAcceleration, false,
+  'positive but flat velocity must not pass a strict acceleration gate');
+assert.equal(viewAccelerator.accelerationEvidence.metric, 'views');
+assert.equal(viewAccelerator.hasPositiveAcceleration, true,
+  'views acceleration is the fallback only when a play counter is unavailable');
+assert.equal(candidateAccelerationEvidence({
+  hasPositivePlayGrowth:true,
+  momentum:{sampleCount:2,playsPerMinute:10,playsAccelerationPerMinute:3}
+}).passed, false, 'acceleration requires at least three independent samples');
+
+const catalogState = {};
+const catalogStart = Date.parse('2026-11-06T00:00:00.000Z');
+const catalogFirst = update24HourCandidateCatalog(catalogState, [{
+  video_code:'Catalog1',
+  title:'ویدئوی نمونه در بازهٔ اخیر',
+  create_date:'۲ ساعت پیش',
+  visit_count:200,
+  play_count:100,
+  feed_tag_label:'طنز'
+}, {
+  video_code:'TooOld1',
+  title:'ویدئوی خارج از بازه',
+  create_date:'دیروز',
+  visit_count:900,
+  play_count:800
+}], catalogStart);
+assert.equal(catalogFirst.uniqueVideos,1,
+  'the 24-hour catalog must exclude videos whose reliable age is outside the window');
+assert.equal(catalogFirst.observedThisCycle,1);
+const catalogSecond = update24HourCandidateCatalog(catalogState, [{
+  video_code:'Catalog1',
+  title:'ویدئوی نمونه در بازهٔ اخیر',
+  create_date:'۲ ساعت پیش',
+  visit_count:350,
+  play_count:160,
+  feed_tag_label:'طنز'
+}], catalogStart + 10 * 60 * 1000);
+assert.equal(catalogSecond.uniqueVideos,1);
+assert.equal(catalogSecond.withComparableBaseline,1);
+assert.equal(catalogSecond.positiveObservedWindowPlayGrowth,1);
+assert.equal(catalogSecond.positiveObservedWindowViewGrowth,1);
+assert.equal(catalogSecond.topObservedGrowth[0].playsDelta,60);
+assert.equal(catalogSecond.topObservedGrowth[0].viewsDelta,150);
+const expiredCatalog = update24HourCandidateCatalog(catalogState, [],
+  catalogStart + 26 * 60 * 60 * 1000);
+assert.equal(expiredCatalog.uniqueVideos,0,
+  'the rolling catalogue must evict entries after their observed publication age exceeds 24 hours');
 
 assert.equal(candidateMetricSnapshot({ plays: 0 }, ['play_count', 'plays']).available, true,
   'an explicit zero is a real counter value, not a missing field');

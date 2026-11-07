@@ -58,7 +58,10 @@ const FILO_TITLE_MAX_CHARS = 96;
 const FILO_DESCRIPTION_MIN_CHARS = 30;
 const CANDIDATE_METRIC_HISTORY_TTL_MS = 30 * 60 * 1000;
 const CANDIDATE_METRIC_SAMPLE_INTERVAL_MS = 5 * 60 * 1000;
+const CANDIDATE_CATALOG_24H_TTL_MS = 24 * 60 * 60 * 1000;
 const MAX_TRACKED_CANDIDATE_METRICS = 1500;
+const MAX_TRACKED_24H_CANDIDATES = 5000;
+const MIN_ACCELERATION_SAMPLES = 3;
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -498,6 +501,127 @@ function candidateMetricValue(item, keys) {
   return candidateMetricSnapshot(item, keys).value;
 }
 
+function update24HourCandidateCatalog(state, items, now = Date.now()) {
+  const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
+  const catalog = state.candidateCatalog24h && typeof state.candidateCatalog24h === 'object'
+    ? state.candidateCatalog24h : {};
+  const nowIso = new Date(nowMs).toISOString();
+  const currentSampleFor = item => {
+    const viewMetric = candidateMetricSnapshot(item, ['visit_count', 'view_count', 'views', 'visits']);
+    const playMetric = candidateMetricSnapshot(item, ['play_count', 'plays', 'playCount']);
+    return {
+      at: nowIso,
+      views: viewMetric.value,
+      viewsAvailable: viewMetric.available,
+      plays: playMetric.value,
+      playsAvailable: playMetric.available
+    };
+  };
+  let observedThisCycle = 0;
+
+  for (const item of Array.isArray(items) ? items : []) {
+    const code = String(item && (item.video_code || item.videoCode || item.code) || '').trim();
+    if (!/^[A-Za-z0-9_-]{5,40}$/.test(code)) continue;
+    const publishedAgeHours = ageHours(item, nowMs);
+    if (!Number.isFinite(publishedAgeHours) || publishedAgeHours < 0 || publishedAgeHours > 24) continue;
+
+    const previous = catalog[code] && typeof catalog[code] === 'object' ? catalog[code] : {};
+    const currentSample = currentSampleFor(item);
+    const previousLatestAt = Date.parse(previous.latestSample && previous.latestSample.at || '');
+    const firstSampleAt = Date.parse(previous.firstSample && previous.firstSample.at || '');
+    const keepPreviousBaseline = Number.isFinite(firstSampleAt) &&
+      nowMs - firstSampleAt >= 0 && nowMs - firstSampleAt <= CANDIDATE_CATALOG_24H_TTL_MS;
+    const firstSample = keepPreviousBaseline ? previous.firstSample : currentSample;
+    const observations = Number.isFinite(previousLatestAt) &&
+      nowMs - previousLatestAt >= CANDIDATE_METRIC_SAMPLE_INTERVAL_MS
+      ? Math.max(1, Math.trunc(num(previous.observations, 1)) + 1)
+      : Math.max(1, Math.trunc(num(previous.observations, 0)) || 1);
+
+    catalog[code] = {
+      firstSeenAt: previous.firstSeenAt || nowIso,
+      lastSeenAt: nowIso,
+      publishedAgeHours,
+      title: String(item && item.title || previous.title || '').slice(0, 180),
+      categoryId: item && (item.feed_tag || item.category_id) != null
+        ? String(item.feed_tag || item.category_id) : previous.categoryId || null,
+      categoryLabel: String(item && (item.feed_tag_label || item.category_name || item.category_title) ||
+        previous.categoryLabel || '').slice(0, 80),
+      firstSample,
+      latestSample: currentSample,
+      observations,
+      hasViewCounter: currentSample.viewsAvailable || previous.hasViewCounter === true,
+      hasPlayCounter: currentSample.playsAvailable || previous.hasPlayCounter === true
+    };
+    observedThisCycle++;
+  }
+
+  const retained = Object.entries(catalog)
+    .filter(([, entry]) => {
+      const seenAt = Date.parse(entry && entry.lastSeenAt || '');
+      const lastSeenAgeMs = nowMs - seenAt;
+      const ageAtLastSeen = num(entry && entry.publishedAgeHours, 25);
+      const estimatedPublishedAgeHours = ageAtLastSeen +
+        (Number.isFinite(lastSeenAgeMs) && lastSeenAgeMs > 0 ? lastSeenAgeMs / 3600000 : 0);
+      return Number.isFinite(seenAt) && lastSeenAgeMs >= 0 &&
+        lastSeenAgeMs <= CANDIDATE_CATALOG_24H_TTL_MS &&
+        estimatedPublishedAgeHours <= 24;
+    })
+    .sort((a, b) => String(b[1].lastSeenAt || '').localeCompare(String(a[1].lastSeenAt || '')))
+    .slice(0, MAX_TRACKED_24H_CANDIDATES);
+  state.candidateCatalog24h = Object.fromEntries(retained);
+
+  const entries = retained.map(([code, entry]) => {
+    const first = entry.firstSample || null;
+    const latest = entry.latestSample || null;
+    const viewsDelta = first && latest && first.viewsAvailable === true &&
+      latest.viewsAvailable === true ? num(latest.views) - num(first.views) : null;
+    const playsDelta = first && latest && first.playsAvailable === true &&
+      latest.playsAvailable === true ? num(latest.plays) - num(first.plays) : null;
+    const sampleWindowHours = first && latest
+      ? Math.max(0, (Date.parse(latest.at) - Date.parse(first.at)) / 3600000) : 0;
+    return {
+      code,
+      title: entry.title,
+      categoryLabel: entry.categoryLabel,
+      sampleCount: Math.trunc(num(entry.observations, 1)),
+      sampleWindowHours: Math.round(sampleWindowHours * 100) / 100,
+      viewsDelta,
+      playsDelta,
+      hasViewCounter: entry.hasViewCounter === true,
+      hasPlayCounter: entry.hasPlayCounter === true
+    };
+  });
+
+  const withBaseline = entries.filter(entry => entry.sampleCount >= 2 && entry.sampleWindowHours > 0);
+  const positivePlayGrowth = withBaseline.filter(entry => entry.playsDelta !== null && entry.playsDelta > 0);
+  const positiveViewGrowth = withBaseline.filter(entry => entry.viewsDelta !== null && entry.viewsDelta > 0);
+  const categoryCounts = {};
+  for (const entry of retained.map(([, value]) => value)) {
+    const label = entry.categoryLabel || 'نامشخص';
+    categoryCounts[label] = (categoryCounts[label] || 0) + 1;
+  }
+
+  return {
+    windowHours: 24,
+    uniqueVideos: retained.length,
+    observedThisCycle,
+    withPlayCounter: entries.filter(entry => entry.hasPlayCounter).length,
+    withViewCounter: entries.filter(entry => entry.hasViewCounter).length,
+    withComparableBaseline: withBaseline.length,
+    positiveObservedWindowPlayGrowth: positivePlayGrowth.length,
+    positiveObservedWindowViewGrowth: positiveViewGrowth.length,
+    topObservedGrowth: [...entries]
+      .sort((a, b) => (b.playsDelta ?? -1) - (a.playsDelta ?? -1) ||
+        (b.viewsDelta ?? -1) - (a.viewsDelta ?? -1))
+      .slice(0, 10),
+    topCategories: Object.entries(categoryCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10)
+      .map(([category, videoCount]) => ({ category, videoCount })),
+    coverageComplete: null
+  };
+}
+
 function updateCandidateMomentum(state, items, now = Date.now()) {
   const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
   const history = state.candidateMomentum && typeof state.candidateMomentum === 'object' ? state.candidateMomentum : {};
@@ -713,6 +837,65 @@ function candidateMomentumScore(entry) {
   return 0;
 }
 
+function candidateAccelerationEvidence(entry) {
+  const momentum = entry && entry.momentum && typeof entry.momentum === 'object'
+    ? entry.momentum : {};
+  const sampleCount = Math.trunc(num(momentum.sampleCount, 0));
+  if (sampleCount < MIN_ACCELERATION_SAMPLES) {
+    return {
+      passed: false,
+      reason: 'insufficient_independent_samples',
+      metric: null,
+      sampleCount,
+      minimumSamples: MIN_ACCELERATION_SAMPLES,
+      velocityPerMinute: null,
+      accelerationPerMinute: null
+    };
+  }
+
+  if (entry && entry.hasPositivePlayGrowth) {
+    const velocity = num(momentum.playsPerMinute, 0);
+    const acceleration = num(momentum.playsAccelerationPerMinute, 0);
+    return {
+      passed: velocity > 0 && acceleration > 0,
+      reason: velocity <= 0 ? 'no_positive_play_velocity'
+        : acceleration <= 0 ? 'play_acceleration_not_positive' : 'positive_play_acceleration',
+      metric: 'plays',
+      sampleCount,
+      minimumSamples: MIN_ACCELERATION_SAMPLES,
+      velocityPerMinute: velocity,
+      accelerationPerMinute: acceleration
+    };
+  }
+
+  if (entry && entry.hasPositiveViewGrowth) {
+    const velocity = num(momentum.viewsPerMinute, 0);
+    const acceleration = num(
+      momentum.viewsAccelerationPerMinute ?? momentum.accelerationPerMinute, 0
+    );
+    return {
+      passed: velocity > 0 && acceleration > 0,
+      reason: velocity <= 0 ? 'no_positive_view_velocity'
+        : acceleration <= 0 ? 'view_acceleration_not_positive' : 'positive_view_acceleration',
+      metric: 'views',
+      sampleCount,
+      minimumSamples: MIN_ACCELERATION_SAMPLES,
+      velocityPerMinute: velocity,
+      accelerationPerMinute: acceleration
+    };
+  }
+
+  return {
+    passed: false,
+    reason: 'no_measured_positive_velocity',
+    metric: null,
+    sampleCount,
+    minimumSamples: MIN_ACCELERATION_SAMPLES,
+    velocityPerMinute: null,
+    accelerationPerMinute: null
+  };
+}
+
 function loadPlatformTrendSnapshot() {
   try {
     const snapshot = JSON.parse(fs.readFileSync(PLATFORM_TRENDS_PATH, 'utf8'));
@@ -783,9 +966,10 @@ function candidateExternalTopicKey(item) {
   return detectedTopic;
 }
 
-function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicWeights = {}) {
+function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicWeights = {}, currentRatesOverride = null) {
   const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
-  const currentRates = updateCandidateMomentum(state, items, nowMs);
+  const currentRates = currentRatesOverride && typeof currentRatesOverride === 'object'
+    ? currentRatesOverride : updateCandidateMomentum(state, items, nowMs);
   const trendWeights = platformTopicWeights && typeof platformTopicWeights === 'object'
     ? platformTopicWeights : {};
   const recentCategories = (state && Array.isArray(state.posts) ? state.posts : [])
@@ -871,6 +1055,8 @@ function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicW
       freshnessScore: Math.max(0, Math.min(100, (24 - age) / 24 * 100)),
       recentCategoryPenalty: categoryId && recentCategorySet.has(categoryId) ? 1 : 0
     };
+    entry.accelerationEvidence = candidateAccelerationEvidence(entry);
+    entry.hasPositiveAcceleration = entry.accelerationEvidence.passed;
     entry.momentumScore = candidateMomentumScore(entry);
     return entry;
   }).filter(entry => entry.ageHours <= 24);
@@ -3050,19 +3236,53 @@ async function main() {
     };
 
     const discoveredItems = [...byCode.values()];
+    const cycleAt = Date.parse(report.createdAt);
+    const currentMomentumRates = updateCandidateMomentum(state, discoveredItems, cycleAt);
+    report.discovery.catalog24h = update24HourCandidateCatalog(state, discoveredItems, cycleAt);
+    report.discovery.catalog24h.coverageComplete = Boolean(
+      report.discovery.categoryCoverage &&
+      report.discovery.categoryCoverage.complete24HourCoverage === true
+    );
     report.discovery.feedGateSignals = summarizeFeedGateSignals(discoveredItems, state);
     const feedCandidates = discoveredItems.filter(item => feedCandidateEligible(item, state));
     report.discovery.eligibleFeedItems = feedCandidates.length;
 
     const ranked = rankCandidatesByMomentum(
-      feedCandidates, state, Date.parse(report.createdAt), platformTopicWeights
+      feedCandidates, state, cycleAt, platformTopicWeights, currentMomentumRates
+    );
+    const accelerationQualified = ranked.filter(entry =>
+      entry.accelerationEvidence && entry.accelerationEvidence.passed
     );
     report.discovery.rankedCandidates = ranked.length;
     report.discovery.measuredCandidates = ranked.filter(entry => entry.hasMeasuredGrowth).length;
-    report.discovery.selectionFallbackUsed = ranked.length > 0 && !ranked.some(entry => entry.hasMeasuredGrowth);
+    report.discovery.accelerationFilter = {
+      mode: 'strict_positive_acceleration',
+      minimumIndependentSamples: MIN_ACCELERATION_SAMPLES,
+      candidatesEvaluated: ranked.length,
+      candidatesWithMeasuredGrowth: ranked.filter(entry => entry.hasMeasuredGrowth).length,
+      candidatesWithInsufficientSamples: ranked.filter(entry =>
+        entry.accelerationEvidence.reason === 'insufficient_independent_samples'
+      ).length,
+      candidatesWithPositiveVelocityButNoPositiveAcceleration: ranked.filter(entry =>
+        ['play_acceleration_not_positive', 'view_acceleration_not_positive'].includes(
+          entry.accelerationEvidence.reason
+        )
+      ).length,
+      accelerationQualifiedCandidates: accelerationQualified.length,
+      cumulativeOnlyFallbackExcluded: ranked.filter(entry =>
+        ['cumulative_play_fallback', 'cumulative_view_fallback', 'freshness_fallback'].includes(
+          entry.selectionMode
+        )
+      ).length,
+      fallbackToCumulativeCountsAllowedForPublication: false
+    };
+    report.discovery.accelerationQualifiedCandidates = accelerationQualified.length;
+    report.discovery.selectionFallbackUsed = false;
     report.discovery.topMomentum = ranked.slice(0, 5).map(entry => ({
       code: String(entry.item.video_code),
       selectionMode: entry.selectionMode,
+      accelerationPassed: entry.hasPositiveAcceleration,
+      accelerationEvidence: entry.accelerationEvidence,
       feedHintScore: entry.feedHintScore,
       cumulativePlays: entry.playMetric.value,
       cumulativeViews: entry.viewMetric.value,
@@ -3086,6 +3306,16 @@ async function main() {
       rankingScore: entry.rankingScore,
       ageHours: entry.ageHours
     }));
+    report.discovery.topAccelerationQualified = accelerationQualified.slice(0, 10).map(entry => ({
+      code: String(entry.item.video_code),
+      title: String(entry.item.title || '').slice(0, 160),
+      metric: entry.accelerationEvidence.metric,
+      velocityPerMinute: entry.accelerationEvidence.velocityPerMinute,
+      accelerationPerMinute: entry.accelerationEvidence.accelerationPerMinute,
+      sampleCount: entry.accelerationEvidence.sampleCount,
+      ageHours: entry.ageHours,
+      category: entry.item.feed_tag_label || entry.item.feed_tag || null
+    }));
     report.discovery.topicDemandSummary = [...new Map(ranked.map(entry => [entry.topicKey, {
       topicKey: entry.topicKey,
       topicLabel: entry.topicLabel,
@@ -3101,9 +3331,9 @@ async function main() {
       .slice(0, 12);
     const quotaCheckAt = Date.parse(report.createdAt);
     const activeAccountQuotaCooldown = getAccountRepublishQuotaCooldown(state, quotaCheckAt);
-    const legacy403ProbeCode = activeAccountQuotaCooldown
+    const legacy403ProbeCode = activeAccountQuotaCooldown || !accelerationQualified.length
       ? null
-      : releaseOneLegacy403CacheForAccountQuotaProbe(state, ranked, quotaCheckAt);
+      : releaseOneLegacy403CacheForAccountQuotaProbe(state, accelerationQualified, quotaCheckAt);
     report.discovery.legacy403QuotaProbeTriggered = Boolean(legacy403ProbeCode);
     fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2) + '\n', 'utf8');
 
@@ -3133,6 +3363,17 @@ async function main() {
       return;
     }
 
+    if (!accelerationQualified.length) {
+      report.status = 'no_candidate_passed_acceleration_gate';
+      report.result = {
+        status: report.status,
+        reason: 'No candidate had at least three independent metric samples, positive measured velocity, and strictly positive acceleration; cumulative counts are not accepted as a publication fallback.',
+        retryOnNextScheduledRun: true,
+        discoveryContinues: true
+      };
+      return;
+    }
+
     const publicationPacing = getPublicationPacingGate(state, quotaCheckAt);
     report.discovery.publicationPacing = publicationPacing;
     report.discovery.dailyPublicationOperationCount = dailyCount(state, quotaCheckAt);
@@ -3153,7 +3394,7 @@ async function main() {
     const checked = [];
     const filoRejections = [];
     const MAX_CONFIRMED_FILO_REJECTIONS_PER_CYCLE = 3;
-    for (const entry of ranked.slice(0, MAX_DETAIL_CHECKS)) {
+    for (const entry of accelerationQualified.slice(0, MAX_DETAIL_CHECKS)) {
       const code = entry.item.video_code;
       const cachedAccessRejection = getCachedDetailAccessRejection(state,code,Date.parse(report.createdAt));
       if(cachedAccessRejection){
@@ -3512,6 +3753,8 @@ module.exports = {
   candidateMetricValue,
   candidateMetricSnapshot,
   updateCandidateMomentum,
+  update24HourCandidateCatalog,
+  candidateAccelerationEvidence,
   classifyAudienceFit,
   extractCategoryIds,
   summarizeCategoryCatalogPayload,
