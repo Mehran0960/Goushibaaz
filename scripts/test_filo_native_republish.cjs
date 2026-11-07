@@ -887,7 +887,9 @@ const accelerationStart = Date.parse('2026-11-06T00:00:00.000Z');
 const accelerationBaseline = [
   { video_code:'AccelPlay', title:'رشد شتاب‌دار پخش', create_date:'۲ ساعت پیش', visit_count:100, plays:100 },
   { video_code:'StablePlay', title:'رشد ثابت پخش', create_date:'۲ ساعت پیش', visit_count:100, plays:100 },
-  { video_code:'AccelViews', title:'رشد شتاب‌دار بازدید', create_date:'۲ ساعت پیش', visit_count:100 }
+  { video_code:'AccelViews', title:'رشد شتاب‌دار بازدید', create_date:'۲ ساعت پیش', visit_count:100 },
+  { video_code:'ZeroPlayView', title:'شمارندهٔ پخش صفر و رشد بازدید', create_date:'۲ ساعت پیش', visit_count:100, play_count:0 },
+  { video_code:'FlatPlayView', title:'شمارندهٔ پخش غیرصفر و ثابت', create_date:'۲ ساعت پیش', visit_count:100, play_count:10 }
 ];
 const accelerationFirst = rankCandidatesByMomentum(
   accelerationBaseline, accelerationState, accelerationStart
@@ -897,18 +899,24 @@ assert.equal(accelerationFirst.filter(entry => entry.hasPositiveAcceleration).le
 const accelerationSecond = rankCandidatesByMomentum([
   { ...accelerationBaseline[0], visit_count:110, plays:110 },
   { ...accelerationBaseline[1], visit_count:110, plays:110 },
-  { ...accelerationBaseline[2], visit_count:110 }
+  { ...accelerationBaseline[2], visit_count:110 },
+  { ...accelerationBaseline[3], visit_count:110, play_count:0 },
+  { ...accelerationBaseline[4], visit_count:110, play_count:10 }
 ], accelerationState, accelerationStart + 5 * 60 * 1000);
 assert.equal(accelerationSecond.filter(entry => entry.hasPositiveAcceleration).length, 0,
   'two observations establish velocity but not acceleration');
 const accelerationThird = rankCandidatesByMomentum([
   { ...accelerationBaseline[0], visit_count:130, plays:130 },
   { ...accelerationBaseline[1], visit_count:120, plays:120 },
-  { ...accelerationBaseline[2], visit_count:130 }
+  { ...accelerationBaseline[2], visit_count:130 },
+  { ...accelerationBaseline[3], visit_count:130, play_count:0 },
+  { ...accelerationBaseline[4], visit_count:130, play_count:10 }
 ], accelerationState, accelerationStart + 10 * 60 * 1000);
 const playAccelerator = accelerationThird.find(entry => entry.item.video_code === 'AccelPlay');
 const stableVelocity = accelerationThird.find(entry => entry.item.video_code === 'StablePlay');
 const viewAccelerator = accelerationThird.find(entry => entry.item.video_code === 'AccelViews');
+const zeroPlayViewFallback = accelerationThird.find(entry => entry.item.video_code === 'ZeroPlayView');
+const flatPlayView = accelerationThird.find(entry => entry.item.video_code === 'FlatPlayView');
 assert.equal(playAccelerator.accelerationEvidence.metric, 'plays');
 assert.equal(playAccelerator.hasPositiveAcceleration, true,
   'a positive increase in play velocity across three observations must pass');
@@ -917,6 +925,14 @@ assert.equal(stableVelocity.hasPositiveAcceleration, false,
 assert.equal(viewAccelerator.accelerationEvidence.metric, 'views');
 assert.equal(viewAccelerator.hasPositiveAcceleration, true,
   'views acceleration is the fallback only when a play counter is unavailable');
+assert.equal(zeroPlayViewFallback.playCounterZeroStalled, true,
+  'a zero play counter must be proven static across at least three independent samples');
+assert.equal(zeroPlayViewFallback.accelerationEvidence.metric, 'views');
+assert.equal(zeroPlayViewFallback.hasPositiveAcceleration, true,
+  'measured view acceleration can be used when the available play counter is demonstrably stuck at zero');
+assert.equal(flatPlayView.playCounterZeroStalled, false);
+assert.equal(flatPlayView.hasPositiveAcceleration, false,
+  'a nonzero but flat play counter must not be bypassed by growing views');
 
 assert.equal(candidateAccelerationEvidence({
   playMetric:{available:true,value:100},
@@ -932,7 +948,16 @@ assert.equal(candidateAccelerationEvidence({
   hasPositiveViewGrowth:true,
   momentum:{sampleCount:3,viewsPerMinute:20,viewsAccelerationPerMinute:10}
 }).passed,true,
-  'view acceleration is allowed only when no play counter is available');
+  'view acceleration is allowed when no play counter is available');
+assert.equal(candidateAccelerationEvidence({
+  playMetric:{available:true,value:0},
+  playCounterZeroStalled:true,
+  hasPositivePlayGrowth:false,
+  hasPositiveViewGrowth:true,
+  momentum:{sampleCount:3,playsPerMinute:0,playsAccelerationPerMinute:0,
+    viewsPerMinute:20,viewsAccelerationPerMinute:10}
+}).passed,true,
+  'view acceleration can replace a play counter only when it is independently proven stuck at zero');
 assert.equal(candidateAccelerationEvidence({
   hasPositivePlayGrowth:true,
   momentum:{sampleCount:2,playsPerMinute:10,playsAccelerationPerMinute:3}
