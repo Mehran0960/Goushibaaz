@@ -859,10 +859,11 @@ function candidateAccelerationEvidence(entry) {
     const velocity = num(momentum.playsPerMinute, 0);
     const acceleration = num(momentum.playsAccelerationPerMinute, 0);
     return {
-      passed: entry.hasPositivePlayGrowth === true && velocity > 0 && acceleration > 0,
+      passed: entry.hasPositivePlayGrowth === true && velocity > 0,
       reason: entry.hasPositivePlayGrowth !== true || velocity <= 0
         ? 'no_positive_play_velocity'
-        : acceleration <= 0 ? 'play_acceleration_not_positive' : 'positive_play_acceleration',
+        : acceleration <= 0 ? 'positive_play_velocity_without_acceleration'
+          : 'positive_play_acceleration',
       metric: 'plays',
       sampleCount,
       minimumSamples: MIN_ACCELERATION_SAMPLES,
@@ -879,9 +880,11 @@ function candidateAccelerationEvidence(entry) {
     );
     const zeroPlayFallback = playCounterAvailable && playCounterZeroStalled;
     return {
-      passed: velocity > 0 && acceleration > 0,
+      passed: velocity > 0,
       reason: velocity <= 0 ? 'no_positive_view_velocity'
-        : acceleration <= 0 ? 'view_acceleration_not_positive'
+        : acceleration <= 0 ? zeroPlayFallback
+          ? 'positive_view_velocity_zero_play_counter_stalled'
+          : 'positive_view_velocity_without_acceleration'
         : zeroPlayFallback ? 'positive_view_acceleration_zero_play_counter_stalled'
           : 'positive_view_acceleration',
       metric: 'views',
@@ -1076,7 +1079,8 @@ function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicW
       recentCategoryPenalty: categoryId && recentCategorySet.has(categoryId) ? 1 : 0
     };
     entry.accelerationEvidence = candidateAccelerationEvidence(entry);
-    entry.hasPositiveAcceleration = entry.accelerationEvidence.passed;
+    entry.growthGatePassed = entry.accelerationEvidence.passed;
+    entry.hasPositiveAcceleration = num(entry.accelerationEvidence.accelerationPerMinute, 0) > 0;
     entry.momentumScore = candidateMomentumScore(entry);
     return entry;
   }).filter(entry => entry.ageHours <= 24);
@@ -3276,10 +3280,11 @@ async function main() {
     report.discovery.rankedCandidates = ranked.length;
     report.discovery.measuredCandidates = ranked.filter(entry => entry.hasMeasuredGrowth).length;
     report.discovery.accelerationFilter = {
-      mode: 'strict_positive_acceleration',
+      mode: 'positive_velocity_required_acceleration_rank_bonus',
       minimumIndependentSamples: MIN_ACCELERATION_SAMPLES,
       candidatesEvaluated: ranked.length,
       candidatesWithMeasuredGrowth: ranked.filter(entry => entry.hasMeasuredGrowth).length,
+      candidatesPassingVelocityGate: accelerationQualified.length,
       candidatesWithZeroPlayCounterStalled: ranked.filter(entry =>
         entry.playCounterZeroStalled === true
       ).length,
@@ -3290,7 +3295,9 @@ async function main() {
         entry.accelerationEvidence.reason === 'insufficient_independent_samples'
       ).length,
       candidatesWithPositiveVelocityButNoPositiveAcceleration: ranked.filter(entry =>
-        ['play_acceleration_not_positive', 'view_acceleration_not_positive'].includes(
+        ['positive_play_velocity_without_acceleration',
+          'positive_view_velocity_without_acceleration',
+          'positive_view_velocity_zero_play_counter_stalled'].includes(
           entry.accelerationEvidence.reason
         )
       ).length,
@@ -3307,7 +3314,8 @@ async function main() {
     report.discovery.topMomentum = ranked.slice(0, 5).map(entry => ({
       code: String(entry.item.video_code),
       selectionMode: entry.selectionMode,
-      accelerationPassed: entry.hasPositiveAcceleration,
+      growthGatePassed: entry.growthGatePassed === true,
+      accelerationBonusActive: entry.hasPositiveAcceleration,
       accelerationEvidence: entry.accelerationEvidence,
       playCounterZeroStalled: entry.playCounterZeroStalled === true,
       feedHintScore: entry.feedHintScore,
@@ -3333,7 +3341,7 @@ async function main() {
       rankingScore: entry.rankingScore,
       ageHours: entry.ageHours
     }));
-    report.discovery.topAccelerationQualified = accelerationQualified.slice(0, 10).map(entry => ({
+    report.discovery.topVelocityQualified = accelerationQualified.slice(0, 10).map(entry => ({
       code: String(entry.item.video_code),
       title: String(entry.item.title || '').slice(0, 160),
       metric: entry.accelerationEvidence.metric,
@@ -3393,10 +3401,10 @@ async function main() {
     }
 
     if (!accelerationQualified.length) {
-      report.status = 'no_candidate_passed_acceleration_gate';
+      report.status = 'no_candidate_passed_measured_velocity_gate';
       report.result = {
         status: report.status,
-        reason: 'No candidate had at least three independent metric samples, positive measured velocity, and strictly positive acceleration; cumulative counts are not accepted as a publication fallback.',
+        reason: 'No candidate had at least three independent metric samples and positive measured velocity; cumulative counts are not accepted as a publication fallback.',
         retryOnNextScheduledRun: true,
         discoveryContinues: true
       };
