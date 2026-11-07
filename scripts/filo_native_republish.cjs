@@ -853,12 +853,14 @@ function candidateAccelerationEvidence(entry) {
     };
   }
 
-  if (entry && entry.hasPositivePlayGrowth) {
+  const playCounterAvailable = Boolean(entry && entry.playMetric && entry.playMetric.available);
+  if (playCounterAvailable) {
     const velocity = num(momentum.playsPerMinute, 0);
     const acceleration = num(momentum.playsAccelerationPerMinute, 0);
     return {
-      passed: velocity > 0 && acceleration > 0,
-      reason: velocity <= 0 ? 'no_positive_play_velocity'
+      passed: entry.hasPositivePlayGrowth === true && velocity > 0 && acceleration > 0,
+      reason: entry.hasPositivePlayGrowth !== true || velocity <= 0
+        ? 'no_positive_play_velocity'
         : acceleration <= 0 ? 'play_acceleration_not_positive' : 'positive_play_acceleration',
       metric: 'plays',
       sampleCount,

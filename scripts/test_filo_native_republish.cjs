@@ -917,6 +917,22 @@ assert.equal(stableVelocity.hasPositiveAcceleration, false,
 assert.equal(viewAccelerator.accelerationEvidence.metric, 'views');
 assert.equal(viewAccelerator.hasPositiveAcceleration, true,
   'views acceleration is the fallback only when a play counter is unavailable');
+
+assert.equal(candidateAccelerationEvidence({
+  playMetric:{available:true,value:100},
+  hasPositivePlayGrowth:false,
+  hasPositiveViewGrowth:true,
+  momentum:{sampleCount:3,playsPerMinute:0,playsAccelerationPerMinute:0,
+    viewsPerMinute:20,viewsAccelerationPerMinute:10}
+}).passed,false,
+  'view growth must not replace an available but non-growing play counter');
+assert.equal(candidateAccelerationEvidence({
+  playMetric:{available:false},
+  hasPositivePlayGrowth:false,
+  hasPositiveViewGrowth:true,
+  momentum:{sampleCount:3,viewsPerMinute:20,viewsAccelerationPerMinute:10}
+}).passed,true,
+  'view acceleration is allowed only when no play counter is available');
 assert.equal(candidateAccelerationEvidence({
   hasPositivePlayGrowth:true,
   momentum:{sampleCount:2,playsPerMinute:10,playsAccelerationPerMinute:3}
