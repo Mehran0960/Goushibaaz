@@ -854,7 +854,8 @@ function candidateAccelerationEvidence(entry) {
   }
 
   const playCounterAvailable = Boolean(entry && entry.playMetric && entry.playMetric.available);
-  if (playCounterAvailable) {
+  const playCounterZeroStalled = Boolean(entry && entry.playCounterZeroStalled === true);
+  if (playCounterAvailable && !playCounterZeroStalled) {
     const velocity = num(momentum.playsPerMinute, 0);
     const acceleration = num(momentum.playsAccelerationPerMinute, 0);
     return {
@@ -870,16 +871,22 @@ function candidateAccelerationEvidence(entry) {
     };
   }
 
-  if (entry && entry.hasPositiveViewGrowth) {
+  if (entry && entry.hasPositiveViewGrowth &&
+      (!playCounterAvailable || playCounterZeroStalled)) {
     const velocity = num(momentum.viewsPerMinute, 0);
     const acceleration = num(
       momentum.viewsAccelerationPerMinute ?? momentum.accelerationPerMinute, 0
     );
+    const zeroPlayFallback = playCounterAvailable && playCounterZeroStalled;
     return {
       passed: velocity > 0 && acceleration > 0,
       reason: velocity <= 0 ? 'no_positive_view_velocity'
-        : acceleration <= 0 ? 'view_acceleration_not_positive' : 'positive_view_acceleration',
+        : acceleration <= 0 ? 'view_acceleration_not_positive'
+        : zeroPlayFallback ? 'positive_view_acceleration_zero_play_counter_stalled'
+          : 'positive_view_acceleration',
       metric: 'views',
+      fallbackReason: zeroPlayFallback ? 'play_counter_zero_for_three_independent_samples'
+        : !playCounterAvailable ? 'play_counter_unavailable' : null,
       sampleCount,
       minimumSamples: MIN_ACCELERATION_SAMPLES,
       velocityPerMinute: velocity,
@@ -1034,11 +1041,22 @@ function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicW
       : hasPositiveViewGrowth ? 3
       : playMetric.available && playMetric.value > 0 ? 2
       : viewMetric.available && viewMetric.value > 0 ? 1 : 0;
+    const metricHistory = state && state.candidateMomentum &&
+      state.candidateMomentum[code] && Array.isArray(state.candidateMomentum[code].samples)
+      ? state.candidateMomentum[code].samples : [];
+    const recentPlaySamples = metricHistory.slice(-MIN_ACCELERATION_SAMPLES);
+    const playCounterZeroStalled = Boolean(
+      playMetric.available && playMetric.value === 0 &&
+      recentPlaySamples.length >= MIN_ACCELERATION_SAMPLES &&
+      recentPlaySamples.every(sample => sample && sample.playsAvailable === true &&
+        num(sample.plays, -1) === 0)
+    );
     const entry = {
       item,
       momentum,
       playMetric,
       viewMetric,
+      playCounterZeroStalled,
       ageHours: age,
       hasPositivePlayGrowth,
       hasPositiveViewGrowth,
@@ -3262,6 +3280,12 @@ async function main() {
       minimumIndependentSamples: MIN_ACCELERATION_SAMPLES,
       candidatesEvaluated: ranked.length,
       candidatesWithMeasuredGrowth: ranked.filter(entry => entry.hasMeasuredGrowth).length,
+      candidatesWithZeroPlayCounterStalled: ranked.filter(entry =>
+        entry.playCounterZeroStalled === true
+      ).length,
+      candidatesUsingZeroPlayViewFallback: accelerationQualified.filter(entry =>
+        entry.accelerationEvidence.metric === 'views' && entry.playCounterZeroStalled === true
+      ).length,
       candidatesWithInsufficientSamples: ranked.filter(entry =>
         entry.accelerationEvidence.reason === 'insufficient_independent_samples'
       ).length,
@@ -3285,6 +3309,7 @@ async function main() {
       selectionMode: entry.selectionMode,
       accelerationPassed: entry.hasPositiveAcceleration,
       accelerationEvidence: entry.accelerationEvidence,
+      playCounterZeroStalled: entry.playCounterZeroStalled === true,
       feedHintScore: entry.feedHintScore,
       cumulativePlays: entry.playMetric.value,
       cumulativeViews: entry.viewMetric.value,
@@ -3312,6 +3337,8 @@ async function main() {
       code: String(entry.item.video_code),
       title: String(entry.item.title || '').slice(0, 160),
       metric: entry.accelerationEvidence.metric,
+      playCounterZeroStalled: entry.playCounterZeroStalled === true,
+      fallbackReason: entry.accelerationEvidence.fallbackReason || null,
       velocityPerMinute: entry.accelerationEvidence.velocityPerMinute,
       accelerationPerMinute: entry.accelerationEvidence.accelerationPerMinute,
       sampleCount: entry.accelerationEvidence.sampleCount,
