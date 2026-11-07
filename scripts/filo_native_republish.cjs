@@ -59,10 +59,8 @@ const FILO_DESCRIPTION_MIN_CHARS = 30;
 const CANDIDATE_METRIC_HISTORY_TTL_MS = 30 * 60 * 1000;
 const CANDIDATE_METRIC_SAMPLE_INTERVAL_MS = 5 * 60 * 1000;
 const CANDIDATE_CATALOG_24H_TTL_MS = 24 * 60 * 60 * 1000;
-const CANDIDATE_CATALOG_SAMPLE_INTERVAL_MS = 60 * 60 * 1000;
 const MAX_TRACKED_CANDIDATE_METRICS = 1500;
 const MAX_TRACKED_24H_CANDIDATES = 5000;
-const MAX_24H_CATALOG_SAMPLES = 25;
 const MIN_ACCELERATION_SAMPLES = 3;
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -508,6 +506,17 @@ function update24HourCandidateCatalog(state, items, now = Date.now()) {
   const catalog = state.candidateCatalog24h && typeof state.candidateCatalog24h === 'object'
     ? state.candidateCatalog24h : {};
   const nowIso = new Date(nowMs).toISOString();
+  const currentSampleFor = item => {
+    const viewMetric = candidateMetricSnapshot(item, ['visit_count', 'view_count', 'views', 'visits']);
+    const playMetric = candidateMetricSnapshot(item, ['play_count', 'plays', 'playCount']);
+    return {
+      at: nowIso,
+      views: viewMetric.value,
+      viewsAvailable: viewMetric.available,
+      plays: playMetric.value,
+      playsAvailable: playMetric.available
+    };
+  };
   let observedThisCycle = 0;
 
   for (const item of Array.isArray(items) ? items : []) {
@@ -516,27 +525,17 @@ function update24HourCandidateCatalog(state, items, now = Date.now()) {
     const publishedAgeHours = ageHours(item, nowMs);
     if (!Number.isFinite(publishedAgeHours) || publishedAgeHours < 0 || publishedAgeHours > 24) continue;
 
-    const viewMetric = candidateMetricSnapshot(item, ['visit_count', 'view_count', 'views', 'visits']);
-    const playMetric = candidateMetricSnapshot(item, ['play_count', 'plays', 'playCount']);
     const previous = catalog[code] && typeof catalog[code] === 'object' ? catalog[code] : {};
-    let samples = Array.isArray(previous.samples) ? previous.samples.filter(sample => {
-      const at = Date.parse(sample && sample.at || '');
-      return Number.isFinite(at) && nowMs - at >= 0 &&
-        nowMs - at <= CANDIDATE_CATALOG_24H_TTL_MS;
-    }).slice(-MAX_24H_CATALOG_SAMPLES) : [];
-    const lastSampleAt = samples.length ? Date.parse(samples.at(-1).at) : NaN;
-
-    if (!Number.isFinite(lastSampleAt) ||
-        nowMs - lastSampleAt >= CANDIDATE_CATALOG_SAMPLE_INTERVAL_MS) {
-      samples.push({
-        at: nowIso,
-        views: viewMetric.value,
-        viewsAvailable: viewMetric.available,
-        plays: playMetric.value,
-        playsAvailable: playMetric.available
-      });
-      samples = samples.slice(-MAX_24H_CATALOG_SAMPLES);
-    }
+    const currentSample = currentSampleFor(item);
+    const previousLatestAt = Date.parse(previous.latestSample && previous.latestSample.at || '');
+    const firstSampleAt = Date.parse(previous.firstSample && previous.firstSample.at || '');
+    const keepPreviousBaseline = Number.isFinite(firstSampleAt) &&
+      nowMs - firstSampleAt >= 0 && nowMs - firstSampleAt <= CANDIDATE_CATALOG_24H_TTL_MS;
+    const firstSample = keepPreviousBaseline ? previous.firstSample : currentSample;
+    const observations = Number.isFinite(previousLatestAt) &&
+      nowMs - previousLatestAt >= CANDIDATE_METRIC_SAMPLE_INTERVAL_MS
+      ? Math.max(1, Math.trunc(num(previous.observations, 1)) + 1)
+      : Math.max(1, Math.trunc(num(previous.observations, 0)) || 1);
 
     catalog[code] = {
       firstSeenAt: previous.firstSeenAt || nowIso,
@@ -547,11 +546,11 @@ function update24HourCandidateCatalog(state, items, now = Date.now()) {
         ? String(item.feed_tag || item.category_id) : previous.categoryId || null,
       categoryLabel: String(item && (item.feed_tag_label || item.category_name || item.category_title) ||
         previous.categoryLabel || '').slice(0, 80),
-      latestViews: viewMetric.available ? viewMetric.value : previous.latestViews ?? null,
-      latestPlays: playMetric.available ? playMetric.value : previous.latestPlays ?? null,
-      hasViewCounter: viewMetric.available || previous.hasViewCounter === true,
-      hasPlayCounter: playMetric.available || previous.hasPlayCounter === true,
-      samples
+      firstSample,
+      latestSample: currentSample,
+      observations,
+      hasViewCounter: currentSample.viewsAvailable || previous.hasViewCounter === true,
+      hasPlayCounter: currentSample.playsAvailable || previous.hasPlayCounter === true
     };
     observedThisCycle++;
   }
@@ -572,9 +571,8 @@ function update24HourCandidateCatalog(state, items, now = Date.now()) {
   state.candidateCatalog24h = Object.fromEntries(retained);
 
   const entries = retained.map(([code, entry]) => {
-    const samples = Array.isArray(entry.samples) ? entry.samples : [];
-    const first = samples[0] || null;
-    const latest = samples.at(-1) || null;
+    const first = entry.firstSample || null;
+    const latest = entry.latestSample || null;
     const viewsDelta = first && latest && first.viewsAvailable === true &&
       latest.viewsAvailable === true ? num(latest.views) - num(first.views) : null;
     const playsDelta = first && latest && first.playsAvailable === true &&
@@ -585,7 +583,7 @@ function update24HourCandidateCatalog(state, items, now = Date.now()) {
       code,
       title: entry.title,
       categoryLabel: entry.categoryLabel,
-      sampleCount: samples.length,
+      sampleCount: Math.trunc(num(entry.observations, 1)),
       sampleWindowHours: Math.round(sampleWindowHours * 100) / 100,
       viewsDelta,
       playsDelta,
@@ -594,9 +592,9 @@ function update24HourCandidateCatalog(state, items, now = Date.now()) {
     };
   });
 
-  const withHourlyBaseline = entries.filter(entry => entry.sampleCount >= 2);
-  const positivePlayGrowth = withHourlyBaseline.filter(entry => entry.playsDelta !== null && entry.playsDelta > 0);
-  const positiveViewGrowth = withHourlyBaseline.filter(entry => entry.viewsDelta !== null && entry.viewsDelta > 0);
+  const withBaseline = entries.filter(entry => entry.sampleCount >= 2 && entry.sampleWindowHours > 0);
+  const positivePlayGrowth = withBaseline.filter(entry => entry.playsDelta !== null && entry.playsDelta > 0);
+  const positiveViewGrowth = withBaseline.filter(entry => entry.viewsDelta !== null && entry.viewsDelta > 0);
   const categoryCounts = {};
   for (const entry of retained.map(([, value]) => value)) {
     const label = entry.categoryLabel || 'نامشخص';
@@ -609,9 +607,9 @@ function update24HourCandidateCatalog(state, items, now = Date.now()) {
     observedThisCycle,
     withPlayCounter: entries.filter(entry => entry.hasPlayCounter).length,
     withViewCounter: entries.filter(entry => entry.hasViewCounter).length,
-    withHourlyBaseline: withHourlyBaseline.length,
-    positive24hPlayGrowth: positivePlayGrowth.length,
-    positive24hViewGrowth: positiveViewGrowth.length,
+    withComparableBaseline: withBaseline.length,
+    positiveObservedWindowPlayGrowth: positivePlayGrowth.length,
+    positiveObservedWindowViewGrowth: positiveViewGrowth.length,
     topObservedGrowth: [...entries]
       .sort((a, b) => (b.playsDelta ?? -1) - (a.playsDelta ?? -1) ||
         (b.viewsDelta ?? -1) - (a.viewsDelta ?? -1))
