@@ -889,7 +889,8 @@ const accelerationBaseline = [
   { video_code:'StablePlay', title:'رشد ثابت پخش', create_date:'۲ ساعت پیش', visit_count:100, plays:100 },
   { video_code:'AccelViews', title:'رشد شتاب‌دار بازدید', create_date:'۲ ساعت پیش', visit_count:100 },
   { video_code:'ZeroPlayView', title:'شمارندهٔ پخش صفر و رشد بازدید', create_date:'۲ ساعت پیش', visit_count:100, play_count:0 },
-  { video_code:'FlatPlayView', title:'شمارندهٔ پخش غیرصفر و ثابت', create_date:'۲ ساعت پیش', visit_count:100, play_count:10 }
+  { video_code:'FlatPlayView', title:'شمارندهٔ پخش غیرصفر و ثابت', create_date:'۲ ساعت پیش', visit_count:100, play_count:10 },
+  { video_code:'StableView', title:'سرعت بازدید مثبت و پایدار', create_date:'۲ ساعت پیش', visit_count:100 }
 ];
 const accelerationFirst = rankCandidatesByMomentum(
   accelerationBaseline, accelerationState, accelerationStart
@@ -901,7 +902,8 @@ const accelerationSecond = rankCandidatesByMomentum([
   { ...accelerationBaseline[1], visit_count:110, plays:110 },
   { ...accelerationBaseline[2], visit_count:110 },
   { ...accelerationBaseline[3], visit_count:110, play_count:0 },
-  { ...accelerationBaseline[4], visit_count:110, play_count:10 }
+  { ...accelerationBaseline[4], visit_count:110, play_count:10 },
+  { ...accelerationBaseline[5], visit_count:110 }
 ], accelerationState, accelerationStart + 5 * 60 * 1000);
 assert.equal(accelerationSecond.filter(entry => entry.hasPositiveAcceleration).length, 0,
   'two observations establish velocity but not acceleration');
@@ -910,18 +912,22 @@ const accelerationThird = rankCandidatesByMomentum([
   { ...accelerationBaseline[1], visit_count:120, plays:120 },
   { ...accelerationBaseline[2], visit_count:130 },
   { ...accelerationBaseline[3], visit_count:130, play_count:0 },
-  { ...accelerationBaseline[4], visit_count:130, play_count:10 }
+  { ...accelerationBaseline[4], visit_count:130, play_count:10 },
+  { ...accelerationBaseline[5], visit_count:120 }
 ], accelerationState, accelerationStart + 10 * 60 * 1000);
 const playAccelerator = accelerationThird.find(entry => entry.item.video_code === 'AccelPlay');
 const stableVelocity = accelerationThird.find(entry => entry.item.video_code === 'StablePlay');
 const viewAccelerator = accelerationThird.find(entry => entry.item.video_code === 'AccelViews');
 const zeroPlayViewFallback = accelerationThird.find(entry => entry.item.video_code === 'ZeroPlayView');
 const flatPlayView = accelerationThird.find(entry => entry.item.video_code === 'FlatPlayView');
+const stableView = accelerationThird.find(entry => entry.item.video_code === 'StableView');
 assert.equal(playAccelerator.accelerationEvidence.metric, 'plays');
 assert.equal(playAccelerator.hasPositiveAcceleration, true,
   'a positive increase in play velocity across three observations must pass');
 assert.equal(stableVelocity.hasPositiveAcceleration, false,
-  'positive but flat velocity must not pass a strict acceleration gate');
+  'acceleration remains zero when positive play velocity is flat');
+assert.equal(stableVelocity.growthGatePassed, true,
+  'positive measured play velocity with three samples must pass even without positive acceleration');
 assert.equal(viewAccelerator.accelerationEvidence.metric, 'views');
 assert.equal(viewAccelerator.hasPositiveAcceleration, true,
   'views acceleration is the fallback only when a play counter is unavailable');
@@ -933,6 +939,18 @@ assert.equal(zeroPlayViewFallback.hasPositiveAcceleration, true,
 assert.equal(flatPlayView.playCounterZeroStalled, false);
 assert.equal(flatPlayView.hasPositiveAcceleration, false,
   'a nonzero but flat play counter must not be bypassed by growing views');
+assert.equal(flatPlayView.growthGatePassed, false);
+assert.equal(stableView.growthGatePassed, true,
+  'positive, stable view velocity must pass when the play counter is absent');
+assert.equal(stableView.hasPositiveAcceleration, false,
+  'acceleration is a ranking bonus rather than a mandatory publication gate');
+
+assert.equal(candidateAccelerationEvidence({
+  playMetric:{available:true,value:100},
+  hasPositivePlayGrowth:true,
+  momentum:{sampleCount:3,playsPerMinute:4,playsAccelerationPerMinute:0}
+}).passed,true,
+  'positive measured play velocity is sufficient even when acceleration is zero');
 
 assert.equal(candidateAccelerationEvidence({
   playMetric:{available:true,value:100},
