@@ -40,6 +40,7 @@ const {
   buildCategoryPageRequestPayload,
   buildVideoTagFeedPath,
   buildFiloGlobalSearchRequest,
+  fetchFiloGlobalSearchPage,
   normalizeVideoFeedItem,
   extractVideoTagFeeds,
   summarizeVideoTagPayload,
@@ -242,6 +243,40 @@ assert.deepEqual(globalSearchRequest.requestPayload, {
   rowCount: null, page: 3, needAllData: 0, windowWidth: 1440
 });
 assert.throws(() => buildFiloGlobalSearchRequest('   '), /filo_global_search_query_empty/);
+
+(async () => {
+  let capturedRequest = null;
+  const fakeSearchPage = {
+    async evaluate(fn, arg) {
+      const previousFetch = global.fetch;
+      global.fetch = async (requestPath, options) => {
+        capturedRequest = { requestPath, options };
+        return {
+          status: 200,
+          headers: { get: () => 'application/json' },
+          text: async () => JSON.stringify({
+            data: { p: 2, hm: 0, l: [{ v: 'Search01', t: 'نتیجه جست‌وجوی طنز' }] }
+          })
+        };
+      };
+      try {
+        return await fn(arg);
+      } finally {
+        global.fetch = previousFetch;
+      }
+    }
+  };
+  const searchPageResponse = await fetchFiloGlobalSearchPage(fakeSearchPage, {
+    query: 'طنز خنده دار', page: 2, windowWidth: 1440
+  });
+  assert.equal(searchPageResponse.status, 200);
+  assert.equal(capturedRequest.requestPath, globalSearchRequest.requestPath);
+  assert.equal(capturedRequest.options.method, 'POST');
+  assert.equal(capturedRequest.options.credentials, 'include');
+  assert.deepEqual(JSON.parse(capturedRequest.options.body), {
+    rowCount: null, page: 2, needAllData: 0, windowWidth: 1440
+  });
+})();
 assert.equal(buildVideoTagFeedPath('1058'), '/api/v1/video/ai-tag/1058',
   'authenticated Filo sessions expose numeric tag keys and route them directly');
 assert.throws(() => buildVideoTagFeedPath('../upload'), /filo_tag_key_invalid/);
