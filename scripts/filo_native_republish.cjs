@@ -2510,6 +2510,52 @@ function buildVideoTagFeedPath(tagKey) {
   return '/api/v1/video/ai-tag/' + encodeURIComponent(key);
 }
 
+
+function buildFiloGlobalSearchRequest(query, pageNo = 1, windowWidth = 1365) {
+  const normalizedQuery = String(query || '').trim();
+  if (!normalizedQuery) throw new Error('filo_global_search_query_empty');
+  const page = Math.max(1, Math.trunc(num(pageNo, 1)));
+  const width = Math.max(1, Math.trunc(num(windowWidth, 1365)));
+  return {
+    requestPath: '/api/v2/videos/search/' + encodeURIComponent(normalizedQuery),
+    requestPayload: { rowCount: null, page, needAllData: 0, windowWidth: width }
+  };
+}
+
+async function fetchFiloGlobalSearchPage(page, params = {}) {
+  if (!page || typeof page.evaluate !== 'function') {
+    throw new TypeError('filo_search_page_required');
+  }
+  const windowWidth = Number(params.windowWidth) > 0
+    ? Math.trunc(Number(params.windowWidth))
+    : await page.evaluate(() => Number(window.innerWidth) || 1365);
+  const request = buildFiloGlobalSearchRequest(
+    params.query, params.page, windowWidth
+  );
+  const result = await page.evaluate(async ({ requestPath, requestPayload }) => {
+    const response = await fetch(requestPath, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      body: JSON.stringify(requestPayload),
+      signal: AbortSignal.timeout(9000)
+    });
+    return {
+      status: response.status,
+      body: await response.text(),
+      contentType: response.headers.get('content-type') || 'unknown'
+    };
+  }, request);
+  if (!result || !Number.isFinite(Number(result.status))) {
+    throw new Error('filo_global_search_empty_response');
+  }
+  return result;
+}
+
 async function fetchCategoryPage(page, categoryId, pageNo) {
   // Match the current Filo VideoSection frontend: POST JSON to /video/ai-tag/{tagKey}.
   const windowWidth = await page.evaluate(() => Number(window.innerWidth) || 1365);
@@ -3838,6 +3884,8 @@ module.exports = {
   getPublicationPacingGate,
   buildCategoryPageRequestPayload,
   buildVideoTagFeedPath,
+  buildFiloGlobalSearchRequest,
+  fetchFiloGlobalSearchPage,
   normalizeVideoFeedItem,
   extractVideoTagFeeds,
   summarizeVideoTagPayload,
