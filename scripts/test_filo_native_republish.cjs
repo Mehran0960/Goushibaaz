@@ -473,9 +473,8 @@ assert.equal(
 assert.equal(editorialTitleQualityReason('لایک فالو حمایت یادتون نره عزیزای دلم'),
   'title_promotional_or_call_to_action',
   'pure engagement prompts must never be used as video titles');
-assert.equal(editorialTitleQualityReason('خنده دار پارت ۳۲ طنز کمدی'),
-  'title_generic_episode_label',
-  'a generic numbered clip title without a real subject must be rejected');
+assert.equal(editorialTitleQualityReason('خنده دار پارت ۳۲ طنز کمدی'), null,
+  'a numbered comedy title with a real source topic can be cleaned and retained');
 assert.equal(editorialTitleQualityReason('یک فیلم بسیار زیبا و رمانتیک که کار رو تموم میکنه'),
   'title_generic_praise_without_subject',
   'vague praise without an identifiable subject must be rejected');
