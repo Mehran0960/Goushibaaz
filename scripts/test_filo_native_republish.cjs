@@ -148,8 +148,8 @@ assert.ok(cleanedDescription.length >= 30);
 assert.equal(cleanedDescription.split('این ویدئو درباره فوتبال است').length - 1, 1,
   'duplicate description sentences must be removed');
 assert.equal(createDistinctRepostTitle('و نظر خود را بنویسید', '', 'AbC1234'),
-  'ویدئوی بازنشرشده AbC1234',
-  'a generic engagement prompt must never become the repost title');
+  'عنوان اصلی نامشخص',
+  'a generic engagement prompt must never become the repost title or expose an internal source code');
 assert.equal(candidateExternalTopicKey({
   title:'ویدئوی کوتاه',
   feed_tag_label:'تولد'
@@ -418,9 +418,10 @@ assert.ok(editorialTitleTokens('کلیپ طنز بهرام افشاری').includ
 assert.equal(editorialTitleQualityReason('من و رفیقام طنز دیلان برای کلیپ های بیشتر کانال مارا دنبال کنید'),
   'title_promotional_or_call_to_action',
   'the actual promotional title seen in the live ledger must be rejected');
-assert.equal(editorialTitleQualityReason('خنده دار پارت ۱۹ طنز کمدی'),
-  'title_generic_episode_label',
-  'generic part-only comedy titles must be rejected');
+assert.equal(editorialTitleQualityReason('خنده دار پارت ۱۹ طنز کمدی'), null,
+  'a numbered episode with a source-grounded topic remains usable after a concise rewrite');
+assert.equal(editorialTitleQualityReason('پارت ۱۹'), 'title_generic_episode_label',
+  'a number-only episode label without a source topic remains generic');
 assert.equal(editorialTitleQualityReason('روش پخت خورشت بامیه با مرغ'), null,
   'specific subject-driven cooking titles must remain eligible');
 
@@ -485,10 +486,12 @@ assert.equal(
   'واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را',
   'a CTA-only opening sentence must be skipped in favor of the first factual sentence'
 );
-assert.match(createDistinctRepostTitle('لایک فالو حمایت یادتون نره عزیزای دلم', '', 'Promo01'), /Promo01/,
-  'a promotional-only title must fall back safely instead of rejecting an otherwise eligible video');
-assert.match(createDistinctRepostTitle('خنده دار پارت ۳۲ 😂 طنز کمدی', '', 'Episode01'), /Episode01/,
-  'generic episode labels must receive a neutral fallback rather than blocking an eligible video');
+assert.equal(createDistinctRepostTitle('لایک فالو حمایت یادتون نره عزیزای دلم', '', 'Promo01'),
+  'عنوان اصلی نامشخص',
+  'a promotional-only title must fall back without attaching an unrelated internal source code');
+assert.equal(createDistinctRepostTitle('خنده دار پارت ۳۲ 😂 طنز کمدی', '', 'Episode01'),
+  'کلیپ طنز، قسمت ۳۲',
+  'a numbered comedy episode should retain only its source-grounded topic and episode number');
 assert.doesNotMatch(cleanRepostDescription(
   'موضوع ویدئو: شوخی در خرید لباس. لایک فالو حمایت یادتون نره عزیزای دلم. برای کلیپ های بیشتر کانال ما را دنبال کنید.',
   'عنوان منبع',
@@ -644,7 +647,9 @@ assert.equal(shortDescription, 'واکنش کوتاه خانواده در لحظ
   'a factual source description above the safe minimum remains unchanged');
 const missingDescriptionFallback = cleanRepostDescription('', 'عنوان منبع', cleanedTitle);
 assert.ok(missingDescriptionFallback.includes('این ویدئو دربارهٔ'));
-assert.ok(missingDescriptionFallback.includes(cleanedTitle));
+assert.ok(missingDescriptionFallback.includes('عنوان منبع'));
+assert.ok(!missingDescriptionFallback.includes(cleanedTitle),
+  'description fallback must describe the original source title, not the generated repost title');
 assert.ok(missingDescriptionFallback.length >= 30,
   'missing descriptions receive a neutral source-title-based description rather than filler');
 
@@ -657,16 +662,19 @@ const shortMetadata = createRepostMetadata({
 assert.equal(shortMetadata.title, 'روش پخت خورشت بامیه با مرغ');
 assert.match(shortMetadata.description, /این ویدئو دربارهٔ/);
 assert.match(shortMetadata.description, /واکنش کوتاه خانواده/);
+assert.match(shortMetadata.description, /طرز تهیه خورشت بامیه با مرغ/);
+assert.doesNotMatch(shortMetadata.description, /روش پخت خورشت بامیه با مرغ/,
+  'description fallback must refer to the original source wording rather than the editorial rewrite');
 assert.ok(shortMetadata.description.length >= 30,
   'short captions must be expanded only with a neutral sentence grounded in the source title');
-assert.ok(shortMetadata.title.length >= 5 && shortMetadata.title.length <= 180,
-  'generated titles must satisfy only the payload safety bounds; the 20–96 character editorial target is not an eligibility gate');
+assert.ok(shortMetadata.title.length >= 5 && shortMetadata.title.length <= 80,
+  'generated titles must remain within the current 80-character Filo field limit');
 const shortTitle = createDistinctRepostTitle('طرز تهیه چای', '');
-assert.ok(shortTitle.length >= 20 && shortTitle.length <= 96,
-  'short but meaningful source titles should be expanded without inventing new facts');
+assert.equal(shortTitle, 'روش پخت چای',
+  'short but meaningful source titles must stay concise instead of receiving generic filler');
 const fittedLongTitle = fitFiloTitleLength('ترانهٔ بسیار زیبا و شنیدنی از خوانندهٔ محبوب و پرطرفدار برای یک شب بارانی در شهر و کوچه‌های قدیمی با صدای گرم و دلنشین');
-assert.ok(fittedLongTitle.length <= 96 && fittedLongTitle.length >= 20,
-  'long titles must be safely trimmed below Filo’s 100-character rejection boundary');
+assert.ok(fittedLongTitle.length <= 80 && fittedLongTitle.length >= 5,
+  'long titles must be safely trimmed to the current Filo UI limit without generic padding');
 assert.equal(editorialTitleQualityReason('ترفند آشپزی'), null,
   'two informative terms are sufficient when the resulting title remains meaningful and within Filo limits');
 assert.throws(() => createRepostMetadata({
@@ -879,7 +887,8 @@ const thirdRank = rankCandidatesByMomentum(thirdScan, momentumState, momentumSta
 assert.equal(thirdRank[0].item.video_code, 'Comedy01');
 assert.equal(thirdRank[0].momentum.playsPerMinute, 2);
 assert.equal(thirdRank[0].momentum.playsAccelerationPerMinute, 0);
-assert.equal(thirdRank[0].momentum.viewsPerMinute, 30);
+assert.equal(thirdRank[0].momentum.viewsPerMinute, 20,
+  'velocity is estimated across the recent independent-sample window, not only the last adjacent interval');
 assert.equal(thirdRank[2].item.video_code, 'ViewsOnly');
 
 const accelerationState = { posts: [] };
