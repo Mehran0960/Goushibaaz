@@ -77,9 +77,9 @@ jobs:
 
             const main = await getText(mainUrl);
             const assetPaths = [...new Set((main.match(/assets\/[^"'\s]+\.js/g) || []).map(s => '/' + s))];
-            const uploadRelatedAssets = assetPaths.filter(x => /upload|video|media|device|file|film/i.test(x)).slice(0, 80);
+            const uploadRelatedAssets = assetPaths.filter(x => /upload|video|media|device|file|film|search|result|section/i.test(x)).slice(0, 80);
             const targetPaths = assetPaths.filter(x =>
-              /DorfakUploader|VideoSelector|EditVideo|UploadRules|VideoUpload|UploadVideo|MediaUpload|VideoMaker|UploadView|VideoInfoForm|VideoEditorView|SelectEditor/i.test(x)
+              /DorfakUploader|VideoSelector|EditVideo|UploadRules|VideoUpload|UploadVideo|MediaUpload|VideoMaker|UploadView|VideoInfoForm|VideoEditorView|SelectEditor|VideoSection|VideoList|SearchVideo|VideoSearch|Search/i.test(x)
             ).slice(0, 70);
             const targets = [{ path: new URL(mainUrl).pathname, js: main }];
             for (const p of targetPaths) {
@@ -93,7 +93,7 @@ jobs:
               '/api/v1/video', '/api/v1/videos', '/api/v1/upload', '/api/v2/upload',
               '/api/v1/my/videos', 'video/status', 'fileName', 'videoTitle',
               'title', 'description', 'categoryId', 'duration', 'uploadProgress',
-              'media_id', 'file_id', 'uploadUrl', 'fileUpload', 'fileUploader'
+              'media_id', 'file_id', 'uploadUrl', 'fileUpload', 'fileUploader', 'searchVideo', 'searchQuery', 'searchTerm', 'video/search', '/search', 'searchVideos', '/api/v2/videos/search/', '/api/v1/archive/search-tab/', '/api/v1/user/search-tab/', '/api/v1/playlist/search-tab/', 'search-tab', 'rowCount', 'pageSize', 'page:'
             ];
             const reports = [];
             const endpoints = new Set();
@@ -114,9 +114,20 @@ jobs:
                 continue;
               }
               for (const endpoint of target.js.match(endpointPattern) || []) {
-                if (/upload|video|file|media|publish|my\/videos|thumbnail|vod|category/i.test(endpoint)) endpoints.add(endpoint);
+                if (/upload|video|file|media|publish|my\/videos|thumbnail|vod|category|search|query|find/i.test(endpoint)) endpoints.add(endpoint);
               }
               const snippets = collectSnippets(target.js, terms, 3);
+              if (/Search-/i.test(target.path)) {
+                for (const term of ['/api/v2/videos/search/', '/api/v1/archive/search-tab/', '/api/v1/user/search-tab/', '/api/v1/playlist/search-tab/', 'rowCount', 'pageSize']) {
+                  let from = 0;
+                  for (let i = 0; i < 8; i++) {
+                    const idx = target.js.toLowerCase().indexOf(term.toLowerCase(), from);
+                    if (idx < 0) break;
+                    snippets.push({ term: 'extended:' + term, context: target.js.slice(Math.max(0, idx - 650), Math.min(target.js.length, idx + 1200)).replace(/\\s+/g, ' ').slice(0, 1900) });
+                    from = idx + term.length;
+                  }
+                }
+              }
               if (/DorfakUploader|VideoSelector|EditVideo|UploadRules|VideoUpload|UploadVideo|MediaUpload|VideoMaker/i.test(target.path) || snippets.length) {
                 reports.push({ path: target.path, bytes: target.js.length, snippets: snippets.slice(0, 45) });
               }

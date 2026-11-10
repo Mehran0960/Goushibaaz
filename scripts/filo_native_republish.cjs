@@ -51,15 +51,17 @@ const MAX_PUBLICATIONS_PER_ROLLING_HOUR = 3;
 const MAX_PUBLICATIONS_PER_24H = 36;
 const MAX_DETAIL_CHECKS = 90;
 const MIN_DURATION_SECONDS = 10;
-const CAPTION_POLICY_VERSION = 7;
-const TITLE_REWRITE_POLICY_VERSION = 6;
-const FILO_TITLE_MIN_CHARS = 20;
-const FILO_TITLE_MAX_CHARS = 96;
+const CAPTION_POLICY_VERSION = 8;
+const TITLE_REWRITE_POLICY_VERSION = 7;
+const FILO_TITLE_MIN_CHARS = 5;
+const FILO_TITLE_MAX_CHARS = 80;
 const FILO_DESCRIPTION_MIN_CHARS = 30;
-const CANDIDATE_METRIC_HISTORY_TTL_MS = 30 * 60 * 1000;
+const CANDIDATE_METRIC_HISTORY_TTL_MS = 60 * 60 * 1000;
 const CANDIDATE_METRIC_SAMPLE_INTERVAL_MS = 5 * 60 * 1000;
+const CANDIDATE_METRIC_HISTORY_SAMPLES = 8;
+const CANDIDATE_METRIC_RATE_WINDOW_SAMPLES = 6;
 const CANDIDATE_CATALOG_24H_TTL_MS = 24 * 60 * 60 * 1000;
-const MAX_TRACKED_CANDIDATE_METRICS = 1500;
+const MAX_TRACKED_CANDIDATE_METRICS = 5000;
 const MAX_TRACKED_24H_CANDIDATES = 5000;
 const MIN_ACCELERATION_SAMPLES = 3;
 
@@ -622,9 +624,50 @@ function update24HourCandidateCatalog(state, items, now = Date.now()) {
   };
 }
 
+function trailingMetricRate(samples, valueKey, availableKey) {
+  const valid = (Array.isArray(samples) ? samples : [])
+    .filter(sample => sample && sample[availableKey] === true &&
+      sample[valueKey] !== undefined && sample[valueKey] !== null &&
+      Number.isFinite(Number(sample[valueKey])) &&
+      Number.isFinite(Date.parse(sample.at)))
+    .slice(-CANDIDATE_METRIC_RATE_WINDOW_SAMPLES);
+  if (valid.length < 2) return { ratePerMinute: null, sampleCount: valid.length, windowMinutes: 0 };
+
+  // Counter resets can occur after backend refreshes. Start a new baseline
+  // after a decrease instead of interpreting the reset as negative growth.
+  let monotonic = [valid[0]];
+  for (const sample of valid.slice(1)) {
+    const previous = monotonic.at(-1);
+    if (num(sample[valueKey]) < num(previous[valueKey])) monotonic = [sample];
+    else monotonic.push(sample);
+  }
+  if (monotonic.length < 2) {
+    return { ratePerMinute: null, sampleCount: monotonic.length, windowMinutes: 0 };
+  }
+
+  const firstAt = Date.parse(monotonic[0].at);
+  const xValues = monotonic.map(sample => (Date.parse(sample.at) - firstAt) / 60000);
+  const yValues = monotonic.map(sample => num(sample[valueKey]));
+  const meanX = xValues.reduce((sum, value) => sum + value, 0) / xValues.length;
+  const meanY = yValues.reduce((sum, value) => sum + value, 0) / yValues.length;
+  const denominator = xValues.reduce((sum, value) => sum + (value - meanX) ** 2, 0);
+  if (!(denominator > 0)) {
+    return { ratePerMinute: null, sampleCount: monotonic.length, windowMinutes: 0 };
+  }
+  const numerator = xValues.reduce((sum, value, index) =>
+    sum + (value - meanX) * (yValues[index] - meanY), 0);
+  const windowMinutes = xValues.at(-1) - xValues[0];
+  return {
+    ratePerMinute: Math.max(0, numerator / denominator),
+    sampleCount: monotonic.length,
+    windowMinutes
+  };
+}
+
 function updateCandidateMomentum(state, items, now = Date.now()) {
   const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
-  const history = state.candidateMomentum && typeof state.candidateMomentum === 'object' ? state.candidateMomentum : {};
+  const history = state.candidateMomentum && typeof state.candidateMomentum === 'object'
+    ? state.candidateMomentum : {};
   const observed = {};
   const nowIso = new Date(nowMs).toISOString();
 
@@ -633,72 +676,58 @@ function updateCandidateMomentum(state, items, now = Date.now()) {
     if (!/^[A-Za-z0-9_-]{5,40}$/.test(code)) continue;
     const viewMetric = candidateMetricSnapshot(item, ['visit_count', 'view_count', 'views', 'visits']);
     const playMetric = candidateMetricSnapshot(item, ['play_count', 'plays', 'playCount']);
-    const views = viewMetric.value;
-    const plays = playMetric.value;
     const entry = history[code] && typeof history[code] === 'object' ? history[code] : {};
     let samples = Array.isArray(entry.samples) ? entry.samples.filter(sample => {
       const at = Date.parse(sample && sample.at || '');
-      return Number.isFinite(at) && nowMs - at >= 0 && nowMs - at <= CANDIDATE_METRIC_HISTORY_TTL_MS;
-    }).slice(-4) : [];
-    const previous = samples.at(-1) || null;
-    let rate = null;
-
-    if (previous) {
-      const elapsedMs = nowMs - Date.parse(previous.at);
-      if (elapsedMs >= CANDIDATE_METRIC_SAMPLE_INTERVAL_MS && elapsedMs <= CANDIDATE_METRIC_HISTORY_TTL_MS) {
-        const elapsedMinutes = elapsedMs / 60000;
-        const previousViewsAvailable = previous.viewsAvailable !== false &&
-          previous.views !== undefined && previous.views !== null;
-        const previousPlaysAvailable = previous.playsAvailable === true;
-        const deltaViews = viewMetric.available && previousViewsAvailable
-          ? views - candidateMetricValue(previous, ['views']) : null;
-        const deltaPlays = playMetric.available && previousPlaysAvailable
-          ? plays - candidateMetricValue(previous, ['plays']) : null;
-        const viewsPerMinute = deltaViews !== null && deltaViews >= 0
-          ? deltaViews / elapsedMinutes : null;
-        const playsPerMinute = deltaPlays !== null && deltaPlays >= 0
-          ? deltaPlays / elapsedMinutes : null;
-        const previousRate = entry.lastRate && typeof entry.lastRate === 'object' ? entry.lastRate : null;
-        const viewsAcceleration = viewsPerMinute !== null && previousRate &&
-          previousRate.viewsPerMinute !== null && previousRate.viewsPerMinute !== undefined
-          ? Math.max(0, viewsPerMinute - Math.max(0, num(previousRate.viewsPerMinute))) : 0;
-        const playsAcceleration = playsPerMinute !== null && previousRate &&
-          previousRate.playsAvailable === true && previousRate.playsPerMinute !== null &&
-          previousRate.playsPerMinute !== undefined
-          ? Math.max(0, playsPerMinute - Math.max(0, num(previousRate.playsPerMinute))) : 0;
-
-        if (viewsPerMinute !== null || playsPerMinute !== null) {
-          rate = {
-            viewsPerMinute: viewsPerMinute === null ? null : Math.round(viewsPerMinute * 100) / 100,
-            playsPerMinute: playsPerMinute === null ? null : Math.round(playsPerMinute * 100) / 100,
-            viewsAccelerationPerMinute: Math.round(viewsAcceleration * 100) / 100,
-            playsAccelerationPerMinute: Math.round(playsAcceleration * 100) / 100,
-            accelerationPerMinute: Math.round(viewsAcceleration * 100) / 100,
-            playsAvailable: playsPerMinute !== null,
-            playCounterPresent: playMetric.available,
-            sampleCount: samples.length + 1
-          };
-        }
-      }
-    }
+      return Number.isFinite(at) && nowMs - at >= 0 &&
+        nowMs - at <= CANDIDATE_METRIC_HISTORY_TTL_MS;
+    }).slice(-CANDIDATE_METRIC_HISTORY_SAMPLES) : [];
 
     const lastSampleAt = samples.length ? Date.parse(samples.at(-1).at) : NaN;
-    if (!Number.isFinite(lastSampleAt) || nowMs - lastSampleAt >= CANDIDATE_METRIC_SAMPLE_INTERVAL_MS) {
+    if (!Number.isFinite(lastSampleAt) ||
+        nowMs - lastSampleAt >= CANDIDATE_METRIC_SAMPLE_INTERVAL_MS) {
       samples.push({
         at: nowIso,
-        views,
+        views: viewMetric.value,
         viewsAvailable: viewMetric.available,
-        plays,
+        plays: playMetric.value,
         playsAvailable: playMetric.available
       });
-      samples = samples.slice(-4);
+      samples = samples.slice(-CANDIDATE_METRIC_HISTORY_SAMPLES);
     }
-    const nextEntry = { ...entry, samples, lastSeenAt: nowIso };
-    if (rate) {
-      nextEntry.lastRate = { ...rate, at: nowIso };
-      observed[code] = rate;
-    }
+
+    const views = trailingMetricRate(samples, 'views', 'viewsAvailable');
+    const plays = trailingMetricRate(samples, 'plays', 'playsAvailable');
+    const previousRate = entry.lastRate && typeof entry.lastRate === 'object'
+      ? entry.lastRate : null;
+    const viewsAcceleration = views.ratePerMinute !== null && previousRate &&
+      previousRate.viewsPerMinute !== null && previousRate.viewsPerMinute !== undefined
+      ? Math.max(0, views.ratePerMinute - Math.max(0, num(previousRate.viewsPerMinute))) : 0;
+    const playsAcceleration = plays.ratePerMinute !== null && previousRate &&
+      previousRate.playsPerMinute !== null && previousRate.playsPerMinute !== undefined
+      ? Math.max(0, plays.ratePerMinute - Math.max(0, num(previousRate.playsPerMinute))) : 0;
+
+    const rate = {
+      viewsPerMinute: views.ratePerMinute === null
+        ? null : Math.round(views.ratePerMinute * 100) / 100,
+      playsPerMinute: plays.ratePerMinute === null
+        ? null : Math.round(plays.ratePerMinute * 100) / 100,
+      viewsAccelerationPerMinute: Math.round(viewsAcceleration * 100) / 100,
+      playsAccelerationPerMinute: Math.round(playsAcceleration * 100) / 100,
+      accelerationPerMinute: Math.round(viewsAcceleration * 100) / 100,
+      playsAvailable: playMetric.available,
+      playCounterPresent: playMetric.available,
+      viewsAvailable: viewMetric.available,
+      playsSampleCount: plays.sampleCount,
+      viewsSampleCount: views.sampleCount,
+      sampleCount: samples.length,
+      viewsWindowMinutes: Math.round(views.windowMinutes * 100) / 100,
+      playsWindowMinutes: Math.round(plays.windowMinutes * 100) / 100
+    };
+
+    const nextEntry = { ...entry, samples, lastSeenAt: nowIso, lastRate: { ...rate, at: nowIso } };
     history[code] = nextEntry;
+    observed[code] = rate;
   }
 
   const retained = Object.entries(history)
@@ -840,22 +869,22 @@ function candidateMomentumScore(entry) {
 function candidateAccelerationEvidence(entry) {
   const momentum = entry && entry.momentum && typeof entry.momentum === 'object'
     ? entry.momentum : {};
-  const sampleCount = Math.trunc(num(momentum.sampleCount, 0));
-  if (sampleCount < MIN_ACCELERATION_SAMPLES) {
-    return {
-      passed: false,
-      reason: 'insufficient_independent_samples',
-      metric: null,
-      sampleCount,
-      minimumSamples: MIN_ACCELERATION_SAMPLES,
-      velocityPerMinute: null,
-      accelerationPerMinute: null
-    };
-  }
-
   const playCounterAvailable = Boolean(entry && entry.playMetric && entry.playMetric.available);
   const playCounterZeroStalled = Boolean(entry && entry.playCounterZeroStalled === true);
+
   if (playCounterAvailable && !playCounterZeroStalled) {
+    const sampleCount = Math.trunc(num(momentum.playsSampleCount ?? momentum.sampleCount, 0));
+    if (sampleCount < MIN_ACCELERATION_SAMPLES) {
+      return {
+        passed: false,
+        reason: 'insufficient_play_samples',
+        metric: 'plays',
+        sampleCount,
+        minimumSamples: MIN_ACCELERATION_SAMPLES,
+        velocityPerMinute: null,
+        accelerationPerMinute: null
+      };
+    }
     const velocity = num(momentum.playsPerMinute, 0);
     const acceleration = num(momentum.playsAccelerationPerMinute, 0);
     return {
@@ -874,6 +903,18 @@ function candidateAccelerationEvidence(entry) {
 
   if (entry && entry.hasPositiveViewGrowth &&
       (!playCounterAvailable || playCounterZeroStalled)) {
+    const sampleCount = Math.trunc(num(momentum.viewsSampleCount ?? momentum.sampleCount, 0));
+    if (sampleCount < MIN_ACCELERATION_SAMPLES) {
+      return {
+        passed: false,
+        reason: 'insufficient_view_samples',
+        metric: 'views',
+        sampleCount,
+        minimumSamples: MIN_ACCELERATION_SAMPLES,
+        velocityPerMinute: null,
+        accelerationPerMinute: null
+      };
+    }
     const velocity = num(momentum.viewsPerMinute, 0);
     const acceleration = num(
       momentum.viewsAccelerationPerMinute ?? momentum.accelerationPerMinute, 0
@@ -901,7 +942,11 @@ function candidateAccelerationEvidence(entry) {
     passed: false,
     reason: 'no_measured_positive_velocity',
     metric: null,
-    sampleCount,
+    sampleCount: Math.max(
+      Math.trunc(num(momentum.playsSampleCount, 0)),
+      Math.trunc(num(momentum.viewsSampleCount, 0)),
+      Math.trunc(num(momentum.sampleCount, 0))
+    ),
     minimumSamples: MIN_ACCELERATION_SAMPLES,
     velocityPerMinute: null,
     accelerationPerMinute: null
@@ -1047,7 +1092,9 @@ function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicW
     const metricHistory = state && state.candidateMomentum &&
       state.candidateMomentum[code] && Array.isArray(state.candidateMomentum[code].samples)
       ? state.candidateMomentum[code].samples : [];
-    const recentPlaySamples = metricHistory.slice(-MIN_ACCELERATION_SAMPLES);
+    const recentPlaySamples = metricHistory
+      .filter(sample => sample && sample.playsAvailable === true && Number.isFinite(Number(sample.plays)))
+      .slice(-MIN_ACCELERATION_SAMPLES);
     const playCounterZeroStalled = Boolean(
       playMetric.available && playMetric.value === 0 &&
       recentPlaySamples.length >= MIN_ACCELERATION_SAMPLES &&
@@ -1094,12 +1141,14 @@ function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicW
     const externalTopicTrendScore = Math.max(0, Math.min(100,
       num(trendWeights[entry.externalTopicKey]) * 10
     ));
+    const audienceFitRankScore = Math.max(0, Math.min(100, entry.audienceFitScore / 3 * 100));
     const rankingScore =
-      0.68 * entry.momentumScore +
+      0.64 * entry.momentumScore +
       0.10 * topic.demandScore +
       0.12 * externalTopicTrendScore +
       0.08 * entry.durationPreferenceScore +
-      0.02 * entry.freshnessScore;
+      0.02 * entry.freshnessScore +
+      0.04 * audienceFitRankScore;
     return {
       ...entry,
       topicDemandScore: topic.demandScore,
@@ -1108,6 +1157,7 @@ function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicW
       topicGrowingCandidateCount: topic.growingCandidateCount,
       topicAverageVelocity: topic.averageVelocity,
       topicAverageAcceleration: topic.averageAcceleration,
+      audienceFitRankScore,
       rankingScore: Math.round(rankingScore * 100) / 100
     };
   }).sort((a, b) => {
@@ -1187,7 +1237,10 @@ function cleanRepostCaptionTitle(sourceTitle) {
     .replace(/#[^\s#]+/gu, ' ')
     .replace(/@[\p{L}\p{N}_.-]+/gu, ' ')
     .replace(/^(?:(?:ماجرای\s+بامزه(?:‌ی|ی)?|روایت\s+تصویری|روایتی\s+از)\s*[:،؛-]?\s*)+/iu, '')
-    .replace(/^\s*(?:کلیپ|ویدئو|ویدیو|فیلم)\s+/iu, '')
+    .replace(/^\s*(?:ویدئو|ویدیو|فیلم)\s+/iu, '')
+    .replace(/^\s*کلیپ\s+(?!(?:های|ها)(?:\s|$))/iu, '')
+    .replace(/[\\/|]{2,}/gu, ' ')
+    .replace(/(?:^|[\s،؛,|/–—-])(?:برای\s+کلیپ(?:\s+های)?\s+بیشتر|کانال\s*(?:ما|مارا|رو|را)\s*(?:را\s*)?دنبال\s*کنید|ما\s*را\s*دنبال\s*کنید|لایک\s*(?:کنید|کنین)?|فالو\s*(?:کنید|کنین)?|حمایت\s*(?:کنید|کنین)?|یادتون\s+نره|سابسکرایب\s*(?:کنید|کنین)?|عضو\s*(?:شوید|بشید))[^]*$/iu, ' ')
     .replace(/\p{Extended_Pictographic}|[\uFE0E\uFE0F]/gu, ' ')
     .replace(/([!?؟،؛:,.…–—-])\1+/gu, '$1')
     .replace(/([^\s\p{P}\p{S}])\1{3,}/gu, '$1$1')
@@ -1201,11 +1254,7 @@ function cleanRepostCaptionTitle(sourceTitle) {
 function fitFiloTitleLength(value) {
   let title = String(value || '').replace(/\s+/g, ' ').trim();
   if (title.length > FILO_TITLE_MAX_CHARS) title = trimAtWord(title, FILO_TITLE_MAX_CHARS);
-  if (title.length < FILO_TITLE_MIN_CHARS) {
-    title = `نگاهی کوتاه دربارهٔ ${title}`;
-    if (title.length > FILO_TITLE_MAX_CHARS) title = trimAtWord(title, FILO_TITLE_MAX_CHARS);
-  }
-  return title;
+  return title.length >= FILO_TITLE_MIN_CHARS ? title : 'عنوان اصلی نامشخص';
 }
 
 const EDITORIAL_TITLE_STOPWORDS = new Set([
@@ -1240,13 +1289,17 @@ function editorialTitleQualityReason(value) {
   const substantive = tokens.filter(token =>
     !/^(?:پارت|قسمت|بخش|part|episode|کمدی|طنز|خنده|دار|کلیپ|ویدئو|ویدیو|فیلم|شماره|\d+)$/iu.test(token)
   );
-  if (/(?:پارت|قسمت|episode|part)\s*[0-9۰-۹]+/iu.test(title) && substantive.length < 2) {
+  if (/(?:پارت|قسمت|episode|part)\s*[0-9۰-۹]+/iu.test(title) && substantive.length < 2 &&
+      !/(?:طنز|خنده|آشپزی|آهنگ|ترانه|ورزش|فوتبال|حیوان|ترفند|آموزش)/iu.test(title)) {
     return 'title_generic_episode_label';
   }
   if (/^(?:یک\s+)?(?:فیلم|کلیپ|ویدئو|ویدیو)\s+(?:بسیار\s+|خیلی\s+)?(?:زیبا|جذاب|عالی|رمانتیک|فوق.?العاده)(?:\s+و\s+(?:بسیار\s+)?(?:زیبا|جذاب|عالی|رمانتیک))?.{0,70}$/iu.test(title)) {
     return 'title_generic_praise_without_subject';
   }
-  if (tokens.length < 2) return 'title_not_distinct_or_editorially_clean';
+  if (tokens.length < 2 && !(/(?:پارت|قسمت|episode|part)\s*[0-9۰-۹]+/iu.test(title) &&
+      /(?:طنز|خنده|آشپزی|آهنگ|ترانه|ورزش|فوتبال|حیوان|ترفند|آموزش)/iu.test(title))) {
+    return 'title_not_distinct_or_editorially_clean';
+  }
   return null;
 }
 
@@ -1328,7 +1381,7 @@ function createDistinctRepostTitle(sourceTitle, sourceDescription = '', sourceCo
     [/^بلوچی\s+آهنگ\s+بلوچی\s+(.+)$/u,m=>['ترانه بلوچی «'+m[1]+'»']],
     [/^دانلود\s+آهنگ(?:\s+جدید)?\s+(.+?)\s+به\s+نام\s+(.+)$/u,m=>['ترانه «'+m[2]+'» از '+m[1]]],
     [/^آهنگ\s+(افشین\s+آذری)\s+و\s+(وفا\s+شریفوا)\s+(.+)$/u,m=>['همخوانی '+m[1]+' و '+m[2]+' با ترانه «'+m[3]+'»']],
-    [/^آهنگ\s+(.+?)\s+و\s+(.+?)\s+(.+)$/u,m=>['همخوانی '+m[1]+' و '+m[2]+' با ترانه «'+m[3]+'»']],
+    [/^(?:خنده\s*دار|طنز|کلیپ\s+طنز)\s+(?:پارت|قسمت)\s*([0-9۰-۹]+)(?:\s+.*)?$/u,m=>['کلیپ طنز، قسمت '+m[1]]],
     [/^([0-9۰-۹]{1,2})\s+آبان\s+ماهی\s+عزیز\s+تولدت\s+مبارک$/u,m=>['تبریک تولد به متولد '+m[1]+' آبان']],
     [/^طنر\s+بازی\s+کردن\s+با\s+(.+)$/u,m=>['بازی با '+m[1]+' در قالب طنز']],
     [/^طنز\s+بهترین\s+رفیق\s+ها$/u,()=>['بهترین رفیق‌ها در قاب طنز']],
@@ -1351,7 +1404,7 @@ function createDistinctRepostTitle(sourceTitle, sourceDescription = '', sourceCo
   const descriptionCandidate = descriptionBasedTitleCandidate(sourceDescription, sourceTitle);
   if (descriptionCandidate) drafts.push(descriptionCandidate);
   if (cleaned && !editorialTitleQualityReason(cleaned) && !policyTextRiskReason({ title: cleaned })) {
-    drafts.push('نگاهی به ' + cleaned);
+    drafts.push(cleaned);
   }
 
   const candidates = [];
@@ -1360,7 +1413,8 @@ function createDistinctRepostTitle(sourceTitle, sourceDescription = '', sourceCo
     if (candidates.includes(candidate)) continue;
     if (editorialTitleQualityReason(candidate)) continue;
     const tokens = editorialTitleTokens(candidate);
-    if (tokens.length < 2 || candidate.length < FILO_TITLE_MIN_CHARS || candidate.length > FILO_TITLE_MAX_CHARS) continue;
+    if (tokens.length < 2 && !/(?:پارت|قسمت|episode|part)\s*[0-9۰-۹]+/iu.test(candidate)) continue;
+    if (candidate.length < FILO_TITLE_MIN_CHARS || candidate.length > FILO_TITLE_MAX_CHARS) continue;
     const contentWords = normalizeCaptionEditorialText(candidate).toLocaleLowerCase('fa-IR')
       .replace(/[يى]/g, 'ی').replace(/ك/g, 'ک').replace(/[^\p{L}\p{N}]+/gu, ' ')
       .split(/\s+/).filter(token => token.length > 1 && !EDITORIAL_TITLE_STOPWORDS.has(token));
@@ -1397,8 +1451,7 @@ function createDistinctRepostTitle(sourceTitle, sourceDescription = '', sourceCo
     return fitFiloTitleLength(value);
   }
 
-  const safeCode = String(sourceCode || '').replace(/[^A-Za-z0-9_-]/g, '').slice(0, 40);
-  return safeCode ? 'ویدئوی بازنشرشده ' + safeCode : 'ویدئوی بازنشرشده';
+  return 'عنوان اصلی نامشخص';
 }
 
 function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
@@ -1429,12 +1482,13 @@ function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
   // A concise factual fallback avoids Filo's "description too short" rejection.
   // It is grounded only in the already-authorized source title and preserves any
   // remaining factual source description; it does not invent scene details.
-  const topic = String(repostTitle || sourceTitle || '').trim();
-  const groundedFallback = topic ? `این ویدئو دربارهٔ «${topic}» است.` : '';
+  const topic = cleanRepostCaptionTitle(sourceTitle);
+  const groundedFallback = topic && !policyTextRiskReason({ title: topic })
+    ? `این ویدئو دربارهٔ «${topic}» است.` : '';
   const finalDescription = description.length >= FILO_DESCRIPTION_MIN_CHARS
     ? description
     : [groundedFallback, description].filter(Boolean).join(' ');
-  return trimAtWord(finalDescription || topic, 900);
+  return trimAtWord(finalDescription || topic || 'توضیحات تکمیلی در متن اصلی موجود نیست.', 900);
 }
 
 function createRepostMetadata(video, sourceCode) {
@@ -2454,6 +2508,52 @@ function buildVideoTagFeedPath(tagKey) {
     throw new Error('filo_tag_key_invalid');
   }
   return '/api/v1/video/ai-tag/' + encodeURIComponent(key);
+}
+
+
+function buildFiloGlobalSearchRequest(query, pageNo = 1, windowWidth = 1365) {
+  const normalizedQuery = String(query || '').trim();
+  if (!normalizedQuery) throw new Error('filo_global_search_query_empty');
+  const page = Math.max(1, Math.trunc(num(pageNo, 1)));
+  const width = Math.max(1, Math.trunc(num(windowWidth, 1365)));
+  return {
+    requestPath: '/api/v2/videos/search/' + encodeURIComponent(normalizedQuery),
+    requestPayload: { rowCount: null, page, needAllData: 0, windowWidth: width }
+  };
+}
+
+async function fetchFiloGlobalSearchPage(page, params = {}) {
+  if (!page || typeof page.evaluate !== 'function') {
+    throw new TypeError('filo_search_page_required');
+  }
+  const windowWidth = Number(params.windowWidth) > 0
+    ? Math.trunc(Number(params.windowWidth))
+    : await page.evaluate(() => Number(window.innerWidth) || 1365);
+  const request = buildFiloGlobalSearchRequest(
+    params.query, params.page, windowWidth
+  );
+  const result = await page.evaluate(async ({ requestPath, requestPayload }) => {
+    const response = await fetch(requestPath, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      body: JSON.stringify(requestPayload),
+      signal: AbortSignal.timeout(9000)
+    });
+    return {
+      status: response.status,
+      body: await response.text(),
+      contentType: response.headers.get('content-type') || 'unknown'
+    };
+  }, request);
+  if (!result || !Number.isFinite(Number(result.status))) {
+    throw new Error('filo_global_search_empty_response');
+  }
+  return result;
 }
 
 async function fetchCategoryPage(page, categoryId, pageNo) {
@@ -3784,6 +3884,8 @@ module.exports = {
   getPublicationPacingGate,
   buildCategoryPageRequestPayload,
   buildVideoTagFeedPath,
+  buildFiloGlobalSearchRequest,
+  fetchFiloGlobalSearchPage,
   normalizeVideoFeedItem,
   extractVideoTagFeeds,
   summarizeVideoTagPayload,

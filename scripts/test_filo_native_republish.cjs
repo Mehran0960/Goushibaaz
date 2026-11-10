@@ -39,6 +39,8 @@ const {
   getPublicationPacingGate,
   buildCategoryPageRequestPayload,
   buildVideoTagFeedPath,
+  buildFiloGlobalSearchRequest,
+  fetchFiloGlobalSearchPage,
   normalizeVideoFeedItem,
   extractVideoTagFeeds,
   summarizeVideoTagPayload,
@@ -148,8 +150,8 @@ assert.ok(cleanedDescription.length >= 30);
 assert.equal(cleanedDescription.split('این ویدئو درباره فوتبال است').length - 1, 1,
   'duplicate description sentences must be removed');
 assert.equal(createDistinctRepostTitle('و نظر خود را بنویسید', '', 'AbC1234'),
-  'ویدئوی بازنشرشده AbC1234',
-  'a generic engagement prompt must never become the repost title');
+  'عنوان اصلی نامشخص',
+  'a generic engagement prompt must never become the repost title or expose an internal source code');
 assert.equal(candidateExternalTopicKey({
   title:'ویدئوی کوتاه',
   feed_tag_label:'تولد'
@@ -232,6 +234,52 @@ assert.deepEqual(buildCategoryPageRequestPayload('3', 0), {
 }, 'invalid window width must safely use the same browser fallback');
 assert.equal(buildVideoTagFeedPath('q-طنز'), '/api/v1/video/ai-tag/q-%D8%B7%D9%86%D8%B2');
 assert.equal(buildVideoTagFeedPath('all'), '/api/v1/video/ai-tag/all');
+const globalSearchRequest = buildFiloGlobalSearchRequest('طنز خنده دار', 3, 1440);
+assert.equal(
+  globalSearchRequest.requestPath,
+  '/api/v2/videos/search/%D8%B7%D9%86%D8%B2%20%D8%AE%D9%86%D8%AF%D9%87%20%D8%AF%D8%A7%D8%B1'
+);
+assert.deepEqual(globalSearchRequest.requestPayload, {
+  rowCount: null, page: 3, needAllData: 0, windowWidth: 1440
+});
+assert.throws(() => buildFiloGlobalSearchRequest('   '), /filo_global_search_query_empty/);
+
+(async () => {
+  let capturedRequest = null;
+  const fakeSearchPage = {
+    async evaluate(fn, arg) {
+      const previousFetch = global.fetch;
+      global.fetch = async (requestPath, options) => {
+        capturedRequest = { requestPath, options };
+        return {
+          status: 200,
+          headers: { get: () => 'application/json' },
+          text: async () => JSON.stringify({
+            data: { p: 2, hm: 0, l: [{ v: 'Search01', t: 'نتیجه جست‌وجوی طنز' }] }
+          })
+        };
+      };
+      try {
+        return await fn(arg);
+      } finally {
+        global.fetch = previousFetch;
+      }
+    }
+  };
+  const searchPageResponse = await fetchFiloGlobalSearchPage(fakeSearchPage, {
+    query: 'طنز خنده دار', page: 2, windowWidth: 1440
+  });
+  assert.equal(searchPageResponse.status, 200);
+  assert.equal(capturedRequest.requestPath, globalSearchRequest.requestPath);
+  assert.equal(capturedRequest.options.method, 'POST');
+  assert.equal(capturedRequest.options.credentials, 'include');
+  assert.deepEqual(JSON.parse(capturedRequest.options.body), {
+    rowCount: null, page: 2, needAllData: 0, windowWidth: 1440
+  });
+})().catch(error => {
+  console.error(error);
+  process.exitCode = 1;
+});
 assert.equal(buildVideoTagFeedPath('1058'), '/api/v1/video/ai-tag/1058',
   'authenticated Filo sessions expose numeric tag keys and route them directly');
 assert.throws(() => buildVideoTagFeedPath('../upload'), /filo_tag_key_invalid/);
@@ -418,9 +466,10 @@ assert.ok(editorialTitleTokens('کلیپ طنز بهرام افشاری').includ
 assert.equal(editorialTitleQualityReason('من و رفیقام طنز دیلان برای کلیپ های بیشتر کانال مارا دنبال کنید'),
   'title_promotional_or_call_to_action',
   'the actual promotional title seen in the live ledger must be rejected');
-assert.equal(editorialTitleQualityReason('خنده دار پارت ۱۹ طنز کمدی'),
-  'title_generic_episode_label',
-  'generic part-only comedy titles must be rejected');
+assert.equal(editorialTitleQualityReason('خنده دار پارت ۱۹ طنز کمدی'), null,
+  'a numbered episode with a source-grounded topic remains usable after a concise rewrite');
+assert.equal(editorialTitleQualityReason('پارت ۱۹'), 'title_generic_episode_label',
+  'a number-only episode label without a source topic remains generic');
 assert.equal(editorialTitleQualityReason('روش پخت خورشت بامیه با مرغ'), null,
   'specific subject-driven cooking titles must remain eligible');
 
@@ -472,9 +521,8 @@ assert.equal(
 assert.equal(editorialTitleQualityReason('لایک فالو حمایت یادتون نره عزیزای دلم'),
   'title_promotional_or_call_to_action',
   'pure engagement prompts must never be used as video titles');
-assert.equal(editorialTitleQualityReason('خنده دار پارت ۳۲ طنز کمدی'),
-  'title_generic_episode_label',
-  'a generic numbered clip title without a real subject must be rejected');
+assert.equal(editorialTitleQualityReason('خنده دار پارت ۳۲ طنز کمدی'), null,
+  'a numbered comedy title with a real source topic can be cleaned and retained');
 assert.equal(editorialTitleQualityReason('یک فیلم بسیار زیبا و رمانتیک که کار رو تموم میکنه'),
   'title_generic_praise_without_subject',
   'vague praise without an identifiable subject must be rejected');
@@ -485,10 +533,12 @@ assert.equal(
   'واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را',
   'a CTA-only opening sentence must be skipped in favor of the first factual sentence'
 );
-assert.match(createDistinctRepostTitle('لایک فالو حمایت یادتون نره عزیزای دلم', '', 'Promo01'), /Promo01/,
-  'a promotional-only title must fall back safely instead of rejecting an otherwise eligible video');
-assert.match(createDistinctRepostTitle('خنده دار پارت ۳۲ 😂 طنز کمدی', '', 'Episode01'), /Episode01/,
-  'generic episode labels must receive a neutral fallback rather than blocking an eligible video');
+assert.equal(createDistinctRepostTitle('لایک فالو حمایت یادتون نره عزیزای دلم', '', 'Promo01'),
+  'عنوان اصلی نامشخص',
+  'a promotional-only title must fall back without attaching an unrelated internal source code');
+assert.equal(createDistinctRepostTitle('خنده دار پارت ۳۲ 😂 طنز کمدی', '', 'Episode01'),
+  'کلیپ طنز، قسمت ۳۲',
+  'a numbered comedy episode should retain only its source-grounded topic and episode number');
 assert.doesNotMatch(cleanRepostDescription(
   'موضوع ویدئو: شوخی در خرید لباس. لایک فالو حمایت یادتون نره عزیزای دلم. برای کلیپ های بیشتر کانال ما را دنبال کنید.',
   'عنوان منبع',
@@ -577,7 +627,7 @@ cacheCandidateRejection(rejectionCacheState,'Cache01',cacheVideo,
   'title_without_safe_editorial_rewrite',Date.parse('2026-11-04T12:00:00.000Z'));
 assert.ok(getCachedCandidateRejection(rejectionCacheState,'Cache01',cacheVideo,
   Date.parse('2026-11-04T13:00:00.000Z')));
-assert.equal(rejectionCacheState.candidateRejections.Cache01.titleRewritePolicyVersion, 6);
+assert.equal(rejectionCacheState.candidateRejections.Cache01.titleRewritePolicyVersion, 7);
 assert.equal(isTitleRewriteRejectionReason('title_without_safe_editorial_rewrite'), true);
 assert.equal(isTitleRewriteRejectionReason('title_promotional_or_call_to_action'), true);
 assert.equal(isTitleRewriteRejectionReason('title_generic_episode_label'), true);
@@ -639,12 +689,18 @@ assert.equal(getCachedCandidateRejection(rejectionCacheState,'Cache01',cacheVide
 const cleanedTitle = cleanRepostCaptionTitle('کلیپ خنده‌دار از مسابقه فوتبال 😂 #فوتبال');
 assert.ok(cleanedTitle.includes('مسابقه فوتبال'));
 assert.doesNotMatch(cleanedTitle, /https?:\/\/|#/);
+assert.equal(cleanRepostCaptionTitle(
+  'کلیپ های طنز و خنده//بهرام افشاری برای کلیپ های بیشتر کانال ما را دنبال کنید'
+), 'کلیپ های طنز و خنده بهرام افشاری',
+  'repeated separators and trailing channel promotion must be removed while preserving the source subject');
 const shortDescription = cleanRepostDescription('واکنش کوتاه خانواده در لحظه رسیدن مهمان.', 'عنوان منبع', cleanedTitle);
 assert.equal(shortDescription, 'واکنش کوتاه خانواده در لحظه رسیدن مهمان.',
   'a factual source description above the safe minimum remains unchanged');
 const missingDescriptionFallback = cleanRepostDescription('', 'عنوان منبع', cleanedTitle);
 assert.ok(missingDescriptionFallback.includes('این ویدئو دربارهٔ'));
-assert.ok(missingDescriptionFallback.includes(cleanedTitle));
+assert.ok(missingDescriptionFallback.includes('عنوان منبع'));
+assert.ok(!missingDescriptionFallback.includes(cleanedTitle),
+  'description fallback must describe the original source title, not the generated repost title');
 assert.ok(missingDescriptionFallback.length >= 30,
   'missing descriptions receive a neutral source-title-based description rather than filler');
 
@@ -657,16 +713,19 @@ const shortMetadata = createRepostMetadata({
 assert.equal(shortMetadata.title, 'روش پخت خورشت بامیه با مرغ');
 assert.match(shortMetadata.description, /این ویدئو دربارهٔ/);
 assert.match(shortMetadata.description, /واکنش کوتاه خانواده/);
+assert.match(shortMetadata.description, /طرز تهیه خورشت بامیه با مرغ/);
+assert.doesNotMatch(shortMetadata.description, /روش پخت خورشت بامیه با مرغ/,
+  'description fallback must refer to the original source wording rather than the editorial rewrite');
 assert.ok(shortMetadata.description.length >= 30,
   'short captions must be expanded only with a neutral sentence grounded in the source title');
-assert.ok(shortMetadata.title.length >= 5 && shortMetadata.title.length <= 180,
-  'generated titles must satisfy only the payload safety bounds; the 20–96 character editorial target is not an eligibility gate');
+assert.ok(shortMetadata.title.length >= 5 && shortMetadata.title.length <= 80,
+  'generated titles must remain within the current 80-character Filo field limit');
 const shortTitle = createDistinctRepostTitle('طرز تهیه چای', '');
-assert.ok(shortTitle.length >= 20 && shortTitle.length <= 96,
-  'short but meaningful source titles should be expanded without inventing new facts');
+assert.equal(shortTitle, 'روش پخت چای',
+  'short but meaningful source titles must stay concise instead of receiving generic filler');
 const fittedLongTitle = fitFiloTitleLength('ترانهٔ بسیار زیبا و شنیدنی از خوانندهٔ محبوب و پرطرفدار برای یک شب بارانی در شهر و کوچه‌های قدیمی با صدای گرم و دلنشین');
-assert.ok(fittedLongTitle.length <= 96 && fittedLongTitle.length >= 20,
-  'long titles must be safely trimmed below Filo’s 100-character rejection boundary');
+assert.ok(fittedLongTitle.length <= 80 && fittedLongTitle.length >= 5,
+  'long titles must be safely trimmed to the current Filo UI limit without generic padding');
 assert.equal(editorialTitleQualityReason('ترفند آشپزی'), null,
   'two informative terms are sufficient when the resulting title remains meaningful and within Filo limits');
 assert.throws(() => createRepostMetadata({
@@ -879,7 +938,8 @@ const thirdRank = rankCandidatesByMomentum(thirdScan, momentumState, momentumSta
 assert.equal(thirdRank[0].item.video_code, 'Comedy01');
 assert.equal(thirdRank[0].momentum.playsPerMinute, 2);
 assert.equal(thirdRank[0].momentum.playsAccelerationPerMinute, 0);
-assert.equal(thirdRank[0].momentum.viewsPerMinute, 30);
+assert.equal(thirdRank[0].momentum.viewsPerMinute, 20,
+  'velocity is estimated across the recent independent-sample window, not only the last adjacent interval');
 assert.equal(thirdRank[2].item.video_code, 'ViewsOnly');
 
 const accelerationState = { posts: [] };
@@ -980,6 +1040,43 @@ assert.equal(candidateAccelerationEvidence({
   hasPositivePlayGrowth:true,
   momentum:{sampleCount:2,playsPerMinute:10,playsAccelerationPerMinute:3}
 }).passed, false, 'acceleration requires at least three independent samples');
+
+const plateauState = { posts: [] };
+const plateauStart = Date.parse('2026-11-06T02:00:00.000Z');
+const plateauBase = {
+  video_code:'PlateauViews',
+  title:'رشد بازدید ویدئوی طنز',
+  create_date:'۲ ساعت پیش',
+  visit_count:100
+};
+rankCandidatesByMomentum([plateauBase], plateauState, plateauStart);
+rankCandidatesByMomentum([{...plateauBase, visit_count:120}], plateauState, plateauStart + 5 * 60000);
+rankCandidatesByMomentum([{...plateauBase, visit_count:120}], plateauState, plateauStart + 10 * 60000);
+const plateauRank = rankCandidatesByMomentum(
+  [{...plateauBase, visit_count:120}], plateauState, plateauStart + 15 * 60000
+);
+const plateauCandidate = plateauRank.find(entry => entry.item.video_code === 'PlateauViews');
+assert.equal(plateauCandidate.momentum.viewsSampleCount, 4);
+assert.ok(plateauCandidate.momentum.viewsPerMinute > 0,
+  'a flat final five-minute interval must not erase growth measured across the recent sample window');
+assert.equal(plateauCandidate.growthGatePassed, true,
+  'three or more independent views samples with positive trailing-window velocity must pass when plays are absent');
+assert.equal(plateauCandidate.hasPositiveAcceleration, false,
+  'a plateau in the latest interval must remove only the acceleration bonus, not measured positive velocity');
+
+const audienceState = { posts: [] };
+const audienceStart = Date.parse('2026-11-06T03:00:00.000Z');
+const audienceBaseline = [
+  {video_code:'AudienceComedy',title:'طنز و خنده در یک موقعیت عجیب',create_date:'۲ ساعت پیش',category_id:6,duration:30,visit_count:100,plays:100},
+  {video_code:'AudienceGeneral',title:'یک ویدئوی معمولی با توضیح عمومی',create_date:'۲ ساعت پیش',category_id:6,duration:30,visit_count:100,plays:100}
+];
+rankCandidatesByMomentum(audienceBaseline,audienceState,audienceStart);
+const audienceRank = rankCandidatesByMomentum([
+  {...audienceBaseline[0],visit_count:200,plays:110},
+  {...audienceBaseline[1],visit_count:200,plays:110}
+],audienceState,audienceStart+5*60000);
+assert.equal(audienceRank[0].item.video_code,'AudienceComedy',
+  'when measured momentum and other evidence are equal, the stated entertainment audience fit should break the tie');
 
 const catalogState = {};
 const catalogStart = Date.parse('2026-11-06T00:00:00.000Z');

@@ -76,11 +76,15 @@ function buildFiloTrendQueries(trends, options = {}) {
 }
 
 function responseRoot(payload) {
-  if (!payload || typeof payload !== 'object') return {};
-  if (payload.data && typeof payload.data === 'object' && !Array.isArray(payload.data)) {
-    return payload.data;
+  let value = payload;
+  if (typeof value === 'string') {
+    try { value = JSON.parse(value); } catch { return {}; }
   }
-  return payload;
+  if (!value || typeof value !== 'object') return {};
+  if (value.data && typeof value.data === 'object' && !Array.isArray(value.data)) {
+    return value.data;
+  }
+  return value;
 }
 
 function responseItems(root) {
