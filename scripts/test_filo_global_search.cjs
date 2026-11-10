@@ -81,6 +81,17 @@ const pages = {
   assert.equal(result.results[0].globalTrendSearch.trendTitle, trends[0].title);
   assert.deepEqual(result.results[0].globalTrendSearch.trendKeywords, trends[0].keywords);
 
+  const jsonTextResponse = await searchFiloGlobalTopic('json text', async () => ({
+    status: 200,
+    body: JSON.stringify({
+      data: { p: 1, hm: 0, l: [{ v: 'JsonText01', t: 'عنوان از پاسخ متنی' }] }
+    }),
+    contentType: 'application/json'
+  }));
+  assert.equal(jsonTextResponse.complete, true);
+  assert.equal(jsonTextResponse.results[0].video_code, 'JsonText01',
+    'Filo browser search returns JSON text that must be parsed before candidate normalization');
+
   const nested = await searchFiloGlobalTopic('nested', async () => ({
     data: { p: 1, hm: 0, l: [{ v: 'Nested01', t: 'عنوان ویدئو' }] }
   }));
