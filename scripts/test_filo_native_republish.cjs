@@ -39,6 +39,7 @@ const {
   getPublicationPacingGate,
   buildCategoryPageRequestPayload,
   buildVideoTagFeedPath,
+  buildFiloGlobalSearchRequest,
   normalizeVideoFeedItem,
   extractVideoTagFeeds,
   summarizeVideoTagPayload,
@@ -232,6 +233,15 @@ assert.deepEqual(buildCategoryPageRequestPayload('3', 0), {
 }, 'invalid window width must safely use the same browser fallback');
 assert.equal(buildVideoTagFeedPath('q-طنز'), '/api/v1/video/ai-tag/q-%D8%B7%D9%86%D8%B2');
 assert.equal(buildVideoTagFeedPath('all'), '/api/v1/video/ai-tag/all');
+const globalSearchRequest = buildFiloGlobalSearchRequest('طنز خنده دار', 3, 1440);
+assert.equal(
+  globalSearchRequest.requestPath,
+  '/api/v2/videos/search/%D8%B7%D9%86%D8%B2%20%D8%AE%D9%86%D8%AF%D9%87%20%D8%AF%D8%A7%D8%B1'
+);
+assert.deepEqual(globalSearchRequest.requestPayload, {
+  rowCount: null, page: 3, needAllData: 0, windowWidth: 1440
+});
+assert.throws(() => buildFiloGlobalSearchRequest('   '), /filo_global_search_query_empty/);
 assert.equal(buildVideoTagFeedPath('1058'), '/api/v1/video/ai-tag/1058',
   'authenticated Filo sessions expose numeric tag keys and route them directly');
 assert.throws(() => buildVideoTagFeedPath('../upload'), /filo_tag_key_invalid/);
