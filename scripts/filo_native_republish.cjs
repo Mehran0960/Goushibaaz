@@ -1296,7 +1296,10 @@ function editorialTitleQualityReason(value) {
   if (/^(?:یک\s+)?(?:فیلم|کلیپ|ویدئو|ویدیو)\s+(?:بسیار\s+|خیلی\s+)?(?:زیبا|جذاب|عالی|رمانتیک|فوق.?العاده)(?:\s+و\s+(?:بسیار\s+)?(?:زیبا|جذاب|عالی|رمانتیک))?.{0,70}$/iu.test(title)) {
     return 'title_generic_praise_without_subject';
   }
-  if (tokens.length < 2) return 'title_not_distinct_or_editorially_clean';
+  if (tokens.length < 2 && !(/(?:پارت|قسمت|episode|part)\s*[0-9۰-۹]+/iu.test(title) &&
+      /(?:طنز|خنده|آشپزی|آهنگ|ترانه|ورزش|فوتبال|حیوان|ترفند|آموزش)/iu.test(title))) {
+    return 'title_not_distinct_or_editorially_clean';
+  }
   return null;
 }
 
