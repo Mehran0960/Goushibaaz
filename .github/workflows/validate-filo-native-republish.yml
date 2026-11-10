@@ -4,10 +4,6 @@ on:
   push:
     paths:
       - "scripts/filo_native_republish.cjs"
-      - "scripts/filo_global_search.cjs"
-      - "scripts/filo_trend_search_worker.cjs"
-      - "scripts/test_filo_global_search.cjs"
-      - "scripts/test_filo_trend_search_worker.cjs"
       - "scripts/test_filo_native_republish.cjs"
       - "scripts/filo_global_search.cjs"
       - "scripts/filo_trend_search_worker.cjs"
@@ -19,6 +15,10 @@ on:
     paths:
       - "scripts/filo_native_republish.cjs"
       - "scripts/test_filo_native_republish.cjs"
+      - "scripts/filo_global_search.cjs"
+      - "scripts/filo_trend_search_worker.cjs"
+      - "scripts/test_filo_global_search.cjs"
+      - "scripts/test_filo_trend_search_worker.cjs"
       - ".github/workflows/filo-native-republish.yml"
       - ".github/workflows/validate-filo-native-republish.yml"
 
