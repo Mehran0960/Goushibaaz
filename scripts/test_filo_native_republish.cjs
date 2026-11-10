@@ -276,7 +276,10 @@ assert.throws(() => buildFiloGlobalSearchRequest('   '), /filo_global_search_que
   assert.deepEqual(JSON.parse(capturedRequest.options.body), {
     rowCount: null, page: 2, needAllData: 0, windowWidth: 1440
   });
-})();
+})().catch(error => {
+  console.error(error);
+  process.exitCode = 1;
+});
 assert.equal(buildVideoTagFeedPath('1058'), '/api/v1/video/ai-tag/1058',
   'authenticated Filo sessions expose numeric tag keys and route them directly');
 assert.throws(() => buildVideoTagFeedPath('../upload'), /filo_tag_key_invalid/);
