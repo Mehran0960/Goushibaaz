@@ -642,6 +642,10 @@ assert.equal(getCachedCandidateRejection(rejectionCacheState,'Cache01',cacheVide
 const cleanedTitle = cleanRepostCaptionTitle('کلیپ خنده‌دار از مسابقه فوتبال 😂 #فوتبال');
 assert.ok(cleanedTitle.includes('مسابقه فوتبال'));
 assert.doesNotMatch(cleanedTitle, /https?:\/\/|#/);
+assert.equal(cleanRepostCaptionTitle(
+  'کلیپ های طنز و خنده//بهرام افشاری برای کلیپ های بیشتر کانال ما را دنبال کنید'
+), 'کلیپ های طنز و خنده بهرام افشاری',
+  'repeated separators and trailing channel promotion must be removed while preserving the source subject');
 const shortDescription = cleanRepostDescription('واکنش کوتاه خانواده در لحظه رسیدن مهمان.', 'عنوان منبع', cleanedTitle);
 assert.equal(shortDescription, 'واکنش کوتاه خانواده در لحظه رسیدن مهمان.',
   'a factual source description above the safe minimum remains unchanged');
@@ -989,6 +993,43 @@ assert.equal(candidateAccelerationEvidence({
   hasPositivePlayGrowth:true,
   momentum:{sampleCount:2,playsPerMinute:10,playsAccelerationPerMinute:3}
 }).passed, false, 'acceleration requires at least three independent samples');
+
+const plateauState = { posts: [] };
+const plateauStart = Date.parse('2026-11-06T02:00:00.000Z');
+const plateauBase = {
+  video_code:'PlateauViews',
+  title:'رشد بازدید ویدئوی طنز',
+  create_date:'۲ ساعت پیش',
+  visit_count:100
+};
+rankCandidatesByMomentum([plateauBase], plateauState, plateauStart);
+rankCandidatesByMomentum([{...plateauBase, visit_count:120}], plateauState, plateauStart + 5 * 60000);
+rankCandidatesByMomentum([{...plateauBase, visit_count:120}], plateauState, plateauStart + 10 * 60000);
+const plateauRank = rankCandidatesByMomentum(
+  [{...plateauBase, visit_count:120}], plateauState, plateauStart + 15 * 60000
+);
+const plateauCandidate = plateauRank.find(entry => entry.item.video_code === 'PlateauViews');
+assert.equal(plateauCandidate.momentum.viewsSampleCount, 4);
+assert.ok(plateauCandidate.momentum.viewsPerMinute > 0,
+  'a flat final five-minute interval must not erase growth measured across the recent sample window');
+assert.equal(plateauCandidate.growthGatePassed, true,
+  'three or more independent views samples with positive trailing-window velocity must pass when plays are absent');
+assert.equal(plateauCandidate.hasPositiveAcceleration, false,
+  'a plateau in the latest interval must remove only the acceleration bonus, not measured positive velocity');
+
+const audienceState = { posts: [] };
+const audienceStart = Date.parse('2026-11-06T03:00:00.000Z');
+const audienceBaseline = [
+  {video_code:'AudienceComedy',title:'طنز و خنده در یک موقعیت عجیب',create_date:'۲ ساعت پیش',category_id:6,duration:30,visit_count:100,plays:100},
+  {video_code:'AudienceGeneral',title:'یک ویدئوی معمولی با توضیح عمومی',create_date:'۲ ساعت پیش',category_id:6,duration:30,visit_count:100,plays:100}
+];
+rankCandidatesByMomentum(audienceBaseline,audienceState,audienceStart);
+const audienceRank = rankCandidatesByMomentum([
+  {...audienceBaseline[0],visit_count:200,plays:110},
+  {...audienceBaseline[1],visit_count:200,plays:110}
+],audienceState,audienceStart+5*60000);
+assert.equal(audienceRank[0].item.video_code,'AudienceComedy',
+  'when measured momentum and other evidence are equal, the stated entertainment audience fit should break the tie');
 
 const catalogState = {};
 const catalogStart = Date.parse('2026-11-06T00:00:00.000Z');
