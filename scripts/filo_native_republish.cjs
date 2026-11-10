@@ -873,7 +873,7 @@ function candidateAccelerationEvidence(entry) {
   const playCounterZeroStalled = Boolean(entry && entry.playCounterZeroStalled === true);
 
   if (playCounterAvailable && !playCounterZeroStalled) {
-    const sampleCount = Math.trunc(num(momentum.playsSampleCount, num(momentum.sampleCount, 0)));
+    const sampleCount = Math.trunc(num(momentum.playsSampleCount ?? momentum.sampleCount, 0));
     if (sampleCount < MIN_ACCELERATION_SAMPLES) {
       return {
         passed: false,
@@ -903,7 +903,7 @@ function candidateAccelerationEvidence(entry) {
 
   if (entry && entry.hasPositiveViewGrowth &&
       (!playCounterAvailable || playCounterZeroStalled)) {
-    const sampleCount = Math.trunc(num(momentum.viewsSampleCount, num(momentum.sampleCount, 0)));
+    const sampleCount = Math.trunc(num(momentum.viewsSampleCount ?? momentum.sampleCount, 0));
     if (sampleCount < MIN_ACCELERATION_SAMPLES) {
       return {
         passed: false,
