@@ -1,0 +1,39 @@
+name: Probe Filo external video URL import
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - test/filo-external-url-ingest-probe-20261114
+    paths:
+      - ".github/workflows/probe-filo-external-url-ingest.yml"
+      - "scripts/probe_filo_url_import.cjs"
+      - "test-fixtures/filo-url-import-test.mp4"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: filo-external-url-import-probe
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - name: Install browser runtime
+        run: |
+          npm init -y >/dev/null
+          npm install --no-save playwright >/dev/null
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Probe direct sources and Filo URL import (no publication)
+        env:
+          FILO_USER: \${{ secrets.FILO_USER }}
+          FILO_PASS: \${{ secrets.FILO_PASS }}
+        run: node scripts/probe_filo_url_import.cjs
