@@ -210,6 +210,10 @@ async function confirmLogin(page, report) {
   const pageEvidence = await page.evaluate(() => {
     const text = (document.body && document.body.innerText || '').replace(/\s+/g, ' ').slice(0, 1200);
     const path = location.pathname;
+    const storageKeys = [];
+    try { for (let i = 0; i < localStorage.length; i++) storageKeys.push(localStorage.key(i)); } catch {}
+    try { for (let i = 0; i < sessionStorage.length; i++) storageKeys.push(sessionStorage.key(i)); } catch {}
+    const authStorageKeyPresent = storageKeys.some(key => /(token|auth|session|user)/i.test(String(key || '')));
     const hasLogout = Array.from(document.querySelectorAll('a')).some(a =>
       /خروج|logout|sign.?out/i.test((a.innerText || '') + ' ' + (a.getAttribute('href') || ''))
     );
