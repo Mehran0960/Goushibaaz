@@ -168,7 +168,7 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
   for (const field of fields) {
     const value = item[field];
     if (value === undefined || value === null || value === '') continue;
-    const sourceField = item.create_date_source || field;
+    const sourceField = field;
 
     if (typeof value === 'number' || /^\d{10,13}$/.test(String(value).trim())) {
       const numeric = Number(value);
