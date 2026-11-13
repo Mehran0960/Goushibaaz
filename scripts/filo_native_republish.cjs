@@ -3634,7 +3634,7 @@ async function main() {
     const publicationPacing = pacingWait.gate;
     report.discovery.publicationPacing = {
       ...publicationPacing,
-      waitStartedAt: quotaCheckAt ? new Date(quotaCheckAt).toISOString() : null,
+      waitStartedAt: new Date(Date.parse(pacingWait.checkedAt) - pacingWait.waitedMs).toISOString(),
       waitCheckedAt: pacingWait.checkedAt,
       waitedMs: pacingWait.waitedMs,
       requiredWaitMs: pacingWait.requiredWaitMs,
