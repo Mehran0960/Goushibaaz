@@ -69,7 +69,8 @@ jobs:
               scriptPaths: [],
               uploadInputAncestors: [],
               uploadRelatedLinks: [],
-              note: 'Inspection only. No video file selected, no form submitted, no post created.'
+              externalSiteMode: { optionFound: false, optionClicked: false, optionLabel: '', inputs: [], forms: [], buttonLabels: [], networkRequests: [], note: 'No URL entered and no confirmation/submission performed.' },
+              note: 'Inspection only. No video file selected, no URL entered, no form submitted, no post created.'
             };
 
             if (!report.credentialsPresent) {
@@ -238,12 +239,76 @@ jobs:
                 } catch {}
               }
 
-              stage = 'activate_device_upload_mode';
-              const deviceOption = page.getByText(/از دستگاه.{0,8}ت/).first();
-              if (await isVisible(deviceOption)) {
-                await deviceOption.click().catch(() => {});
-                await page.waitForTimeout(900);
+              stage = 'activate_external_site_upload_mode';
+              const networkEvents = [];
+              page.on('request', request => {
+                try {
+                  const url = new URL(request.url());
+                  if (url.hostname === 'ifilo.net' || url.hostname.endsWith('.ifilo.net')) {
+                    networkEvents.push({ kind: 'request', method: request.method(), path: url.pathname });
+                  }
+                } catch {}
+              });
+              page.on('response', response => {
+                try {
+                  const url = new URL(response.url());
+                  if (url.hostname === 'ifilo.net' || url.hostname.endsWith('.ifilo.net')) {
+                    networkEvents.push({
+                      kind: 'response',
+                      method: response.request().method(),
+                      path: url.pathname,
+                      status: response.status(),
+                      contentType: String(response.headers()['content-type'] || '').split(';')[0].slice(0, 80)
+                    });
+                  }
+                } catch {}
+              });
+
+              const externalOption = page.getByText(/از سایت.?های دیگه/).first();
+              report.externalSiteMode.optionFound = await isVisible(externalOption);
+              if (report.externalSiteMode.optionFound) {
+                report.externalSiteMode.optionLabel = String(await externalOption.innerText().catch(() => '')).trim().replace(/\\s+/g, ' ').slice(0, 80);
+                await externalOption.click().catch(() => {});
+                await page.waitForTimeout(1200);
+                report.externalSiteMode.optionClicked = true;
               }
+
+              report.externalSiteMode.inputs = await page.locator('input, textarea').evaluateAll(nodes => nodes
+                .map(el => {
+                  const rect = el.getBoundingClientRect();
+                  const form = el.form;
+                  let formActionPath = '';
+                  try { if (form && form.action) formActionPath = new URL(form.action, location.href).pathname; } catch {}
+                  return {
+                    tag: el.tagName.toLowerCase(),
+                    type: String(el.getAttribute('type') || (el.tagName === 'TEXTAREA' ? 'textarea' : 'text')).toLowerCase(),
+                    id: el.id || '',
+                    name: el.name || '',
+                    placeholder: String(el.getAttribute('placeholder') || '').slice(0, 120),
+                    ariaLabel: String(el.getAttribute('aria-label') || '').slice(0, 100),
+                    accept: String(el.getAttribute('accept') || '').slice(0, 160),
+                    pattern: String(el.getAttribute('pattern') || '').slice(0, 160),
+                    required: Boolean(el.required),
+                    maxLength: Number(el.maxLength) > 0 ? Number(el.maxLength) : null,
+                    visible: rect.width > 0 && rect.height > 0,
+                    formActionPath,
+                    formMethod: form ? String(form.method || 'get').toLowerCase() : ''
+                  };
+                })
+                .filter(x => x.visible && x.type !== 'hidden' && x.type !== 'password')
+                .slice(0, 20));
+              report.externalSiteMode.forms = await page.locator('form').evaluateAll(forms => forms.slice(0, 8).map(form => {
+                let actionPath = '';
+                try { if (form.action) actionPath = new URL(form.action, location.href).pathname; } catch {}
+                const rect = form.getBoundingClientRect();
+                return { actionPath, method: String(form.method || 'get').toLowerCase(), visible: rect.width > 0 && rect.height > 0 };
+              }));
+              report.externalSiteMode.buttonLabels = await page.locator('button, [role="button"], input[type="submit"]').evaluateAll(nodes => nodes
+                .filter(el => { const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; })
+                .map(el => String(el.getAttribute('aria-label') || el.innerText || el.getAttribute('value') || '').trim().replace(/\\s+/g, ' ').slice(0, 80))
+                .filter(Boolean).slice(0, 30));
+              report.externalSiteMode.networkRequests = networkEvents.slice(-30);
+
               stage = 'inspect_upload_controls';
               report.bodyText = (await page.locator('body').innerText().catch(() => '')).slice(0, 5000);
               report.scriptPaths = (await page.locator('script[src]').evaluateAll(nodes => nodes.map(el => {
@@ -333,7 +398,8 @@ jobs:
                 x.isFile || /title|caption|description|شرح|عنوان|توضیح|دسته|category|tag|برچسب|video|ویدیو/i.test(x.label)
               ).slice(0, 20);
 
-              // Never report account names, entered values, cookies, headers, hidden fields, or page source.
+              report.externalSiteMode.networkRequests = networkEvents.slice(-30);
+              // Never report account names, entered values, cookies, headers, hidden fields, URL query strings, or page source.
               await context.clearCookies();
               console.log('FILO_UI_PROBE ' + JSON.stringify(report));
             } catch (e) {
