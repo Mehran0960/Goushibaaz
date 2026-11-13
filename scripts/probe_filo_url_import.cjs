@@ -405,7 +405,7 @@ async function main() {
           const failed = /سرور آدرس وارد شده از کیفیت مناسبی برخوردار نمی باشد|بارگذاری ناموفق بود|فایل موردنظر معتبر نیست|امکان بارگذاری ویدیو از این سایت وجود نداره/.test(body);
           const responseFinished = uploadResponses.length > beforeResponses;
           const requestFailed = failedUploadRequests.length > 0 && failedUploadRequests.some(item => item.host === test.host);
-          if (failed || titleVisible || descriptionVisible || tempSourceVisible || responseFinished || requestFailed) break;
+          if (failed || tempSourceCount > 0 || uploadResponses.slice(beforeResponses).some(result => result.status >= 400 || result.importSuccessFlag || result.metadataPresent || !result.chunkPending) || requestFailed) break;
           await page.waitForTimeout(1000);
         }
 
@@ -413,20 +413,19 @@ async function main() {
         test.uploadRequests = uploadRequests.length - beforeRequests;
         test.uploadResponses = uploadResponses.slice(beforeResponses);
         test.failedUploadRequests = failedUploadRequests.filter(item => item.host === test.host);
-        test.publishFormReached = await visible(page.locator('input[name="title"]').first());
-        test.descriptionFieldVisible = await visible(page.locator('textarea').first());
+        test.publishFormFieldsVisible = (await visible(page.locator('input[name="title"]').first())) || (await visible(page.locator('textarea').first()));
         test.tempSourceVisible = (await page.locator('video[src*="/temp/"], video source[src*="/temp/"]').count().catch(() => 0)) > 0;
         test.videoSources = await page.locator('video, video source').evaluateAll(nodes => nodes.map(node => {
           const value = node.currentSrc || node.src || node.getAttribute('src') || '';
           try { const url = new URL(value); return { host: url.host, path: url.pathname }; } catch { return { host: '', path: '' }; }
         }).filter(item => item.path).slice(0, 5)).catch(() => []);
         test.errorMessage = cleanMessage(body.match(/سرور آدرس وارد شده[^.]*|بارگذاری ناموفق بود[^.]*|فایل موردنظر معتبر نیست[^.]*|امکان بارگذاری ویدیو[^.]*/)?.[0] || '');
-        test.imported = test.publishFormReached || test.descriptionFieldVisible || test.tempSourceVisible ||
-          test.uploadResponses.some(result => result.importSuccessFlag || result.metadataPresent);
+        test.imported = test.tempSourceVisible || test.uploadResponses.some(result => result.importSuccessFlag || result.metadataPresent);
         test.outcome = test.imported ? 'temporary_import_confirmed' :
           test.failedUploadRequests.length ? 'upload_request_failed' :
-          test.uploadResponses.length ? 'upload_response_without_import_metadata' :
-          test.uploadRequests ? 'request_sent_no_response_or_preview' : 'no_upload_request';
+          test.uploadResponses.some(result => result.status >= 400) ? 'upload_http_error' :
+          test.uploadResponses.length ? 'upload_response_without_final_metadata' :
+          test.uploadRequests ? 'request_sent_no_final_response_or_preview' : 'no_upload_request';
       }
 
       report.imports.push(test);
