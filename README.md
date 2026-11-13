@@ -30,7 +30,7 @@ View the [latest scout runs](https://github.com/Mehran0960/Goushibaaz/actions/wo
 
 ## Filo: simple native-republication workflow
 
-The native Filo republisher is a **separate publishing lane**. It discovers recent videos inside Filo and republishes only when the account-level and creator-level native permissions and all media/metadata requirements pass. It is not the shared Telegram/Bale/Rubika/Eitaa/Jetra video pipeline, and views or public visibility never imply permission.
+The native Filo republisher is a **separate publishing lane**. It discovers recent videos inside Filo and republishes only when the account-level and creator-level native permissions and all media/metadata requirements pass. It is not the shared Telegram/Bale/Rubika/Eitaa/Jetra video pipeline, and views or public visibility never imply permission.\n\nThe current strategic priority is **inbound video from all source platforms into Filo**, not outbound cross-posting from Filo. See [the Filo inbound-ingestion roadmap](docs/FILO-INBOUND-INGESTION-ROADMAP.md) for the unified queue, rights/file gates, zero-manual-follow-up policy and the secondary role of in-platform reposting.
 
 The complete Persian project charter, safety gates, architecture, operational baseline, roadmap and mandatory change policy are maintained in [docs/FILO-NATIVE-REPUBLICATION.md](docs/FILO-NATIVE-REPUBLICATION.md). Every native-publisher code/configuration change must also be recorded in [docs/CHANGELOG.md](docs/CHANGELOG.md).
 
