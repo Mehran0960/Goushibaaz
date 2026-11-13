@@ -35,11 +35,11 @@ const FALLBACK_VIDEO_TAG_FEEDS = [
   { key: 'q-خودرو', label: 'خودرو' }
 ];
 const MAX_DISCOVERED_CATEGORY_IDS = 64;
-const MAX_PAGES_PER_CATEGORY = 18;
+const MAX_PAGES_PER_CATEGORY = 36;
 const MAX_TOTAL_CATEGORY_PAGE_REQUESTS = 112;
 const CATEGORY_PAGE_CONCURRENCY = 4;
 const CATEGORY_SCAN_BUDGET_MS = 4 * 60 * 1000;
-const CATEGORY_LOOKBACK_HOURS = 24;
+const CATEGORY_LOOKBACK_HOURS = 72;
 const MIN_CYCLE_INTERVAL_MS = 4 * 60 * 1000;
 const DEPTH_CATEGORIES_PER_CYCLE = 21;
 const DEPTH_PAGES_PER_CATEGORY_PER_CYCLE = 4;
@@ -56,7 +56,7 @@ const TITLE_REWRITE_POLICY_VERSION = 7;
 const FILO_TITLE_MIN_CHARS = 5;
 const FILO_TITLE_MAX_CHARS = 80;
 const FILO_DESCRIPTION_MIN_CHARS = 30;
-const CANDIDATE_METRIC_HISTORY_TTL_MS = 60 * 60 * 1000;
+const CANDIDATE_METRIC_HISTORY_TTL_MS = 3 * 60 * 60 * 1000;
 const CANDIDATE_METRIC_SAMPLE_INTERVAL_MS = 5 * 60 * 1000;
 const CANDIDATE_METRIC_HISTORY_SAMPLES = 8;
 const CANDIDATE_METRIC_RATE_WINDOW_SAMPLES = 6;
@@ -64,6 +64,15 @@ const CANDIDATE_CATALOG_24H_TTL_MS = 24 * 60 * 60 * 1000;
 const MAX_TRACKED_CANDIDATE_METRICS = 5000;
 const MAX_TRACKED_24H_CANDIDATES = 5000;
 const MIN_ACCELERATION_SAMPLES = 3;
+const FEED_DATE_FIELDS = [
+  'create_date', 'styled_create_date', 'created_at', 'createdAt', 'created',
+  'created_time', 'create_time', 'created_date', 'createdDate', 'date_created', 'dateCreated',
+  'created_timestamp', 'createdTimestamp', 'create_timestamp', 'createTimestamp',
+  'published_at', 'publishedAt', 'published', 'published_time', 'publish_time',
+  'publish_date', 'publishDate', 'posted_at', 'postedAt', 'post_date', 'postDate',
+  'created_on', 'createdOn', 'upload_date', 'uploadDate', 'uploaded_at', 'uploadedAt',
+  'date', 'timestamp', 'ts', 'time', 'ctime', 'cd'
+];
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -97,22 +106,10 @@ function normalizeDigits(value) {
 }
 
 function ageHours(item, now = Date.now()) {
-  const raw = normalizeDigits(item && (item.create_date || item.styled_create_date || item.created_at) || '');
-  const lower = raw.toLowerCase();
-  const jalaliTimestamp = jalaliDateToGregorianTimestamp(raw);
-  if (jalaliTimestamp !== null) return Math.max(0, (now - jalaliTimestamp) / 3600000);
-  let m = lower.match(/(\d+(?:\.\d+)?)\s*(?:دقیقه|min)/);
-  if (m) return Math.max(0, num(m[1]) / 60);
-  m = lower.match(/(\d+(?:\.\d+)?)\s*(?:ساعت|hour|hr)/);
-  if (m) return Math.max(0, num(m[1]));
-  m = lower.match(/(\d+(?:\.\d+)?)\s*(?:روز|day)/);
-  if (m) return Math.max(0, num(m[1]) * 24);
-  if (/لحظاتی پیش|همین الان|اکنون|just now|moments ago/.test(lower)) return 0.1;
-  if (/دیروز|yesterday/.test(lower)) return 30;
-  if (/امروز|today/.test(lower)) return 8;
-  const absolute = Date.parse(raw);
-  if (Number.isFinite(absolute)) return Math.max(0, (now - absolute) / 3600000);
-  return 36;
+  const evidence = reliableFeedAgeBounds(item, now);
+  return evidence && Number.isFinite(evidence.centerHours)
+    ? evidence.centerHours
+    : Number.POSITIVE_INFINITY;
 }
 
 
@@ -163,21 +160,30 @@ function jalaliDateToGregorianTimestamp(value) {
 
 function reliableFeedAgeBounds(item, now = Date.now()) {
   if (!item || typeof item !== 'object') return null;
-  const fields = [
-    'create_date', 'styled_create_date', 'created_at', 'createdAt', 'created',
-    'created_time', 'create_time', 'published_at', 'publish_date', 'post_date', 'date', 'cd'
-  ];
+  const preferred = item.create_date_source && FEED_DATE_FIELDS.includes(item.create_date_source)
+    ? [item.create_date_source] : [];
+  const fields = [...new Set([...preferred, ...FEED_DATE_FIELDS])];
+  const futureToleranceMs = 5 * 60 * 1000;
 
   for (const field of fields) {
     const value = item[field];
     if (value === undefined || value === null || value === '') continue;
+    const sourceField = field;
 
     if (typeof value === 'number' || /^\d{10,13}$/.test(String(value).trim())) {
       const numeric = Number(value);
       const timestamp = numeric > 1e12 ? numeric : numeric > 1e9 ? numeric * 1000 : NaN;
       if (Number.isFinite(timestamp)) {
+        if (timestamp > now + futureToleranceMs) continue;
         const centerHours = Math.max(0, (now - timestamp) / 3600000);
-        return { centerHours, lowerHours: Math.max(0, centerHours - 1 / 7200), upperHours: centerHours + 1 / 7200, precisionHours: 1 / 3600, chronologyReliable: true };
+        return {
+          centerHours,
+          lowerHours: Math.max(0, centerHours - 1 / 7200),
+          upperHours: centerHours + 1 / 7200,
+          precisionHours: 1 / 3600,
+          chronologyReliable: true,
+          sourceField
+        };
       }
     }
 
@@ -186,6 +192,7 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
 
     const jalaliTimestamp = jalaliDateToGregorianTimestamp(raw);
     if (jalaliTimestamp !== null) {
+      if (jalaliTimestamp > now + futureToleranceMs) continue;
       const centerHours = Math.max(0, (now - jalaliTimestamp) / 3600000);
       const hasClock = /(?:^|[^\d])\d{1,2}:\d{2}/u.test(raw);
       const precisionHours = hasClock ? 1 / 60 : 24;
@@ -194,7 +201,8 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
         lowerHours: Math.max(0, centerHours - precisionHours / 2),
         upperHours: centerHours + precisionHours / 2,
         precisionHours,
-        chronologyReliable: true
+        chronologyReliable: true,
+        sourceField
       };
     }
 
@@ -210,22 +218,33 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
         lowerHours: Math.max(0, centerHours - precisionHours / 2),
         upperHours: centerHours + precisionHours / 2,
         precisionHours,
-        chronologyReliable: Boolean(hourMatch || minuteMatch)
+        chronologyReliable: Boolean(hourMatch || minuteMatch),
+        sourceField
       };
     }
 
     if (/لحظاتی پیش|همین الان|اکنون|just now|moments ago/.test(raw)) {
-      return { centerHours: 0.1, lowerHours: 0, upperHours: 0.25, precisionHours: 0.25, chronologyReliable: true };
+      return {
+        centerHours: 0.1, lowerHours: 0, upperHours: 0.25,
+        precisionHours: 0.25, chronologyReliable: true, sourceField
+      };
     }
     if (/دیروز|yesterday/.test(raw)) {
-      return { centerHours: 36, lowerHours: 24, upperHours: 48, precisionHours: 24, chronologyReliable: false };
+      return {
+        centerHours: 36, lowerHours: 24, upperHours: 48,
+        precisionHours: 24, chronologyReliable: false, sourceField
+      };
     }
     if (/امروز|today/.test(raw)) {
-      return { centerHours: 12, lowerHours: 0, upperHours: 24, precisionHours: 24, chronologyReliable: false };
+      return {
+        centerHours: 12, lowerHours: 0, upperHours: 24,
+        precisionHours: 24, chronologyReliable: false, sourceField
+      };
     }
 
     const absolute = Date.parse(raw);
     if (Number.isFinite(absolute)) {
+      if (absolute > now + futureToleranceMs) continue;
       const centerHours = Math.max(0, (now - absolute) / 3600000);
       const hasClock = /(?:t|\b)\d{1,2}:\d{2}/i.test(raw);
       const precisionHours = hasClock ? 1 / 60 : 24;
@@ -233,13 +252,14 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
         centerHours,
         lowerHours: Math.max(0, centerHours - precisionHours / 2),
         upperHours: centerHours + precisionHours / 2,
-        precisionHours
+        precisionHours,
+        chronologyReliable: true,
+        sourceField
       };
     }
   }
   return null;
 }
-
 function analyzeCategoryFeedPage(items, now = Date.now(), lookbackHours = CATEGORY_LOOKBACK_HOURS) {
   const list = Array.isArray(items) ? items : [];
   if (!list.length) {
@@ -489,6 +509,63 @@ function summarizeCandidateChecks(checked) {
   return { total: Array.isArray(checked) ? checked.length : 0, reasonCounts, detailFetchErrors, metadataFailures, cachedRejections };
 }
 
+function summarizeFeedAgeDiagnostics(items, now = Date.now(), lookbackHours = CATEGORY_LOOKBACK_HOURS) {
+  const list = Array.isArray(items) ? items : [];
+  const summary = {
+    totalItems: list.length,
+    reliableAgeItems: 0,
+    unknownAgeItems: 0,
+    within24Hours: 0,
+    within48Hours: 0,
+    withinLookback: 0,
+    outsideLookback: 0,
+    lookbackHours,
+    dateFieldPresence: {},
+    sourceFieldCounts: {},
+    unknownExamples: []
+  };
+
+  for (const item of list) {
+    if (!item || typeof item !== 'object') {
+      summary.unknownAgeItems++;
+      continue;
+    }
+    const presentFields = FEED_DATE_FIELDS.filter(field =>
+      item[field] !== undefined && item[field] !== null && item[field] !== ''
+    );
+    for (const field of presentFields) {
+      summary.dateFieldPresence[field] = (summary.dateFieldPresence[field] || 0) + 1;
+    }
+
+    const evidence = reliableFeedAgeBounds(item, now);
+    if (!evidence) {
+      summary.unknownAgeItems++;
+      if (summary.unknownExamples.length < 5) {
+        summary.unknownExamples.push({
+          videoCode: String(item.video_code || item.videoCode || item.code || '').slice(0, 50),
+          dateFields: presentFields.slice(0, 6).map(field => ({
+            field,
+            value: String(item[field]).slice(0, 90)
+          })),
+          dateLikeKeys: Object.keys(item)
+            .filter(key => /date|time|created|publish|timestamp|epoch|posted|upload/i.test(key))
+            .slice(0, 12)
+        });
+      }
+      continue;
+    }
+
+    summary.reliableAgeItems++;
+    summary.sourceFieldCounts[evidence.sourceField] =
+      (summary.sourceFieldCounts[evidence.sourceField] || 0) + 1;
+    if (evidence.upperHours <= 24) summary.within24Hours++;
+    if (evidence.upperHours <= 48) summary.within48Hours++;
+    if (evidence.upperHours <= lookbackHours) summary.withinLookback++;
+    else summary.outsideLookback++;
+  }
+  return summary;
+}
+
 function candidateMetricSnapshot(item, keys) {
   const values = keys.map(key => ({ key, raw: item && item[key] }))
     .filter(entry => entry.raw !== undefined && entry.raw !== null && entry.raw !== '')
@@ -524,8 +601,10 @@ function update24HourCandidateCatalog(state, items, now = Date.now()) {
   for (const item of Array.isArray(items) ? items : []) {
     const code = String(item && (item.video_code || item.videoCode || item.code) || '').trim();
     if (!/^[A-Za-z0-9_-]{5,40}$/.test(code)) continue;
-    const publishedAgeHours = ageHours(item, nowMs);
-    if (!Number.isFinite(publishedAgeHours) || publishedAgeHours < 0 || publishedAgeHours > 24) continue;
+    const publishedAgeEvidence = reliableFeedAgeBounds(item, nowMs);
+    const publishedAgeHours = publishedAgeEvidence ? publishedAgeEvidence.centerHours : Number.POSITIVE_INFINITY;
+    if (!publishedAgeEvidence || !Number.isFinite(publishedAgeHours) ||
+        publishedAgeEvidence.upperHours > 24) continue;
 
     const previous = catalog[code] && typeof catalog[code] === 'object' ? catalog[code] : {};
     const currentSample = currentSampleFor(item);
@@ -1068,7 +1147,8 @@ function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicW
       num(momentum.playsPerMinute) > 0);
     const hasPositiveViewGrowth = Boolean(momentum.viewsPerMinute !== null &&
       momentum.viewsPerMinute !== undefined && num(momentum.viewsPerMinute) > 0);
-    const age = ageHours(item);
+    const ageEvidence = reliableFeedAgeBounds(item, nowMs);
+    const age = ageEvidence ? ageEvidence.centerHours : Number.POSITIVE_INFINITY;
     const feedHintScore = feedGateHintScore(item);
     let rankingMetric = 'freshness';
     let selectionMode = 'freshness_fallback';
@@ -1108,6 +1188,7 @@ function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicW
       viewMetric,
       playCounterZeroStalled,
       ageHours: age,
+      ageEvidence,
       hasPositivePlayGrowth,
       hasPositiveViewGrowth,
       hasMeasuredGrowth: hasPositivePlayGrowth || hasPositiveViewGrowth,
@@ -1130,7 +1211,9 @@ function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicW
     entry.hasPositiveAcceleration = num(entry.accelerationEvidence.accelerationPerMinute, 0) > 0;
     entry.momentumScore = candidateMomentumScore(entry);
     return entry;
-  }).filter(entry => entry.ageHours <= 24);
+  }).filter(entry => entry.ageEvidence &&
+    Number.isFinite(entry.ageEvidence.upperHours) &&
+    entry.ageEvidence.upperHours <= CATEGORY_LOOKBACK_HOURS);
 
   const topicDemand = summarizeTopicDemand(prepared);
   return prepared.map(entry => {
@@ -2357,7 +2440,11 @@ function normalizeVideoFeedItem(item) {
   alias('duration', ['du']);
   alias('visit_count', ['view_count', 'views', 'vc']);
   alias('play_count', ['plays', 'playCount', 'pd']);
-  alias('create_date', ['styled_create_date', 'created_at', 'createdAt', 'created_time', 'create_time', 'published_at', 'publish_date', 'post_date', 'date', 'cd']);
+  const dateSource = FEED_DATE_FIELDS.find(key =>
+    item[key] !== undefined && item[key] !== null && item[key] !== ''
+  );
+  alias('create_date', FEED_DATE_FIELDS.filter(key => key !== 'create_date'));
+  if (dateSource && !normalized.create_date_source) normalized.create_date_source = dateSource;
   alias('has_audio', ['hst']);
   alias('can_republish', ['co']);
   alias('can_make_money', ['cr']);
@@ -2486,7 +2573,7 @@ function resolveDepthScanStartPage(currentPage, evidence) {
   let pageNo = Math.trunc(num(currentPage, 2));
   if (pageNo < 2 || pageNo > MAX_PAGES_PER_CATEGORY) pageNo = 2;
   const lastPageNo = Math.trunc(num(evidence && evidence.lastPageNo, 0));
-  // Previous runs wrapped page 12 back to page 2 but retained pagination evidence.
+  // Older deployments may have wrapped at a smaller page cap; retain their cursor evidence.
   if (pageNo === 2 && lastPageNo >= 12 && lastPageNo < MAX_PAGES_PER_CATEGORY) return lastPageNo + 1;
   if (pageNo > 2 && (!evidence || lastPageNo !== pageNo - 1)) return 2;
   return pageNo;
@@ -3229,7 +3316,7 @@ async function main() {
       tracker.coverageComplete=items.length===0;
     }
 
-    // Scan up to three consecutive deep pages for each selected category per cycle.
+    // Scan up to four consecutive deep pages for each selected category per cycle.
     const depthSelection=rotatingDepthSelection(
       categoryCatalog.feeds.map(feed=>feed.key),state.categoryDepthCursor||0,DEPTH_CATEGORIES_PER_CYCLE
     );
@@ -3356,6 +3443,10 @@ async function main() {
       categoriesExhausted:categoryTrackers.filter(x=>x.stopReason==='empty_depth_page'||x.stopReason==='empty_first_page').length,
       categoriesAtPageCap:categoryTrackers.filter(x=>x.stopReason==='max_pages_per_category_cycle').length,
       categoriesWithPageErrors:categoryTrackers.filter(x=>x.stopReason==='first_page_error'||x.stopReason==='depth_page_error').length,
+      lookbackHours:CATEGORY_LOOKBACK_HOURS,
+      completeLookbackCoverage:categoryTrackers.every(x=>x.coverageComplete),
+      complete72HourCoverage:CATEGORY_LOOKBACK_HOURS===72
+        ?categoryTrackers.every(x=>x.coverageComplete):null,
       complete24HourCoverage:categoryTrackers.every(x=>x.coverageComplete)
     };
 
@@ -3365,9 +3456,12 @@ async function main() {
     report.discovery.catalog24h = update24HourCandidateCatalog(state, discoveredItems, cycleAt);
     report.discovery.catalog24h.coverageComplete = Boolean(
       report.discovery.categoryCoverage &&
-      report.discovery.categoryCoverage.complete24HourCoverage === true
+      report.discovery.categoryCoverage.completeLookbackCoverage === true
     );
     report.discovery.feedGateSignals = summarizeFeedGateSignals(discoveredItems, state);
+    report.discovery.feedAgeDiagnostics = summarizeFeedAgeDiagnostics(
+      discoveredItems, cycleAt, CATEGORY_LOOKBACK_HOURS
+    );
     const feedCandidates = discoveredItems.filter(item => feedCandidateEligible(item, state));
     report.discovery.eligibleFeedItems = feedCandidates.length;
 
@@ -3847,6 +3941,7 @@ module.exports = {
   markMetadataPolicyRetry,
   feedGateHintScore,
   summarizeFeedGateSignals,
+  summarizeFeedAgeDiagnostics,
   summarizeCandidateChecks,
   fitFiloTitleLength,
   cleanRepostCaptionTitle,
