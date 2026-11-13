@@ -1408,9 +1408,11 @@ const oneRecentPublication = { posts: [
 const blockedByGap = getPublicationPacingGate(oneRecentPublication, pacingNow);
 assert.equal(blockedByGap.blocked, true);
 assert.deepEqual(blockedByGap.reasons, ['minimum_gap_between_republish_operations']);
-assert.equal(blockedByGap.nextEligibleAt, new Date(pacingNow + 10*60*1000).toISOString());
-assert.equal(getPublicationPacingGate(oneRecentPublication, pacingNow + 10*60*1000).blocked, false,
-  'the next repost becomes eligible at the 20-minute minimum gap');
+assert.equal(blockedByGap.nextEligibleAt, new Date(pacingNow + 7*60*1000).toISOString());
+assert.equal(getPublicationPacingGate(oneRecentPublication, pacingNow + 7*60*1000 - 1).blocked, true,
+  'the republish gate must remain closed one millisecond before the 17-minute minimum gap');
+assert.equal(getPublicationPacingGate(oneRecentPublication, pacingNow + 7*60*1000).blocked, false,
+  'the next repost becomes eligible exactly at the 17-minute minimum gap');
 
 const rollingHourState = { posts: [
   { status:'public_verified', submittedAt:new Date(pacingNow - 50*60*1000).toISOString() },
