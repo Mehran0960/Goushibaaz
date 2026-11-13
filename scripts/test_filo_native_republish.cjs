@@ -123,13 +123,28 @@ assert.equal(ageHours({
 }, ageWindowNow), Number.POSITIVE_INFINITY,
   'future timestamps beyond clock-skew tolerance must be rejected');
 
+const windowMomentumState = { candidateMomentum: {} };
 const windowRank = rankCandidatesByMomentum([
   { video_code:'Window70', title:'ویدئوی دارای تاریخ معتبر', create_date:'۷۰ ساعت پیش', visit_count:100, plays:10 },
   { video_code:'Window73', title:'ویدئوی خارج از پنجره', create_date:'۷۳ ساعت پیش', visit_count:100, plays:10 },
-  { video_code:'UnknownAge', title:'ویدئوی بدون تاریخ قابل‌اعتماد', visit_count:100, plays:10 }
-], { candidateMomentum:{} }, ageWindowNow);
-assert.deepEqual(windowRank.map(entry => entry.item.video_code), ['Window70'],
-  'only reliably dated items with a conservative age bound inside 72 hours enter the ranking');
+  { video_code:'UnknownAge', title:'ویدئوی بدون تاریخ قابل‌اعتماد', visit_count:100, plays:10 },
+  { video_code:'FutureAge', title:'ویدئوی دارای تاریخ آینده', timestamp:Math.floor((ageWindowNow + 60*60*1000)/1000), visit_count:100, plays:10 }
+], windowMomentumState, ageWindowNow);
+assert.deepEqual(windowRank.map(entry => entry.item.video_code).sort(), ['UnknownAge','Window70'],
+  'known-old and future-dated candidates are excluded, while unknown-age candidates may enter momentum observation');
+assert.equal(windowRank.find(entry => entry.item.video_code === 'UnknownAge').growthGatePassed, false,
+  'an unknown-age source must not become publishable on its first sighting');
+const unknownSecond = rankCandidatesByMomentum([
+  { video_code:'UnknownAge', title:'ویدئوی بدون تاریخ قابل‌اعتماد', visit_count:120, plays:20 }
+], windowMomentumState, ageWindowNow + 5*60*1000);
+assert.equal(unknownSecond[0].growthGatePassed, false,
+  'unknown-age sources must still wait for the third independent metric sample');
+const unknownThird = rankCandidatesByMomentum([
+  { video_code:'UnknownAge', title:'ویدئوی بدون تاریخ قابل‌اعتماد', visit_count:140, plays:30 }
+], windowMomentumState, ageWindowNow + 10*60*1000);
+assert.equal(unknownThird[0].growthGatePassed, true,
+  'unknown-age sources may qualify only after three independent samples prove positive velocity');
+assert.equal(unknownThird[0].ageEvidence, null);
 
 const ageDiagnostic = summarizeFeedAgeDiagnostics([
   normalizeVideoFeedItem({v:'Age70A',cd:'۷۰ ساعت پیش'}),
