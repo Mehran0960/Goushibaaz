@@ -38,6 +38,7 @@ const {
   dailyCount,
   getPublicationOperationTimes,
   getPublicationPacingGate,
+  waitForPublicationWindow,
   buildCategoryPageRequestPayload,
   buildVideoTagFeedPath,
   buildFiloGlobalSearchRequest,
@@ -1417,24 +1418,51 @@ assert.equal(getPublicationPacingGate(oneRecentPublication, pacingNow + 7*60*100
 const rollingHourState = { posts: [
   { status:'public_verified', submittedAt:new Date(pacingNow - 50*60*1000).toISOString() },
   { status:'public_verified', submittedAt:new Date(pacingNow - 30*60*1000).toISOString() },
-  { status:'rejected_by_filo', attemptedAt:new Date(pacingNow - 10*60*1000).toISOString() }
+  { status:'rejected_by_filo', attemptedAt:new Date(pacingNow - 10*60*1000).toISOString() },
+  { status:'public_verified', submittedAt:new Date(pacingNow - 5*60*1000).toISOString() }
 ] };
-const blockedByHour = getPublicationPacingGate(rollingHourState, pacingNow);
-assert.equal(blockedByHour.blocked, true,
-  'rejected upload attempts count toward the rolling-hour safety budget');
-assert.ok(blockedByHour.reasons.includes('rolling_hour_operation_cap'));
-assert.equal(blockedByHour.rollingHourOperations, 3);
-assert.equal(blockedByHour.nextEligibleAt, new Date(pacingNow + 10*60*1000).toISOString(),
-  'the next slot opens when the oldest operation leaves the rolling hour');
+const unblockedByHourlyVolume = getPublicationPacingGate(rollingHourState, pacingNow);
+assert.equal(unblockedByHourlyVolume.blocked, false,
+  'more than three operations in a rolling hour must not create a local publishing cap');
+assert.equal(unblockedByHourlyVolume.rollingHourOperations, 4);
+assert.equal(unblockedByHourlyVolume.internalHourlyCap, null);
+assert.deepEqual(unblockedByHourlyVolume.reasons, []);
 
-const dailyPacingState = { posts: Array.from({length:36},(_,index)=>({
+const dailyPacingState = { posts: Array.from({length:40},(_,index)=>({
   status:'public_verified',
   submittedAt:new Date(pacingNow - (23*60+index)*60*1000).toISOString()
 })) };
-const blockedByDay = getPublicationPacingGate(dailyPacingState, pacingNow);
-assert.equal(blockedByDay.blocked, true);
-assert.ok(blockedByDay.reasons.includes('rolling_24h_operation_cap'));
-assert.equal(dailyCount(dailyPacingState,pacingNow),36);
+const unblockedByDailyVolume = getPublicationPacingGate(dailyPacingState, pacingNow);
+assert.equal(unblockedByDailyVolume.blocked, false,
+  'more than 36 operations in a rolling 24-hour window must not create a local publishing cap');
+assert.equal(unblockedByDailyVolume.rolling24hOperations, 40);
+assert.equal(unblockedByDailyVolume.internalDailyCap, null);
+assert.equal(dailyCount(dailyPacingState,pacingNow),40,
+  'daily operation count remains diagnostic only after removing the daily cap');
+
+const waitingState = { posts: [
+  { status:'public_verified', submittedAt:new Date(pacingNow - 15*60*1000).toISOString() }
+] };
+let fakeNow = pacingNow;
+let recordedWait = 0;
+const waitedForExactWindow = await waitForPublicationWindow(waitingState, {
+  nowFn: () => fakeNow,
+  sleepFn: async ms => { recordedWait = ms; fakeNow += ms; },
+  maxWaitMs: 5*60*1000
+});
+assert.equal(recordedWait,2*60*1000,
+  'a scheduler cycle arriving two minutes before eligibility must sleep until the exact 17-minute boundary');
+assert.equal(waitedForExactWindow.waitedMs,2*60*1000);
+assert.equal(waitedForExactWindow.gate.blocked,false);
+
+const beyondSchedulerWindow = await waitForPublicationWindow(oneRecentPublication, {
+  nowFn: () => pacingNow,
+  sleepFn: async () => { throw new Error('must not hold a runner for a long wait'); },
+  maxWaitMs: 5*60*1000
+});
+assert.equal(beyondSchedulerWindow.waitSkipped,true);
+assert.equal(beyondSchedulerWindow.gate.blocked,true);
+assert.equal(beyondSchedulerWindow.requiredWaitMs,7*60*1000);
 
 const quotaBackoffState = {};
 const quotaFirst = setAccountRepublishQuotaCooldown(quotaBackoffState,pacingNow);
