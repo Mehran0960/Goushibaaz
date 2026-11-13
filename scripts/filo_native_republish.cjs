@@ -260,6 +260,28 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
   }
   return null;
 }
+
+function hasFutureFeedDate(item, now = Date.now()) {
+  if (!item || typeof item !== 'object') return false;
+  const futureLimit = now + 5 * 60 * 1000;
+  for (const field of FEED_DATE_FIELDS) {
+    const value = item[field];
+    if (value === undefined || value === null || value === '') continue;
+    if (typeof value === 'number' || /^\\d{10,13}$/.test(String(value).trim())) {
+      const numeric = Number(value);
+      const timestamp = numeric > 1e12 ? numeric : numeric > 1e9 ? numeric * 1000 : NaN;
+      if (Number.isFinite(timestamp) && timestamp > futureLimit) return true;
+      continue;
+    }
+    const raw = normalizeDigits(value).trim();
+    if (!raw) continue;
+    const jalaliTimestamp = jalaliDateToGregorianTimestamp(raw);
+    if (jalaliTimestamp !== null && jalaliTimestamp > futureLimit) return true;
+    const absolute = Date.parse(raw);
+    if (Number.isFinite(absolute) && absolute > futureLimit) return true;
+  }
+  return false;
+}
 function analyzeCategoryFeedPage(items, now = Date.now(), lookbackHours = CATEGORY_LOOKBACK_HOURS) {
   const list = Array.isArray(items) ? items : [];
   if (!list.length) {
@@ -1211,9 +1233,15 @@ function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicW
     entry.hasPositiveAcceleration = num(entry.accelerationEvidence.accelerationPerMinute, 0) > 0;
     entry.momentumScore = candidateMomentumScore(entry);
     return entry;
-  }).filter(entry => entry.ageEvidence &&
-    Number.isFinite(entry.ageEvidence.upperHours) &&
-    entry.ageEvidence.upperHours <= CATEGORY_LOOKBACK_HOURS);
+  }).filter(entry => {
+    if (entry.ageEvidence) {
+      return Number.isFinite(entry.ageEvidence.upperHours) &&
+        entry.ageEvidence.upperHours <= CATEGORY_LOOKBACK_HOURS;
+    }
+    // Missing/unparseable age is not proof of freshness. Keep the source only for momentum observation;
+    // publication still requires three independent samples and positive measured velocity.
+    return !hasFutureFeedDate(entry.item, nowMs);
+  });
 
   const topicDemand = summarizeTopicDemand(prepared);
   return prepared.map(entry => {
@@ -3171,6 +3199,11 @@ async function main() {
       categoryLabels: {},
       paginationMode: 'rotating_recent_window',
       lookbackHours: CATEGORY_LOOKBACK_HOURS,
+      ageAdmissionPolicy: {
+        reliableDates: 'accept_only_when_conservative_upper_age_bound_is_within_72_hours',
+        unknownDates: 'allow_momentum_sampling_only; publication_requires_three_independent_samples_and_positive_velocity',
+        futureDates: 'exclude_beyond_five_minute_clock_tolerance'
+      },
       depthCategoriesPerCycle: DEPTH_CATEGORIES_PER_CYCLE,
       depthPagesPerCategoryPerCycle: DEPTH_PAGES_PER_CATEGORY_PER_CYCLE,
       maxPagesPerCategory: MAX_PAGES_PER_CATEGORY,
@@ -3598,7 +3631,7 @@ async function main() {
       report.result = {
         status: report.status,
         reason: feedCandidates.length
-          ? 'no_candidate_has_reliable_age_metadata_within_the_24_hour_window'
+          ? 'no_candidate_has_reliable_age_inside_72_hours_or_eligible_unknown_age_for_measured_momentum'
           : 'all_discovered_items_failed_code_deduplication_or_content_safety_prefilters',
         retryOnNextScheduledRun: true
       };
@@ -3951,6 +3984,9 @@ async function main() {
       filoRejections: report.discovery.filoRejections || [],
       errors: report.discovery.errors.slice(0, 8),
       feedGateSignals: report.discovery.feedGateSignals,
+      feedAgeDiagnostics: report.discovery.feedAgeDiagnostics || null,
+      topMomentum: (report.discovery.topMomentum || []).slice(0, 5),
+      topVelocityQualified: (report.discovery.topVelocityQualified || []).slice(0, 10),
       detailGateRejections: (report.discovery.detailGateRejections || []).slice(0, 10),
       error: report.error
     }));
