@@ -1,0 +1,41 @@
+name: Validate Trusted Trend Metrics
+
+on:
+  pull_request:
+    paths:
+      - "scripts/trend_intelligence/**"
+      - ".github/workflows/validate-trusted-trend-metrics.yml"
+      - "README.md"
+  push:
+    branches:
+      - "fix/trusted-video-view-velocity-20261114"
+    paths:
+      - "scripts/trend_intelligence/**"
+      - ".github/workflows/validate-trusted-trend-metrics.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+      - name: Install scanner dependency
+        run: python -m pip install --disable-pip-version-check requests
+      - name: Compile trend intelligence modules
+        run: |
+          python -m py_compile \
+            scripts/trend_intelligence/follower_growth.py \
+            scripts/trend_intelligence/social_discovery.py \
+            scripts/trend_intelligence/run_discovery.py \
+            scripts/trend_intelligence/build_preview.py
+      - name: Run trend intelligence regression tests
+        run: |
+          python -m unittest \
+            scripts.trend_intelligence.test_social_discovery \
+            scripts.trend_intelligence.test_follower_growth
