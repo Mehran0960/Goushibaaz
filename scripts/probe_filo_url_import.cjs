@@ -387,6 +387,7 @@ async function main() {
       await page.waitForTimeout(1200);
       const beforeRequests = uploadRequests.length;
       const beforeResponses = uploadResponses.length;
+      const beforeFailed = failedUploadRequests.length;
       const field = await selectExternalUrlTab(page);
       const test = { name: item.name, host: new URL(item.url).host, inputFound: await visible(field) };
 
@@ -395,24 +396,22 @@ async function main() {
         await page.locator('#startUrlUpload').click();
 
         const start = Date.now();
-        while (Date.now() - start < 90000) {
+        while (Date.now() - start < 120000) {
           const body = (await page.locator('body').innerText().catch(() => '')).replace(/\s+/g, ' ');
-          const titleField = page.locator('input[name="title"]').first();
-          const descriptionField = page.locator('textarea').first();
-          const titleVisible = await visible(titleField);
-          const descriptionVisible = await visible(descriptionField);
-          const tempSourceVisible = await page.locator('video[src*="/temp/"], video source[src*="/temp/"]').count().catch(() => 0) > 0;
+          const tempSourceCount = await page.locator('video[src*="/temp/"], video source[src*="/temp/"]').count().catch(() => 0);
           const failed = /سرور آدرس وارد شده از کیفیت مناسبی برخوردار نمی باشد|بارگذاری ناموفق بود|فایل موردنظر معتبر نیست|امکان بارگذاری ویدیو از این سایت وجود نداره/.test(body);
-          const responseFinished = uploadResponses.length > beforeResponses;
-          const requestFailed = failedUploadRequests.length > 0 && failedUploadRequests.some(item => item.host === test.host);
-          if (failed || tempSourceCount > 0 || uploadResponses.slice(beforeResponses).some(result => result.status >= 400 || result.importSuccessFlag || result.metadataPresent || !result.chunkPending) || requestFailed) break;
+          const finalResponse = uploadResponses.slice(beforeResponses).some(result =>
+            result.status >= 400 || result.importSuccessFlag || result.metadataPresent || !result.chunkPending
+          );
+          const requestFailed = failedUploadRequests.length > beforeFailed;
+          if (failed || tempSourceCount > 0 || finalResponse || requestFailed) break;
           await page.waitForTimeout(1000);
         }
 
         const body = (await page.locator('body').innerText().catch(() => '')).replace(/\s+/g, ' ');
         test.uploadRequests = uploadRequests.length - beforeRequests;
         test.uploadResponses = uploadResponses.slice(beforeResponses);
-        test.failedUploadRequests = failedUploadRequests.filter(item => item.host === test.host);
+        test.failedUploadRequests = failedUploadRequests.slice(beforeFailed);
         test.publishFormFieldsVisible = (await visible(page.locator('input[name="title"]').first())) || (await visible(page.locator('textarea').first()));
         test.tempSourceVisible = (await page.locator('video[src*="/temp/"], video source[src*="/temp/"]').count().catch(() => 0)) > 0;
         test.videoSources = await page.locator('video, video source').evaluateAll(nodes => nodes.map(node => {
