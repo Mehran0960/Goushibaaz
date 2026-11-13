@@ -5,7 +5,9 @@ on:
     paths:
       - "scripts/trend_intelligence/**"
       - ".github/workflows/validate-trusted-trend-metrics.yml"
+      - "docs/CHANGELOG.md"
       - "README.md"
+      - "docs/CHANGELOG.md"
   push:
     branches:
       - "fix/trusted-video-view-velocity-20261114"
