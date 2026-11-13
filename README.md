@@ -133,3 +133,7 @@ YouTube Shorts, Instagram Reels and Aparat remain future external publishing lan
 - Before a publisher sends media to a destination, the project should require verifiable authorization for commercial reuse and a valid, accessible media source.
 - Destination publishing should be idempotent, independently retryable, and observable.
 
+
+## راهبرد رشد مخاطب و توسعهٔ چندپلتفرمی
+
+هدف تجاری گوشی‌باز، تجمیع مخاطب و ساخت یک دارایی رسانه‌ای برای تبلیغات، اسپانسرینگ و همکاری در فروش است؛ درآمد مستقیم پلتفرم‌ها مزیت جانبی محسوب می‌شود. نقشه‌راه، اولویت فیلو، گیت‌های حقوق محتوا، پلتفرم‌های بعدی، KPIها و دستورالعمل ادامهٔ پروژه در [سند راهبردی رشد مخاطب](docs/AUDIENCE-GROWTH-ROADMAP.md) ثبت شده است.
