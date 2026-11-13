@@ -86,6 +86,26 @@ async function probeSource(item) {
     out.rangeError = safeError(error);
   }
 
+  if (item.name === 'iranian_imgurl_cdn') {
+    try {
+      const httpUrl = item.url.replace(/^https:/i, 'http:');
+      const http = await fetch(httpUrl, {
+        method: 'HEAD',
+        redirect: 'manual',
+        signal: AbortSignal.timeout(15000),
+        headers: { 'User-Agent': 'Goushibaaz-Filo-URL-Probe/1.0' }
+      });
+      out.httpFallback = {
+        status: http.status,
+        locationHost: http.headers.get('location') ? (() => { try { return new URL(http.headers.get('location')).host; } catch { return ''; } })() : '',
+        contentType: http.headers.get('content-type'),
+        contentLength: http.headers.get('content-length')
+      };
+    } catch (error) {
+      out.httpFallbackError = safeError(error);
+    }
+  }
+
   return out;
 }
 
@@ -157,17 +177,26 @@ async function confirmLogin(page, report) {
   let loginKeys = [];
   let explicitRejection = false;
   let loginStatus = null;
+  let loginStatusField = null;
+  let loginStatusCode = null;
+  let loginMessage = '';
   if (loginResponse) {
     loginStatus = loginResponse.status();
     const body = await loginResponse.text().catch(() => '');
     const parsed = parseJson(body);
     loginKeys = parsed && typeof parsed === 'object' ? Object.keys(parsed).slice(0, 12) : [];
+    loginStatusField = parsed && typeof parsed.status === 'string' ? parsed.status.slice(0, 40) : parsed && typeof parsed.status === 'boolean' ? parsed.status : null;
+    loginStatusCode = parsed && (typeof parsed.status_code === 'number' || typeof parsed.status_code === 'string') ? String(parsed.status_code).slice(0, 40) : null;
+    loginMessage = cleanMessage(parsed && parsed.message || '');
     explicitRejection = Boolean(parsed && typeof parsed === 'object' &&
-      (parsed.success === false || parsed.status === false || parsed.error || parsed.errors));
+      (parsed.success === false || parsed.status === false || parsed.error || parsed.errors || (typeof parsed.status === 'string' && !/^(success|ok)$/i.test(parsed.status))));
   }
 
   report.apiHttpStatus = loginStatus;
   report.apiResponseKeys = loginKeys;
+  report.apiStatusField = loginStatusField;
+  report.apiStatusCode = loginStatusCode;
+  report.apiMessage = loginMessage;
   report.explicitApiRejection = explicitRejection;
 
   await sleep(1500);
@@ -198,6 +227,8 @@ async function confirmLogin(page, report) {
       hasUploadForm,
       loginPrompt,
       accessDenied,
+      authStorageKeyPresent,
+      storageKeyNames: storageKeys.map(key => String(key || '').slice(0, 80)).slice(0, 30),
       title: String(document.title || '').slice(0, 100)
     };
   });
@@ -208,7 +239,7 @@ async function confirmLogin(page, report) {
   const routeOk = /^\/upload(?:\/|$)/i.test(pageEvidence.path) &&
     !pageEvidence.hasPassword && !pageEvidence.loginPrompt && !pageEvidence.accessDenied;
   const confirmed = !explicitRejection && (pageEvidence.hasLogout ||
-    (routeOk && (hasSessionCookie || pageEvidence.hasFile || pageEvidence.hasUploadForm)));
+    (routeOk && (hasSessionCookie || pageEvidence.authStorageKeyPresent || pageEvidence.hasFile || pageEvidence.hasUploadForm)));
   report.hasSessionCookie = hasSessionCookie;
   report.outcome = confirmed ? 'authenticated' : 'login_not_confirmed';
   return confirmed;
