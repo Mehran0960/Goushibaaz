@@ -282,6 +282,7 @@ async function main() {
   const uploadRequests = [];
   const uploadResponses = [];
   const publishRequests = [];
+  const failedUploadRequests = [];
   let uploadConfig = null;
 
   page.on('request', request => {
@@ -292,6 +293,20 @@ async function main() {
       }
       if (url.pathname === '/api/v1/video/publish') {
         publishRequests.push({ host: url.host, path: url.pathname, method: request.method() });
+      }
+    } catch {}
+  });
+
+  page.on('requestfailed', request => {
+    try {
+      const url = new URL(request.url());
+      if (url.pathname.endsWith('/uploadFromUrl')) {
+        failedUploadRequests.push({
+          host: url.host,
+          path: url.pathname,
+          method: request.method(),
+          failure: cleanMessage(request.failure()?.errorText || 'request_failed')
+        });
       }
     } catch {}
   });
@@ -321,6 +336,7 @@ async function main() {
           host: url.host,
           path: url.pathname,
           status: response.status(),
+          contentType: response.headers()['content-type'] || '',
           responseKeys: parsed && typeof parsed === 'object' ? Object.keys(parsed).slice(0, 12) : [],
           chunkPending: Boolean(parsed && parsed.d === 1),
           importSuccessFlag: Boolean(parsed && parsed.s),
@@ -377,23 +393,36 @@ async function main() {
         const start = Date.now();
         while (Date.now() - start < 90000) {
           const body = (await page.locator('body').innerText().catch(() => '')).replace(/\s+/g, ' ');
-          const titleInput = await page.locator('input[name="title"]').count().catch(() => 0);
-          const videoCount = await page.locator('video').count().catch(() => 0);
+          const titleField = page.locator('input[name="title"]').first();
+          const descriptionField = page.locator('textarea').first();
+          const titleVisible = await visible(titleField);
+          const descriptionVisible = await visible(descriptionField);
+          const tempSourceVisible = await page.locator('video[src*="/temp/"], video source[src*="/temp/"]').count().catch(() => 0) > 0;
           const failed = /سرور آدرس وارد شده از کیفیت مناسبی برخوردار نمی باشد|بارگذاری ناموفق بود|فایل موردنظر معتبر نیست|امکان بارگذاری ویدیو از این سایت وجود نداره/.test(body);
-          if (failed || titleInput > 0 || videoCount > 0 ||
-              uploadResponses.slice(beforeResponses).some(result => result.importSuccessFlag || result.metadataPresent)) break;
+          const responseFinished = uploadResponses.length > beforeResponses;
+          const requestFailed = failedUploadRequests.length > 0 && failedUploadRequests.some(item => item.host === test.host);
+          if (failed || titleVisible || descriptionVisible || tempSourceVisible || responseFinished || requestFailed) break;
           await page.waitForTimeout(1000);
         }
 
         const body = (await page.locator('body').innerText().catch(() => '')).replace(/\s+/g, ' ');
         test.uploadRequests = uploadRequests.length - beforeRequests;
         test.uploadResponses = uploadResponses.slice(beforeResponses);
-        test.publishFormReached = (await page.locator('input[name="title"]').count().catch(() => 0)) > 0;
-        test.videoElements = await page.locator('video').count().catch(() => 0);
+        test.failedUploadRequests = failedUploadRequests.filter(item => item.host === test.host);
+        test.publishFormReached = await visible(page.locator('input[name="title"]').first());
+        test.descriptionFieldVisible = await visible(page.locator('textarea').first());
         test.tempSourceVisible = (await page.locator('video[src*="/temp/"], video source[src*="/temp/"]').count().catch(() => 0)) > 0;
+        test.videoSources = await page.locator('video, video source').evaluateAll(nodes => nodes.map(node => {
+          const value = node.currentSrc || node.src || node.getAttribute('src') || '';
+          try { const url = new URL(value); return { host: url.host, path: url.pathname }; } catch { return { host: '', path: '' }; }
+        }).filter(item => item.path).slice(0, 5)).catch(() => []);
         test.errorMessage = cleanMessage(body.match(/سرور آدرس وارد شده[^.]*|بارگذاری ناموفق بود[^.]*|فایل موردنظر معتبر نیست[^.]*|امکان بارگذاری ویدیو[^.]*/)?.[0] || '');
-        test.imported = test.publishFormReached || test.tempSourceVisible || test.videoElements > 0 ||
-          uploadResponses.slice(beforeResponses).some(result => result.importSuccessFlag || result.metadataPresent);
+        test.imported = test.publishFormReached || test.descriptionFieldVisible || test.tempSourceVisible ||
+          test.uploadResponses.some(result => result.importSuccessFlag || result.metadataPresent);
+        test.outcome = test.imported ? 'temporary_import_confirmed' :
+          test.failedUploadRequests.length ? 'upload_request_failed' :
+          test.uploadResponses.length ? 'upload_response_without_import_metadata' :
+          test.uploadRequests ? 'request_sent_no_response_or_preview' : 'no_upload_request';
       }
 
       report.imports.push(test);
@@ -404,6 +433,7 @@ async function main() {
     report.publishEndpointCalled = publishRequests.length > 0;
     report.publishRequestCount = publishRequests.length;
     report.uploadRequests = uploadRequests;
+    report.failedUploadRequests = failedUploadRequests;
     await context.clearCookies().catch(() => {});
     await browser.close().catch(() => {});
   }
