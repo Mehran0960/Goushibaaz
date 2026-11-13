@@ -911,7 +911,7 @@ const state = {
   ]
 };
 assert.equal(dailyCount(state, Date.parse('2026-11-02T12:00:00.000Z')), 3,
-  'rejected Filo attempts must consume the internal operation budget as well as successful submissions');
+  'rejected Filo attempts must remain visible in the operation-count diagnostics');
 assert.equal(dailyCount(state, Date.parse('2026-11-03T00:05:00.000Z')), 2,
   'the rolling 24-hour window includes pending and rejected operations across UTC midnight');
 assert.equal(dailyCount(state, Date.parse('2026-11-03T00:10:00.000Z')), 1,
@@ -1440,29 +1440,7 @@ assert.equal(unblockedByDailyVolume.internalDailyCap, null);
 assert.equal(dailyCount(dailyPacingState,pacingNow),40,
   'daily operation count remains diagnostic only after removing the daily cap');
 
-const waitingState = { posts: [
-  { status:'public_verified', submittedAt:new Date(pacingNow - 15*60*1000).toISOString() }
-] };
-let fakeNow = pacingNow;
-let recordedWait = 0;
-const waitedForExactWindow = await waitForPublicationWindow(waitingState, {
-  nowFn: () => fakeNow,
-  sleepFn: async ms => { recordedWait = ms; fakeNow += ms; },
-  maxWaitMs: 5*60*1000
-});
-assert.equal(recordedWait,2*60*1000,
-  'a scheduler cycle arriving two minutes before eligibility must sleep until the exact 17-minute boundary');
-assert.equal(waitedForExactWindow.waitedMs,2*60*1000);
-assert.equal(waitedForExactWindow.gate.blocked,false);
 
-const beyondSchedulerWindow = await waitForPublicationWindow(oneRecentPublication, {
-  nowFn: () => pacingNow,
-  sleepFn: async () => { throw new Error('must not hold a runner for a long wait'); },
-  maxWaitMs: 5*60*1000
-});
-assert.equal(beyondSchedulerWindow.waitSkipped,true);
-assert.equal(beyondSchedulerWindow.gate.blocked,true);
-assert.equal(beyondSchedulerWindow.requiredWaitMs,7*60*1000);
 
 const quotaBackoffState = {};
 const quotaFirst = setAccountRepublishQuotaCooldown(quotaBackoffState,pacingNow);
@@ -1471,6 +1449,32 @@ const quotaSecond = setAccountRepublishQuotaCooldown(quotaBackoffState,pacingNow
 assert.equal(quotaSecond.cooldownMs,4*60*60*1000,
   'a repeated account quota response within 24h must increase the cooldown');
 assert.equal(quotaSecond.occurrenceCountIn24h,2);
+
+async function testPublicationPacingWait() {
+  const waitingState = { posts: [
+    { status:'public_verified', submittedAt:new Date(pacingNow - 15*60*1000).toISOString() }
+  ] };
+  let fakeNow = pacingNow;
+  let recordedWait = 0;
+  const waitedForExactWindow = await waitForPublicationWindow(waitingState, {
+    nowFn: () => fakeNow,
+    sleepFn: async ms => { recordedWait = ms; fakeNow += ms; },
+    maxWaitMs: 5*60*1000
+  });
+  assert.equal(recordedWait,2*60*1000,
+    'a scheduler cycle arriving two minutes before eligibility must sleep until the exact 17-minute boundary');
+  assert.equal(waitedForExactWindow.waitedMs,2*60*1000);
+  assert.equal(waitedForExactWindow.gate.blocked,false);
+
+  const beyondSchedulerWindow = await waitForPublicationWindow(oneRecentPublication, {
+    nowFn: () => pacingNow,
+    sleepFn: async () => { throw new Error('must not hold a runner for a long wait'); },
+    maxWaitMs: 5*60*1000
+  });
+  assert.equal(beyondSchedulerWindow.waitSkipped,true);
+  assert.equal(beyondSchedulerWindow.gate.blocked,true);
+  assert.equal(beyondSchedulerWindow.requiredWaitMs,7*60*1000);
+}
 
 async function testPortraitCoverComposition() {
   const { chromium } = require('playwright');
@@ -1523,6 +1527,7 @@ async function testPortraitCoverComposition() {
 }
 
 async function runAsyncTests() {
+  await testPublicationPacingWait();
   await testPortraitCoverComposition();
   console.log('FILO_NATIVE_REPUBLISH_TESTS_PASSED');
 }
