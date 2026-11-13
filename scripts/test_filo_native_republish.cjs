@@ -11,6 +11,7 @@ const {
   isSourceAlreadyAttempted,
   markMetadataPolicyRetry,
   summarizeFeedGateSignals,
+  summarizeFeedAgeDiagnostics,
   summarizeCandidateChecks,
   fitFiloTitleLength,
   cleanRepostCaptionTitle,
@@ -103,9 +104,42 @@ const valid = {
 assert.equal(ageHours({ create_date: '۲ ساعت پیش' }), 2);
 const jalaliNow = Date.parse('2026-11-05T06:30:00.000Z');
 assert.equal(ageHours({ create_date: '۱۴۰۵/۰۸/۱۴ ساعت ۰۹:۳۰' }, jalaliNow), 0.5,
-  'Jalali timestamps must also drive candidate ranking and the 24-hour cutoff');
+  'Jalali timestamps must also drive candidate ranking and the 72-hour cutoff');
 assert.equal(ageHours({ create_date: '۱۴۰۵/۰۸/۱۴' }, jalaliNow), 10,
   'date-only Jalali values use the conservative start of the Tehran day');
+const ageWindowNow = Date.parse('2026-11-05T12:00:00.000Z');
+const timestampSeconds = Math.floor((ageWindowNow - 70 * 60 * 60 * 1000) / 1000);
+const timestampFeedItem = normalizeVideoFeedItem({
+  v: 'Epoch70', t: 'ویدئوی دارای زمان یونیکس', timestamp: timestampSeconds
+});
+assert.equal(timestampFeedItem.create_date_source, 'timestamp');
+assert.equal(ageHours(timestampFeedItem, ageWindowNow), 70,
+  'numeric Unix timestamps in seconds must be parsed as reliable publication dates');
+assert.equal(ageHours({ create_date: 'زمان انتشار نامشخص' }, ageWindowNow), Number.POSITIVE_INFINITY,
+  'unknown dates must not receive a fabricated 36-hour age and enter the 72-hour window');
+assert.equal(ageHours({
+  create_date: Math.floor((ageWindowNow + 2 * 60 * 60 * 1000) / 1000)
+}, ageWindowNow), Number.POSITIVE_INFINITY,
+  'future timestamps beyond clock-skew tolerance must be rejected');
+
+const windowRank = rankCandidatesByMomentum([
+  { video_code:'Window70', title:'ویدئوی دارای تاریخ معتبر', create_date:'۷۰ ساعت پیش', visit_count:100, plays:10 },
+  { video_code:'Window73', title:'ویدئوی خارج از پنجره', create_date:'۷۳ ساعت پیش', visit_count:100, plays:10 },
+  { video_code:'UnknownAge', title:'ویدئوی بدون تاریخ قابل‌اعتماد', visit_count:100, plays:10 }
+], { candidateMomentum:{} }, ageWindowNow);
+assert.deepEqual(windowRank.map(entry => entry.item.video_code), ['Window70'],
+  'only reliably dated items with a conservative age bound inside 72 hours enter the ranking');
+
+const ageDiagnostic = summarizeFeedAgeDiagnostics([
+  normalizeVideoFeedItem({v:'Age70A',cd:'۷۰ ساعت پیش'}),
+  normalizeVideoFeedItem({v:'Age73B',cd:'۷۳ ساعت پیش'}),
+  normalizeVideoFeedItem({v:'NoDate1',t:'بدون تاریخ'})
+], ageWindowNow, 72);
+assert.equal(ageDiagnostic.reliableAgeItems,2);
+assert.equal(ageDiagnostic.withinLookback,1);
+assert.equal(ageDiagnostic.outsideLookback,1);
+assert.equal(ageDiagnostic.unknownAgeItems,1);
+assert.equal(ageDiagnostic.sourceFieldCounts.cd,2);
 assert.equal(shouldStartPublishingCycle(null, Date.parse('2026-11-05T04:20:00.000Z')), true,
   'the first publishing cycle should start immediately');
 assert.equal(shouldStartPublishingCycle('2026-11-05T04:17:00.000Z',
@@ -363,7 +397,10 @@ assert.equal(resolveDepthScanStartPage(2,{lastPageNo:9}),2,
 assert.equal(resolveDepthScanStartPage(14,{lastPageNo:12}),2,
   'a non-contiguous stored cursor must restart safely');
 assert.equal(nextCategoryDepthPage(12),13);
-assert.equal(nextCategoryDepthPage(18),2, 'the expanded page ceiling still wraps only after page eighteen');
+assert.equal(nextCategoryDepthPage(18),19, 'the 72-hour scan continues beyond the former page-eighteen ceiling');
+assert.equal(nextCategoryDepthPage(36),2, 'the expanded page ceiling wraps only after page thirty-six');
+assert.equal(resolveDepthScanStartPage(2,{lastPageNo:30}),31,
+  'saved depth evidence must resume inside the expanded 36-page range');
 assert.deepEqual(
   Object.keys(summarizeCategoryCatalogPayload({s:true,d:{c:[],cfs:[]}}).nested),
   ['d']
@@ -380,13 +417,13 @@ assert.equal(recentOrderedPage.chronologyConsistent, true,
 assert.equal(recentOrderedPage.allItemsOlderThanLookback, false);
 
 const oldOrderedPage = analyzeCategoryFeedPage([
-  { create_date: '۲۵ ساعت پیش' },
-  { create_date: '۲۶ ساعت پیش' },
-  { create_date: '۲۷ ساعت پیش' }
+  { create_date: '۷۳ ساعت پیش' },
+  { create_date: '۷۴ ساعت پیش' },
+  { create_date: '۷۵ ساعت پیش' }
 ], feedNow);
 assert.equal(oldOrderedPage.chronologyConsistent, true);
 assert.equal(oldOrderedPage.allItemsOlderThanLookback, true,
-  'the 24-hour cutoff must account for relative-time rounding');
+  'the 72-hour cutoff must account conservatively for relative-time rounding');
 
 const reversedPage = analyzeCategoryFeedPage([
   { create_date: '۵ ساعت پیش' },
@@ -412,24 +449,24 @@ const jalaliAge = reliableFeedAgeBounds(
 assert.equal(jalaliAge.centerHours, 0.5,
   'Filo Solar Hijri timestamps must use Tehran local time and preserve minute precision');
 const jalaliDateOnlyAge = reliableFeedAgeBounds(
-  { create_date: '۱۴۰۵/۰۸/۱۲' },
+  { create_date: '۱۴۰۵/۰۸/۱۰' },
   Date.parse('2026-11-05T06:30:00.000Z')
 );
 assert.equal(jalaliDateOnlyAge.precisionHours, 24,
   'date-only Jalali values must retain conservative day-level uncertainty');
-assert.ok(jalaliDateOnlyAge.lowerHours > 24,
-  'a Jalali date safely older than the 24-hour lookback can establish the cutoff');
+assert.ok(jalaliDateOnlyAge.lowerHours > 72,
+  'a Jalali date safely older than 72 hours can establish the expanded cutoff');
 const yesterdayBounds = reliableFeedAgeBounds({ create_date: 'دیروز' }, feedNow);
 assert.equal(yesterdayBounds.lowerHours, 24,
   'the label yesterday must retain the exact conservative lower boundary');
 const jalaliOrderedPage = analyzeCategoryFeedPage([
-  { create_date: '۱۴۰۵/۰۸/۱۲' },
-  { create_date: '۱۴۰۵/۰۸/۱۱' }
+  { create_date: '۱۴۰۵/۰۸/۱۰' },
+  { create_date: '۱۴۰۵/۰۸/۰۹' }
 ], Date.parse('2026-11-05T06:30:00.000Z'));
 assert.equal(jalaliOrderedPage.ageDataComplete, true);
 assert.equal(jalaliOrderedPage.chronologyConsistent, true);
 assert.equal(jalaliOrderedPage.allItemsOlderThanLookback, true,
-  'consecutive Jalali date-only feed entries can safely prove a full page is older than 24 hours');
+  'consecutive Jalali date-only feed entries can safely prove a full page is older than 72 hours');
 const previousPageLast = reliableFeedAgeBounds({ create_date: '۲۴ ساعت پیش' }, feedNow);
 const nextPageFirst = reliableFeedAgeBounds({ create_date: '۲۵ ساعت پیش' }, feedNow);
 const outOfOrderPageFirst = reliableFeedAgeBounds({ create_date: '۲۲ ساعت پیش' }, feedNow);
@@ -884,7 +921,7 @@ const momentumStart = Date.parse('2026-11-04T00:00:00.000Z');
 const baseline = [
   { video_code: 'Comedy01', title: 'طنز خنده دار تازه', create_date: '۲ ساعت پیش', visit_count: 100, plays: 10 },
   { video_code: 'Tutorial1', title: 'ترفند کاربردی تازه', create_date: '۲ ساعت پیش', visit_count: 100, plays: 10 },
-  { video_code: 'Old001', title: 'ویدئوی قدیمی', create_date: 'دیروز', visit_count: 100, plays: 10 },
+  { video_code: 'Old001', title: 'ویدئوی قدیمی', create_date: '۷۳ ساعت پیش', visit_count: 100, plays: 10 },
   { video_code: 'ViewsOnly', title: 'ویدئوی بدون شمارنده پخش', create_date: '۲ ساعت پیش', visit_count: 100 }
 ];
 const firstRank = rankCandidatesByMomentum(baseline, momentumState, momentumStart);
@@ -941,6 +978,29 @@ assert.equal(thirdRank[0].momentum.playsAccelerationPerMinute, 0);
 assert.equal(thirdRank[0].momentum.viewsPerMinute, 20,
   'velocity is estimated across the recent independent-sample window, not only the last adjacent interval');
 assert.equal(thirdRank[2].item.video_code, 'ViewsOnly');
+
+
+const rotatingMomentumState = { candidateMomentum:{} };
+const rotatingMomentumStart = Date.parse('2026-11-06T00:00:00.000Z');
+const rotatingCandidateBase = {
+  video_code:'Rotating72',
+  title:'ویدئوی دارای رشد در صفحات عمیق',
+  create_date:'۵۰ ساعت پیش',
+  visit_count:100,
+  plays:10
+};
+rankCandidatesByMomentum([rotatingCandidateBase], rotatingMomentumState, rotatingMomentumStart);
+rankCandidatesByMomentum([
+  {...rotatingCandidateBase,visit_count:180,plays:20}
+], rotatingMomentumState, rotatingMomentumStart + 45 * 60 * 1000);
+const rotatingRank = rankCandidatesByMomentum([
+  {...rotatingCandidateBase,visit_count:320,plays:35}
+], rotatingMomentumState, rotatingMomentumStart + 90 * 60 * 1000);
+const rotatingCandidate = rotatingRank.find(entry => entry.item.video_code === 'Rotating72');
+assert.equal(rotatingCandidate.momentum.playsSampleCount,3,
+  'a 72-hour candidate revisited on rotating category pages must retain three independent samples');
+assert.equal(rotatingCandidate.growthGatePassed,true,
+  'the 3-hour evidence history must allow a positive-velocity candidate sampled 45 minutes apart to qualify');
 
 const accelerationState = { posts: [] };
 const accelerationStart = Date.parse('2026-11-06T00:00:00.000Z');
