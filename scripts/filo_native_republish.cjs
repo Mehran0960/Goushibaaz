@@ -47,8 +47,8 @@ const TOPIC_DUPLICATE_WINDOW_MS = 48 * 60 * 60 * 1000;
 const CANDIDATE_REJECTION_TTL_MS = 6 * 60 * 60 * 1000;
 const ACCOUNT_REPUBLISH_QUOTA_COOLDOWN_MS = 2 * 60 * 60 * 1000;
 const MIN_PUBLISH_GAP_MS = 17 * 60 * 1000;
-const MAX_PUBLICATIONS_PER_ROLLING_HOUR = 3;
-const MAX_PUBLICATIONS_PER_24H = 36;
+// GitHub's native schedule is five-minute minimum; wait only when the next slot is within one scheduler interval.
+const MAX_PACING_WAIT_MS = 5 * 60 * 1000;
 const MAX_DETAIL_CHECKS = 90;
 const MIN_DURATION_SECONDS = 10;
 const CAPTION_POLICY_VERSION = 8;
@@ -2106,36 +2106,61 @@ function getPublicationPacingGate(state, now = Date.now()) {
   const rollingHour = times.filter(at => at > hourStart);
   const rolling24h = times.filter(at => at > dayStart);
   const latestOperationAt = times.at(-1) ?? null;
-  const nextEligibleCandidates = [];
-  const reasons = [];
+  const nextEligibleAt = latestOperationAt === null
+    ? null
+    : latestOperationAt + MIN_PUBLISH_GAP_MS;
+  const blocked = nextEligibleAt !== null && nextEligibleAt > nowMs;
 
-  if (latestOperationAt !== null && nowMs - latestOperationAt < MIN_PUBLISH_GAP_MS) {
-    reasons.push('minimum_gap_between_republish_operations');
-    nextEligibleCandidates.push(latestOperationAt + MIN_PUBLISH_GAP_MS);
-  }
-  if (rollingHour.length >= MAX_PUBLICATIONS_PER_ROLLING_HOUR) {
-    reasons.push('rolling_hour_operation_cap');
-    nextEligibleCandidates.push(rollingHour[rollingHour.length - MAX_PUBLICATIONS_PER_ROLLING_HOUR] +
-      60 * 60 * 1000);
-  }
-  if (rolling24h.length >= MAX_PUBLICATIONS_PER_24H) {
-    reasons.push('rolling_24h_operation_cap');
-    nextEligibleCandidates.push(rolling24h[rolling24h.length - MAX_PUBLICATIONS_PER_24H] +
-      24 * 60 * 60 * 1000);
-  }
-
-  const nextEligibleAt = nextEligibleCandidates.length
-    ? Math.max(nowMs, ...nextEligibleCandidates) : null;
   return {
-    blocked: reasons.length > 0 && nextEligibleAt > nowMs,
-    reasons,
-    nextEligibleAt: nextEligibleAt === null ? null : new Date(nextEligibleAt).toISOString(),
+    blocked,
+    reasons: blocked ? ['minimum_gap_between_republish_operations'] : [],
+    nextEligibleAt: blocked ? new Date(nextEligibleAt).toISOString() : null,
     minimumGapMs: MIN_PUBLISH_GAP_MS,
-    maxOperationsPerRollingHour: MAX_PUBLICATIONS_PER_ROLLING_HOUR,
-    maxOperationsPerRolling24h: MAX_PUBLICATIONS_PER_24H,
     lastOperationAt: latestOperationAt === null ? null : new Date(latestOperationAt).toISOString(),
     rollingHourOperations: rollingHour.length,
-    rolling24hOperations: rolling24h.length
+    rolling24hOperations: rolling24h.length,
+    internalHourlyCap: null,
+    internalDailyCap: null
+  };
+}
+
+async function waitForPublicationWindow(state, {
+  nowFn = Date.now,
+  sleepFn = sleep,
+  maxWaitMs = MAX_PACING_WAIT_MS
+} = {}) {
+  const checkedAtMs = nowFn();
+  let gate = getPublicationPacingGate(state, checkedAtMs);
+  if (!gate.blocked) {
+    return {
+      gate,
+      checkedAt: new Date(checkedAtMs).toISOString(),
+      waitedMs: 0,
+      requiredWaitMs: 0,
+      waitSkipped: false
+    };
+  }
+
+  const requiredWaitMs = Math.max(0, Date.parse(gate.nextEligibleAt) - checkedAtMs);
+  if (requiredWaitMs > maxWaitMs) {
+    return {
+      gate,
+      checkedAt: new Date(checkedAtMs).toISOString(),
+      waitedMs: 0,
+      requiredWaitMs,
+      waitSkipped: true
+    };
+  }
+
+  if (requiredWaitMs > 0) await sleepFn(requiredWaitMs);
+  const resumedAtMs = nowFn();
+  gate = getPublicationPacingGate(state, resumedAtMs);
+  return {
+    gate,
+    checkedAt: new Date(resumedAtMs).toISOString(),
+    waitedMs: Math.max(0, resumedAtMs - checkedAtMs),
+    requiredWaitMs,
+    waitSkipped: false
   };
 }
 
@@ -3605,9 +3630,18 @@ async function main() {
       return;
     }
 
-    const publicationPacing = getPublicationPacingGate(state, quotaCheckAt);
-    report.discovery.publicationPacing = publicationPacing;
-    report.discovery.dailyPublicationOperationCount = dailyCount(state, quotaCheckAt);
+    const pacingWait = await waitForPublicationWindow(state);
+    const publicationPacing = pacingWait.gate;
+    report.discovery.publicationPacing = {
+      ...publicationPacing,
+      waitStartedAt: new Date(Date.parse(pacingWait.checkedAt) - pacingWait.waitedMs).toISOString(),
+      waitCheckedAt: pacingWait.checkedAt,
+      waitedMs: pacingWait.waitedMs,
+      requiredWaitMs: pacingWait.requiredWaitMs,
+      waitSkipped: pacingWait.waitSkipped
+    };
+    const pacingCheckedAt = Date.parse(pacingWait.checkedAt);
+    report.discovery.dailyPublicationOperationCount = dailyCount(state, pacingCheckedAt);
     if (publicationPacing.blocked) {
       report.status = 'filo_publication_pacing_deferred';
       report.result = {
@@ -3615,7 +3649,9 @@ async function main() {
         reason: publicationPacing.reasons.join(','),
         retryAfterAt: publicationPacing.nextEligibleAt,
         retryOnNextScheduledRun: true,
-        discoveryContinues: true
+        discoveryContinues: true,
+        internalOperationCaps: 'disabled',
+        waitSkippedBecauseOutsideSchedulerWindow: pacingWait.waitSkipped
       };
       return;
     }
@@ -3891,7 +3927,7 @@ async function main() {
         reason: result.reason || '',
         httpStatus: result.httpStatus || null,
         responseDiagnostics: result.responseDiagnostics || null,
-        attemptedAt: report.createdAt
+        attemptedAt: new Date().toISOString()
       });
       state.posts = state.posts.slice(-1200);
       state.updatedAt = new Date().toISOString();
@@ -3977,6 +4013,7 @@ module.exports = {
   dailyCount,
   getPublicationOperationTimes,
   getPublicationPacingGate,
+  waitForPublicationWindow,
   buildCategoryPageRequestPayload,
   buildVideoTagFeedPath,
   buildFiloGlobalSearchRequest,
