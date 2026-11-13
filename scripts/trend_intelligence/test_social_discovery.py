@@ -14,6 +14,8 @@ class ViewTrajectoryPersistenceTests(unittest.TestCase):
         previous = [{
             "id": "stable-video-id",
             "url": "https://t.me/example/123",
+            "source": "telegram_native_video",
+            "metric_evidence": "native_telegram_public_post_counter",
             "last_views": 1000,
             "last_seen_at": (now - timedelta(hours=1)).isoformat(),
             "history": [{
@@ -24,6 +26,8 @@ class ViewTrajectoryPersistenceTests(unittest.TestCase):
         current = [{
             "id": "stable-video-id",
             "url": "https://t.me/example/123",
+            "source": "telegram_native_video",
+            "metric_evidence": "native_telegram_public_post_counter",
             "views": 1600,
             "age_hours": 2,
         }]
@@ -36,6 +40,8 @@ class ViewTrajectoryPersistenceTests(unittest.TestCase):
         now = datetime(2026, 10, 30, 12, 0, tzinfo=timezone.utc)
         previous = [{
             "id": "stable-video-id",
+            "source": "telegram_native_video",
+            "metric_evidence": "native_telegram_public_post_counter",
             "views": 1500,
             "metrics_observed_at": (now - timedelta(seconds=30)).isoformat(),
             "views_history": [
@@ -49,7 +55,13 @@ class ViewTrajectoryPersistenceTests(unittest.TestCase):
                 },
             ],
         }]
-        current = [{"id": "stable-video-id", "views": 1600, "age_hours": 2}]
+        current = [{
+            "id": "stable-video-id",
+            "source": "telegram_native_video",
+            "metric_evidence": "native_telegram_public_post_counter",
+            "views": 1600,
+            "age_hours": 2,
+        }]
         result = attach_view_trajectory(current, previous, now)[0]
         self.assertEqual(result["views_velocity_kind"], "observed")
         self.assertEqual(result["views_delta_last_interval"], 600)
@@ -59,6 +71,8 @@ class ViewTrajectoryPersistenceTests(unittest.TestCase):
         now = datetime(2026, 10, 30, 12, 0, tzinfo=timezone.utc)
         previous = [{
             "id": "stable-video-id",
+            "source": "telegram_native_video",
+            "metric_evidence": "native_telegram_public_post_counter",
             "last_views": 1000,
             "last_seen_at": (now - timedelta(hours=1)).isoformat(),
             "history": [{
@@ -66,11 +80,72 @@ class ViewTrajectoryPersistenceTests(unittest.TestCase):
                 "views": 1000,
             }],
         }]
-        current = [{"id": "stable-video-id", "views": 900, "age_hours": 2}]
+        current = [{
+            "id": "stable-video-id",
+            "source": "telegram_native_video",
+            "metric_evidence": "native_telegram_public_post_counter",
+            "views": 900,
+            "age_hours": 2,
+        }]
         result = attach_view_trajectory(current, previous, now)[0]
         self.assertEqual(result["views_velocity_kind"], "observed")
         self.assertEqual(result["views_delta_last_interval"], -100)
         self.assertLess(result["views_velocity_per_hour"], 0)
+
+
+class TrustedMetricProvenanceTests(unittest.TestCase):
+    def test_search_result_view_hints_never_become_observed_velocity(self):
+        now = datetime(2026, 10, 30, 12, 0, tzinfo=timezone.utc)
+        previous = [{
+            "id": "search-video",
+            "source": "bing_search",
+            "metric_evidence": "unverified_search_result_text",
+            "views": 9000,
+            "views_history": [{
+                "observed_at": (now - timedelta(hours=1)).isoformat(),
+                "views": 9000,
+            }],
+        }]
+        current = [{
+            "id": "search-video",
+            "url": "https://www.instagram.com/reel/Abc123/",
+            "source": "firecrawl_search",
+            "views": 15000,
+            "likes": 400,
+            "age_hours": 1,
+        }]
+        result = attach_view_trajectory(current, previous, now)[0]
+        self.assertEqual(result["views_velocity_kind"], "unverified")
+        self.assertEqual(result["views_velocity_per_hour"], 0.0)
+        self.assertEqual(result["views"], 0)
+        self.assertEqual(result["unverified_metrics"]["views"], 15000)
+        self.assertEqual(result["metric_evidence"], "unverified_search_result_text")
+        self.assertEqual(result["views_history"], [])
+
+    def test_official_youtube_counter_is_eligible_for_observed_velocity(self):
+        now = datetime(2026, 10, 30, 12, 0, tzinfo=timezone.utc)
+        previous = [{
+            "id": "youtube-video",
+            "source": "youtube_public_api",
+            "metric_evidence": "native_youtube_api_statistics",
+            "views": 2000,
+            "metrics_observed_at": (now - timedelta(hours=1)).isoformat(),
+            "views_history": [{
+                "observed_at": (now - timedelta(hours=1)).isoformat(),
+                "views": 2000,
+            }],
+        }]
+        current = [{
+            "id": "youtube-video",
+            "source": "youtube_public_api",
+            "metric_evidence": "native_youtube_api_statistics",
+            "views": 2600,
+            "age_hours": 2,
+        }]
+        result = attach_view_trajectory(current, previous, now)[0]
+        self.assertEqual(result["views_velocity_kind"], "observed")
+        self.assertEqual(result["views_delta_last_interval"], 600)
+        self.assertAlmostEqual(result["views_velocity_per_hour"], 600.0)
 
 
 class RotatingDiscoveryBatchTests(unittest.TestCase):

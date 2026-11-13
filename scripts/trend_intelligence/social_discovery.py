@@ -669,6 +669,7 @@ def normalize_native_telegram_candidates(found, now):
             "telegram_repost_channels": [],
             "telegram_channel": str(raw.get("telegram_channel") or ""),
             "telegram_channel_priority": source_channel_priority,
+            "metric_evidence": "native_telegram_public_post_counter",
             "published_at": published_at,
             "age_hours": age_hours,
             "persian_signal": len(re.findall(r"[\u0600-\u06ff]", text_blob)) >= 3,
@@ -1047,6 +1048,7 @@ def discover_youtube_global_charts(now=None, limit_per_bucket=8):
                     "title": str(snippet.get("title") or ""),
                     "description": str(snippet.get("description") or "")[:1500],
                     "platform": "youtube", "source": "youtube_global_chart",
+                    "metric_evidence": "native_youtube_api_statistics",
                     "views": views, "likes": likes, "comments": comments, "shares": 0,
                     "published_at": published_at, "age_hours": age_hours,
                     "duration_seconds": duration, "discovered_at": now.isoformat(),
@@ -1114,6 +1116,26 @@ def log_growth_summary(items):
     }, ensure_ascii=False))
 
 
+TRUSTED_VIEW_METRIC_EVIDENCE = {
+    "native_youtube_api_statistics",
+    "native_telegram_public_post_counter",
+}
+
+
+def trusted_view_metric_evidence(item):
+    """Return an allow-listed, source-grounded view-counter evidence type."""
+    row = item if isinstance(item, dict) else {}
+    evidence = str(row.get("metric_evidence") or "").strip()
+    if evidence in TRUSTED_VIEW_METRIC_EVIDENCE:
+        return evidence
+    source = str(row.get("source") or "").strip().lower()
+    if source in {"youtube_public_api", "youtube_global_chart"}:
+        return "native_youtube_api_statistics"
+    if source == "telegram_native_video":
+        return "native_telegram_public_post_counter"
+    return ""
+
+
 def _observation_time(value):
     """Parse an ISO timestamp used for view-count observations."""
     try:
@@ -1126,7 +1148,7 @@ def _observation_time(value):
 
 
 def attach_view_trajectory(results, previous_items, now):
-    """Keep view-count snapshots so selection can use observed view velocity."""
+    """Measure velocity only from trusted native counters, never search snippets."""
     old_by_id = {
         str(item.get("id") or item.get("url") or ""): item
         for item in (previous_items if isinstance(previous_items, list) else [])
@@ -1135,7 +1157,9 @@ def attach_view_trajectory(results, previous_items, now):
     now_utc = now.astimezone(timezone.utc) if now.tzinfo else now.replace(tzinfo=timezone.utc)
     now_text = now_utc.isoformat()
     observed_count = 0
-    estimated_count = 0
+    insufficient_count = 0
+    unverified_count = 0
+    stale_trusted_count = 0
 
     def parse_views(item):
         try:
@@ -1146,33 +1170,86 @@ def attach_view_trajectory(results, previous_items, now):
     for item in results if isinstance(results, list) else []:
         if not isinstance(item, dict):
             continue
-        views = parse_views(item)
-        if views <= 0:
-            continue
         ident = str(item.get("id") or item.get("url") or "")
         old = old_by_id.get(ident) or {}
-        history = []
-        old_history = old.get("views_history") or old.get("history") or []
-        for row in old_history if isinstance(old_history, list) else []:
-            if not isinstance(row, dict):
-                continue
-            stamp = _observation_time(row.get("observed_at") or row.get("at"))
-            try:
-                count = max(0, int(row.get("views") or 0))
-            except (TypeError, ValueError, OverflowError):
-                continue
-            if stamp and count:
-                history.append({"observed_at": stamp.isoformat(), "views": count})
+        evidence = trusted_view_metric_evidence(item)
 
-        # Preserve a prior observation for candidates created before view history existed.
-        old_views = parse_views(old)
-        old_stamp = _observation_time(old.get("metrics_observed_at") or old.get("discovered_at") or old.get("last_seen_at"))
-        if old_views > 0 and old_stamp:
-            if not history or (
-                history[-1]["observed_at"] != old_stamp.isoformat()
-                or int(history[-1]["views"]) != old_views
-            ):
-                history.append({"observed_at": old_stamp.isoformat(), "views": old_views})
+        if not evidence:
+            raw_metrics = {
+                "views": parse_views(item),
+                "likes": safe_quota_count(item.get("likes")),
+                "comments": safe_quota_count(item.get("comments")),
+                "shares": safe_quota_count(item.get("shares")),
+            }
+            if any(raw_metrics.values()):
+                item["unverified_metrics"] = raw_metrics
+            old_evidence = trusted_view_metric_evidence(old)
+            if old_evidence:
+                for key in (
+                    "views", "likes", "comments", "shares", "views_history",
+                    "metrics_observed_at", "last_views", "last_seen_at",
+                ):
+                    if key in old:
+                        item[key] = old[key]
+                item["metric_evidence"] = old_evidence
+                item["views_velocity_per_hour"] = 0.0
+                item["views_velocity_kind"] = "stale_trusted_metric"
+                item["views_delta_last_interval"] = None
+                item["views_measurement_interval_hours"] = None
+                item["views_acceleration_per_hour2"] = 0.0
+                stale_trusted_count += 1
+                continue
+
+            item["views"] = 0
+            item["likes"] = 0
+            item["comments"] = 0
+            item["shares"] = 0
+            item["views_history"] = []
+            item["metric_evidence"] = "unverified_search_result_text"
+            item["views_velocity_per_hour"] = 0.0
+            item["views_velocity_kind"] = "unverified"
+            item["views_delta_last_interval"] = None
+            item["views_measurement_interval_hours"] = None
+            item["views_acceleration_per_hour2"] = 0.0
+            unverified_count += 1
+            continue
+
+        item["metric_evidence"] = evidence
+        views = parse_views(item)
+        if views <= 0:
+            item["views_history"] = []
+            item["views_velocity_per_hour"] = 0.0
+            item["views_velocity_kind"] = "native_counter_zero_or_missing"
+            item["views_delta_last_interval"] = None
+            item["views_measurement_interval_hours"] = None
+            item["views_acceleration_per_hour2"] = 0.0
+            continue
+
+        history = []
+        old_evidence = trusted_view_metric_evidence(old)
+        old_history = old.get("views_history") or old.get("history") or []
+        if old_evidence == evidence:
+            for row in old_history if isinstance(old_history, list) else []:
+                if not isinstance(row, dict):
+                    continue
+                stamp = _observation_time(row.get("observed_at") or row.get("at"))
+                try:
+                    count = max(0, int(row.get("views") or 0))
+                except (TypeError, ValueError, OverflowError):
+                    continue
+                if stamp and count:
+                    history.append({"observed_at": stamp.isoformat(), "views": count})
+
+            old_views = parse_views(old)
+            old_stamp = _observation_time(
+                old.get("metrics_observed_at") or old.get("discovered_at") or old.get("last_seen_at")
+            )
+            if old_views > 0 and old_stamp:
+                if not history or (
+                    history[-1]["observed_at"] != old_stamp.isoformat()
+                    or int(history[-1]["views"]) != old_views
+                ):
+                    history.append({"observed_at": old_stamp.isoformat(), "views": old_views})
 
         if history and history[-1]["observed_at"] == now_text:
             history[-1] = {"observed_at": now_text, "views": views}
@@ -1189,10 +1266,6 @@ def attach_view_trajectory(results, previous_items, now):
         measured_rate = measured_delta = measured_interval = None
         parsed = [(_observation_time(row["observed_at"]), int(row["views"])) for row in history]
         if len(parsed) >= 2:
-            # A rapid second scan can append a snapshot less than six minutes
-            # after the previous one. Do not discard older usable history:
-            # compare the newest sample with the nearest prior sample that
-            # still satisfies the minimum measurement interval.
             newer_at, newer_views = parsed[-1]
             eligible_older = [
                 (stamp, count) for stamp, count in parsed[:-1]
@@ -1212,17 +1285,12 @@ def attach_view_trajectory(results, previous_items, now):
             item["views_measurement_interval_hours"] = measured_interval
             observed_count += 1
         else:
-            try:
-                age = max(0.0, float(item.get("age_hours")))
-            except (TypeError, ValueError, OverflowError):
-                age = 999999.0
-            item["views_velocity_per_hour"] = round(views / max(age, 0.5), 2) if age < 999999 else 0.0
-            item["views_velocity_kind"] = "estimated_from_lifetime_views"
+            item["views_velocity_per_hour"] = 0.0
+            item["views_velocity_kind"] = "insufficient_trusted_samples"
             item["views_delta_last_interval"] = None
             item["views_measurement_interval_hours"] = None
-            estimated_count += 1
+            insufficient_count += 1
 
-        # Positive acceleration means the newest hourly rate exceeded the previous one.
         item["views_acceleration_per_hour2"] = 0.0
         if len(parsed) >= 3:
             (t0, v0), (t1, v1), (t2, v2) = parsed[-3:]
@@ -1237,8 +1305,10 @@ def attach_view_trajectory(results, previous_items, now):
 
     print("VIEW_TRAJECTORY_SUMMARY", json.dumps({
         "candidates_with_observed_velocity": observed_count,
-        "candidates_using_lifetime_view_estimate": estimated_count,
-        "note": "Observed rates use consecutive snapshots; first-seen rates are estimates, not measured growth.",
+        "candidates_with_insufficient_trusted_samples": insufficient_count,
+        "candidates_with_unverified_metrics_only": unverified_count,
+        "candidates_preserving_stale_trusted_metrics": stale_trusted_count,
+        "note": "Observed rates use repeated native YouTube API or Telegram post counters only; search-result metrics are discovery hints.",
     }, ensure_ascii=False))
     return results
 
@@ -1404,6 +1474,11 @@ def main(force_fallback=False, _quota_ledger=None, _previous_payload=None):
                 "persian_signal": persian >= 3,
                 "discovered_at": now.isoformat(),
                 "source": str((x.get("raw") or {}).get("source") or "bing_search"),
+                "metric_evidence": (
+                    "native_telegram_public_post_counter"
+                    if source_tag == "telegram_native_video"
+                    else "unverified_search_result_text"
+                ),
                 "query": qidx,
             })
         results.extend(discover_youtube_with_budget(now, quota_ledger))
