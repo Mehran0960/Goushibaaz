@@ -77,9 +77,9 @@ jobs:
 
             const main = await getText(mainUrl);
             const assetPaths = [...new Set((main.match(/assets\/[^"'\s]+\.js/g) || []).map(s => '/' + s))];
-            const uploadRelatedAssets = assetPaths.filter(x => /upload|video|media|device|file|film|search|result|section/i.test(x)).slice(0, 80);
+            const uploadRelatedAssets = assetPaths.filter(x => /upload|video|media|device|file|film|search|result|section|url|link|site|external/i.test(x)).slice(0, 80);
             const targetPaths = assetPaths.filter(x =>
-              /DorfakUploader|VideoSelector|EditVideo|UploadRules|VideoUpload|UploadVideo|MediaUpload|VideoMaker|UploadView|VideoInfoForm|VideoEditorView|SelectEditor|VideoSection|VideoList|SearchVideo|VideoSearch|Search/i.test(x)
+              /DorfakUploader|VideoSelector|EditVideo|UploadRules|VideoUpload|UploadVideo|MediaUpload|VideoMaker|UploadView|VideoInfoForm|VideoEditorView|SelectEditor|VideoSection|VideoList|SearchVideo|VideoSearch|External|Url|URL|Link|Site|Search/i.test(x)
             ).slice(0, 70);
             const targets = [{ path: new URL(mainUrl).pathname, js: main }];
             for (const p of targetPaths) {
@@ -93,7 +93,7 @@ jobs:
               '/api/v1/video', '/api/v1/videos', '/api/v1/upload', '/api/v2/upload',
               '/api/v1/my/videos', 'video/status', 'fileName', 'videoTitle',
               'title', 'description', 'categoryId', 'duration', 'uploadProgress',
-              'media_id', 'file_id', 'uploadUrl', 'fileUpload', 'fileUploader', 'searchVideo', 'searchQuery', 'searchTerm', 'video/search', '/search', 'searchVideos', '/api/v2/videos/search/', '/api/v1/archive/search-tab/', '/api/v1/user/search-tab/', '/api/v1/playlist/search-tab/', 'search-tab', 'rowCount', 'pageSize', 'page:'
+              'media_id', 'file_id', 'uploadUrl', 'fileUpload', 'fileUploader', 'uploadFromUrl', 'upload_from_url', 'importFromUrl', 'import_from_url', 'remoteVideoUrl', 'videoUrl', 'video_url', 'sourceUrl', 'source_url', 'externalUrl', 'external_url', 'sample-video.mp4', 'yoursite.com/sample-video.mp4', 'از سایت‌های دیگه', 'از سایت های دیگه', 'پیوند ویدیوت', 'با بارگذاری ویدیو از سایت‌های دیگه', 'searchVideo', 'searchQuery', 'searchTerm', 'video/search', '/search', 'searchVideos', '/api/v2/videos/search/', '/api/v1/archive/search-tab/', '/api/v1/user/search-tab/', '/api/v1/playlist/search-tab/', 'search-tab', 'rowCount', 'pageSize', 'page:'
             ];
             const reports = [];
             const endpoints = new Set();
