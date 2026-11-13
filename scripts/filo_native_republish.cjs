@@ -267,7 +267,7 @@ function hasFutureFeedDate(item, now = Date.now()) {
   for (const field of FEED_DATE_FIELDS) {
     const value = item[field];
     if (value === undefined || value === null || value === '') continue;
-    if (typeof value === 'number' || /^\\d{10,13}$/.test(String(value).trim())) {
+    if (typeof value === 'number' || /^\d{10,13}$/.test(String(value).trim())) {
       const numeric = Number(value);
       const timestamp = numeric > 1e12 ? numeric : numeric > 1e9 ? numeric * 1000 : NaN;
       if (Number.isFinite(timestamp) && timestamp > futureLimit) return true;
