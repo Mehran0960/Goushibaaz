@@ -1417,9 +1417,9 @@ assert.equal(getPublicationPacingGate(oneRecentPublication, pacingNow + 7*60*100
 
 const rollingHourState = { posts: [
   { status:'public_verified', submittedAt:new Date(pacingNow - 50*60*1000).toISOString() },
-  { status:'public_verified', submittedAt:new Date(pacingNow - 30*60*1000).toISOString() },
-  { status:'rejected_by_filo', attemptedAt:new Date(pacingNow - 10*60*1000).toISOString() },
-  { status:'public_verified', submittedAt:new Date(pacingNow - 5*60*1000).toISOString() }
+  { status:'public_verified', submittedAt:new Date(pacingNow - 40*60*1000).toISOString() },
+  { status:'rejected_by_filo', attemptedAt:new Date(pacingNow - 30*60*1000).toISOString() },
+  { status:'public_verified', submittedAt:new Date(pacingNow - 20*60*1000).toISOString() }
 ] };
 const unblockedByHourlyVolume = getPublicationPacingGate(rollingHourState, pacingNow);
 assert.equal(unblockedByHourlyVolume.blocked, false,
