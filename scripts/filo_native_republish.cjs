@@ -1402,13 +1402,13 @@ function cleanRepostCaptionTitle(sourceTitle) {
 function hasIncompleteEditorialTitle(value) {
   const title = normalizeCaptionEditorialText(value);
   if (!title) return true;
-  if (/(?:…|\\.\\.\\.)\\s*$/u.test(title)) return true;
-  const last = title.split(/\\s+/u).pop() || '';
+  if (/(?:…|\.\.\.)\s*$/u.test(title)) return true;
+  const last = title.split(/\s+/u).pop() || '';
   return /^(?:و|یا|اما|اگر|که|تا|از|به|در|با|برای|بر|پس|چون|مثل|بدون|همراه|آیا|چرا|چگونه|چه|این|آن|من|تو|شما|را|رو|هم)$/iu.test(last);
 }
 
 function fitFiloTitleLength(value) {
-  let title = String(value || '').replace(/\\s+/g, ' ').trim();
+  let title = String(value || '').replace(/\s+/g, ' ').trim();
   if (title.length > FILO_TITLE_MAX_CHARS) {
     // Never cut a sentence in the middle just to satisfy the UI limit.
     // Keep a complete clause only when a natural terminal boundary exists.
@@ -1444,16 +1444,16 @@ function editorialTitleTokens(value) {
 function editorialTitleQualityReason(value) {
   const title = normalizeCaptionEditorialText(value);
   if (!title) return 'title_without_safe_editorial_rewrite';
-  if (/(?:لایک|لایك|فالو|فالوو|حمایت(?:\\s*کنید|\\s*کنین)?|یادتون\\s+نره|دنبال(?:\\s*کنید|\\s*کنین)|عضو\\s*(?:شوید|بشید)|عضویت|سابسکرایب|زنگوله|برای\\s+کلیپ(?:های)?\\s+بیشتر|کانال\\s*(?:ما|مارا|رو|را)|نظر\\s*(?:خود|شما\\s*چیه|شمامهم)|نظرت(?:ان|ون)\\s*(?:چیه|رو\\s*بگید)|کامنت\\s*بگذارید|تا\\s+(?:انتهای|آخر)\\s+(?:ویدئو|ویدیو|کلیپ)|از\\s+دست\\s+(?:ندید|ندهید))/iu.test(title)) {
+  if (/(?:لایک|لایك|فالو|فالوو|حمایت(?:\s*کنید|\s*کنین)?|یادتون\s+نره|دنبال(?:\s*کنید|\s*کنین)|عضو\s*(?:شوید|بشید)|عضویت|سابسکرایب|زنگوله|برای\s+کلیپ(?:های)?\s+بیشتر|کانال\s*(?:ما|مارا|رو|را)|نظر\s*(?:خود|شما\s*چیه|شمامهم)|نظرت(?:ان|ون)\s*(?:چیه|رو\s*بگید)|کامنت\s*بگذارید|تا\s+(?:انتهای|آخر)\s+(?:ویدئو|ویدیو|کلیپ)|از\s+دست\s+(?:ندید|ندهید))/iu.test(title)) {
     return 'title_promotional_or_call_to_action';
   }
   if (hasIncompleteEditorialTitle(title)) return 'title_incomplete_sentence';
 
   const tokens = editorialTitleTokens(title);
   const substantive = tokens.filter(token =>
-    !/^(?:پارت|قسمت|بخش|part|episode|کمدی|طنز|خنده|دار|کلیپ|ویدئو|ویدیو|فیلم|شماره|\\d+)$/iu.test(token)
+    !/^(?:پارت|قسمت|بخش|part|episode|کمدی|طنز|خنده|دار|کلیپ|ویدئو|ویدیو|فیلم|شماره|\d+)$/iu.test(token)
   );
-  if (/(?:پارت|قسمت|episode|part)\\s*[0-9۰-۹]+/iu.test(title) && substantive.length < 2 &&
+  if (/(?:پارت|قسمت|episode|part)\s*[0-9۰-۹]+/iu.test(title) && substantive.length < 2 &&
       !/(?:طنز|خنده|آشپزی|آهنگ|ترانه|ورزش|فوتبال|حیوان|ترفند|آموزش)/iu.test(title)) {
     return 'title_generic_episode_label';
   }
@@ -1464,11 +1464,11 @@ function editorialTitleQualityReason(value) {
     'انگیز','سرگرم','کننده','چشم','نواز','محشر'
   ]);
   const meaningfulTokens = tokens.filter(token =>
-    !lowInformationWords.has(token) && !/^\\d+$/u.test(token)
+    !lowInformationWords.has(token) && !/^\d+$/u.test(token)
   );
   if (tokens.length && meaningfulTokens.length === 0) return 'title_generic_without_subject';
 
-  if (tokens.length < 2 && !(/(?:پارت|قسمت|episode|part)\\s*[0-9۰-۹]+/iu.test(title) &&
+  if (tokens.length < 2 && !(/(?:پارت|قسمت|episode|part)\s*[0-9۰-۹]+/iu.test(title) &&
       /(?:طنز|خنده|آشپزی|آهنگ|ترانه|ورزش|فوتبال|حیوان|ترفند|آموزش)/iu.test(title))) {
     return 'title_not_distinct_or_editorially_clean';
   }
