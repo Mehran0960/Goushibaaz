@@ -620,12 +620,12 @@ assert.equal(editorialTitleQualityReason('شوخی با دیدار پاریس ژ
   'grounded subject-specific titles remain eligible');
 assert.equal(
   descriptionBasedTitleCandidate('لایک فالو حمایت یادتون نره عزیزای دلم. در این ویدئو، واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را ببینید.'),
-  'واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را',
+  'واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره',
   'a CTA-only opening sentence must be skipped in favor of the first factual sentence'
 );
 assert.equal(createDistinctRepostTitle('لایک فالو حمایت یادتون نره عزیزای دلم', '', 'Promo01'),
-  'عنوان اصلی نامشخص',
-  'a promotional-only title must fall back without attaching an unrelated internal source code');
+  '',
+  'a promotional-only title must fail closed without attaching an unrelated internal source code');
 assert.equal(createDistinctRepostTitle('خنده دار پارت ۳۲ 😂 طنز کمدی', '', 'Episode01'),
   'کلیپ طنز، قسمت ۳۲',
   'a numbered comedy episode should retain only its source-grounded topic and episode number');
@@ -639,7 +639,7 @@ assert.doesNotThrow(() => createDistinctRepostTitle('کلیپ های طنز و �
   'a weak channel-style title must never become an eligibility rejection');
 assert.equal(
   descriptionBasedTitleCandidate('در این ویدئو، واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را ببینید. برای ما لایک کنید.'),
-  'واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را',
+  'واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره',
   'description fallback must strip the generic video lead-in and use the first factual sentence only'
 );
 assert.equal(
@@ -647,7 +647,7 @@ assert.equal(
     'کلیپ های طنز و خنده//بهرام افشاری',
     'در این ویدئو، واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را ببینید.'
   ),
-  'واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را',
+  'واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره',
   'a safe title can be derived from a factual source description when the title itself has no approved rewrite pattern'
 );
 assert.doesNotThrow(() => createDistinctRepostTitle(
@@ -820,9 +820,9 @@ assert.ok(shortMetadata.title.length >= 12 && shortMetadata.title.length <= 80,
 const shortTitle = createDistinctRepostTitle('طرز تهیه چای', '');
 assert.equal(shortTitle, 'طرز تهیه چای',
   'when an editorial rewrite would be shorter than the local Filo floor, retain the factual source title');
-assert.equal(createDistinctRepostTitle('چای', ''), 'عنوان اصلی نامشخص',
-  'titles too short for the conservative local floor must use the neutral fallback, not be submitted as-is');
-assert.equal(fitFiloTitleLength('خیلی کوتاه'), 'عنوان اصلی نامشخص',
+assert.equal(createDistinctRepostTitle('چای', ''), '',
+  'titles too short for the conservative local floor must fail closed, not be submitted as-is');
+assert.equal(fitFiloTitleLength('خیلی کوتاه'), '',
   'the local title fitter must not pass titles under the conservative 12-character floor');
 const fittedLongTitle = fitFiloTitleLength('ترانهٔ بسیار زیبا و شنیدنی از خوانندهٔ محبوب و پرطرفدار برای یک شب بارانی در شهر و کوچه‌های قدیمی با صدای گرم و دلنشین');
 assert.ok(fittedLongTitle.length <= 80 && fittedLongTitle.length >= 12,
