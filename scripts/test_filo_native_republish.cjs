@@ -834,13 +834,12 @@ assert.throws(() => createRepostMetadata({
   title: 'پیغام توهین آمیز به یک بازیکن',
   description: 'متن کوتاه'
 }, 'AbC1236'), /filo_policy_text_risk:insult_or_defamation/);
-const linkedTitleMetadata = createRepostMetadata({
+assert.throws(() => createRepostMetadata({
   ...valid,
   title: 'لینک https://example.com ویدئو',
   description: 'توضیح کوتاه'
-}, 'AbC1237');
-assert.doesNotMatch(linkedTitleMetadata.title, /https?:\/\//i,
-  'external links in source titles should be stripped rather than causing a title-only rejection');
+}, 'AbC1237'), /filo_title_policy:/,
+'external links are stripped, but a title without a verifiable subject must still fail closed');
 
 const promoCleaned = cleanRepostDescription(
   'ریمیکی جذاب از یکی از طرفداران گاد آف وار برای شما عزیزان. همراه ما باشید و لذت ببرید. 🔥',
