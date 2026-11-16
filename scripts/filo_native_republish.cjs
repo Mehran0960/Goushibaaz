@@ -52,8 +52,8 @@ const MAX_PACING_WAIT_MS = 5 * 60 * 1000;
 const MAX_DETAIL_CHECKS = 90;
 const MIN_DURATION_SECONDS = 10;
 const CAPTION_POLICY_VERSION = 8;
-const TITLE_REWRITE_POLICY_VERSION = 7;
-const FILO_TITLE_MIN_CHARS = 5;
+const TITLE_REWRITE_POLICY_VERSION = 8;
+const FILO_TITLE_MIN_CHARS = 12;
 const FILO_TITLE_MAX_CHARS = 80;
 const FILO_DESCRIPTION_MIN_CHARS = 30;
 const CANDIDATE_METRIC_HISTORY_TTL_MS = 3 * 60 * 60 * 1000;
@@ -164,6 +164,20 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
     ? [item.create_date_source] : [];
   const fields = [...new Set([...preferred, ...FEED_DATE_FIELDS])];
   const futureToleranceMs = 5 * 60 * 1000;
+  const numberWords = {
+    'یک': 1, 'یه': 1, 'one': 1, 'a': 1,
+    'دو': 2, 'two': 2, 'سه': 3, 'three': 3,
+    'چهار': 4, 'four': 4, 'پنج': 5, 'five': 5,
+    'شش': 6, 'six': 6, 'هفت': 7, 'seven': 7,
+    'هشت': 8, 'eight': 8, 'نه': 9, 'nine': 9,
+    'ده': 10, 'ten': 10
+  };
+  const numberToken = '(\\d+(?:[.,]\\d+)?|یک|یه|دو|سه|چهار|پنج|شش|هفت|هشت|نه|ده|one|two|three|four|five|six|seven|eight|nine|ten|a)';
+  const parseCount = match => {
+    if (!match) return 0;
+    const token = String(match[1] || '').toLocaleLowerCase('fa-IR').replace(',', '.');
+    return Number.isFinite(Number(token)) ? Number(token) : (numberWords[token] || 0);
+  };
 
   for (const field of fields) {
     const value = item[field];
@@ -187,8 +201,11 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
       }
     }
 
-    const raw = normalizeDigits(value).trim().toLowerCase();
+    const raw = normalizeDigits(value).trim().toLocaleLowerCase('fa-IR');
     if (!raw) continue;
+    if (/(?:^|[\s،])(?:فردا|پس[\s‌-]?فردا|tomorrow|day after tomorrow)(?:$|[\s،])/iu.test(raw)) {
+      continue;
+    }
 
     const jalaliTimestamp = jalaliDateToGregorianTimestamp(raw);
     if (jalaliTimestamp !== null) {
@@ -201,41 +218,60 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
         lowerHours: Math.max(0, centerHours - precisionHours / 2),
         upperHours: centerHours + precisionHours / 2,
         precisionHours,
-        chronologyReliable: true,
+        chronologyReliable: hasClock,
         sourceField
       };
     }
 
-    const dayMatch = raw.match(/(\d+(?:[.,]\d+)?)\s*(?:روز|day|days)/i);
-    const hourMatch = raw.match(/(\d+(?:[.,]\d+)?)\s*(?:ساعت|hour|hours|hr|hrs)/i);
-    const minuteMatch = raw.match(/(\d+(?:[.,]\d+)?)\s*(?:دقیقه|دقایق|min|mins|minute|minutes)/i);
-    if (dayMatch || hourMatch || minuteMatch) {
-      const toNumber = match => match ? num(match[1].replace(',', '.')) : 0;
-      const centerHours = toNumber(dayMatch) * 24 + toNumber(hourMatch) + toNumber(minuteMatch) / 60;
-      const precisionHours = minuteMatch ? 1 / 60 : hourMatch ? 1 : 24;
+    if (/(?:^|[\s‌])(?:پریروز|the day before yesterday)(?:$|[\s‌])/iu.test(raw)) {
+      return {
+        centerHours: 48,
+        lowerHours: 24,
+        upperHours: 72,
+        precisionHours: 48,
+        chronologyReliable: false,
+        sourceField
+      };
+    }
+
+    const relativeMatch = unitPattern => raw.match(
+      new RegExp('(' + numberToken + ')\\s*(?:' + unitPattern + ')(?:\\s*(?:پیش|قبل(?:تر)?|گذشته|ago))?', 'iu')
+    );
+    const units = [
+      { key: 'year', match: relativeMatch('سال|سال‌ها|year|years|yr|yrs'), multiplier: 365 * 24, precisionHours: 14 * 24 },
+      { key: 'month', match: relativeMatch('ماه|ماه‌ها|month|months|mo'), multiplier: 30 * 24, precisionHours: 72 },
+      { key: 'week', match: relativeMatch('هفته|هفته‌ها|week|weeks|wk|wks'), multiplier: 7 * 24, precisionHours: 24 },
+      { key: 'day', match: relativeMatch('روز|روزها|day|days'), multiplier: 24, precisionHours: 24 },
+      { key: 'hour', match: relativeMatch('ساعت|ساعت‌ها|hour|hours|hr|hrs'), multiplier: 1, precisionHours: 1 },
+      { key: 'minute', match: relativeMatch('دقیقه|دقایق|min|mins|minute|minutes'), multiplier: 1 / 60, precisionHours: 1 / 60 }
+    ].filter(unit => unit.match);
+    if (units.length) {
+      const centerHours = units.reduce((sum, unit) => sum + parseCount(unit.match) * unit.multiplier, 0);
+      const precisionHours = Math.max(...units.map(unit => unit.precisionHours));
+      const chronologyReliable = units.every(unit => unit.key === 'hour' || unit.key === 'minute');
       return {
         centerHours: Math.max(0, centerHours),
         lowerHours: Math.max(0, centerHours - precisionHours / 2),
         upperHours: centerHours + precisionHours / 2,
         precisionHours,
-        chronologyReliable: Boolean(hourMatch || minuteMatch),
+        chronologyReliable,
         sourceField
       };
     }
 
-    if (/لحظاتی پیش|همین الان|اکنون|just now|moments ago/.test(raw)) {
+    if (/لحظاتی پیش|همین الان|اکنون|just now|moments ago/u.test(raw)) {
       return {
         centerHours: 0.1, lowerHours: 0, upperHours: 0.25,
         precisionHours: 0.25, chronologyReliable: true, sourceField
       };
     }
-    if (/دیروز|yesterday/.test(raw)) {
+    if (/دیروز|yesterday/u.test(raw)) {
       return {
         centerHours: 36, lowerHours: 24, upperHours: 48,
         precisionHours: 24, chronologyReliable: false, sourceField
       };
     }
-    if (/امروز|today/.test(raw)) {
+    if (/امروز|today/u.test(raw)) {
       return {
         centerHours: 12, lowerHours: 0, upperHours: 24,
         precisionHours: 24, chronologyReliable: false, sourceField
@@ -253,7 +289,7 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
         lowerHours: Math.max(0, centerHours - precisionHours / 2),
         upperHours: centerHours + precisionHours / 2,
         precisionHours,
-        chronologyReliable: true,
+        chronologyReliable: hasClock,
         sourceField
       };
     }
@@ -275,6 +311,7 @@ function hasFutureFeedDate(item, now = Date.now()) {
     }
     const raw = normalizeDigits(value).trim();
     if (!raw) continue;
+    if (/(?:^|[\s،])(?:فردا|پس[\s‌-]?فردا|tomorrow|day after tomorrow)(?:$|[\s،])/iu.test(raw)) return true;
     const jalaliTimestamp = jalaliDateToGregorianTimestamp(raw);
     if (jalaliTimestamp !== null && jalaliTimestamp > futureLimit) return true;
     const absolute = Date.parse(raw);
@@ -1477,6 +1514,7 @@ function descriptionBasedTitleCandidate(sourceDescription, sourceTitle = '') {
     // A description is useful only when it contributes a genuinely distinct
     // factual subject. Rewording the same generic source title is not a rewrite.
     if (cleanedSourceTitle && characterBigramDice(cleanedSourceTitle, candidate) >= 0.72) continue;
+    if (candidate.length < FILO_TITLE_MIN_CHARS) continue;
     if (editorialTitleQualityReason(candidate)) continue;
     if (policyTextRiskReason({ title: candidate })) continue;
     return fitFiloTitleLength(candidate);
@@ -1520,7 +1558,9 @@ function createDistinctRepostTitle(sourceTitle, sourceDescription = '', sourceCo
 
   const candidates = [];
   for (const draft of drafts) {
-    const candidate = fitFiloTitleLength(removeRepeatedTrailingPhrase(draft));
+    const factualDraft = removeRepeatedTrailingPhrase(draft);
+    if (factualDraft.length < FILO_TITLE_MIN_CHARS) continue;
+    const candidate = fitFiloTitleLength(factualDraft);
     if (candidates.includes(candidate)) continue;
     if (editorialTitleQualityReason(candidate)) continue;
     const tokens = editorialTitleTokens(candidate);
@@ -1552,7 +1592,7 @@ function createDistinctRepostTitle(sourceTitle, sourceDescription = '', sourceCo
 
   for (const fallback of [cleaned, fallbackDescription]) {
     const value = String(fallback || '').trim();
-    if (value.length < 5 || policyTextRiskReason({ title: value })) continue;
+    if (value.length < FILO_TITLE_MIN_CHARS || policyTextRiskReason({ title: value })) continue;
     const qualityReason = editorialTitleQualityReason(value);
     if (qualityReason === 'title_promotional_or_call_to_action' ||
         qualityReason === 'title_engagement_bait_without_subject' ||
