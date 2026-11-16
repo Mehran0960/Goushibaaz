@@ -14,6 +14,7 @@ const {
   summarizeFeedAgeDiagnostics,
   summarizeCandidateChecks,
   fitFiloTitleLength,
+  hasIncompleteEditorialTitle,
   cleanRepostCaptionTitle,
   cleanRepostDescription,
   policyTextRiskReason,
@@ -200,7 +201,7 @@ assert.ok(cleanedDescription.length >= 30);
 assert.equal(cleanedDescription.split('این ویدئو درباره فوتبال است').length - 1, 1,
   'duplicate description sentences must be removed');
 assert.equal(createDistinctRepostTitle('و نظر خود را بنویسید', '', 'AbC1234'),
-  'عنوان اصلی نامشخص',
+  '',
   'a generic engagement prompt must never become the repost title or expose an internal source code');
 assert.equal(candidateExternalTopicKey({
   title:'ویدئوی کوتاه',
@@ -596,6 +597,20 @@ assert.equal(
 assert.equal(editorialTitleQualityReason('لایک فالو حمایت یادتون نره عزیزای دلم'),
   'title_promotional_or_call_to_action',
   'pure engagement prompts must never be used as video titles');
+assert.equal(editorialTitleQualityReason('جذاب عاشقانه، احساسی و رمانتیک'),
+  'title_generic_without_subject',
+  'adjective-only titles without a real subject must be rejected');
+assert.equal(editorialTitleQualityReason('لطفا تا انتهای ویدئو رو'),
+  'title_promotional_or_call_to_action',
+  'unfinished calls to watch must be rejected as promotional titles');
+assert.equal(hasIncompleteEditorialTitle('هر وقت من پست میذارم شما'), true,
+  'a dangling pronoun at the end of a title must be detected');
+assert.equal(hasIncompleteEditorialTitle('انیمیشن جزیره فراموش‌شده با دوبله فارسی'), false);
+assert.equal(fitFiloTitleLength('یک عنوان خبری بلند که بدون نقطه یا مرز طبیعی از حد هشتاد نویسه عبور می‌کند و نباید در میانه جمله بریده شود'), '',
+  'a title that exceeds the UI limit without a natural clause boundary must be rejected, not truncated');
+assert.equal(createDistinctRepostTitle('روز دختر مبارک عضویت تو باعث انگیزه منه'),
+  '',
+  'a call-to-action source title must fail closed instead of becoming a publishable title');
 assert.equal(editorialTitleQualityReason('خنده دار پارت ۳۲ طنز کمدی'), null,
   'a numbered comedy title with a real source topic can be cleaned and retained');
 assert.equal(editorialTitleQualityReason('یک فیلم بسیار زیبا و رمانتیک که کار رو تموم میکنه'),
@@ -671,8 +686,15 @@ assert.equal(topicDuplicateMatch({
   posts:[{sourceCode:'OldStory1',status:'public_verified',
     repostTitle:'روش پخت خورشت بامیه با مرغ',
     submittedAt:'2026-11-01T12:00:00.000Z'}]
-},'روش پخت خورشت بامیه با مرغ',Date.parse('2026-11-04T13:00:00.000Z')).duplicate,false,
-'a topic older than 48 hours must not remain a hard duplicate');
+},'یک غذای تازه با سبزیجات محلی',Date.parse('2026-11-04T13:00:00.000Z')).duplicate,false,
+'an unrelated topic older than 48 hours must not be suppressed');
+assert.equal(topicDuplicateMatch({
+  posts:[{sourceCode:'OldStory2',status:'public_verified',
+    repostTitle:'روش پخت خورشت بامیه با مرغ',
+    submittedAt:'2026-11-01T12:00:00.000Z'}]
+},'روش پخت خورشت بامیه با مرغ',Date.parse('2026-11-04T13:00:00.000Z')).reason,
+'exact_title_already_used',
+'exact titles must remain unique for the retained publication ledger, even after 48 hours');
 assert.equal(
   topicDuplicateMatch(duplicateState, 'روش پخت خورشت بامیه با مرغ', Date.parse('2026-11-04T13:00:00.000Z')).duplicate,
   false,
@@ -702,7 +724,7 @@ cacheCandidateRejection(rejectionCacheState,'Cache01',cacheVideo,
   'title_without_safe_editorial_rewrite',Date.parse('2026-11-04T12:00:00.000Z'));
 assert.ok(getCachedCandidateRejection(rejectionCacheState,'Cache01',cacheVideo,
   Date.parse('2026-11-04T13:00:00.000Z')));
-assert.equal(rejectionCacheState.candidateRejections.Cache01.titleRewritePolicyVersion, 8);
+assert.equal(rejectionCacheState.candidateRejections.Cache01.titleRewritePolicyVersion, 9);
 assert.equal(isTitleRewriteRejectionReason('title_without_safe_editorial_rewrite'), true);
 assert.equal(isTitleRewriteRejectionReason('title_promotional_or_call_to_action'), true);
 assert.equal(isTitleRewriteRejectionReason('title_generic_episode_label'), true);
