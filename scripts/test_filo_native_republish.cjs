@@ -14,6 +14,7 @@ const {
   summarizeFeedAgeDiagnostics,
   summarizeCandidateChecks,
   fitFiloTitleLength,
+  hasIncompleteEditorialTitle,
   cleanRepostCaptionTitle,
   cleanRepostDescription,
   policyTextRiskReason,
@@ -200,7 +201,7 @@ assert.ok(cleanedDescription.length >= 30);
 assert.equal(cleanedDescription.split('این ویدئو درباره فوتبال است').length - 1, 1,
   'duplicate description sentences must be removed');
 assert.equal(createDistinctRepostTitle('و نظر خود را بنویسید', '', 'AbC1234'),
-  'عنوان اصلی نامشخص',
+  '',
   'a generic engagement prompt must never become the repost title or expose an internal source code');
 assert.equal(candidateExternalTopicKey({
   title:'ویدئوی کوتاه',
@@ -596,6 +597,20 @@ assert.equal(
 assert.equal(editorialTitleQualityReason('لایک فالو حمایت یادتون نره عزیزای دلم'),
   'title_promotional_or_call_to_action',
   'pure engagement prompts must never be used as video titles');
+assert.equal(editorialTitleQualityReason('جذاب عاشقانه، احساسی و رمانتیک'),
+  'title_generic_without_subject',
+  'adjective-only titles without a real subject must be rejected');
+assert.equal(editorialTitleQualityReason('لطفا تا انتهای ویدئو رو'),
+  'title_promotional_or_call_to_action',
+  'unfinished calls to watch must be rejected as promotional titles');
+assert.equal(hasIncompleteEditorialTitle('هر وقت من پست میذارم شما'), true,
+  'a dangling pronoun at the end of a title must be detected');
+assert.equal(hasIncompleteEditorialTitle('انیمیشن جزیره فراموش‌شده با دوبله فارسی'), false);
+assert.equal(fitFiloTitleLength('یک عنوان خبری بلند که بدون نقطه یا مرز طبیعی از حد هشتاد نویسه عبور می‌کند و نباید در میانه جمله بریده شود'), '',
+  'a title that exceeds the UI limit without a natural clause boundary must be rejected, not truncated');
+assert.equal(createDistinctRepostTitle('روز دختر مبارک عضویت تو باعث انگیزه منه'),
+  '',
+  'a call-to-action source title must fail closed instead of becoming a publishable title');
 assert.equal(editorialTitleQualityReason('خنده دار پارت ۳۲ طنز کمدی'), null,
   'a numbered comedy title with a real source topic can be cleaned and retained');
 assert.equal(editorialTitleQualityReason('یک فیلم بسیار زیبا و رمانتیک که کار رو تموم میکنه'),
@@ -605,12 +620,12 @@ assert.equal(editorialTitleQualityReason('شوخی با دیدار پاریس ژ
   'grounded subject-specific titles remain eligible');
 assert.equal(
   descriptionBasedTitleCandidate('لایک فالو حمایت یادتون نره عزیزای دلم. در این ویدئو، واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را ببینید.'),
-  'واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را',
+  'واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره',
   'a CTA-only opening sentence must be skipped in favor of the first factual sentence'
 );
 assert.equal(createDistinctRepostTitle('لایک فالو حمایت یادتون نره عزیزای دلم', '', 'Promo01'),
-  'عنوان اصلی نامشخص',
-  'a promotional-only title must fall back without attaching an unrelated internal source code');
+  '',
+  'a promotional-only title must fail closed without attaching an unrelated internal source code');
 assert.equal(createDistinctRepostTitle('خنده دار پارت ۳۲ 😂 طنز کمدی', '', 'Episode01'),
   'کلیپ طنز، قسمت ۳۲',
   'a numbered comedy episode should retain only its source-grounded topic and episode number');
@@ -624,7 +639,7 @@ assert.doesNotThrow(() => createDistinctRepostTitle('کلیپ های طنز و �
   'a weak channel-style title must never become an eligibility rejection');
 assert.equal(
   descriptionBasedTitleCandidate('در این ویدئو، واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را ببینید. برای ما لایک کنید.'),
-  'واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را',
+  'واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره',
   'description fallback must strip the generic video lead-in and use the first factual sentence only'
 );
 assert.equal(
@@ -632,7 +647,7 @@ assert.equal(
     'کلیپ های طنز و خنده//بهرام افشاری',
     'در این ویدئو، واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را ببینید.'
   ),
-  'واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره را',
+  'واکنش بامزه بهرام افشاری به اتفاق غیرمنتظره',
   'a safe title can be derived from a factual source description when the title itself has no approved rewrite pattern'
 );
 assert.doesNotThrow(() => createDistinctRepostTitle(
@@ -671,8 +686,15 @@ assert.equal(topicDuplicateMatch({
   posts:[{sourceCode:'OldStory1',status:'public_verified',
     repostTitle:'روش پخت خورشت بامیه با مرغ',
     submittedAt:'2026-11-01T12:00:00.000Z'}]
-},'روش پخت خورشت بامیه با مرغ',Date.parse('2026-11-04T13:00:00.000Z')).duplicate,false,
-'a topic older than 48 hours must not remain a hard duplicate');
+},'یک غذای تازه با سبزیجات محلی',Date.parse('2026-11-04T13:00:00.000Z')).duplicate,false,
+'an unrelated topic older than 48 hours must not be suppressed');
+assert.equal(topicDuplicateMatch({
+  posts:[{sourceCode:'OldStory2',status:'public_verified',
+    repostTitle:'روش پخت خورشت بامیه با مرغ',
+    submittedAt:'2026-11-01T12:00:00.000Z'}]
+},'روش پخت خورشت بامیه با مرغ',Date.parse('2026-11-04T13:00:00.000Z')).reason,
+'exact_title_already_used',
+'exact titles must remain unique for the retained publication ledger, even after 48 hours');
 assert.equal(
   topicDuplicateMatch(duplicateState, 'روش پخت خورشت بامیه با مرغ', Date.parse('2026-11-04T13:00:00.000Z')).duplicate,
   false,
@@ -702,7 +724,7 @@ cacheCandidateRejection(rejectionCacheState,'Cache01',cacheVideo,
   'title_without_safe_editorial_rewrite',Date.parse('2026-11-04T12:00:00.000Z'));
 assert.ok(getCachedCandidateRejection(rejectionCacheState,'Cache01',cacheVideo,
   Date.parse('2026-11-04T13:00:00.000Z')));
-assert.equal(rejectionCacheState.candidateRejections.Cache01.titleRewritePolicyVersion, 8);
+assert.equal(rejectionCacheState.candidateRejections.Cache01.titleRewritePolicyVersion, 9);
 assert.equal(isTitleRewriteRejectionReason('title_without_safe_editorial_rewrite'), true);
 assert.equal(isTitleRewriteRejectionReason('title_promotional_or_call_to_action'), true);
 assert.equal(isTitleRewriteRejectionReason('title_generic_episode_label'), true);
@@ -798,13 +820,13 @@ assert.ok(shortMetadata.title.length >= 12 && shortMetadata.title.length <= 80,
 const shortTitle = createDistinctRepostTitle('طرز تهیه چای', '');
 assert.equal(shortTitle, 'طرز تهیه چای',
   'when an editorial rewrite would be shorter than the local Filo floor, retain the factual source title');
-assert.equal(createDistinctRepostTitle('چای', ''), 'عنوان اصلی نامشخص',
-  'titles too short for the conservative local floor must use the neutral fallback, not be submitted as-is');
-assert.equal(fitFiloTitleLength('خیلی کوتاه'), 'عنوان اصلی نامشخص',
+assert.equal(createDistinctRepostTitle('چای', ''), '',
+  'titles too short for the conservative local floor must fail closed, not be submitted as-is');
+assert.equal(fitFiloTitleLength('خیلی کوتاه'), '',
   'the local title fitter must not pass titles under the conservative 12-character floor');
 const fittedLongTitle = fitFiloTitleLength('ترانهٔ بسیار زیبا و شنیدنی از خوانندهٔ محبوب و پرطرفدار برای یک شب بارانی در شهر و کوچه‌های قدیمی با صدای گرم و دلنشین');
-assert.ok(fittedLongTitle.length <= 80 && fittedLongTitle.length >= 12,
-  'long titles must be safely trimmed to the current Filo UI limit without generic padding');
+assert.equal(fittedLongTitle, '',
+  'long titles without a natural sentence boundary must be rejected instead of being cut mid-sentence');
 assert.equal(editorialTitleQualityReason('ترفند آشپزی'), null,
   'two informative terms are sufficient when the resulting title remains meaningful and within Filo limits');
 assert.throws(() => createRepostMetadata({
@@ -812,13 +834,12 @@ assert.throws(() => createRepostMetadata({
   title: 'پیغام توهین آمیز به یک بازیکن',
   description: 'متن کوتاه'
 }, 'AbC1236'), /filo_policy_text_risk:insult_or_defamation/);
-const linkedTitleMetadata = createRepostMetadata({
+assert.throws(() => createRepostMetadata({
   ...valid,
   title: 'لینک https://example.com ویدئو',
   description: 'توضیح کوتاه'
-}, 'AbC1237');
-assert.doesNotMatch(linkedTitleMetadata.title, /https?:\/\//i,
-  'external links in source titles should be stripped rather than causing a title-only rejection');
+}, 'AbC1237'), /filo_title_policy:/,
+'external links are stripped, but a title without a verifiable subject must still fail closed');
 
 const promoCleaned = cleanRepostDescription(
   'ریمیکی جذاب از یکی از طرفداران گاد آف وار برای شما عزیزان. همراه ما باشید و لذت ببرید. 🔥',

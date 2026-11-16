@@ -52,7 +52,7 @@ const MAX_PACING_WAIT_MS = 5 * 60 * 1000;
 const MAX_DETAIL_CHECKS = 90;
 const MIN_DURATION_SECONDS = 10;
 const CAPTION_POLICY_VERSION = 8;
-const TITLE_REWRITE_POLICY_VERSION = 8;
+const TITLE_REWRITE_POLICY_VERSION = 9;
 const FILO_TITLE_MIN_CHARS = 12;
 const FILO_TITLE_MAX_CHARS = 80;
 const FILO_DESCRIPTION_MIN_CHARS = 30;
@@ -1399,10 +1399,28 @@ function cleanRepostCaptionTitle(sourceTitle) {
   return trimAtWord(title, 176);
 }
 
+function hasIncompleteEditorialTitle(value) {
+  const title = normalizeCaptionEditorialText(value);
+  if (!title) return true;
+  if (/(?:…|\.\.\.)\s*$/u.test(title)) return true;
+  const last = title.split(/\s+/u).pop() || '';
+  return /^(?:و|یا|اما|اگر|که|تا|از|به|در|با|برای|بر|پس|چون|مثل|بدون|همراه|آیا|چرا|چگونه|چه|این|آن|من|تو|شما|را|رو|هم)$/iu.test(last);
+}
+
 function fitFiloTitleLength(value) {
   let title = String(value || '').replace(/\s+/g, ' ').trim();
-  if (title.length > FILO_TITLE_MAX_CHARS) title = trimAtWord(title, FILO_TITLE_MAX_CHARS);
-  return title.length >= FILO_TITLE_MIN_CHARS ? title : 'عنوان اصلی نامشخص';
+  if (title.length > FILO_TITLE_MAX_CHARS) {
+    // Never cut a sentence in the middle just to satisfy the UI limit.
+    // Keep a complete clause only when a natural terminal boundary exists.
+    const prefix = title.slice(0, FILO_TITLE_MAX_CHARS);
+    const boundaries = [...prefix.matchAll(/[.!؟؛،—–]/gu)];
+    const boundary = boundaries.length ? boundaries[boundaries.length - 1].index : -1;
+    if (boundary < FILO_TITLE_MIN_CHARS) return '';
+    title = prefix.slice(0, boundary).trim();
+  }
+  if (title.length < FILO_TITLE_MIN_CHARS || title.length > FILO_TITLE_MAX_CHARS) return '';
+  if (hasIncompleteEditorialTitle(title) || editorialTitleQualityReason(title)) return '';
+  return title;
 }
 
 const EDITORIAL_TITLE_STOPWORDS = new Set([
@@ -1426,13 +1444,15 @@ function editorialTitleTokens(value) {
 function editorialTitleQualityReason(value) {
   const title = normalizeCaptionEditorialText(value);
   if (!title) return 'title_without_safe_editorial_rewrite';
-  if (/^(?:و\s*)?(?:نظر\s+خود\s+را\s+بنویسید|نظرت(?:ان|ون)\s+را?\s+بنویسید|نظرت(?:ان|ون)\s+رو\s+بگید|کامنت\s+بگذارید|نظر\s+بدید|نظرت(?:ان|ون)\s+چیه)\s*[!؟.]*$/iu.test(title) ||
-      /(?:نظر\s+خود\s+را\s+بنویسید|نظرت(?:ان|ون)\s+رو\s+بگید|کامنت\s+بگذارید)\s*[!؟.]*$/iu.test(title)) {
+  if (/^(?:و\s*)?(?:نظر\s+خود\s+را\s+بنویسید|نظرت(?:ان|ون)\s*(?:را?\s*بنویسید|رو\s*بگید)|کامنت\s*بگذارید|نظر\s*(?:بدید|شما\s*چیه))\s*[!؟.]*$/iu.test(title) ||
+      /(?:نظر\s+خود\s+را\s+بنویسید|نظرت(?:ان|ون)\s+رو\s+بگید|کامنت\s*بگذارید)\s*[!؟.]*$/iu.test(title)) {
     return 'title_engagement_bait_without_subject';
   }
-  if (/(?:لایک|لایك|فالو|فالوو|حمایت(?:\s*کنید|\s*کنین)?|یادتون\s+نره|دنبال(?:\s*کنید|\s*کنین)|عضو\s*(?:شوید|بشید)|سابسکرایب|زنگوله|برای\s+کلیپ(?:های)?\s+بیشتر|کانال\s*(?:ما|مارا|رو|را))/iu.test(title)) {
+  if (/(?:لایک|لایك|فالو|فالوو|حمایت(?:\s*کنید|\s*کنین)?|یادتون\s+نره|دنبال(?:\s*کنید|\s*کنین)|عضو\s*(?:شوید|بشید)|عضویت|سابسکرایب|زنگوله|برای\s+کلیپ(?:های)?\s+بیشتر|کانال\s*(?:ما|مارا|رو|را)|نظر\s*(?:خود\s+را\s+بنویسید|شما\s*چیه|شمامهم|بدید)|نظرت(?:ان|ون)\s*(?:را?\s*بنویسید|رو\s*بگید|چیه)|کامنت\s*بگذارید|تا\s+(?:انتهای|آخر)\s+(?:ویدئو|ویدیو|کلیپ)|از\s+دست\s+(?:ندید|ندهید))/iu.test(title)) {
     return 'title_promotional_or_call_to_action';
   }
+  if (hasIncompleteEditorialTitle(title)) return 'title_incomplete_sentence';
+
   const tokens = editorialTitleTokens(title);
   const substantive = tokens.filter(token =>
     !/^(?:پارت|قسمت|بخش|part|episode|کمدی|طنز|خنده|دار|کلیپ|ویدئو|ویدیو|فیلم|شماره|\d+)$/iu.test(token)
@@ -1441,9 +1461,21 @@ function editorialTitleQualityReason(value) {
       !/(?:طنز|خنده|آشپزی|آهنگ|ترانه|ورزش|فوتبال|حیوان|ترفند|آموزش)/iu.test(title)) {
     return 'title_generic_episode_label';
   }
+
   if (/^(?:یک\s+)?(?:فیلم|کلیپ|ویدئو|ویدیو)\s+(?:بسیار\s+|خیلی\s+)?(?:زیبا|جذاب|عالی|رمانتیک|فوق.?العاده)(?:\s+و\s+(?:بسیار\s+)?(?:زیبا|جذاب|عالی|رمانتیک))?.{0,70}$/iu.test(title)) {
     return 'title_generic_praise_without_subject';
   }
+
+  const lowInformationWords = new Set([
+    'جذاب','عاشقانه','احساسی','رمانتیک','باورنکردنی','باور','نکردنی','فوق','العاده',
+    'زیبا','دیدنی','جالب','بامزه','خنده','دار','طنز','عالی','خاص','دلنشین','هیجان',
+    'انگیز','سرگرم','کننده','چشم','نواز','محشر'
+  ]);
+  const meaningfulTokens = tokens.filter(token =>
+    !lowInformationWords.has(token) && !/^\d+$/u.test(token)
+  );
+  if (tokens.length && meaningfulTokens.length === 0) return 'title_generic_without_subject';
+
   if (tokens.length < 2 && !(/(?:پارت|قسمت|episode|part)\s*[0-9۰-۹]+/iu.test(title) &&
       /(?:طنز|خنده|آشپزی|آهنگ|ترانه|ورزش|فوتبال|حیوان|ترفند|آموزش)/iu.test(title))) {
     return 'title_not_distinct_or_editorially_clean';
@@ -1507,10 +1539,15 @@ function descriptionBasedTitleCandidate(sourceDescription, sourceTitle = '') {
       .replace(/^(?:(?:در\s+این\s+(?:ویدئو|ویدیو|کلیپ|فیلم)|موضوع\s+(?:این\s+)?ویدئو)\s*[:،؛-]?\s*)+/iu, '')
       .replace(/^(?:(?:لطفاً|لطفا)\s*)?(?:این\s+)?(?:ویدئو|ویدیو|کلیپ)\s+(?:را\s+)?(?:ببینید|تماشا کنید|مشاهده کنید)\s*[:،؛-]?\s*/iu, '')
       .replace(/[.!؟،؛,;]+$/u, '')
+      .replace(/\s+(?:را|رو)\s*$/iu, '')
       .trim();
     if (sentence.length < 10) continue;
     let candidate;
-    try { candidate = cleanRepostCaptionTitle(sentence); } catch { continue; }
+    try {
+      candidate = cleanRepostCaptionTitle(sentence)
+        .replace(/\s+(?:را|رو)\s*$/iu, '')
+        .trim();
+    } catch { continue; }
     // A description is useful only when it contributes a genuinely distinct
     // factual subject. Rewording the same generic source title is not a rewrite.
     if (cleanedSourceTitle && characterBigramDice(cleanedSourceTitle, candidate) >= 0.72) continue;
@@ -1578,31 +1615,19 @@ function createDistinctRepostTitle(sourceTitle, sourceDescription = '', sourceCo
   }
   if (candidates.length) return candidates[0];
 
-  // Editorial quality rules are preferences, not eligibility gates. When a
-  // rewrite cannot be built, use safe, sanitized source text if available.
-  const fallbackDescription = normalizeCaptionEditorialText(sourceDescription)
-    .replace(/https?:\/\/\S+|www\.\S+/giu, ' ')
-    .replace(/#[^\s#]+/gu, ' ')
-    .replace(/@[\p{L}\p{N}_.-]+/gu, ' ')
-    .split(/(?<=[.!؟])\s+|[\n\r]+/u)
-    .map(part => cleanRepostCaptionTitle(part))
-    .find(part => part.length >= 5 &&
-      !editorialTitleQualityReason(part) &&
-      !policyTextRiskReason({ title: part }));
-
+  // No fallback may bypass editorial quality. Reuse only the first complete,
+  // factual sentence extracted by the shared description-title parser.
+  const fallbackDescription = descriptionBasedTitleCandidate(sourceDescription, sourceTitle);
   for (const fallback of [cleaned, fallbackDescription]) {
-    const value = String(fallback || '').trim();
-    if (value.length < FILO_TITLE_MIN_CHARS || policyTextRiskReason({ title: value })) continue;
-    const qualityReason = editorialTitleQualityReason(value);
-    if (qualityReason === 'title_promotional_or_call_to_action' ||
-        qualityReason === 'title_engagement_bait_without_subject' ||
-        qualityReason === 'title_generic_episode_label' ||
-        qualityReason === 'title_generic_praise_without_subject' ||
-        qualityReason === 'title_not_distinct_or_editorially_clean') continue;
-    return fitFiloTitleLength(value);
+    const candidate = fitFiloTitleLength(fallback);
+    if (!candidate) continue;
+    if (editorialTitleQualityReason(candidate)) continue;
+    if (policyTextRiskReason({ title: candidate })) continue;
+    return candidate;
   }
 
-  return 'عنوان اصلی نامشخص';
+  return '';
+
 }
 
 function cleanRepostDescription(sourceDescription, sourceTitle, repostTitle) {
@@ -1648,24 +1673,48 @@ function createRepostMetadata(video, sourceCode) {
   const risk = policyTextRiskReason(video);
   if (risk) throw new Error('filo_policy_text_risk:' + risk);
   const title = createDistinctRepostTitle(sourceTitle, sourceDescription, sourceCode);
+  const titleIssue = editorialTitleQualityReason(title) ||
+    (title.length < FILO_TITLE_MIN_CHARS || title.length > FILO_TITLE_MAX_CHARS
+      ? 'title_length_out_of_policy' : null);
+  if (titleIssue || hasIncompleteEditorialTitle(title)) {
+    throw new Error('filo_title_policy:' + (titleIssue || 'title_incomplete_sentence'));
+  }
   const description = cleanRepostDescription(sourceDescription, sourceTitle, title);
   return { title, description, sourceTitle, sourceDescription, sourceCode };
 }
 
 function topicDuplicateMatch(state,title,now=Date.now()) {
   const nowMs=Number.isFinite(Number(now))?Number(now):Date.now();
+  const allPosts=state&&Array.isArray(state.posts)?state.posts:[];
+  const titleKey=normalizeComparable(title);
+  const acceptedStatuses=new Set(['public_verified','submitted_pending_approval','submitted_unconfirmed']);
+
+  // Exact title reuse is never allowed, even after the 48-hour topic window.
+  for(const post of allPosts){
+    if(!post||!acceptedStatuses.has(post.status))continue;
+    const previousTitle=post.repostTitle||post.title||post.sourceTitle||'';
+    if(titleKey&&normalizeComparable(previousTitle)===titleKey){
+      return {
+        duplicate:true,reason:'exact_title_already_used',
+        matchedTitle:String(previousTitle).slice(0,180),
+        matchedSourceCode:post.sourceCode||null,
+        jaccard:1,characterSimilarity:1
+      };
+    }
+  }
+
   const tokens=editorialTitleTokens(title);
   if(tokens.length<3)return {duplicate:false,reason:'insufficient_topic_tokens'};
   const current=new Set(tokens);
-  const recent=(state&&Array.isArray(state.posts)?state.posts:[])
-    .filter(post=>post&&['public_verified','submitted_pending_approval','submitted_unconfirmed'].includes(post.status))
+  const recent=allPosts
+    .filter(post=>post&&acceptedStatuses.has(post.status))
     .filter(post=>{
-      const at=Date.parse(post.submittedAt||post.at||'');
+      const at=Date.parse(post.submittedAt||post.verifiedAt||post.at||'');
       return Number.isFinite(at)&&at<=nowMs&&nowMs-at<=TOPIC_DUPLICATE_WINDOW_MS;
     })
-    .sort((a,b)=>Date.parse(b.submittedAt||b.at||'')-Date.parse(a.submittedAt||a.at||''));
+    .sort((a,b)=>Date.parse(b.submittedAt||b.verifiedAt||b.at||'')-Date.parse(a.submittedAt||a.verifiedAt||a.at||''));
   for(const post of recent){
-    const previousTitle=post.repostTitle||post.sourceTitle||'';
+    const previousTitle=post.repostTitle||post.title||post.sourceTitle||'';
     const previous=new Set(editorialTitleTokens(previousTitle));
     if(previous.size<3)continue;
     const common=[...current].filter(token=>previous.has(token));
@@ -1677,7 +1726,8 @@ function topicDuplicateMatch(state,title,now=Date.now()) {
     const nearlySameTitle=characterSimilarity>=0.91;
     if(sameSpecificTopic||nearlySameTitle){
       return {
-        duplicate:true,matchedTitle:String(previousTitle).slice(0,180),
+        duplicate:true,reason:'recent_topic_duplicate',
+        matchedTitle:String(previousTitle).slice(0,180),
         matchedSourceCode:post.sourceCode||null,commonTokens:common.slice(0,8),
         jaccard:Math.round(jaccard*100)/100,
         characterSimilarity:Math.round(characterSimilarity*100)/100
@@ -1700,7 +1750,11 @@ function isTitleRewriteRejectionReason(reason) {
     reason === 'source_title_too_short' ||
     reason === 'title_promotional_or_call_to_action' ||
     reason === 'title_generic_episode_label' ||
-    reason === 'title_generic_praise_without_subject';
+    reason === 'title_generic_praise_without_subject' ||
+    reason === 'title_generic_without_subject' ||
+    reason === 'title_incomplete_sentence' ||
+    reason === 'title_length_out_of_policy' ||
+    String(reason || '').startsWith('filo_title_policy:');
 }
 
 function detailFetchHttpDisposition(status) {
@@ -3001,7 +3055,10 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
     const sourceDescriptionComparable = normalizeComparable(repostMetadata.sourceDescription);
     const metadataRisk = policyTextRiskReason({ title: outgoingTitle, description: outgoingDescription });
     const hasExternalLink = /(?:https?:\/\/|www\.)/i.test(outgoingTitle + ' ' + outgoingDescription);
-    const metadataOk = outgoingTitle.length >= 5 && outgoingTitle.length <= 180 &&
+    const metadataOk = outgoingTitle.length >= FILO_TITLE_MIN_CHARS &&
+      outgoingTitle.length <= FILO_TITLE_MAX_CHARS &&
+      !editorialTitleQualityReason(outgoingTitle) &&
+      !hasIncompleteEditorialTitle(outgoingTitle) &&
       outgoingDescription.length <= 1100 && !metadataRisk && !hasExternalLink;
     const frameOk = selectedFrame.startsWith('data:image/') && selectedFrame.length > 1000;
     const guardFailures = buildNativePublishGuardFailures({
@@ -3833,7 +3890,8 @@ async function main() {
 
       const duplicateTopic = topicDuplicateMatch(state, candidateMetadata.title, Date.parse(report.createdAt));
       if (duplicateTopic.duplicate) {
-        check.gate = 'recent_topic_duplicate';
+        check.gate = duplicateTopic.reason === 'exact_title_already_used'
+          ? 'exact_title_already_used' : 'recent_topic_duplicate';
         check.duplicateTopic = duplicateTopic;
         report.discovery.duplicateTopicsSkipped.push({
           sourceCode: code,
@@ -4056,6 +4114,7 @@ module.exports = {
   summarizeFeedAgeDiagnostics,
   summarizeCandidateChecks,
   fitFiloTitleLength,
+  hasIncompleteEditorialTitle,
   cleanRepostCaptionTitle,
   cleanRepostDescription,
   policyTextRiskReason,
