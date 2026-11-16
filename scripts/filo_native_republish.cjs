@@ -1543,7 +1543,11 @@ function descriptionBasedTitleCandidate(sourceDescription, sourceTitle = '') {
       .trim();
     if (sentence.length < 10) continue;
     let candidate;
-    try { candidate = cleanRepostCaptionTitle(sentence); } catch { continue; }
+    try {
+      candidate = cleanRepostCaptionTitle(sentence)
+        .replace(/\s+(?:را|رو)\s*$/iu, '')
+        .trim();
+    } catch { continue; }
     // A description is useful only when it contributes a genuinely distinct
     // factual subject. Rewording the same generic source title is not a rewrite.
     if (cleanedSourceTitle && characterBigramDice(cleanedSourceTitle, candidate) >= 0.72) continue;
