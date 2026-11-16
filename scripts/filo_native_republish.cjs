@@ -1458,6 +1458,10 @@ function editorialTitleQualityReason(value) {
     return 'title_generic_episode_label';
   }
 
+  if (/^(?:یک\s+)?(?:فیلم|کلیپ|ویدئو|ویدیو)\s+(?:بسیار\s+|خیلی\s+)?(?:زیبا|جذاب|عالی|رمانتیک|فوق.?العاده)(?:\s+و\s+(?:بسیار\s+)?(?:زیبا|جذاب|عالی|رمانتیک))?.{0,70}$/iu.test(title)) {
+    return 'title_generic_praise_without_subject';
+  }
+
   const lowInformationWords = new Set([
     'جذاب','عاشقانه','احساسی','رمانتیک','باورنکردنی','باور','نکردنی','فوق','العاده',
     'زیبا','دیدنی','جالب','بامزه','خنده','دار','طنز','عالی','خاص','دلنشین','هیجان',
@@ -1531,6 +1535,7 @@ function descriptionBasedTitleCandidate(sourceDescription, sourceTitle = '') {
       .replace(/^(?:(?:در\s+این\s+(?:ویدئو|ویدیو|کلیپ|فیلم)|موضوع\s+(?:این\s+)?ویدئو)\s*[:،؛-]?\s*)+/iu, '')
       .replace(/^(?:(?:لطفاً|لطفا)\s*)?(?:این\s+)?(?:ویدئو|ویدیو|کلیپ)\s+(?:را\s+)?(?:ببینید|تماشا کنید|مشاهده کنید)\s*[:،؛-]?\s*/iu, '')
       .replace(/[.!؟،؛,;]+$/u, '')
+      .replace(/\s+(?:را|رو)\s*$/iu, '')
       .trim();
     if (sentence.length < 10) continue;
     let candidate;
