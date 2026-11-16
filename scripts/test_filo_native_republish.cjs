@@ -825,8 +825,8 @@ assert.equal(createDistinctRepostTitle('چای', ''), '',
 assert.equal(fitFiloTitleLength('خیلی کوتاه'), '',
   'the local title fitter must not pass titles under the conservative 12-character floor');
 const fittedLongTitle = fitFiloTitleLength('ترانهٔ بسیار زیبا و شنیدنی از خوانندهٔ محبوب و پرطرفدار برای یک شب بارانی در شهر و کوچه‌های قدیمی با صدای گرم و دلنشین');
-assert.ok(fittedLongTitle.length <= 80 && fittedLongTitle.length >= 12,
-  'long titles must be safely trimmed to the current Filo UI limit without generic padding');
+assert.equal(fittedLongTitle, '',
+  'long titles without a natural sentence boundary must be rejected instead of being cut mid-sentence');
 assert.equal(editorialTitleQualityReason('ترفند آشپزی'), null,
   'two informative terms are sufficient when the resulting title remains meaningful and within Filo limits');
 assert.throws(() => createRepostMetadata({
