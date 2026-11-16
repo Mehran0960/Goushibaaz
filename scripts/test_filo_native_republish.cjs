@@ -52,6 +52,7 @@ const {
   updateCandidateMomentum,
   update24HourCandidateCatalog,
   candidateAccelerationEvidence,
+  isInsufficientAccelerationSampleReason,
   classifyAudienceFit,
   durationPreferenceScore,
   summarizeTopicDemand,
@@ -1163,6 +1164,13 @@ assert.equal(candidateAccelerationEvidence({
   hasPositivePlayGrowth:true,
   momentum:{sampleCount:2,playsPerMinute:10,playsAccelerationPerMinute:3}
 }).passed, false, 'acceleration requires at least three independent samples');
+
+assert.equal(isInsufficientAccelerationSampleReason('insufficient_play_samples'), true,
+  'the diagnostic counter must count candidates with insufficient play samples');
+assert.equal(isInsufficientAccelerationSampleReason('insufficient_view_samples'), true,
+  'the diagnostic counter must count candidates with insufficient view samples');
+assert.equal(isInsufficientAccelerationSampleReason('no_positive_play_velocity'), false,
+  'candidates with enough samples but no growth must not be counted as sample-deficient');
 
 const plateauState = { posts: [] };
 const plateauStart = Date.parse('2026-11-06T02:00:00.000Z');

@@ -1004,6 +1004,14 @@ function candidateMomentumScore(entry) {
   return 0;
 }
 
+function isInsufficientAccelerationSampleReason(reason) {
+  return [
+    'insufficient_independent_samples',
+    'insufficient_play_samples',
+    'insufficient_view_samples'
+  ].includes(String(reason || ''));
+}
+
 function candidateAccelerationEvidence(entry) {
   const momentum = entry && entry.momentum && typeof entry.momentum === 'object'
     ? entry.momentum : {};
@@ -3641,7 +3649,7 @@ async function main() {
         entry.accelerationEvidence.metric === 'views' && entry.playCounterZeroStalled === true
       ).length,
       candidatesWithInsufficientSamples: ranked.filter(entry =>
-        entry.accelerationEvidence.reason === 'insufficient_independent_samples'
+        isInsufficientAccelerationSampleReason(entry.accelerationEvidence.reason)
       ).length,
       candidatesWithPositiveVelocityButNoPositiveAcceleration: ranked.filter(entry =>
         ['positive_play_velocity_without_acceleration',
@@ -4161,6 +4169,7 @@ module.exports = {
   updateCandidateMomentum,
   update24HourCandidateCatalog,
   candidateAccelerationEvidence,
+  isInsufficientAccelerationSampleReason,
   classifyAudienceFit,
   extractCategoryIds,
   summarizeCategoryCatalogPayload,
