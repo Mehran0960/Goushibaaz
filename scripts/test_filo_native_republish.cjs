@@ -475,6 +475,28 @@ assert.ok(jalaliDateOnlyAge.lowerHours > 72,
 const yesterdayBounds = reliableFeedAgeBounds({ create_date: 'دیروز' }, feedNow);
 assert.equal(yesterdayBounds.lowerHours, 24,
   'the label yesterday must retain the exact conservative lower boundary');
+const dayBeforeYesterdayBounds = reliableFeedAgeBounds({ create_date: 'پریروز' }, feedNow);
+assert.deepEqual(
+  [dayBeforeYesterdayBounds.lowerHours, dayBeforeYesterdayBounds.upperHours],
+  [24, 72],
+  'the Persian day-before-yesterday label must keep conservative calendar-day bounds'
+);
+const oneWeekBounds = reliableFeedAgeBounds({ create_date: '۱ هفته پیش' }, feedNow);
+assert.equal(oneWeekBounds.centerHours, 168);
+assert.ok(oneWeekBounds.lowerHours > 72,
+  'one-week-old candidates must be recognized as old rather than left with unknown age');
+const oneMonthBounds = reliableFeedAgeBounds({ create_date: '1 ماه پیش' }, feedNow);
+assert.equal(oneMonthBounds.centerHours, 30 * 24);
+assert.ok(oneMonthBounds.lowerHours > 72,
+  'month-old Filo labels must be recognized without fabricating recency');
+const threeYearsBounds = reliableFeedAgeBounds({ create_date: '3 سال پیش' }, feedNow);
+assert.equal(threeYearsBounds.centerHours, 3 * 365 * 24);
+const threeDaysBounds = reliableFeedAgeBounds({ create_date: '۳ روز پیش' }, feedNow);
+assert.equal(threeDaysBounds.centerHours, 72);
+assert.ok(threeDaysBounds.upperHours > 72,
+  'the 72-hour admission gate must remain conservative at the boundary');
+assert.equal(ageHours({ create_date: 'فردا' }, feedNow), Number.POSITIVE_INFINITY,
+  'future Persian relative labels must never be assigned a recent age');
 const jalaliOrderedPage = analyzeCategoryFeedPage([
   { create_date: '۱۴۰۵/۰۸/۱۰' },
   { create_date: '۱۴۰۵/۰۸/۰۹' }
@@ -680,7 +702,7 @@ cacheCandidateRejection(rejectionCacheState,'Cache01',cacheVideo,
   'title_without_safe_editorial_rewrite',Date.parse('2026-11-04T12:00:00.000Z'));
 assert.ok(getCachedCandidateRejection(rejectionCacheState,'Cache01',cacheVideo,
   Date.parse('2026-11-04T13:00:00.000Z')));
-assert.equal(rejectionCacheState.candidateRejections.Cache01.titleRewritePolicyVersion, 7);
+assert.equal(rejectionCacheState.candidateRejections.Cache01.titleRewritePolicyVersion, 8);
 assert.equal(isTitleRewriteRejectionReason('title_without_safe_editorial_rewrite'), true);
 assert.equal(isTitleRewriteRejectionReason('title_promotional_or_call_to_action'), true);
 assert.equal(isTitleRewriteRejectionReason('title_generic_episode_label'), true);
@@ -771,13 +793,17 @@ assert.doesNotMatch(shortMetadata.description, /روش پخت خورشت بام�
   'description fallback must refer to the original source wording rather than the editorial rewrite');
 assert.ok(shortMetadata.description.length >= 30,
   'short captions must be expanded only with a neutral sentence grounded in the source title');
-assert.ok(shortMetadata.title.length >= 5 && shortMetadata.title.length <= 80,
+assert.ok(shortMetadata.title.length >= 12 && shortMetadata.title.length <= 80,
   'generated titles must remain within the current 80-character Filo field limit');
 const shortTitle = createDistinctRepostTitle('طرز تهیه چای', '');
-assert.equal(shortTitle, 'روش پخت چای',
-  'short but meaningful source titles must stay concise instead of receiving generic filler');
+assert.equal(shortTitle, 'طرز تهیه چای',
+  'when an editorial rewrite would be shorter than the local Filo floor, retain the factual source title');
+assert.equal(createDistinctRepostTitle('چای', ''), 'عنوان اصلی نامشخص',
+  'titles too short for the conservative local floor must use the neutral fallback, not be submitted as-is');
+assert.equal(fitFiloTitleLength('خیلی کوتاه'), 'عنوان اصلی نامشخص',
+  'the local title fitter must not pass titles under the conservative 12-character floor');
 const fittedLongTitle = fitFiloTitleLength('ترانهٔ بسیار زیبا و شنیدنی از خوانندهٔ محبوب و پرطرفدار برای یک شب بارانی در شهر و کوچه‌های قدیمی با صدای گرم و دلنشین');
-assert.ok(fittedLongTitle.length <= 80 && fittedLongTitle.length >= 5,
+assert.ok(fittedLongTitle.length <= 80 && fittedLongTitle.length >= 12,
   'long titles must be safely trimmed to the current Filo UI limit without generic padding');
 assert.equal(editorialTitleQualityReason('ترفند آشپزی'), null,
   'two informative terms are sufficient when the resulting title remains meaningful and within Filo limits');
