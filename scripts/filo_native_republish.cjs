@@ -1444,7 +1444,7 @@ function editorialTitleTokens(value) {
 function editorialTitleQualityReason(value) {
   const title = normalizeCaptionEditorialText(value);
   if (!title) return 'title_without_safe_editorial_rewrite';
-  if (/(?:لایک|لایك|فالو|فالوو|حمایت(?:\s*کنید|\s*کنین)?|یادتون\s+نره|دنبال(?:\s*کنید|\s*کنین)|عضو\s*(?:شوید|بشید)|عضویت|سابسکرایب|زنگوله|برای\s+کلیپ(?:های)?\s+بیشتر|کانال\s*(?:ما|مارا|رو|را)|نظر\s*(?:خود|شما\s*چیه|شمامهم)|نظرت(?:ان|ون)\s*(?:چیه|رو\s*بگید)|کامنت\s*بگذارید|تا\s+(?:انتهای|آخر)\s+(?:ویدئو|ویدیو|کلیپ)|از\s+دست\s+(?:ندید|ندهید))/iu.test(title)) {
+  if (/(?:لایک|لایك|فالو|فالوو|حمایت(?:\s*کنید|\s*کنین)?|یادتون\s+نره|دنبال(?:\s*کنید|\s*کنین)|عضو\s*(?:شوید|بشید)|عضویت|سابسکرایب|زنگوله|برای\s+کلیپ(?:های)?\s+بیشتر|کانال\s*(?:ما|مارا|رو|را)|نظر\s*(?:خود\s+را\s+بنویسید|شما\s*چیه|شمامهم|بدید)|نظرت(?:ان|ون)\s*(?:را?\s*بنویسید|رو\s*بگید|چیه)|کامنت\s*بگذارید|تا\s+(?:انتهای|آخر)\s+(?:ویدئو|ویدیو|کلیپ)|از\s+دست\s+(?:ندید|ندهید))/iu.test(title)) {
     return 'title_promotional_or_call_to_action';
   }
   if (hasIncompleteEditorialTitle(title)) return 'title_incomplete_sentence';
