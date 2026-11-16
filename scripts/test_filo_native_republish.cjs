@@ -800,7 +800,7 @@ assert.equal(shortTitle, 'طرز تهیه چای',
   'when an editorial rewrite would be shorter than the local Filo floor, retain the factual source title');
 assert.equal(createDistinctRepostTitle('چای', ''), 'عنوان اصلی نامشخص',
   'titles too short for the conservative local floor must use the neutral fallback, not be submitted as-is');
-assert.equal(fitFiloTitleLength('عنوان خیلی کوتاه'), 'عنوان اصلی نامشخص',
+assert.equal(fitFiloTitleLength('خیلی کوتاه'), 'عنوان اصلی نامشخص',
   'the local title fitter must not pass titles under the conservative 12-character floor');
 const fittedLongTitle = fitFiloTitleLength('ترانهٔ بسیار زیبا و شنیدنی از خوانندهٔ محبوب و پرطرفدار برای یک شب بارانی در شهر و کوچه‌های قدیمی با صدای گرم و دلنشین');
 assert.ok(fittedLongTitle.length <= 80 && fittedLongTitle.length >= 12,
