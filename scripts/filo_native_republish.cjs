@@ -1611,8 +1611,9 @@ function createDistinctRepostTitle(sourceTitle, sourceDescription = '', sourceCo
   }
   if (candidates.length) return candidates[0];
 
-  // No fallback may bypass editorial quality. If the source cannot support
-  // a clear, complete and non-promotional title, skip the candidate.
+  // No fallback may bypass editorial quality. Reuse only the first complete,
+  // factual sentence extracted by the shared description-title parser.
+  const fallbackDescription = descriptionBasedTitleCandidate(sourceDescription, sourceTitle);
   for (const fallback of [cleaned, fallbackDescription]) {
     const candidate = fitFiloTitleLength(fallback);
     if (!candidate) continue;
