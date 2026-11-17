@@ -1468,13 +1468,14 @@ async function main() {
     }
 
     if (!titleField || !(await titleField.isVisible().catch(() => false))) {
-      const stageRequests = observedRequests.slice(requestCountBeforeFile);
-      const actualUploadRequest = stageRequests.some(x => /uploadFromFile$/i.test(x.path));
+      const stageRequests = observedRequests.slice(requestCountBeforeMedia);
+      const actualUploadRequest = stageRequests.some(x => /uploadFrom(?:File|Url)$/i.test(x.path));
       if (actualUploadRequest && uploadResponseInfo && uploadResponseInfo.status >= 200 && uploadResponseInfo.status < 300) {
         state.posts = [...(state.posts || []), {
           sourcePage: COMMONS_PAGE, title: PERSIAN_TITLE, status: 'upload_staged_unpublished',
+          uploadMethod,
           attemptedAt: new Date().toISOString(),
-          note: 'Filo file transfer completed, but metadata/publish stage was not reached.'
+          note: 'Filo media transfer completed, but metadata/publish stage was not reached.'
         }].slice(-500);
         fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
       }
@@ -1483,7 +1484,9 @@ async function main() {
         authenticated: true,
         uploadPage: pathOnly(page.url()),
         title: PERSIAN_TITLE,
-        fileSelected: true,
+        fileSelected: uploadMethod === 'direct_file',
+        uploadMethod,
+        urlImport: urlImportResult ? { reason: urlImportResult.reason || null, started: Boolean(urlImportResult.started) } : null,
         uploadRequestObserved: actualUploadRequest,
         uploadResponse: uploadResponseInfo,
         fields: fieldsAfterSelection,
@@ -1530,6 +1533,7 @@ async function main() {
       licenseUrl: rights.licenseUrl,
       title: PERSIAN_TITLE,
       status: 'submit_started',
+      uploadMethod,
       contentOrigin: candidate.contentOrigin || 'licensed_external',
       puzzleId: candidate.puzzleId || undefined,
       topic: candidate.topic || undefined,
@@ -1627,6 +1631,7 @@ async function main() {
         licenseUrl: rights.licenseUrl,
         title: PERSIAN_TITLE,
         postUrl,
+        uploadMethod,
         status: finalStatus,
         publishHttpStatus,
         publishApiAccepted,
@@ -1641,8 +1646,10 @@ async function main() {
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
       result = {
         status: finalStatus, title: PERSIAN_TITLE, postUrl, sourcePage: COMMONS_PAGE,
+        uploadMethod,
         sourceTitle: SOURCE_TITLE, license: rights.licenseName, sourceBytes: rights.sourceBytes,
-        convertedBytes: converted.outputBytes, finalVideoBytes: endCard.outputBytes,
+        convertedBytes: uploadMethod === 'direct_file' ? converted.outputBytes : null,
+        finalVideoBytes: uploadMethod === 'direct_file' ? endCard.outputBytes : rights.sourceBytes,
         coverBytes: cover.coverBytes, endCardSeconds: endCard.endCardSeconds, durationSeconds: sourceDurationSeconds,
         coverUpload, publishHttpStatus, publishApiAccepted,
         note: confirmedPublic ? 'Filo showed the new video as active.'
@@ -1684,8 +1691,9 @@ async function main() {
             ? 'Filo rejected the publish request. No successful publication is claimed.'
             : 'The publish response was not conclusive; a new public post URL could not be confirmed.',
         sourceBytes: rights.sourceBytes,
-        convertedBytes: converted.outputBytes,
-        finalVideoBytes: endCard.outputBytes,
+        uploadMethod,
+        convertedBytes: uploadMethod === 'direct_file' ? converted.outputBytes : null,
+        finalVideoBytes: uploadMethod === 'direct_file' ? endCard.outputBytes : rights.sourceBytes,
         coverBytes: cover.coverBytes,
         endCardSeconds: endCard.endCardSeconds,
         bodyText: bodyText.slice(0, 1200),
