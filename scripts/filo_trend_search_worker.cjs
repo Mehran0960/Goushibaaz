@@ -12,15 +12,16 @@ const {
 } = require('./filo_global_search.cjs');
 const {
   login,
-  fetchFiloGlobalSearchPage
+  fetchFiloGlobalSearchPage,
+  normalizeVideoFeedItem
 } = require('./filo_native_republish.cjs');
 
 const BASE = 'https://ifilo.net';
 const STATE_PATH = path.join('state', 'filo-global-search-candidates.json');
 const REPORT_PATH = path.join('out', 'filo-global-search-worker.json');
-const MAX_TOPICS = 40;
+const MAX_TOPICS = 20;
 const MAX_QUERIES_PER_TOPIC = 3;
-const MAX_QUERIES_PER_RUN = 8;
+const MAX_QUERIES_PER_RUN = 14;
 const PAGES_PER_QUERY_PER_RUN = 20;
 const SEARCH_CONCURRENCY = 4;
 const MAX_CACHED_CANDIDATES = 5000;
@@ -68,9 +69,11 @@ function loadState() {
 }
 
 function compactVideo(item) {
+  const normalized = normalizeVideoFeedItem(item) || {};
   const fields = [
     'video_code', 'title', 'description', 'sender_name',
-    'category_id', 'duration', 'duration_seconds', 'duration_minutes',
+    'category_id', 'category_name', 'category_title', 'category',
+    'duration', 'duration_seconds', 'duration_minutes',
     'visit_count', 'view_count', 'views', 'visits', 'play_count', 'plays', 'playCount',
     'share_count', 'shares', 'favorite_count', 'favorites', 'create_date', 'styled_create_date', 'created_at',
     'active', 'file_deleted', 'only_in_filo', 'has_audio',
@@ -78,10 +81,10 @@ function compactVideo(item) {
   ];
   const output = {};
   for (const key of fields) {
-    const value = item && item[key];
+    const value = normalized[key];
     if (value !== undefined && value !== null && value !== '') output[key] = value;
   }
-  output.video_code = String(output.video_code || item && (item.videoCode || item.code) || '').trim();
+  output.video_code = String(output.video_code || '').trim();
   output.title = String(output.title || '').replace(/\s+/g, ' ').trim();
   return output;
 }
@@ -121,6 +124,8 @@ function mergeCandidate(itemsByCode, incoming) {
     ...previous,
     ...compact,
     globalTrendSearchMatches: matches.slice(-12),
+    // Timestamp the actual Filo API observation, not the time a cached result is read.
+    lastMetricsFetchedAt: isoNow(),
     lastTrendMatchedAt: isoNow()
   };
   return true;
@@ -212,7 +217,7 @@ function selectQueriesForRun(state, now = Date.now()) {
   const current = eligible.filter(query => query.activeInLatestFeed !== false).sort(byOldestAttempt);
   const backlog = eligible.filter(query => query.activeInLatestFeed === false).sort(byOldestAttempt);
 
-  // Reserve two of eight slots for recently trending topics that have since
+  // Reserve two of fourteen slots for recently trending topics that have since
   // left the live RSS feed. This prevents incomplete global searches from
   // being abandoned while still giving current topics scheduling priority.
   const backlogSlots = Math.min(2, backlog.length, MAX_QUERIES_PER_RUN);
