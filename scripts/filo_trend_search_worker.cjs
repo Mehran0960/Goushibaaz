@@ -230,6 +230,36 @@ function selectQueriesForRun(state, now = Date.now()) {
   ].slice(0, MAX_QUERIES_PER_RUN);
 }
 
+function combineQuerySearchResults(headRefresh, deepScan) {
+  const unique = new Map();
+  for (const item of [...(headRefresh && headRefresh.results || []), ...(deepScan && deepScan.results || [])]) {
+    const code = String(item && (item.video_code || item.videoCode || item.code) || '').trim();
+    if (code) unique.set(code, item);
+  }
+  const results = [...unique.values()];
+  return {
+    query: String(deepScan && deepScan.query || headRefresh && headRefresh.query || ''),
+    results,
+    pagesFetched: safeNumber(headRefresh && headRefresh.pagesFetched) +
+      safeNumber(deepScan && deepScan.pagesFetched),
+    startPage: Number(deepScan && deepScan.startPage) || null,
+    nextPage: Number(deepScan && deepScan.nextPage) ||
+      Number(headRefresh && headRefresh.nextPage) || 1,
+    complete: Boolean(deepScan && deepScan.complete),
+    termination: String(deepScan && deepScan.termination ||
+      headRefresh && headRefresh.termination || 'unknown'),
+    totalUniqueVideos: results.length,
+    pages: [
+      ...(headRefresh && Array.isArray(headRefresh.pages)
+        ? headRefresh.pages.map(page => ({ ...page, scanPhase: 'head_refresh' })) : []),
+      ...(deepScan && Array.isArray(deepScan.pages)
+        ? deepScan.pages.map(page => ({ ...page, scanPhase: 'deep_scan' })) : [])
+    ],
+    headRefreshPagesFetched: safeNumber(headRefresh && headRefresh.pagesFetched),
+    deepPagesFetched: safeNumber(deepScan && deepScan.pagesFetched)
+  };
+}
+
 function applyQueryResult(state, query, result) {
   const key = query.normalized;
   const target = state.queries[key];
@@ -272,17 +302,28 @@ async function runSearchBatch(context, selectedQueries) {
     page.setDefaultTimeout(15000);
     try {
       await page.goto(BASE + '/upload', { waitUntil: 'domcontentloaded', timeout: 25000 });
-      return await searchFiloGlobalTopic(
-        query.query,
-        params => fetchFiloGlobalSearchPage(page, params),
-        {
-          startPage: query.nextPage || 1,
-          maxPages: query.refreshOnly ? REFRESH_TOP_PAGES : PAGES_PER_QUERY_PER_RUN,
-          pageSize: 20,
-          windowWidth: 1365,
-          topicSearch: query
-        }
-      );
+      const fetchPage = params => fetchFiloGlobalSearchPage(page, params);
+      const headRefresh = await searchFiloGlobalTopic(query.query, fetchPage, {
+        startPage: 1,
+        maxPages: REFRESH_TOP_PAGES,
+        pageSize: 20,
+        windowWidth: 1365,
+        topicSearch: query
+      });
+
+      // Refresh recent pages on every selected query so high-interest candidates
+      // receive new independent counter observations instead of aging out in cache.
+      if (query.refreshOnly) return headRefresh;
+
+      const deepStartPage = Math.max(REFRESH_TOP_PAGES + 1, safeNumber(query.nextPage) || 1);
+      const deepScan = await searchFiloGlobalTopic(query.query, fetchPage, {
+        startPage: deepStartPage,
+        maxPages: Math.max(1, PAGES_PER_QUERY_PER_RUN - REFRESH_TOP_PAGES),
+        pageSize: 20,
+        windowWidth: 1365,
+        topicSearch: query
+      });
+      return combineQuerySearchResults(headRefresh, deepScan);
     } finally {
       await page.close().catch(() => {});
     }
@@ -361,6 +402,8 @@ async function main() {
           startPage: result.startPage,
           nextPage: result.nextPage,
           pagesFetched: result.pagesFetched,
+          headRefreshPagesFetched: result.headRefreshPagesFetched || result.pagesFetched,
+          deepPagesFetched: result.deepPagesFetched || 0,
           uniqueVideos: result.totalUniqueVideos,
           complete: result.complete,
           termination: result.termination
@@ -406,6 +449,7 @@ module.exports = {
   compactVideo,
   candidateRetentionScore,
   mergeCandidate,
+  combineQuerySearchResults,
   pruneCandidates,
   refreshQueryDefinitions,
   selectQueriesForRun,
