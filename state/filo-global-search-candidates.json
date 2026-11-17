@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-17T20:21:46.297Z",
-  "trendsFetchedAt": "2026-11-17T20:19:41.115Z",
+  "updatedAt": "2026-11-17T20:40:42.485Z",
+  "trendsFetchedAt": "2026-11-17T20:39:42.791Z",
   "trends": [
     {
       "title": "ولز مقابل پرتغال",
@@ -11,9 +11,18 @@
         "مقابل",
         "پرتغال"
       ],
-      "traffic": 5000,
+      "traffic": 10000,
       "publishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
-      "ageHours": 1.3
+      "ageHours": 1.7
+    },
+    {
+      "title": "پرتغال",
+      "keywords": [
+        "پرتغال"
+      ],
+      "traffic": 2000,
+      "publishedAt": "Tue, 17 Nov 2026 12:20:00 -0800",
+      "ageHours": 0.3
     },
     {
       "title": "wales vs portugal",
@@ -24,7 +33,7 @@
       ],
       "traffic": 2000,
       "publishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
-      "ageHours": 1.3
+      "ageHours": 1.7
     },
     {
       "title": "غلامرضا فرخی",
@@ -34,25 +43,27 @@
       ],
       "traffic": 500,
       "publishedAt": "Tue, 17 Nov 2026 10:30:00 -0800",
-      "ageHours": 1.8
+      "ageHours": 2.2
     },
     {
-      "title": "apple",
+      "title": "فیفا",
       "keywords": [
-        "apple"
+        "فیفا"
       ],
-      "traffic": 500,
-      "publishedAt": "Tue, 17 Nov 2026 09:50:00 -0800",
-      "ageHours": 2.5
+      "traffic": 200,
+      "publishedAt": "Tue, 17 Nov 2026 12:20:00 -0800",
+      "ageHours": 0.3
     },
     {
-      "title": "سوریه",
+      "title": "denmark vs norway",
       "keywords": [
-        "سوریه"
+        "denmark",
+        "vs",
+        "norway"
       ],
-      "traffic": 500,
-      "publishedAt": "Tue, 17 Nov 2026 09:30:00 -0800",
-      "ageHours": 2.8
+      "traffic": 200,
+      "publishedAt": "Tue, 17 Nov 2026 11:20:00 -0800",
+      "ageHours": 1.3
     },
     {
       "title": "فلز",
@@ -61,7 +72,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
-      "ageHours": 1.3
+      "ageHours": 1.7
     },
     {
       "title": "جعفر سلمانی",
@@ -71,7 +82,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Tue, 17 Nov 2026 10:00:00 -0800",
-      "ageHours": 2.3
+      "ageHours": 2.7
     },
     {
       "title": "سازمان برنامه و بودجه کشور",
@@ -83,7 +94,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Tue, 17 Nov 2026 11:30:00 -0800",
-      "ageHours": 0.8
+      "ageHours": 1.2
     },
     {
       "title": "friendlies",
@@ -92,17 +103,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Tue, 17 Nov 2026 10:40:00 -0800",
-      "ageHours": 1.7
-    },
-    {
-      "title": "جفری اپستین",
-      "keywords": [
-        "جفری",
-        "اپستین"
-      ],
-      "traffic": 100,
-      "publishedAt": "Tue, 17 Nov 2026 09:00:00 -0800",
-      "ageHours": 3.3
+      "ageHours": 2
     }
   ],
   "queries": {
@@ -860,14 +861,14 @@
       "lastAttemptAt": "2026-11-17T20:01:23.939Z",
       "lastError": null,
       "trendTitle": "ولز مقابل پرتغال",
-      "trendTraffic": 5000,
+      "trendTraffic": 10000,
       "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
       "trendKeywords": [
         "ولز",
         "مقابل",
         "پرتغال"
       ],
-      "lastTrendSeenAt": "2026-11-17T20:19:41.502Z",
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-17T20:01:23.939Z",
@@ -893,7 +894,7 @@
         "پرتغال"
       ],
       "lastTrendSeenAt": "2026-11-17T20:19:41.502Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-17T20:01:23.940Z",
       "refreshOnly": false,
@@ -1164,7 +1165,7 @@
         "اپستین"
       ],
       "lastTrendSeenAt": "2026-11-17T20:19:41.503Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-17T20:21:46.057Z",
       "refreshOnly": false,
@@ -1188,7 +1189,7 @@
         "اپستین"
       ],
       "lastTrendSeenAt": "2026-11-17T20:19:41.503Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-17T20:21:46.057Z",
       "refreshOnly": false,
@@ -1212,7 +1213,7 @@
         "اپستین"
       ],
       "lastTrendSeenAt": "2026-11-17T20:19:41.503Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-17T20:21:46.058Z",
       "refreshOnly": false,
@@ -1242,12 +1243,12 @@
     "تعطیل": {
       "query": "تعطیل",
       "normalized": "تعطیل",
-      "nextPage": 51,
-      "complete": false,
-      "pagesFetched": 60,
-      "videosSeen": 1200,
+      "nextPage": 64,
+      "complete": true,
+      "pagesFetched": 78,
+      "videosSeen": 1532,
       "createdAt": "2026-11-17T17:24:32.101Z",
-      "lastAttemptAt": "2026-11-17T19:07:45.414Z",
+      "lastAttemptAt": "2026-11-17T20:40:42.305Z",
       "lastError": null,
       "trendTitle": "فردا تعطیل است",
       "trendTraffic": 100,
@@ -1257,7 +1258,8 @@
       ],
       "lastTrendSeenAt": "2026-11-17T17:24:32.101Z",
       "activeInLatestFeed": false,
-      "termination": "max_pages_reached"
+      "termination": "empty_page",
+      "completedAt": "2026-11-17T20:40:42.305Z"
     },
     "مدارس چالوس و نوشهر به دلیل نامساعد بودن شرایط جوی غیرحضوری شد": {
       "query": "مدارس چالوس و نوشهر به دلیل نامساعد بودن شرایط جوی غیرحضوری شد",
@@ -1360,7 +1362,7 @@
         "سوریه"
       ],
       "lastTrendSeenAt": "2026-11-17T20:19:41.502Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "وضعیت کردهای سوری بعد از سقوط دولت اسد رقابت ترکیه و اسرائیل بر سر نظم جدید سوریه": {
@@ -1490,7 +1492,7 @@
         "جعفر",
         "سلمانی"
       ],
-      "lastTrendSeenAt": "2026-11-17T20:19:41.503Z",
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-17T20:01:23.958Z"
@@ -1512,7 +1514,7 @@
         "جعفر",
         "سلمانی"
       ],
-      "lastTrendSeenAt": "2026-11-17T20:19:41.503Z",
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-17T20:01:23.940Z",
@@ -1536,7 +1538,7 @@
         "جعفر",
         "سلمانی"
       ],
-      "lastTrendSeenAt": "2026-11-17T20:19:41.503Z",
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-17T20:01:23.940Z",
@@ -1560,7 +1562,7 @@
         "apple"
       ],
       "lastTrendSeenAt": "2026-11-17T20:19:41.502Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-17T20:21:46.059Z",
       "refreshOnly": false,
@@ -1583,7 +1585,7 @@
         "apple"
       ],
       "lastTrendSeenAt": "2026-11-17T20:19:41.502Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-17T20:01:23.942Z",
       "refreshOnly": false,
@@ -1818,7 +1820,7 @@
         "غلامرضا",
         "فرخی"
       ],
-      "lastTrendSeenAt": "2026-11-17T20:19:41.502Z",
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-17T19:43:38.849Z"
@@ -1826,12 +1828,12 @@
     "نایب قهرمان جهان به تیم کشتی فرنگی استقلال پیوست": {
       "query": "نایب‌قهرمان جهان به تیم کشتی فرنگی استقلال پیوست",
       "normalized": "نایب قهرمان جهان به تیم کشتی فرنگی استقلال پیوست",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-17T19:05:11.253Z",
-      "lastAttemptAt": "2026-11-17T19:25:53.194Z",
+      "lastAttemptAt": "2026-11-17T20:40:42.269Z",
       "lastError": null,
       "trendTitle": "غلامرضا فرخی",
       "trendTraffic": 500,
@@ -1840,10 +1842,12 @@
         "غلامرضا",
         "فرخی"
       ],
-      "lastTrendSeenAt": "2026-11-17T20:19:41.502Z",
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-17T19:25:53.194Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-17T20:40:42.269Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-17T20:40:42.269Z"
     },
     "قهرمان جهان به استقلال پیوست": {
       "query": "قهرمان جهان به استقلال پیوست",
@@ -1862,7 +1866,7 @@
         "غلامرضا",
         "فرخی"
       ],
-      "lastTrendSeenAt": "2026-11-17T20:19:41.502Z",
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-17T19:43:38.852Z"
@@ -1927,7 +1931,7 @@
         "vs",
         "portugal"
       ],
-      "lastTrendSeenAt": "2026-11-17T20:19:41.502Z",
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-17T19:43:38.847Z"
@@ -1935,12 +1939,12 @@
     "wales vs portugal confirmed lineups colwill up front ward in for darlow": {
       "query": "Wales vs Portugal Confirmed Lineups: Colwill Up Front, Ward In for Darlow",
       "normalized": "wales vs portugal confirmed lineups colwill up front ward in for darlow",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-17T19:24:30.557Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-17T20:40:42.305Z",
       "lastError": null,
       "trendTitle": "wales vs portugal",
       "trendTraffic": 200,
@@ -1951,7 +1955,9 @@
         "portugal"
       ],
       "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-17T20:40:42.305Z"
     },
     "bet365 bonus code get 30 in nations league free bets": {
       "query": "bet365 bonus code: Get £30 in Nations League free bets",
@@ -1964,15 +1970,15 @@
       "lastAttemptAt": "2026-11-17T19:43:38.847Z",
       "lastError": null,
       "trendTitle": "wales vs portugal",
-      "trendTraffic": 1000,
+      "trendTraffic": 2000,
       "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
       "trendKeywords": [
         "wales",
         "vs",
         "portugal"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
-      "activeInLatestFeed": false,
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
+      "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-17T19:43:38.847Z"
     },
@@ -1998,22 +2004,22 @@
     "ولز مقابل پرتغال": {
       "query": "ولز مقابل پرتغال",
       "normalized": "ولز مقابل پرتغال",
-      "nextPage": 36,
+      "nextPage": 51,
       "complete": false,
-      "pagesFetched": 40,
-      "videosSeen": 764,
+      "pagesFetched": 60,
+      "videosSeen": 1144,
       "createdAt": "2026-11-17T19:41:47.686Z",
-      "lastAttemptAt": "2026-11-17T20:21:46.068Z",
+      "lastAttemptAt": "2026-11-17T20:40:42.280Z",
       "lastError": null,
       "trendTitle": "ولز مقابل پرتغال",
-      "trendTraffic": 5000,
+      "trendTraffic": 10000,
       "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
       "trendKeywords": [
         "ولز",
         "مقابل",
         "پرتغال"
       ],
-      "lastTrendSeenAt": "2026-11-17T20:19:41.502Z",
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -2058,8 +2064,8 @@
         "vs",
         "norway"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:59:57.320Z",
-      "activeInLatestFeed": false,
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
+      "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-17T19:43:38.871Z"
     },
@@ -2073,15 +2079,15 @@
       "createdAt": "2026-11-17T19:41:47.686Z",
       "lastAttemptAt": "2026-11-17T19:43:38.871Z",
       "lastError": null,
-      "trendTitle": "wales vs portugal",
-      "trendTraffic": 2000,
-      "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
+      "trendTitle": "denmark vs norway",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 17 Nov 2026 11:20:00 -0800",
       "trendKeywords": [
-        "wales",
+        "denmark",
         "vs",
-        "portugal"
+        "norway"
       ],
-      "lastTrendSeenAt": "2026-11-17T20:19:41.502Z",
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-17T19:43:38.871Z"
@@ -2105,7 +2111,7 @@
         "portugal"
       ],
       "lastTrendSeenAt": "2026-11-17T20:19:41.502Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-17T19:43:38.871Z"
     },
@@ -2131,12 +2137,12 @@
     "فلز": {
       "query": "فلز",
       "normalized": "فلز",
-      "nextPage": 36,
+      "nextPage": 51,
       "complete": false,
-      "pagesFetched": 40,
-      "videosSeen": 788,
+      "pagesFetched": 60,
+      "videosSeen": 1168,
       "createdAt": "2026-11-17T19:41:47.686Z",
-      "lastAttemptAt": "2026-11-17T20:21:46.075Z",
+      "lastAttemptAt": "2026-11-17T20:40:42.285Z",
       "lastError": null,
       "trendTitle": "فلز",
       "trendTraffic": 200,
@@ -2144,7 +2150,7 @@
       "trendKeywords": [
         "فلز"
       ],
-      "lastTrendSeenAt": "2026-11-17T20:19:41.503Z",
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -2164,7 +2170,7 @@
       "trendKeywords": [
         "فلز"
       ],
-      "lastTrendSeenAt": "2026-11-17T20:19:41.503Z",
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-17T20:01:23.948Z"
@@ -2185,7 +2191,7 @@
       "trendKeywords": [
         "فلز"
       ],
-      "lastTrendSeenAt": "2026-11-17T20:19:41.503Z",
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-17T20:01:23.950Z"
@@ -2206,7 +2212,7 @@
       "trendKeywords": [
         "friendlies"
       ],
-      "lastTrendSeenAt": "2026-11-17T20:19:41.503Z",
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-17T20:01:23.950Z"
@@ -2227,7 +2233,7 @@
       "trendKeywords": [
         "friendlies"
       ],
-      "lastTrendSeenAt": "2026-11-17T20:19:41.503Z",
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-17T20:01:23.950Z"
@@ -2254,23 +2260,25 @@
     "wales vs portugal live nations league group a4 match updates score line ups and commentary": {
       "query": "Wales vs Portugal LIVE! Nations League Group A4 match updates, score, line-ups and commentary",
       "normalized": "wales vs portugal live nations league group a4 match updates score line ups and commentary",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-17T19:59:57.320Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-17T20:40:42.269Z",
       "lastError": null,
       "trendTitle": "wales vs portugal",
-      "trendTraffic": 1000,
+      "trendTraffic": 2000,
       "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
       "trendKeywords": [
         "wales",
         "vs",
         "portugal"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:59:57.320Z",
-      "activeInLatestFeed": false
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-17T20:40:42.269Z"
     },
     "licensable picture nations league group a4 wales v portugal": {
       "query": "Licensable picture: Nations League - Group A4 - Wales v Portugal",
@@ -2331,7 +2339,7 @@
         "بودجه",
         "کشور"
       ],
-      "lastTrendSeenAt": "2026-11-17T20:19:41.503Z",
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-17T20:21:46.068Z"
@@ -2355,7 +2363,7 @@
         "بودجه",
         "کشور"
       ],
-      "lastTrendSeenAt": "2026-11-17T20:19:41.503Z",
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-17T20:21:46.068Z"
@@ -2379,7 +2387,7 @@
         "بودجه",
         "کشور"
       ],
-      "lastTrendSeenAt": "2026-11-17T20:19:41.503Z",
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-17T20:21:46.070Z"
@@ -2420,7 +2428,7 @@
         "apple"
       ],
       "lastTrendSeenAt": "2026-11-17T20:19:41.502Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-17T20:21:46.079Z"
     },
@@ -2441,7 +2449,7 @@
         "سوریه"
       ],
       "lastTrendSeenAt": "2026-11-17T20:19:41.502Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-17T20:21:46.079Z"
     },
@@ -2462,7 +2470,7 @@
         "سوریه"
       ],
       "lastTrendSeenAt": "2026-11-17T20:19:41.503Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "the socceroos remain a work in progress but who will finish the job": {
       "query": "The Socceroos remain a work in progress, but who will finish the job?",
@@ -2481,7 +2489,177 @@
         "friendlies"
       ],
       "lastTrendSeenAt": "2026-11-17T20:19:41.503Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
+    },
+    "فوتبال ولز پرتغال گزارش حسین علیرضایی": {
+      "query": "فوتبال ولز - پرتغال (گزارش حسین علیرضایی)",
+      "normalized": "فوتبال ولز پرتغال گزارش حسین علیرضایی",
+      "nextPage": 10,
+      "complete": true,
+      "pagesFetched": 9,
+      "videosSeen": 152,
+      "createdAt": "2026-11-17T20:39:43.022Z",
+      "lastAttemptAt": "2026-11-17T20:40:42.288Z",
+      "lastError": null,
+      "trendTitle": "ولز مقابل پرتغال",
+      "trendTraffic": 10000,
+      "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
+      "trendKeywords": [
+        "ولز",
+        "مقابل",
+        "پرتغال"
+      ],
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-17T20:40:42.288Z"
+    },
+    "پرتغال": {
+      "query": "پرتغال",
+      "normalized": "پرتغال",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 400,
+      "createdAt": "2026-11-17T20:39:43.022Z",
+      "lastAttemptAt": "2026-11-17T20:40:42.294Z",
+      "lastError": null,
+      "trendTitle": "پرتغال",
+      "trendTraffic": 2000,
+      "trendPublishedAt": "Tue, 17 Nov 2026 12:20:00 -0800",
+      "trendKeywords": [
+        "پرتغال"
+      ],
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "خلاصه بازی پرتغال ۱ ۴ دانمارک جوک مسخره ای به نام دوران پسا رونالدو": {
+      "query": "خلاصه بازی پرتغال ۱-۴ دانمارک؛ جوک مسخره‌ای به نام دوران پسا رونالدو!",
+      "normalized": "خلاصه بازی پرتغال ۱ ۴ دانمارک جوک مسخره ای به نام دوران پسا رونالدو",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-17T20:39:43.022Z",
+      "lastAttemptAt": "2026-11-17T20:40:42.294Z",
+      "lastError": null,
+      "trendTitle": "پرتغال",
+      "trendTraffic": 2000,
+      "trendPublishedAt": "Tue, 17 Nov 2026 12:20:00 -0800",
+      "trendKeywords": [
+        "پرتغال"
+      ],
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-17T20:40:42.294Z"
+    },
+    "کریستیانو رونالدو کارما و تیم ملی پرتغال چه کسی به ژولیوس سزار خیانت کرد دیجی کالا مگ": {
+      "query": "کریستیانو رونالدو، کارما و تیم ملی پرتغال؛‌ چه کسی به ژولیوس سزار خیانت کرد؟ • دیجی‌کالا مگ",
+      "normalized": "کریستیانو رونالدو کارما و تیم ملی پرتغال چه کسی به ژولیوس سزار خیانت کرد دیجی کالا مگ",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-17T20:39:43.022Z",
+      "lastAttemptAt": "2026-11-17T20:40:42.294Z",
+      "lastError": null,
+      "trendTitle": "پرتغال",
+      "trendTraffic": 2000,
+      "trendPublishedAt": "Tue, 17 Nov 2026 12:20:00 -0800",
+      "trendKeywords": [
+        "پرتغال"
+      ],
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-17T20:40:42.294Z"
+    },
+    "فیفا": {
+      "query": "فیفا",
+      "normalized": "فیفا",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 400,
+      "createdAt": "2026-11-17T20:39:43.022Z",
+      "lastAttemptAt": "2026-11-17T20:40:42.301Z",
+      "lastError": null,
+      "trendTitle": "فیفا",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 17 Nov 2026 12:20:00 -0800",
+      "trendKeywords": [
+        "فیفا"
+      ],
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "رئیس فدراسیون فرانسه کاندیدای ریاست فیفا رقیب تراشی برای اینفانتینو": {
+      "query": "رئیس فدراسیون فرانسه، کاندیدای ریاست فیفا؛ رقیب‌تراشی برای اینفانتینو",
+      "normalized": "رئیس فدراسیون فرانسه کاندیدای ریاست فیفا رقیب تراشی برای اینفانتینو",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-17T20:39:43.022Z",
+      "lastAttemptAt": "2026-11-17T20:40:42.301Z",
+      "lastError": null,
+      "trendTitle": "فیفا",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 17 Nov 2026 12:20:00 -0800",
+      "trendKeywords": [
+        "فیفا"
+      ],
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-17T20:40:42.301Z"
+    },
+    "football bet of the day danish delight in front of goal on tuesday": {
+      "query": "Football Bet of the Day: Danish delight in front of goal on Tuesday",
+      "normalized": "football bet of the day danish delight in front of goal on tuesday",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-17T20:39:43.022Z",
+      "lastAttemptAt": "2026-11-17T20:40:42.301Z",
+      "lastError": null,
+      "trendTitle": "denmark vs norway",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 17 Nov 2026 11:20:00 -0800",
+      "trendKeywords": [
+        "denmark",
+        "vs",
+        "norway"
+      ],
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-17T20:40:42.301Z"
+    },
+    "sloppy socceroos given a reality check as jordan dominate in friendly win": {
+      "query": "Sloppy Socceroos given a reality check as Jordan dominate in friendly win",
+      "normalized": "sloppy socceroos given a reality check as jordan dominate in friendly win",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-17T20:39:43.022Z",
+      "lastAttemptAt": "2026-11-17T20:40:42.301Z",
+      "lastError": null,
+      "trendTitle": "friendlies",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 17 Nov 2026 10:40:00 -0800",
+      "trendKeywords": [
+        "friendlies"
+      ],
+      "lastTrendSeenAt": "2026-11-17T20:39:43.022Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-17T20:40:42.301Z"
     }
   },
   "items": {
@@ -20198,34 +20376,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T21:31:42.828Z"
     },
-    "8BGwKLt": {
-      "video_code": "8BGwKLt",
-      "title": "کلیپ طنز خنده دار افغانی",
-      "sender_name": "asma",
-      "category_id": 6,
-      "duration": 180,
-      "visit_count": 15404,
-      "create_date": "6 سال پیش",
-      "styled_create_date": "6 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "افغانی افغانستان",
-          "trendTitle": "افغانی افغانستان",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "افغانی",
-            "افغانستان"
-          ],
-          "page": 14
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:31:42.828Z"
-    },
     "UQsEBjW": {
       "video_code": "UQsEBjW",
       "title": "حرکات رزمی کماندوهای وزارت دفاع دولت طالبان افغانستان",
@@ -25556,33 +25706,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:07:45.404Z",
       "lastMetricsFetchedAt": "2026-11-17T19:07:04.072Z"
-    },
-    "1upREhZ": {
-      "video_code": "1upREhZ",
-      "title": "آموزش نقاشی قلم سیاه دختر",
-      "sender_name": "⭐ کلیپ آنلاین ⭐",
-      "category_id": 7,
-      "duration": 889,
-      "visit_count": 15388,
-      "create_date": "6 سال پیش",
-      "styled_create_date": "6 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 35
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.044Z"
     },
     "P7F00mN": {
       "video_code": "P7F00mN",
@@ -37917,44 +38040,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.363Z"
     },
-    "p8TpCUN": {
-      "video_code": "p8TpCUN",
-      "title": "باب اسفنجی / این قسمت نظافت چی های رستوران خرچنگی / دانلود باب اسفنجی دوبله فارس",
-      "sender_name": "مستر باب",
-      "category_id": 21,
-      "duration": 658,
-      "visit_count": 5674,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فارس",
-          "trendTitle": "فارس",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:30:00 -0800",
-          "trendKeywords": [
-            "فارس"
-          ],
-          "page": 13
-        },
-        {
-          "query": "خبرگزاری فارس",
-          "trendTitle": "خبرگزاری فارس",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:40:00 -0800",
-          "trendKeywords": [
-            "خبرگزاری",
-            "فارس"
-          ],
-          "page": 13
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.363Z"
-    },
     "8sNh5jW": {
       "video_code": "8sNh5jW",
       "title": "ارسال ناو جنگی آمریکایی به خلیج فارس برای مقابله با ایران!/خبر فوری و داغ",
@@ -45352,33 +45437,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T17:05:51.955Z",
       "lastMetricsFetchedAt": "2026-11-17T17:05:41.725Z"
-    },
-    "T3sqI6G": {
-      "video_code": "T3sqI6G",
-      "title": "سریال ترکی قسم قسمت ۳۸۳ با زیرنویس فارسی",
-      "sender_name": "سریال جدید",
-      "category_id": 3,
-      "duration": 7038,
-      "visit_count": 15419,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 57
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.345Z"
     },
     "jX1YCOI": {
       "video_code": "jX1YCOI",
@@ -53143,34 +53201,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T02:37:37.094Z"
     },
-    "DEHW73A": {
-      "video_code": "DEHW73A",
-      "title": "فصل دوم سریال خارجی The 100 صد نفر با زیرنویس فارسی قسمت 2",
-      "sender_name": "نگین",
-      "category_id": 3,
-      "duration": 2550,
-      "visit_count": 15411,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قیمت نفت",
-          "trendTitle": "قیمت نفت",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 14:00:00 -0800",
-          "trendKeywords": [
-            "قیمت",
-            "نفت"
-          ],
-          "page": 13
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T02:37:37.094Z"
-    },
     "pAcFFnE": {
       "video_code": "pAcFFnE",
       "title": "فصل اول سریال خارجی The 100 صد نفر با زیرنویس فارسی قسمت 7",
@@ -59478,33 +59508,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T04:05:15.894Z"
     },
-    "eSm3645": {
-      "video_code": "eSm3645",
-      "title": "کشتی کج - براک لزنر مقابل ری میستریو",
-      "sender_name": "WWF Farsi",
-      "category_id": 11,
-      "duration": 656,
-      "visit_count": 15411,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "کشتی",
-          "trendTitle": "کشتی",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 18:30:00 -0800",
-          "trendKeywords": [
-            "کشتی"
-          ],
-          "page": 19
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T04:05:15.894Z"
-    },
     "ODlkw58": {
       "video_code": "ODlkw58",
       "title": "فیلم اکشن کشتی جنگی دوبله فارسی",
@@ -59687,33 +59690,6 @@
       "visit_count": 35239,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "کشتی",
-          "trendTitle": "کشتی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 18:30:00 -0800",
-          "trendKeywords": [
-            "کشتی"
-          ],
-          "page": 21
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.635Z"
-    },
-    "TDUwqOP": {
-      "video_code": "TDUwqOP",
-      "title": "باتیستا vs تریپل اچ - کشتی کج خونین در قفس",
-      "sender_name": "WWF Farsi",
-      "category_id": 11,
-      "duration": 2395,
-      "visit_count": 15411,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -63561,34 +63537,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-03T05:06:09.145Z"
-    },
-    "RhM8q70": {
-      "video_code": "RhM8q70",
-      "title": "سقوط یک فرشته قسمت 1",
-      "sender_name": "جهان فیلم ✅",
-      "category_id": 3,
-      "duration": 3922,
-      "visit_count": 15395,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فرشته حسینی",
-          "trendTitle": "فرشته حسینی",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 20:30:00 -0800",
-          "trendKeywords": [
-            "فرشته",
-            "حسینی"
-          ],
-          "page": 16
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.146Z"
     },
     "FUEFffJ": {
       "video_code": "FUEFffJ",
@@ -68746,7 +68694,7 @@
       "sender_name": "اسماعیل",
       "category_id": 9,
       "duration": 321,
-      "visit_count": 56232,
+      "visit_count": 56236,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -68764,9 +68712,20 @@
             "هدایتی"
           ],
           "page": 10
+        },
+        {
+          "query": "فلز",
+          "trendTitle": "فلز",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
+          "trendKeywords": [
+            "فلز"
+          ],
+          "page": 38
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T10:07:04.997Z"
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.283Z",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:05.662Z"
     },
     "noJAttO": {
       "video_code": "noJAttO",
@@ -69535,34 +69494,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T16:45:52.291Z",
       "lastMetricsFetchedAt": "2026-11-17T16:45:51.346Z"
-    },
-    "GH5a8se": {
-      "video_code": "GH5a8se",
-      "title": "آهنگ قدیمی گنج قارون با صدای ایرج و بازی فردین",
-      "sender_name": "خدیجه",
-      "category_id": 9,
-      "duration": 210,
-      "visit_count": 15426,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فردین هدایتی",
-          "trendTitle": "فردین هدایتی",
-          "trendTraffic": 5000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
-          "trendKeywords": [
-            "فردین",
-            "هدایتی"
-          ],
-          "page": 11
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:07:04.998Z"
     },
     "178zzm5": {
       "video_code": "178zzm5",
@@ -72495,33 +72426,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T10:38:29.781Z"
     },
-    "aLVQrDB": {
-      "video_code": "aLVQrDB",
-      "title": "پختن کیک اسفنجی بدون شیر و روغن",
-      "sender_name": "س",
-      "category_id": 29,
-      "duration": 95,
-      "visit_count": 15426,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "روغن",
-          "trendTitle": "روغن",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:00:00 -0800",
-          "trendKeywords": [
-            "روغن"
-          ],
-          "page": 4
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:38:29.781Z"
-    },
     "PNHGvrx": {
       "video_code": "PNHGvrx",
       "title": "اموزش نقاشی رنگ روغن",
@@ -74529,7 +74433,7 @@
       "sender_name": "سعید",
       "category_id": 11,
       "duration": 735,
-      "visit_count": 44008,
+      "visit_count": 44029,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -74546,9 +74450,20 @@
             "تیم"
           ],
           "page": 12
+        },
+        {
+          "query": "فیفا",
+          "trendTitle": "فیفا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 12:20:00 -0800",
+          "trendKeywords": [
+            "فیفا"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T10:51:08.345Z"
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.294Z",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:20.504Z"
     },
     "bgZVBzl": {
       "video_code": "bgZVBzl",
@@ -90102,34 +90017,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-04T03:01:42.325Z"
     },
-    "xLe2TOD": {
-      "video_code": "xLe2TOD",
-      "title": "دختر گل فروش جمشیدنجفی",
-      "sender_name": "Saraa Daroogheh",
-      "category_id": 22,
-      "duration": 306,
-      "visit_count": 15400,
-      "create_date": "6 سال پیش",
-      "styled_create_date": "6 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پیش فروش",
-          "trendTitle": "پیش فروش",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Tue, 3 Nov 2026 17:50:00 -0800",
-          "trendKeywords": [
-            "پیش",
-            "فروش"
-          ],
-          "page": 19
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:01:42.325Z"
-    },
     "T43hne0": {
       "video_code": "T43hne0",
       "title": "کارتون تایتان های نوجوان به پیش دوبله فارسی| قسمت جدید تایتان های نوجوان به پیش",
@@ -94718,34 +94605,6 @@
             "۳۵"
           ],
           "page": 30
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.910Z"
-    },
-    "P6meeJ5": {
-      "video_code": "P6meeJ5",
-      "title": "انیمه وان پیس قسمت335 دوبله فارسی",
-      "sender_name": "FilmCity",
-      "category_id": 21,
-      "duration": 1440,
-      "visit_count": 15424,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سوخو-۳۵",
-          "trendTitle": "سوخو-۳۵",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 3 Nov 2026 18:20:00 -0800",
-          "trendKeywords": [
-            "سوخو",
-            "۳۵"
-          ],
-          "page": 31
         }
       ],
       "lastTrendMatchedAt": "2026-11-04T03:21:52.910Z"
@@ -106175,10 +106034,10 @@
       "sender_name": "Morad",
       "category_id": 11,
       "duration": 438,
-      "visit_count": 18341,
+      "visit_count": 18342,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:23:03.709Z",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:06.113Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -106194,9 +106053,19 @@
             "دوستانه"
           ],
           "page": 10
+        },
+        {
+          "query": "پرتغال",
+          "trendTitle": "پرتغال",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Tue, 17 Nov 2026 12:20:00 -0800",
+          "trendKeywords": [
+            "پرتغال"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:23:43.661Z"
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.288Z"
     },
     "wJ9L5lH": {
       "video_code": "wJ9L5lH",
@@ -129990,7 +129859,7 @@
       "visit_count": 6287,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:06:59.517Z",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:26.131Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -130017,7 +129886,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.407Z"
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.302Z"
     },
     "QhhdqE2": {
       "video_code": "QhhdqE2",
@@ -130028,7 +129897,7 @@
       "visit_count": 27492,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:06:59.517Z",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:26.131Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -130045,7 +129914,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.407Z"
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.302Z"
     },
     "4ZiqjST": {
       "video_code": "4ZiqjST",
@@ -152445,7 +152314,7 @@
       "visit_count": 123689,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T20:20:17.729Z",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:06.113Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152462,9 +152331,19 @@
             "پرتغال"
           ],
           "page": 1
+        },
+        {
+          "query": "پرتغال",
+          "trendTitle": "پرتغال",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Tue, 17 Nov 2026 12:20:00 -0800",
+          "trendKeywords": [
+            "پرتغال"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T20:21:46.059Z"
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.288Z"
     },
     "EMazSCq": {
       "video_code": "EMazSCq",
@@ -152475,7 +152354,7 @@
       "visit_count": 27849,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T20:20:35.043Z",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:00.994Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152492,7 +152371,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T20:21:46.070Z"
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.280Z"
     },
     "I1MFCMB": {
       "video_code": "I1MFCMB",
@@ -152503,7 +152382,7 @@
       "visit_count": 22043,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T20:20:35.043Z",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:00.994Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152520,7 +152399,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T20:21:46.070Z"
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.280Z"
     },
     "uq32PdA": {
       "video_code": "uq32PdA",
@@ -152531,7 +152410,7 @@
       "visit_count": 17520,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T20:20:35.043Z",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:00.994Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -152548,7 +152427,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T20:21:46.070Z"
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.280Z"
     },
     "h8bO6N6": {
       "video_code": "h8bO6N6",
@@ -153025,35 +152904,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-17T20:01:23.948Z"
-    },
-    "Tq5ES3w": {
-      "video_code": "Tq5ES3w",
-      "title": "فیلم.دستگیری محمد صادقی بازیگر جنجالی. از زاویه دوربین پلیس",
-      "sender_name": "نبض تو",
-      "category_id": 3,
-      "duration": 9,
-      "visit_count": 15393,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T20:01:12.931Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "محمد شعبانپور",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 98
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T20:01:23.965Z"
     },
     "1gtz3ei": {
       "video_code": "1gtz3ei",
@@ -153644,8 +153494,406 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-17T20:21:46.074Z"
+    },
+    "p3LUPsJ": {
+      "video_code": "p3LUPsJ",
+      "title": "فیلم کامل از حادثه کشته شدن کیان پیر فلک که مقصر را دقیق نشان میدهد",
+      "sender_name": "اسنیک مامانی (فالو لطفا)",
+      "category_id": 1,
+      "duration": 347,
+      "visit_count": 15549,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:04.170Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "فلز",
+          "trendTitle": "فلز",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
+          "trendKeywords": [
+            "فلز"
+          ],
+          "page": 36
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.281Z"
+    },
+    "6b7l803": {
+      "video_code": "6b7l803",
+      "title": "دانلود فیلم سینمایی اکشن جدید دوبله فارسی کیمیاگر تمام فلزی 2023",
+      "sender_name": "Starmedia",
+      "category_id": 3,
+      "duration": 8639,
+      "visit_count": 21864,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:04.170Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "فلز",
+          "trendTitle": "فلز",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
+          "trendKeywords": [
+            "فلز"
+          ],
+          "page": 36
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.282Z"
+    },
+    "sOSmvOF": {
+      "video_code": "sOSmvOF",
+      "title": "پت و مت جدید - داستان ساخت چرخ فلک پت و مت - کارتون پت و مت",
+      "sender_name": "سریال 97",
+      "category_id": 21,
+      "duration": 120,
+      "visit_count": 25379,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:08.597Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "فلز",
+          "trendTitle": "فلز",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
+          "trendKeywords": [
+            "فلز"
+          ],
+          "page": 42
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.284Z"
+    },
+    "Woje8fG": {
+      "video_code": "Woje8fG",
+      "title": "خلاصه بازی فوتبال ایران و ولز در جام جهانی ۲۰۲۲ قطر",
+      "sender_name": "دانلود روزانه✅",
+      "category_id": 11,
+      "duration": 633,
+      "visit_count": 7566,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:05.660Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "فلز",
+          "trendTitle": "فلز",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
+          "trendKeywords": [
+            "فلز"
+          ],
+          "page": 43
+        },
+        {
+          "query": "فوتبال ولز - پرتغال (گزارش حسین علیرضایی)",
+          "trendTitle": "ولز مقابل پرتغال",
+          "trendTraffic": 10000,
+          "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
+          "trendKeywords": [
+            "ولز",
+            "مقابل",
+            "پرتغال"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.286Z"
+    },
+    "9Y0rCG0": {
+      "video_code": "9Y0rCG0",
+      "title": "بازی فیفا 21-بازی ps5 -بازی فوتبال پرتغال و فرانسه -گیم پلی-15",
+      "sender_name": "دیجیتال گالری",
+      "category_id": 11,
+      "duration": 904,
+      "visit_count": 4916,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:23.362Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "فوتبال ولز - پرتغال (گزارش حسین علیرضایی)",
+          "trendTitle": "ولز مقابل پرتغال",
+          "trendTraffic": 10000,
+          "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
+          "trendKeywords": [
+            "ولز",
+            "مقابل",
+            "پرتغال"
+          ],
+          "page": 1
+        },
+        {
+          "query": "پرتغال",
+          "trendTitle": "پرتغال",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Tue, 17 Nov 2026 12:20:00 -0800",
+          "trendKeywords": [
+            "پرتغال"
+          ],
+          "page": 6
+        },
+        {
+          "query": "فیفا",
+          "trendTitle": "فیفا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 12:20:00 -0800",
+          "trendKeywords": [
+            "فیفا"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.295Z"
+    },
+    "3q0Y9xd": {
+      "video_code": "3q0Y9xd",
+      "title": "سوپر گل طیبی برای بنفیکا-فوتسال پرتغال",
+      "sender_name": "Ali✅",
+      "category_id": 11,
+      "duration": 52,
+      "visit_count": 87868,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:06.113Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "پرتغال",
+          "trendTitle": "پرتغال",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Tue, 17 Nov 2026 12:20:00 -0800",
+          "trendKeywords": [
+            "پرتغال"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.288Z"
+    },
+    "UGAvhR2": {
+      "video_code": "UGAvhR2",
+      "title": "کلیپ فیلم سینمایی جنگل پرتغال",
+      "sender_name": "movei",
+      "category_id": 3,
+      "duration": 120,
+      "visit_count": 30534,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:06.113Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 21,
+      "globalTrendSearchMatches": [
+        {
+          "query": "پرتغال",
+          "trendTitle": "پرتغال",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Tue, 17 Nov 2026 12:20:00 -0800",
+          "trendKeywords": [
+            "پرتغال"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.288Z"
+    },
+    "5sRC0on": {
+      "video_code": "5sRC0on",
+      "title": "خلاصه بازی ایران 1 پرتغال 1 جام جهانی 2018 روسیه",
+      "sender_name": "Funland",
+      "category_id": 11,
+      "duration": 1002,
+      "visit_count": 48036,
+      "create_date": "7 سال پیش",
+      "styled_create_date": "7 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:06.113Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "پرتغال",
+          "trendTitle": "پرتغال",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Tue, 17 Nov 2026 12:20:00 -0800",
+          "trendKeywords": [
+            "پرتغال"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.288Z"
+    },
+    "7h7aMVj": {
+      "video_code": "7h7aMVj",
+      "title": "کلیپ فیلم سینمایی جنگل پرتغال",
+      "sender_name": "mahdi",
+      "category_id": 0,
+      "duration": 120,
+      "visit_count": 20480,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:07.060Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "پرتغال",
+          "trendTitle": "پرتغال",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Tue, 17 Nov 2026 12:20:00 -0800",
+          "trendKeywords": [
+            "پرتغال"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.288Z"
+    },
+    "19mRvm9": {
+      "video_code": "19mRvm9",
+      "title": "اولین تجربه فوتبال خیابونی در فیفا ۲۳ ! خیلی خفنه | مهدی پی اس",
+      "sender_name": "فیلی فیلم",
+      "category_id": 11,
+      "duration": 991,
+      "visit_count": 35237,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:20.504Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "فیفا",
+          "trendTitle": "فیفا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 12:20:00 -0800",
+          "trendKeywords": [
+            "فیفا"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.294Z"
+    },
+    "GTIK0ZZ": {
+      "video_code": "GTIK0ZZ",
+      "title": "درفت FIFA23 بهترین درفت علی زلزله تو فیفا ها",
+      "sender_name": "Gamer",
+      "category_id": 11,
+      "duration": 1452,
+      "visit_count": 23958,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:20.504Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "فیفا",
+          "trendTitle": "فیفا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 12:20:00 -0800",
+          "trendKeywords": [
+            "فیفا"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.294Z"
+    },
+    "GUPqGvT": {
+      "video_code": "GUPqGvT",
+      "title": "آموزش انواع شوت درست در بازی فیفا یا FC 24",
+      "sender_name": "رنگارنگ",
+      "category_id": 7,
+      "duration": 56,
+      "visit_count": 19318,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:20.504Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "فیفا",
+          "trendTitle": "فیفا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 12:20:00 -0800",
+          "trendKeywords": [
+            "فیفا"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.294Z"
+    },
+    "Beq6Fam": {
+      "video_code": "Beq6Fam",
+      "title": "فیلم عجیب شادی مسی پس از پیروزی فیفا مقابل چشمان رونالدو",
+      "sender_name": "بابایی ترین دختر دنیا",
+      "category_id": 11,
+      "duration": 56,
+      "visit_count": 19507,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-17T20:40:20.504Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "فیفا",
+          "trendTitle": "فیفا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 12:20:00 -0800",
+          "trendKeywords": [
+            "فیفا"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-17T20:40:42.294Z"
     }
   },
-  "totalPagesFetched": 5041,
-  "totalVideosSeen": 92593
+  "totalPagesFetched": 5163,
+  "totalVideosSeen": 94637
 }
