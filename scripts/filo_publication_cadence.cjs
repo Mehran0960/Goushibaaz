@@ -1,6 +1,6 @@
 'use strict';
 
-const DEFAULT_MIN_PUBLICATION_GAP_MS = 17 * 60 * 1000;
+const DEFAULT_MIN_PUBLICATION_GAP_MS = 0;
 const DEFAULT_MAX_DAILY_PUBLICATIONS = 288;
 const OPERATION_STATUSES = new Set([
   'public_verified',
