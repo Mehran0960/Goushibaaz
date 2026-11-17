@@ -132,8 +132,8 @@ const windowRank = rankCandidatesByMomentum([
   { video_code:'UnknownAge', title:'ویدئوی بدون تاریخ قابل‌اعتماد', visit_count:100, plays:10 },
   { video_code:'FutureAge', title:'ویدئوی دارای تاریخ آینده', timestamp:Math.floor((ageWindowNow + 60*60*1000)/1000), visit_count:100, plays:10 }
 ], windowMomentumState, ageWindowNow);
-assert.deepEqual(windowRank.map(entry => entry.item.video_code).sort(), ['UnknownAge','Window70'],
-  'known-old and future-dated candidates are excluded, while unknown-age candidates may enter momentum observation');
+assert.deepEqual(windowRank.map(entry => entry.item.video_code).sort(), ['UnknownAge','Window70','Window73'],
+  'older candidates remain observable without a fixed 72-hour age cutoff; future-dated candidates remain excluded');
 assert.equal(windowRank.find(entry => entry.item.video_code === 'UnknownAge').growthGatePassed, false,
   'an unknown-age source must not become publishable on its first sighting');
 const unknownSecond = rankCandidatesByMomentum([
@@ -415,8 +415,9 @@ assert.equal(resolveDepthScanStartPage(2,{lastPageNo:9}),2,
 assert.equal(resolveDepthScanStartPage(14,{lastPageNo:12}),2,
   'a non-contiguous stored cursor must restart safely');
 assert.equal(nextCategoryDepthPage(12),13);
-assert.equal(nextCategoryDepthPage(18),19, 'the 72-hour scan continues beyond the former page-eighteen ceiling');
-assert.equal(nextCategoryDepthPage(36),2, 'the expanded page ceiling wraps only after page thirty-six');
+assert.equal(nextCategoryDepthPage(18),19, 'deep scanning continues from newest to older pages');
+assert.equal(nextCategoryDepthPage(36),37, 'the expanded page ceiling continues beyond page thirty-six');
+assert.equal(nextCategoryDepthPage(60),2, 'the expanded page ceiling wraps only after page sixty');
 assert.equal(resolveDepthScanStartPage(2,{lastPageNo:30}),31,
   'saved depth evidence must resume inside the expanded 36-page range');
 assert.deepEqual(
@@ -1486,14 +1487,12 @@ const pacingNow = Date.parse('2026-11-06T12:00:00.000Z');
 const oneRecentPublication = { posts: [
   { status:'public_verified', submittedAt:new Date(pacingNow - 10*60*1000).toISOString() }
 ] };
-const blockedByGap = getPublicationPacingGate(oneRecentPublication, pacingNow);
-assert.equal(blockedByGap.blocked, true);
-assert.deepEqual(blockedByGap.reasons, ['minimum_gap_between_republish_operations']);
-assert.equal(blockedByGap.nextEligibleAt, new Date(pacingNow + 7*60*1000).toISOString());
-assert.equal(getPublicationPacingGate(oneRecentPublication, pacingNow + 7*60*1000 - 1).blocked, true,
-  'the republish gate must remain closed one millisecond before the 17-minute minimum gap');
-assert.equal(getPublicationPacingGate(oneRecentPublication, pacingNow + 7*60*1000).blocked, false,
-  'the next repost becomes eligible exactly at the 17-minute minimum gap');
+const immediatelyEligible = getPublicationPacingGate(oneRecentPublication, pacingNow);
+assert.equal(immediatelyEligible.blocked, false);
+assert.deepEqual(immediatelyEligible.reasons, []);
+assert.equal(immediatelyEligible.minimumGapMs, 0);
+assert.equal(immediatelyEligible.nextEligibleAt, null,
+  'a prior operation does not impose an artificial 17-minute local delay');
 
 const rollingHourState = { posts: [
   { status:'public_verified', submittedAt:new Date(pacingNow - 50*60*1000).toISOString() },
@@ -1541,18 +1540,18 @@ async function testPublicationPacingWait() {
     sleepFn: async ms => { recordedWait = ms; fakeNow += ms; },
     maxWaitMs: 5*60*1000
   });
-  assert.equal(recordedWait,2*60*1000,
-    'a scheduler cycle arriving two minutes before eligibility must sleep until the exact 17-minute boundary');
-  assert.equal(waitedForExactWindow.waitedMs,2*60*1000);
+  assert.equal(recordedWait,0,
+    'an eligible follow-up operation must not sleep for a local 17-minute pacing rule');
+  assert.equal(waitedForExactWindow.waitedMs,0);
   assert.equal(waitedForExactWindow.gate.blocked,false);
 
-  const beyondSchedulerWindow = await waitForPublicationWindow(oneRecentPublication, {
+  const noArtificialWait = await waitForPublicationWindow(oneRecentPublication, {
     nowFn: () => pacingNow,
-    sleepFn: async () => { throw new Error('must not hold a runner for a long wait'); },
-    maxWaitMs: 5*60*1000
+    sleepFn: async () => { throw new Error('no wait should be requested'); },
+    maxWaitMs: 0
   });
-  assert.equal(beyondSchedulerWindow.waitSkipped,true);
-  assert.equal(beyondSchedulerWindow.gate.blocked,true);
+  assert.equal(noArtificialWait.waitSkipped,false);
+  assert.equal(noArtificialWait.gate.blocked,false);
   assert.equal(beyondSchedulerWindow.requiredWaitMs,7*60*1000);
 }
 
