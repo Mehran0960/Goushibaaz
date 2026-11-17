@@ -419,9 +419,11 @@ assert.equal(nextCategoryDepthPage(18),19, 'deep scanning continues from newest 
 assert.equal(nextCategoryDepthPage(36),37, 'deep scanning continues beyond the former page cap');
 assert.equal(nextCategoryDepthPage(60),61, 'deep scanning continues through the expanded page range');
 assert.equal(nextCategoryDepthPage(119),120);
-assert.equal(nextCategoryDepthPage(120),2, 'the safety page ceiling wraps only after page one hundred twenty');
-assert.equal(resolveDepthScanStartPage(2,{lastPageNo:100}),101,
-  'saved depth evidence resumes inside the expanded 120-page range');
+assert.equal(nextCategoryDepthPage(120),121, 'deep scanning continues beyond one hundred twenty pages');
+assert.equal(nextCategoryDepthPage(999),1000);
+assert.equal(nextCategoryDepthPage(1000),2, 'the safety page ceiling wraps only after page one thousand');
+assert.equal(resolveDepthScanStartPage(2,{lastPageNo:999}),1000,
+  'saved depth evidence resumes inside the expanded one-thousand-page range');
 assert.deepEqual(
   Object.keys(summarizeCategoryCatalogPayload({s:true,d:{c:[],cfs:[]}}).nested),
   ['d']
