@@ -12,10 +12,12 @@ const NATIVE_STATE_PATH = path.join('state', 'filo-native-republished.json');
 const EXTERNAL_STATE_PATH = path.join('state', 'filo-published.json');
 const SCHEDULE_STATE_PATH = path.join('state', 'filo-external-ingest-schedule.json');
 const EXTERNAL_SCAN_INTERVAL_MS = 15 * 60 * 1000;
-const NATIVE_FALLBACK_STATUSES = new Set([
+const NATIVE_REPORT_STATUSES = new Set([
+  'public_verified',
   'no_candidate_passed_measured_velocity_gate',
   'no_recent_feed_candidates',
-  'no_feed_candidates_after_safety_filters'
+  'no_feed_candidates_after_safety_filters',
+  'no_candidate_published_this_cycle'
 ]);
 
 function readJson(filePath, fallback = {}) {
@@ -36,8 +38,8 @@ function evaluateExternalIngestDue({
   intervalMs = EXTERNAL_SCAN_INTERVAL_MS
 } = {}) {
   const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
-  if (!nativeReport || !NATIVE_FALLBACK_STATUSES.has(String(nativeReport.status || ''))) {
-    return { due: false, reason: 'native_cycle_not_eligible_for_external_fallback' };
+  if (!nativeReport || !NATIVE_REPORT_STATUSES.has(String(nativeReport.status || ''))) {
+    return { due: false, reason: 'native_cycle_report_missing_or_unrecognized' };
   }
 
   const priorCandidates = [
@@ -74,7 +76,7 @@ function evaluateExternalIngestDue({
 
   return {
     due: true,
-    reason: 'native_has_no_growth_candidate_and_external_scan_is_due',
+    reason: 'independent_licensed_external_scan_is_due',
     lastAttemptAt: Number.isFinite(priorAt) ? new Date(priorAt).toISOString() : null,
     nextDueAt: new Date(nowMs + intervalMs).toISOString(),
     cadence
@@ -100,7 +102,7 @@ function main() {
     fs.writeFileSync(SCHEDULE_STATE_PATH, JSON.stringify({
       schemaVersion: 1,
       lastAttemptAt: now.toISOString(),
-      trigger: 'native_no_candidate_fallback',
+      trigger: 'independent_15_minute_licensed_scan',
       intervalMs: EXTERNAL_SCAN_INTERVAL_MS
     }, null, 2) + '\n', 'utf8');
   }
