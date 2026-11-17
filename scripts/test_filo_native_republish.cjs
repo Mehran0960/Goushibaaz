@@ -144,7 +144,7 @@ const globalSearchState = {
     },
     GlobalFuture: {
       v: 'GlobalFuture', t: 'نامزد دارای زمان آینده', vc: 100,
-      lastMetricsFetchedAt: new Date(globalObservationAt + 60 * 1000).toISOString()
+      lastMetricsFetchedAt: new Date(globalObservationAt + 6 * 60000).toISOString()
     }
   }
 };
