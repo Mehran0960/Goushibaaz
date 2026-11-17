@@ -29,7 +29,7 @@ const WORK_HEIGHT = 1080;
 const WORK_WIDTH = Math.round(WORK_HEIGHT * TARGET_WIDTH / TARGET_HEIGHT);
 // Fail closed on reuse rights: only explicit CC0 1.0 or CC BY 4.0 license metadata is accepted.
 const MAX_DAILY_PUBLICATIONS = 288;
-const MIN_PUBLICATION_GAP_MS = 17 * 60 * 1000;
+const MIN_PUBLICATION_GAP_MS = 0;
 const MIN_DURATION_SECONDS = 8;
 const MAX_DURATION_SECONDS = 180;
 const ACTIVE_SOURCE_STATUSES = new Set([
@@ -812,7 +812,11 @@ async function login(page) {
   if (!username) throw new Error('filo_username_field_not_found');
 
   await username.fill(process.env.FILO_USER);
+  await username.dispatchEvent('input').catch(() => {});
+  await username.dispatchEvent('change').catch(() => {});
   await password.fill(process.env.FILO_PASS);
+  await password.dispatchEvent('input').catch(() => {});
+  await password.dispatchEvent('change').catch(() => {});
   const submit = await visibleFirst(page, [
     'button[type="submit"]',
     'input[type="submit"]'
@@ -828,10 +832,19 @@ async function login(page) {
   }
   if (!submitEnabled) {
     const fields = await visibleFieldReport(page);
-    const summary = fields.filter(item => ['text','email','tel','password','submit'].includes(item.type) || item.tag === 'button')
-      .map(item => ({tag:item.tag,type:item.type,placeholder:item.placeholder,required:item.required,disabled:item.disabled}))
-      .slice(0,12);
-    throw new Error('filo_login_submit_stayed_disabled:' + JSON.stringify(summary));
+    const summary = fields.filter(item => ['text','email','tel','password','submit','checkbox','hidden'].includes(item.type) || item.tag === 'button')
+      .map(item => ({tag:item.tag,type:item.type,placeholder:item.placeholder,required:item.required,
+        disabled:item.disabled,valid:item.valid,valueLength:item.valueLength,validationMessage:item.validationMessage}))
+      .slice(0,20);
+    const forms = await passwordForm.evaluate(form => ({
+      valid: form.checkValidity(),
+      invalidControls: [...form.querySelectorAll('input,select,textarea')]
+        .filter(el => !el.checkValidity())
+        .map(el => ({type:el.type||el.tagName.toLowerCase(),name:el.name||'',id:el.id||'',
+          required:Boolean(el.required),valueLength:String(el.value||'').length,
+          validationMessage:String(el.validationMessage||'').slice(0,120)})).slice(0,12)
+    })).catch(() => null);
+    throw new Error('filo_login_submit_stayed_disabled:' + JSON.stringify({fields:summary,form:forms}));
   }
 
   const loginResponsePromise = page.waitForResponse(response => {
@@ -920,6 +933,10 @@ async function visibleFieldReport(page) {
         label: text.slice(0, 90),
         visible,
         required: Boolean(el.required),
+        disabled: Boolean(el.disabled),
+        valid: typeof el.checkValidity === 'function' ? el.checkValidity() : null,
+        valueLength: ['text','email','tel','password'].includes(type) ? String(el.value || '').length : null,
+        validationMessage: String(el.validationMessage || '').slice(0, 120),
         accept: type === 'file' ? el.getAttribute('accept') || '' : ''
       };
     }).filter(x => x.visible || x.type === 'file')
