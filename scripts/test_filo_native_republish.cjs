@@ -167,6 +167,12 @@ assert.equal(shouldStartPublishingCycle('2026-11-05T04:18:00.000Z',
   Date.parse('2026-11-05T04:17:59.000Z')), false,
   'a future prior-cycle timestamp is rejected to guard against clock skew');
 assert.equal(feedCandidateEligible(valid, { posts: [] }), true);
+assert.equal(feedCandidateEligible({ ...valid, video_code:'Military01', title:'فیلم/ لحظه رهگیری و انهدام پهپاد MQ۹ آمریکایی در شرق تنگه هرمز' }, { posts:[] }), false,
+  'military conflict footage must be excluded before detail review');
+assert.equal(feedCandidateEligible({ ...valid, video_code:'Military02', title:'ویدئوی سرگرم‌کننده', feed_tag_label:'سپاه پاسداران' }, { posts:[] }), false,
+  'military topic labels must be considered even when the title is vague');
+assert.equal(feedCandidateEligible({ ...valid, video_code:'Birthday01', title:'23 آبان ماهی تولدت مبارک / کلیپ استوری تولد متولدین 23 آبان ماهی' }, { posts:[] }), false,
+  'generic birthday-story greeting templates are low-value filler');
 assert.equal(feedCandidateEligible({ ...valid, video_code:'TinyTitle', title:'کم', description:'', sender_name:'' }, { posts:[] }), true,
   'a very short or missing source title must not block discovery; title fallback happens later');
 assert.equal(feedCandidateEligible({ ...valid, can_republish: 0 }, { posts: [] }), true,
@@ -1157,6 +1163,21 @@ assert.equal(candidateAccelerationEvidence({
   momentum:{sampleCount:3,playsPerMinute:4,playsAccelerationPerMinute:0}
 }).passed,true,
   'positive measured play velocity is sufficient even when acceleration is zero');
+
+const lowPlayVelocity = candidateAccelerationEvidence({
+  playMetric:{available:true,value:10},
+  hasPositivePlayGrowth:true,
+  momentum:{playsSampleCount:3,playsPerMinute:0.04,playsAccelerationPerMinute:0}
+});
+assert.equal(lowPlayVelocity.passed,false, 'tiny positive play movement is not sufficient evidence of meaningful momentum');
+assert.equal(lowPlayVelocity.reason,'play_velocity_below_minimum');
+const lowViewVelocity = candidateAccelerationEvidence({
+  playMetric:{available:false,value:null},
+  hasPositiveViewGrowth:true,
+  momentum:{viewsSampleCount:3,viewsPerMinute:0.02,viewsAccelerationPerMinute:0}
+});
+assert.equal(lowViewVelocity.passed,false, 'tiny positive view movement is not sufficient evidence of meaningful momentum');
+assert.equal(lowViewVelocity.reason,'view_velocity_below_minimum');
 
 assert.equal(candidateAccelerationEvidence({
   playMetric:{available:true,value:100},
