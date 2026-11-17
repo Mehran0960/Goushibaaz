@@ -10,6 +10,7 @@ const { appendFiloEndCard } = require('./filo_endcard.cjs');
 const { discoverPexelsCandidates, PEXELS_LICENSE_URL } = require('./pexels_source.cjs');
 const { buildInternetArchiveSearchQuery } = require('./archive_search.cjs');
 const { evaluatePublicationCadence } = require('./filo_publication_cadence.cjs');
+const { inspectFiloUrlImportCandidate, isVerticalMediaForUrlImport } = require('./filo_url_import.cjs');
 const ACCOUNT = 'https://ifilo.net';
 const CC0_LICENSE_URL = 'https://creativecommons.org/publicdomain/zero/1.0/';
 const STATE_PATH = path.join('state', 'filo-published.json');
@@ -1070,6 +1071,79 @@ async function uploadCoverThumbnail(page, coverPath) {
   return { status, apiSignal, tileSelected: true, tileClass: String(tileClass || '').slice(0, 100) };
 }
 
+async function attemptFiloUrlImport(page, mediaUrl, observedRequests, observedResponses) {
+  const requestCountBefore = observedRequests.length;
+  const responseCountBefore = observedResponses.length;
+  const tab = page.getByText(/از سایت‌های دیگر/).first();
+  if (!(await tab.isVisible().catch(() => false))) {
+    return { completed: false, started: false, definitiveFailure: true, reason: 'filo_url_import_tab_not_visible' };
+  }
+
+  await tab.click();
+  const urlInput = page.locator('input[name="tVideoUrl"]').first();
+  await urlInput.waitFor({ state: 'visible', timeout: 8000 }).catch(() => {});
+  if (!(await urlInput.isVisible().catch(() => false))) {
+    const body = (await page.locator('body').innerText().catch(() => '')).slice(0, 2500);
+    return {
+      completed: false, started: false, definitiveFailure: true,
+      reason: /محدودیت 6 گیگ/.test(body) ? 'filo_daily_url_import_limit_reached' : 'filo_url_import_input_not_visible'
+    };
+  }
+
+  await urlInput.fill(mediaUrl);
+  const submit = page.locator('#startUrlUpload').first();
+  if (!(await submit.isVisible().catch(() => false)) || !(await submit.isEnabled().catch(() => false))) {
+    return { completed: false, started: false, definitiveFailure: true, reason: 'filo_url_import_submit_not_enabled' };
+  }
+  await submit.click();
+
+  let lastBody = '';
+  for (let attempt = 0; attempt < 120; attempt++) {
+    await sleep(1500);
+    const titleField = await findField(page, 'title');
+    const descriptionField = await findField(page, 'description');
+    if (titleField && await titleField.isVisible().catch(() => false)) {
+      return {
+        completed: true, started: true, definitiveFailure: false,
+        titleField, descriptionField,
+        fields: await visibleFieldReport(page),
+        requestCount: observedRequests.length - requestCountBefore,
+        responseCount: observedResponses.length - responseCountBefore
+      };
+    }
+
+    lastBody = (await page.locator('body').innerText().catch(() => '')).slice(0, 3200);
+    const requestStarted = observedRequests.slice(requestCountBefore)
+      .some(item => /\/uploadFromUrl$/i.test(item.path));
+    const latestResponse = observedResponses.slice(responseCountBefore)
+      .filter(item => /\/uploadFromUrl$/i.test(item.path)).slice(-1)[0] || null;
+
+    if (/سرور آدرس وارد شده از کیفیت مناسبی برخوردار نمی باشد|فایل موردنظر معتبر نیست|فرمت فایل نامعتبر|بارگذاری ناموفق بود|امکان بارگذاری ویدیو از این سایت وجود نداره|خطا در ارتباط با سرور/i.test(lastBody)) {
+      return {
+        completed: false, started: requestStarted, definitiveFailure: true,
+        reason: 'filo_url_import_rejected_by_uploader', response: latestResponse
+      };
+    }
+    if (latestResponse && latestResponse.status >= 400) {
+      return {
+        completed: false, started: true, definitiveFailure: true,
+        reason: 'filo_url_import_http_' + latestResponse.status, response: latestResponse
+      };
+    }
+  }
+
+  const requestStarted = observedRequests.slice(requestCountBefore)
+    .some(item => /\/uploadFromUrl$/i.test(item.path));
+  const latestResponse = observedResponses.slice(responseCountBefore)
+    .filter(item => /\/uploadFromUrl$/i.test(item.path)).slice(-1)[0] || null;
+  return {
+    completed: false, started: requestStarted, definitiveFailure: false,
+    uncertain: requestStarted,
+    reason: requestStarted ? 'filo_url_import_transfer_outcome_unconfirmed' : 'filo_url_import_request_not_observed',
+    response: latestResponse, bodyText: lastBody.slice(0, 1200)
+  };
+}
+
 async function main() {
   fs.mkdirSync(path.dirname(STATE_PATH), { recursive: true });
   let state = { posts: [] };
@@ -1244,7 +1318,7 @@ async function main() {
     try {
       const u = new URL(req.url());
       const relevant = u.hostname === 'ifilo.net' ||
-        /uploadFromFile|video\/publish|\/api\/v1\/upload/i.test(u.pathname);
+        /uploadFromFile|uploadFromUrl|video\/publish|\/api\/v1\/upload/i.test(u.pathname);
       if (relevant && req.method() !== 'GET') {
         observedRequests.push({ host: u.hostname, method: req.method(), path: u.pathname, resourceType: req.resourceType() });
       }
@@ -1254,7 +1328,7 @@ async function main() {
     try {
       const u = new URL(res.url());
       const relevant = u.hostname === 'ifilo.net' ||
-        /uploadFromFile|video\/publish|\/api\/v1\/upload/i.test(u.pathname);
+        /uploadFromFile|uploadFromUrl|video\/publish|\/api\/v1\/upload/i.test(u.pathname);
       if (relevant && res.request().method() !== 'GET') {
         observedResponses.push({ host: u.hostname, method: res.request().method(), path: u.pathname, status: res.status() });
       }
