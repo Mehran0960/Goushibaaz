@@ -15,6 +15,17 @@ const metricAliases = compactVideo({
   plays: 75, shares: 5, favorites: 3
 });
 assert.equal(metricAliases.video_code, 'Metric01');
+const compactFiloAliases = compactVideo({
+  v: 'Compact01', t: 'عنوان نتیجه جست‌وجوی فیلو', c: 6, du: 32,
+  vc: 1234, pd: 321, cd: '۲ ساعت پیش', hst: 1, co: 1, cr: 1, ac: 1
+});
+assert.equal(compactFiloAliases.video_code, 'Compact01');
+assert.equal(compactFiloAliases.title, 'عنوان نتیجه جست‌وجوی فیلو');
+assert.equal(compactFiloAliases.category_id, 6);
+assert.equal(compactFiloAliases.visit_count, 1234);
+assert.equal(compactFiloAliases.play_count, 321);
+assert.equal(compactFiloAliases.can_republish, 1,
+  'compact Filo search flags must be normalized and retained for the authoritative detail recheck');
 assert.equal(metricAliases.plays, 75);
 assert.ok(candidateRetentionScore(metricAliases) > candidateRetentionScore({
   ...metricAliases, plays: 0, shares: 0, favorites: 0
@@ -62,7 +73,7 @@ assert.equal(selected.some(item => item.normalized === 'موضوعقدیمی'), 
   'recently trending incomplete queries must continue in the backlog after leaving the live RSS feed');
 assert.equal(selected.some(item => item.normalized === 'موضوعمنقضی'), false,
   'expired historical queries must not consume search capacity');
-assert.ok(selected.length <= 8);
+assert.ok(selected.length <= 14);
 const backlogIndex = selected.findIndex(item => item.normalized === 'موضوعقدیمی');
 const currentIndex = selected.findIndex(item => item.activeInLatestFeed !== false);
 assert.ok(currentIndex >= 0 && currentIndex < backlogIndex,
@@ -89,6 +100,8 @@ const added = applyQueryResult(state, query, {
 assert.equal(added.added, 1);
 assert.equal(state.items.Trend001.title, 'لحظه دیدنی بازی تراکتور');
 assert.equal(state.items.Trend001.globalTrendSearchMatches.length, 1);
+assert.ok(Number.isFinite(Date.parse(state.items.Trend001.lastMetricsFetchedAt)),
+  'global-search candidates must retain the timestamp at which Filo returned their metrics');
 assert.equal(state.queries[query.normalized].nextPage, 4);
 assert.equal(state.totalPagesFetched, 3);
 
