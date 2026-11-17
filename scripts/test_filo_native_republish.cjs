@@ -416,10 +416,12 @@ assert.equal(resolveDepthScanStartPage(14,{lastPageNo:12}),2,
   'a non-contiguous stored cursor must restart safely');
 assert.equal(nextCategoryDepthPage(12),13);
 assert.equal(nextCategoryDepthPage(18),19, 'deep scanning continues from newest to older pages');
-assert.equal(nextCategoryDepthPage(36),37, 'the expanded page ceiling continues beyond page thirty-six');
-assert.equal(nextCategoryDepthPage(60),2, 'the expanded page ceiling wraps only after page sixty');
-assert.equal(resolveDepthScanStartPage(2,{lastPageNo:30}),31,
-  'saved depth evidence must resume inside the expanded 36-page range');
+assert.equal(nextCategoryDepthPage(36),37, 'deep scanning continues beyond the former page cap');
+assert.equal(nextCategoryDepthPage(60),61, 'deep scanning continues through the expanded page range');
+assert.equal(nextCategoryDepthPage(119),120);
+assert.equal(nextCategoryDepthPage(120),2, 'the safety page ceiling wraps only after page one hundred twenty');
+assert.equal(resolveDepthScanStartPage(2,{lastPageNo:100}),101,
+  'saved depth evidence resumes inside the expanded 120-page range');
 assert.deepEqual(
   Object.keys(summarizeCategoryCatalogPayload({s:true,d:{c:[],cfs:[]}}).nested),
   ['d']
