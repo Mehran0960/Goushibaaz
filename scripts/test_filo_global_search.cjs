@@ -79,6 +79,8 @@ const pages = {
   assert.equal(calls[0].rowCount, null);
   assert.equal(result.results[0].video_code, 'video00000');
   assert.equal(result.results[0].globalTrendSearch.trendTitle, trends[0].title);
+  assert.ok(Number.isFinite(Date.parse(result.results[0].lastMetricsFetchedAt)),
+    'each global-search candidate must carry the timestamp of the page response that returned its counters');
   assert.deepEqual(result.results[0].globalTrendSearch.trendKeywords, trends[0].keywords);
 
   const jsonTextResponse = await searchFiloGlobalTopic('json text', async () => ({

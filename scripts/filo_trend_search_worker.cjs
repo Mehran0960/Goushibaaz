@@ -12,15 +12,16 @@ const {
 } = require('./filo_global_search.cjs');
 const {
   login,
-  fetchFiloGlobalSearchPage
+  fetchFiloGlobalSearchPage,
+  normalizeVideoFeedItem
 } = require('./filo_native_republish.cjs');
 
 const BASE = 'https://ifilo.net';
 const STATE_PATH = path.join('state', 'filo-global-search-candidates.json');
 const REPORT_PATH = path.join('out', 'filo-global-search-worker.json');
-const MAX_TOPICS = 40;
+const MAX_TOPICS = 20;
 const MAX_QUERIES_PER_TOPIC = 3;
-const MAX_QUERIES_PER_RUN = 8;
+const MAX_QUERIES_PER_RUN = 14;
 const PAGES_PER_QUERY_PER_RUN = 20;
 const SEARCH_CONCURRENCY = 4;
 const MAX_CACHED_CANDIDATES = 5000;
@@ -68,20 +69,23 @@ function loadState() {
 }
 
 function compactVideo(item) {
+  const normalized = normalizeVideoFeedItem(item) || {};
   const fields = [
     'video_code', 'title', 'description', 'sender_name',
-    'category_id', 'duration', 'duration_seconds', 'duration_minutes',
+    'category_id', 'category_name', 'category_title', 'category',
+    'duration', 'duration_seconds', 'duration_minutes',
     'visit_count', 'view_count', 'views', 'visits', 'play_count', 'plays', 'playCount',
     'share_count', 'shares', 'favorite_count', 'favorites', 'create_date', 'styled_create_date', 'created_at',
+    'lastMetricsFetchedAt',
     'active', 'file_deleted', 'only_in_filo', 'has_audio',
     'can_republish', 'can_make_money', 'is_publish_able', 'status_id'
   ];
   const output = {};
   for (const key of fields) {
-    const value = item && item[key];
+    const value = normalized[key];
     if (value !== undefined && value !== null && value !== '') output[key] = value;
   }
-  output.video_code = String(output.video_code || item && (item.videoCode || item.code) || '').trim();
+  output.video_code = String(output.video_code || '').trim();
   output.title = String(output.title || '').replace(/\s+/g, ' ').trim();
   return output;
 }
@@ -121,6 +125,8 @@ function mergeCandidate(itemsByCode, incoming) {
     ...previous,
     ...compact,
     globalTrendSearchMatches: matches.slice(-12),
+    // Timestamp the actual Filo API observation, not the time a cached result is read.
+    lastMetricsFetchedAt: compact.lastMetricsFetchedAt || isoNow(),
     lastTrendMatchedAt: isoNow()
   };
   return true;
@@ -212,7 +218,7 @@ function selectQueriesForRun(state, now = Date.now()) {
   const current = eligible.filter(query => query.activeInLatestFeed !== false).sort(byOldestAttempt);
   const backlog = eligible.filter(query => query.activeInLatestFeed === false).sort(byOldestAttempt);
 
-  // Reserve two of eight slots for recently trending topics that have since
+  // Reserve two of fourteen slots for recently trending topics that have since
   // left the live RSS feed. This prevents incomplete global searches from
   // being abandoned while still giving current topics scheduling priority.
   const backlogSlots = Math.min(2, backlog.length, MAX_QUERIES_PER_RUN);
@@ -223,6 +229,36 @@ function selectQueriesForRun(state, now = Date.now()) {
     ...current.slice(currentSlots),
     ...backlog.slice(backlogSlots)
   ].slice(0, MAX_QUERIES_PER_RUN);
+}
+
+function combineQuerySearchResults(headRefresh, deepScan) {
+  const unique = new Map();
+  for (const item of [...(headRefresh && headRefresh.results || []), ...(deepScan && deepScan.results || [])]) {
+    const code = String(item && (item.video_code || item.videoCode || item.code) || '').trim();
+    if (code) unique.set(code, item);
+  }
+  const results = [...unique.values()];
+  return {
+    query: String(deepScan && deepScan.query || headRefresh && headRefresh.query || ''),
+    results,
+    pagesFetched: safeNumber(headRefresh && headRefresh.pagesFetched) +
+      safeNumber(deepScan && deepScan.pagesFetched),
+    startPage: Number(deepScan && deepScan.startPage) || null,
+    nextPage: Number(deepScan && deepScan.nextPage) ||
+      Number(headRefresh && headRefresh.nextPage) || 1,
+    complete: Boolean(deepScan && deepScan.complete),
+    termination: String(deepScan && deepScan.termination ||
+      headRefresh && headRefresh.termination || 'unknown'),
+    totalUniqueVideos: results.length,
+    pages: [
+      ...(headRefresh && Array.isArray(headRefresh.pages)
+        ? headRefresh.pages.map(page => ({ ...page, scanPhase: 'head_refresh' })) : []),
+      ...(deepScan && Array.isArray(deepScan.pages)
+        ? deepScan.pages.map(page => ({ ...page, scanPhase: 'deep_scan' })) : [])
+    ],
+    headRefreshPagesFetched: safeNumber(headRefresh && headRefresh.pagesFetched),
+    deepPagesFetched: safeNumber(deepScan && deepScan.pagesFetched)
+  };
 }
 
 function applyQueryResult(state, query, result) {
@@ -267,17 +303,28 @@ async function runSearchBatch(context, selectedQueries) {
     page.setDefaultTimeout(15000);
     try {
       await page.goto(BASE + '/upload', { waitUntil: 'domcontentloaded', timeout: 25000 });
-      return await searchFiloGlobalTopic(
-        query.query,
-        params => fetchFiloGlobalSearchPage(page, params),
-        {
-          startPage: query.nextPage || 1,
-          maxPages: query.refreshOnly ? REFRESH_TOP_PAGES : PAGES_PER_QUERY_PER_RUN,
-          pageSize: 20,
-          windowWidth: 1365,
-          topicSearch: query
-        }
-      );
+      const fetchPage = params => fetchFiloGlobalSearchPage(page, params);
+      const headRefresh = await searchFiloGlobalTopic(query.query, fetchPage, {
+        startPage: 1,
+        maxPages: REFRESH_TOP_PAGES,
+        pageSize: 20,
+        windowWidth: 1365,
+        topicSearch: query
+      });
+
+      // Refresh recent pages on every selected query so high-interest candidates
+      // receive new independent counter observations instead of aging out in cache.
+      if (query.refreshOnly) return headRefresh;
+
+      const deepStartPage = Math.max(REFRESH_TOP_PAGES + 1, safeNumber(query.nextPage) || 1);
+      const deepScan = await searchFiloGlobalTopic(query.query, fetchPage, {
+        startPage: deepStartPage,
+        maxPages: Math.max(1, PAGES_PER_QUERY_PER_RUN - REFRESH_TOP_PAGES),
+        pageSize: 20,
+        windowWidth: 1365,
+        topicSearch: query
+      });
+      return combineQuerySearchResults(headRefresh, deepScan);
     } finally {
       await page.close().catch(() => {});
     }
@@ -356,6 +403,8 @@ async function main() {
           startPage: result.startPage,
           nextPage: result.nextPage,
           pagesFetched: result.pagesFetched,
+          headRefreshPagesFetched: result.headRefreshPagesFetched || result.pagesFetched,
+          deepPagesFetched: result.deepPagesFetched || 0,
           uniqueVideos: result.totalUniqueVideos,
           complete: result.complete,
           termination: result.termination
@@ -401,6 +450,7 @@ module.exports = {
   compactVideo,
   candidateRetentionScore,
   mergeCandidate,
+  combineQuerySearchResults,
   pruneCandidates,
   refreshQueryDefinitions,
   selectQueriesForRun,

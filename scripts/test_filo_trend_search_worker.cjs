@@ -4,6 +4,7 @@ const assert = require('node:assert/strict');
 const {
   mergeCandidate,
   compactVideo,
+  combineQuerySearchResults,
   candidateRetentionScore,
   refreshQueryDefinitions,
   selectQueriesForRun,
@@ -15,10 +16,56 @@ const metricAliases = compactVideo({
   plays: 75, shares: 5, favorites: 3
 });
 assert.equal(metricAliases.video_code, 'Metric01');
+const compactFiloAliases = compactVideo({
+  v: 'Compact01', t: 'عنوان نتیجه جست‌وجوی فیلو', c: 6, du: 32,
+  vc: 1234, pd: 321, cd: '۲ ساعت پیش', hst: 1, co: 1, cr: 1, ac: 1
+});
+assert.equal(compactFiloAliases.video_code, 'Compact01');
+assert.equal(compactFiloAliases.title, 'عنوان نتیجه جست‌وجوی فیلو');
+assert.equal(compactFiloAliases.category_id, 6);
+assert.equal(compactFiloAliases.visit_count, 1234);
+assert.equal(compactFiloAliases.play_count, 321);
+assert.equal(compactFiloAliases.can_republish, 1,
+  'compact Filo search flags must be normalized and retained for the authoritative detail recheck');
 assert.equal(metricAliases.plays, 75);
 assert.ok(candidateRetentionScore(metricAliases) > candidateRetentionScore({
   ...metricAliases, plays: 0, shares: 0, favorites: 0
 }), 'cache retention must use normalized engagement aliases');
+
+const combinedQueryResult = combineQuerySearchResults({
+  query: 'ترند روز',
+  results: [
+    { video_code: 'Head001', title: 'نتیجه تازه صفحه اول' },
+    { video_code: 'Shared01', title: 'نسخه اولیه' }
+  ],
+  pagesFetched: 5,
+  startPage: 1,
+  nextPage: 6,
+  complete: false,
+  termination: 'max_pages_reached',
+  totalUniqueVideos: 2,
+  pages: [{ page: 1 }, { page: 2 }]
+}, {
+  query: 'ترند روز',
+  results: [
+    { video_code: 'Shared01', title: 'نسخه عمیق‌تر' },
+    { video_code: 'Deep001', title: 'نتیجه صفحه عمیق' }
+  ],
+  pagesFetched: 15,
+  startPage: 6,
+  nextPage: 21,
+  complete: false,
+  termination: 'max_pages_reached',
+  totalUniqueVideos: 2,
+  pages: [{ page: 6 }, { page: 7 }]
+});
+assert.equal(combinedQueryResult.pagesFetched, 20);
+assert.equal(combinedQueryResult.headRefreshPagesFetched, 5);
+assert.equal(combinedQueryResult.deepPagesFetched, 15);
+assert.deepEqual(combinedQueryResult.results.map(item => item.video_code), ['Head001','Shared01','Deep001']);
+assert.equal(combinedQueryResult.results.find(item => item.video_code === 'Shared01').title, 'نسخه عمیق‌تر',
+  'overlapping head/deep results must be de-duplicated, retaining the newest scan result');
+assert.equal(combinedQueryResult.nextPage, 21);
 
 const state = {
   schemaVersion: 1,
@@ -62,7 +109,7 @@ assert.equal(selected.some(item => item.normalized === 'موضوعقدیمی'), 
   'recently trending incomplete queries must continue in the backlog after leaving the live RSS feed');
 assert.equal(selected.some(item => item.normalized === 'موضوعمنقضی'), false,
   'expired historical queries must not consume search capacity');
-assert.ok(selected.length <= 8);
+assert.ok(selected.length <= 14);
 const backlogIndex = selected.findIndex(item => item.normalized === 'موضوعقدیمی');
 const currentIndex = selected.findIndex(item => item.activeInLatestFeed !== false);
 assert.ok(currentIndex >= 0 && currentIndex < backlogIndex,
@@ -89,6 +136,8 @@ const added = applyQueryResult(state, query, {
 assert.equal(added.added, 1);
 assert.equal(state.items.Trend001.title, 'لحظه دیدنی بازی تراکتور');
 assert.equal(state.items.Trend001.globalTrendSearchMatches.length, 1);
+assert.ok(Number.isFinite(Date.parse(state.items.Trend001.lastMetricsFetchedAt)),
+  'global-search candidates must retain the timestamp at which Filo returned their metrics');
 assert.equal(state.queries[query.normalized].nextPage, 4);
 assert.equal(state.totalPagesFetched, 3);
 

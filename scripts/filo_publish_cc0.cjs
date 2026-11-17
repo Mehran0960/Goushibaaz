@@ -338,7 +338,7 @@ async function discoverCommercialCandidates(state) {
     .map(item => item.sourcePage));
   // Each five-minute attempt rotates a small, balanced batch to avoid hammering public archives.
   // One additional query is built from an actually observed high-velocity entertainment trend.
-  const trendSearches = buildTrendSearches(undefined, { limit: 2 });
+  const trendSearches = buildTrendSearches(undefined, { limit: 4 });
   const localSearches = rotateSearchBatch(COMMONS_SEARCHES.filter(item => item.localPriority), 4);
   const broadSearches = rotateSearchBatch(COMMONS_SEARCHES.filter(item => !item.localPriority), 6);
   const searches = [...localSearches, ...broadSearches, ...trendSearches];

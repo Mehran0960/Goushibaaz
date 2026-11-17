@@ -134,6 +134,19 @@ jobs:
         if: steps.republish.outcome == 'success'
         run: node scripts/filo_external_ingest_due.cjs
 
+      - name: Search Filo global catalog using current Iranian trends
+        id: global_filo_search
+        if: steps.external_due.outputs.due == 'true'
+        continue-on-error: true
+        env:
+          FILO_USER: ${{ secrets.FILO_USER }}
+          FILO_PASS: ${{ secrets.FILO_PASS }}
+        run: node scripts/filo_trend_search_worker.cjs
+
+      - name: Persist global Filo trend-search observations
+        if: always() && steps.external_due.outputs.due == 'true'
+        run: bash scripts/persist_state_file.sh state/filo-global-search-candidates.json "Record global Filo trend-search observations [skip ci]"
+
       - name: Install FFmpeg and fonts for external video preparation
         if: steps.external_due.outputs.due == 'true'
         run: |
@@ -165,6 +178,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: filo-native-republish-${{ github.run_id }}
-          path: out/filo-native-republish.json
+          path: |
+            out/filo-native-republish.json
+            out/filo-global-search-worker.json
           if-no-files-found: warn
           retention-days: 14

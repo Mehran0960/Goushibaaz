@@ -50,6 +50,7 @@ const {
   candidateMetricValue,
   candidateMetricSnapshot,
   updateCandidateMomentum,
+  extractFreshGlobalSearchCandidates,
   update24HourCandidateCatalog,
   candidateAccelerationEvidence,
   candidateRecencyMomentumEvidence,
@@ -125,6 +126,72 @@ assert.equal(ageHours({
   create_date: Math.floor((ageWindowNow + 2 * 60 * 60 * 1000) / 1000)
 }, ageWindowNow), Number.POSITIVE_INFINITY,
   'future timestamps beyond clock-skew tolerance must be rejected');
+
+const globalObservationAt = Date.parse('2026-11-05T10:00:00.000Z');
+const globalSearchState = {
+  updatedAt: new Date(globalObservationAt).toISOString(),
+  items: {
+    Global01: {
+      v: 'Global01', t: 'یک ویدئوی ترند از جست‌وجوی سراسری فیلو',
+      c: 6, du: 28, vc: 100, pd: 10, hst: 1, co: 1, cr: 1, ac: 1,
+      category_name: 'طنز',
+      lastMetricsFetchedAt: new Date(globalObservationAt).toISOString(),
+      globalTrendSearchMatches: [{ query: 'طنز ترند', trendTitle: 'طنز ترند' }]
+    },
+    GlobalStale: {
+      v: 'GlobalStale', t: 'نامزد قدیمی', vc: 100,
+      lastMetricsFetchedAt: new Date(globalObservationAt - 40 * 60000).toISOString()
+    },
+    GlobalFuture: {
+      v: 'GlobalFuture', t: 'نامزد دارای زمان آینده', vc: 100,
+      lastMetricsFetchedAt: new Date(globalObservationAt + 6 * 60000).toISOString()
+    }
+  }
+};
+const freshGlobalCandidates = extractFreshGlobalSearchCandidates(
+  globalSearchState, globalObservationAt + 5 * 60000, 25 * 60000
+);
+assert.equal(freshGlobalCandidates.length, 1,
+  'only cached global-search metrics observed in the freshness window may enter the native queue');
+assert.equal(freshGlobalCandidates[0].video_code, 'Global01');
+assert.equal(freshGlobalCandidates[0].category_id, 6,
+  'compact Filo category aliases must be normalized before global candidates are ranked');
+assert.equal(freshGlobalCandidates[0].play_count, 10);
+assert.equal(freshGlobalCandidates[0].feed_tag_label, 'طنز');
+assert.equal(freshGlobalCandidates[0].sourceObservationAt, new Date(globalObservationAt).toISOString());
+
+const globalMomentumState = { candidateMomentum: {} };
+const globalFirstCycleAt = globalObservationAt + 5 * 60000;
+updateCandidateMomentum(globalMomentumState, freshGlobalCandidates, globalFirstCycleAt);
+assert.equal(globalMomentumState.candidateMomentum.Global01.samples.length, 1);
+assert.equal(globalMomentumState.candidateMomentum.Global01.samples[0].at,
+  new Date(globalObservationAt).toISOString(),
+  'the metric sample must retain the original API observation timestamp');
+updateCandidateMomentum(globalMomentumState, freshGlobalCandidates, globalFirstCycleAt + 5 * 60000);
+assert.equal(globalMomentumState.candidateMomentum.Global01.samples.length, 1,
+  're-reading an unchanged cached observation must not manufacture an independent sample');
+
+const secondGlobalObservation = {
+  ...freshGlobalCandidates[0],
+  play_count: 30,
+  visit_count: 200,
+  sourceObservationAt: new Date(globalObservationAt + 15 * 60000).toISOString()
+};
+updateCandidateMomentum(globalMomentumState, [secondGlobalObservation], globalObservationAt + 20 * 60000);
+assert.equal(globalMomentumState.candidateMomentum.Global01.samples.length, 2,
+  'a new, later API observation must be counted as a new independent sample');
+assert.equal(globalMomentumState.candidateMomentum.Global01.samples[1].plays, 30);
+
+const thirdGlobalObservation = {
+  ...secondGlobalObservation,
+  play_count: 80,
+  visit_count: 400,
+  sourceObservationAt: new Date(globalObservationAt + 30 * 60000).toISOString()
+};
+updateCandidateMomentum(globalMomentumState, [thirdGlobalObservation], globalObservationAt + 35 * 60000);
+assert.equal(globalMomentumState.candidateMomentum.Global01.samples.length, 3,
+  'three separate global-search API observations should build a valid momentum history');
+assert.ok(globalMomentumState.candidateMomentum.Global01.lastSourceObservationAt);
 
 const windowMomentumState = { candidateMomentum: {} };
 const windowRank = rankCandidatesByMomentum([

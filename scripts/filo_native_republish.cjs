@@ -16,6 +16,8 @@ const STATE_PATH = path.join('state', 'filo-native-republished.json');
 const REPORT_PATH = path.join('out', 'filo-native-republish.json');
 const PLATFORM_TRENDS_PATH = path.join('state', 'platform-trends.json');
 const PLATFORM_TRENDS_MAX_AGE_MS = 48 * 60 * 60 * 1000;
+const GLOBAL_SEARCH_STATE_PATH = path.join('state', 'filo-global-search-candidates.json');
+const GLOBAL_SEARCH_CANDIDATE_MAX_AGE_MS = 25 * 60 * 1000;
 const FALLBACK_CATEGORY_IDS = [6, 11, 13, 29, 2, 22, 17, 25, 15, 3];
 const FALLBACK_VIDEO_TAG_FEEDS = [
   { key: 'all', label: 'همه' },
@@ -812,6 +814,37 @@ function trailingMetricRate(samples, valueKey, availableKey) {
   };
 }
 
+function extractFreshGlobalSearchCandidates(searchState, now = Date.now(), maxAgeMs = GLOBAL_SEARCH_CANDIDATE_MAX_AGE_MS) {
+  const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
+  const maximumAgeMs = Math.max(60 * 1000, Number(maxAgeMs) || GLOBAL_SEARCH_CANDIDATE_MAX_AGE_MS);
+  const items = searchState && searchState.items && typeof searchState.items === 'object'
+    ? Object.entries(searchState.items) : [];
+
+  return items.map(([storedCode, rawItem]) => {
+    if (!rawItem || typeof rawItem !== 'object') return null;
+    const observedAt = Date.parse(rawItem.lastMetricsFetchedAt || '');
+    if (!Number.isFinite(observedAt) || observedAt > nowMs || nowMs - observedAt > maximumAgeMs) return null;
+
+    const item = normalizeVideoFeedItem(rawItem);
+    const code = String(item && (item.video_code || item.videoCode || item.code) || storedCode).trim();
+    if (!/^[A-Za-z0-9_-]{5,40}$/.test(code)) return null;
+
+    const categoryId = item.category_id == null ? '' : String(item.category_id);
+    const categoryLabel = String(item.category_name || item.category_title ||
+      item.category || item.feed_tag_label || '').trim();
+
+    return {
+      ...item,
+      video_code: code,
+      feed_tag: String(item.feed_tag || categoryId || 'global-trend-search'),
+      feed_tag_label: String(item.feed_tag_label || categoryLabel || 'جست‌وجوی سراسری فیلو'),
+      sourceObservationAt: new Date(observedAt).toISOString(),
+      globalTrendSearchMatches: Array.isArray(rawItem.globalTrendSearchMatches)
+        ? rawItem.globalTrendSearchMatches : []
+    };
+  }).filter(Boolean);
+}
+
 function updateCandidateMomentum(state, items, now = Date.now()) {
   const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
   const history = state.candidateMomentum && typeof state.candidateMomentum === 'object'
@@ -832,10 +865,37 @@ function updateCandidateMomentum(state, items, now = Date.now()) {
     }).slice(-CANDIDATE_METRIC_HISTORY_SAMPLES) : [];
 
     const lastSampleAt = samples.length ? Date.parse(samples.at(-1).at) : NaN;
-    if (!Number.isFinite(lastSampleAt) ||
-        nowMs - lastSampleAt >= CANDIDATE_METRIC_SAMPLE_INTERVAL_MS) {
+    const hasSourceObservation = item.sourceObservationAt !== undefined &&
+      item.sourceObservationAt !== null && item.sourceObservationAt !== '';
+    const sourceObservationAt = hasSourceObservation ? Date.parse(item.sourceObservationAt) : NaN;
+    let appendSample = false;
+    let sampleAtMs = nowMs;
+
+    if (hasSourceObservation) {
+      // Global-search results are cached between runs. Count only a new API
+      // observation timestamp; re-reading the same cached counters is not a sample.
+      const previousSourceObservationAt = Date.parse(entry.lastSourceObservationAt || '');
+      const isNewSourceObservation = Number.isFinite(sourceObservationAt) &&
+        sourceObservationAt <= nowMs &&
+        (!Number.isFinite(previousSourceObservationAt) ||
+          sourceObservationAt > previousSourceObservationAt);
+
+      if (isNewSourceObservation) {
+        appendSample = !Number.isFinite(lastSampleAt) ||
+          sourceObservationAt - lastSampleAt >= CANDIDATE_METRIC_SAMPLE_INTERVAL_MS;
+        sampleAtMs = sourceObservationAt;
+        entry.lastSourceObservationAt = new Date(sourceObservationAt).toISOString();
+      }
+    } else {
+      // Native feed items are freshly fetched in each publisher cycle.
+      appendSample = !Number.isFinite(lastSampleAt) ||
+        nowMs - lastSampleAt >= CANDIDATE_METRIC_SAMPLE_INTERVAL_MS;
+    }
+
+    if (appendSample) {
       samples.push({
-        at: nowIso,
+        at: new Date(sampleAtMs).toISOString(),
+        ...(hasSourceObservation ? { sourceObservationAt: new Date(sourceObservationAt).toISOString() } : {}),
         views: viewMetric.value,
         viewsAvailable: viewMetric.available,
         plays: playMetric.value,
@@ -3664,8 +3724,47 @@ async function main() {
       complete24HourCoverage:null
     };
 
-    const discoveredItems = [...byCode.values()];
     const cycleAt = Date.parse(report.createdAt);
+    let globalSearchState = null;
+    let globalSearchStateError = null;
+    try {
+      if (fs.existsSync(GLOBAL_SEARCH_STATE_PATH)) {
+        globalSearchState = JSON.parse(fs.readFileSync(GLOBAL_SEARCH_STATE_PATH, 'utf8'));
+      }
+    } catch (error) {
+      globalSearchStateError = String(error && error.message || error).slice(0, 180);
+    }
+
+    const globalSearchCandidates = extractFreshGlobalSearchCandidates(
+      globalSearchState, cycleAt, GLOBAL_SEARCH_CANDIDATE_MAX_AGE_MS
+    );
+    let globalSearchMerged = 0;
+    let globalSearchDuplicates = 0;
+    for (const item of globalSearchCandidates) {
+      if (byCode.has(item.video_code)) {
+        // Prefer the native feed snapshot when both sources observed the same code.
+        globalSearchDuplicates += 1;
+        continue;
+      }
+      byCode.set(item.video_code, item);
+      globalSearchMerged += 1;
+    }
+
+    report.discovery.globalSearch = {
+      statePath: GLOBAL_SEARCH_STATE_PATH,
+      stateAvailable: Boolean(globalSearchState),
+      stateUpdatedAt: globalSearchState && globalSearchState.updatedAt || null,
+      lastTrendFetchAt: globalSearchState && globalSearchState.trendsFetchedAt || null,
+      cachedCandidates: globalSearchState && globalSearchState.items
+        ? Object.keys(globalSearchState.items).length : 0,
+      freshCandidates: globalSearchCandidates.length,
+      mergedCandidates: globalSearchMerged,
+      duplicatesAlreadyInNativeFeeds: globalSearchDuplicates,
+      maxObservationAgeMinutes: Math.round(GLOBAL_SEARCH_CANDIDATE_MAX_AGE_MS / 60000),
+      error: globalSearchStateError
+    };
+
+    const discoveredItems = [...byCode.values()];
     const currentMomentumRates = updateCandidateMomentum(state, discoveredItems, cycleAt);
     report.discovery.catalog24h = update24HourCandidateCatalog(state, discoveredItems, cycleAt);
     report.discovery.catalog24h.coverageComplete = Boolean(
@@ -4237,6 +4336,7 @@ module.exports = {
   candidateMetricValue,
   candidateMetricSnapshot,
   updateCandidateMomentum,
+  extractFreshGlobalSearchCandidates,
   update24HourCandidateCatalog,
   candidateAccelerationEvidence,
   candidateRecencyMomentumEvidence,

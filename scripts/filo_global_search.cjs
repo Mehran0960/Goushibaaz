@@ -183,12 +183,15 @@ async function searchFiloGlobalTopic(query, fetchPage, options = {}) {
       : payload;
     const root = responseRoot(raw);
     const items = responseItems(root);
+    const pageObservedAt = new Date().toISOString();
     const pageCodes = [];
     let added = 0;
 
     for (const rawItem of items) {
       const normalized = normalizeFiloSearchItem(rawItem, { ...options.topicSearch, query, page });
       if (!normalized || seenCodes.has(normalized.video_code)) continue;
+      // Stamp each candidate when the corresponding page response was received.
+      normalized.lastMetricsFetchedAt = pageObservedAt;
       seenCodes.add(normalized.video_code);
       results.push(normalized);
       pageCodes.push(normalized.video_code);

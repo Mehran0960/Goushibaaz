@@ -76,7 +76,7 @@ function readTrendSnapshot(filePath = path.join('state', 'platform-trends.json')
 
 function buildTrendSearches(snapshot = readTrendSnapshot(), options = {}) {
   const nowMs = Number.isFinite(options.nowMs) ? options.nowMs : Date.now();
-  const limit = Math.max(0, Math.min(2, Math.floor(Number(options.limit ?? 1))));
+  const limit = Math.max(0, Math.min(4, Math.floor(Number(options.limit ?? 1))));
   if (!limit || !snapshot || typeof snapshot !== 'object') return [];
   const leads = [];
   for (const group of ['telegram', 'aparat', 'youtube_cc', 'social']) {
