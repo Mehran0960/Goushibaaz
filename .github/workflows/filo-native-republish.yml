@@ -8,6 +8,8 @@ on:
       - "scripts/filo_publish_cc0.cjs"
       - "scripts/filo_publication_cadence.cjs"
       - "scripts/filo_external_ingest_due.cjs"
+      - "scripts/filo_url_import.cjs"
+      - "scripts/test_filo_url_import.cjs"
       - "scripts/test_filo_publication_cadence.cjs"
       - "scripts/test_filo_external_ingest_due.cjs"
       - ".github/workflows/publish-approved-video-to-filo.yml"
@@ -50,7 +52,7 @@ jobs:
         run: |
           set -euo pipefail
           git diff --name-only "$BASE_SHA...$HEAD_SHA" > "$RUNNER_TEMP/filo-changed-files.txt"
-          if grep -Eq '^(scripts/filo_native_republish\.cjs|scripts/test_filo_native_republish\.cjs|scripts/filo_publish_cc0\.cjs|scripts/filo_publication_cadence\.cjs|scripts/filo_external_ingest_due\.cjs|scripts/test_filo_publication_cadence\.cjs|scripts/test_filo_external_ingest_due\.cjs|\.github/workflows/filo-native-republish\.yml|\.github/workflows/validate-filo-native-republish\.yml|\.github/workflows/publish-approved-video-to-filo\.yml)$' "$RUNNER_TEMP/filo-changed-files.txt"; then
+          if grep -Eq '^(scripts/filo_native_republish\.cjs|scripts/test_filo_native_republish\.cjs|scripts/filo_publish_cc0\.cjs|scripts/filo_publication_cadence\.cjs|scripts/filo_external_ingest_due\.cjs|scripts/filo_url_import\.cjs|scripts/test_filo_url_import\.cjs|scripts/test_filo_publication_cadence\.cjs|scripts/test_filo_external_ingest_due\.cjs|\.github/workflows/filo-native-republish\.yml|\.github/workflows/validate-filo-native-republish\.yml|\.github/workflows/publish-approved-video-to-filo\.yml)$' "$RUNNER_TEMP/filo-changed-files.txt"; then
             if ! grep -Fxq 'docs/CHANGELOG.md' "$RUNNER_TEMP/filo-changed-files.txt"; then
               echo "::error::Native Filo code/workflow changes require an entry in docs/CHANGELOG.md."
               exit 1
@@ -68,6 +70,8 @@ jobs:
           node --check scripts/filo_publish_cc0.cjs
           node --check scripts/filo_publication_cadence.cjs
           node --check scripts/filo_external_ingest_due.cjs
+          node --check scripts/filo_url_import.cjs
+          node scripts/test_filo_url_import.cjs
           node scripts/test_filo_publication_cadence.cjs
           node scripts/test_filo_external_ingest_due.cjs
 
@@ -108,6 +112,8 @@ jobs:
           node --check scripts/filo_publish_cc0.cjs
           node --check scripts/filo_publication_cadence.cjs
           node --check scripts/filo_external_ingest_due.cjs
+          node --check scripts/filo_url_import.cjs
+          node scripts/test_filo_url_import.cjs
           node scripts/test_filo_native_republish.cjs
           node scripts/test_filo_publication_cadence.cjs
           node scripts/test_filo_external_ingest_due.cjs
