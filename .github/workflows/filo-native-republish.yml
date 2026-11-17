@@ -129,7 +129,7 @@ jobs:
           FILO_PASS: ${{ secrets.FILO_PASS }}
         run: node scripts/filo_native_republish.cjs
 
-      - name: Check whether the licensed external fallback is due
+      - name: Check whether the independent licensed-source scan is due
         id: external_due
         if: steps.republish.outcome == 'success'
         run: node scripts/filo_external_ingest_due.cjs
@@ -140,7 +140,7 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg fonts-noto-core
 
-      - name: Search Persian trend-led open-license sources and publish one eligible video
+      - name: Independently search Persian trend-led open-license sources and publish one eligible video
         if: steps.external_due.outputs.due == 'true'
         env:
           FILO_USER: ${{ secrets.FILO_USER }}
