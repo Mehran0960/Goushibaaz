@@ -4,6 +4,7 @@ const assert = require('node:assert/strict');
 const {
   mergeCandidate,
   compactVideo,
+  combineQuerySearchResults,
   candidateRetentionScore,
   refreshQueryDefinitions,
   selectQueriesForRun,
@@ -30,6 +31,41 @@ assert.equal(metricAliases.plays, 75);
 assert.ok(candidateRetentionScore(metricAliases) > candidateRetentionScore({
   ...metricAliases, plays: 0, shares: 0, favorites: 0
 }), 'cache retention must use normalized engagement aliases');
+
+const combinedQueryResult = combineQuerySearchResults({
+  query: 'ترند روز',
+  results: [
+    { video_code: 'Head001', title: 'نتیجه تازه صفحه اول' },
+    { video_code: 'Shared01', title: 'نسخه اولیه' }
+  ],
+  pagesFetched: 5,
+  startPage: 1,
+  nextPage: 6,
+  complete: false,
+  termination: 'max_pages_reached',
+  totalUniqueVideos: 2,
+  pages: [{ page: 1 }, { page: 2 }]
+}, {
+  query: 'ترند روز',
+  results: [
+    { video_code: 'Shared01', title: 'نسخه عمیق‌تر' },
+    { video_code: 'Deep001', title: 'نتیجه صفحه عمیق' }
+  ],
+  pagesFetched: 15,
+  startPage: 6,
+  nextPage: 21,
+  complete: false,
+  termination: 'max_pages_reached',
+  totalUniqueVideos: 2,
+  pages: [{ page: 6 }, { page: 7 }]
+});
+assert.equal(combinedQueryResult.pagesFetched, 20);
+assert.equal(combinedQueryResult.headRefreshPagesFetched, 5);
+assert.equal(combinedQueryResult.deepPagesFetched, 15);
+assert.deepEqual(combinedQueryResult.results.map(item => item.video_code), ['Head001','Shared01','Deep001']);
+assert.equal(combinedQueryResult.results.find(item => item.video_code === 'Shared01').title, 'نسخه عمیق‌تر',
+  'overlapping head/deep results must be de-duplicated, retaining the newest scan result');
+assert.equal(combinedQueryResult.nextPage, 21);
 
 const state = {
   schemaVersion: 1,
