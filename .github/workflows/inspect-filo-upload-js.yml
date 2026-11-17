@@ -2,6 +2,12 @@ name: Inspect Filo public uploader frontend
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - "scripts/filo_publish_cc0.cjs"
+      - ".github/workflows/inspect-filo-upload.yml"
+      - ".github/workflows/inspect-filo-upload-js.yml"
+      - "docs/FILO-INBOUND-INGESTION-ROADMAP.md"
   push:
     paths:
       - ".github/workflows/inspect-filo-upload-js.yml"
