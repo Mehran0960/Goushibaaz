@@ -21,6 +21,8 @@ const COVER_FILE = path.join(VIDEO_DIR, 'filo-video-cover.jpg');
 const MAX_SOURCE_BYTES = 45_000_000;
 const CONTENT_POLICY = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'config', 'content-policy.json'), 'utf8'));
 const DRY_RUN = /^(1|true|yes)$/i.test(process.env.DRY_RUN || '');
+const PEXELS_AUTOMATED_REPUBLISH_APPROVED =
+  /^(1|true|yes)$/i.test(process.env.PEXELS_AUTOMATED_REPUBLISH_APPROVED || '');
 const FILO_PROFILE = CONTENT_POLICY.platform_profiles && CONTENT_POLICY.platform_profiles.filo || {};
 const TARGET_WIDTH = Number(FILO_PROFILE.output_width) || Number(CONTENT_POLICY.vertical_video.output_width) || 1080;
 const TARGET_HEIGHT = Number(FILO_PROFILE.output_height) || Number(CONTENT_POLICY.vertical_video.output_height) || 1920;
@@ -688,6 +690,9 @@ async function downloadVerifiedCommercialVideo(candidate) {
   if (!candidate || !candidate.fileUrl || !candidate.sourcePage || !candidate.fileTitle) {
     throw new Error('commercial_candidate_missing_required_fields');
   }
+  if (candidate.sourceType === 'pexels' && !PEXELS_AUTOMATED_REPUBLISH_APPROVED) {
+    throw new Error('pexels_systematic_republication_requires_explicit_provider_approval');
+  }
   const isPexels = candidate.sourceType === 'pexels' &&
     String(candidate.licenseName || '') === 'Pexels License' &&
     String(candidate.licenseUrl || '').replace(/\/+$/, '') === PEXELS_LICENSE_URL.replace(/\/+$/, '') &&
@@ -1198,8 +1203,9 @@ async function main() {
     discoverInternetArchiveCandidates(state),
     discoverPexelsCandidates({ state, used: usedSources, limit: 25 })
   ]);
+  const publishablePexelsCandidates = PEXELS_AUTOMATED_REPUBLISH_APPROVED ? pexelsCandidates : [];
   const uniqueCandidates = new Map();
-  for (const candidate of [...commonsCandidates, ...archiveCandidates, ...pexelsCandidates]) {
+  for (const candidate of [...commonsCandidates, ...archiveCandidates, ...publishablePexelsCandidates]) {
     const old = uniqueCandidates.get(candidate.sourcePage);
     if (!old || (candidate.contentLocaleScore || 0) > (old.contentLocaleScore || 0)) {
       uniqueCandidates.set(candidate.sourcePage, candidate);
@@ -1230,7 +1236,9 @@ async function main() {
     internet_archive_queries: ARCHIVE_SEARCH_TERMS.length,
     eligible_commons: commonsCandidates.length,
     eligible_internet_archive: archiveCandidates.length,
-    eligible_pexels: pexelsCandidates.length,
+    pexels_discovery_candidates: pexelsCandidates.length,
+    pexels_automated_republication_approved: PEXELS_AUTOMATED_REPUBLISH_APPROVED,
+    eligible_pexels_for_publication: publishablePexelsCandidates.length,
     unique_eligible_sources: candidates.length
   }));
   let candidate = null;
@@ -1277,6 +1285,7 @@ async function main() {
     const result = {
       status,
       candidateCount: candidates.length,
+      discoveryOnlyPexelsCandidateCount: pexelsCandidates.length - publishablePexelsCandidates.length,
       preparationFailures: preparationErrors.slice(0, 8),
       note: 'No externally sourced video passed publication-rights, media and duration checks; nothing was published.'
     };
