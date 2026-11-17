@@ -6,6 +6,8 @@ on:
     paths:
       - ".github/workflows/validate-filo-publisher.yml"
       - "scripts/filo_publish_cc0.cjs"
+      - "scripts/filo_url_import.cjs"
+      - "scripts/test_filo_url_import.cjs"
       - "scripts/editorial_content.cjs"
       - "scripts/test_editorial_content.cjs"
       - "scripts/filo_endcard.cjs"
@@ -70,6 +72,8 @@ jobs:
       - name: Validate JavaScript and shell syntax
         run: |
           node --check scripts/filo_publish_cc0.cjs
+          node --check scripts/filo_url_import.cjs
+          node --check scripts/test_filo_url_import.cjs
           node --check scripts/editorial_content.cjs
           node --check scripts/test_editorial_content.cjs
           node --check scripts/filo_endcard.cjs
@@ -100,6 +104,7 @@ jobs:
           bash -n scripts/persist_state_file.sh
       - name: Run JavaScript regression tests
         run: |
+          node scripts/test_filo_url_import.cjs
           node scripts/test_editorial_content.cjs
           node scripts/test_filo_endcard.cjs
           node scripts/test_shared_publish.cjs
@@ -204,6 +209,8 @@ jobs:
           check_contains scripts/filo_publish_cc0.cjs 'const MIN_DURATION_SECONDS = 8;'
           check_contains scripts/rubika_publish_cc0.cjs 'const MIN_DURATION_SECONDS = 8;'
           check_contains scripts/filo_publish_cc0.cjs 'FILO_EDITORIAL_RANKING'
+          check_contains scripts/filo_publish_cc0.cjs 'attemptFiloUrlImport'
+          check_contains scripts/filo_publish_cc0.cjs 'uploadMethod'
           check_contains scripts/rubika_publish_cc0.cjs 'RUBIKA_CONTENT_PRIORITY'
           check_contains scripts/trend_discovery.cjs "'youtube_cc', 'social'"
           check_contains scripts/trend_discovery.cjs 'trendAcceleration: lead.acceleration'
