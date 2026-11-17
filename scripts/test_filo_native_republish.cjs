@@ -543,8 +543,10 @@ assert.ok(editorialTitleTokens('کلیپ طنز بهرام افشاری').includ
 assert.equal(editorialTitleQualityReason('من و رفیقام طنز دیلان برای کلیپ های بیشتر کانال مارا دنبال کنید'),
   'title_promotional_or_call_to_action',
   'the actual promotional title seen in the live ledger must be rejected');
-assert.equal(editorialTitleQualityReason('خنده دار پارت ۱۹ طنز کمدی'), null,
-  'a numbered episode with a source-grounded topic remains usable after a concise rewrite');
+assert.equal(editorialTitleQualityReason('خنده دار پارت ۱۹ طنز کمدی'), 'title_generic_episode_label',
+  'genre labels and episode numbers alone do not identify the video subject');
+assert.equal(editorialTitleQualityReason('شوخی با خرید لباس در فروشگاه، قسمت ۱۹'), null,
+  'a numbered episode remains eligible when at least two subject-bearing terms are present');
 assert.equal(editorialTitleQualityReason('پارت ۱۹'), 'title_generic_episode_label',
   'a number-only episode label without a source topic remains generic');
 assert.equal(editorialTitleQualityReason('روش پخت خورشت بامیه با مرغ'), null,
@@ -612,8 +614,8 @@ assert.equal(fitFiloTitleLength('یک عنوان خبری بلند که بدون
 assert.equal(createDistinctRepostTitle('روز دختر مبارک عضویت تو باعث انگیزه منه'),
   '',
   'a call-to-action source title must fail closed instead of becoming a publishable title');
-assert.equal(editorialTitleQualityReason('خنده دار پارت ۳۲ طنز کمدی'), null,
-  'a numbered comedy title with a real source topic can be cleaned and retained');
+assert.equal(editorialTitleQualityReason('خنده دار پارت ۳۲ طنز کمدی'), 'title_generic_episode_label',
+  'a generic comedy episode label without a video subject must fail closed');
 assert.equal(editorialTitleQualityReason('یک فیلم بسیار زیبا و رمانتیک که کار رو تموم میکنه'),
   'title_generic_praise_without_subject',
   'vague praise without an identifiable subject must be rejected');
@@ -627,9 +629,17 @@ assert.equal(
 assert.equal(createDistinctRepostTitle('لایک فالو حمایت یادتون نره عزیزای دلم', '', 'Promo01'),
   '',
   'a promotional-only title must fail closed without attaching an unrelated internal source code');
-assert.equal(createDistinctRepostTitle('خنده دار پارت ۳۲ 😂 طنز کمدی', '', 'Episode01'),
-  'کلیپ طنز، قسمت ۳۲',
-  'a numbered comedy episode should retain only its source-grounded topic and episode number');
+assert.equal(createDistinctRepostTitle('خنده دار پارت ۳۲ 😂 طنز کمدی', '', 'Episode01'), '',
+  'a genre-and-number-only episode title must not be fabricated into a subject');
+assert.equal(
+  createDistinctRepostTitle(
+    'خنده دار پارت ۳۲ 😂 طنز کمدی',
+    'در این ویدئو، شوخی با خرید لباس در فروشگاه را ببینید.',
+    'EpisodeWithSubject'
+  ),
+  'شوخی با خرید لباس در فروشگاه',
+  'a generic episode title may be replaced only by a factual, subject-bearing description'
+);
 assert.doesNotMatch(cleanRepostDescription(
   'موضوع ویدئو: شوخی در خرید لباس. لایک فالو حمایت یادتون نره عزیزای دلم. برای کلیپ های بیشتر کانال ما را دنبال کنید.',
   'عنوان منبع',
@@ -725,7 +735,7 @@ cacheCandidateRejection(rejectionCacheState,'Cache01',cacheVideo,
   'title_without_safe_editorial_rewrite',Date.parse('2026-11-04T12:00:00.000Z'));
 assert.ok(getCachedCandidateRejection(rejectionCacheState,'Cache01',cacheVideo,
   Date.parse('2026-11-04T13:00:00.000Z')));
-assert.equal(rejectionCacheState.candidateRejections.Cache01.titleRewritePolicyVersion, 9);
+assert.equal(rejectionCacheState.candidateRejections.Cache01.titleRewritePolicyVersion, 10);
 assert.equal(isTitleRewriteRejectionReason('title_without_safe_editorial_rewrite'), true);
 assert.equal(isTitleRewriteRejectionReason('title_promotional_or_call_to_action'), true);
 assert.equal(isTitleRewriteRejectionReason('title_generic_episode_label'), true);
