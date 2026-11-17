@@ -60,7 +60,18 @@ assert.ok(firstSlot[0].trendTitle);
 assert.ok(['comedy', 'food_cooking'].includes(firstSlot[0].trendLane));
 assert.equal(firstSlot[0].trendUrl.startsWith('https://t.me/'), true);
 
-const twoLeads = buildTrendSearches({
+const fourLeads = buildTrendSearches({
+  aparat: {
+    aparat1: {
+      title: 'Clever Persian kitchen trick for faster cooking',
+      url: 'https://aparat.com/v/example01',
+      lane: 'practical_tips_or_life_hacks',
+      velocity_kind: 'observed',
+      velocity_per_hour: 6500,
+      acceleration_per_hour2: 1200,
+      last_seen_at: new Date(now).toISOString()
+    }
+  },
   social: {
     social1: {
       title: 'Unexpected satisfying restoration reveal',
@@ -73,9 +84,10 @@ const twoLeads = buildTrendSearches({
     }
   },
   ...snapshot
-}, { nowMs: now, limit: 2 });
-assert.equal(twoLeads.length, 2);
-assert.ok(twoLeads.some(item => item.trendAcceleration > 0));
+}, { nowMs: now, limit: 4 });
+assert.equal(twoLeads.length, 4);
+assert.ok(fourLeads.some(item => item.trendAcceleration > 0));
+assert.ok(fourLeads.some(item => item.trendUrl.includes('aparat.com')));
 
 const nextSlot = buildTrendSearches(snapshot, { nowMs: now + 5 * 60000 });
 assert.notEqual(nextSlot[0].trendUrl, firstSlot[0].trendUrl,
