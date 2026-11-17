@@ -7,7 +7,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: filo-publish-approved-video
+  group: filo-native-republish-publisher
   cancel-in-progress: false
 
 jobs:
@@ -32,6 +32,8 @@ jobs:
           npm install --no-save playwright >/dev/null
           npx playwright install --with-deps chromium >/dev/null
           node --check scripts/filo_publish_cc0.cjs
+          node --check scripts/filo_publication_cadence.cjs
+          node scripts/test_filo_publication_cadence.cjs
           node --check scripts/pexels_source.cjs
           node --check scripts/editorial_content.cjs
           node --check scripts/filo_endcard.cjs
