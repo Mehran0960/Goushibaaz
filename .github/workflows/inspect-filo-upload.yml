@@ -2,6 +2,12 @@ name: Inspect Filo upload interface
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - "scripts/filo_publish_cc0.cjs"
+      - ".github/workflows/inspect-filo-upload.yml"
+      - ".github/workflows/inspect-filo-upload-js.yml"
+      - "docs/FILO-INBOUND-INGESTION-ROADMAP.md"
   push:
     paths:
       - ".github/workflows/inspect-filo-upload.yml"
@@ -55,6 +61,14 @@ jobs:
               loginEntryFound: false,
               loginFieldsFound: false,
               loginOutcome: 'not_attempted',
+              loginPagePath: '',
+              loginSubmitDisabled: null,
+              loginKeyboardRetry: false,
+              loginControls: [],
+              loginResponseStatus: null,
+              loginInputDiagnostics: [],
+              loginFormDiagnostics: [],
+              loginBodySignals: {},
               challengeDetected: false,
               uploadEntryFound: false,
               uploadPageInspected: false,
@@ -85,6 +99,12 @@ jobs:
             });
             const page = await context.newPage();
             page.setDefaultTimeout(8000);
+            page.on('response', response => {
+              try {
+                const url = new URL(response.url());
+                if (url.hostname === 'ifilo.net' && url.pathname === '/api/v1/users/login' && response.request().method() === 'POST') report.loginResponseStatus = response.status();
+              } catch {}
+            });
             let stage = 'open_home';
 
             try {
@@ -131,6 +151,7 @@ jobs:
                 const usernameCandidates = [
                   'input[autocomplete="username"]',
                   'input[type="email"]',
+                  'input[type="tel"]',
                   'input[name*="user" i]',
                   'input[name*="email" i]',
                   'input[name*="login" i]',
@@ -169,7 +190,37 @@ jobs:
                 report.loginFieldsFound = true;
                 stage = 'fill_login_fields';
                 await fields.username.fill(process.env.FILO_USER);
+                await fields.username.dispatchEvent('input').catch(() => {});
+                await fields.username.dispatchEvent('change').catch(() => {});
                 await fields.password.fill(process.env.FILO_PASS);
+                await fields.password.dispatchEvent('input').catch(() => {});
+                await fields.password.dispatchEvent('change').catch(() => {});
+                report.loginPagePath = pathOnly(page.url());
+                report.loginInputDiagnostics = await page.locator('input').evaluateAll(nodes => nodes
+                  .filter(el => { const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; })
+                  .slice(0, 20)
+                  .map(el => ({
+                    type: (el.getAttribute('type') || 'text').toLowerCase(),
+                    name: el.getAttribute('name') || '', id: el.id || '',
+                    placeholder: el.getAttribute('placeholder') || '',
+                    autocomplete: el.getAttribute('autocomplete') || '',
+                    required: Boolean(el.required), disabled: Boolean(el.disabled),
+                    valid: typeof el.checkValidity === 'function' ? el.checkValidity() : null,
+                    patternPresent: Boolean(el.getAttribute('pattern')),
+                    minLength: Number.isFinite(el.minLength) ? el.minLength : null,
+                    maxLength: Number.isFinite(el.maxLength) ? el.maxLength : null,
+                    valueLength: ['text','email','tel','password'].includes((el.type || '').toLowerCase()) ? String(el.value || '').length : null,
+                    validationMessage: String(el.validationMessage || '').slice(0, 100)
+                  })));
+                report.loginFormDiagnostics = await page.locator('form').evaluateAll(forms => forms.slice(0, 5).map(form => ({
+                  actionPath: (() => { try { return new URL(form.action, location.href).pathname; } catch { return ''; } })(),
+                  method: String(form.method || 'get').toLowerCase(), valid: form.checkValidity(),
+                  invalidControls: [...form.querySelectorAll('input,select,textarea')].filter(el => !el.checkValidity()).slice(0, 10).map(el => ({
+                    type: el.type || el.tagName.toLowerCase(), name: el.name || '', id: el.id || '',
+                    required: Boolean(el.required), valueLength: String(el.value || '').length,
+                    validationMessage: String(el.validationMessage || '').slice(0, 100)
+                  }))
+                })));
 
                 const submitCandidates = [
                   page.locator('button[type="submit"]').first(),
@@ -183,12 +234,44 @@ jobs:
                 if (!submit) {
                   report.loginOutcome = 'login_submit_control_not_found';
                 } else {
-                  stage = 'submit_login';
-                  try { await submit.click(); } catch {}
-                  stage = 'inspect_post_login';
-                  await sleep(4500);
-
+                  report.loginSubmitDisabled = await submit.isDisabled().catch(() => null);
+                  if (report.loginSubmitDisabled) {
+                    // Retry with ordinary keystrokes because some SPA controls only refresh
+                    // their disabled state from keyboard/input handlers rather than fill().
+                    report.loginKeyboardRetry = true;
+                    await fields.username.fill('');
+                    await fields.username.type(process.env.FILO_USER, { delay: 25 });
+                    await fields.password.fill('');
+                    await fields.password.type(process.env.FILO_PASS, { delay: 25 });
+                    await fields.password.press('Tab').catch(() => {});
+                    await sleep(900);
+                    report.loginSubmitDisabled = await submit.isDisabled().catch(() => null);
+                  }
+                  report.loginControls = await page.locator('button, input[type="submit"], [role="button"]').evaluateAll(nodes => nodes
+                    .filter(el => { const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; })
+                    .slice(0, 15)
+                    .map(el => ({
+                      tag: el.tagName.toLowerCase(),
+                      type: (el.getAttribute('type') || '').toLowerCase(),
+                      text: String(el.innerText || el.getAttribute('aria-label') || el.getAttribute('value') || '').trim().replace(/\\s+/g, ' ').slice(0, 80),
+                      disabled: Boolean(el.disabled),
+                      ariaDisabled: el.getAttribute('aria-disabled'),
+                      className: String(el.className || '').slice(0, 120)
+                    })));
+                  if (report.loginSubmitDisabled) report.loginOutcome = 'login_submit_disabled';
+                  else {
+                    stage = 'submit_login';
+                    try { await submit.click(); } catch {}
+                    stage = 'inspect_post_login';
+                    await sleep(4500);
+                  }
                   const bodyText = await page.locator('body').innerText().catch(() => '');
+                  report.loginBodySignals = {
+                    credentialError: /رمز عبور.*(?:اشتباه|نادرست|نامعتبر)|(?:نام کاربری|موبایل|ایمیل).*(?:اشتباه|نادرست|نامعتبر)|ورود ناموفق/i.test(bodyText),
+                    captchaOrOtp: /کد تایید|کد تأیید|رمز یکبار مصرف|captcha|verify you are human|تایید هویت/i.test(bodyText),
+                    profileCompletion: /تکمیل.*(?:اطلاعات|پروفایل)|نام کاربری.*انتخاب/i.test(bodyText),
+                    phoneOrEmailPrompt: /شماره موبایل یا ایمیل|شماره موبایل|ایمیل خود را/i.test(bodyText)
+                  };
                   const challenge = await page.locator('iframe[src*="captcha"], iframe[src*="recaptcha"], iframe[src*="hcaptcha"], .g-recaptcha, [class*="captcha"], [id*="captcha"]').count().catch(() => 0);
                   report.challengeDetected = challenge > 0 || /کد تایید|کد تأیید|رمز یکبار مصرف|captcha|verify you are human/i.test(bodyText);
                   const currentPassword = page.locator('input[type="password"]').first();
@@ -202,6 +285,8 @@ jobs:
                   const profileLink = postLinks.some(a => /profile|dashboard|my.?account|پروفایل|حساب کاربری/i.test(a.text + ' ' + a.path));
                   if (report.challengeDetected) report.loginOutcome = 'challenge_or_otp_required';
                   else if (!stillLogin && (loggedOutLink || profileLink)) report.loginOutcome = 'authenticated';
+                  else if (stillLogin && report.loginSubmitDisabled) report.loginOutcome = 'login_submit_disabled';
+                  else if (stillLogin && report.loginBodySignals.credentialError) report.loginOutcome = 'server_rejected_credentials';
                   else if (stillLogin) report.loginOutcome = 'login_failed_or_form_still_visible';
                   else report.loginOutcome = 'inconclusive_after_submit';
                 }

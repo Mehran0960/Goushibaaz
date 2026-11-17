@@ -6,6 +6,8 @@ on:
     paths:
       - ".github/workflows/validate-filo-publisher.yml"
       - "scripts/filo_publish_cc0.cjs"
+      - "scripts/filo_url_import.cjs"
+      - "scripts/test_filo_url_import.cjs"
       - "scripts/editorial_content.cjs"
       - "scripts/test_editorial_content.cjs"
       - "scripts/filo_endcard.cjs"
@@ -70,6 +72,8 @@ jobs:
       - name: Validate JavaScript and shell syntax
         run: |
           node --check scripts/filo_publish_cc0.cjs
+          node --check scripts/filo_url_import.cjs
+          node --check scripts/test_filo_url_import.cjs
           node --check scripts/editorial_content.cjs
           node --check scripts/test_editorial_content.cjs
           node --check scripts/filo_endcard.cjs
@@ -100,6 +104,7 @@ jobs:
           bash -n scripts/persist_state_file.sh
       - name: Run JavaScript regression tests
         run: |
+          node scripts/test_filo_url_import.cjs
           node scripts/test_editorial_content.cjs
           node scripts/test_filo_endcard.cjs
           node scripts/test_shared_publish.cjs
@@ -204,6 +209,8 @@ jobs:
           check_contains scripts/filo_publish_cc0.cjs 'const MIN_DURATION_SECONDS = 8;'
           check_contains scripts/rubika_publish_cc0.cjs 'const MIN_DURATION_SECONDS = 8;'
           check_contains scripts/filo_publish_cc0.cjs 'FILO_EDITORIAL_RANKING'
+          check_contains scripts/filo_publish_cc0.cjs 'attemptFiloUrlImport'
+          check_contains scripts/filo_publish_cc0.cjs 'uploadMethod'
           check_contains scripts/rubika_publish_cc0.cjs 'RUBIKA_CONTENT_PRIORITY'
           check_contains scripts/trend_discovery.cjs "'youtube_cc', 'social'"
           check_contains scripts/trend_discovery.cjs 'trendAcceleration: lead.acceleration'
@@ -219,8 +226,8 @@ jobs:
           check_contains scripts/test_quality_rank.cjs 'trendSearchAcceleration: 12000'
           check_contains scripts/test_trend_discovery.cjs 'limit: 2'
           check_contains scripts/filo_publish_cc0.cjs 'buildTrendSearches(undefined, { limit: 2 })'
-          check_contains scripts/filo_publication_cadence.cjs 'DEFAULT_MIN_PUBLICATION_GAP_MS = 17 * 60 * 1000'
-          check_contains scripts/filo_external_ingest_due.cjs 'EXTERNAL_SCAN_INTERVAL_MS = 2 * 60 * 60 * 1000'
+          check_contains scripts/filo_publication_cadence.cjs 'DEFAULT_MIN_PUBLICATION_GAP_MS = 0'
+          check_contains scripts/filo_external_ingest_due.cjs 'EXTERNAL_SCAN_INTERVAL_MS = 15 * 60 * 1000'
           check_contains scripts/filo_external_ingest_due.cjs 'no_candidate_passed_measured_velocity_gate'
           check_contains .github/workflows/filo-native-republish.yml 'Search Persian trend-led open-license sources and publish one eligible video'
           check_contains .github/workflows/filo-native-republish.yml 'Search Persian trend-led open-license sources and publish one eligible video'
@@ -260,7 +267,7 @@ jobs:
           check_absent .github/workflows/publish-approved-video-to-filo.yml 'cron: "*/5 * * * *"'
           check_absent .github/workflows/publish-approved-video-to-filo.yml 'five-minute best-effort attempts'
           check_contains scripts/filo_publish_cc0.cjs 'MAX_DAILY_PUBLICATIONS = 288'
-          check_contains scripts/filo_publish_cc0.cjs 'MIN_PUBLICATION_GAP_MS = 17 * 60 * 1000'
+          check_contains scripts/filo_publish_cc0.cjs 'MIN_PUBLICATION_GAP_MS = 0'
           check_contains scripts/filo_publish_cc0.cjs 'buildTrendSearches(undefined, { limit: 2 })'
           check_contains scripts/rubika_publish_cc0.cjs 'rotateSearchBatch'
           check_contains scripts/quality_rank.cjs 'observed_trend_title_overlap'

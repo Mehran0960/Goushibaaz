@@ -8,6 +8,8 @@ on:
       - "scripts/filo_publish_cc0.cjs"
       - "scripts/filo_publication_cadence.cjs"
       - "scripts/filo_external_ingest_due.cjs"
+      - "scripts/filo_url_import.cjs"
+      - "scripts/test_filo_url_import.cjs"
       - "scripts/test_filo_publication_cadence.cjs"
       - "scripts/test_filo_external_ingest_due.cjs"
       - ".github/workflows/publish-approved-video-to-filo.yml"
@@ -28,6 +30,8 @@ on:
       - "scripts/filo_publish_cc0.cjs"
       - "scripts/filo_publication_cadence.cjs"
       - "scripts/filo_external_ingest_due.cjs"
+      - "scripts/filo_url_import.cjs"
+      - "scripts/test_filo_url_import.cjs"
       - "scripts/test_filo_publication_cadence.cjs"
       - "scripts/test_filo_external_ingest_due.cjs"
       - ".github/workflows/publish-approved-video-to-filo.yml"
@@ -66,6 +70,9 @@ jobs:
           node --check scripts/filo_publish_cc0.cjs
           node --check scripts/filo_publication_cadence.cjs
           node --check scripts/filo_external_ingest_due.cjs
+          node --check scripts/filo_url_import.cjs
+          node --check scripts/test_filo_url_import.cjs
+          node scripts/test_filo_url_import.cjs
           node --check scripts/test_filo_publication_cadence.cjs
           node --check scripts/test_filo_external_ingest_due.cjs
           node scripts/test_filo_native_republish.cjs

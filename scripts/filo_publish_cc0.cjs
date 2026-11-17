@@ -10,6 +10,7 @@ const { appendFiloEndCard } = require('./filo_endcard.cjs');
 const { discoverPexelsCandidates, PEXELS_LICENSE_URL } = require('./pexels_source.cjs');
 const { buildInternetArchiveSearchQuery } = require('./archive_search.cjs');
 const { evaluatePublicationCadence } = require('./filo_publication_cadence.cjs');
+const { inspectFiloUrlImportCandidate, isVerticalMediaForUrlImport } = require('./filo_url_import.cjs');
 const ACCOUNT = 'https://ifilo.net';
 const CC0_LICENSE_URL = 'https://creativecommons.org/publicdomain/zero/1.0/';
 const STATE_PATH = path.join('state', 'filo-published.json');
@@ -29,7 +30,7 @@ const WORK_HEIGHT = 1080;
 const WORK_WIDTH = Math.round(WORK_HEIGHT * TARGET_WIDTH / TARGET_HEIGHT);
 // Fail closed on reuse rights: only explicit CC0 1.0 or CC BY 4.0 license metadata is accepted.
 const MAX_DAILY_PUBLICATIONS = 288;
-const MIN_PUBLICATION_GAP_MS = 17 * 60 * 1000;
+const MIN_PUBLICATION_GAP_MS = 0;
 const MIN_DURATION_SECONDS = 8;
 const MAX_DURATION_SECONDS = 180;
 const ACTIVE_SOURCE_STATUSES = new Set([
@@ -812,7 +813,11 @@ async function login(page) {
   if (!username) throw new Error('filo_username_field_not_found');
 
   await username.fill(process.env.FILO_USER);
+  await username.dispatchEvent('input').catch(() => {});
+  await username.dispatchEvent('change').catch(() => {});
   await password.fill(process.env.FILO_PASS);
+  await password.dispatchEvent('input').catch(() => {});
+  await password.dispatchEvent('change').catch(() => {});
   const submit = await visibleFirst(page, [
     'button[type="submit"]',
     'input[type="submit"]'
@@ -826,12 +831,47 @@ async function login(page) {
     if (submitEnabled) break;
     await sleep(400);
   }
+  let naturalTypingRetry = false;
+  if (!submitEnabled) {
+    // Some SPA login forms only update their button state after trusted keyboard events.
+    // Retry through ordinary typing, without changing or bypassing any security challenge.
+    naturalTypingRetry = true;
+    await username.fill('');
+    await username.type(process.env.FILO_USER, { delay: 25 });
+    await password.fill('');
+    await password.type(process.env.FILO_PASS, { delay: 25 });
+    await password.press('Tab').catch(() => {});
+    await sleep(900);
+    for (let attempt = 0; attempt < 16; attempt++) {
+      submitEnabled = await submit.isEnabled().catch(() => false);
+      if (submitEnabled) break;
+      await sleep(350);
+    }
+  }
   if (!submitEnabled) {
     const fields = await visibleFieldReport(page);
-    const summary = fields.filter(item => ['text','email','tel','password','submit'].includes(item.type) || item.tag === 'button')
-      .map(item => ({tag:item.tag,type:item.type,placeholder:item.placeholder,required:item.required,disabled:item.disabled}))
-      .slice(0,12);
-    throw new Error('filo_login_submit_stayed_disabled:' + JSON.stringify(summary));
+    const summary = fields.filter(item => ['text','email','tel','password','submit','checkbox','hidden'].includes(item.type) || item.tag === 'button')
+      .map(item => ({tag:item.tag,type:item.type,placeholder:item.placeholder,required:item.required,
+        disabled:item.disabled,valid:item.valid,valueLength:item.valueLength,validationMessage:item.validationMessage}))
+      .slice(0,20);
+    const controls = await passwordForm.locator('button, input[type="submit"], [role="button"]').evaluateAll(nodes => nodes.slice(0, 10).map(el => ({
+      tag: el.tagName.toLowerCase(),
+      type: (el.getAttribute('type') || '').toLowerCase(),
+      text: String(el.innerText || el.getAttribute('aria-label') || el.getAttribute('value') || '').trim().replace(/\\s+/g, ' ').slice(0, 80),
+      disabled: Boolean(el.disabled),
+      ariaDisabled: el.getAttribute('aria-disabled'),
+      className: String(el.className || '').slice(0, 120)
+    })));
+    const forms = await passwordForm.evaluate(form => ({
+      valid: form.checkValidity(),
+      action: (() => { try { return new URL(form.action, location.href).pathname; } catch { return ''; } })(),
+      invalidControls: [...form.querySelectorAll('input,select,textarea')]
+        .filter(el => !el.checkValidity())
+        .map(el => ({type:el.type||el.tagName.toLowerCase(),name:el.name||'',id:el.id||'',
+          required:Boolean(el.required),valueLength:String(el.value||'').length,
+          validationMessage:String(el.validationMessage||'').slice(0,120)})).slice(0,12)
+    })).catch(() => null);
+    throw new Error('filo_login_submit_stayed_disabled:' + JSON.stringify({fields:summary,form:forms,controls,naturalTypingRetry}));
   }
 
   const loginResponsePromise = page.waitForResponse(response => {
@@ -920,6 +960,10 @@ async function visibleFieldReport(page) {
         label: text.slice(0, 90),
         visible,
         required: Boolean(el.required),
+        disabled: Boolean(el.disabled),
+        valid: typeof el.checkValidity === 'function' ? el.checkValidity() : null,
+        valueLength: ['text','email','tel','password'].includes(type) ? String(el.value || '').length : null,
+        validationMessage: String(el.validationMessage || '').slice(0, 120),
         accept: type === 'file' ? el.getAttribute('accept') || '' : ''
       };
     }).filter(x => x.visible || x.type === 'file')
@@ -1051,6 +1095,79 @@ async function uploadCoverThumbnail(page, coverPath) {
   const tileSelected = /\bselected\b/.test(tileClass || '');
   if (!tileSelected) throw new Error('filo_cover_uploaded_but_not_selected');
   return { status, apiSignal, tileSelected: true, tileClass: String(tileClass || '').slice(0, 100) };
+}
+
+async function attemptFiloUrlImport(page, mediaUrl, observedRequests, observedResponses) {
+  const requestCountBefore = observedRequests.length;
+  const responseCountBefore = observedResponses.length;
+  const tab = page.getByText(/از سایت‌های دیگر/).first();
+  if (!(await tab.isVisible().catch(() => false))) {
+    return { completed: false, started: false, definitiveFailure: true, reason: 'filo_url_import_tab_not_visible' };
+  }
+
+  await tab.click();
+  const urlInput = page.locator('input[name="tVideoUrl"]').first();
+  await urlInput.waitFor({ state: 'visible', timeout: 8000 }).catch(() => {});
+  if (!(await urlInput.isVisible().catch(() => false))) {
+    const body = (await page.locator('body').innerText().catch(() => '')).slice(0, 2500);
+    return {
+      completed: false, started: false, definitiveFailure: true,
+      reason: /محدودیت 6 گیگ/.test(body) ? 'filo_daily_url_import_limit_reached' : 'filo_url_import_input_not_visible'
+    };
+  }
+
+  await urlInput.fill(mediaUrl);
+  const submit = page.locator('#startUrlUpload').first();
+  if (!(await submit.isVisible().catch(() => false)) || !(await submit.isEnabled().catch(() => false))) {
+    return { completed: false, started: false, definitiveFailure: true, reason: 'filo_url_import_submit_not_enabled' };
+  }
+  await submit.click();
+
+  let lastBody = '';
+  for (let attempt = 0; attempt < 120; attempt++) {
+    await sleep(1500);
+    const titleField = await findField(page, 'title');
+    const descriptionField = await findField(page, 'description');
+    if (titleField && await titleField.isVisible().catch(() => false)) {
+      return {
+        completed: true, started: true, definitiveFailure: false,
+        titleField, descriptionField,
+        fields: await visibleFieldReport(page),
+        requestCount: observedRequests.length - requestCountBefore,
+        responseCount: observedResponses.length - responseCountBefore
+      };
+    }
+
+    lastBody = (await page.locator('body').innerText().catch(() => '')).slice(0, 3200);
+    const requestStarted = observedRequests.slice(requestCountBefore)
+      .some(item => /\/uploadFromUrl$/i.test(item.path));
+    const latestResponse = observedResponses.slice(responseCountBefore)
+      .filter(item => /\/uploadFromUrl$/i.test(item.path)).slice(-1)[0] || null;
+
+    if (/سرور آدرس وارد شده از کیفیت مناسبی برخوردار نمی باشد|فایل موردنظر معتبر نیست|فرمت فایل نامعتبر|بارگذاری ناموفق بود|امکان بارگذاری ویدیو از این سایت وجود نداره|خطا در ارتباط با سرور/i.test(lastBody)) {
+      return {
+        completed: false, started: requestStarted, definitiveFailure: true,
+        reason: 'filo_url_import_rejected_by_uploader', response: latestResponse
+      };
+    }
+    if (latestResponse && latestResponse.status >= 400) {
+      return {
+        completed: false, started: true, definitiveFailure: true,
+        reason: 'filo_url_import_http_' + latestResponse.status, response: latestResponse
+      };
+    }
+  }
+
+  const requestStarted = observedRequests.slice(requestCountBefore)
+    .some(item => /\/uploadFromUrl$/i.test(item.path));
+  const latestResponse = observedResponses.slice(responseCountBefore)
+    .filter(item => /\/uploadFromUrl$/i.test(item.path)).slice(-1)[0] || null;
+  return {
+    completed: false, started: requestStarted, definitiveFailure: false,
+    uncertain: requestStarted,
+    reason: requestStarted ? 'filo_url_import_transfer_outcome_unconfirmed' : 'filo_url_import_request_not_observed',
+    response: latestResponse, bodyText: lastBody.slice(0, 1200)
+  };
 }
 
 async function main() {
@@ -1227,7 +1344,7 @@ async function main() {
     try {
       const u = new URL(req.url());
       const relevant = u.hostname === 'ifilo.net' ||
-        /uploadFromFile|video\/publish|\/api\/v1\/upload/i.test(u.pathname);
+        /uploadFromFile|uploadFromUrl|video\/publish|\/api\/v1\/upload/i.test(u.pathname);
       if (relevant && req.method() !== 'GET') {
         observedRequests.push({ host: u.hostname, method: req.method(), path: u.pathname, resourceType: req.resourceType() });
       }
@@ -1237,7 +1354,7 @@ async function main() {
     try {
       const u = new URL(res.url());
       const relevant = u.hostname === 'ifilo.net' ||
-        /uploadFromFile|video\/publish|\/api\/v1\/upload/i.test(u.pathname);
+        /uploadFromFile|uploadFromUrl|video\/publish|\/api\/v1\/upload/i.test(u.pathname);
       if (relevant && res.request().method() !== 'GET') {
         observedResponses.push({ host: u.hostname, method: res.request().method(), path: u.pathname, status: res.status() });
       }
@@ -1255,57 +1372,114 @@ async function main() {
     for (const href of existingLinks) if (/^https?:\/\/(?:www\.)?ifilo\.net\/(?:v|video)\//i.test(href)) existingVideoUrls.add(href.split('?')[0]);
     await page.goto(ACCOUNT + '/upload', { waitUntil: 'domcontentloaded', timeout: 30000 });
     await sleep(1000);
-    const requestCountBeforeFile = observedRequests.length;
-
-    // The file input is mounted lazily only after selecting the "from your device" method.
-    // Click the option first, then wait for Filo's hidden file input to appear.
-    const deviceOption = page.getByText(/از دستگاه.{0,8}ت/).first();
-    if (await deviceOption.isVisible().catch(() => false)) {
-      await deviceOption.click();
-      await sleep(900);
-    }
-    const uploadFile = page.locator('#fileInput').first();
-    const fallbackFile = page.locator('input[type="file"][accept*="video"]').first();
-    let fileInput = await uploadFile.count().catch(() => 0) ? uploadFile : fallbackFile;
-    if (!(await fileInput.count().catch(() => 0))) {
-      await page.locator('input[type="file"]').first().waitFor({ state: 'attached', timeout: 8000 }).catch(() => {});
-      fileInput = await uploadFile.count().catch(() => 0) ? uploadFile : fallbackFile;
-    }
-    if (!(await fileInput.count().catch(() => 0))) {
-      const visibleFields = await visibleFieldReport(page);
-      throw new Error('filo_video_file_input_not_found_after_device_choice:' +
-        visibleFields.filter(x => x.type === 'file').length + '_file_inputs');
-    }
-
-    const visibleUploader = page.locator('#uploader').first();
-    let chooser = null;
-    if (await visibleUploader.isVisible().catch(() => false)) {
-      const chooserPromise = page.waitForEvent('filechooser', { timeout: 4500 }).catch(() => null);
-      await visibleUploader.click({ timeout: 8000 });
-      chooser = await chooserPromise;
-    }
-    if (chooser) {
-      await chooser.setFiles(OUTPUT_FILE);
-    } else {
-      // If the tile click only initializes the chunk uploader, assign the file now.
-      await fileInput.setInputFiles(OUTPUT_FILE);
-    }
-
+    const requestCountBeforeMedia = observedRequests.length;
+    let uploadMethod = 'direct_file';
     let fieldsAfterSelection = [];
     let titleField = null;
     let descriptionField = null;
+    let urlImportResult = null;
 
-    // Filo uploads in 1 MiB chunks and only then exposes its metadata form.
-    for (let attempt = 0; attempt < 100; attempt++) {
-      await sleep(1500);
-      fieldsAfterSelection = await visibleFieldReport(page);
-      titleField = await findField(page, 'title');
-      descriptionField = await findField(page, 'description');
-      if (titleField && await titleField.isVisible().catch(() => false)) break;
-      const body = await page.locator('body').innerText().catch(() => '');
-      if (/خطا در بارگذاری|فایل بیش از حد مجاز|فرمت فایل نامعتبر|آپلود ناموفق/i.test(body)) break;
+    const urlCandidate = inspectFiloUrlImportCandidate(candidate);
+    const urlImportPreferred = urlCandidate.eligible && isVerticalMediaForUrlImport({
+      width: rights.sourceWidth,
+      height: rights.sourceHeight,
+      durationSeconds: rights.durationSeconds
+    });
+    if (urlImportPreferred) {
+      console.log('FILO_URL_IMPORT_ELIGIBILITY', JSON.stringify({
+        eligible: true,
+        host: urlCandidate.host,
+        extension: urlCandidate.extension,
+        sourceWidth: rights.sourceWidth,
+        sourceHeight: rights.sourceHeight,
+        durationSeconds: rights.durationSeconds
+      }));
+      urlImportResult = await attemptFiloUrlImport(page, urlCandidate.url, observedRequests, observedResponses);
+      if (urlImportResult.completed) {
+        uploadMethod = 'url_import';
+        titleField = urlImportResult.titleField;
+        descriptionField = urlImportResult.descriptionField;
+        fieldsAfterSelection = urlImportResult.fields || [];
+      } else if (urlImportResult.started && !urlImportResult.definitiveFailure) {
+        const attemptedAt = new Date().toISOString();
+        state.posts = [...(state.posts || []), {
+          sourcePage: COMMONS_PAGE,
+          sourceTitle: SOURCE_TITLE,
+          title: PERSIAN_TITLE,
+          status: 'upload_staged_unpublished',
+          uploadMethod: 'url_import',
+          attemptedAt,
+          note: 'Filo URL-import transfer started, but its completion was not confirmed. Direct-file fallback was withheld to prevent duplicate transfers.'
+        }].slice(-500);
+        state.lastOutcome = { status: 'url_import_transfer_unconfirmed', checkedAt: attemptedAt, sourcePage: COMMONS_PAGE };
+        fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
+        result = {
+          status: 'url_import_transfer_unconfirmed',
+          uploadMethod: 'url_import',
+          title: PERSIAN_TITLE,
+          sourcePage: COMMONS_PAGE,
+          reason: urlImportResult.reason,
+          response: urlImportResult.response || null,
+          note: 'A URL transfer was observed but Filo did not expose its metadata form. No direct upload or publish was attempted, avoiding a duplicate transfer.'
+        };
+        console.log('FILO_PUBLISH_RESULT', JSON.stringify(result));
+        return;
+      } else {
+        console.log('FILO_URL_IMPORT_FALLBACK_TO_FILE', JSON.stringify({
+          reason: urlImportResult.reason || 'url_import_unavailable',
+          requestStarted: Boolean(urlImportResult.started),
+          definitiveFailure: Boolean(urlImportResult.definitiveFailure)
+        }));
+      }
+    } else {
+      console.log('FILO_URL_IMPORT_SKIPPED', JSON.stringify({
+        reason: urlCandidate.eligible ? 'source_not_vertical_or_duration_not_supported' : urlCandidate.reason
+      }));
     }
-    const uploadResponseInfo = observedResponses.filter(x => /\/uploadFromFile$/i.test(x.path)).slice(-1)[0] || null;
+
+    if (uploadMethod !== 'url_import') {
+      // Fallback/direct method: upload the prepared portrait file from the device.
+      const deviceOption = page.getByText(/از دستگاه.{0,8}ت/).first();
+      if (await deviceOption.isVisible().catch(() => false)) {
+        await deviceOption.click();
+        await sleep(900);
+      }
+      const uploadFile = page.locator('#fileInput').first();
+      const fallbackFile = page.locator('input[type="file"][accept*="video"]').first();
+      let fileInput = await uploadFile.count().catch(() => 0) ? uploadFile : fallbackFile;
+      if (!(await fileInput.count().catch(() => 0))) {
+        await page.locator('input[type="file"]').first().waitFor({ state: 'attached', timeout: 8000 }).catch(() => {});
+        fileInput = await uploadFile.count().catch(() => 0) ? uploadFile : fallbackFile;
+      }
+      if (!(await fileInput.count().catch(() => 0))) {
+        const visibleFields = await visibleFieldReport(page);
+        throw new Error('filo_video_file_input_not_found_after_device_choice:' +
+          visibleFields.filter(x => x.type === 'file').length + '_file_inputs');
+      }
+
+      const visibleUploader = page.locator('#uploader').first();
+      let chooser = null;
+      if (await visibleUploader.isVisible().catch(() => false)) {
+        const chooserPromise = page.waitForEvent('filechooser', { timeout: 4500 }).catch(() => null);
+        await visibleUploader.click({ timeout: 8000 });
+        chooser = await chooserPromise;
+      }
+      if (chooser) await chooser.setFiles(OUTPUT_FILE);
+      else await fileInput.setInputFiles(OUTPUT_FILE);
+
+      // The file uploader exposes metadata only after its chunked file transfer completes.
+      for (let attempt = 0; attempt < 100; attempt++) {
+        await sleep(1500);
+        fieldsAfterSelection = await visibleFieldReport(page);
+        titleField = await findField(page, 'title');
+        descriptionField = await findField(page, 'description');
+        if (titleField && await titleField.isVisible().catch(() => false)) break;
+        const body = await page.locator('body').innerText().catch(() => '');
+        if (/خطا در بارگذاری|فایل بیش از حد مجاز|فرمت فایل نامعتبر|آپلود ناموفق/i.test(body)) break;
+      }
+    }
+    const uploadResponseInfo = observedResponses
+      .filter(x => /\/uploadFrom(?:File|Url)$/i.test(x.path)).slice(-1)[0] || null;
 
     // Use a simple visible title/description input only when its labels identify the field.
     if (!titleField) {
@@ -1320,13 +1494,14 @@ async function main() {
     }
 
     if (!titleField || !(await titleField.isVisible().catch(() => false))) {
-      const stageRequests = observedRequests.slice(requestCountBeforeFile);
-      const actualUploadRequest = stageRequests.some(x => /uploadFromFile$/i.test(x.path));
+      const stageRequests = observedRequests.slice(requestCountBeforeMedia);
+      const actualUploadRequest = stageRequests.some(x => /uploadFrom(?:File|Url)$/i.test(x.path));
       if (actualUploadRequest && uploadResponseInfo && uploadResponseInfo.status >= 200 && uploadResponseInfo.status < 300) {
         state.posts = [...(state.posts || []), {
           sourcePage: COMMONS_PAGE, title: PERSIAN_TITLE, status: 'upload_staged_unpublished',
+          uploadMethod,
           attemptedAt: new Date().toISOString(),
-          note: 'Filo file transfer completed, but metadata/publish stage was not reached.'
+          note: 'Filo media transfer completed, but metadata/publish stage was not reached.'
         }].slice(-500);
         fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
       }
@@ -1335,7 +1510,9 @@ async function main() {
         authenticated: true,
         uploadPage: pathOnly(page.url()),
         title: PERSIAN_TITLE,
-        fileSelected: true,
+        fileSelected: uploadMethod === 'direct_file',
+        uploadMethod,
+        urlImport: urlImportResult ? { reason: urlImportResult.reason || null, started: Boolean(urlImportResult.started) } : null,
         uploadRequestObserved: actualUploadRequest,
         uploadResponse: uploadResponseInfo,
         fields: fieldsAfterSelection,
@@ -1382,6 +1559,7 @@ async function main() {
       licenseUrl: rights.licenseUrl,
       title: PERSIAN_TITLE,
       status: 'submit_started',
+      uploadMethod,
       contentOrigin: candidate.contentOrigin || 'licensed_external',
       puzzleId: candidate.puzzleId || undefined,
       topic: candidate.topic || undefined,
@@ -1479,6 +1657,7 @@ async function main() {
         licenseUrl: rights.licenseUrl,
         title: PERSIAN_TITLE,
         postUrl,
+        uploadMethod,
         status: finalStatus,
         publishHttpStatus,
         publishApiAccepted,
@@ -1493,8 +1672,10 @@ async function main() {
       fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
       result = {
         status: finalStatus, title: PERSIAN_TITLE, postUrl, sourcePage: COMMONS_PAGE,
+        uploadMethod,
         sourceTitle: SOURCE_TITLE, license: rights.licenseName, sourceBytes: rights.sourceBytes,
-        convertedBytes: converted.outputBytes, finalVideoBytes: endCard.outputBytes,
+        convertedBytes: uploadMethod === 'direct_file' ? converted.outputBytes : null,
+        finalVideoBytes: uploadMethod === 'direct_file' ? endCard.outputBytes : rights.sourceBytes,
         coverBytes: cover.coverBytes, endCardSeconds: endCard.endCardSeconds, durationSeconds: sourceDurationSeconds,
         coverUpload, publishHttpStatus, publishApiAccepted,
         note: confirmedPublic ? 'Filo showed the new video as active.'
@@ -1536,8 +1717,9 @@ async function main() {
             ? 'Filo rejected the publish request. No successful publication is claimed.'
             : 'The publish response was not conclusive; a new public post URL could not be confirmed.',
         sourceBytes: rights.sourceBytes,
-        convertedBytes: converted.outputBytes,
-        finalVideoBytes: endCard.outputBytes,
+        uploadMethod,
+        convertedBytes: uploadMethod === 'direct_file' ? converted.outputBytes : null,
+        finalVideoBytes: uploadMethod === 'direct_file' ? endCard.outputBytes : rights.sourceBytes,
         coverBytes: cover.coverBytes,
         endCardSeconds: endCard.endCardSeconds,
         bodyText: bodyText.slice(0, 1200),

@@ -132,8 +132,8 @@ const windowRank = rankCandidatesByMomentum([
   { video_code:'UnknownAge', title:'ویدئوی بدون تاریخ قابل‌اعتماد', visit_count:100, plays:10 },
   { video_code:'FutureAge', title:'ویدئوی دارای تاریخ آینده', timestamp:Math.floor((ageWindowNow + 60*60*1000)/1000), visit_count:100, plays:10 }
 ], windowMomentumState, ageWindowNow);
-assert.deepEqual(windowRank.map(entry => entry.item.video_code).sort(), ['UnknownAge','Window70'],
-  'known-old and future-dated candidates are excluded, while unknown-age candidates may enter momentum observation');
+assert.deepEqual(windowRank.map(entry => entry.item.video_code).sort(), ['UnknownAge','Window70','Window73'],
+  'older candidates remain observable without a fixed 72-hour age cutoff; future-dated candidates remain excluded');
 assert.equal(windowRank.find(entry => entry.item.video_code === 'UnknownAge').growthGatePassed, false,
   'an unknown-age source must not become publishable on its first sighting');
 const unknownSecond = rankCandidatesByMomentum([
@@ -415,10 +415,13 @@ assert.equal(resolveDepthScanStartPage(2,{lastPageNo:9}),2,
 assert.equal(resolveDepthScanStartPage(14,{lastPageNo:12}),2,
   'a non-contiguous stored cursor must restart safely');
 assert.equal(nextCategoryDepthPage(12),13);
-assert.equal(nextCategoryDepthPage(18),19, 'the 72-hour scan continues beyond the former page-eighteen ceiling');
-assert.equal(nextCategoryDepthPage(36),2, 'the expanded page ceiling wraps only after page thirty-six');
-assert.equal(resolveDepthScanStartPage(2,{lastPageNo:30}),31,
-  'saved depth evidence must resume inside the expanded 36-page range');
+assert.equal(nextCategoryDepthPage(18),19, 'deep scanning continues from newest to older pages');
+assert.equal(nextCategoryDepthPage(36),37, 'deep scanning continues beyond the former page cap');
+assert.equal(nextCategoryDepthPage(60),61, 'deep scanning continues through the expanded page range');
+assert.equal(nextCategoryDepthPage(119),120);
+assert.equal(nextCategoryDepthPage(120),2, 'the safety page ceiling wraps only after page one hundred twenty');
+assert.equal(resolveDepthScanStartPage(2,{lastPageNo:100}),101,
+  'saved depth evidence resumes inside the expanded 120-page range');
 assert.deepEqual(
   Object.keys(summarizeCategoryCatalogPayload({s:true,d:{c:[],cfs:[]}}).nested),
   ['d']
@@ -999,8 +1002,8 @@ const baseline = [
   { video_code: 'ViewsOnly', title: 'ویدئوی بدون شمارنده پخش', create_date: '۲ ساعت پیش', visit_count: 100 }
 ];
 const firstRank = rankCandidatesByMomentum(baseline, momentumState, momentumStart);
-assert.equal(firstRank.length, 3,
-  'a first sighting must use safe cumulative-count fallback instead of stalling the publishing cycle');
+assert.equal(firstRank.length, 4,
+  'older videos remain eligible for observation alongside new candidates; first sightings still use safe cumulative-count fallback');
 assert.equal(firstRank[0].rankingMetric, 'cumulative_plays');
 assert.equal(firstRank[0].selectionMode, 'cumulative_play_fallback');
 assert.equal(firstRank.every(entry => !entry.hasMeasuredGrowth), true);
@@ -1012,17 +1015,23 @@ const secondScan = [
   { ...baseline[3], visit_count: 250 }
 ];
 const secondRank = rankCandidatesByMomentum(secondScan, momentumState, momentumStart + 10 * 60 * 1000);
-assert.equal(secondRank.length, 3, 'older videos are excluded but views-only fallback remains available');
-assert.equal(secondRank[0].item.video_code, 'Comedy01',
-  'measured plays growth must outrank higher views growth');
-assert.equal(secondRank[0].momentum.playsPerMinute, 2);
-assert.equal(secondRank[0].momentum.viewsPerMinute, 10);
-assert.equal(secondRank[0].rankingMetric, 'plays');
-assert.equal(secondRank[1].item.video_code, 'Tutorial1');
-assert.equal(secondRank[1].momentum.playsPerMinute, 1);
-assert.equal(secondRank[2].item.video_code, 'ViewsOnly');
-assert.equal(secondRank[2].rankingMetric, 'views',
+assert.equal(secondRank.length, 4, 'older videos remain observable and views-only fallback remains available');
+const comedyRank = secondRank.find(entry => entry.item.video_code === 'Comedy01');
+assert.ok(comedyRank);
+assert.equal(comedyRank.momentum.playsPerMinute, 2);
+assert.equal(comedyRank.momentum.viewsPerMinute, 10);
+assert.equal(comedyRank.rankingMetric, 'plays');
+const tutorialRank = secondRank.find(entry => entry.item.video_code === 'Tutorial1');
+assert.equal(tutorialRank.momentum.playsPerMinute, 1);
+const viewsOnlyRank = secondRank.find(entry => entry.item.video_code === 'ViewsOnly');
+assert.ok(viewsOnlyRank);
+assert.equal(viewsOnlyRank.rankingMetric, 'views',
   'a candidate with no play counter may fall back to measured view growth');
+assert.ok(secondRank.indexOf(comedyRank) < secondRank.indexOf(viewsOnlyRank),
+  'measured play growth must outrank a views-only candidate while older qualified candidates remain in the pool');
+const olderRank = secondRank.find(entry => entry.item.video_code === 'Old001');
+assert.ok(olderRank, 'a 73-hour candidate remains in the discovery/ranking pool');
+assert.equal(olderRank.hasPositivePlayGrowth, true);
 
 const hintPriorityState = {posts:[]};
 const hintPriorityStart = Date.parse('2026-11-04T01:00:00.000Z');
@@ -1046,12 +1055,13 @@ const thirdScan = [
   { ...baseline[3], visit_count: 500 }
 ];
 const thirdRank = rankCandidatesByMomentum(thirdScan, momentumState, momentumStart + 20 * 60 * 1000);
-assert.equal(thirdRank[0].item.video_code, 'Comedy01');
-assert.equal(thirdRank[0].momentum.playsPerMinute, 2);
-assert.equal(thirdRank[0].momentum.playsAccelerationPerMinute, 0);
-assert.equal(thirdRank[0].momentum.viewsPerMinute, 20,
+const thirdComedyRank = thirdRank.find(entry => entry.item.video_code === 'Comedy01');
+assert.ok(thirdComedyRank);
+assert.equal(thirdComedyRank.momentum.playsPerMinute, 2);
+assert.equal(thirdComedyRank.momentum.playsAccelerationPerMinute, 0);
+assert.equal(thirdComedyRank.momentum.viewsPerMinute, 20,
   'velocity is estimated across the recent independent-sample window, not only the last adjacent interval');
-assert.equal(thirdRank[2].item.video_code, 'ViewsOnly');
+assert.ok(thirdRank.some(entry => entry.item.video_code === 'ViewsOnly'));
 
 
 const rotatingMomentumState = { candidateMomentum:{} };
@@ -1486,14 +1496,12 @@ const pacingNow = Date.parse('2026-11-06T12:00:00.000Z');
 const oneRecentPublication = { posts: [
   { status:'public_verified', submittedAt:new Date(pacingNow - 10*60*1000).toISOString() }
 ] };
-const blockedByGap = getPublicationPacingGate(oneRecentPublication, pacingNow);
-assert.equal(blockedByGap.blocked, true);
-assert.deepEqual(blockedByGap.reasons, ['minimum_gap_between_republish_operations']);
-assert.equal(blockedByGap.nextEligibleAt, new Date(pacingNow + 7*60*1000).toISOString());
-assert.equal(getPublicationPacingGate(oneRecentPublication, pacingNow + 7*60*1000 - 1).blocked, true,
-  'the republish gate must remain closed one millisecond before the 17-minute minimum gap');
-assert.equal(getPublicationPacingGate(oneRecentPublication, pacingNow + 7*60*1000).blocked, false,
-  'the next repost becomes eligible exactly at the 17-minute minimum gap');
+const immediatelyEligible = getPublicationPacingGate(oneRecentPublication, pacingNow);
+assert.equal(immediatelyEligible.blocked, false);
+assert.deepEqual(immediatelyEligible.reasons, []);
+assert.equal(immediatelyEligible.minimumGapMs, 0);
+assert.equal(immediatelyEligible.nextEligibleAt, null,
+  'a prior operation does not impose an artificial 17-minute local delay');
 
 const rollingHourState = { posts: [
   { status:'public_verified', submittedAt:new Date(pacingNow - 50*60*1000).toISOString() },
@@ -1541,19 +1549,18 @@ async function testPublicationPacingWait() {
     sleepFn: async ms => { recordedWait = ms; fakeNow += ms; },
     maxWaitMs: 5*60*1000
   });
-  assert.equal(recordedWait,2*60*1000,
-    'a scheduler cycle arriving two minutes before eligibility must sleep until the exact 17-minute boundary');
-  assert.equal(waitedForExactWindow.waitedMs,2*60*1000);
+  assert.equal(recordedWait,0,
+    'an eligible follow-up operation must not sleep for a local 17-minute pacing rule');
+  assert.equal(waitedForExactWindow.waitedMs,0);
   assert.equal(waitedForExactWindow.gate.blocked,false);
 
-  const beyondSchedulerWindow = await waitForPublicationWindow(oneRecentPublication, {
+  const noArtificialWait = await waitForPublicationWindow(oneRecentPublication, {
     nowFn: () => pacingNow,
-    sleepFn: async () => { throw new Error('must not hold a runner for a long wait'); },
-    maxWaitMs: 5*60*1000
+    sleepFn: async () => { throw new Error('no wait should be requested'); },
+    maxWaitMs: 0
   });
-  assert.equal(beyondSchedulerWindow.waitSkipped,true);
-  assert.equal(beyondSchedulerWindow.gate.blocked,true);
-  assert.equal(beyondSchedulerWindow.requiredWaitMs,7*60*1000);
+  assert.equal(noArtificialWait.waitSkipped,false);
+  assert.equal(noArtificialWait.gate.blocked,false);
 }
 
 async function testPortraitCoverComposition() {

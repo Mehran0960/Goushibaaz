@@ -19,20 +19,21 @@ assert.equal(evaluateExternalIngestDue({
 
 const tooSoon = evaluateExternalIngestDue({
   nativeReport,
-  scheduleState: { lastAttemptAt: new Date(now - 30 * 60 * 1000).toISOString() },
+  scheduleState: { lastAttemptAt: new Date(now - 10 * 60 * 1000).toISOString() },
   now
 });
 assert.equal(tooSoon.due, false);
-assert.equal(tooSoon.reason, 'external_scan_interval_not_elapsed');
+assert.equal(tooSoon.reason, 'external_scan_interval_not_elapsed',
+  'the external scan interval should be 15 minutes, not a two-hour blind window');
 
-const crossPathCooldown = evaluateExternalIngestDue({
+const crossPathNoLocalGap = evaluateExternalIngestDue({
   nativeReport,
   nativeState: { posts: [{ status: 'public_verified', submittedAt: new Date(now - 5 * 60 * 1000).toISOString() }] },
   scheduleState: { lastAttemptAt: new Date(now - EXTERNAL_SCAN_INTERVAL_MS).toISOString() },
   now
 });
-assert.equal(crossPathCooldown.due, false);
-assert.equal(crossPathCooldown.reason, 'publication_cooldown');
+assert.equal(crossPathNoLocalGap.due, true,
+  'a completed native operation does not impose a local 17-minute cross-path publishing delay');
 
 const due = evaluateExternalIngestDue({
   nativeReport,
