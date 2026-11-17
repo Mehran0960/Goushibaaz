@@ -70,6 +70,7 @@ const CANDIDATE_CATALOG_24H_TTL_MS = 24 * 60 * 60 * 1000;
 const MAX_TRACKED_CANDIDATE_METRICS = 5000;
 const MAX_TRACKED_24H_CANDIDATES = 5000;
 const MIN_ACCELERATION_SAMPLES = 3;
+const MIN_MEASURED_VELOCITY_PER_MINUTE = 0.05;
 const FEED_DATE_FIELDS = [
   'create_date', 'styled_create_date', 'created_at', 'createdAt', 'created',
   'created_time', 'create_time', 'created_date', 'createdDate', 'date_created', 'dateCreated',
@@ -400,6 +401,8 @@ function sourceText(item) {
 
 const EXCLUDED = /(?:اخبار|خبر فوری|تحلیل سیاسی|سیاست|سیاسی|انتخابات|جنگ|حمله نظامی|موشک|انفجار|تروریست|ترور|اعدام|شلیک|سلاح|بمب|هسته.?ای|مواد منفجره|ساخت.?(?:بمب|سلاح|موشک)|شبیه.?ساز.{0,24}(?:بمب|موشک|سلاح)|پهپاد نظامی|مهمات|خشونت|مداحی|تبلیغات|کازینو|شرط.?بندی|قمار|محتوای بزرگسال|پورنو|قتل|خودکشی|خودآزاری|صحنه دلخراش|تصادف مرگبار|حیوان.?آزاری|رقص|حرکات موزون|تک.?خوانی.{0,8}زن|خوانندگی.{0,8}زن|فحاشی|الفاظ رکیک|افترا|تهمت|توهین|ناسزا|بددهنی|تحقیر|تمسخر|دوربین.?مداربسته|فیلم.?برداری.?مخفی|افشای اطلاعات|کد ملی|خبر جعلی|اطلاعات نادرست|فیلم سینمایی|فیلم ایرانی|سریال|مجموعه تلویزیونی|محصول نمایش خانگی|شبکه نمایش خانگی|صدا.?و.?سیما|فیلیمو|نماوا|فیلم.?نت|تلوبیون|آی.?آر.?مووی|IR.?Movie|مواد مخدر|مشروبات الکلی|برهنگی|محتوای جنسی)/i;
 const POLICY_TEXT_RISKS = [
+ {reason:'military_or_conflict_content',pattern:/(?:(?:پهپاد|هواپیمای بدون سرنشین|drone|uav|mq[-\s]?[0-9۰-۹]+|جنگنده|ناو جنگی|شناور نظامی|موشک|پدافند هوایی|سامانه پدافند).{0,100}(?:رهگیری|انهدام|سرنگونی|حمله|رزمایش|عملیات|جنگ|درگیری|تنگه.{0,8}هرمز|سپاه|ارتش|نظامی|آمریکا|آمریکایی|اسرائیل|ایران)|(?:رهگیری|انهدام|سرنگونی|حمله|رزمایش|عملیات نظامی).{0,100}(?:پهپاد|هواپیمای بدون سرنشین|جنگنده|ناو|شناور|موشک|پدافند|تنگه.{0,8}هرمز)|(?:سپاه پاسداران|نیروی دریایی|ارتش ایران|خبر نظامی|عملیات نظامی|رزمایش نظامی))/i},
+ {reason:'low_value_greeting_or_calendar_filler',pattern:/(?:کلیپ\s*استوری\s*تولد|تبریک\s*تولد.{0,55}(?:متولدین|متولد|استوری)|متولدین?\s*[0-9۰-۹]+\s*(?:فروردین|اردیبهشت|خرداد|تیر|مرداد|شهریور|مهر|آبان|آذر|دی|بهمن|اسفند).{0,35}(?:تولدت|تبریک))/i},
  {reason:'weapons_or_explosives',pattern:/(?:بمب\s*(?:اتم|هسته.?ای)?|سلاح\s*هسته.?ای|انفجار\s*هسته.?ای|مواد\s*منفجره|ساخت\s*(?:بمب|سلاح|موشک)|شبیه.?ساز.{0,24}(?:بمب|موشک|سلاح)|پهپاد\s*نظامی|مهمات)/i},
  {reason:'insult_or_defamation',pattern:/(?:توهین|توهین\s*آمیز|فحاشی|الفاظ\s*رکیک|ناسزا|بددهنی|افترا|تهمت|تحقیر|تمسخر)/i},
  {reason:'privacy_exposure',pattern:/(?:دوربین\s*مداربسته|\bCCTV\b|افشای\s*(?:اطلاعات|آدرس|شماره)|کد\s*ملی|شماره\s*(?:موبایل|تلفن)|آدرس\s*منزل|بدون\s*رضایت|فیلم.?برداری\s*مخفی)/i},
@@ -412,7 +415,8 @@ const POLICY_TEXT_RISKS = [
  {reason:'illegal_goods_or_gambling',pattern:/(?:مواد\s*مخدر|مشروبات\s*الکلی|کازینو|شرط.?بندی|قمار|فروش\s*(?:مشروب|مواد\s*مخدر|سلاح))/i}
 ];
 function policyTextRiskReason(item){
- const text=[item&&item.title,item&&item.description].filter(Boolean).join(' ').replace(/\s+/g,' ').trim();
+ const text=[item&&item.title,item&&item.description,item&&item.category_name,item&&item.category_title,
+   item&&item.category,item&&item.feed_tag_label].filter(Boolean).join(' ').replace(/\s+/g,' ').trim();
  if(!text)return null;
  for(const risk of POLICY_TEXT_RISKS)if(risk.pattern.test(text))return risk.reason;
  return EXCLUDED.test(text)?'prohibited_or_sensitive_content':null;
@@ -1033,6 +1037,7 @@ function candidateAccelerationEvidence(entry) {
         metric: 'plays',
         sampleCount,
         minimumSamples: MIN_ACCELERATION_SAMPLES,
+        minimumVelocityPerMinute: MIN_MEASURED_VELOCITY_PER_MINUTE,
         velocityPerMinute: null,
         accelerationPerMinute: null
       };
@@ -1040,14 +1045,16 @@ function candidateAccelerationEvidence(entry) {
     const velocity = num(momentum.playsPerMinute, 0);
     const acceleration = num(momentum.playsAccelerationPerMinute, 0);
     return {
-      passed: entry.hasPositivePlayGrowth === true && velocity > 0,
+      passed: entry.hasPositivePlayGrowth === true && velocity >= MIN_MEASURED_VELOCITY_PER_MINUTE,
       reason: entry.hasPositivePlayGrowth !== true || velocity <= 0
         ? 'no_positive_play_velocity'
+        : velocity < MIN_MEASURED_VELOCITY_PER_MINUTE ? 'play_velocity_below_minimum'
         : acceleration <= 0 ? 'positive_play_velocity_without_acceleration'
           : 'positive_play_acceleration',
       metric: 'plays',
       sampleCount,
       minimumSamples: MIN_ACCELERATION_SAMPLES,
+      minimumVelocityPerMinute: MIN_MEASURED_VELOCITY_PER_MINUTE,
       velocityPerMinute: velocity,
       accelerationPerMinute: acceleration
     };
@@ -1063,6 +1070,7 @@ function candidateAccelerationEvidence(entry) {
         metric: 'views',
         sampleCount,
         minimumSamples: MIN_ACCELERATION_SAMPLES,
+        minimumVelocityPerMinute: MIN_MEASURED_VELOCITY_PER_MINUTE,
         velocityPerMinute: null,
         accelerationPerMinute: null
       };
@@ -1073,8 +1081,9 @@ function candidateAccelerationEvidence(entry) {
     );
     const zeroPlayFallback = playCounterAvailable && playCounterZeroStalled;
     return {
-      passed: velocity > 0,
+      passed: velocity >= MIN_MEASURED_VELOCITY_PER_MINUTE,
       reason: velocity <= 0 ? 'no_positive_view_velocity'
+        : velocity < MIN_MEASURED_VELOCITY_PER_MINUTE ? 'view_velocity_below_minimum'
         : acceleration <= 0 ? zeroPlayFallback
           ? 'positive_view_velocity_zero_play_counter_stalled'
           : 'positive_view_velocity_without_acceleration'
@@ -1085,6 +1094,7 @@ function candidateAccelerationEvidence(entry) {
         : !playCounterAvailable ? 'play_counter_unavailable' : null,
       sampleCount,
       minimumSamples: MIN_ACCELERATION_SAMPLES,
+      minimumVelocityPerMinute: MIN_MEASURED_VELOCITY_PER_MINUTE,
       velocityPerMinute: velocity,
       accelerationPerMinute: acceleration
     };
@@ -3639,7 +3649,11 @@ async function main() {
     report.discovery.accelerationFilter = {
       mode: 'positive_velocity_required_acceleration_rank_bonus',
       minimumIndependentSamples: MIN_ACCELERATION_SAMPLES,
+      minimumVelocityPerMinute: MIN_MEASURED_VELOCITY_PER_MINUTE,
       candidatesEvaluated: ranked.length,
+      candidatesBelowMinimumVelocity: ranked.filter(entry =>
+        ['play_velocity_below_minimum','view_velocity_below_minimum'].includes(entry.accelerationEvidence.reason)
+      ).length,
       candidatesWithMeasuredGrowth: ranked.filter(entry => entry.hasMeasuredGrowth).length,
       candidatesPassingVelocityGate: accelerationQualified.length,
       candidatesWithZeroPlayCounterStalled: ranked.filter(entry =>
@@ -3761,7 +3775,7 @@ async function main() {
       report.status = 'no_candidate_passed_measured_velocity_gate';
       report.result = {
         status: report.status,
-        reason: 'No candidate had at least three independent metric samples and positive measured velocity; cumulative counts are not accepted as a publication fallback.',
+        reason: `No candidate had at least ${MIN_ACCELERATION_SAMPLES} independent metric samples and measured velocity of at least ${MIN_MEASURED_VELOCITY_PER_MINUTE} per minute; cumulative counts are not accepted as a publication fallback.`,
         retryOnNextScheduledRun: true,
         discoveryContinues: true
       };
