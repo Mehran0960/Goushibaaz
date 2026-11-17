@@ -82,6 +82,34 @@ class RetentionPotentialTests(unittest.TestCase):
         })
         self.assertEqual(result["content_lane"], "diy_and_creativity")
 
+    def test_forest_is_not_misclassified_as_war_but_war_still_is(self):
+        forest = annotate_candidate({
+            "url": "https://t.me/example/forest",
+            "title": "ساخت کلبه چوبی در جنگل",
+            "description": "یک پروژه ساخت و ساز در طبیعت",
+            "platform": "telegram",
+            "source": "telegram_native_video",
+            "age_hours": 2,
+            "views": 10000,
+            "views_velocity_per_hour": 900,
+            "views_velocity_kind": "observed",
+            "duration_seconds": 30,
+        })
+        conflict = annotate_candidate({
+            "url": "https://t.me/example/war",
+            "title": "گزارش جنگ و درگیری نظامی",
+            "description": "گزارش خبری",
+            "platform": "telegram",
+            "source": "telegram_native_video",
+            "age_hours": 2,
+            "views": 10000,
+            "views_velocity_per_hour": 900,
+            "views_velocity_kind": "observed",
+            "duration_seconds": 30,
+        })
+        self.assertFalse(forest["news_risk_signal"])
+        self.assertTrue(conflict["news_risk_signal"])
+
     def test_annotated_score_does_not_claim_measured_watch_time(self):
         result = annotate_candidate({
             "url": "https://t.me/example/123",
