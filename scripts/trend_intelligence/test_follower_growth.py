@@ -47,6 +47,69 @@ class RetentionPotentialTests(unittest.TestCase):
         self.assertGreater(four_regions["youtube_chart_signal_score"], one_region["youtube_chart_signal_score"])
         self.assertGreater(four_regions["follow_growth_score"], one_region["follow_growth_score"])
 
+    def test_wooden_cabin_build_is_classified_as_diy(self):
+        result = annotate_candidate({
+            "url": "https://www.youtube.com/watch?v=example12345",
+            "title": "Building Wooden Log Cabin in Forest | Survival House Step by Step",
+            "description": "A single continuous woodworking and shelter construction project",
+            "platform": "youtube",
+            "source": "youtube_public_api",
+            "age_hours": 2,
+            "views": 14560765,
+            "views_velocity_per_hour": 404746.08,
+            "views_velocity_kind": "observed",
+            "views_acceleration_per_hour2": 39587.09,
+            "duration_seconds": 45,
+        })
+        self.assertEqual(result["content_lane"], "diy_and_creativity")
+        self.assertEqual(result["views_velocity_kind"], "observed")
+        self.assertEqual(result["views_acceleration_per_hour2"], 39587.09)
+        self.assertFalse(result["news_risk_signal"])
+        self.assertFalse(result["promotional_signal"])
+
+    def test_persian_wooden_cabin_build_is_classified_as_diy(self):
+        result = annotate_candidate({
+            "url": "https://t.me/example/123",
+            "title": "ساخت کلبه چوبی در جنگل با ابزار ساده",
+            "description": "مراحل ساخت یک خانه چوبی کوچک",
+            "platform": "telegram",
+            "source": "telegram_native_video",
+            "age_hours": 3,
+            "views": 12000,
+            "views_velocity_per_hour": 1200,
+            "views_velocity_kind": "observed",
+            "duration_seconds": 30,
+        })
+        self.assertEqual(result["content_lane"], "diy_and_creativity")
+
+    def test_forest_is_not_misclassified_as_war_but_war_still_is(self):
+        forest = annotate_candidate({
+            "url": "https://t.me/example/forest",
+            "title": "ساخت کلبه چوبی در جنگل",
+            "description": "یک پروژه ساخت و ساز در طبیعت",
+            "platform": "telegram",
+            "source": "telegram_native_video",
+            "age_hours": 2,
+            "views": 10000,
+            "views_velocity_per_hour": 900,
+            "views_velocity_kind": "observed",
+            "duration_seconds": 30,
+        })
+        conflict = annotate_candidate({
+            "url": "https://t.me/example/war",
+            "title": "گزارش جنگ و درگیری نظامی",
+            "description": "گزارش خبری",
+            "platform": "telegram",
+            "source": "telegram_native_video",
+            "age_hours": 2,
+            "views": 10000,
+            "views_velocity_per_hour": 900,
+            "views_velocity_kind": "observed",
+            "duration_seconds": 30,
+        })
+        self.assertFalse(forest["news_risk_signal"])
+        self.assertTrue(conflict["news_risk_signal"])
+
     def test_annotated_score_does_not_claim_measured_watch_time(self):
         result = annotate_candidate({
             "url": "https://t.me/example/123",
