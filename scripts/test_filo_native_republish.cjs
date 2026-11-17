@@ -161,11 +161,11 @@ assert.equal(ageDiagnostic.sourceFieldCounts.cd,2);
 assert.equal(shouldStartPublishingCycle(null, Date.parse('2026-11-05T04:20:00.000Z')), true,
   'the first publishing cycle should start immediately');
 assert.equal(shouldStartPublishingCycle('2026-11-05T04:17:00.000Z',
-  Date.parse('2026-11-05T04:20:59.000Z')), false,
-  'a second scheduler source must not start a duplicate cycle inside the four-minute cooldown');
-assert.equal(shouldStartPublishingCycle('2026-11-05T04:17:00.000Z',
-  Date.parse('2026-11-05T04:21:00.000Z')), true,
-  'a new cycle becomes eligible as soon as the four-minute cooldown elapses');
+  Date.parse('2026-11-05T04:17:01.000Z')), true,
+  'a queued scheduler trigger should not be suppressed by an application-level cycle cooldown');
+assert.equal(shouldStartPublishingCycle('2026-11-05T04:18:00.000Z',
+  Date.parse('2026-11-05T04:17:59.000Z')), false,
+  'a future prior-cycle timestamp is rejected to guard against clock skew');
 assert.equal(feedCandidateEligible(valid, { posts: [] }), true);
 assert.equal(feedCandidateEligible({ ...valid, video_code:'TinyTitle', title:'کم', description:'', sender_name:'' }, { posts:[] }), true,
   'a very short or missing source title must not block discovery; title fallback happens later');
