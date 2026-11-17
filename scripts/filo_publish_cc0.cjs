@@ -1346,57 +1346,114 @@ async function main() {
     for (const href of existingLinks) if (/^https?:\/\/(?:www\.)?ifilo\.net\/(?:v|video)\//i.test(href)) existingVideoUrls.add(href.split('?')[0]);
     await page.goto(ACCOUNT + '/upload', { waitUntil: 'domcontentloaded', timeout: 30000 });
     await sleep(1000);
-    const requestCountBeforeFile = observedRequests.length;
-
-    // The file input is mounted lazily only after selecting the "from your device" method.
-    // Click the option first, then wait for Filo's hidden file input to appear.
-    const deviceOption = page.getByText(/از دستگاه.{0,8}ت/).first();
-    if (await deviceOption.isVisible().catch(() => false)) {
-      await deviceOption.click();
-      await sleep(900);
-    }
-    const uploadFile = page.locator('#fileInput').first();
-    const fallbackFile = page.locator('input[type="file"][accept*="video"]').first();
-    let fileInput = await uploadFile.count().catch(() => 0) ? uploadFile : fallbackFile;
-    if (!(await fileInput.count().catch(() => 0))) {
-      await page.locator('input[type="file"]').first().waitFor({ state: 'attached', timeout: 8000 }).catch(() => {});
-      fileInput = await uploadFile.count().catch(() => 0) ? uploadFile : fallbackFile;
-    }
-    if (!(await fileInput.count().catch(() => 0))) {
-      const visibleFields = await visibleFieldReport(page);
-      throw new Error('filo_video_file_input_not_found_after_device_choice:' +
-        visibleFields.filter(x => x.type === 'file').length + '_file_inputs');
-    }
-
-    const visibleUploader = page.locator('#uploader').first();
-    let chooser = null;
-    if (await visibleUploader.isVisible().catch(() => false)) {
-      const chooserPromise = page.waitForEvent('filechooser', { timeout: 4500 }).catch(() => null);
-      await visibleUploader.click({ timeout: 8000 });
-      chooser = await chooserPromise;
-    }
-    if (chooser) {
-      await chooser.setFiles(OUTPUT_FILE);
-    } else {
-      // If the tile click only initializes the chunk uploader, assign the file now.
-      await fileInput.setInputFiles(OUTPUT_FILE);
-    }
-
+    const requestCountBeforeMedia = observedRequests.length;
+    let uploadMethod = 'direct_file';
     let fieldsAfterSelection = [];
     let titleField = null;
     let descriptionField = null;
+    let urlImportResult = null;
 
-    // Filo uploads in 1 MiB chunks and only then exposes its metadata form.
-    for (let attempt = 0; attempt < 100; attempt++) {
-      await sleep(1500);
-      fieldsAfterSelection = await visibleFieldReport(page);
-      titleField = await findField(page, 'title');
-      descriptionField = await findField(page, 'description');
-      if (titleField && await titleField.isVisible().catch(() => false)) break;
-      const body = await page.locator('body').innerText().catch(() => '');
-      if (/خطا در بارگذاری|فایل بیش از حد مجاز|فرمت فایل نامعتبر|آپلود ناموفق/i.test(body)) break;
+    const urlCandidate = inspectFiloUrlImportCandidate(candidate);
+    const urlImportPreferred = urlCandidate.eligible && isVerticalMediaForUrlImport({
+      width: rights.sourceWidth,
+      height: rights.sourceHeight,
+      durationSeconds: rights.durationSeconds
+    });
+    if (urlImportPreferred) {
+      console.log('FILO_URL_IMPORT_ELIGIBILITY', JSON.stringify({
+        eligible: true,
+        host: urlCandidate.host,
+        extension: urlCandidate.extension,
+        sourceWidth: rights.sourceWidth,
+        sourceHeight: rights.sourceHeight,
+        durationSeconds: rights.durationSeconds
+      }));
+      urlImportResult = await attemptFiloUrlImport(page, urlCandidate.url, observedRequests, observedResponses);
+      if (urlImportResult.completed) {
+        uploadMethod = 'url_import';
+        titleField = urlImportResult.titleField;
+        descriptionField = urlImportResult.descriptionField;
+        fieldsAfterSelection = urlImportResult.fields || [];
+      } else if (urlImportResult.started && !urlImportResult.definitiveFailure) {
+        const attemptedAt = new Date().toISOString();
+        state.posts = [...(state.posts || []), {
+          sourcePage: COMMONS_PAGE,
+          sourceTitle: SOURCE_TITLE,
+          title: PERSIAN_TITLE,
+          status: 'upload_staged_unpublished',
+          uploadMethod: 'url_import',
+          attemptedAt,
+          note: 'Filo URL-import transfer started, but its completion was not confirmed. Direct-file fallback was withheld to prevent duplicate transfers.'
+        }].slice(-500);
+        state.lastOutcome = { status: 'url_import_transfer_unconfirmed', checkedAt: attemptedAt, sourcePage: COMMONS_PAGE };
+        fs.writeFileSync(STATE_PATH, JSON.stringify(state, null, 2), 'utf8');
+        result = {
+          status: 'url_import_transfer_unconfirmed',
+          uploadMethod: 'url_import',
+          title: PERSIAN_TITLE,
+          sourcePage: COMMONS_PAGE,
+          reason: urlImportResult.reason,
+          response: urlImportResult.response || null,
+          note: 'A URL transfer was observed but Filo did not expose its metadata form. No direct upload or publish was attempted, avoiding a duplicate transfer.'
+        };
+        console.log('FILO_PUBLISH_RESULT', JSON.stringify(result));
+        return;
+      } else {
+        console.log('FILO_URL_IMPORT_FALLBACK_TO_FILE', JSON.stringify({
+          reason: urlImportResult.reason || 'url_import_unavailable',
+          requestStarted: Boolean(urlImportResult.started),
+          definitiveFailure: Boolean(urlImportResult.definitiveFailure)
+        }));
+      }
+    } else {
+      console.log('FILO_URL_IMPORT_SKIPPED', JSON.stringify({
+        reason: urlCandidate.eligible ? 'source_not_vertical_or_duration_not_supported' : urlCandidate.reason
+      }));
     }
-    const uploadResponseInfo = observedResponses.filter(x => /\/uploadFromFile$/i.test(x.path)).slice(-1)[0] || null;
+
+    if (uploadMethod !== 'url_import') {
+      // Fallback/direct method: upload the prepared portrait file from the device.
+      const deviceOption = page.getByText(/از دستگاه.{0,8}ت/).first();
+      if (await deviceOption.isVisible().catch(() => false)) {
+        await deviceOption.click();
+        await sleep(900);
+      }
+      const uploadFile = page.locator('#fileInput').first();
+      const fallbackFile = page.locator('input[type="file"][accept*="video"]').first();
+      let fileInput = await uploadFile.count().catch(() => 0) ? uploadFile : fallbackFile;
+      if (!(await fileInput.count().catch(() => 0))) {
+        await page.locator('input[type="file"]').first().waitFor({ state: 'attached', timeout: 8000 }).catch(() => {});
+        fileInput = await uploadFile.count().catch(() => 0) ? uploadFile : fallbackFile;
+      }
+      if (!(await fileInput.count().catch(() => 0))) {
+        const visibleFields = await visibleFieldReport(page);
+        throw new Error('filo_video_file_input_not_found_after_device_choice:' +
+          visibleFields.filter(x => x.type === 'file').length + '_file_inputs');
+      }
+
+      const visibleUploader = page.locator('#uploader').first();
+      let chooser = null;
+      if (await visibleUploader.isVisible().catch(() => false)) {
+        const chooserPromise = page.waitForEvent('filechooser', { timeout: 4500 }).catch(() => null);
+        await visibleUploader.click({ timeout: 8000 });
+        chooser = await chooserPromise;
+      }
+      if (chooser) await chooser.setFiles(OUTPUT_FILE);
+      else await fileInput.setInputFiles(OUTPUT_FILE);
+
+      // The file uploader exposes metadata only after its chunked file transfer completes.
+      for (let attempt = 0; attempt < 100; attempt++) {
+        await sleep(1500);
+        fieldsAfterSelection = await visibleFieldReport(page);
+        titleField = await findField(page, 'title');
+        descriptionField = await findField(page, 'description');
+        if (titleField && await titleField.isVisible().catch(() => false)) break;
+        const body = await page.locator('body').innerText().catch(() => '');
+        if (/خطا در بارگذاری|فایل بیش از حد مجاز|فرمت فایل نامعتبر|آپلود ناموفق/i.test(body)) break;
+      }
+    }
+    const uploadResponseInfo = observedResponses
+      .filter(x => /\/uploadFrom(?:File|Url)$/i.test(x.path)).slice(-1)[0] || null;
 
     // Use a simple visible title/description input only when its labels identify the field.
     if (!titleField) {
