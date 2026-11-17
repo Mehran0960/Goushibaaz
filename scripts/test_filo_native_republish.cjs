@@ -52,6 +52,7 @@ const {
   updateCandidateMomentum,
   update24HourCandidateCatalog,
   candidateAccelerationEvidence,
+  candidateRecencyMomentumEvidence,
   isInsufficientAccelerationSampleReason,
   classifyAudienceFit,
   durationPreferenceScore,
@@ -142,11 +143,50 @@ const unknownSecond = rankCandidatesByMomentum([
 assert.equal(unknownSecond[0].growthGatePassed, false,
   'unknown-age sources must still wait for the third independent metric sample');
 const unknownThird = rankCandidatesByMomentum([
-  { video_code:'UnknownAge', title:'ویدئوی بدون تاریخ قابل‌اعتماد', visit_count:140, plays:30 }
+  { video_code:'UnknownAge', title:'ویدئوی بدون تاریخ قابل‌اعتماد', visit_count:160, plays:30 }
 ], windowMomentumState, ageWindowNow + 10*60*1000);
 assert.equal(unknownThird[0].growthGatePassed, true,
-  'unknown-age sources may qualify only after three independent samples prove positive velocity');
+  'unknown-age sources may qualify only after three independent samples prove strong velocity and positive acceleration');
 assert.equal(unknownThird[0].ageEvidence, null);
+assert.equal(unknownThird[0].recencyMomentumEvidence.ageBand, 'unknown_age');
+
+const recencyFresh = candidateRecencyMomentumEvidence({
+  ageHours: 4,
+  accelerationEvidence: { passed:true, velocityPerMinute:0.06, accelerationPerMinute:0, sampleCount:3, metric:'plays' }
+});
+assert.equal(recencyFresh.passed,true,
+  'fresh videos may pass the base velocity threshold without positive acceleration');
+const recencyMidAge = candidateRecencyMomentumEvidence({
+  ageHours: 48,
+  accelerationEvidence: { passed:true, velocityPerMinute:0.10, accelerationPerMinute:0.01, sampleCount:4, metric:'plays' }
+});
+assert.equal(recencyMidAge.passed,true,
+  'videos between 24 and 72 hours need at least 0.08 per minute and positive acceleration');
+const recencyMidAgeFlat = candidateRecencyMomentumEvidence({
+  ageHours: 48,
+  accelerationEvidence: { passed:true, velocityPerMinute:0.10, accelerationPerMinute:0, sampleCount:4, metric:'plays' }
+});
+assert.equal(recencyMidAgeFlat.passed,false);
+const staleLowMomentum = candidateRecencyMomentumEvidence({
+  ageHours: 96,
+  accelerationEvidence: { passed:true, velocityPerMinute:0.06, accelerationPerMinute:0.03, sampleCount:6, metric:'views' }
+});
+assert.equal(staleLowMomentum.passed,false,
+  'a four-day-old video with only 0.06 per-minute growth must not qualify even if its acceleration is positive');
+const staleStrongMomentum = candidateRecencyMomentumEvidence({
+  ageHours: 96,
+  accelerationEvidence: { passed:true, velocityPerMinute:0.13, accelerationPerMinute:0.02, sampleCount:6, metric:'views' }
+});
+assert.equal(staleStrongMomentum.passed,true);
+const unknownFastMomentum = candidateRecencyMomentumEvidence({
+  ageHours:Number.POSITIVE_INFINITY,
+  accelerationEvidence: { passed:true, velocityPerMinute:0.15, accelerationPerMinute:0.01, sampleCount:5, metric:'views' }
+});
+assert.equal(unknownFastMomentum.passed,true);
+assert.equal(candidateRecencyMomentumEvidence({
+  ageHours:Number.POSITIVE_INFINITY,
+  accelerationEvidence: { passed:true, velocityPerMinute:0.10, accelerationPerMinute:0.01, sampleCount:5, metric:'views' }
+}).passed,false);
 
 const ageDiagnostic = summarizeFeedAgeDiagnostics([
   normalizeVideoFeedItem({v:'Age70A',cd:'۷۰ ساعت پیش'}),
