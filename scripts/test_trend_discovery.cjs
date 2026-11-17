@@ -85,7 +85,7 @@ const fourLeads = buildTrendSearches({
   },
   ...snapshot
 }, { nowMs: now, limit: 4 });
-assert.equal(twoLeads.length, 4);
+assert.equal(fourLeads.length, 4);
 assert.ok(fourLeads.some(item => item.trendAcceleration > 0));
 assert.ok(fourLeads.some(item => item.trendUrl.includes('aparat.com')));
 
