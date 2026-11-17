@@ -96,10 +96,12 @@
     }
   ],
   "lastOutcome": {
-    "status": "no_eligible_licensed_candidate",
-    "checkedAt": "2026-11-02T02:48:17.558Z"
+    "status": "failed_retryable",
+    "checkedAt": "2026-11-17T09:41:25.058Z",
+    "errorKind": "Error",
+    "reason": "filo_login_submit_stayed_disabled:[{\"tag\":\"input\",\"type\":\"text\",\"placeholder\":\"شماره موبایل یا ایمیل\",\"required\":true},{\"tag\":\"input\",\"type\":\"password\",\"placeholder\":\"رمز عبور\",\"re"
   },
-  "pexelsLastCheckedAt": "2026-11-02T02:47:51.324Z",
+  "pexelsLastCheckedAt": "2026-11-17T09:39:30.651Z",
   "pexelsLastCheckStatus": "success",
   "pexelsLastResultCount": 40,
   "pexelsLastCandidateCount": 0
