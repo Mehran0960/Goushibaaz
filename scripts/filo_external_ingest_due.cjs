@@ -11,7 +11,7 @@ const NATIVE_REPORT_PATH = path.join('out', 'filo-native-republish.json');
 const NATIVE_STATE_PATH = path.join('state', 'filo-native-republished.json');
 const EXTERNAL_STATE_PATH = path.join('state', 'filo-published.json');
 const SCHEDULE_STATE_PATH = path.join('state', 'filo-external-ingest-schedule.json');
-const EXTERNAL_SCAN_INTERVAL_MS = 2 * 60 * 60 * 1000;
+const EXTERNAL_SCAN_INTERVAL_MS = 15 * 60 * 1000;
 const NATIVE_FALLBACK_STATUSES = new Set([
   'no_candidate_passed_measured_velocity_gate',
   'no_recent_feed_candidates',
