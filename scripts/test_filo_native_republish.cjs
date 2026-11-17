@@ -143,7 +143,7 @@ const unknownSecond = rankCandidatesByMomentum([
 assert.equal(unknownSecond[0].growthGatePassed, false,
   'unknown-age sources must still wait for the third independent metric sample');
 const unknownThird = rankCandidatesByMomentum([
-  { video_code:'UnknownAge', title:'ویدئوی بدون تاریخ قابل‌اعتماد', visit_count:160, plays:30 }
+  { video_code:'UnknownAge', title:'ویدئوی بدون تاریخ قابل‌اعتماد', visit_count:160, plays:40 }
 ], windowMomentumState, ageWindowNow + 10*60*1000);
 assert.equal(unknownThird[0].growthGatePassed, true,
   'unknown-age sources may qualify only after three independent samples prove strong velocity and positive acceleration');
