@@ -76,6 +76,7 @@ function compactVideo(item) {
     'duration', 'duration_seconds', 'duration_minutes',
     'visit_count', 'view_count', 'views', 'visits', 'play_count', 'plays', 'playCount',
     'share_count', 'shares', 'favorite_count', 'favorites', 'create_date', 'styled_create_date', 'created_at',
+    'lastMetricsFetchedAt',
     'active', 'file_deleted', 'only_in_filo', 'has_audio',
     'can_republish', 'can_make_money', 'is_publish_able', 'status_id'
   ];
@@ -125,7 +126,7 @@ function mergeCandidate(itemsByCode, incoming) {
     ...compact,
     globalTrendSearchMatches: matches.slice(-12),
     // Timestamp the actual Filo API observation, not the time a cached result is read.
-    lastMetricsFetchedAt: isoNow(),
+    lastMetricsFetchedAt: compact.lastMetricsFetchedAt || isoNow(),
     lastTrendMatchedAt: isoNow()
   };
   return true;
