@@ -46,7 +46,7 @@ const CATEGORY_PAGE_CONCURRENCY = 4;
 const CATEGORY_SCAN_BUDGET_MS = 30 * 60 * 1000;
 // Retained only for age diagnostics; it is no longer an admission or pagination cutoff.
 const CATEGORY_LOOKBACK_HOURS = 72;
-const MIN_CYCLE_INTERVAL_MS = 4 * 60 * 1000;
+const MIN_CYCLE_INTERVAL_MS = 0;
 const DEPTH_CATEGORIES_PER_CYCLE = 21;
 const DEPTH_PAGES_PER_CATEGORY_PER_CYCLE = 20;
 const TOPIC_DUPLICATE_WINDOW_MS = 48 * 60 * 60 * 1000;
