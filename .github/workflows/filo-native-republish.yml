@@ -5,6 +5,13 @@ on:
     paths:
       - "scripts/filo_native_republish.cjs"
       - "scripts/test_filo_native_republish.cjs"
+      - "scripts/filo_publish_cc0.cjs"
+      - "scripts/filo_publication_cadence.cjs"
+      - "scripts/filo_external_ingest_due.cjs"
+      - "scripts/test_filo_publication_cadence.cjs"
+      - "scripts/test_filo_external_ingest_due.cjs"
+      - ".github/workflows/publish-approved-video-to-filo.yml"
+      - "docs/FILO-INBOUND-INGESTION-ROADMAP.md"
       - ".github/workflows/filo-native-republish.yml"
       - ".github/workflows/validate-filo-native-republish.yml"
       - "docs/FILO-NATIVE-REPUBLICATION.md"
@@ -43,7 +50,7 @@ jobs:
         run: |
           set -euo pipefail
           git diff --name-only "$BASE_SHA...$HEAD_SHA" > "$RUNNER_TEMP/filo-changed-files.txt"
-          if grep -Eq '^(scripts/filo_native_republish\.cjs|scripts/test_filo_native_republish\.cjs|\.github/workflows/filo-native-republish\.yml|\.github/workflows/validate-filo-native-republish\.yml)$' "$RUNNER_TEMP/filo-changed-files.txt"; then
+          if grep -Eq '^(scripts/filo_native_republish\.cjs|scripts/test_filo_native_republish\.cjs|scripts/filo_publish_cc0\.cjs|scripts/filo_publication_cadence\.cjs|scripts/filo_external_ingest_due\.cjs|scripts/test_filo_publication_cadence\.cjs|scripts/test_filo_external_ingest_due\.cjs|\.github/workflows/filo-native-republish\.yml|\.github/workflows/validate-filo-native-republish\.yml|\.github/workflows/publish-approved-video-to-filo\.yml)$' "$RUNNER_TEMP/filo-changed-files.txt"; then
             if ! grep -Fxq 'docs/CHANGELOG.md' "$RUNNER_TEMP/filo-changed-files.txt"; then
               echo "::error::Native Filo code/workflow changes require an entry in docs/CHANGELOG.md."
               exit 1
@@ -58,13 +65,18 @@ jobs:
         run: |
           node --check scripts/filo_native_republish.cjs
           node scripts/test_filo_native_republish.cjs
+          node --check scripts/filo_publish_cc0.cjs
+          node --check scripts/filo_publication_cadence.cjs
+          node --check scripts/filo_external_ingest_due.cjs
+          node scripts/test_filo_publication_cadence.cjs
+          node scripts/test_filo_external_ingest_due.cjs
 
   republish:
     if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' }}
     permissions:
       contents: write
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v7
         with:
@@ -93,23 +105,54 @@ jobs:
           npm install --no-save playwright >/dev/null
           npx playwright install chromium >/dev/null
           node --check scripts/filo_native_republish.cjs
+          node --check scripts/filo_publish_cc0.cjs
+          node --check scripts/filo_publication_cadence.cjs
+          node --check scripts/filo_external_ingest_due.cjs
           node scripts/test_filo_native_republish.cjs
-
+          node scripts/test_filo_publication_cadence.cjs
+          node scripts/test_filo_external_ingest_due.cjs
       - name: Record native Filo scheduler trigger diagnostics
         run: |
           echo "event_name=${{ github.event_name }}"
           echo "runner_utc=$(date -u +%FT%TZ)"
 
       - name: Discover Filo videos with native repost permission and publish one
+        id: republish
         env:
           FILO_USER: ${{ secrets.FILO_USER }}
           FILO_PASS: ${{ secrets.FILO_PASS }}
         run: node scripts/filo_native_republish.cjs
 
+      - name: Check whether the licensed external fallback is due
+        id: external_due
+        if: steps.republish.outcome == 'success'
+        run: node scripts/filo_external_ingest_due.cjs
+
+      - name: Install FFmpeg and fonts for external video preparation
+        if: steps.external_due.outputs.due == 'true'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-core
+
+      - name: Search Persian trend-led open-license sources and publish one eligible video
+        if: steps.external_due.outputs.due == 'true'
+        env:
+          FILO_USER: ${{ secrets.FILO_USER }}
+          FILO_PASS: ${{ secrets.FILO_PASS }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY || vars.PEXELS_API_KEY }}
+        run: node scripts/filo_publish_cc0.cjs
+
+      - name: Persist external scan cadence
+        if: always() && steps.external_due.outputs.due == 'true'
+        run: bash scripts/persist_state_file.sh state/filo-external-ingest-schedule.json "Record Filo external ingestion scan cadence [skip ci]"
+
+      - name: Persist licensed external publication ledger
+        if: always() && steps.external_due.outputs.due == 'true'
+        run: bash scripts/persist_state_file.sh state/filo-published.json "Record Filo licensed external publication state [skip ci]"
+
       - name: Persist idempotency ledger after a submission
         if: always()
         run: bash scripts/persist_state_file.sh state/filo-native-republished.json "Record Filo native republish state [skip ci]"
-
       - name: Save execution report
         if: always()
         uses: actions/upload-artifact@v4

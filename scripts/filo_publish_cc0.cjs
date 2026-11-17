@@ -9,6 +9,7 @@ const { looksRelevant, persianTitle } = require('./editorial_content.cjs');
 const { appendFiloEndCard } = require('./filo_endcard.cjs');
 const { discoverPexelsCandidates, PEXELS_LICENSE_URL } = require('./pexels_source.cjs');
 const { buildInternetArchiveSearchQuery } = require('./archive_search.cjs');
+const { evaluatePublicationCadence } = require('./filo_publication_cadence.cjs');
 const ACCOUNT = 'https://ifilo.net';
 const CC0_LICENSE_URL = 'https://creativecommons.org/publicdomain/zero/1.0/';
 const STATE_PATH = path.join('state', 'filo-published.json');
@@ -28,7 +29,7 @@ const WORK_HEIGHT = 1080;
 const WORK_WIDTH = Math.round(WORK_HEIGHT * TARGET_WIDTH / TARGET_HEIGHT);
 // Fail closed on reuse rights: only explicit CC0 1.0 or CC BY 4.0 license metadata is accepted.
 const MAX_DAILY_PUBLICATIONS = 288;
-const MIN_PUBLICATION_GAP_MS = 5 * 60 * 1000;
+const MIN_PUBLICATION_GAP_MS = 17 * 60 * 1000;
 const MIN_DURATION_SECONDS = 8;
 const MAX_DURATION_SECONDS = 180;
 const ACTIVE_SOURCE_STATUSES = new Set([
@@ -264,30 +265,26 @@ function descriptionForCandidate(candidate) {
 }
 
 function publicationCadenceDecision(state, now = new Date()) {
-  const eligibleStatuses = new Set([
-    'published', 'submitted_pending_approval', 'submit_started',
-    'submitted_unconfirmed', 'submit_result_unconfirmed',
-    'upload_staged_unpublished', 'rejected_by_filo'
-  ]);
-  const attempts = (state.posts || [])
-    .filter(item => eligibleStatuses.has(item.status))
-    .map(item => Date.parse(item.submittedAt || item.attemptedAt || item.publishedAt || item.checkedAt || ''))
-    .filter(Number.isFinite)
-    .sort((a, b) => b - a);
-  const today = now.toISOString().slice(0, 10);
-  const todayCount = attempts.filter(ts => new Date(ts).toISOString().slice(0, 10) === today).length;
-  if (todayCount >= MAX_DAILY_PUBLICATIONS) {
-    return { allowed: false, status: 'daily_limit_reached', todayCount, maxDaily: MAX_DAILY_PUBLICATIONS };
+  let nativePosts = [];
+  try {
+    const nativeState = JSON.parse(fs.readFileSync(path.join('state', 'filo-native-republished.json'), 'utf8'));
+    if (Array.isArray(nativeState.posts)) nativePosts = nativeState.posts;
+  } catch {
+    // The native ledger may not exist on a first deployment; the external ledger remains active.
   }
-  if (attempts.length && now.getTime() - attempts[0] < MIN_PUBLICATION_GAP_MS) {
-    return {
-      allowed: false,
-      status: 'publication_cooldown',
-      todayCount,
-      nextAllowedAt: new Date(attempts[0] + MIN_PUBLICATION_GAP_MS).toISOString()
-    };
-  }
-  return { allowed: true, todayCount, maxDaily: MAX_DAILY_PUBLICATIONS };
+
+  const cadence = evaluatePublicationCadence({
+    nativePosts,
+    externalPosts: Array.isArray(state.posts) ? state.posts : [],
+    now: now instanceof Date ? now.getTime() : now,
+    minGapMs: MIN_PUBLICATION_GAP_MS,
+    maxDaily: MAX_DAILY_PUBLICATIONS
+  });
+  return {
+    ...cadence,
+    maxDaily: MAX_DAILY_PUBLICATIONS,
+    nextAllowedAt: cadence.nextAllowedAt
+  };
 }
 
 function parsedDurationSeconds(info) {

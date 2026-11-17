@@ -5,6 +5,16 @@ on:
     paths:
       - "scripts/filo_native_republish.cjs"
       - "scripts/test_filo_native_republish.cjs"
+      - "scripts/filo_publish_cc0.cjs"
+      - "scripts/filo_publication_cadence.cjs"
+      - "scripts/filo_external_ingest_due.cjs"
+      - "scripts/test_filo_publication_cadence.cjs"
+      - "scripts/test_filo_external_ingest_due.cjs"
+      - ".github/workflows/publish-approved-video-to-filo.yml"
+      - ".github/workflows/filo-native-republish.yml"
+      - "docs/FILO-INBOUND-INGESTION-ROADMAP.md"
+      - "docs/FILO-NATIVE-REPUBLICATION.md"
+      - "docs/CHANGELOG.md"
       - "scripts/filo_global_search.cjs"
       - "scripts/filo_trend_search_worker.cjs"
       - "scripts/test_filo_global_search.cjs"
@@ -15,6 +25,16 @@ on:
     paths:
       - "scripts/filo_native_republish.cjs"
       - "scripts/test_filo_native_republish.cjs"
+      - "scripts/filo_publish_cc0.cjs"
+      - "scripts/filo_publication_cadence.cjs"
+      - "scripts/filo_external_ingest_due.cjs"
+      - "scripts/test_filo_publication_cadence.cjs"
+      - "scripts/test_filo_external_ingest_due.cjs"
+      - ".github/workflows/publish-approved-video-to-filo.yml"
+      - ".github/workflows/filo-native-republish.yml"
+      - "docs/FILO-INBOUND-INGESTION-ROADMAP.md"
+      - "docs/FILO-NATIVE-REPUBLICATION.md"
+      - "docs/CHANGELOG.md"
       - "scripts/filo_global_search.cjs"
       - "scripts/filo_trend_search_worker.cjs"
       - "scripts/test_filo_global_search.cjs"
@@ -40,11 +60,17 @@ jobs:
           npm init -y >/dev/null
           npm install --no-save playwright >/dev/null
           npx playwright install --with-deps chromium >/dev/null
-      - name: Validate the simple Filo velocity selector
+      - name: Validate the Filo publishers and shared cadence
         run: |
           node --check scripts/filo_native_republish.cjs
-          node --check scripts/test_filo_native_republish.cjs
+          node --check scripts/filo_publish_cc0.cjs
+          node --check scripts/filo_publication_cadence.cjs
+          node --check scripts/filo_external_ingest_due.cjs
+          node --check scripts/test_filo_publication_cadence.cjs
+          node --check scripts/test_filo_external_ingest_due.cjs
           node scripts/test_filo_native_republish.cjs
+          node scripts/test_filo_publication_cadence.cjs
+          node scripts/test_filo_external_ingest_due.cjs
           node --check scripts/filo_global_search.cjs
           node --check scripts/filo_trend_search_worker.cjs
           node --check scripts/test_filo_global_search.cjs

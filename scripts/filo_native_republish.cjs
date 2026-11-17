@@ -5,6 +5,11 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const { chromium } = require('playwright');
 const { buildTrendWeights, categoryFor } = require('./quality_rank.cjs');
+const {
+  isPublicationOperation: isSharedPublicationOperation,
+  operationTimestamp: sharedPublicationTimestamp,
+  getCombinedPublicationOperationTimes
+} = require('./filo_publication_cadence.cjs');
 
 const BASE = 'https://ifilo.net';
 const STATE_PATH = path.join('state', 'filo-native-republished.json');
@@ -2198,39 +2203,40 @@ function loadState() {
   return { schemaVersion: 1, posts: [] };
 }
 
+function loadExternalPublicationPosts() {
+  try {
+    const external = JSON.parse(fs.readFileSync(path.join('state', 'filo-published.json'), 'utf8'));
+    return Array.isArray(external.posts) ? external.posts : [];
+  } catch {
+    return [];
+  }
+}
+
 function publicationOperationTimestamp(post) {
-  const value = post && (post.submittedAt || post.attemptedAt || post.at);
-  const at = Date.parse(value || '');
-  return Number.isFinite(at) ? at : null;
+  return sharedPublicationTimestamp(post);
 }
 
 function isPublicationOperation(post) {
-  return Boolean(post && [
-    'public_verified',
-    'submitted_pending_approval',
-    'submitted_unconfirmed',
-    'rejected_by_filo'
-  ].includes(post.status));
+  return isSharedPublicationOperation(post);
 }
 
-function getPublicationOperationTimes(state, now = Date.now()) {
-  const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
-  return (state && Array.isArray(state.posts) ? state.posts : [])
-    .filter(isPublicationOperation)
-    .map(post => publicationOperationTimestamp(post))
-    .filter(at => Number.isFinite(at) && at <= nowMs)
-    .sort((a, b) => a - b);
+function getPublicationOperationTimes(state, now = Date.now(), externalPosts = []) {
+  return getCombinedPublicationOperationTimes({
+    nativePosts: state && Array.isArray(state.posts) ? state.posts : [],
+    externalPosts,
+    now
+  });
 }
 
-function dailyCount(state, now = Date.now()) {
+function dailyCount(state, now = Date.now(), externalPosts = []) {
   const windowStart = now - 24 * 60 * 60 * 1000;
-  return getPublicationOperationTimes(state, now)
+  return getPublicationOperationTimes(state, now, externalPosts)
     .filter(at => at > windowStart).length;
 }
 
-function getPublicationPacingGate(state, now = Date.now()) {
+function getPublicationPacingGate(state, now = Date.now(), externalPosts = []) {
   const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
-  const times = getPublicationOperationTimes(state, nowMs);
+  const times = getPublicationOperationTimes(state, nowMs, externalPosts);
   const hourStart = nowMs - 60 * 60 * 1000;
   const dayStart = nowMs - 24 * 60 * 60 * 1000;
   const rollingHour = times.filter(at => at > hourStart);
@@ -2257,10 +2263,11 @@ function getPublicationPacingGate(state, now = Date.now()) {
 async function waitForPublicationWindow(state, {
   nowFn = Date.now,
   sleepFn = sleep,
-  maxWaitMs = MAX_PACING_WAIT_MS
+  maxWaitMs = MAX_PACING_WAIT_MS,
+  externalPosts = []
 } = {}) {
   const checkedAtMs = nowFn();
-  let gate = getPublicationPacingGate(state, checkedAtMs);
+  let gate = getPublicationPacingGate(state, checkedAtMs, externalPosts);
   if (!gate.blocked) {
     return {
       gate,
@@ -2284,7 +2291,7 @@ async function waitForPublicationWindow(state, {
 
   if (requiredWaitMs > 0) await sleepFn(requiredWaitMs);
   const resumedAtMs = nowFn();
-  gate = getPublicationPacingGate(state, resumedAtMs);
+  gate = getPublicationPacingGate(state, resumedAtMs, externalPosts);
   return {
     gate,
     checkedAt: new Date(resumedAtMs).toISOString(),
@@ -3768,7 +3775,8 @@ async function main() {
       return;
     }
 
-    const pacingWait = await waitForPublicationWindow(state);
+    const externalPublicationPosts = loadExternalPublicationPosts();
+    const pacingWait = await waitForPublicationWindow(state, { externalPosts: externalPublicationPosts });
     const publicationPacing = pacingWait.gate;
     report.discovery.publicationPacing = {
       ...publicationPacing,
@@ -3779,7 +3787,7 @@ async function main() {
       waitSkipped: pacingWait.waitSkipped
     };
     const pacingCheckedAt = Date.parse(pacingWait.checkedAt);
-    report.discovery.dailyPublicationOperationCount = dailyCount(state, pacingCheckedAt);
+    report.discovery.dailyPublicationOperationCount = dailyCount(state, pacingCheckedAt, externalPublicationPosts);
     if (publicationPacing.blocked) {
       report.status = 'filo_publication_pacing_deferred';
       report.result = {
@@ -4154,6 +4162,8 @@ module.exports = {
   buildUnconfirmedSubmissionResult,
   composeFiloCoverDataUrl,
   dailyCount,
+  publicationOperationTimestamp,
+  isPublicationOperation,
   getPublicationOperationTimes,
   getPublicationPacingGate,
   waitForPublicationWindow,
