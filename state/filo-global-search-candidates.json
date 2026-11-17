@@ -1,46 +1,19 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-17T19:25:53.480Z",
-  "trendsFetchedAt": "2026-11-17T19:24:30.091Z",
+  "updatedAt": "2026-11-17T19:43:39.075Z",
+  "trendsFetchedAt": "2026-11-17T19:41:47.235Z",
   "trends": [
     {
-      "title": "بازداشت",
+      "title": "ولز مقابل پرتغال",
       "keywords": [
-        "بازداشت"
+        "ولز",
+        "مقابل",
+        "پرتغال"
       ],
       "traffic": 2000,
-      "publishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-      "ageHours": 3.6
-    },
-    {
-      "title": "مسابقات دوستانه",
-      "keywords": [
-        "مسابقات",
-        "دوستانه"
-      ],
-      "traffic": 1000,
-      "publishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-      "ageHours": 3.6
-    },
-    {
-      "title": "جعفر سلمانی",
-      "keywords": [
-        "جعفر",
-        "سلمانی"
-      ],
-      "traffic": 500,
-      "publishedAt": "Tue, 17 Nov 2026 10:00:00 -0800",
-      "ageHours": 1.4
-    },
-    {
-      "title": "سوریه",
-      "keywords": [
-        "سوریه"
-      ],
-      "traffic": 500,
-      "publishedAt": "Tue, 17 Nov 2026 09:30:00 -0800",
-      "ageHours": 1.9
+      "publishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
+      "ageHours": 0.7
     },
     {
       "title": "wales vs portugal",
@@ -49,8 +22,28 @@
         "vs",
         "portugal"
       ],
-      "traffic": 200,
+      "traffic": 1000,
       "publishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
+      "ageHours": 0.7
+    },
+    {
+      "title": "سوریه",
+      "keywords": [
+        "سوریه"
+      ],
+      "traffic": 500,
+      "publishedAt": "Tue, 17 Nov 2026 09:30:00 -0800",
+      "ageHours": 2.2
+    },
+    {
+      "title": "denmark vs norway",
+      "keywords": [
+        "denmark",
+        "vs",
+        "norway"
+      ],
+      "traffic": 200,
+      "publishedAt": "Tue, 17 Nov 2026 11:20:00 -0800",
       "ageHours": 0.4
     },
     {
@@ -61,7 +54,17 @@
       ],
       "traffic": 200,
       "publishedAt": "Tue, 17 Nov 2026 10:30:00 -0800",
-      "ageHours": 0.9
+      "ageHours": 1.2
+    },
+    {
+      "title": "جعفر سلمانی",
+      "keywords": [
+        "جعفر",
+        "سلمانی"
+      ],
+      "traffic": 200,
+      "publishedAt": "Tue, 17 Nov 2026 10:00:00 -0800",
+      "ageHours": 1.7
     },
     {
       "title": "apple",
@@ -70,27 +73,25 @@
       ],
       "traffic": 200,
       "publishedAt": "Tue, 17 Nov 2026 09:50:00 -0800",
-      "ageHours": 1.6
+      "ageHours": 1.9
     },
     {
-      "title": "دنیس اکرت",
+      "title": "فلز",
       "keywords": [
-        "دنیس",
-        "اکرت"
+        "فلز"
       ],
-      "traffic": 200,
-      "publishedAt": "Tue, 17 Nov 2026 08:40:00 -0800",
-      "ageHours": 2.7
+      "traffic": 100,
+      "publishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
+      "ageHours": 0.7
     },
     {
-      "title": "پیمان جبلی",
+      "title": "friendlies",
       "keywords": [
-        "پیمان",
-        "جبلی"
+        "friendlies"
       ],
-      "traffic": 200,
-      "publishedAt": "Tue, 17 Nov 2026 08:10:00 -0800",
-      "ageHours": 3.2
+      "traffic": 100,
+      "publishedAt": "Tue, 17 Nov 2026 10:40:00 -0800",
+      "ageHours": 1
     },
     {
       "title": "جفری اپستین",
@@ -100,7 +101,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Tue, 17 Nov 2026 09:00:00 -0800",
-      "ageHours": 2.4
+      "ageHours": 2.7
     }
   ],
   "queries": {
@@ -785,12 +786,12 @@
     "اقتصاد": {
       "query": "اقتصاد",
       "normalized": "اقتصاد",
-      "nextPage": 126,
-      "complete": false,
-      "pagesFetched": 160,
-      "videosSeen": 3192,
+      "nextPage": 128,
+      "complete": true,
+      "pagesFetched": 167,
+      "videosSeen": 3303,
       "createdAt": "2026-11-17T16:04:37.324Z",
-      "lastAttemptAt": "2026-11-17T18:46:32.893Z",
+      "lastAttemptAt": "2026-11-17T19:43:38.879Z",
       "lastError": null,
       "trendTitle": "اقتصاد",
       "trendTraffic": 200,
@@ -800,7 +801,8 @@
       ],
       "lastTrendSeenAt": "2026-11-17T18:45:04.779Z",
       "activeInLatestFeed": false,
-      "termination": "max_pages_reached"
+      "termination": "empty_page",
+      "completedAt": "2026-11-17T19:43:38.879Z"
     },
     "تورم ماهانه نصف شد روند کاهشی ادامه دارد": {
       "query": "تورم ماهانه نصف شد/ روند کاهشی ادامه دارد",
@@ -843,7 +845,7 @@
         "دوستانه"
       ],
       "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "پایان دور گروهی لیگ ملت ها با حضور پرتغال ادامه تور آسیایی برزیل": {
@@ -856,14 +858,15 @@
       "createdAt": "2026-11-17T16:22:10.479Z",
       "lastAttemptAt": "2026-11-17T18:46:32.874Z",
       "lastError": null,
-      "trendTitle": "مسابقات دوستانه",
-      "trendTraffic": 1000,
-      "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
+      "trendTitle": "ولز مقابل پرتغال",
+      "trendTraffic": 2000,
+      "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
       "trendKeywords": [
-        "مسابقات",
-        "دوستانه"
+        "ولز",
+        "مقابل",
+        "پرتغال"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-17T18:46:32.874Z",
@@ -880,14 +883,15 @@
       "createdAt": "2026-11-17T16:22:10.479Z",
       "lastAttemptAt": "2026-11-17T18:46:32.874Z",
       "lastError": null,
-      "trendTitle": "مسابقات دوستانه",
-      "trendTraffic": 1000,
-      "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
+      "trendTitle": "ولز مقابل پرتغال",
+      "trendTraffic": 2000,
+      "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
       "trendKeywords": [
-        "مسابقات",
-        "دوستانه"
+        "ولز",
+        "مقابل",
+        "پرتغال"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-17T18:46:32.874Z",
@@ -1091,7 +1095,7 @@
         "جبلی"
       ],
       "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-17T18:26:31.300Z",
       "refreshOnly": false,
@@ -1158,7 +1162,7 @@
         "جفری",
         "اپستین"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-17T19:07:45.352Z",
@@ -1182,7 +1186,7 @@
         "جفری",
         "اپستین"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-17T19:07:45.354Z",
@@ -1206,7 +1210,7 @@
         "جفری",
         "اپستین"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-17T19:07:45.355Z",
@@ -1341,12 +1345,12 @@
     "سوریه": {
       "query": "سوریه",
       "normalized": "سوریه",
-      "nextPage": 66,
+      "nextPage": 81,
       "complete": false,
-      "pagesFetched": 80,
-      "videosSeen": 1600,
+      "pagesFetched": 100,
+      "videosSeen": 2000,
       "createdAt": "2026-11-17T18:04:25.776Z",
-      "lastAttemptAt": "2026-11-17T19:25:53.205Z",
+      "lastAttemptAt": "2026-11-17T19:43:38.860Z",
       "lastError": null,
       "trendTitle": "سوریه",
       "trendTraffic": 500,
@@ -1354,7 +1358,7 @@
       "trendKeywords": [
         "سوریه"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -1374,7 +1378,7 @@
       "trendKeywords": [
         "سوریه"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-17T19:25:53.178Z",
@@ -1420,7 +1424,7 @@
         "اکرت"
       ],
       "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-17T18:26:31.305Z"
     },
@@ -1471,21 +1475,21 @@
     "جعفر سلمانی": {
       "query": "جعفر سلمانی",
       "normalized": "جعفر سلمانی",
-      "nextPage": 51,
+      "nextPage": 66,
       "complete": false,
-      "pagesFetched": 60,
-      "videosSeen": 1196,
+      "pagesFetched": 80,
+      "videosSeen": 1592,
       "createdAt": "2026-11-17T18:24:37.626Z",
-      "lastAttemptAt": "2026-11-17T19:25:53.213Z",
+      "lastAttemptAt": "2026-11-17T19:43:38.866Z",
       "lastError": null,
       "trendTitle": "جعفر سلمانی",
-      "trendTraffic": 500,
+      "trendTraffic": 200,
       "trendPublishedAt": "Tue, 17 Nov 2026 10:00:00 -0800",
       "trendKeywords": [
         "جعفر",
         "سلمانی"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -1500,13 +1504,13 @@
       "lastAttemptAt": "2026-11-17T18:46:32.874Z",
       "lastError": null,
       "trendTitle": "جعفر سلمانی",
-      "trendTraffic": 500,
+      "trendTraffic": 200,
       "trendPublishedAt": "Tue, 17 Nov 2026 10:00:00 -0800",
       "trendKeywords": [
         "جعفر",
         "سلمانی"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-17T18:46:32.874Z"
@@ -1522,13 +1526,13 @@
       "lastAttemptAt": "2026-11-17T18:46:32.874Z",
       "lastError": null,
       "trendTitle": "جعفر سلمانی",
-      "trendTraffic": 500,
+      "trendTraffic": 200,
       "trendPublishedAt": "Tue, 17 Nov 2026 10:00:00 -0800",
       "trendKeywords": [
         "جعفر",
         "سلمانی"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-17T18:46:32.874Z"
@@ -1549,7 +1553,7 @@
       "trendKeywords": [
         "apple"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-17T19:07:45.377Z"
@@ -1570,7 +1574,7 @@
       "trendKeywords": [
         "apple"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-17T18:46:32.884Z"
@@ -1642,12 +1646,12 @@
     "دنیس درگاهی در برخورد با دروازه بان عراق تعادلش را از دست داد عراق 1 0 ایران": {
       "query": "دنیس درگاهی در برخورد با دروازه بان عراق تعادلش را از دست داد / عراق 1 - 0 ایران",
       "normalized": "دنیس درگاهی در برخورد با دروازه بان عراق تعادلش را از دست داد عراق 1 0 ایران",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 20,
+      "complete": true,
+      "pagesFetched": 19,
+      "videosSeen": 341,
       "createdAt": "2026-11-17T18:45:04.779Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-17T19:43:38.877Z",
       "lastError": null,
       "trendTitle": "دنیس اکرت",
       "trendTraffic": 200,
@@ -1657,7 +1661,9 @@
         "اکرت"
       ],
       "lastTrendSeenAt": "2026-11-17T18:45:04.779Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-17T19:43:38.877Z"
     },
     "بازداشت": {
       "query": "بازداشت",
@@ -1676,7 +1682,7 @@
         "بازداشت"
       ],
       "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند": {
@@ -1696,7 +1702,7 @@
         "بازداشت"
       ],
       "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "۱۵ سال انتظار برای قانون حمایت از زنان چه کسی مسئول حفاظت از دختران در معرض خطر است": {
@@ -1757,7 +1763,7 @@
         "اکرت"
       ],
       "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-17T19:25:53.178Z"
     },
@@ -1779,19 +1785,19 @@
         "اکرت"
       ],
       "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-17T19:25:53.187Z"
     },
     "غلامرضا فرخی": {
       "query": "غلامرضا فرخی",
       "normalized": "غلامرضا فرخی",
-      "nextPage": 21,
-      "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 378,
+      "nextPage": 23,
+      "complete": true,
+      "pagesFetched": 27,
+      "videosSeen": 477,
       "createdAt": "2026-11-17T19:05:11.253Z",
-      "lastAttemptAt": "2026-11-17T19:25:53.194Z",
+      "lastAttemptAt": "2026-11-17T19:43:38.849Z",
       "lastError": null,
       "trendTitle": "غلامرضا فرخی",
       "trendTraffic": 200,
@@ -1800,9 +1806,10 @@
         "غلامرضا",
         "فرخی"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
       "activeInLatestFeed": true,
-      "termination": "max_pages_reached"
+      "termination": "empty_page",
+      "completedAt": "2026-11-17T19:43:38.849Z"
     },
     "نایب قهرمان جهان به تیم کشتی فرنگی استقلال پیوست": {
       "query": "نایب‌قهرمان جهان به تیم کشتی فرنگی استقلال پیوست",
@@ -1821,7 +1828,7 @@
         "غلامرضا",
         "فرخی"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-17T19:25:53.194Z"
@@ -1829,12 +1836,12 @@
     "قهرمان جهان به استقلال پیوست": {
       "query": "قهرمان جهان به استقلال پیوست",
       "normalized": "قهرمان جهان به استقلال پیوست",
-      "nextPage": 21,
-      "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 400,
+      "nextPage": 27,
+      "complete": true,
+      "pagesFetched": 31,
+      "videosSeen": 591,
       "createdAt": "2026-11-17T19:05:11.253Z",
-      "lastAttemptAt": "2026-11-17T19:25:53.200Z",
+      "lastAttemptAt": "2026-11-17T19:43:38.852Z",
       "lastError": null,
       "trendTitle": "غلامرضا فرخی",
       "trendTraffic": 200,
@@ -1843,9 +1850,10 @@
         "غلامرضا",
         "فرخی"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
       "activeInLatestFeed": true,
-      "termination": "max_pages_reached"
+      "termination": "empty_page",
+      "completedAt": "2026-11-17T19:43:38.852Z"
     },
     "مرگ مشکوک دختر ۱۶ ساله در کرمانشاه پدرش متهم به قتل است": {
       "query": "مرگ مشکوک دختر ۱۶ ساله در کرمانشاه؛ پدرش متهم به قتل است",
@@ -1864,19 +1872,19 @@
         "بازداشت"
       ],
       "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-17T19:25:53.230Z"
     },
     "دمشق و آنکارا بر تقویت اتحاد و مقابله با تهدیدهای علیه حاکمیت سوریه تأکید کردند": {
       "query": "دمشق و آنکارا بر تقویت اتحاد و مقابله با تهدیدهای علیه حاکمیت سوریه تأکید کردند",
       "normalized": "دمشق و آنکارا بر تقویت اتحاد و مقابله با تهدیدهای علیه حاکمیت سوریه تأکید کردند",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-17T19:24:30.557Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-17T19:43:38.846Z",
       "lastError": null,
       "trendTitle": "سوریه",
       "trendTraffic": 500,
@@ -1884,29 +1892,33 @@
       "trendKeywords": [
         "سوریه"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-17T19:43:38.846Z"
     },
     "wales vs portugal": {
       "query": "wales vs portugal",
       "normalized": "wales vs portugal",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 3,
+      "videosSeen": 2,
       "createdAt": "2026-11-17T19:24:30.557Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-17T19:43:38.847Z",
       "lastError": null,
       "trendTitle": "wales vs portugal",
-      "trendTraffic": 200,
+      "trendTraffic": 1000,
       "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
       "trendKeywords": [
         "wales",
         "vs",
         "portugal"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-17T19:43:38.847Z"
     },
     "wales vs portugal confirmed lineups colwill up front ward in for darlow": {
       "query": "Wales vs Portugal Confirmed Lineups: Colwill Up Front, Ward In for Darlow",
@@ -1927,28 +1939,30 @@
         "portugal"
       ],
       "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "bet365 bonus code get 30 in nations league free bets": {
       "query": "bet365 bonus code: Get £30 in Nations League free bets",
       "normalized": "bet365 bonus code get 30 in nations league free bets",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-17T19:24:30.557Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-17T19:43:38.847Z",
       "lastError": null,
       "trendTitle": "wales vs portugal",
-      "trendTraffic": 200,
+      "trendTraffic": 1000,
       "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
       "trendKeywords": [
         "wales",
         "vs",
         "portugal"
       ],
-      "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-17T19:43:38.847Z"
     },
     "icloud app store and other apple services hit by ongoing outage": {
       "query": "iCloud, App Store, and other Apple services hit by ongoing outage",
@@ -1967,6 +1981,253 @@
         "apple"
       ],
       "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
+      "activeInLatestFeed": false
+    },
+    "ولز مقابل پرتغال": {
+      "query": "ولز مقابل پرتغال",
+      "normalized": "ولز مقابل پرتغال",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 389,
+      "createdAt": "2026-11-17T19:41:47.686Z",
+      "lastAttemptAt": "2026-11-17T19:43:38.871Z",
+      "lastError": null,
+      "trendTitle": "ولز مقابل پرتغال",
+      "trendTraffic": 2000,
+      "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
+      "trendKeywords": [
+        "ولز",
+        "مقابل",
+        "پرتغال"
+      ],
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "bellamy demands wales turns moments into results": {
+      "query": "Bellamy demands Wales turns moments into results",
+      "normalized": "bellamy demands wales turns moments into results",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 3,
+      "videosSeen": 2,
+      "createdAt": "2026-11-17T19:41:47.686Z",
+      "lastAttemptAt": "2026-11-17T19:43:38.871Z",
+      "lastError": null,
+      "trendTitle": "wales vs portugal",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
+      "trendKeywords": [
+        "wales",
+        "vs",
+        "portugal"
+      ],
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-17T19:43:38.871Z"
+    },
+    "denmark vs norway": {
+      "query": "denmark vs norway",
+      "normalized": "denmark vs norway",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 3,
+      "videosSeen": 8,
+      "createdAt": "2026-11-17T19:41:47.686Z",
+      "lastAttemptAt": "2026-11-17T19:43:38.871Z",
+      "lastError": null,
+      "trendTitle": "denmark vs norway",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 17 Nov 2026 11:20:00 -0800",
+      "trendKeywords": [
+        "denmark",
+        "vs",
+        "norway"
+      ],
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-17T19:43:38.871Z"
+    },
+    "denmark vs norway uefa nations league stats head to head": {
+      "query": "Denmark vs Norway: UEFA Nations League stats & head-to-head",
+      "normalized": "denmark vs norway uefa nations league stats head to head",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-17T19:41:47.686Z",
+      "lastAttemptAt": "2026-11-17T19:43:38.871Z",
+      "lastError": null,
+      "trendTitle": "denmark vs norway",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 17 Nov 2026 11:20:00 -0800",
+      "trendKeywords": [
+        "denmark",
+        "vs",
+        "norway"
+      ],
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-17T19:43:38.871Z"
+    },
+    "european btts tips scandinavian showdown to serve up goals in 3 1 treble": {
+      "query": "European BTTS Tips: Scandinavian showdown to serve up goals in 3/1 Treble",
+      "normalized": "european btts tips scandinavian showdown to serve up goals in 3 1 treble",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-17T19:41:47.686Z",
+      "lastAttemptAt": "2026-11-17T19:43:38.871Z",
+      "lastError": null,
+      "trendTitle": "denmark vs norway",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 17 Nov 2026 11:20:00 -0800",
+      "trendKeywords": [
+        "denmark",
+        "vs",
+        "norway"
+      ],
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-17T19:43:38.871Z"
+    },
+    "apple confirms icloud outage as users report issues with apple pay app store and other services": {
+      "query": "Apple confirms iCloud outage as users report issues with Apple Pay, App Store and other services",
+      "normalized": "apple confirms icloud outage as users report issues with apple pay app store and other services",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-17T19:41:47.686Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "apple",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 17 Nov 2026 09:50:00 -0800",
+      "trendKeywords": [
+        "apple"
+      ],
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
+      "activeInLatestFeed": true
+    },
+    "فلز": {
+      "query": "فلز",
+      "normalized": "فلز",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-17T19:41:47.686Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "فلز",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
+      "trendKeywords": [
+        "فلز"
+      ],
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
+      "activeInLatestFeed": true
+    },
+    "تب هوش مصنوعی در بازار فلزات انقلاب واقعی یا هیاهوی اغراق آمیز": {
+      "query": "تب هوش مصنوعی در بازار فلزات؛ انقلاب واقعی یا هیاهوی اغراق‌آمیز؟",
+      "normalized": "تب هوش مصنوعی در بازار فلزات انقلاب واقعی یا هیاهوی اغراق آمیز",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-17T19:41:47.686Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "فلز",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
+      "trendKeywords": [
+        "فلز"
+      ],
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
+      "activeInLatestFeed": true
+    },
+    "فلزات محاسباتی": {
+      "query": "فلزات محاسباتی",
+      "normalized": "فلزات محاسباتی",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-17T19:41:47.686Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "فلز",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
+      "trendKeywords": [
+        "فلز"
+      ],
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
+      "activeInLatestFeed": true
+    },
+    "friendlies": {
+      "query": "friendlies",
+      "normalized": "friendlies",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-17T19:41:47.686Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "friendlies",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 17 Nov 2026 10:40:00 -0800",
+      "trendKeywords": [
+        "friendlies"
+      ],
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
+      "activeInLatestFeed": true
+    },
+    "jordan defeat commbank socceroos 2 0 in final game of 2026": {
+      "query": "Jordan defeat CommBank Socceroos 2-0 in final game of 2026",
+      "normalized": "jordan defeat commbank socceroos 2 0 in final game of 2026",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-17T19:41:47.686Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "friendlies",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 17 Nov 2026 10:40:00 -0800",
+      "trendKeywords": [
+        "friendlies"
+      ],
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
+      "activeInLatestFeed": true
+    },
+    "jordan stuns socceroos as arzani sees red": {
+      "query": "Jordan stuns Socceroos as Arzani sees red",
+      "normalized": "jordan stuns socceroos as arzani sees red",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-17T19:41:47.686Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "friendlies",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 17 Nov 2026 10:40:00 -0800",
+      "trendKeywords": [
+        "friendlies"
+      ],
+      "lastTrendSeenAt": "2026-11-17T19:41:47.686Z",
       "activeInLatestFeed": true
     }
   },
@@ -29504,8 +29765,8 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.195Z",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:59.402Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.850Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:23.233Z"
     },
     "ZIQmWsz": {
       "video_code": "ZIQmWsz",
@@ -32590,8 +32851,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.201Z",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:01.474Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.854Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:29.887Z"
     },
     "i6fl6XG": {
       "video_code": "i6fl6XG",
@@ -64701,34 +64962,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T05:06:09.148Z"
     },
-    "asSTA7B": {
-      "video_code": "asSTA7B",
-      "title": "مزاحم تلفنی افغانی آخرخنده",
-      "sender_name": "عــمو امــــید",
-      "category_id": 4,
-      "duration": 422,
-      "visit_count": 15195,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "افغانی افغانستان",
-          "trendTitle": "افغانی افغانستان",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "افغانی",
-            "افغانستان"
-          ],
-          "page": 24
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.148Z"
-    },
     "hl7Xxfa": {
       "video_code": "hl7Xxfa",
       "title": "ویدئو) عاقبت دیوار بین ایران و افغانستان",
@@ -83187,8 +83420,8 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.201Z",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:00.107Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.854Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:27.547Z"
     },
     "ELD6Fhh": {
       "video_code": "ELD6Fhh",
@@ -91356,8 +91589,8 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.201Z",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:00.107Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.854Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:27.547Z"
     },
     "kd4zQ5t": {
       "video_code": "kd4zQ5t",
@@ -105798,7 +106031,7 @@
       "visit_count": 48009,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:45:42.618Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:43:07.250Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -105815,7 +106048,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T18:46:32.886Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.878Z"
     },
     "F0fUloW": {
       "video_code": "F0fUloW",
@@ -107451,7 +107684,7 @@
       "visit_count": 29002,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:00.728Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:25.570Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -107480,7 +107713,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.195Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.850Z"
     },
     "c902SK7": {
       "video_code": "c902SK7",
@@ -114879,7 +115112,7 @@
       "visit_count": 45741,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:59.402Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:23.233Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -114908,7 +115141,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.195Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.850Z"
     },
     "FyBokyb": {
       "video_code": "FyBokyb",
@@ -122759,7 +122992,7 @@
       "visit_count": 32321,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:59.326Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:26.075Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -122787,7 +123020,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "ttPcCmC": {
       "video_code": "ttPcCmC",
@@ -123175,7 +123408,7 @@
       "visit_count": 22923,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:59.402Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:23.233Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -123204,7 +123437,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.195Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.850Z"
     },
     "IBtd8cC": {
       "video_code": "IBtd8cC",
@@ -130599,7 +130832,7 @@
       "visit_count": 814628,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:58.561Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:24.179Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -130616,7 +130849,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "e3Uql9d": {
       "video_code": "e3Uql9d",
@@ -130627,7 +130860,7 @@
       "visit_count": 107074,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:58.561Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:24.179Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -130644,7 +130877,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "p5ymPi1": {
       "video_code": "p5ymPi1",
@@ -130655,7 +130888,7 @@
       "visit_count": 84910,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:58.561Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:24.179Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -130672,7 +130905,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "cUtWgSj": {
       "video_code": "cUtWgSj",
@@ -130683,7 +130916,7 @@
       "visit_count": 39213,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:58.561Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:24.179Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -130700,7 +130933,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "DLaEniO": {
       "video_code": "DLaEniO",
@@ -130711,7 +130944,7 @@
       "visit_count": 16573,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:58.561Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:24.179Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -130728,7 +130961,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "9iYAm2V": {
       "video_code": "9iYAm2V",
@@ -130739,7 +130972,7 @@
       "visit_count": 42992,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:58.561Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:24.179Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -130756,7 +130989,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "UjsngTs": {
       "video_code": "UjsngTs",
@@ -130767,7 +131000,7 @@
       "visit_count": 40054,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:58.561Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:24.179Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -130784,7 +131017,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "F4aMdDK": {
       "video_code": "F4aMdDK",
@@ -130795,7 +131028,7 @@
       "visit_count": 92713,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:58.561Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:24.179Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -130812,7 +131045,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "L7NpgL8": {
       "video_code": "L7NpgL8",
@@ -130823,7 +131056,7 @@
       "visit_count": 110930,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:58.561Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:24.179Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -130840,7 +131073,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "0xjxPXn": {
       "video_code": "0xjxPXn",
@@ -130851,7 +131084,7 @@
       "visit_count": 45515,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:58.561Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:24.179Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -130868,7 +131101,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "aDnMmv5": {
       "video_code": "aDnMmv5",
@@ -130879,7 +131112,7 @@
       "visit_count": 21311,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:58.561Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:24.179Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -130896,7 +131129,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "foW2e1Q": {
       "video_code": "foW2e1Q",
@@ -130907,7 +131140,7 @@
       "visit_count": 27829,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:59.326Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:26.075Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -130924,7 +131157,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "SyjqVqe": {
       "video_code": "SyjqVqe",
@@ -130935,7 +131168,7 @@
       "visit_count": 40339,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:59.326Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:26.075Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -130952,7 +131185,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "j67LGjO": {
       "video_code": "j67LGjO",
@@ -130963,7 +131196,7 @@
       "visit_count": 74644,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:59.326Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:26.075Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -130980,7 +131213,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "CjSsOi0": {
       "video_code": "CjSsOi0",
@@ -130991,7 +131224,7 @@
       "visit_count": 17605,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:59.326Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:26.075Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131008,7 +131241,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "KPqLUDZ": {
       "video_code": "KPqLUDZ",
@@ -131019,7 +131252,7 @@
       "visit_count": 78026,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:59.326Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:26.075Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131036,7 +131269,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "nwlMJKQ": {
       "video_code": "nwlMJKQ",
@@ -131047,7 +131280,7 @@
       "visit_count": 20320,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:59.326Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:26.075Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131064,7 +131297,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "UdhFsqs": {
       "video_code": "UdhFsqs",
@@ -131075,7 +131308,7 @@
       "visit_count": 26998,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:59.326Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:26.075Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131092,7 +131325,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "tOhaySm": {
       "video_code": "tOhaySm",
@@ -131103,7 +131336,7 @@
       "visit_count": 31150,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:59.326Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:26.075Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131120,7 +131353,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "JyWtsQB": {
       "video_code": "JyWtsQB",
@@ -131131,7 +131364,7 @@
       "visit_count": 23290,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:59.326Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:26.075Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131148,7 +131381,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "c8tDZRM": {
       "video_code": "c8tDZRM",
@@ -131159,7 +131392,7 @@
       "visit_count": 36892,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:24:59.326Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:26.075Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -131176,7 +131409,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.853Z"
     },
     "KmTgtxX": {
       "video_code": "KmTgtxX",
@@ -131187,7 +131420,7 @@
       "visit_count": 19227,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:00.107Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:27.547Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131204,7 +131437,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.200Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.854Z"
     },
     "W7AxxK3": {
       "video_code": "W7AxxK3",
@@ -131215,7 +131448,7 @@
       "visit_count": 21633,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:00.107Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:27.547Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131232,7 +131465,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.201Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.854Z"
     },
     "Gau8t1I": {
       "video_code": "Gau8t1I",
@@ -131243,7 +131476,7 @@
       "visit_count": 79514,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:00.107Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:27.547Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -131260,7 +131493,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.201Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.854Z"
     },
     "vbwxF6e": {
       "video_code": "vbwxF6e",
@@ -131271,7 +131504,7 @@
       "visit_count": 39911,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:00.107Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:27.547Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131288,7 +131521,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.201Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.854Z"
     },
     "7SfIhPf": {
       "video_code": "7SfIhPf",
@@ -131299,7 +131532,7 @@
       "visit_count": 39998,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:00.107Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:27.547Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131316,7 +131549,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.201Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.854Z"
     },
     "SArOhLg": {
       "video_code": "SArOhLg",
@@ -131327,7 +131560,7 @@
       "visit_count": 51890,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:00.107Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:27.547Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131344,7 +131577,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.201Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.854Z"
     },
     "2H6Tp41": {
       "video_code": "2H6Tp41",
@@ -131355,7 +131588,7 @@
       "visit_count": 16788,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:00.107Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:27.547Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131372,7 +131605,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.201Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.854Z"
     },
     "fqv7YtE": {
       "video_code": "fqv7YtE",
@@ -131383,7 +131616,7 @@
       "visit_count": 16861,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:00.107Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:27.547Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131400,7 +131633,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.201Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.854Z"
     },
     "Y9HtC0s": {
       "video_code": "Y9HtC0s",
@@ -131411,7 +131644,7 @@
       "visit_count": 18767,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:00.107Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:27.547Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131428,7 +131661,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.201Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.854Z"
     },
     "KoSw9I2": {
       "video_code": "KoSw9I2",
@@ -131439,7 +131672,7 @@
       "visit_count": 43503,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:00.868Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:28.730Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131456,7 +131689,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.201Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.854Z"
     },
     "AWNkXgw": {
       "video_code": "AWNkXgw",
@@ -131467,7 +131700,7 @@
       "visit_count": 28732,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:00.868Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:28.730Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131484,7 +131717,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.201Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.854Z"
     },
     "KbDmwDe": {
       "video_code": "KbDmwDe",
@@ -131495,7 +131728,7 @@
       "visit_count": 27720,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:00.868Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:28.730Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131512,7 +131745,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.201Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.854Z"
     },
     "enWG9sZ": {
       "video_code": "enWG9sZ",
@@ -131523,7 +131756,7 @@
       "visit_count": 27357,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:01.474Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:29.887Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131540,7 +131773,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.201Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.854Z"
     },
     "kCrItJ4": {
       "video_code": "kCrItJ4",
@@ -131551,7 +131784,7 @@
       "visit_count": 24866,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:01.474Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:29.887Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131568,7 +131801,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.201Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.854Z"
     },
     "N6O3P3e": {
       "video_code": "N6O3P3e",
@@ -136429,7 +136662,7 @@
       "visit_count": 5047,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:25:18.227Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:43:07.174Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -136467,9 +136700,20 @@
             "اکرت"
           ],
           "page": 1
+        },
+        {
+          "query": "دنیس درگاهی در برخورد با دروازه بان عراق تعادلش را از دست داد / عراق 1 - 0 ایران",
+          "trendTitle": "دنیس اکرت",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 08:40:00 -0800",
+          "trendKeywords": [
+            "دنیس",
+            "اکرت"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T18:26:31.316Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.872Z"
     },
     "JJT4jzs": {
       "video_code": "JJT4jzs",
@@ -136480,7 +136724,7 @@
       "visit_count": 8306,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:25:19.852Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:43:07.174Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -136518,9 +136762,20 @@
             "اکرت"
           ],
           "page": 2
+        },
+        {
+          "query": "دنیس درگاهی در برخورد با دروازه بان عراق تعادلش را از دست داد / عراق 1 - 0 ایران",
+          "trendTitle": "دنیس اکرت",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 08:40:00 -0800",
+          "trendKeywords": [
+            "دنیس",
+            "اکرت"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T18:26:31.316Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.872Z"
     },
     "IvZ2n4n": {
       "video_code": "IvZ2n4n",
@@ -136531,7 +136786,7 @@
       "visit_count": 3050,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:25:21.686Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:43:09.005Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -136569,9 +136824,20 @@
             "اکرت"
           ],
           "page": 3
+        },
+        {
+          "query": "دنیس درگاهی در برخورد با دروازه بان عراق تعادلش را از دست داد / عراق 1 - 0 ایران",
+          "trendTitle": "دنیس اکرت",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 08:40:00 -0800",
+          "trendKeywords": [
+            "دنیس",
+            "اکرت"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T18:26:31.317Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.872Z"
     },
     "ktMeD97": {
       "video_code": "ktMeD97",
@@ -136582,7 +136848,7 @@
       "visit_count": 2283,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:25:21.686Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:43:10.829Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -136620,9 +136886,20 @@
             "اکرت"
           ],
           "page": 3
+        },
+        {
+          "query": "دنیس درگاهی در برخورد با دروازه بان عراق تعادلش را از دست داد / عراق 1 - 0 ایران",
+          "trendTitle": "دنیس اکرت",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 08:40:00 -0800",
+          "trendKeywords": [
+            "دنیس",
+            "اکرت"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T18:26:31.317Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.873Z"
     },
     "MMnOmrP": {
       "video_code": "MMnOmrP",
@@ -136633,7 +136910,7 @@
       "visit_count": 2354,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:25:27.374Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:43:18.835Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -136671,9 +136948,20 @@
             "اکرت"
           ],
           "page": 7
+        },
+        {
+          "query": "دنیس درگاهی در برخورد با دروازه بان عراق تعادلش را از دست داد / عراق 1 - 0 ایران",
+          "trendTitle": "دنیس اکرت",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 08:40:00 -0800",
+          "trendKeywords": [
+            "دنیس",
+            "اکرت"
+          ],
+          "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T18:26:31.320Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.874Z"
     },
     "HGuFudy": {
       "video_code": "HGuFudy",
@@ -136681,10 +136969,10 @@
       "sender_name": "M/J",
       "category_id": 21,
       "duration": 574,
-      "visit_count": 34930,
+      "visit_count": 34931,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:25:18.227Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:43:04.830Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -136711,9 +136999,20 @@
             "اکرت"
           ],
           "page": 1
+        },
+        {
+          "query": "دنیس درگاهی در برخورد با دروازه بان عراق تعادلش را از دست داد / عراق 1 - 0 ایران",
+          "trendTitle": "دنیس اکرت",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 08:40:00 -0800",
+          "trendKeywords": [
+            "دنیس",
+            "اکرت"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T18:26:31.316Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.872Z"
     },
     "gLvqrjt": {
       "video_code": "gLvqrjt",
@@ -136724,7 +137023,7 @@
       "visit_count": 20287,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:25:18.227Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:43:04.830Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -136751,9 +137050,20 @@
             "اکرت"
           ],
           "page": 1
+        },
+        {
+          "query": "دنیس درگاهی در برخورد با دروازه بان عراق تعادلش را از دست داد / عراق 1 - 0 ایران",
+          "trendTitle": "دنیس اکرت",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 08:40:00 -0800",
+          "trendKeywords": [
+            "دنیس",
+            "اکرت"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T18:26:31.316Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.872Z"
     },
     "yZbDGFK": {
       "video_code": "yZbDGFK",
@@ -136764,7 +137074,7 @@
       "visit_count": 12997,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:25:18.227Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:43:04.830Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -136791,9 +137101,20 @@
             "اکرت"
           ],
           "page": 1
+        },
+        {
+          "query": "دنیس درگاهی در برخورد با دروازه بان عراق تعادلش را از دست داد / عراق 1 - 0 ایران",
+          "trendTitle": "دنیس اکرت",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 08:40:00 -0800",
+          "trendKeywords": [
+            "دنیس",
+            "اکرت"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T18:26:31.316Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.872Z"
     },
     "l6OT9di": {
       "video_code": "l6OT9di",
@@ -136804,7 +137125,7 @@
       "visit_count": 15489,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:25:18.227Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:43:04.830Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -136831,9 +137152,20 @@
             "اکرت"
           ],
           "page": 1
+        },
+        {
+          "query": "دنیس درگاهی در برخورد با دروازه بان عراق تعادلش را از دست داد / عراق 1 - 0 ایران",
+          "trendTitle": "دنیس اکرت",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 08:40:00 -0800",
+          "trendKeywords": [
+            "دنیس",
+            "اکرت"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T18:26:31.316Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.872Z"
     },
     "axnjAyX": {
       "video_code": "axnjAyX",
@@ -136844,7 +137176,7 @@
       "visit_count": 8031,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:25:18.227Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:43:04.830Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -136871,9 +137203,20 @@
             "اکرت"
           ],
           "page": 1
+        },
+        {
+          "query": "دنیس درگاهی در برخورد با دروازه بان عراق تعادلش را از دست داد / عراق 1 - 0 ایران",
+          "trendTitle": "دنیس اکرت",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 08:40:00 -0800",
+          "trendKeywords": [
+            "دنیس",
+            "اکرت"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T18:26:31.316Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.872Z"
     },
     "PvYgpGg": {
       "video_code": "PvYgpGg",
@@ -136884,7 +137227,7 @@
       "visit_count": 11729,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:25:18.227Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:43:04.830Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -136911,9 +137254,20 @@
             "اکرت"
           ],
           "page": 1
+        },
+        {
+          "query": "دنیس درگاهی در برخورد با دروازه بان عراق تعادلش را از دست داد / عراق 1 - 0 ایران",
+          "trendTitle": "دنیس اکرت",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 08:40:00 -0800",
+          "trendKeywords": [
+            "دنیس",
+            "اکرت"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T18:26:31.316Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.872Z"
     },
     "Qs70IGS": {
       "video_code": "Qs70IGS",
@@ -136924,7 +137278,7 @@
       "visit_count": 8827,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:25:18.227Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:43:04.830Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -136951,9 +137305,20 @@
             "اکرت"
           ],
           "page": 1
+        },
+        {
+          "query": "دنیس درگاهی در برخورد با دروازه بان عراق تعادلش را از دست داد / عراق 1 - 0 ایران",
+          "trendTitle": "دنیس اکرت",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 08:40:00 -0800",
+          "trendKeywords": [
+            "دنیس",
+            "اکرت"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T18:26:31.316Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.872Z"
     },
     "iZOAFoA": {
       "video_code": "iZOAFoA",
@@ -136964,7 +137329,7 @@
       "visit_count": 11838,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:25:18.227Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:43:04.830Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -136991,9 +137356,20 @@
             "اکرت"
           ],
           "page": 1
+        },
+        {
+          "query": "دنیس درگاهی در برخورد با دروازه بان عراق تعادلش را از دست داد / عراق 1 - 0 ایران",
+          "trendTitle": "دنیس اکرت",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 08:40:00 -0800",
+          "trendKeywords": [
+            "دنیس",
+            "اکرت"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T18:26:31.316Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.872Z"
     },
     "QOZ3zTx": {
       "video_code": "QOZ3zTx",
@@ -137004,7 +137380,7 @@
       "visit_count": 5754,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:25:18.227Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:43:04.830Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -137031,9 +137407,20 @@
             "اکرت"
           ],
           "page": 1
+        },
+        {
+          "query": "دنیس درگاهی در برخورد با دروازه بان عراق تعادلش را از دست داد / عراق 1 - 0 ایران",
+          "trendTitle": "دنیس اکرت",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 08:40:00 -0800",
+          "trendKeywords": [
+            "دنیس",
+            "اکرت"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T18:26:31.316Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.872Z"
     },
     "e8Tp8EA": {
       "video_code": "e8Tp8EA",
@@ -137044,7 +137431,7 @@
       "visit_count": 9382,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:25:18.227Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:43:07.174Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -137071,9 +137458,20 @@
             "اکرت"
           ],
           "page": 1
+        },
+        {
+          "query": "دنیس درگاهی در برخورد با دروازه بان عراق تعادلش را از دست داد / عراق 1 - 0 ایران",
+          "trendTitle": "دنیس اکرت",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 08:40:00 -0800",
+          "trendKeywords": [
+            "دنیس",
+            "اکرت"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T18:26:31.316Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.872Z"
     },
     "T3YX9qr": {
       "video_code": "T3YX9qr",
@@ -137084,7 +137482,7 @@
       "visit_count": 8159,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:25:18.227Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:43:07.174Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -137111,9 +137509,20 @@
             "اکرت"
           ],
           "page": 1
+        },
+        {
+          "query": "دنیس درگاهی در برخورد با دروازه بان عراق تعادلش را از دست داد / عراق 1 - 0 ایران",
+          "trendTitle": "دنیس اکرت",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 08:40:00 -0800",
+          "trendKeywords": [
+            "دنیس",
+            "اکرت"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T18:26:31.316Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.872Z"
     },
     "yif9WHr": {
       "video_code": "yif9WHr",
@@ -137124,7 +137533,7 @@
       "visit_count": 7992,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:25:18.227Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:43:07.174Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -137151,9 +137560,20 @@
             "اکرت"
           ],
           "page": 1
+        },
+        {
+          "query": "دنیس درگاهی در برخورد با دروازه بان عراق تعادلش را از دست داد / عراق 1 - 0 ایران",
+          "trendTitle": "دنیس اکرت",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 08:40:00 -0800",
+          "trendKeywords": [
+            "دنیس",
+            "اکرت"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T18:26:31.316Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.872Z"
     },
     "RTlbU04": {
       "video_code": "RTlbU04",
@@ -137164,7 +137584,7 @@
       "visit_count": 42488,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:11.646Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:27.651Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -137182,7 +137602,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.206Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.861Z"
     },
     "e9Ca2Pp": {
       "video_code": "e9Ca2Pp",
@@ -137193,7 +137613,7 @@
       "visit_count": 57904,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:11.646Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:27.651Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -137211,7 +137631,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.206Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.861Z"
     },
     "7N32vYC": {
       "video_code": "7N32vYC",
@@ -137222,7 +137642,7 @@
       "visit_count": 24888,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:11.646Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:27.651Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -137240,7 +137660,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.206Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.861Z"
     },
     "fZQxvEg": {
       "video_code": "fZQxvEg",
@@ -137251,7 +137671,7 @@
       "visit_count": 52111,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:11.646Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:27.651Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -137269,7 +137689,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.206Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.861Z"
     },
     "pBWF8fn": {
       "video_code": "pBWF8fn",
@@ -137280,7 +137700,7 @@
       "visit_count": 15367,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:11.646Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:27.651Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -137298,7 +137718,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.206Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.861Z"
     },
     "Ayj8cao": {
       "video_code": "Ayj8cao",
@@ -137309,7 +137729,7 @@
       "visit_count": 24994,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:11.646Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:27.651Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -137327,7 +137747,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.206Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.861Z"
     },
     "QkJdpoL": {
       "video_code": "QkJdpoL",
@@ -137338,7 +137758,7 @@
       "visit_count": 15746,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:11.646Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:27.651Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -137356,7 +137776,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.206Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.861Z"
     },
     "9aCOlUO": {
       "video_code": "9aCOlUO",
@@ -137367,7 +137787,7 @@
       "visit_count": 17465,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:12.459Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:28.720Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -137385,7 +137805,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.206Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.861Z"
     },
     "dnLanqX": {
       "video_code": "dnLanqX",
@@ -148254,7 +148674,7 @@
       "visit_count": 45227,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:00.728Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:25.570Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -148272,7 +148692,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.195Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.850Z"
     },
     "TK76Kz6": {
       "video_code": "TK76Kz6",
@@ -148283,7 +148703,7 @@
       "visit_count": 98809,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:02.008Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:26.849Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -148301,7 +148721,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.195Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.850Z"
     },
     "m5XFSvd": {
       "video_code": "m5XFSvd",
@@ -148312,7 +148732,7 @@
       "visit_count": 19116,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:03.351Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:28.019Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -148330,7 +148750,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.195Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.850Z"
     },
     "66mkLse": {
       "video_code": "66mkLse",
@@ -148341,7 +148761,7 @@
       "visit_count": 32092,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:04.437Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:29.558Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -148359,7 +148779,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.195Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.851Z"
     },
     "znEKYxG": {
       "video_code": "znEKYxG",
@@ -148370,7 +148790,7 @@
       "visit_count": 32089,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:04.437Z",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:29.558Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -148388,7 +148808,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.196Z"
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.851Z"
     },
     "g2ISxB7": {
       "video_code": "g2ISxB7",
@@ -152992,8 +153412,38 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-17T19:25:53.230Z"
+    },
+    "AlyjTyz": {
+      "video_code": "AlyjTyz",
+      "title": "گلزنی دوباره مهدی طارمی در لیگ پرتغال مقابل پاکوش فریرا",
+      "sender_name": "مهدی",
+      "category_id": 11,
+      "duration": 16,
+      "visit_count": 123689,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-17T19:42:29.821Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "ولز مقابل پرتغال",
+          "trendTitle": "ولز مقابل پرتغال",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
+          "trendKeywords": [
+            "ولز",
+            "مقابل",
+            "پرتغال"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-17T19:43:38.866Z"
     }
   },
-  "totalPagesFetched": 4693,
-  "totalVideosSeen": 86769
+  "totalPagesFetched": 4814,
+  "totalVideosSeen": 88708
 }
