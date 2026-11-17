@@ -52,7 +52,7 @@ const MAX_PACING_WAIT_MS = 5 * 60 * 1000;
 const MAX_DETAIL_CHECKS = 90;
 const MIN_DURATION_SECONDS = 10;
 const CAPTION_POLICY_VERSION = 8;
-const TITLE_REWRITE_POLICY_VERSION = 9;
+const TITLE_REWRITE_POLICY_VERSION = 10;
 const FILO_TITLE_MIN_CHARS = 12;
 const FILO_TITLE_MAX_CHARS = 80;
 const FILO_DESCRIPTION_MIN_CHARS = 30;
@@ -1465,8 +1465,9 @@ function editorialTitleQualityReason(value) {
   const substantive = tokens.filter(token =>
     !/^(?:پارت|قسمت|بخش|part|episode|کمدی|طنز|خنده|دار|کلیپ|ویدئو|ویدیو|فیلم|شماره|\d+)$/iu.test(token)
   );
-  if (/(?:پارت|قسمت|episode|part)\s*[0-9۰-۹]+/iu.test(title) && substantive.length < 2 &&
-      !/(?:طنز|خنده|آشپزی|آهنگ|ترانه|ورزش|فوتبال|حیوان|ترفند|آموزش)/iu.test(title)) {
+  // Genre labels and episode numbers are not a subject. Require at least
+  // two independent subject-bearing tokens before accepting a numbered title.
+  if (/(?:پارت|قسمت|episode|part)\s*[0-9۰-۹]+/iu.test(title) && substantive.length < 2) {
     return 'title_generic_episode_label';
   }
 
@@ -1484,8 +1485,7 @@ function editorialTitleQualityReason(value) {
   );
   if (tokens.length && meaningfulTokens.length === 0) return 'title_generic_without_subject';
 
-  if (tokens.length < 2 && !(/(?:پارت|قسمت|episode|part)\s*[0-9۰-۹]+/iu.test(title) &&
-      /(?:طنز|خنده|آشپزی|آهنگ|ترانه|ورزش|فوتبال|حیوان|ترفند|آموزش)/iu.test(title))) {
+  if (tokens.length < 2) {
     return 'title_not_distinct_or_editorially_clean';
   }
   return null;
@@ -1609,7 +1609,7 @@ function createDistinctRepostTitle(sourceTitle, sourceDescription = '', sourceCo
     if (candidates.includes(candidate)) continue;
     if (editorialTitleQualityReason(candidate)) continue;
     const tokens = editorialTitleTokens(candidate);
-    if (tokens.length < 2 && !/(?:پارت|قسمت|episode|part)\s*[0-9۰-۹]+/iu.test(candidate)) continue;
+    if (tokens.length < 2) continue;
     if (candidate.length < FILO_TITLE_MIN_CHARS || candidate.length > FILO_TITLE_MAX_CHARS) continue;
     const contentWords = normalizeCaptionEditorialText(candidate).toLocaleLowerCase('fa-IR')
       .replace(/[يى]/g, 'ی').replace(/ك/g, 'ک').replace(/[^\p{L}\p{N}]+/gu, ' ')
