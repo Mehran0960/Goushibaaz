@@ -1115,6 +1115,42 @@ function candidateAccelerationEvidence(entry) {
   };
 }
 
+function candidateRecencyMomentumEvidence(entry) {
+  const age = Number(entry && entry.ageHours);
+  const ageKnown = Number.isFinite(age) && age >= 0;
+  const ageBand = !ageKnown ? 'unknown_age'
+    : age <= 24 ? 'fresh_24h'
+      : age <= 72 ? '24_to_72h'
+        : 'older_than_72h';
+  const minimumVelocityPerMinute = ageBand === 'fresh_24h' ? 0.05
+    : ageBand === '24_to_72h' ? 0.08 : 0.12;
+  const requiresPositiveAcceleration = ageBand !== 'fresh_24h';
+  const acceleration = entry && entry.accelerationEvidence && typeof entry.accelerationEvidence === 'object'
+    ? entry.accelerationEvidence : {};
+  const velocityPerMinute = num(acceleration.velocityPerMinute, 0);
+  const accelerationPerMinute = num(acceleration.accelerationPerMinute, 0);
+  const sampleCount = Math.trunc(num(acceleration.sampleCount, 0));
+  let reason = 'age_adaptive_velocity_passed';
+  if (acceleration.passed !== true) reason = acceleration.reason || 'base_velocity_gate_failed';
+  else if (sampleCount < MIN_ACCELERATION_SAMPLES) reason = 'insufficient_independent_samples';
+  else if (velocityPerMinute < minimumVelocityPerMinute) reason = 'age_adjusted_velocity_below_minimum';
+  else if (requiresPositiveAcceleration && accelerationPerMinute <= 0) reason = 'positive_acceleration_required_for_older_or_unknown_content';
+  return {
+    passed: reason === 'age_adaptive_velocity_passed',
+    reason,
+    ageBand,
+    ageHours: ageKnown ? Math.round(age * 100) / 100 : null,
+    minimumIndependentSamples: MIN_ACCELERATION_SAMPLES,
+    minimumVelocityPerMinute,
+    requiresPositiveAcceleration,
+    velocityPerMinute,
+    accelerationPerMinute,
+    sampleCount,
+    metric: acceleration.metric || null
+  };
+}
+
+
 function loadPlatformTrendSnapshot() {
   try {
     const snapshot = JSON.parse(fs.readFileSync(PLATFORM_TRENDS_PATH, 'utf8'));
@@ -1286,11 +1322,16 @@ function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicW
       topicLabel: String(item && (item.feed_tag_label || item.category_name || item.category_title) ||
         audienceFit.label),
       durationPreferenceScore: durationPreferenceScore(item),
-      freshnessScore: Math.max(0, Math.min(100, (24 - age) / 24 * 100)),
+      freshnessScore: !Number.isFinite(age) || age < 0 ? 0
+        : age <= 6 ? 100
+          : age <= 24 ? 75
+            : age <= 48 ? 50
+              : age <= 72 ? 25 : 0,
       recentCategoryPenalty: categoryId && recentCategorySet.has(categoryId) ? 1 : 0
     };
     entry.accelerationEvidence = candidateAccelerationEvidence(entry);
-    entry.growthGatePassed = entry.accelerationEvidence.passed;
+    entry.recencyMomentumEvidence = candidateRecencyMomentumEvidence(entry);
+    entry.growthGatePassed = entry.recencyMomentumEvidence.passed;
     entry.hasPositiveAcceleration = num(entry.accelerationEvidence.accelerationPerMinute, 0) > 0;
     entry.momentumScore = candidateMomentumScore(entry);
     return entry;
@@ -1313,11 +1354,11 @@ function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicW
     ));
     const audienceFitRankScore = Math.max(0, Math.min(100, entry.audienceFitScore / 3 * 100));
     const rankingScore =
-      0.64 * entry.momentumScore +
+      0.58 * entry.momentumScore +
       0.10 * topic.demandScore +
       0.12 * externalTopicTrendScore +
       0.08 * entry.durationPreferenceScore +
-      0.02 * entry.freshnessScore +
+      0.08 * entry.freshnessScore +
       0.04 * audienceFitRankScore;
     return {
       ...entry,
@@ -3642,18 +3683,28 @@ async function main() {
       feedCandidates, state, cycleAt, platformTopicWeights, currentMomentumRates
     );
     const accelerationQualified = ranked.filter(entry =>
-      entry.accelerationEvidence && entry.accelerationEvidence.passed
+      entry.recencyMomentumEvidence && entry.recencyMomentumEvidence.passed
     );
     report.discovery.rankedCandidates = ranked.length;
     report.discovery.measuredCandidates = ranked.filter(entry => entry.hasMeasuredGrowth).length;
     report.discovery.accelerationFilter = {
-      mode: 'positive_velocity_required_acceleration_rank_bonus',
+      mode: 'age_adaptive_velocity_and_acceleration',
       minimumIndependentSamples: MIN_ACCELERATION_SAMPLES,
-      minimumVelocityPerMinute: MIN_MEASURED_VELOCITY_PER_MINUTE,
+      minimumVelocityPerMinuteByAge: { fresh_24h: 0.05, age_24_to_72h: 0.08, older_than_72h_or_unknown: 0.12 },
+      positiveAccelerationRequiredBeyond24Hours: true,
       candidatesEvaluated: ranked.length,
       candidatesBelowMinimumVelocity: ranked.filter(entry =>
-        ['play_velocity_below_minimum','view_velocity_below_minimum'].includes(entry.accelerationEvidence.reason)
+        entry.recencyMomentumEvidence.reason === 'age_adjusted_velocity_below_minimum'
       ).length,
+      candidatesFailingPositiveAccelerationForOlderContent: ranked.filter(entry =>
+        entry.recencyMomentumEvidence.reason === 'positive_acceleration_required_for_older_or_unknown_content'
+      ).length,
+      candidatesByAgeBand: {
+        fresh_24h: ranked.filter(entry => entry.recencyMomentumEvidence.ageBand === 'fresh_24h').length,
+        age_24_to_72h: ranked.filter(entry => entry.recencyMomentumEvidence.ageBand === '24_to_72h').length,
+        older_than_72h: ranked.filter(entry => entry.recencyMomentumEvidence.ageBand === 'older_than_72h').length,
+        unknown_age: ranked.filter(entry => entry.recencyMomentumEvidence.ageBand === 'unknown_age').length
+      },
       candidatesWithMeasuredGrowth: ranked.filter(entry => entry.hasMeasuredGrowth).length,
       candidatesPassingVelocityGate: accelerationQualified.length,
       candidatesWithZeroPlayCounterStalled: ranked.filter(entry =>
@@ -3686,6 +3737,7 @@ async function main() {
       code: String(entry.item.video_code),
       selectionMode: entry.selectionMode,
       growthGatePassed: entry.growthGatePassed === true,
+      recencyMomentumEvidence: entry.recencyMomentumEvidence,
       accelerationBonusActive: entry.hasPositiveAcceleration,
       accelerationEvidence: entry.accelerationEvidence,
       playCounterZeroStalled: entry.playCounterZeroStalled === true,
@@ -3720,6 +3772,7 @@ async function main() {
       fallbackReason: entry.accelerationEvidence.fallbackReason || null,
       velocityPerMinute: entry.accelerationEvidence.velocityPerMinute,
       accelerationPerMinute: entry.accelerationEvidence.accelerationPerMinute,
+      recencyMomentumEvidence: entry.recencyMomentumEvidence,
       sampleCount: entry.accelerationEvidence.sampleCount,
       ageHours: entry.ageHours,
       category: entry.item.feed_tag_label || entry.item.feed_tag || null
@@ -4186,6 +4239,7 @@ module.exports = {
   updateCandidateMomentum,
   update24HourCandidateCatalog,
   candidateAccelerationEvidence,
+  candidateRecencyMomentumEvidence,
   isInsufficientAccelerationSampleReason,
   classifyAudienceFit,
   extractCategoryIds,
