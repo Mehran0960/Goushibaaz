@@ -831,21 +831,47 @@ async function login(page) {
     if (submitEnabled) break;
     await sleep(400);
   }
+  let naturalTypingRetry = false;
+  if (!submitEnabled) {
+    // Some SPA login forms only update their button state after trusted keyboard events.
+    // Retry through ordinary typing, without changing or bypassing any security challenge.
+    naturalTypingRetry = true;
+    await username.fill('');
+    await username.type(process.env.FILO_USER, { delay: 25 });
+    await password.fill('');
+    await password.type(process.env.FILO_PASS, { delay: 25 });
+    await password.press('Tab').catch(() => {});
+    await sleep(900);
+    for (let attempt = 0; attempt < 16; attempt++) {
+      submitEnabled = await submit.isEnabled().catch(() => false);
+      if (submitEnabled) break;
+      await sleep(350);
+    }
+  }
   if (!submitEnabled) {
     const fields = await visibleFieldReport(page);
     const summary = fields.filter(item => ['text','email','tel','password','submit','checkbox','hidden'].includes(item.type) || item.tag === 'button')
       .map(item => ({tag:item.tag,type:item.type,placeholder:item.placeholder,required:item.required,
         disabled:item.disabled,valid:item.valid,valueLength:item.valueLength,validationMessage:item.validationMessage}))
       .slice(0,20);
+    const controls = await passwordForm.locator('button, input[type="submit"], [role="button"]').evaluateAll(nodes => nodes.slice(0, 10).map(el => ({
+      tag: el.tagName.toLowerCase(),
+      type: (el.getAttribute('type') || '').toLowerCase(),
+      text: String(el.innerText || el.getAttribute('aria-label') || el.getAttribute('value') || '').trim().replace(/\\s+/g, ' ').slice(0, 80),
+      disabled: Boolean(el.disabled),
+      ariaDisabled: el.getAttribute('aria-disabled'),
+      className: String(el.className || '').slice(0, 120)
+    })));
     const forms = await passwordForm.evaluate(form => ({
       valid: form.checkValidity(),
+      action: (() => { try { return new URL(form.action, location.href).pathname; } catch { return ''; } })(),
       invalidControls: [...form.querySelectorAll('input,select,textarea')]
         .filter(el => !el.checkValidity())
         .map(el => ({type:el.type||el.tagName.toLowerCase(),name:el.name||'',id:el.id||'',
           required:Boolean(el.required),valueLength:String(el.value||'').length,
           validationMessage:String(el.validationMessage||'').slice(0,120)})).slice(0,12)
     })).catch(() => null);
-    throw new Error('filo_login_submit_stayed_disabled:' + JSON.stringify({fields:summary,form:forms}));
+    throw new Error('filo_login_submit_stayed_disabled:' + JSON.stringify({fields:summary,form:forms,controls,naturalTypingRetry}));
   }
 
   const loginResponsePromise = page.waitForResponse(response => {
