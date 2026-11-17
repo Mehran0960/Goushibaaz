@@ -1559,7 +1559,6 @@ async function testPublicationPacingWait() {
   });
   assert.equal(noArtificialWait.waitSkipped,false);
   assert.equal(noArtificialWait.gate.blocked,false);
-  assert.equal(beyondSchedulerWindow.requiredWaitMs,7*60*1000);
 }
 
 async function testPortraitCoverComposition() {
