@@ -1000,8 +1000,8 @@ const baseline = [
   { video_code: 'ViewsOnly', title: 'ویدئوی بدون شمارنده پخش', create_date: '۲ ساعت پیش', visit_count: 100 }
 ];
 const firstRank = rankCandidatesByMomentum(baseline, momentumState, momentumStart);
-assert.equal(firstRank.length, 3,
-  'a first sighting must use safe cumulative-count fallback instead of stalling the publishing cycle');
+assert.equal(firstRank.length, 4,
+  'older videos remain eligible for observation alongside new candidates; first sightings still use safe cumulative-count fallback');
 assert.equal(firstRank[0].rankingMetric, 'cumulative_plays');
 assert.equal(firstRank[0].selectionMode, 'cumulative_play_fallback');
 assert.equal(firstRank.every(entry => !entry.hasMeasuredGrowth), true);
@@ -1013,17 +1013,21 @@ const secondScan = [
   { ...baseline[3], visit_count: 250 }
 ];
 const secondRank = rankCandidatesByMomentum(secondScan, momentumState, momentumStart + 10 * 60 * 1000);
-assert.equal(secondRank.length, 3, 'older videos are excluded but views-only fallback remains available');
+assert.equal(secondRank.length, 4, 'older videos remain observable and views-only fallback remains available');
 assert.equal(secondRank[0].item.video_code, 'Comedy01',
   'measured plays growth must outrank higher views growth');
 assert.equal(secondRank[0].momentum.playsPerMinute, 2);
 assert.equal(secondRank[0].momentum.viewsPerMinute, 10);
 assert.equal(secondRank[0].rankingMetric, 'plays');
-assert.equal(secondRank[1].item.video_code, 'Tutorial1');
-assert.equal(secondRank[1].momentum.playsPerMinute, 1);
-assert.equal(secondRank[2].item.video_code, 'ViewsOnly');
-assert.equal(secondRank[2].rankingMetric, 'views',
+const tutorialRank = secondRank.find(entry => entry.item.video_code === 'Tutorial1');
+assert.equal(tutorialRank.momentum.playsPerMinute, 1);
+const viewsOnlyRank = secondRank.find(entry => entry.item.video_code === 'ViewsOnly');
+assert.ok(viewsOnlyRank);
+assert.equal(viewsOnlyRank.rankingMetric, 'views',
   'a candidate with no play counter may fall back to measured view growth');
+const olderRank = secondRank.find(entry => entry.item.video_code === 'Old001');
+assert.ok(olderRank, 'a 73-hour candidate remains in the discovery/ranking pool');
+assert.equal(olderRank.hasPositivePlayGrowth, true);
 
 const hintPriorityState = {posts:[]};
 const hintPriorityStart = Date.parse('2026-11-04T01:00:00.000Z');
