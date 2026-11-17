@@ -40,20 +40,21 @@ const FALLBACK_VIDEO_TAG_FEEDS = [
   { key: 'q-خودرو', label: 'خودرو' }
 ];
 const MAX_DISCOVERED_CATEGORY_IDS = 64;
-const MAX_PAGES_PER_CATEGORY = 36;
-const MAX_TOTAL_CATEGORY_PAGE_REQUESTS = 112;
+const MAX_PAGES_PER_CATEGORY = 60;
+const MAX_TOTAL_CATEGORY_PAGE_REQUESTS = 224;
 const CATEGORY_PAGE_CONCURRENCY = 4;
-const CATEGORY_SCAN_BUDGET_MS = 4 * 60 * 1000;
+const CATEGORY_SCAN_BUDGET_MS = 8 * 60 * 1000;
+// Retained only for age diagnostics; it is no longer an admission or pagination cutoff.
 const CATEGORY_LOOKBACK_HOURS = 72;
 const MIN_CYCLE_INTERVAL_MS = 4 * 60 * 1000;
 const DEPTH_CATEGORIES_PER_CYCLE = 21;
-const DEPTH_PAGES_PER_CATEGORY_PER_CYCLE = 4;
+const DEPTH_PAGES_PER_CATEGORY_PER_CYCLE = 8;
 const TOPIC_DUPLICATE_WINDOW_MS = 48 * 60 * 60 * 1000;
 const CANDIDATE_REJECTION_TTL_MS = 6 * 60 * 60 * 1000;
 const ACCOUNT_REPUBLISH_QUOTA_COOLDOWN_MS = 2 * 60 * 60 * 1000;
-const MIN_PUBLISH_GAP_MS = 17 * 60 * 1000;
-// GitHub's native schedule is five-minute minimum; wait only when the next slot is within one scheduler interval.
-const MAX_PACING_WAIT_MS = 5 * 60 * 1000;
+const MIN_PUBLISH_GAP_MS = 0;
+// No local delay is imposed; Filo's own account quota/cooldown remains authoritative.
+const MAX_PACING_WAIT_MS = 0;
 const MAX_DETAIL_CHECKS = 90;
 const MIN_DURATION_SECONDS = 10;
 const CAPTION_POLICY_VERSION = 8;
@@ -1284,12 +1285,10 @@ function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicW
     entry.momentumScore = candidateMomentumScore(entry);
     return entry;
   }).filter(entry => {
-    if (entry.ageEvidence) {
-      return Number.isFinite(entry.ageEvidence.upperHours) &&
-        entry.ageEvidence.upperHours <= CATEGORY_LOOKBACK_HOURS;
-    }
-    // Missing/unparseable age is not proof of freshness. Keep the source only for momentum observation;
-    // publication still requires three independent samples and positive measured velocity.
+    // Search newest-to-oldest without a fixed 72-hour exclusion. Old items are still
+    // eligible for observation, but publication requires fresh independent metric
+    // samples and positive measured velocity; future-dated records remain excluded.
+    if (entry.ageEvidence) return Number.isFinite(entry.ageEvidence.upperHours);
     return !hasFutureFeedDate(entry.item, nowMs);
   });
 
@@ -3309,10 +3308,11 @@ async function main() {
     discovery: {
       categories: [],
       categoryLabels: {},
-      paginationMode: 'rotating_recent_window',
-      lookbackHours: CATEGORY_LOOKBACK_HOURS,
+      paginationMode: 'rotating_newest_to_oldest_deep_scan',
+      lookbackHours: null,
+      ageDiagnosticWindowHours: CATEGORY_LOOKBACK_HOURS,
       ageAdmissionPolicy: {
-        reliableDates: 'accept_only_when_conservative_upper_age_bound_is_within_72_hours',
+        reliableDates: 'no_fixed_age_cutoff; reject future timestamps only',
         unknownDates: 'allow_momentum_sampling_only; publication_requires_three_independent_samples_and_positive_velocity',
         futureDates: 'exclude_beyond_five_minute_clock_tolerance'
       },
@@ -3562,16 +3562,9 @@ async function main() {
           lastPageNo:result.pageNo,lastAgeBounds:analysis.lastAgeBounds,chronologyVerified
         };
 
-        if(shouldStopCategoryPagination({
-          pageCount:result.pageNo,pageAnalysis:analysis,chronologyVerified,
-          lookbackHours:CATEGORY_LOOKBACK_HOURS
-        })){
-          state.categoryDepthPages[pageKey]=2;
-          delete state.categoryDepthEvidence[pageKey];
-          tracker.stopReason='lookback_window_reached';
-          tracker.coverageComplete=true;
-          nextDepthPageByCategory.delete(pageKey);
-        }else if(result.pageNo>=MAX_PAGES_PER_CATEGORY){
+        // Do not stop merely because a page is older than 72 hours. Continue
+        // toward older pages until the feed is exhausted or an explicit page cap is hit.
+        if(result.pageNo>=MAX_PAGES_PER_CATEGORY){
           state.categoryDepthPages[pageKey]=2;
           delete state.categoryDepthEvidence[pageKey];
           tracker.stopReason='max_pages_per_category_cycle';
@@ -3609,15 +3602,15 @@ async function main() {
       firstPageCoverageComplete:categoryTrackers.every(x=>x.pagesFetched>=1||x.stopReason==='empty_first_page'),
       depthPageRequests:depthResults.length,
       depthPagesSucceeded:depthResults.filter(x=>!x.error).length,
-      categoriesPastLookback:categoryTrackers.filter(x=>x.stopReason==='lookback_window_reached').length,
+      categoriesPastLookback:0,
       categoriesExhausted:categoryTrackers.filter(x=>x.stopReason==='empty_depth_page'||x.stopReason==='empty_first_page').length,
       categoriesAtPageCap:categoryTrackers.filter(x=>x.stopReason==='max_pages_per_category_cycle').length,
       categoriesWithPageErrors:categoryTrackers.filter(x=>x.stopReason==='first_page_error'||x.stopReason==='depth_page_error').length,
-      lookbackHours:CATEGORY_LOOKBACK_HOURS,
-      completeLookbackCoverage:categoryTrackers.every(x=>x.coverageComplete),
-      complete72HourCoverage:CATEGORY_LOOKBACK_HOURS===72
-        ?categoryTrackers.every(x=>x.coverageComplete):null,
-      complete24HourCoverage:categoryTrackers.every(x=>x.coverageComplete)
+      lookbackHours:null,
+      ageDiagnosticWindowHours:CATEGORY_LOOKBACK_HOURS,
+      completeLookbackCoverage:false,
+      complete72HourCoverage:null,
+      complete24HourCoverage:null
     };
 
     const discoveredItems = [...byCode.values()];
