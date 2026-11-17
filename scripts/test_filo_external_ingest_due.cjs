@@ -7,15 +7,12 @@ const now = Date.parse('2026-11-17T10:00:00.000Z');
 const nativeReport = { status: 'no_candidate_passed_measured_velocity_gate' };
 
 assert.equal(evaluateExternalIngestDue({ nativeReport: null, now }).due, false);
-assert.equal(evaluateExternalIngestDue({ nativeReport: { status: 'no_candidate_published_this_cycle' }, now }).due, false);
-assert.equal(evaluateExternalIngestDue({
-  nativeReport: { status: 'no_recent_feed_candidates' },
-  now
-}).due, true, 'an empty recent Filo feed should activate the independent licensed fallback');
-assert.equal(evaluateExternalIngestDue({
-  nativeReport: { status: 'no_feed_candidates_after_safety_filters' },
-  now
-}).due, true, 'a Filo feed with no safe candidates should still allow a separately rights-cleared source search');
+assert.equal(evaluateExternalIngestDue({ nativeReport: { status: 'unrecognized_or_missing_status' }, now }).due, false);
+for (const status of ['public_verified','no_candidate_passed_measured_velocity_gate','no_recent_feed_candidates',
+  'no_feed_candidates_after_safety_filters','no_candidate_published_this_cycle']) {
+  assert.equal(evaluateExternalIngestDue({ nativeReport:{status}, now }).due, true,
+    `the licensed source scan is independent of native status (${status})`);
+}
 
 const tooSoon = evaluateExternalIngestDue({
   nativeReport,
@@ -42,5 +39,5 @@ const due = evaluateExternalIngestDue({
   now
 });
 assert.equal(due.due, true);
-assert.equal(due.reason, 'native_has_no_growth_candidate_and_external_scan_is_due');
+assert.equal(due.reason, 'independent_licensed_external_scan_is_due');
 console.log('FILO_EXTERNAL_INGEST_DUE_TESTS_OK');
