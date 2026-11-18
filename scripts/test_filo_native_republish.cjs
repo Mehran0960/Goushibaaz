@@ -1221,9 +1221,17 @@ const hintSecondScan = [
   {...hintBaseline[0],visit_count:700,plays:210},
   {...hintBaseline[1],visit_count:150,plays:20}
 ];
-const hintRank = rankCandidatesByMomentum(hintSecondScan,hintPriorityState,hintPriorityStart+5*60*1000);
+rankCandidatesByMomentum(hintSecondScan,hintPriorityState,hintPriorityStart+5*60*1000);
+const hintThirdScan = [
+  {...hintBaseline[0],visit_count:1600,plays:1000},
+  {...hintBaseline[1],visit_count:175,plays:25}
+];
+const hintRank = rankCandidatesByMomentum(hintThirdScan,hintPriorityState,hintPriorityStart+10*60*1000);
 assert.equal(hintRank[0].item.video_code,'FastGrowth',
-  'measured play momentum must outrank a slower candidate with more favorable feed hints');
+  'positive measured play acceleration across three independent observations must outrank feed hints');
+assert.equal(hintRank.find(entry=>entry.item.video_code==='FastGrowth').growthGatePassed,true);
+assert.equal(hintRank.find(entry=>entry.item.video_code==='SlowGrowth').growthGatePassed,false,
+  'a slower or decelerating candidate cannot win through authoritative feed hints');
 
 const thirdScan = [
   { ...baseline[0], visit_count: 500, plays: 50 },
