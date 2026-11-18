@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-18T03:40:47.076Z",
-  "trendsFetchedAt": "2026-11-18T03:39:42.042Z",
+  "updatedAt": "2026-11-18T04:00:57.958Z",
+  "trendsFetchedAt": "2026-11-18T03:59:45.149Z",
   "trends": [
     {
       "title": "سایت سنجش",
@@ -12,7 +12,7 @@
       ],
       "traffic": 5000,
       "publishedAt": "Tue, 17 Nov 2026 16:10:00 -0800",
-      "ageHours": 3.5
+      "ageHours": 3.8
     },
     {
       "title": "سامی الجابر",
@@ -22,7 +22,17 @@
       ],
       "traffic": 200,
       "publishedAt": "Tue, 17 Nov 2026 19:10:00 -0800",
-      "ageHours": 0.5
+      "ageHours": 0.8
+    },
+    {
+      "title": "سهراب بختیاریزاده",
+      "keywords": [
+        "سهراب",
+        "بختیاریزاده"
+      ],
+      "traffic": 200,
+      "publishedAt": "Tue, 17 Nov 2026 18:50:00 -0800",
+      "ageHours": 1.2
     },
     {
       "title": "کیفرخواست",
@@ -31,7 +41,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Tue, 17 Nov 2026 18:20:00 -0800",
-      "ageHours": 1.3
+      "ageHours": 1.7
     },
     {
       "title": "صرافی",
@@ -40,17 +50,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
-      "ageHours": 1.5
-    },
-    {
-      "title": "سهراب بختیاریزاده",
-      "keywords": [
-        "سهراب",
-        "بختیاریزاده"
-      ],
-      "traffic": 100,
-      "publishedAt": "Tue, 17 Nov 2026 18:50:00 -0800",
-      "ageHours": 0.8
+      "ageHours": 1.8
     },
     {
       "title": "کشتی نفتکش",
@@ -60,16 +60,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
-      "ageHours": 1.5
-    },
-    {
-      "title": "kick",
-      "keywords": [
-        "kick"
-      ],
-      "traffic": 100,
-      "publishedAt": "Tue, 17 Nov 2026 15:50:00 -0800",
-      "ageHours": 3.8
+      "ageHours": 1.8
     }
   ],
   "queries": {
@@ -867,12 +858,12 @@
     "بمب کثیف": {
       "query": "بمب کثیف",
       "normalized": "بمب کثیف",
-      "nextPage": 186,
+      "nextPage": 201,
       "complete": false,
-      "pagesFetched": 240,
-      "videosSeen": 4708,
+      "pagesFetched": 260,
+      "videosSeen": 5107,
       "createdAt": "2026-11-17T16:22:10.479Z",
-      "lastAttemptAt": "2026-11-18T01:40:35.022Z",
+      "lastAttemptAt": "2026-11-18T04:00:57.684Z",
       "lastError": null,
       "trendTitle": "بمب کثیف",
       "trendTraffic": 500,
@@ -980,12 +971,12 @@
     "شکارچی": {
       "query": "شکارچی",
       "normalized": "شکارچی",
-      "nextPage": 141,
+      "nextPage": 156,
       "complete": false,
-      "pagesFetched": 180,
-      "videosSeen": 3600,
+      "pagesFetched": 200,
+      "videosSeen": 4000,
       "createdAt": "2026-11-17T16:44:34.843Z",
-      "lastAttemptAt": "2026-11-18T02:40:34.567Z",
+      "lastAttemptAt": "2026-11-18T04:00:57.703Z",
       "lastError": null,
       "trendTitle": "شکارچی",
       "trendTraffic": 1000,
@@ -1644,12 +1635,12 @@
     "بازداشت": {
       "query": "بازداشت",
       "normalized": "بازداشت",
-      "nextPage": 81,
-      "complete": false,
-      "pagesFetched": 100,
-      "videosSeen": 2000,
+      "nextPage": 86,
+      "complete": true,
+      "pagesFetched": 110,
+      "videosSeen": 2155,
       "createdAt": "2026-11-17T19:05:11.253Z",
-      "lastAttemptAt": "2026-11-18T02:20:39.190Z",
+      "lastAttemptAt": "2026-11-18T04:00:57.692Z",
       "lastError": null,
       "trendTitle": "بازداشت",
       "trendTraffic": 2000,
@@ -1659,7 +1650,8 @@
       ],
       "lastTrendSeenAt": "2026-11-17T19:24:30.557Z",
       "activeInLatestFeed": false,
-      "termination": "max_pages_reached"
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T04:00:57.692Z"
     },
     "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند": {
       "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
@@ -2119,12 +2111,12 @@
     "فلز": {
       "query": "فلز",
       "normalized": "فلز",
-      "nextPage": 126,
+      "nextPage": 141,
       "complete": false,
-      "pagesFetched": 160,
-      "videosSeen": 3127,
+      "pagesFetched": 180,
+      "videosSeen": 3527,
       "createdAt": "2026-11-17T19:41:47.686Z",
-      "lastAttemptAt": "2026-11-18T02:20:39.194Z",
+      "lastAttemptAt": "2026-11-18T04:00:57.697Z",
       "lastError": null,
       "trendTitle": "فلز",
       "trendTraffic": 200,
@@ -2753,12 +2745,12 @@
     "بازی پرتغال": {
       "query": "بازی پرتغال",
       "normalized": "بازی پرتغال",
-      "nextPage": 36,
+      "nextPage": 51,
       "complete": false,
-      "pagesFetched": 40,
-      "videosSeen": 791,
+      "pagesFetched": 60,
+      "videosSeen": 1188,
       "createdAt": "2026-11-17T20:59:33.860Z",
-      "lastAttemptAt": "2026-11-18T01:40:35.026Z",
+      "lastAttemptAt": "2026-11-18T04:00:57.688Z",
       "lastError": null,
       "trendTitle": "بازی پرتغال",
       "trendTraffic": 1000,
@@ -3460,12 +3452,12 @@
     "شنیده شدن چندین انفجار در کویت": {
       "query": "شنیده شدن چندین انفجار در کویت",
       "normalized": "شنیده شدن چندین انفجار در کویت",
-      "nextPage": 66,
-      "complete": false,
-      "pagesFetched": 80,
-      "videosSeen": 1600,
+      "nextPage": 67,
+      "complete": true,
+      "pagesFetched": 86,
+      "videosSeen": 1700,
       "createdAt": "2026-11-17T22:59:25.602Z",
-      "lastAttemptAt": "2026-11-18T02:00:33.006Z",
+      "lastAttemptAt": "2026-11-18T04:00:57.690Z",
       "lastError": null,
       "trendTitle": "کویت",
       "trendTraffic": 200,
@@ -3475,7 +3467,8 @@
       ],
       "lastTrendSeenAt": "2026-11-17T23:39:55.726Z",
       "activeInLatestFeed": false,
-      "termination": "max_pages_reached"
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T04:00:57.690Z"
     },
     "آژیر خطر در کویت به صدا درآمد": {
       "query": "آژیر خطر در کویت به صدا درآمد",
@@ -3980,7 +3973,7 @@
         "سایت",
         "سنجش"
       ],
-      "lastTrendSeenAt": "2026-11-18T03:39:42.244Z",
+      "lastTrendSeenAt": "2026-11-18T03:59:45.452Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T03:20:31.376Z",
@@ -4004,7 +3997,7 @@
         "سایت",
         "سنجش"
       ],
-      "lastTrendSeenAt": "2026-11-18T03:39:42.244Z",
+      "lastTrendSeenAt": "2026-11-18T03:59:45.452Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T03:20:31.378Z",
@@ -4034,12 +4027,12 @@
     "سایت سنجش": {
       "query": "سایت سنجش",
       "normalized": "سایت سنجش",
-      "nextPage": 141,
-      "complete": false,
-      "pagesFetched": 180,
-      "videosSeen": 3590,
+      "nextPage": 146,
+      "complete": true,
+      "pagesFetched": 190,
+      "videosSeen": 3759,
       "createdAt": "2026-11-18T00:39:19.700Z",
-      "lastAttemptAt": "2026-11-18T03:40:46.716Z",
+      "lastAttemptAt": "2026-11-18T04:00:57.650Z",
       "lastError": null,
       "trendTitle": "سایت سنجش",
       "trendTraffic": 5000,
@@ -4048,9 +4041,10 @@
         "سایت",
         "سنجش"
       ],
-      "lastTrendSeenAt": "2026-11-18T03:39:42.244Z",
+      "lastTrendSeenAt": "2026-11-18T03:59:45.452Z",
       "activeInLatestFeed": true,
-      "termination": "max_pages_reached"
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T04:00:57.650Z"
     },
     "نتایج آزمون استخدامی سازمان ثبت اسناد و املاک اعلام شد": {
       "query": "نتایج آزمون استخدامی سازمان ثبت اسناد و املاک اعلام شد",
@@ -4299,7 +4293,7 @@
         "kick"
       ],
       "lastTrendSeenAt": "2026-11-18T03:39:42.244Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T03:00:30.418Z",
       "refreshOnly": false,
@@ -4563,7 +4557,7 @@
         "kick"
       ],
       "lastTrendSeenAt": "2026-11-18T03:39:42.244Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T03:40:46.702Z",
       "refreshOnly": false,
@@ -4572,12 +4566,12 @@
     "cf7 portugal move on from ronaldo with special goal from new no 7 forbs": {
       "query": "CF7: Portugal move on from Ronaldo with 'special' goal from new No. 7 Forbs",
       "normalized": "cf7 portugal move on from ronaldo with special goal from new no 7 forbs",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T02:19:35.171Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T04:00:57.690Z",
       "lastError": null,
       "trendTitle": "wales national football team vs portugal national football team standings",
       "trendTraffic": 2000,
@@ -4592,7 +4586,9 @@
         "standings"
       ],
       "lastTrendSeenAt": "2026-11-18T02:19:35.171Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T04:00:57.690Z"
     },
     "ارتش کویت از مقابله با حملات پهپادی خبر داد تشدید تنش های نظامی در خلیج فارس": {
       "query": "ارتش کویت از مقابله با حملات پهپادی خبر داد؛ تشدید تنش‌های نظامی در خلیج فارس",
@@ -4618,12 +4614,12 @@
     "live updates hall pulisic have usmnt cruising in poch s farewell": {
       "query": "Live updates: Hall, Pulisic have USMNT cruising in Poch's farewell",
       "normalized": "live updates hall pulisic have usmnt cruising in poch s farewell",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T02:19:35.171Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T04:00:57.690Z",
       "lastError": null,
       "trendTitle": "kick",
       "trendTraffic": 100,
@@ -4632,17 +4628,19 @@
         "kick"
       ],
       "lastTrendSeenAt": "2026-11-18T02:19:35.171Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T04:00:57.690Z"
     },
     "kolyachonok scores go ahead goal in 3rd devils stay hot with win against capitals": {
       "query": "Kolyachonok scores go-ahead goal in 3rd, Devils stay hot with win against Capitals",
       "normalized": "kolyachonok scores go ahead goal in 3rd devils stay hot with win against capitals",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T02:19:35.171Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T04:00:57.690Z",
       "lastError": null,
       "trendTitle": "nations league",
       "trendTraffic": 100,
@@ -4652,7 +4650,9 @@
         "league"
       ],
       "lastTrendSeenAt": "2026-11-18T02:19:35.171Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T04:00:57.690Z"
     },
     "bryan ruiz quiso ser valiente ante argentina pero su apuesta terminó en pesadilla": {
       "query": "Bryan Ruiz quiso ser valiente ante Argentina, pero su apuesta terminó en pesadilla",
@@ -4715,7 +4715,7 @@
       "trendKeywords": [
         "کیفرخواست"
       ],
-      "lastTrendSeenAt": "2026-11-18T03:39:42.244Z",
+      "lastTrendSeenAt": "2026-11-18T03:59:45.452Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T03:00:30.441Z"
@@ -4736,7 +4736,7 @@
       "trendKeywords": [
         "کیفرخواست"
       ],
-      "lastTrendSeenAt": "2026-11-18T03:39:42.244Z",
+      "lastTrendSeenAt": "2026-11-18T03:59:45.452Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T03:00:30.441Z"
@@ -4757,7 +4757,7 @@
       "trendKeywords": [
         "کیفرخواست"
       ],
-      "lastTrendSeenAt": "2026-11-18T03:39:42.244Z",
+      "lastTrendSeenAt": "2026-11-18T03:59:45.452Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T03:00:30.441Z"
@@ -4807,21 +4807,21 @@
     "سهراب بختیاریزاده": {
       "query": "سهراب بختیاریزاده",
       "normalized": "سهراب بختیاریزاده",
-      "nextPage": 36,
+      "nextPage": 51,
       "complete": false,
-      "pagesFetched": 40,
-      "videosSeen": 800,
+      "pagesFetched": 60,
+      "videosSeen": 1200,
       "createdAt": "2026-11-18T03:19:30.785Z",
-      "lastAttemptAt": "2026-11-18T03:40:46.727Z",
+      "lastAttemptAt": "2026-11-18T04:00:57.658Z",
       "lastError": null,
       "trendTitle": "سهراب بختیاریزاده",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Tue, 17 Nov 2026 18:50:00 -0800",
       "trendKeywords": [
         "سهراب",
         "بختیاریزاده"
       ],
-      "lastTrendSeenAt": "2026-11-18T03:39:42.244Z",
+      "lastTrendSeenAt": "2026-11-18T03:59:45.452Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -4836,13 +4836,13 @@
       "lastAttemptAt": "2026-11-18T03:20:31.399Z",
       "lastError": null,
       "trendTitle": "سهراب بختیاریزاده",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Tue, 17 Nov 2026 18:50:00 -0800",
       "trendKeywords": [
         "سهراب",
         "بختیاریزاده"
       ],
-      "lastTrendSeenAt": "2026-11-18T03:39:42.244Z",
+      "lastTrendSeenAt": "2026-11-18T03:59:45.452Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T03:20:31.399Z"
@@ -4858,13 +4858,13 @@
       "lastAttemptAt": "2026-11-18T03:20:31.400Z",
       "lastError": null,
       "trendTitle": "سهراب بختیاریزاده",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Tue, 17 Nov 2026 18:50:00 -0800",
       "trendKeywords": [
         "سهراب",
         "بختیاریزاده"
       ],
-      "lastTrendSeenAt": "2026-11-18T03:39:42.244Z",
+      "lastTrendSeenAt": "2026-11-18T03:59:45.452Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T03:20:31.400Z"
@@ -4885,7 +4885,7 @@
       "trendKeywords": [
         "صرافی"
       ],
-      "lastTrendSeenAt": "2026-11-18T03:39:42.244Z",
+      "lastTrendSeenAt": "2026-11-18T03:59:45.452Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T03:40:46.734Z"
@@ -4906,7 +4906,7 @@
       "trendKeywords": [
         "صرافی"
       ],
-      "lastTrendSeenAt": "2026-11-18T03:39:42.244Z",
+      "lastTrendSeenAt": "2026-11-18T03:59:45.452Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T03:20:31.403Z"
@@ -4914,12 +4914,12 @@
     "سامی الجابر": {
       "query": "سامی الجابر",
       "normalized": "سامی الجابر",
-      "nextPage": 21,
+      "nextPage": 36,
       "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 400,
+      "pagesFetched": 40,
+      "videosSeen": 786,
       "createdAt": "2026-11-18T03:39:42.244Z",
-      "lastAttemptAt": "2026-11-18T03:40:46.747Z",
+      "lastAttemptAt": "2026-11-18T04:00:57.665Z",
       "lastError": null,
       "trendTitle": "سامی الجابر",
       "trendTraffic": 200,
@@ -4928,7 +4928,7 @@
         "سامی",
         "الجابر"
       ],
-      "lastTrendSeenAt": "2026-11-18T03:39:42.244Z",
+      "lastTrendSeenAt": "2026-11-18T03:59:45.452Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -4949,7 +4949,7 @@
         "سامی",
         "الجابر"
       ],
-      "lastTrendSeenAt": "2026-11-18T03:39:42.244Z",
+      "lastTrendSeenAt": "2026-11-18T03:59:45.452Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T03:40:46.747Z"
@@ -4971,7 +4971,7 @@
         "سامی",
         "الجابر"
       ],
-      "lastTrendSeenAt": "2026-11-18T03:39:42.244Z",
+      "lastTrendSeenAt": "2026-11-18T03:59:45.452Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T03:40:46.747Z"
@@ -4979,12 +4979,12 @@
     "کشتی نفتکش": {
       "query": "کشتی نفتکش",
       "normalized": "کشتی نفتکش",
-      "nextPage": 21,
+      "nextPage": 36,
       "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 400,
+      "pagesFetched": 40,
+      "videosSeen": 798,
       "createdAt": "2026-11-18T03:39:42.244Z",
-      "lastAttemptAt": "2026-11-18T03:40:46.753Z",
+      "lastAttemptAt": "2026-11-18T04:00:57.673Z",
       "lastError": null,
       "trendTitle": "کشتی نفتکش",
       "trendTraffic": 100,
@@ -4993,7 +4993,7 @@
         "کشتی",
         "نفتکش"
       ],
-      "lastTrendSeenAt": "2026-11-18T03:39:42.244Z",
+      "lastTrendSeenAt": "2026-11-18T03:59:45.452Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -5014,7 +5014,7 @@
         "کشتی",
         "نفتکش"
       ],
-      "lastTrendSeenAt": "2026-11-18T03:39:42.244Z",
+      "lastTrendSeenAt": "2026-11-18T03:59:45.452Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T03:40:46.753Z"
@@ -5022,12 +5022,12 @@
     "تصاویر انهدام عظیم یک سوپرنفتکش دیگر": {
       "query": "تصاویر انهدام عظیم یک سوپرنفتکش دیگر",
       "normalized": "تصاویر انهدام عظیم یک سوپرنفتکش دیگر",
-      "nextPage": 21,
+      "nextPage": 36,
       "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 400,
+      "pagesFetched": 40,
+      "videosSeen": 800,
       "createdAt": "2026-11-18T03:39:42.244Z",
-      "lastAttemptAt": "2026-11-18T03:40:46.760Z",
+      "lastAttemptAt": "2026-11-18T04:00:57.679Z",
       "lastError": null,
       "trendTitle": "کشتی نفتکش",
       "trendTraffic": 100,
@@ -5036,7 +5036,7 @@
         "کشتی",
         "نفتکش"
       ],
-      "lastTrendSeenAt": "2026-11-18T03:39:42.244Z",
+      "lastTrendSeenAt": "2026-11-18T03:59:45.453Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -5057,7 +5057,7 @@
         "kick"
       ],
       "lastTrendSeenAt": "2026-11-18T03:39:42.244Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-18T03:40:46.760Z"
     }
@@ -5504,8 +5504,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.706Z",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:03.166Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.649Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:06.486Z"
     },
     "FfCarT0": {
       "video_code": "FfCarT0",
@@ -24413,8 +24413,8 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.705Z",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:02.683Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.649Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:05.989Z"
     },
     "Ai3ueY9": {
       "video_code": "Ai3ueY9",
@@ -29816,7 +29816,7 @@
       "sender_name": "علیرضا",
       "category_id": 11,
       "duration": 97,
-      "visit_count": 89551,
+      "visit_count": 89561,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -29854,9 +29854,21 @@
             "کشتی"
           ],
           "page": 2
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 24
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.132Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:12.642Z"
     },
     "b9mGhtS": {
       "video_code": "b9mGhtS",
@@ -29892,7 +29904,7 @@
       "sender_name": "قاطی پاطی",
       "category_id": 11,
       "duration": 36,
-      "visit_count": 19834,
+      "visit_count": 19835,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -29930,9 +29942,21 @@
             "کشتی"
           ],
           "page": 2
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 25
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.132Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:13.553Z"
     },
     "WVOnwd0": {
       "video_code": "WVOnwd0",
@@ -30024,7 +30048,7 @@
       "sender_name": "آرامش",
       "category_id": 11,
       "duration": 250,
-      "visit_count": 27620,
+      "visit_count": 27624,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -30062,9 +30086,21 @@
             "کشتی"
           ],
           "page": 2
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 25
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.132Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:13.553Z"
     },
     "HhK9XCx": {
       "video_code": "HhK9XCx",
@@ -30415,10 +30451,21 @@
             "دوستانه"
           ],
           "page": 11
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 26
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:23:43.661Z",
-      "lastMetricsFetchedAt": "2026-11-17T16:23:04.551Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:14.329Z"
     },
     "foxT6Ib": {
       "video_code": "foxT6Ib",
@@ -30538,7 +30585,7 @@
       "sender_name": "خادم الشهدا",
       "category_id": 11,
       "duration": 359,
-      "visit_count": 46515,
+      "visit_count": 46522,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -30576,9 +30623,21 @@
             "کشتی"
           ],
           "page": 2
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 27
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.132Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.145Z"
     },
     "UzUqgat": {
       "video_code": "UzUqgat",
@@ -31153,10 +31212,21 @@
             "دوستانه"
           ],
           "page": 12
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 30
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:23:43.662Z",
-      "lastMetricsFetchedAt": "2026-11-17T16:23:05.403Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:17.561Z"
     },
     "73rLMI6": {
       "video_code": "73rLMI6",
@@ -31500,10 +31570,21 @@
             "شعبانپور"
           ],
           "page": 39
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 32
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T17:05:51.952Z",
-      "lastMetricsFetchedAt": "2026-11-17T17:05:36.920Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.670Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:19.157Z"
     },
     "sACWbPg": {
       "video_code": "sACWbPg",
@@ -31511,7 +31592,7 @@
       "sender_name": "سعید",
       "category_id": 11,
       "duration": 701,
-      "visit_count": 5901,
+      "visit_count": 5903,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
       "active": 1,
@@ -31549,9 +31630,21 @@
             "کشتی"
           ],
           "page": 3
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 32
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.133Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.670Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:19.157Z"
     },
     "vCzkPpW": {
       "video_code": "vCzkPpW",
@@ -31587,7 +31680,7 @@
       "sender_name": "منتخب فیلو✅",
       "category_id": 11,
       "duration": 51,
-      "visit_count": 5846,
+      "visit_count": 5849,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
       "active": 1,
@@ -31625,9 +31718,21 @@
             "کشتی"
           ],
           "page": 3
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 32
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.133Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.670Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:19.157Z"
     },
     "oDHHrre": {
       "video_code": "oDHHrre",
@@ -31931,7 +32036,7 @@
       "sender_name": "Sports",
       "category_id": 11,
       "duration": 599,
-      "visit_count": 16534,
+      "visit_count": 16540,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -31979,9 +32084,21 @@
             "تیم"
           ],
           "page": 19
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 34
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T10:51:08.347Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.673Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:21.319Z"
     },
     "kTLzt4Z": {
       "video_code": "kTLzt4Z",
@@ -32972,8 +33089,8 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.754Z",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:26.731Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.673Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.745Z"
     },
     "nKbmwDV": {
       "video_code": "nKbmwDV",
@@ -41753,10 +41870,20 @@
             "کویت"
           ],
           "page": 6
+        },
+        {
+          "query": "شنیده شدن چندین انفجار در کویت",
+          "trendTitle": "کویت",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 14:30:00 -0800",
+          "trendKeywords": [
+            "کویت"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:00:32.952Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:59:42.202Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.689Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:27.186Z"
     },
     "8sNh5jW": {
       "video_code": "8sNh5jW",
@@ -41942,44 +42069,6 @@
       "visit_count": 8202,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فارس",
-          "trendTitle": "فارس",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:30:00 -0800",
-          "trendKeywords": [
-            "فارس"
-          ],
-          "page": 14
-        },
-        {
-          "query": "خبرگزاری فارس",
-          "trendTitle": "خبرگزاری فارس",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:40:00 -0800",
-          "trendKeywords": [
-            "خبرگزاری",
-            "فارس"
-          ],
-          "page": 15
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.363Z"
-    },
-    "t4awfIn": {
-      "video_code": "t4awfIn",
-      "title": "تصاویر دیده نشده از تازه ترین رزمایش نیروی دریایی سپاه در خلیج فارس",
-      "sender_name": "نبض تو",
-      "category_id": 1,
-      "duration": 88,
-      "visit_count": 5898,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -49734,7 +49823,7 @@
       "sender_name": "PouyanO",
       "category_id": 11,
       "duration": 458,
-      "visit_count": 11892,
+      "visit_count": 11900,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -49772,9 +49861,21 @@
             "کشتی"
           ],
           "page": 4
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 27
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.133Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.145Z"
     },
     "QjoTmoy": {
       "video_code": "QjoTmoy",
@@ -54751,8 +54852,8 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.754Z",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:25.467Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.673Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.075Z"
     },
     "d2mUeFG": {
       "video_code": "d2mUeFG",
@@ -57438,8 +57539,8 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.754Z",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:25.467Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.673Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.075Z"
     },
     "bWoNisB": {
       "video_code": "bWoNisB",
@@ -63356,7 +63457,7 @@
       "sender_name": "امیر گیم مود",
       "category_id": 11,
       "duration": 446,
-      "visit_count": 29717,
+      "visit_count": 29725,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -63373,9 +63474,21 @@
             "کشتی"
           ],
           "page": 19
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 21
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:05:15.894Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:09.742Z"
     },
     "IIcSyOb": {
       "video_code": "IIcSyOb",
@@ -63383,7 +63496,7 @@
       "sender_name": "WWF Farsi",
       "category_id": 11,
       "duration": 867,
-      "visit_count": 38308,
+      "visit_count": 38382,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
       "active": 1,
@@ -63410,9 +63523,21 @@
             "تیم"
           ],
           "page": 9
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 21
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T10:51:08.344Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:09.742Z"
     },
     "9lBV0aY": {
       "video_code": "9lBV0aY",
@@ -63420,7 +63545,7 @@
       "sender_name": "علی فلاحی ::::» سلطان پلاسمای خون ایران",
       "category_id": 11,
       "duration": 30,
-      "visit_count": 17408,
+      "visit_count": 17414,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -63437,9 +63562,21 @@
             "کشتی"
           ],
           "page": 19
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 21
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:05:15.894Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:09.742Z"
     },
     "ODlkw58": {
       "video_code": "ODlkw58",
@@ -63447,7 +63584,7 @@
       "sender_name": "Javad",
       "category_id": 3,
       "duration": 7328,
-      "visit_count": 44343,
+      "visit_count": 44361,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -63464,9 +63601,21 @@
             "کشتی"
           ],
           "page": 19
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 21
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:05:15.894Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:09.742Z"
     },
     "RtG3zoU": {
       "video_code": "RtG3zoU",
@@ -63474,7 +63623,7 @@
       "sender_name": "علی",
       "category_id": 3,
       "duration": 4960,
-      "visit_count": 24506,
+      "visit_count": 24522,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
       "active": 1,
@@ -63491,9 +63640,21 @@
             "کشتی"
           ],
           "page": 20
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 21
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:05:15.894Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:09.742Z"
     },
     "gJIVxPe": {
       "video_code": "gJIVxPe",
@@ -63501,7 +63662,7 @@
       "sender_name": "بیا2موویز",
       "category_id": 11,
       "duration": 501,
-      "visit_count": 58268,
+      "visit_count": 58280,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
       "active": 1,
@@ -63518,9 +63679,21 @@
             "کشتی"
           ],
           "page": 20
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 22
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:05:15.894Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:10.535Z"
     },
     "Op76tNS": {
       "video_code": "Op76tNS",
@@ -63528,7 +63701,7 @@
       "sender_name": "کاربر فیلو",
       "category_id": 7,
       "duration": 382,
-      "visit_count": 26640,
+      "visit_count": 26653,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
       "active": 1,
@@ -63545,9 +63718,21 @@
             "کشتی"
           ],
           "page": 20
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 22
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:05:15.894Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:10.535Z"
     },
     "VwTK9cg": {
       "video_code": "VwTK9cg",
@@ -63593,7 +63778,7 @@
       "sender_name": "سیدعباس موسوی نیک",
       "category_id": 11,
       "duration": 936,
-      "visit_count": 19414,
+      "visit_count": 19419,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -63610,9 +63795,21 @@
             "کشتی"
           ],
           "page": 21
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 22
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.635Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:10.535Z"
     },
     "ISu6pWv": {
       "video_code": "ISu6pWv",
@@ -63620,7 +63817,7 @@
       "sender_name": "دنیای فیلم و سریال(فالو=فالو)",
       "category_id": 1,
       "duration": 93,
-      "visit_count": 35239,
+      "visit_count": 35242,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -63637,9 +63834,21 @@
             "کشتی"
           ],
           "page": 21
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 22
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.635Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:10.535Z"
     },
     "WtydWXv": {
       "video_code": "WtydWXv",
@@ -63647,7 +63856,7 @@
       "sender_name": "حسام",
       "category_id": 11,
       "duration": 60,
-      "visit_count": 17693,
+      "visit_count": 17698,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -63664,9 +63873,21 @@
             "کشتی"
           ],
           "page": 21
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 22
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.635Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:10.535Z"
     },
     "UONgfLL": {
       "video_code": "UONgfLL",
@@ -63702,10 +63923,21 @@
             "دوستانه"
           ],
           "page": 10
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 23
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:23:43.661Z",
-      "lastMetricsFetchedAt": "2026-11-17T16:23:03.709Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:11.422Z"
     },
     "hkeugWj": {
       "video_code": "hkeugWj",
@@ -63713,7 +63945,7 @@
       "sender_name": "سجاد",
       "category_id": 1,
       "duration": 56,
-      "visit_count": 69454,
+      "visit_count": 69456,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -63730,9 +63962,21 @@
             "کشتی"
           ],
           "page": 22
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 23
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.636Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:11.422Z"
     },
     "cPap31t": {
       "video_code": "cPap31t",
@@ -63740,7 +63984,7 @@
       "sender_name": "علی فلاحی ::::» سلطان پلاسمای خون ایران",
       "category_id": 11,
       "duration": 382,
-      "visit_count": 16165,
+      "visit_count": 16210,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -63757,9 +64001,21 @@
             "کشتی"
           ],
           "page": 22
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 23
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.636Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:11.422Z"
     },
     "wN4ZIDV": {
       "video_code": "wN4ZIDV",
@@ -63767,7 +64023,7 @@
       "sender_name": "سعید",
       "category_id": 1,
       "duration": 203,
-      "visit_count": 34069,
+      "visit_count": 34072,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -63784,9 +64040,21 @@
             "کشتی"
           ],
           "page": 22
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 23
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.636Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:11.422Z"
     },
     "srgzIUx": {
       "video_code": "srgzIUx",
@@ -63794,7 +64062,7 @@
       "sender_name": "WWF Farsi",
       "category_id": 11,
       "duration": 1024,
-      "visit_count": 31666,
+      "visit_count": 31694,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
       "active": 1,
@@ -63811,9 +64079,21 @@
             "کشتی"
           ],
           "page": 22
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 23
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.636Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:11.422Z"
     },
     "YKdzpz0": {
       "video_code": "YKdzpz0",
@@ -63821,7 +64101,7 @@
       "sender_name": "شیرخدا",
       "category_id": 11,
       "duration": 149,
-      "visit_count": 21545,
+      "visit_count": 21568,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
       "active": 1,
@@ -63838,9 +64118,21 @@
             "کشتی"
           ],
           "page": 22
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 24
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.636Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:12.642Z"
     },
     "juLnUGr": {
       "video_code": "juLnUGr",
@@ -63848,7 +64140,7 @@
       "sender_name": "Quiz Football",
       "category_id": 11,
       "duration": 5859,
-      "visit_count": 28012,
+      "visit_count": 28049,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
       "active": 1,
@@ -63865,9 +64157,21 @@
             "کشتی"
           ],
           "page": 22
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 24
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.636Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:12.642Z"
     },
     "2r8muqT": {
       "video_code": "2r8muqT",
@@ -63875,7 +64179,7 @@
       "sender_name": "ماشین باز",
       "category_id": 11,
       "duration": 586,
-      "visit_count": 16266,
+      "visit_count": 16277,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -63892,9 +64196,21 @@
             "کشتی"
           ],
           "page": 22
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 24
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.636Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:12.642Z"
     },
     "yn1eHhS": {
       "video_code": "yn1eHhS",
@@ -63902,7 +64218,7 @@
       "sender_name": "نبض تو",
       "category_id": 2,
       "duration": 16,
-      "visit_count": 56021,
+      "visit_count": 56027,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -63919,9 +64235,21 @@
             "کشتی"
           ],
           "page": 22
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 24
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.636Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:12.642Z"
     },
     "eFP4dmq": {
       "video_code": "eFP4dmq",
@@ -63929,7 +64257,7 @@
       "sender_name": "امیر",
       "category_id": 11,
       "duration": 51,
-      "visit_count": 16905,
+      "visit_count": 16920,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
       "active": 1,
@@ -63946,9 +64274,21 @@
             "کشتی"
           ],
           "page": 23
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 24
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.636Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:12.642Z"
     },
     "XxQIhQf": {
       "video_code": "XxQIhQf",
@@ -63956,7 +64296,7 @@
       "sender_name": "علی مختاری        ",
       "category_id": 11,
       "duration": 185,
-      "visit_count": 18534,
+      "visit_count": 18541,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
       "active": 1,
@@ -63973,9 +64313,21 @@
             "کشتی"
           ],
           "page": 23
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 24
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.636Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:12.642Z"
     },
     "Kvo8YhT": {
       "video_code": "Kvo8YhT",
@@ -63983,7 +64335,7 @@
       "sender_name": "WWF Farsi",
       "category_id": 11,
       "duration": 2385,
-      "visit_count": 19889,
+      "visit_count": 19995,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
       "active": 1,
@@ -64000,9 +64352,21 @@
             "کشتی"
           ],
           "page": 23
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 24
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.636Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:12.642Z"
     },
     "5DgIqww": {
       "video_code": "5DgIqww",
@@ -64010,7 +64374,7 @@
       "sender_name": "Ravani",
       "category_id": 11,
       "duration": 2095,
-      "visit_count": 16083,
+      "visit_count": 16102,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64027,9 +64391,21 @@
             "کشتی"
           ],
           "page": 23
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 24
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.636Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:12.642Z"
     },
     "FH7tIv0": {
       "video_code": "FH7tIv0",
@@ -64037,7 +64413,7 @@
       "sender_name": "عقاب سرخ قلعه تل",
       "category_id": 11,
       "duration": 716,
-      "visit_count": 28948,
+      "visit_count": 28953,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -64054,9 +64430,21 @@
             "کشتی"
           ],
           "page": 23
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 24
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.636Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:12.642Z"
     },
     "Af5E2jX": {
       "video_code": "Af5E2jX",
@@ -64064,7 +64452,7 @@
       "sender_name": "WWF Farsi",
       "category_id": 11,
       "duration": 3215,
-      "visit_count": 23359,
+      "visit_count": 23379,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
       "active": 1,
@@ -64081,9 +64469,21 @@
             "کشتی"
           ],
           "page": 23
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 24
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.636Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.667Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:12.642Z"
     },
     "bLH8UJz": {
       "video_code": "bLH8UJz",
@@ -64091,7 +64491,7 @@
       "sender_name": "Johnny",
       "category_id": 22,
       "duration": 57,
-      "visit_count": 19485,
+      "visit_count": 19504,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
       "active": 1,
@@ -64108,9 +64508,21 @@
             "کشتی"
           ],
           "page": 24
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 24
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.637Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:12.642Z"
     },
     "vDDdsjd": {
       "video_code": "vDDdsjd",
@@ -64118,7 +64530,7 @@
       "sender_name": "علی فلاحی ::::» سلطان پلاسمای خون ایران",
       "category_id": 11,
       "duration": 1828,
-      "visit_count": 25641,
+      "visit_count": 25649,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -64135,9 +64547,21 @@
             "کشتی"
           ],
           "page": 24
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 25
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.637Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:13.553Z"
     },
     "oRbx2iF": {
       "video_code": "oRbx2iF",
@@ -64145,7 +64569,7 @@
       "sender_name": "Pat",
       "category_id": 25,
       "duration": 665,
-      "visit_count": 16362,
+      "visit_count": 16377,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
       "active": 1,
@@ -64162,9 +64586,21 @@
             "کشتی"
           ],
           "page": 24
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 25
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.637Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:13.553Z"
     },
     "er9tVVQ": {
       "video_code": "er9tVVQ",
@@ -64172,7 +64608,7 @@
       "sender_name": "ماهان ",
       "category_id": 11,
       "duration": 58,
-      "visit_count": 22191,
+      "visit_count": 22207,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
       "active": 1,
@@ -64189,9 +64625,21 @@
             "کشتی"
           ],
           "page": 24
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 25
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.637Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:13.553Z"
     },
     "VnopvSi": {
       "video_code": "VnopvSi",
@@ -64199,7 +64647,7 @@
       "sender_name": "تماشا",
       "category_id": 11,
       "duration": 430,
-      "visit_count": 35700,
+      "visit_count": 35713,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
       "active": 1,
@@ -64216,9 +64664,21 @@
             "کشتی"
           ],
           "page": 24
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 25
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.637Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:13.553Z"
     },
     "UmN06WU": {
       "video_code": "UmN06WU",
@@ -64226,7 +64686,7 @@
       "sender_name": "AliSadeghi",
       "category_id": 1,
       "duration": 46,
-      "visit_count": 85944,
+      "visit_count": 85946,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -64243,9 +64703,21 @@
             "کشتی"
           ],
           "page": 24
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 25
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.637Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:13.553Z"
     },
     "KmQzVI3": {
       "video_code": "KmQzVI3",
@@ -64281,10 +64753,21 @@
             "دوستانه"
           ],
           "page": 10
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 25
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:23:43.661Z",
-      "lastMetricsFetchedAt": "2026-11-17T16:23:03.709Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:13.553Z"
     },
     "dUwxsph": {
       "video_code": "dUwxsph",
@@ -64292,7 +64775,7 @@
       "sender_name": "✅کافه فیلم✅",
       "category_id": 3,
       "duration": 7697,
-      "visit_count": 38337,
+      "visit_count": 38350,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
       "active": 1,
@@ -64309,9 +64792,21 @@
             "کشتی"
           ],
           "page": 25
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 25
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.637Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:13.553Z"
     },
     "xd9TaGL": {
       "video_code": "xd9TaGL",
@@ -64319,7 +64814,7 @@
       "sender_name": "منتخب فیلو✅",
       "category_id": 3,
       "duration": 7698,
-      "visit_count": 24163,
+      "visit_count": 24174,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
       "active": 1,
@@ -64336,9 +64831,21 @@
             "کشتی"
           ],
           "page": 25
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 25
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.637Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:13.553Z"
     },
     "32huaJJ": {
       "video_code": "32huaJJ",
@@ -64346,7 +64853,7 @@
       "sender_name": "تماشا",
       "category_id": 11,
       "duration": 1789,
-      "visit_count": 28094,
+      "visit_count": 28098,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
       "active": 1,
@@ -64363,9 +64870,21 @@
             "کشتی"
           ],
           "page": 25
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 25
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.637Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:13.553Z"
     },
     "9PqgOb2": {
       "video_code": "9PqgOb2",
@@ -64373,7 +64892,7 @@
       "sender_name": "علی فلاحی ::::» سلطان پلاسمای خون ایران",
       "category_id": 11,
       "duration": 1362,
-      "visit_count": 27813,
+      "visit_count": 27852,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64390,9 +64909,21 @@
             "کشتی"
           ],
           "page": 25
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 25
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.637Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:13.553Z"
     },
     "tg7PBhd": {
       "video_code": "tg7PBhd",
@@ -64400,7 +64931,7 @@
       "sender_name": "⭐Aramesh⭐",
       "category_id": 15,
       "duration": 17,
-      "visit_count": 27178,
+      "visit_count": 27208,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
       "active": 1,
@@ -64417,9 +64948,21 @@
             "کشتی"
           ],
           "page": 25
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 26
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.637Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:14.329Z"
     },
     "Cg6CIfb": {
       "video_code": "Cg6CIfb",
@@ -64427,7 +64970,7 @@
       "sender_name": "MT FOOTBALL",
       "category_id": 11,
       "duration": 370,
-      "visit_count": 14783,
+      "visit_count": 14784,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64455,10 +64998,21 @@
             "دوستانه"
           ],
           "page": 11
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 26
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:23:43.661Z",
-      "lastMetricsFetchedAt": "2026-11-17T16:23:04.551Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:14.329Z"
     },
     "Qel7ic0": {
       "video_code": "Qel7ic0",
@@ -64466,7 +65020,7 @@
       "sender_name": "Ravani",
       "category_id": 11,
       "duration": 660,
-      "visit_count": 16922,
+      "visit_count": 16945,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64483,9 +65037,21 @@
             "کشتی"
           ],
           "page": 26
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 26
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.637Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:14.329Z"
     },
     "eWQJmRO": {
       "video_code": "eWQJmRO",
@@ -64493,7 +65059,7 @@
       "sender_name": "تماشا",
       "category_id": 11,
       "duration": 198,
-      "visit_count": 26131,
+      "visit_count": 26138,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
       "active": 1,
@@ -64510,9 +65076,21 @@
             "کشتی"
           ],
           "page": 26
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 26
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.637Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:14.329Z"
     },
     "p6NhI3b": {
       "video_code": "p6NhI3b",
@@ -64520,7 +65098,7 @@
       "sender_name": "نبض تو",
       "category_id": 1,
       "duration": 120,
-      "visit_count": 56858,
+      "visit_count": 56861,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -64537,9 +65115,21 @@
             "کشتی"
           ],
           "page": 26
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 26
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.637Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:14.329Z"
     },
     "Yyg9K8C": {
       "video_code": "Yyg9K8C",
@@ -64547,7 +65137,7 @@
       "sender_name": "WWF Farsi",
       "category_id": 11,
       "duration": 1716,
-      "visit_count": 19196,
+      "visit_count": 19234,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
       "active": 1,
@@ -64564,9 +65154,21 @@
             "کشتی"
           ],
           "page": 27
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 27
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.638Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.145Z"
     },
     "YbCxkki": {
       "video_code": "YbCxkki",
@@ -64574,7 +65176,7 @@
       "sender_name": "sargarm sho",
       "category_id": 21,
       "duration": 5693,
-      "visit_count": 17236,
+      "visit_count": 17239,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
       "active": 1,
@@ -64591,9 +65193,21 @@
             "کشتی"
           ],
           "page": 27
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 27
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.638Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.145Z"
     },
     "veyaXXj": {
       "video_code": "veyaXXj",
@@ -64601,7 +65215,7 @@
       "sender_name": "فیلو فیلم تک",
       "category_id": 11,
       "duration": 122,
-      "visit_count": 96722,
+      "visit_count": 96748,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64618,9 +65232,21 @@
             "کشتی"
           ],
           "page": 27
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 27
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.638Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.145Z"
     },
     "nye3z7Y": {
       "video_code": "nye3z7Y",
@@ -64656,10 +65282,21 @@
             "دوستانه"
           ],
           "page": 11
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 28
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:23:43.662Z",
-      "lastMetricsFetchedAt": "2026-11-17T16:23:04.551Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.890Z"
     },
     "WCZlG2r": {
       "video_code": "WCZlG2r",
@@ -64667,7 +65304,7 @@
       "sender_name": "تماشا",
       "category_id": 11,
       "duration": 1765,
-      "visit_count": 28130,
+      "visit_count": 28141,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
       "active": 1,
@@ -64684,9 +65321,21 @@
             "کشتی"
           ],
           "page": 27
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 28
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.638Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.890Z"
     },
     "7tubvFz": {
       "video_code": "7tubvFz",
@@ -64694,7 +65343,7 @@
       "sender_name": "نبض تو",
       "category_id": 1,
       "duration": 474,
-      "visit_count": 30250,
+      "visit_count": 30252,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -64711,9 +65360,21 @@
             "کشتی"
           ],
           "page": 27
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 28
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.638Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.890Z"
     },
     "CtGEMEl": {
       "video_code": "CtGEMEl",
@@ -64721,7 +65382,7 @@
       "sender_name": "بیا2موویز",
       "category_id": 11,
       "duration": 465,
-      "visit_count": 20499,
+      "visit_count": 20510,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
       "active": 1,
@@ -64738,9 +65399,21 @@
             "کشتی"
           ],
           "page": 28
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 28
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.638Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.890Z"
     },
     "owD4jNw": {
       "video_code": "owD4jNw",
@@ -64748,7 +65421,7 @@
       "sender_name": "WWE",
       "category_id": 11,
       "duration": 1428,
-      "visit_count": 38082,
+      "visit_count": 38094,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -64765,9 +65438,21 @@
             "کشتی"
           ],
           "page": 28
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 28
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.638Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.890Z"
     },
     "3JJZHTH": {
       "video_code": "3JJZHTH",
@@ -64775,7 +65460,7 @@
       "sender_name": "اسنیک مامانی (فالو لطفا)",
       "category_id": 15,
       "duration": 634,
-      "visit_count": 36341,
+      "visit_count": 36347,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -64792,9 +65477,21 @@
             "کشتی"
           ],
           "page": 28
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 28
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.638Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.890Z"
     },
     "mFhqnFX": {
       "video_code": "mFhqnFX",
@@ -64802,7 +65499,7 @@
       "sender_name": "Mohammad.TVhub",
       "category_id": 11,
       "duration": 378,
-      "visit_count": 16183,
+      "visit_count": 16191,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -64819,9 +65516,21 @@
             "کشتی"
           ],
           "page": 28
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 29
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.638Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:16.720Z"
     },
     "2rIYDrH": {
       "video_code": "2rIYDrH",
@@ -64857,10 +65566,21 @@
             "دوستانه"
           ],
           "page": 12
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 29
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:23:43.662Z",
-      "lastMetricsFetchedAt": "2026-11-17T16:23:05.403Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:16.720Z"
     },
     "vfotiYs": {
       "video_code": "vfotiYs",
@@ -64868,7 +65588,7 @@
       "sender_name": "مسعود",
       "category_id": 11,
       "duration": 30,
-      "visit_count": 16904,
+      "visit_count": 16910,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -64885,9 +65605,21 @@
             "کشتی"
           ],
           "page": 29
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 29
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.638Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:16.720Z"
     },
     "FxqKmlF": {
       "video_code": "FxqKmlF",
@@ -64895,7 +65627,7 @@
       "sender_name": "احمد علی - 1",
       "category_id": 1,
       "duration": 581,
-      "visit_count": 26458,
+      "visit_count": 26462,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -64912,9 +65644,21 @@
             "کشتی"
           ],
           "page": 29
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 29
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.639Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:16.720Z"
     },
     "NdRdLGV": {
       "video_code": "NdRdLGV",
@@ -64922,7 +65666,7 @@
       "sender_name": "naz_br",
       "category_id": 11,
       "duration": 99,
-      "visit_count": 16604,
+      "visit_count": 16659,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
       "active": 1,
@@ -64939,9 +65683,21 @@
             "کشتی"
           ],
           "page": 29
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 30
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.639Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:17.561Z"
     },
     "KELKpqm": {
       "video_code": "KELKpqm",
@@ -64949,7 +65705,7 @@
       "sender_name": "WWE",
       "category_id": 11,
       "duration": 2516,
-      "visit_count": 37868,
+      "visit_count": 37886,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -64966,9 +65722,21 @@
             "کشتی"
           ],
           "page": 29
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 30
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.639Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:17.561Z"
     },
     "A7b07AF": {
       "video_code": "A7b07AF",
@@ -64976,7 +65744,7 @@
       "sender_name": "WWF Farsi",
       "category_id": 11,
       "duration": 674,
-      "visit_count": 13410,
+      "visit_count": 13441,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
       "active": 1,
@@ -65003,9 +65771,21 @@
             "تیم"
           ],
           "page": 16
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 30
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T10:51:08.346Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:17.561Z"
     },
     "KgWPvkz": {
       "video_code": "KgWPvkz",
@@ -65013,7 +65793,7 @@
       "sender_name": "سرگرمی متنوع  (فالو = فالو )",
       "category_id": 1,
       "duration": 232,
-      "visit_count": 23340,
+      "visit_count": 23342,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -65030,9 +65810,21 @@
             "کشتی"
           ],
           "page": 30
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 30
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.639Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:17.561Z"
     },
     "AyW9uyH": {
       "video_code": "AyW9uyH",
@@ -65040,7 +65832,7 @@
       "sender_name": "WWF Farsi",
       "category_id": 11,
       "duration": 1726,
-      "visit_count": 8724,
+      "visit_count": 8763,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
       "active": 1,
@@ -65067,9 +65859,21 @@
             "تیم"
           ],
           "page": 16
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 30
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T10:51:08.346Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:17.561Z"
     },
     "MS8GEis": {
       "video_code": "MS8GEis",
@@ -65077,7 +65881,7 @@
       "sender_name": "دانلود روزانه فیلو✅",
       "category_id": 21,
       "duration": 5022,
-      "visit_count": 20116,
+      "visit_count": 20121,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -65094,9 +65898,21 @@
             "کشتی"
           ],
           "page": 30
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 31
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.639Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:18.391Z"
     },
     "9fp59xJ": {
       "video_code": "9fp59xJ",
@@ -65104,7 +65920,7 @@
       "sender_name": "فالو مساوی با فالو",
       "category_id": 3,
       "duration": 356,
-      "visit_count": 17509,
+      "visit_count": 17516,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -65132,9 +65948,21 @@
             "هدایتی"
           ],
           "page": 13
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 31
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T10:07:04.998Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:18.391Z"
     },
     "ytU3pZy": {
       "video_code": "ytU3pZy",
@@ -65142,7 +65970,7 @@
       "sender_name": "بیا2موویز",
       "category_id": 11,
       "duration": 649,
-      "visit_count": 18917,
+      "visit_count": 18931,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -65159,9 +65987,21 @@
             "کشتی"
           ],
           "page": 30
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 31
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.639Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:18.391Z"
     },
     "ToLiuIu": {
       "video_code": "ToLiuIu",
@@ -65169,7 +66009,7 @@
       "sender_name": "تماشا",
       "category_id": 11,
       "duration": 1798,
-      "visit_count": 15417,
+      "visit_count": 15422,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
       "active": 1,
@@ -65196,9 +66036,21 @@
             "تیم"
           ],
           "page": 17
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 32
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T10:51:08.347Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.670Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:19.157Z"
     },
     "UTW7iNz": {
       "video_code": "UTW7iNz",
@@ -65206,7 +66058,7 @@
       "sender_name": "WWE",
       "category_id": 11,
       "duration": 1626,
-      "visit_count": 22092,
+      "visit_count": 22105,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -65223,9 +66075,21 @@
             "کشتی"
           ],
           "page": 31
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 32
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.639Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.670Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:19.157Z"
     },
     "IGkCdHS": {
       "video_code": "IGkCdHS",
@@ -65233,7 +66097,7 @@
       "sender_name": "WWF Farsi",
       "category_id": 11,
       "duration": 894,
-      "visit_count": 16685,
+      "visit_count": 16721,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
       "active": 1,
@@ -65260,9 +66124,21 @@
             "تیم"
           ],
           "page": 18
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 33
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T10:51:08.347Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.670Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:19.958Z"
     },
     "oOfIyPT": {
       "video_code": "oOfIyPT",
@@ -65270,7 +66146,7 @@
       "sender_name": "Starmedia",
       "category_id": 3,
       "duration": 7841,
-      "visit_count": 23858,
+      "visit_count": 23871,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -65287,9 +66163,21 @@
             "کشتی"
           ],
           "page": 32
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 33
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.640Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.670Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:19.958Z"
     },
     "MLHhy6m": {
       "video_code": "MLHhy6m",
@@ -65297,7 +66185,7 @@
       "sender_name": "WWF Farsi",
       "category_id": 11,
       "duration": 1488,
-      "visit_count": 6638,
+      "visit_count": 6679,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
       "active": 1,
@@ -65324,9 +66212,21 @@
             "تیم"
           ],
           "page": 11
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 33
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T10:51:08.345Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.672Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:19.958Z"
     },
     "RZArcRi": {
       "video_code": "RZArcRi",
@@ -65334,7 +66234,7 @@
       "sender_name": "CUTE",
       "category_id": 11,
       "duration": 594,
-      "visit_count": 37571,
+      "visit_count": 37589,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -65351,9 +66251,21 @@
             "کشتی"
           ],
           "page": 33
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 34
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.640Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.672Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:21.319Z"
     },
     "xZK8wg6": {
       "video_code": "xZK8wg6",
@@ -65389,10 +66301,21 @@
             "دوستانه"
           ],
           "page": 13
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 34
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:23:43.662Z",
-      "lastMetricsFetchedAt": "2026-11-17T16:23:06.219Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.673Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:21.319Z"
     },
     "Ava27VL": {
       "video_code": "Ava27VL",
@@ -65400,7 +66323,7 @@
       "sender_name": "امیرسالم",
       "category_id": 3,
       "duration": 7697,
-      "visit_count": 17804,
+      "visit_count": 17810,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
       "active": 1,
@@ -65417,9 +66340,21 @@
             "کشتی"
           ],
           "page": 33
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 34
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.640Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.673Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:21.319Z"
     },
     "EpM2H2x": {
       "video_code": "EpM2H2x",
@@ -65427,7 +66362,7 @@
       "sender_name": "علیرضا",
       "category_id": 11,
       "duration": 122,
-      "visit_count": 44064,
+      "visit_count": 44075,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -65444,9 +66379,21 @@
             "کشتی"
           ],
           "page": 34
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 35
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.640Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.673Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:22.066Z"
     },
     "AojDs2O": {
       "video_code": "AojDs2O",
@@ -65454,7 +66401,7 @@
       "sender_name": "Gamerh",
       "category_id": 11,
       "duration": 628,
-      "visit_count": 17855,
+      "visit_count": 17857,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -65471,9 +66418,21 @@
             "کشتی"
           ],
           "page": 34
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 35
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.640Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.673Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:22.066Z"
     },
     "Eu511h5": {
       "video_code": "Eu511h5",
@@ -65481,7 +66440,7 @@
       "sender_name": "abbas",
       "category_id": 6,
       "duration": 17,
-      "visit_count": 18125,
+      "visit_count": 18149,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -65498,9 +66457,21 @@
             "کشتی"
           ],
           "page": 34
+        },
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 35
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T04:55:53.640Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.673Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:22.066Z"
     },
     "sFIos3w": {
       "video_code": "sFIos3w",
@@ -83936,33 +84907,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T17:41:43.094Z"
     },
-    "55ZIKl5": {
-      "video_code": "55ZIKl5",
-      "title": "🟣حامد تبریزی فصل دوم زنگ اخر قسمت6ششم😂🤠❤",
-      "sender_name": "❤🦅🚬𝗪𝗶𝗻𝘀𝘁𝗼𝗻",
-      "category_id": 3,
-      "duration": 485,
-      "visit_count": 16038,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 67
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T17:41:43.094Z"
-    },
     "VTzK3Gw": {
       "video_code": "VTzK3Gw",
       "title": "ترانه کودکانه مایا و مری با داستان - میخوام دوباره بچه کوچولو بشم",
@@ -86550,8 +87494,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.706Z",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:03.166Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.649Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:06.486Z"
     },
     "L2gh2WJ": {
       "video_code": "L2gh2WJ",
@@ -87413,8 +88357,8 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:20.028Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.356Z"
     },
     "eq8VJOZ": {
       "video_code": "eq8VJOZ",
@@ -104267,8 +105211,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.183Z",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:22.935Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.692Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:42.045Z"
     },
     "dmXR84t": {
       "video_code": "dmXR84t",
@@ -105680,7 +106624,7 @@
       "visit_count": 74688,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:20.028Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.356Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -105708,7 +106652,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "vIi4MGY": {
       "video_code": "vIi4MGY",
@@ -105980,7 +106924,7 @@
       "visit_count": 42640,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:20.028Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.356Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -106008,7 +106952,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "Q8V5G8O": {
       "video_code": "Q8V5G8O",
@@ -110044,7 +110988,7 @@
       "visit_count": 18720,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:22.935Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:42.045Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -110072,7 +111016,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.183Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.692Z"
     },
     "vgSNkCc": {
       "video_code": "vgSNkCc",
@@ -110576,7 +111520,7 @@
       "visit_count": 77368,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:14.182Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:44.376Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -110593,7 +111537,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.556Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "AayLzOj": {
       "video_code": "AayLzOj",
@@ -110604,7 +111548,7 @@
       "visit_count": 214769,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:14.182Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:44.376Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -110621,7 +111565,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.556Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "y9GLfTw": {
       "video_code": "y9GLfTw",
@@ -110632,7 +111576,7 @@
       "visit_count": 22093,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:14.182Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:44.376Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -110649,7 +111593,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.556Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "GUxRuMm": {
       "video_code": "GUxRuMm",
@@ -110660,7 +111604,7 @@
       "visit_count": 87445,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:14.182Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:44.376Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -110677,7 +111621,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.556Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "fWC75lK": {
       "video_code": "fWC75lK",
@@ -110688,7 +111632,7 @@
       "visit_count": 27554,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:14.182Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:44.376Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -110705,7 +111649,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.556Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "tmk10076340": {
       "video_code": "tmk10076340",
@@ -110716,7 +111660,7 @@
       "visit_count": 81738,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:14.182Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:44.376Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -110733,7 +111677,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.556Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "4NoCUEs": {
       "video_code": "4NoCUEs",
@@ -110744,7 +111688,7 @@
       "visit_count": 30920,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:14.182Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:44.376Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -110761,7 +111705,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.556Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "4OyXxtl": {
       "video_code": "4OyXxtl",
@@ -110769,10 +111713,10 @@
       "sender_name": "AHILHOME",
       "category_id": 3,
       "duration": 7302,
-      "visit_count": 207872,
+      "visit_count": 207874,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:14.182Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:44.376Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -110789,7 +111733,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.556Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "vA5gFy2": {
       "video_code": "vA5gFy2",
@@ -110800,7 +111744,7 @@
       "visit_count": 104931,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:14.182Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:44.376Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -110817,7 +111761,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.556Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "g60hzoa": {
       "video_code": "g60hzoa",
@@ -110828,7 +111772,7 @@
       "visit_count": 131717,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:14.182Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:44.376Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -110845,7 +111789,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.556Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "GZEO1bG": {
       "video_code": "GZEO1bG",
@@ -110856,7 +111800,7 @@
       "visit_count": 44096,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.151Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:45.325Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -110873,7 +111817,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.556Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "h5LpkhF": {
       "video_code": "h5LpkhF",
@@ -110884,7 +111828,7 @@
       "visit_count": 20225,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.151Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:45.325Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -110901,7 +111845,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.556Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "BMUEIjY": {
       "video_code": "BMUEIjY",
@@ -110912,7 +111856,7 @@
       "visit_count": 83839,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.151Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:45.325Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -110929,7 +111873,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.556Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "ZISsSkR": {
       "video_code": "ZISsSkR",
@@ -110940,7 +111884,7 @@
       "visit_count": 39452,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.151Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:45.325Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -110957,7 +111901,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.556Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "Jwwp8kX": {
       "video_code": "Jwwp8kX",
@@ -110968,7 +111912,7 @@
       "visit_count": 45027,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.151Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:45.325Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -110985,7 +111929,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.556Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "KjWBlQ4": {
       "video_code": "KjWBlQ4",
@@ -110996,7 +111940,7 @@
       "visit_count": 32505,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.151Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:45.325Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -111013,7 +111957,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.556Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "pbEjbtm": {
       "video_code": "pbEjbtm",
@@ -111024,7 +111968,7 @@
       "visit_count": 52545,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.151Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:45.325Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -111041,7 +111985,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.556Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "YbWVo8P": {
       "video_code": "YbWVo8P",
@@ -111052,7 +111996,7 @@
       "visit_count": 18374,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.151Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:45.325Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -111069,7 +112013,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.556Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "DLn45yi": {
       "video_code": "DLn45yi",
@@ -111080,7 +112024,7 @@
       "visit_count": 44846,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.151Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:45.325Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -111097,7 +112041,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.556Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "cQcFatR": {
       "video_code": "cQcFatR",
@@ -111108,7 +112052,7 @@
       "visit_count": 22645,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.151Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:45.325Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -111125,7 +112069,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.557Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "yzlvv71": {
       "video_code": "yzlvv71",
@@ -111136,7 +112080,7 @@
       "visit_count": 36608,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.949Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:46.067Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -111153,7 +112097,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.557Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "jnYkYz3": {
       "video_code": "jnYkYz3",
@@ -111164,7 +112108,7 @@
       "visit_count": 21807,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.949Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:46.067Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -111181,7 +112125,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.557Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "JduIklI": {
       "video_code": "JduIklI",
@@ -111192,7 +112136,7 @@
       "visit_count": 45966,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.949Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:46.067Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -111209,7 +112153,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.557Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "bqZFV02": {
       "video_code": "bqZFV02",
@@ -111220,7 +112164,7 @@
       "visit_count": 29647,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.949Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:46.067Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -111237,7 +112181,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.557Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "RkqcTeE": {
       "video_code": "RkqcTeE",
@@ -111248,7 +112192,7 @@
       "visit_count": 35779,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.949Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:46.067Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -111265,7 +112209,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.557Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "dibfmHz": {
       "video_code": "dibfmHz",
@@ -111276,7 +112220,7 @@
       "visit_count": 32154,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.949Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:46.067Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -111293,7 +112237,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.557Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "MPGzhBm": {
       "video_code": "MPGzhBm",
@@ -111304,7 +112248,7 @@
       "visit_count": 20995,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.949Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:46.067Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -111321,7 +112265,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.557Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "uwja5z4": {
       "video_code": "uwja5z4",
@@ -111332,7 +112276,7 @@
       "visit_count": 29075,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.949Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:46.067Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -111349,7 +112293,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.557Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "9eN1Zrq": {
       "video_code": "9eN1Zrq",
@@ -111360,7 +112304,7 @@
       "visit_count": 30418,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.949Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:46.067Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -111377,7 +112321,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.557Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "14S2o2t": {
       "video_code": "14S2o2t",
@@ -111388,7 +112332,7 @@
       "visit_count": 24798,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.949Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:46.067Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -111405,7 +112349,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.557Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "mfZI6mc": {
       "video_code": "mfZI6mc",
@@ -111416,7 +112360,7 @@
       "visit_count": 24602,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:15.949Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:46.067Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -111433,7 +112377,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.557Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.699Z"
     },
     "nXmNSJJ": {
       "video_code": "nXmNSJJ",
@@ -118559,7 +119503,7 @@
       "visit_count": 14793,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:22.104Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:41.580Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -118587,7 +119531,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "nbEqxY0": {
       "video_code": "nbEqxY0",
@@ -138757,7 +139701,7 @@
       "visit_count": 605986,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:19.080Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:39.744Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -138774,7 +139718,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.181Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "4TheXW7": {
       "video_code": "4TheXW7",
@@ -138785,7 +139729,7 @@
       "visit_count": 938939,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:20.028Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.356Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -138802,7 +139746,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.181Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "FbwIinr": {
       "video_code": "FbwIinr",
@@ -138813,7 +139757,7 @@
       "visit_count": 173352,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:20.028Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.356Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -138830,7 +139774,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.181Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "ma3UMyg": {
       "video_code": "ma3UMyg",
@@ -138841,7 +139785,7 @@
       "visit_count": 1000291,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:20.028Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.356Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -138858,7 +139802,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.181Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "Brf83bt": {
       "video_code": "Brf83bt",
@@ -138869,7 +139813,7 @@
       "visit_count": 69276,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:20.028Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.356Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -138886,7 +139830,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "GnXTpal": {
       "video_code": "GnXTpal",
@@ -138897,7 +139841,7 @@
       "visit_count": 50840,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:20.028Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.356Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -138914,7 +139858,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "iJzaIBH": {
       "video_code": "iJzaIBH",
@@ -138925,7 +139869,7 @@
       "visit_count": 82295,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:20.028Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.356Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -138942,7 +139886,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "zUhghIH": {
       "video_code": "zUhghIH",
@@ -138953,7 +139897,7 @@
       "visit_count": 44867,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:20.028Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.356Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -138970,7 +139914,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "VFIVbHi": {
       "video_code": "VFIVbHi",
@@ -138981,7 +139925,7 @@
       "visit_count": 112931,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:20.028Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.356Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -138998,7 +139942,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "VLHdIeg": {
       "video_code": "VLHdIeg",
@@ -139009,7 +139953,7 @@
       "visit_count": 59896,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:20.028Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.356Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139026,7 +139970,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "SogwAHt": {
       "video_code": "SogwAHt",
@@ -139037,7 +139981,7 @@
       "visit_count": 47556,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:20.028Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.356Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139054,7 +139998,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "e87BUJE": {
       "video_code": "e87BUJE",
@@ -139065,7 +140009,7 @@
       "visit_count": 32222,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:21.012Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.970Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139082,7 +140026,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "XbSi8II": {
       "video_code": "XbSi8II",
@@ -139093,7 +140037,7 @@
       "visit_count": 29022,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:21.012Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.970Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139110,7 +140054,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "zNZF8Vl": {
       "video_code": "zNZF8Vl",
@@ -139121,7 +140065,7 @@
       "visit_count": 59027,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:21.012Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.970Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -139138,7 +140082,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "eDCl7IS": {
       "video_code": "eDCl7IS",
@@ -139149,7 +140093,7 @@
       "visit_count": 84663,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:21.012Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.970Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139166,7 +140110,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "cw2wKsz": {
       "video_code": "cw2wKsz",
@@ -139177,7 +140121,7 @@
       "visit_count": 88542,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:21.012Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.970Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139194,7 +140138,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "IzROZNJ": {
       "video_code": "IzROZNJ",
@@ -139205,7 +140149,7 @@
       "visit_count": 50428,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:21.012Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.970Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139222,7 +140166,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "ms6pTva": {
       "video_code": "ms6pTva",
@@ -139233,7 +140177,7 @@
       "visit_count": 59498,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:21.012Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.970Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139250,7 +140194,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "IVNyZaG": {
       "video_code": "IVNyZaG",
@@ -139261,7 +140205,7 @@
       "visit_count": 18652,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:21.012Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.970Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -139278,7 +140222,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "DWTSK16": {
       "video_code": "DWTSK16",
@@ -139289,7 +140233,7 @@
       "visit_count": 77516,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:21.012Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.970Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139306,7 +140250,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "8UHsmLr": {
       "video_code": "8UHsmLr",
@@ -139317,7 +140261,7 @@
       "visit_count": 16912,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:21.012Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.970Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139334,7 +140278,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "ekgU87a": {
       "video_code": "ekgU87a",
@@ -139345,7 +140289,7 @@
       "visit_count": 36596,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:21.012Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.970Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139362,7 +140306,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "Fe70NU3": {
       "video_code": "Fe70NU3",
@@ -139373,7 +140317,7 @@
       "visit_count": 61307,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:21.012Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.970Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139390,7 +140334,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "z3JjTbg": {
       "video_code": "z3JjTbg",
@@ -139401,7 +140345,7 @@
       "visit_count": 35219,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:21.012Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:40.970Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139418,7 +140362,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "QEnb8RX": {
       "video_code": "QEnb8RX",
@@ -139429,7 +140373,7 @@
       "visit_count": 80311,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:22.104Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:41.580Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139446,7 +140390,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "jaIbEXA": {
       "video_code": "jaIbEXA",
@@ -139457,7 +140401,7 @@
       "visit_count": 91170,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:22.104Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:41.580Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139474,7 +140418,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "h4uN9MJ": {
       "video_code": "h4uN9MJ",
@@ -139485,7 +140429,7 @@
       "visit_count": 47040,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:22.104Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:41.580Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139502,7 +140446,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.182Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "g5pH2KD": {
       "video_code": "g5pH2KD",
@@ -139513,7 +140457,7 @@
       "visit_count": 49610,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:22.104Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:41.580Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139530,7 +140474,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.183Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "g46genE": {
       "video_code": "g46genE",
@@ -139541,7 +140485,7 @@
       "visit_count": 41757,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:22.104Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:41.580Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139558,7 +140502,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.183Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "DQ8yqoo": {
       "video_code": "DQ8yqoo",
@@ -139569,7 +140513,7 @@
       "visit_count": 19779,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:22.104Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:41.580Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139586,7 +140530,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.183Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "VOAcElG": {
       "video_code": "VOAcElG",
@@ -139597,7 +140541,7 @@
       "visit_count": 17467,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:22.104Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:41.580Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139614,7 +140558,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.183Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "pUmKqZZ": {
       "video_code": "pUmKqZZ",
@@ -139625,7 +140569,7 @@
       "visit_count": 33785,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:22.104Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:41.580Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139642,7 +140586,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.183Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "B1mudZK": {
       "video_code": "B1mudZK",
@@ -139653,7 +140597,7 @@
       "visit_count": 37321,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:22.104Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:41.580Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139670,7 +140614,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.183Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "Wha5OA1": {
       "video_code": "Wha5OA1",
@@ -139681,7 +140625,7 @@
       "visit_count": 19640,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:22.104Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:41.580Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139698,7 +140642,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.183Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "ovNsM9G": {
       "video_code": "ovNsM9G",
@@ -139709,7 +140653,7 @@
       "visit_count": 34721,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:22.935Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:42.045Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139726,7 +140670,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.183Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
     },
     "wDmIbBy": {
       "video_code": "wDmIbBy",
@@ -139737,7 +140681,7 @@
       "visit_count": 23543,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:22.935Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:42.045Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139754,7 +140698,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.183Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.692Z"
     },
     "n930tv5": {
       "video_code": "n930tv5",
@@ -139765,7 +140709,7 @@
       "visit_count": 34565,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:22.935Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:42.045Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139782,7 +140726,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.183Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.692Z"
     },
     "bxWgnRP": {
       "video_code": "bxWgnRP",
@@ -139793,7 +140737,7 @@
       "visit_count": 27728,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:22.935Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:42.045Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139810,7 +140754,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.183Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.692Z"
     },
     "XYgH3UD": {
       "video_code": "XYgH3UD",
@@ -153740,7 +154684,7 @@
       "visit_count": 27849,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:22.528Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:41.131Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153757,7 +154701,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.190Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.692Z"
     },
     "I1MFCMB": {
       "video_code": "I1MFCMB",
@@ -153768,7 +154712,7 @@
       "visit_count": 22043,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:22.528Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:41.131Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153785,7 +154729,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.190Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.692Z"
     },
     "uq32PdA": {
       "video_code": "uq32PdA",
@@ -153796,7 +154740,7 @@
       "visit_count": 17520,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:20:22.528Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:41.131Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -153813,7 +154757,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:20:39.190Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.692Z"
     },
     "h8bO6N6": {
       "video_code": "h8bO6N6",
@@ -154874,7 +155818,7 @@
       "visit_count": 4916,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T01:40:17.775Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:24.107Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154924,7 +155868,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:40:35.023Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.684Z"
     },
     "3q0Y9xd": {
       "video_code": "3q0Y9xd",
@@ -154991,7 +155935,7 @@
       "visit_count": 48036,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:40:12.629Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:36.244Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155019,7 +155963,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T02:40:34.567Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.684Z"
     },
     "7h7aMVj": {
       "video_code": "7h7aMVj",
@@ -157234,7 +158178,7 @@
       "visit_count": 38010,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:01.952Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:05.290Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -157252,7 +158196,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.705Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.648Z"
     },
     "Hh6Ag6b": {
       "video_code": "Hh6Ag6b",
@@ -157263,7 +158207,7 @@
       "visit_count": 19665,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:01.952Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:05.290Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157281,7 +158225,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.705Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.648Z"
     },
     "lvnuzLI": {
       "video_code": "lvnuzLI",
@@ -157292,7 +158236,7 @@
       "visit_count": 65438,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:01.952Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:05.290Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157310,7 +158254,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.705Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.648Z"
     },
     "tlS4enH": {
       "video_code": "tlS4enH",
@@ -157321,7 +158265,7 @@
       "visit_count": 17655,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:01.952Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:05.290Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157339,7 +158283,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.705Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.648Z"
     },
     "nj062pW": {
       "video_code": "nj062pW",
@@ -157350,7 +158294,7 @@
       "visit_count": 45406,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:01.952Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:05.290Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -157368,7 +158312,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.705Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.648Z"
     },
     "mdJQE3x": {
       "video_code": "mdJQE3x",
@@ -157379,7 +158323,7 @@
       "visit_count": 24724,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:01.952Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:05.290Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157397,7 +158341,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.705Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.648Z"
     },
     "L9jvoDc": {
       "video_code": "L9jvoDc",
@@ -157408,7 +158352,7 @@
       "visit_count": 21115,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:02.683Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:05.989Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157426,7 +158370,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.705Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.649Z"
     },
     "4GzmuOT": {
       "video_code": "4GzmuOT",
@@ -157437,7 +158381,7 @@
       "visit_count": 25391,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:02.683Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:05.989Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157455,7 +158399,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.706Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.649Z"
     },
     "Mrp3tWC": {
       "video_code": "Mrp3tWC",
@@ -157466,7 +158410,7 @@
       "visit_count": 17624,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:02.683Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:05.989Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157484,7 +158428,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.706Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.649Z"
     },
     "MtIj4ot": {
       "video_code": "MtIj4ot",
@@ -157495,7 +158439,7 @@
       "visit_count": 40185,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:03.166Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:06.486Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157513,7 +158457,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.706Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.649Z"
     },
     "rHn2nP9": {
       "video_code": "rHn2nP9",
@@ -157894,7 +158838,7 @@
       "visit_count": 80122,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:03.489Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:06.606Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157912,7 +158856,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.719Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.651Z"
     },
     "ykubeHw": {
       "video_code": "ykubeHw",
@@ -157923,7 +158867,7 @@
       "visit_count": 30820,
       "create_date": "9 ماه پیش",
       "styled_create_date": "9 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:03.489Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:06.606Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -157941,7 +158885,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.719Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.652Z"
     },
     "FI7SILS": {
       "video_code": "FI7SILS",
@@ -157952,7 +158896,7 @@
       "visit_count": 21727,
       "create_date": "8 سال پیش",
       "styled_create_date": "8 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:03.489Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:06.606Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157970,7 +158914,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.719Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.652Z"
     },
     "4rglaFr": {
       "video_code": "4rglaFr",
@@ -157981,7 +158925,7 @@
       "visit_count": 16333,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:03.489Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:06.606Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157999,7 +158943,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.719Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.652Z"
     },
     "fbQUs1F": {
       "video_code": "fbQUs1F",
@@ -158010,7 +158954,7 @@
       "visit_count": 29694,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:03.489Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:06.606Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -158028,7 +158972,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.720Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.652Z"
     },
     "FUePOGc": {
       "video_code": "FUePOGc",
@@ -158039,7 +158983,7 @@
       "visit_count": 42516,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:03.489Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:06.606Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -158057,7 +159001,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.720Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.652Z"
     },
     "M45RNfn": {
       "video_code": "M45RNfn",
@@ -158068,7 +159012,7 @@
       "visit_count": 37858,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:03.489Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:06.606Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -158086,7 +159030,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.720Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.652Z"
     },
     "iVplNsQ": {
       "video_code": "iVplNsQ",
@@ -158097,7 +159041,7 @@
       "visit_count": 33977,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:03.489Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:06.606Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -158115,7 +159059,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.720Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.652Z"
     },
     "IJsMkzZ": {
       "video_code": "IJsMkzZ",
@@ -158126,7 +159070,7 @@
       "visit_count": 18215,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:03.489Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:06.606Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -158144,7 +159088,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.720Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.652Z"
     },
     "NCz5Ni1": {
       "video_code": "NCz5Ni1",
@@ -158155,7 +159099,7 @@
       "visit_count": 24484,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:04.300Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:07.097Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -158173,7 +159117,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.720Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.652Z"
     },
     "Fq2xY89": {
       "video_code": "Fq2xY89",
@@ -158184,7 +159128,7 @@
       "visit_count": 23555,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:04.300Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:07.097Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -158202,7 +159146,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.721Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.652Z"
     },
     "dHHEoMW": {
       "video_code": "dHHEoMW",
@@ -158213,7 +159157,7 @@
       "visit_count": 21748,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:04.300Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:07.097Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -158231,7 +159175,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.721Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.652Z"
     },
     "6ecDetx": {
       "video_code": "6ecDetx",
@@ -158242,7 +159186,7 @@
       "visit_count": 17329,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:04.300Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:07.097Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -158260,7 +159204,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.721Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.652Z"
     },
     "YZ1wB8H": {
       "video_code": "YZ1wB8H",
@@ -158472,7 +159416,7 @@
       "visit_count": 17989,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:03.492Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:04.064Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -158490,7 +159434,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.734Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.659Z"
     },
     "nsYQh7Q": {
       "video_code": "nsYQh7Q",
@@ -158501,7 +159445,7 @@
       "visit_count": 18979,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:03.492Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:04.064Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -158519,7 +159463,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.734Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.659Z"
     },
     "B4Fk9f9": {
       "video_code": "B4Fk9f9",
@@ -158530,7 +159474,7 @@
       "visit_count": 21470,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:03.492Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:04.064Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -158548,7 +159492,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.734Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.659Z"
     },
     "PFX3EoU": {
       "video_code": "PFX3EoU",
@@ -158559,7 +159503,7 @@
       "visit_count": 18962,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:03.492Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:04.064Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -158577,7 +159521,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.734Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.659Z"
     },
     "DeCbdxw": {
       "video_code": "DeCbdxw",
@@ -158588,7 +159532,7 @@
       "visit_count": 35056,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:05.446Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:05.415Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -158606,7 +159550,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.735Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.660Z"
     },
     "ACfBr0T": {
       "video_code": "ACfBr0T",
@@ -159023,7 +159967,7 @@
       "visit_count": 153570,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:25.467Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.075Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159041,7 +159985,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.754Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.673Z"
     },
     "2STFYTA": {
       "video_code": "2STFYTA",
@@ -159052,7 +159996,7 @@
       "visit_count": 20663,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:26.731Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.745Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159070,7 +160014,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.754Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.673Z"
     },
     "oScuVk7": {
       "video_code": "oScuVk7",
@@ -159081,7 +160025,7 @@
       "visit_count": 24173,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:26.731Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.745Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159099,7 +160043,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.754Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.673Z"
     },
     "qcw8aMJ": {
       "video_code": "qcw8aMJ",
@@ -159110,7 +160054,7 @@
       "visit_count": 68839,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:26.731Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.745Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159128,7 +160072,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.754Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.673Z"
     },
     "qYjyP4i": {
       "video_code": "qYjyP4i",
@@ -159139,7 +160083,7 @@
       "visit_count": 49730,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:26.731Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.745Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -159157,7 +160101,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.754Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.674Z"
     },
     "2EJWQsH": {
       "video_code": "2EJWQsH",
@@ -159168,7 +160112,7 @@
       "visit_count": 16373,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:26.731Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.745Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -159186,7 +160130,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.754Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.674Z"
     },
     "xXUArVK": {
       "video_code": "xXUArVK",
@@ -159197,7 +160141,7 @@
       "visit_count": 28516,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:26.731Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.745Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159215,7 +160159,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.754Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.674Z"
     },
     "MzL9qJf": {
       "video_code": "MzL9qJf",
@@ -159226,7 +160170,7 @@
       "visit_count": 21077,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:26.731Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.745Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159244,7 +160188,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.754Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.674Z"
     },
     "BgvJx7I": {
       "video_code": "BgvJx7I",
@@ -159255,7 +160199,7 @@
       "visit_count": 21470,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:26.731Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.745Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159273,7 +160217,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.754Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.674Z"
     },
     "eZoDWP2": {
       "video_code": "eZoDWP2",
@@ -159284,7 +160228,7 @@
       "visit_count": 33772,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:26.731Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:15.745Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159302,7 +160246,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.754Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.674Z"
     },
     "DSNjh4M": {
       "video_code": "DSNjh4M",
@@ -159313,7 +160257,7 @@
       "visit_count": 16418,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:28.059Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:16.505Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159331,7 +160275,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.754Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.674Z"
     },
     "d8NSP8b": {
       "video_code": "d8NSP8b",
@@ -159342,7 +160286,7 @@
       "visit_count": 16353,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:28.059Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:16.505Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159360,7 +160304,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.754Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.674Z"
     },
     "XRUcuNn": {
       "video_code": "XRUcuNn",
@@ -159371,7 +160315,7 @@
       "visit_count": 17310,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:28.059Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:16.505Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159389,7 +160333,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.754Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.674Z"
     },
     "xO4Gqui": {
       "video_code": "xO4Gqui",
@@ -159400,7 +160344,7 @@
       "visit_count": 17134,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:28.059Z",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:16.505Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159418,7 +160362,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.754Z"
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.674Z"
     },
     "xdJtl40": {
       "video_code": "xdJtl40",
@@ -159448,8 +160392,66 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-18T03:40:46.755Z"
+    },
+    "3ZpoKLs": {
+      "video_code": "3ZpoKLs",
+      "title": "هشدار پهپادی حساب توییتری سپاه پاسداران به نفتکش‌های آمریکایی",
+      "sender_name": "یسنا",
+      "category_id": 1,
+      "duration": 28,
+      "visit_count": 24320,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:13.553Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 25
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z"
+    },
+    "U28PsbM": {
+      "video_code": "U28PsbM",
+      "title": "کشتی زن و مرد با هم",
+      "sender_name": "عاشقانه ها",
+      "category_id": 11,
+      "duration": 28,
+      "visit_count": 16054,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T04:00:16.720Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "کشتی نفتکش",
+          "trendTitle": "کشتی نفتکش",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
+          "trendKeywords": [
+            "کشتی",
+            "نفتکش"
+          ],
+          "page": 29
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T04:00:57.669Z"
     }
   },
-  "totalPagesFetched": 7905,
-  "totalVideosSeen": 143161
+  "totalPagesFetched": 8097,
+  "totalVideosSeen": 146765
 }
