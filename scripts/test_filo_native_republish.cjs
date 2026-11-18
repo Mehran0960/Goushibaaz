@@ -476,6 +476,9 @@ assert.equal(mergedTagFeeds.find(feed => feed.key === 'all').label, 'همهٔ ش
   'live personalized tags should keep their own labels');
 assert.equal(mergedTagFeeds.find(feed => feed.key === 'q-طنز').label, 'طنز منتخب',
   'live tag definitions should take precedence over duplicate public tags');
+assert.deepEqual(mergedTagFeeds.slice(0, 4).map(feed => feed.key),
+  ['all', 'q-طنز', 'q-آموزش', 'q-خلاقیت'],
+  'the first depth-scan batch should prioritize public high-interest categories');
 for (const key of ['q-آشپزی', 'q-آموزش', 'q-طبیعت', 'q-حیوانات', 'q-خودرو']) {
   assert.ok(mergedTagFeeds.some(feed => feed.key === key),
     'public front-page category must remain discoverable: ' + key);
@@ -543,22 +546,20 @@ assert.deepEqual(rotatingDepthSelection([1,2,3,4,5],3,2),
 assert.deepEqual(rotatingDepthSelection([1,2,3],2,12),
   {categoryIds:[3,1,2],nextCursor:2});
 assert.equal(nextCategoryDepthPage(2),3);
-assert.equal(resolveDepthScanStartPage(2,{lastPageNo:12}),13,
-  'old state that wrapped at page twelve must resume at page thirteen');
-assert.equal(resolveDepthScanStartPage(2,{lastPageNo:9}),2,
-  'ordinary early pagination state must keep its current cursor');
+assert.equal(nextCategoryDepthPage(3),2,
+  'the shallow discovery window must wrap to page two after page three');
+assert.equal(resolveDepthScanStartPage(2,{lastPageNo:3}),2,
+  'the latest page-two/page-three cycle should restart at page two');
+assert.equal(resolveDepthScanStartPage(3,{lastPageNo:2}),3,
+  'a contiguous shallow cursor should continue to page three');
+assert.equal(resolveDepthScanStartPage(81,{lastPageNo:80}),2,
+  'legacy deep-archive cursors must reset to the recent discovery window');
+assert.equal(resolveDepthScanStartPage(2,{lastPageNo:80}),2,
+  'legacy wrapped archive state must not resume deep pagination');
+assert.equal(resolveDepthScanStartPage(2,{lastPageNo:1}),2,
+  'ordinary first depth scan should start at page two');
 assert.equal(resolveDepthScanStartPage(14,{lastPageNo:12}),2,
-  'a non-contiguous stored cursor must restart safely');
-assert.equal(nextCategoryDepthPage(12),13);
-assert.equal(nextCategoryDepthPage(18),19, 'deep scanning continues from newest to older pages');
-assert.equal(nextCategoryDepthPage(36),37, 'deep scanning continues beyond the former page cap');
-assert.equal(nextCategoryDepthPage(60),61, 'deep scanning continues through the expanded page range');
-assert.equal(nextCategoryDepthPage(119),120);
-assert.equal(nextCategoryDepthPage(120),121, 'deep scanning continues beyond one hundred twenty pages');
-assert.equal(nextCategoryDepthPage(999),1000);
-assert.equal(nextCategoryDepthPage(1000),2, 'the safety page ceiling wraps only after page one thousand');
-assert.equal(resolveDepthScanStartPage(2,{lastPageNo:999}),1000,
-  'saved depth evidence resumes inside the expanded one-thousand-page range');
+  'non-contiguous cursors must restart safely');
 assert.deepEqual(
   Object.keys(summarizeCategoryCatalogPayload({s:true,d:{c:[],cfs:[]}}).nested),
   ['d']
