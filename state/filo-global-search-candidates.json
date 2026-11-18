@@ -1,46 +1,31 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-18T15:45:35.881Z",
-  "trendsFetchedAt": "2026-11-18T15:44:04.780Z",
+  "updatedAt": "2026-11-18T16:05:23.005Z",
+  "trendsFetchedAt": "2026-11-18T16:04:01.546Z",
   "trends": [
     {
-      "title": "تامین اجتماعی",
+      "title": "تیم ملی فوتبال ازبکستان",
       "keywords": [
-        "تامین",
-        "اجتماعی"
+        "تیم",
+        "ملی",
+        "فوتبال",
+        "ازبکستان"
       ],
-      "traffic": 10000,
-      "publishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
-      "ageHours": 2.6
+      "traffic": 20000,
+      "publishedAt": "Wed, 18 Nov 2026 05:50:00 -0800",
+      "ageHours": 2.2
     },
     {
-      "title": "مدیران خودرو",
+      "title": "آیتالله وحید خراسانی",
       "keywords": [
-        "مدیران",
-        "خودرو"
+        "آیتالله",
+        "وحید",
+        "خراسانی"
       ],
-      "traffic": 5000,
-      "publishedAt": "Wed, 18 Nov 2026 05:00:00 -0800",
-      "ageHours": 2.7
-    },
-    {
-      "title": "کمیسیون",
-      "keywords": [
-        "کمیسیون"
-      ],
-      "traffic": 2000,
-      "publishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
-      "ageHours": 3.6
-    },
-    {
-      "title": "بیرانوند",
-      "keywords": [
-        "بیرانوند"
-      ],
-      "traffic": 1000,
-      "publishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
-      "ageHours": 2.6
+      "traffic": 500,
+      "publishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+      "ageHours": 1.6
     },
     {
       "title": "کنست",
@@ -49,7 +34,7 @@
       ],
       "traffic": 500,
       "publishedAt": "Wed, 18 Nov 2026 06:10:00 -0800",
-      "ageHours": 1.6
+      "ageHours": 1.9
     },
     {
       "title": "چین",
@@ -58,17 +43,17 @@
       ],
       "traffic": 500,
       "publishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
-      "ageHours": 2.4
+      "ageHours": 2.7
     },
     {
-      "title": "رزیتا غفاری",
+      "title": "پپ گواردیولا",
       "keywords": [
-        "رزیتا",
-        "غفاری"
+        "پپ",
+        "گواردیولا"
       ],
       "traffic": 200,
-      "publishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
-      "ageHours": 2.6
+      "publishedAt": "Wed, 18 Nov 2026 07:30:00 -0800",
+      "ageHours": 0.6
     },
     {
       "title": "آنتونیو آدان",
@@ -76,9 +61,19 @@
         "آنتونیو",
         "آدان"
       ],
-      "traffic": 100,
+      "traffic": 200,
       "publishedAt": "Wed, 18 Nov 2026 07:00:00 -0800",
-      "ageHours": 0.7
+      "ageHours": 1.1
+    },
+    {
+      "title": "وزیر اطلاعات",
+      "keywords": [
+        "وزیر",
+        "اطلاعات"
+      ],
+      "traffic": 100,
+      "publishedAt": "Wed, 18 Nov 2026 07:30:00 -0800",
+      "ageHours": 0.6
     },
     {
       "title": "شکایت",
@@ -87,7 +82,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Wed, 18 Nov 2026 06:40:00 -0800",
-      "ageHours": 1.1
+      "ageHours": 1.4
     }
   ],
   "queries": {
@@ -7026,12 +7021,12 @@
     "روز پدر": {
       "query": "روز پدر",
       "normalized": "روز پدر",
-      "nextPage": 96,
+      "nextPage": 111,
       "complete": false,
-      "pagesFetched": 120,
-      "videosSeen": 2400,
+      "pagesFetched": 140,
+      "videosSeen": 2800,
       "createdAt": "2026-11-18T09:04:00.290Z",
-      "lastAttemptAt": "2026-11-18T10:56:03.484Z",
+      "lastAttemptAt": "2026-11-18T16:05:22.705Z",
       "lastError": null,
       "trendTitle": "روز پدر",
       "trendTraffic": 200,
@@ -7219,7 +7214,7 @@
         "بیرانوند"
       ],
       "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T15:25:35.835Z",
       "refreshOnly": false,
@@ -7848,12 +7843,12 @@
     "أحیان ا علیک ترک من تحب خوان ماتا یعلن اعتزاله": {
       "query": "\"أحيانًا عليك ترك من تحب\".. خوان ماتا يعلن اعتزاله",
       "normalized": "أحیان ا علیک ترک من تحب خوان ماتا یعلن اعتزاله",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T10:54:20.814Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T16:05:22.698Z",
       "lastError": null,
       "trendTitle": "خوان ماتا",
       "trendTraffic": 100,
@@ -7863,7 +7858,9 @@
         "ماتا"
       ],
       "lastTrendSeenAt": "2026-11-18T10:54:20.814Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T16:05:22.698Z"
     },
     "محسن فخریزاده": {
       "query": "محسن فخریزاده",
@@ -8854,7 +8851,7 @@
         "کمیسیون"
       ],
       "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T15:45:35.489Z",
       "refreshOnly": false,
@@ -8877,7 +8874,7 @@
         "کمیسیون"
       ],
       "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T15:45:35.490Z",
       "refreshOnly": false,
@@ -9072,7 +9069,7 @@
         "بیرانوند"
       ],
       "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "pagination_no_new_results"
     },
     "رزیتا غفاری": {
@@ -9093,7 +9090,7 @@
         "غفاری"
       ],
       "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-18T14:45:23.116Z"
     },
@@ -9115,7 +9112,7 @@
         "غفاری"
       ],
       "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T15:25:35.835Z",
       "refreshOnly": false,
@@ -9139,18 +9136,18 @@
         "غفاری"
       ],
       "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "چین": {
       "query": "چین",
       "normalized": "چین",
-      "nextPage": 96,
+      "nextPage": 111,
       "complete": false,
-      "pagesFetched": 120,
-      "videosSeen": 2400,
+      "pagesFetched": 140,
+      "videosSeen": 2800,
       "createdAt": "2026-11-18T13:44:04.696Z",
-      "lastAttemptAt": "2026-11-18T15:45:35.531Z",
+      "lastAttemptAt": "2026-11-18T16:05:22.664Z",
       "lastError": null,
       "trendTitle": "چین",
       "trendTraffic": 500,
@@ -9158,7 +9155,7 @@
       "trendKeywords": [
         "چین"
       ],
-      "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -9222,7 +9219,7 @@
         "خودرو"
       ],
       "lastTrendSeenAt": "2026-11-18T15:44:05.275Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "آغاز ثبت نام فونیکس مدیران خودرو با قیمت جدید آبان ۱۴۰۵": {
@@ -9243,7 +9240,7 @@
         "خودرو"
       ],
       "lastTrendSeenAt": "2026-11-18T15:44:05.275Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T15:45:35.490Z",
       "refreshOnly": false,
@@ -9316,12 +9313,12 @@
     "کنست": {
       "query": "کنست",
       "normalized": "کنست",
-      "nextPage": 66,
+      "nextPage": 81,
       "complete": false,
-      "pagesFetched": 80,
-      "videosSeen": 1591,
+      "pagesFetched": 100,
+      "videosSeen": 1989,
       "createdAt": "2026-11-18T14:44:04.749Z",
-      "lastAttemptAt": "2026-11-18T15:45:35.537Z",
+      "lastAttemptAt": "2026-11-18T16:05:22.670Z",
       "lastError": null,
       "trendTitle": "کنست",
       "trendTraffic": 500,
@@ -9329,19 +9326,19 @@
       "trendKeywords": [
         "کنست"
       ],
-      "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "در میانه رایزنی ها برای تشکیل دولت اسرائیل نامزد مخالفان نتانیاهو رییس کنست شد": {
       "query": "در میانه رایزنی‌ها برای تشکیل دولت اسرائیل، نامزد مخالفان نتانیاهو رییس کنست شد",
       "normalized": "در میانه رایزنی ها برای تشکیل دولت اسرائیل نامزد مخالفان نتانیاهو رییس کنست شد",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 3,
-      "videosSeen": 1,
+      "pagesFetched": 5,
+      "videosSeen": 2,
       "createdAt": "2026-11-18T14:44:04.749Z",
-      "lastAttemptAt": "2026-11-18T14:45:23.132Z",
+      "lastAttemptAt": "2026-11-18T16:05:22.641Z",
       "lastError": null,
       "trendTitle": "کنست",
       "trendTraffic": 500,
@@ -9349,10 +9346,12 @@
       "trendKeywords": [
         "کنست"
       ],
-      "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T14:45:23.132Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T16:05:22.641Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T16:05:22.641Z"
     },
     "نتانیاهو یک گام تا حذف سیاسی مخالفان نخستین سنگر قدرت را فتح کردند": {
       "query": "نتانیاهو یک گام تا حذف سیاسی؛ مخالفان نخستین سنگر قدرت را فتح کردند",
@@ -9437,7 +9436,7 @@
         "اجتماعی"
       ],
       "lastTrendSeenAt": "2026-11-18T15:44:05.275Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-18T15:05:53.009Z"
     },
@@ -9459,7 +9458,7 @@
         "اجتماعی"
       ],
       "lastTrendSeenAt": "2026-11-18T15:44:05.275Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-18T15:05:53.009Z"
     },
@@ -9480,7 +9479,7 @@
         "بیرانوند"
       ],
       "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-18T15:05:53.009Z"
     },
@@ -9501,7 +9500,7 @@
         "چین"
       ],
       "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-18T15:05:53.009Z"
     },
@@ -9529,12 +9528,12 @@
     "شکایت": {
       "query": "شکایت",
       "normalized": "شکایت",
-      "nextPage": 36,
+      "nextPage": 51,
       "complete": false,
-      "pagesFetched": 40,
-      "videosSeen": 798,
+      "pagesFetched": 60,
+      "videosSeen": 1198,
       "createdAt": "2026-11-18T15:04:26.775Z",
-      "lastAttemptAt": "2026-11-18T15:45:35.503Z",
+      "lastAttemptAt": "2026-11-18T16:05:22.650Z",
       "lastError": null,
       "trendTitle": "شکایت",
       "trendTraffic": 100,
@@ -9542,7 +9541,7 @@
       "trendKeywords": [
         "شکایت"
       ],
-      "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -9562,7 +9561,7 @@
       "trendKeywords": [
         "شکایت"
       ],
-      "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T15:25:35.846Z"
@@ -9583,7 +9582,7 @@
       "trendKeywords": [
         "شکایت"
       ],
-      "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T15:25:35.846Z"
@@ -9604,7 +9603,7 @@
       "trendKeywords": [
         "چین"
       ],
-      "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T15:25:35.892Z"
@@ -9620,13 +9619,13 @@
       "lastAttemptAt": "2026-11-18T15:45:35.492Z",
       "lastError": null,
       "trendTitle": "آنتونیو آدان",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Wed, 18 Nov 2026 07:00:00 -0800",
       "trendKeywords": [
         "آنتونیو",
         "آدان"
       ],
-      "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T15:45:35.492Z"
@@ -9642,13 +9641,13 @@
       "lastAttemptAt": "2026-11-18T15:45:35.492Z",
       "lastError": null,
       "trendTitle": "آنتونیو آدان",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Wed, 18 Nov 2026 07:00:00 -0800",
       "trendKeywords": [
         "آنتونیو",
         "آدان"
       ],
-      "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T15:45:35.492Z"
@@ -9691,7 +9690,7 @@
         "اجتماعی"
       ],
       "lastTrendSeenAt": "2026-11-18T15:44:05.275Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "افزایش بیش از ۲ میلیارد تومانی قیمت فونیکس fx برقی فروش با قیمت جدید از ۳۰ آبان": {
@@ -9712,7 +9711,7 @@
         "خودرو"
       ],
       "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "تصاویر دیدار اعضای کمیسیون اجتماعی مجلس با نماینده ولی فقیه در مازندران": {
       "query": "تصاویر/ دیدار اعضای کمیسیون اجتماعی مجلس با نماینده ولی فقیه در مازندران",
@@ -9731,17 +9730,17 @@
         "کمیسیون"
       ],
       "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "پیروزی مخالفان نتانیاهو در کنست و آغاز روند لغو اصلاحات قضایی با رئیس جدید لیکود ننگی ابدی": {
       "query": "پیروزی مخالفان نتانیاهو در کنست و آغاز روند لغو اصلاحات قضایی با رئیس جدید؛ لیکود: «ننگی ابدی",
       "normalized": "پیروزی مخالفان نتانیاهو در کنست و آغاز روند لغو اصلاحات قضایی با رئیس جدید لیکود ننگی ابدی",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T15:44:05.276Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T16:05:22.641Z",
       "lastError": null,
       "trendTitle": "کنست",
       "trendTraffic": 500,
@@ -9749,27 +9748,308 @@
       "trendKeywords": [
         "کنست"
       ],
-      "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T16:05:22.641Z"
     },
     "اعلام بازنشستگی دروازه بان پیشین استقلال ممنونم فوتبال": {
       "query": "اعلام بازنشستگی دروازه‌بان پیشین استقلال؛ ممنونم فوتبال!",
       "normalized": "اعلام بازنشستگی دروازه بان پیشین استقلال ممنونم فوتبال",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T15:44:05.276Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T16:05:22.641Z",
       "lastError": null,
       "trendTitle": "آنتونیو آدان",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Wed, 18 Nov 2026 07:00:00 -0800",
       "trendKeywords": [
         "آنتونیو",
         "آدان"
       ],
-      "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T16:05:22.641Z"
+    },
+    "تیم ملی فوتبال ازبکستان": {
+      "query": "تیم ملی فوتبال ازبکستان",
+      "normalized": "تیم ملی فوتبال ازبکستان",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 389,
+      "createdAt": "2026-11-18T16:04:01.769Z",
+      "lastAttemptAt": "2026-11-18T16:05:22.678Z",
+      "lastError": null,
+      "trendTitle": "تیم ملی فوتبال ازبکستان",
+      "trendTraffic": 20000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 05:50:00 -0800",
+      "trendKeywords": [
+        "تیم",
+        "ملی",
+        "فوتبال",
+        "ازبکستان"
+      ],
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "خلاصه بازی عراق ۱ ۱ ایران نباختن امیر با پرواز بلند امین": {
+      "query": "خلاصه بازی عراق ۱-۱ ایران؛ نباختن امیر با پرواز بلند امین",
+      "normalized": "خلاصه بازی عراق ۱ ۱ ایران نباختن امیر با پرواز بلند امین",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T16:04:01.769Z",
+      "lastAttemptAt": "2026-11-18T16:05:22.678Z",
+      "lastError": null,
+      "trendTitle": "تیم ملی فوتبال ازبکستان",
+      "trendTraffic": 20000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 05:50:00 -0800",
+      "trendKeywords": [
+        "تیم",
+        "ملی",
+        "فوتبال",
+        "ازبکستان"
+      ],
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T16:05:22.678Z"
+    },
+    "عراق ۱ ۱ ایران ۸۳ دقیقه انتظار برای پاسخ به گل ثانیه ۲۲ و فرار از شکست در بصره": {
+      "query": "عراق ۱-۱ ایران؛ ۸۳ دقیقه انتظار برای پاسخ به گل ثانیه ۲۲ و فرار از شکست در بصره",
+      "normalized": "عراق ۱ ۱ ایران ۸۳ دقیقه انتظار برای پاسخ به گل ثانیه ۲۲ و فرار از شکست در بصره",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 385,
+      "createdAt": "2026-11-18T16:04:01.769Z",
+      "lastAttemptAt": "2026-11-18T16:05:22.688Z",
+      "lastError": null,
+      "trendTitle": "تیم ملی فوتبال ازبکستان",
+      "trendTraffic": 20000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 05:50:00 -0800",
+      "trendKeywords": [
+        "تیم",
+        "ملی",
+        "فوتبال",
+        "ازبکستان"
+      ],
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "آیتالله وحید خراسانی": {
+      "query": "آیتالله وحید خراسانی",
+      "normalized": "آیتالله وحید خراسانی",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 389,
+      "createdAt": "2026-11-18T16:04:01.769Z",
+      "lastAttemptAt": "2026-11-18T16:05:22.695Z",
+      "lastError": null,
+      "trendTitle": "آیتالله وحید خراسانی",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+      "trendKeywords": [
+        "آیتالله",
+        "وحید",
+        "خراسانی"
+      ],
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "تشییع آیت الله وحیدخراسانی در قم ۲": {
+      "query": "تشییع آیت‌الله «وحیدخراسانی» در قم - ۲",
+      "normalized": "تشییع آیت الله وحیدخراسانی در قم ۲",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 5,
+      "videosSeen": 29,
+      "createdAt": "2026-11-18T16:04:01.769Z",
+      "lastAttemptAt": "2026-11-18T16:05:22.696Z",
+      "lastError": null,
+      "trendTitle": "آیتالله وحید خراسانی",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+      "trendKeywords": [
+        "آیتالله",
+        "وحید",
+        "خراسانی"
+      ],
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T16:05:22.696Z"
+    },
+    "عکس آیت الله العظمی حسین وحید خراسانی": {
+      "query": "عکس: آیت الله العظمی حسین وحید خراسانی",
+      "normalized": "عکس آیت الله العظمی حسین وحید خراسانی",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 6,
+      "videosSeen": 63,
+      "createdAt": "2026-11-18T16:04:01.769Z",
+      "lastAttemptAt": "2026-11-18T16:05:22.698Z",
+      "lastError": null,
+      "trendTitle": "آیتالله وحید خراسانی",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+      "trendKeywords": [
+        "آیتالله",
+        "وحید",
+        "خراسانی"
+      ],
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T16:05:22.698Z"
+    },
+    "ترامپ از نهایی شدن توافق تجاری بسیار بزرگ با فیلیپین خبر داد": {
+      "query": "ترامپ از نهایی شدن «توافق تجاری بسیار بزرگ» با فیلیپین خبر داد",
+      "normalized": "ترامپ از نهایی شدن توافق تجاری بسیار بزرگ با فیلیپین خبر داد",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T16:04:01.769Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "چین",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+      "trendKeywords": [
+        "چین"
+      ],
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
+      "activeInLatestFeed": true
+    },
+    "پپ گواردیولا": {
+      "query": "پپ گواردیولا",
+      "normalized": "پپ گواردیولا",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T16:04:01.769Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "پپ گواردیولا",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Wed, 18 Nov 2026 07:30:00 -0800",
+      "trendKeywords": [
+        "پپ",
+        "گواردیولا"
+      ],
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
+      "activeInLatestFeed": true
+    },
+    "پوچتینو به گواردیولا توصیه می کنم سرمربی آمریکا شود باید سریعا شرایط یونایتد را تغییر دهیم": {
+      "query": "پوچتینو: به گواردیولا توصیه می‌کنم سرمربی آمریکا شود؛ باید سریعاً شرایط یونایتد را تغییر دهیم",
+      "normalized": "پوچتینو به گواردیولا توصیه می کنم سرمربی آمریکا شود باید سریعا شرایط یونایتد را تغییر دهیم",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T16:04:01.769Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "پپ گواردیولا",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Wed, 18 Nov 2026 07:30:00 -0800",
+      "trendKeywords": [
+        "پپ",
+        "گواردیولا"
+      ],
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
+      "activeInLatestFeed": true
+    },
+    "پیشنهاد وسوسه انگیز عربستان به پپ گواردیولا": {
+      "query": "پیشنهاد وسوسه‌انگیز عربستان به پپ گواردیولا",
+      "normalized": "پیشنهاد وسوسه انگیز عربستان به پپ گواردیولا",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T16:04:01.769Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "پپ گواردیولا",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Wed, 18 Nov 2026 07:30:00 -0800",
+      "trendKeywords": [
+        "پپ",
+        "گواردیولا"
+      ],
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
+      "activeInLatestFeed": true
+    },
+    "وزیر اطلاعات": {
+      "query": "وزیر اطلاعات",
+      "normalized": "وزیر اطلاعات",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T16:04:01.769Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "وزیر اطلاعات",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Wed, 18 Nov 2026 07:30:00 -0800",
+      "trendKeywords": [
+        "وزیر",
+        "اطلاعات"
+      ],
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
+      "activeInLatestFeed": true
+    },
+    "توئیت عجیب ضرغامی درباره وزیر اطلاعات": {
+      "query": "توئیت عجیب ضرغامی درباره وزیر اطلاعات",
+      "normalized": "توئیت عجیب ضرغامی درباره وزیر اطلاعات",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T16:04:01.769Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "وزیر اطلاعات",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Wed, 18 Nov 2026 07:30:00 -0800",
+      "trendKeywords": [
+        "وزیر",
+        "اطلاعات"
+      ],
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
+      "activeInLatestFeed": true
+    },
+    "ضرغامی ۹ ماه است که در حساس ترین دوره امنیتی کشور وزیر اطلاعات نداریم ظاهرا فقیه مورد اعتماد اینکاره نداریم": {
+      "query": "ضرغامی: ۹ ماه است که در حساس ترین دوره امنیتی کشور، وزیر اطلاعات نداریم/ ظاهرا فقیه مورد اعتماد اینکاره نداریم",
+      "normalized": "ضرغامی ۹ ماه است که در حساس ترین دوره امنیتی کشور وزیر اطلاعات نداریم ظاهرا فقیه مورد اعتماد اینکاره نداریم",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T16:04:01.769Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "وزیر اطلاعات",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Wed, 18 Nov 2026 07:30:00 -0800",
+      "trendKeywords": [
+        "وزیر",
+        "اطلاعات"
+      ],
+      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
       "activeInLatestFeed": true
     }
   },
@@ -19973,10 +20253,22 @@
             "کفایی"
           ],
           "page": 10
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:04.164Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.691Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:57.742Z"
     },
     "6egnJ7L": {
       "video_code": "6egnJ7L",
@@ -26673,8 +26965,8 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.492Z",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:33.499Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.642Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:22.639Z"
     },
     "LqcSwzA": {
       "video_code": "LqcSwzA",
@@ -42436,10 +42728,22 @@
             "کفایی"
           ],
           "page": 4
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:52.276Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:51.280Z"
     },
     "8OAmZjI": {
       "video_code": "8OAmZjI",
@@ -48594,10 +48898,22 @@
             "کفایی"
           ],
           "page": 4
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:52.276Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:51.280Z"
     },
     "sknsrUx": {
       "video_code": "sknsrUx",
@@ -50904,10 +51220,22 @@
             "کفایی"
           ],
           "page": 6
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:54.442Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:53.469Z"
     },
     "bKWEhc5": {
       "video_code": "bKWEhc5",
@@ -71079,10 +71407,22 @@
             "پیشکسوت"
           ],
           "page": 1
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.220Z",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:23.040Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:55.518Z"
     },
     "sAe8jIs": {
       "video_code": "sAe8jIs",
@@ -73538,33 +73878,6 @@
       "category_id": 21,
       "duration": 1364,
       "visit_count": 23980,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "تیم",
-          "trendTitle": "تیم",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 3 Nov 2026 02:00:00 -0800",
-          "trendKeywords": [
-            "تیم"
-          ],
-          "page": 20
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:51:08.348Z"
-    },
-    "80VEmcz": {
-      "video_code": "80VEmcz",
-      "title": "انیمیشن تیم اومی زومی قسمت 2 فصل اول دوبله فارسی",
-      "sender_name": "✅کافه فیلم✅",
-      "category_id": 21,
-      "duration": 1370,
-      "visit_count": 22037,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -80485,8 +80798,8 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.525Z",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:58.203Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.655Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:27.368Z"
     },
     "omA3OXO": {
       "video_code": "omA3OXO",
@@ -80869,10 +81182,22 @@
             "کفایی"
           ],
           "page": 5
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:53.350Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:52.371Z"
     },
     "G8Qogtf": {
       "video_code": "G8Qogtf",
@@ -82908,10 +83233,22 @@
             "کفایی"
           ],
           "page": 7
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:55.410Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:54.464Z"
     },
     "khWoSHx": {
       "video_code": "khWoSHx",
@@ -92876,7 +93213,7 @@
       "sender_name": "سعید",
       "category_id": 0,
       "duration": 592,
-      "visit_count": 44389,
+      "visit_count": 44390,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -92906,10 +93243,22 @@
             "کفایی"
           ],
           "page": 11
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 11
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.472Z",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:05.292Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.692Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:58.897Z"
     },
     "lSGbbGH": {
       "video_code": "lSGbbGH",
@@ -95650,35 +95999,6 @@
             "سیتکس"
           ],
           "page": 13
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.729Z"
-    },
-    "5z21OGU": {
-      "video_code": "5z21OGU",
-      "title": "فیلم حقیقت آزادی زن در جوامع غربی",
-      "sender_name": "سعید",
-      "category_id": 3,
-      "duration": 36,
-      "visit_count": 22012,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:36.503Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "تجاوز آهن و ربات، به عرصه و حریم «برج آزادی»",
-          "trendTitle": "نمایشگاه سیتکس",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:20:00 -0800",
-          "trendKeywords": [
-            "نمایشگاه",
-            "سیتکس"
-          ],
-          "page": 14
         }
       ],
       "lastTrendMatchedAt": "2026-11-17T16:06:04.729Z"
@@ -135110,7 +135430,7 @@
       "visit_count": 19554,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:01.649Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:55.518Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -135137,9 +135457,21 @@
             "کفایی"
           ],
           "page": 8
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "8lHNk1A": {
       "video_code": "8lHNk1A",
@@ -135430,7 +135762,7 @@
       "visit_count": 35746,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:04.164Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:57.742Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -135457,9 +135789,21 @@
             "کفایی"
           ],
           "page": 10
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.472Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.691Z"
     },
     "fT9vDzp": {
       "video_code": "fT9vDzp",
@@ -145014,7 +145358,7 @@
       "visit_count": 48244,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:53.770Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:01.275Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -145032,7 +145376,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.479Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.698Z"
     },
     "G0DzUQ0": {
       "video_code": "G0DzUQ0",
@@ -145043,7 +145387,7 @@
       "visit_count": 40346,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:53.770Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:01.275Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -145061,7 +145405,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.479Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.698Z"
     },
     "7AX7OtI": {
       "video_code": "7AX7OtI",
@@ -145072,7 +145416,7 @@
       "visit_count": 29570,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:53.770Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:01.275Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -145090,7 +145434,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.479Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.698Z"
     },
     "qTUnlGN": {
       "video_code": "qTUnlGN",
@@ -145098,10 +145442,10 @@
       "sender_name": "کلیپ کده",
       "category_id": 28,
       "duration": 13,
-      "visit_count": 22112,
+      "visit_count": 22113,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:53.770Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:01.275Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -145119,7 +145463,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.479Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.698Z"
     },
     "jodDtkb": {
       "video_code": "jodDtkb",
@@ -145127,10 +145471,10 @@
       "sender_name": "رنگارنگ",
       "category_id": 15,
       "duration": 332,
-      "visit_count": 70987,
+      "visit_count": 70989,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:53.770Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:01.275Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -145148,7 +145492,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.479Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.698Z"
     },
     "LGoDFA7": {
       "video_code": "LGoDFA7",
@@ -145156,10 +145500,10 @@
       "sender_name": "کلیپ کده",
       "category_id": 28,
       "duration": 11,
-      "visit_count": 76506,
+      "visit_count": 76507,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:53.770Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:01.275Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -145177,7 +145521,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.479Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.698Z"
     },
     "gi7VHsU": {
       "video_code": "gi7VHsU",
@@ -145185,10 +145529,10 @@
       "sender_name": "فیلو فیلم تک",
       "category_id": 28,
       "duration": 24,
-      "visit_count": 45364,
+      "visit_count": 45365,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:53.770Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:01.275Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -145206,7 +145550,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.479Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.699Z"
     },
     "GMoMq9u": {
       "video_code": "GMoMq9u",
@@ -145217,7 +145561,7 @@
       "visit_count": 22989,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:53.770Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:01.275Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -145235,7 +145579,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.479Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.699Z"
     },
     "Zuxqirg": {
       "video_code": "Zuxqirg",
@@ -145243,10 +145587,10 @@
       "sender_name": "فیلو فیلم تک",
       "category_id": 28,
       "duration": 30,
-      "visit_count": 22323,
+      "visit_count": 22324,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:53.770Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:01.275Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -145264,7 +145608,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.479Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.699Z"
     },
     "QjHisqx": {
       "video_code": "QjHisqx",
@@ -145275,7 +145619,7 @@
       "visit_count": 23816,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:54.413Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:02.358Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -145293,7 +145637,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.480Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.699Z"
     },
     "nmAzu8I": {
       "video_code": "nmAzu8I",
@@ -145304,7 +145648,7 @@
       "visit_count": 52886,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:54.413Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:02.358Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -145322,7 +145666,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.480Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.699Z"
     },
     "Bwiskmw": {
       "video_code": "Bwiskmw",
@@ -145333,7 +145677,7 @@
       "visit_count": 41198,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:54.413Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:02.358Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -145351,7 +145695,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.480Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.699Z"
     },
     "vB4xgAm": {
       "video_code": "vB4xgAm",
@@ -145359,10 +145703,10 @@
       "sender_name": "فیلو فیلم تک",
       "category_id": 28,
       "duration": 54,
-      "visit_count": 52637,
+      "visit_count": 52638,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:54.413Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:02.358Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -145380,7 +145724,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.480Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.699Z"
     },
     "PF1mVxb": {
       "video_code": "PF1mVxb",
@@ -145391,7 +145735,7 @@
       "visit_count": 419691,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:54.413Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:02.358Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -145409,7 +145753,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.480Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.699Z"
     },
     "HsJv7lW": {
       "video_code": "HsJv7lW",
@@ -145417,10 +145761,10 @@
       "sender_name": "رنگارنگ",
       "category_id": 15,
       "duration": 60,
-      "visit_count": 22989,
+      "visit_count": 22990,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:55.025Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:03.524Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -145438,7 +145782,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.480Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.699Z"
     },
     "WdFQwOI": {
       "video_code": "WdFQwOI",
@@ -145449,7 +145793,7 @@
       "visit_count": 25906,
       "create_date": "10 ماه پیش",
       "styled_create_date": "10 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:55.025Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:03.524Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -145467,7 +145811,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.480Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.699Z"
     },
     "kOWYEBE": {
       "video_code": "kOWYEBE",
@@ -145475,10 +145819,10 @@
       "sender_name": "فیلو فیلم تک",
       "category_id": 28,
       "duration": 24,
-      "visit_count": 36898,
+      "visit_count": 36899,
       "create_date": "10 ماه پیش",
       "styled_create_date": "10 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:55.025Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:03.524Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -145496,7 +145840,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.480Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.699Z"
     },
     "2qO9E6q": {
       "video_code": "2qO9E6q",
@@ -145507,7 +145851,7 @@
       "visit_count": 35864,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:55.025Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:03.524Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -145525,7 +145869,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.480Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.699Z"
     },
     "ySw9GQW": {
       "video_code": "ySw9GQW",
@@ -145536,7 +145880,7 @@
       "visit_count": 38989,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:27.595Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:04.365Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -145566,7 +145910,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.228Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.699Z"
     },
     "7dnku0k": {
       "video_code": "7dnku0k",
@@ -145574,10 +145918,10 @@
       "sender_name": "فیلو فیلم تک",
       "category_id": 28,
       "duration": 59,
-      "visit_count": 22321,
+      "visit_count": 22322,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:55.469Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:04.365Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -145595,7 +145939,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.480Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.699Z"
     },
     "PiOM2Ur": {
       "video_code": "PiOM2Ur",
@@ -145606,7 +145950,7 @@
       "visit_count": 23104,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:55.469Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:04.365Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -145624,7 +145968,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.480Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.700Z"
     },
     "rLSVGVn": {
       "video_code": "rLSVGVn",
@@ -145635,7 +145979,7 @@
       "visit_count": 26655,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:55.469Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:04.365Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -145653,7 +145997,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.480Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.700Z"
     },
     "QQTY2pu": {
       "video_code": "QQTY2pu",
@@ -149972,36 +150316,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T10:05:35.669Z"
     },
-    "4BhI9Km": {
-      "video_code": "4BhI9Km",
-      "title": "فیلم لحظه ترور آیت الله سلیمانی در بابلسر (امروز)",
-      "sender_name": "احمد",
-      "category_id": 1,
-      "duration": 70,
-      "visit_count": 22011,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:05:08.331Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "مراسم تشییع آیت‌الله «وحیدخراسانی»",
-          "trendTitle": "ایت الله کفایی",
-          "trendTraffic": 5000,
-          "trendPublishedAt": "Wed, 18 Nov 2026 00:30:00 -0800",
-          "trendKeywords": [
-            "ایت",
-            "الله",
-            "کفایی"
-          ],
-          "page": 8
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T10:05:35.669Z"
-    },
     "IG1XUp3": {
       "video_code": "IG1XUp3",
       "title": "اولین فیلم از لحظه قتل آیت الله عباسعلی سلیمانی در داخل بانک / قاتل خونسرد را بب",
@@ -152569,10 +152883,10 @@
       "sender_name": "علی",
       "category_id": 15,
       "duration": 866,
-      "visit_count": 47759,
+      "visit_count": 47760,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:52.276Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:51.280Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152589,9 +152903,21 @@
             "کفایی"
           ],
           "page": 4
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.688Z"
     },
     "sYcUctG": {
       "video_code": "sYcUctG",
@@ -152602,7 +152928,7 @@
       "visit_count": 136838,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:52.276Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:51.280Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152619,9 +152945,21 @@
             "کفایی"
           ],
           "page": 4
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "9OOpUEw": {
       "video_code": "9OOpUEw",
@@ -152629,10 +152967,10 @@
       "sender_name": "امیرمحمد",
       "category_id": 11,
       "duration": 55,
-      "visit_count": 96152,
+      "visit_count": 96153,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:52.276Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:51.280Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152649,9 +152987,21 @@
             "کفایی"
           ],
           "page": 4
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "Vi2VoKd": {
       "video_code": "Vi2VoKd",
@@ -152659,10 +153009,10 @@
       "sender_name": "علی",
       "category_id": 15,
       "duration": 234,
-      "visit_count": 39808,
+      "visit_count": 39809,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:52.276Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:51.280Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152679,9 +153029,21 @@
             "کفایی"
           ],
           "page": 4
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "6caR5IO": {
       "video_code": "6caR5IO",
@@ -152692,7 +153054,7 @@
       "visit_count": 69344,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:52.276Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:51.280Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152709,9 +153071,21 @@
             "کفایی"
           ],
           "page": 4
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "yugOGzW": {
       "video_code": "yugOGzW",
@@ -152722,7 +153096,7 @@
       "visit_count": 133378,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:52.276Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:51.280Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152739,9 +153113,21 @@
             "کفایی"
           ],
           "page": 4
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "VzpLrCD": {
       "video_code": "VzpLrCD",
@@ -152749,10 +153135,10 @@
       "sender_name": "دوربین مخفی دهقان",
       "category_id": 2,
       "duration": 726,
-      "visit_count": 107581,
+      "visit_count": 107582,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:52.276Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:51.280Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152769,9 +153155,21 @@
             "کفایی"
           ],
           "page": 4
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "g60ZaOt": {
       "video_code": "g60ZaOt",
@@ -152779,10 +153177,10 @@
       "sender_name": "دوربین مخفی دهقان",
       "category_id": 2,
       "duration": 637,
-      "visit_count": 173386,
+      "visit_count": 173387,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:52.276Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:51.280Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152799,9 +153197,21 @@
             "کفایی"
           ],
           "page": 4
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "mGIHYQW": {
       "video_code": "mGIHYQW",
@@ -152812,7 +153222,7 @@
       "visit_count": 55377,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:52.276Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:51.280Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152829,9 +153239,21 @@
             "کفایی"
           ],
           "page": 4
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "BOUnt0h": {
       "video_code": "BOUnt0h",
@@ -152839,10 +153261,10 @@
       "sender_name": "نیلا",
       "category_id": 1,
       "duration": 309,
-      "visit_count": 52223,
+      "visit_count": 52224,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:52.276Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:51.280Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -152859,9 +153281,21 @@
             "کفایی"
           ],
           "page": 4
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "y2OIjxL": {
       "video_code": "y2OIjxL",
@@ -152872,7 +153306,7 @@
       "visit_count": 55408,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:52.276Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:51.280Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152889,9 +153323,21 @@
             "کفایی"
           ],
           "page": 4
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "dG6JBDS": {
       "video_code": "dG6JBDS",
@@ -152899,10 +153345,10 @@
       "sender_name": "دوربین مخفی دهقان",
       "category_id": 2,
       "duration": 648,
-      "visit_count": 140162,
+      "visit_count": 140163,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:53.350Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:52.371Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152919,9 +153365,21 @@
             "کفایی"
           ],
           "page": 5
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "rkigwYw": {
       "video_code": "rkigwYw",
@@ -152932,7 +153390,7 @@
       "visit_count": 51357,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:53.350Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:52.371Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152949,9 +153407,21 @@
             "کفایی"
           ],
           "page": 5
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "TiZzEVT": {
       "video_code": "TiZzEVT",
@@ -152962,7 +153432,7 @@
       "visit_count": 107631,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:53.350Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:52.371Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152979,9 +153449,21 @@
             "کفایی"
           ],
           "page": 5
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "daWluwo": {
       "video_code": "daWluwo",
@@ -152992,7 +153474,7 @@
       "visit_count": 62317,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:53.350Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:52.371Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153009,9 +153491,21 @@
             "کفایی"
           ],
           "page": 5
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "tAbKInf": {
       "video_code": "tAbKInf",
@@ -153022,7 +153516,7 @@
       "visit_count": 42282,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:53.350Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:52.371Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153039,9 +153533,21 @@
             "کفایی"
           ],
           "page": 5
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "0lSaryj": {
       "video_code": "0lSaryj",
@@ -153052,7 +153558,7 @@
       "visit_count": 51022,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:53.350Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:52.371Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153069,9 +153575,21 @@
             "کفایی"
           ],
           "page": 5
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "x0kmLda": {
       "video_code": "x0kmLda",
@@ -153082,7 +153600,7 @@
       "visit_count": 71708,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:53.350Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:52.371Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153099,9 +153617,21 @@
             "کفایی"
           ],
           "page": 5
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "fUQlWKX": {
       "video_code": "fUQlWKX",
@@ -153109,10 +153639,10 @@
       "sender_name": "دوربین مخفی دهقان",
       "category_id": 2,
       "duration": 539,
-      "visit_count": 163544,
+      "visit_count": 163545,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:53.350Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:52.371Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153129,9 +153659,21 @@
             "کفایی"
           ],
           "page": 5
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "T9a5yjg": {
       "video_code": "T9a5yjg",
@@ -153142,7 +153684,7 @@
       "visit_count": 46504,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:53.350Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:52.371Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153159,9 +153701,21 @@
             "کفایی"
           ],
           "page": 5
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "gC4NeJv": {
       "video_code": "gC4NeJv",
@@ -153169,10 +153723,10 @@
       "sender_name": "ABOLFAZL_ZX",
       "category_id": 11,
       "duration": 51,
-      "visit_count": 68599,
+      "visit_count": 68600,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:53.350Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:52.371Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153189,9 +153743,21 @@
             "کفایی"
           ],
           "page": 5
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "ziIqeXB": {
       "video_code": "ziIqeXB",
@@ -153202,7 +153768,7 @@
       "visit_count": 30969,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:53.350Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:52.371Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153219,9 +153785,21 @@
             "کفایی"
           ],
           "page": 5
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "s7Gs935": {
       "video_code": "s7Gs935",
@@ -153232,7 +153810,7 @@
       "visit_count": 24487,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:53.350Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:52.371Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -153249,9 +153827,21 @@
             "کفایی"
           ],
           "page": 5
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "KlWDeWJ": {
       "video_code": "KlWDeWJ",
@@ -153262,7 +153852,7 @@
       "visit_count": 127489,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:54.442Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:53.469Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -153279,9 +153869,21 @@
             "کفایی"
           ],
           "page": 6
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "c9KSloA": {
       "video_code": "c9KSloA",
@@ -153292,7 +153894,7 @@
       "visit_count": 68045,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:54.442Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:53.469Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153309,9 +153911,21 @@
             "کفایی"
           ],
           "page": 6
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.470Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "PWzvLVY": {
       "video_code": "PWzvLVY",
@@ -153322,7 +153936,7 @@
       "visit_count": 62974,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:54.442Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:53.469Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153339,9 +153953,21 @@
             "کفایی"
           ],
           "page": 6
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "pDMEhYu": {
       "video_code": "pDMEhYu",
@@ -153352,7 +153978,7 @@
       "visit_count": 75351,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:54.442Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:53.469Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153369,9 +153995,21 @@
             "کفایی"
           ],
           "page": 6
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "1blCjgi": {
       "video_code": "1blCjgi",
@@ -153382,7 +154020,7 @@
       "visit_count": 59117,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:54.442Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:53.469Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153399,9 +154037,21 @@
             "کفایی"
           ],
           "page": 6
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.689Z"
     },
     "V3T5vnf": {
       "video_code": "V3T5vnf",
@@ -153412,7 +154062,7 @@
       "visit_count": 23382,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:54.442Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:53.469Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153429,9 +154079,21 @@
             "کفایی"
           ],
           "page": 6
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "woWKp25": {
       "video_code": "woWKp25",
@@ -153439,10 +154101,10 @@
       "sender_name": "دوربین مخفی دهقان",
       "category_id": 2,
       "duration": 791,
-      "visit_count": 77617,
+      "visit_count": 77618,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:54.442Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:53.469Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153459,9 +154121,21 @@
             "کفایی"
           ],
           "page": 6
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "E9ABdzl": {
       "video_code": "E9ABdzl",
@@ -153472,7 +154146,7 @@
       "visit_count": 41251,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:54.442Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:53.469Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153489,9 +154163,21 @@
             "کفایی"
           ],
           "page": 6
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "wDce8Ub": {
       "video_code": "wDce8Ub",
@@ -153502,7 +154188,7 @@
       "visit_count": 41075,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:54.442Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:53.469Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153519,9 +154205,21 @@
             "کفایی"
           ],
           "page": 6
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "PLsRHsW": {
       "video_code": "PLsRHsW",
@@ -153532,7 +154230,7 @@
       "visit_count": 49919,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:54.442Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:53.469Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153549,9 +154247,21 @@
             "کفایی"
           ],
           "page": 6
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "y7W8woc": {
       "video_code": "y7W8woc",
@@ -153562,7 +154272,7 @@
       "visit_count": 31278,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:54.442Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:53.469Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153579,9 +154289,21 @@
             "کفایی"
           ],
           "page": 6
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "n9h54lR": {
       "video_code": "n9h54lR",
@@ -153592,7 +154314,7 @@
       "visit_count": 38745,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:54.442Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:53.469Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153609,9 +154331,21 @@
             "کفایی"
           ],
           "page": 6
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "QPEHmMB": {
       "video_code": "QPEHmMB",
@@ -153622,7 +154356,7 @@
       "visit_count": 50756,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:54.442Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:53.469Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153639,9 +154373,21 @@
             "کفایی"
           ],
           "page": 6
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "R8Qczq2": {
       "video_code": "R8Qczq2",
@@ -153652,7 +154398,7 @@
       "visit_count": 32298,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:55.410Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:54.464Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153669,9 +154415,21 @@
             "کفایی"
           ],
           "page": 7
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "oyJi6KI": {
       "video_code": "oyJi6KI",
@@ -153682,7 +154440,7 @@
       "visit_count": 36653,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:55.410Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:54.464Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153699,9 +154457,21 @@
             "کفایی"
           ],
           "page": 7
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "lfAhsEQ": {
       "video_code": "lfAhsEQ",
@@ -153712,7 +154482,7 @@
       "visit_count": 24073,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:55.410Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:54.464Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153729,9 +154499,21 @@
             "کفایی"
           ],
           "page": 7
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "xhK527F": {
       "video_code": "xhK527F",
@@ -153742,7 +154524,7 @@
       "visit_count": 53321,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:55.410Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:54.464Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153759,9 +154541,21 @@
             "کفایی"
           ],
           "page": 7
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "iwlaH7q": {
       "video_code": "iwlaH7q",
@@ -153772,7 +154566,7 @@
       "visit_count": 50761,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:55.410Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:54.464Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153789,9 +154583,21 @@
             "کفایی"
           ],
           "page": 7
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "9Phn0MN": {
       "video_code": "9Phn0MN",
@@ -153799,10 +154605,10 @@
       "sender_name": "دوربین مخفی دهقان",
       "category_id": 9,
       "duration": 917,
-      "visit_count": 42318,
+      "visit_count": 42319,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:55.410Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:54.464Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153819,9 +154625,21 @@
             "کفایی"
           ],
           "page": 7
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "hhA9dvv": {
       "video_code": "hhA9dvv",
@@ -153832,7 +154650,7 @@
       "visit_count": 28092,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:55.410Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:54.464Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153849,9 +154667,21 @@
             "کفایی"
           ],
           "page": 7
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "1WtLwBj": {
       "video_code": "1WtLwBj",
@@ -153862,7 +154692,7 @@
       "visit_count": 41446,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:55.410Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:54.464Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153879,9 +154709,21 @@
             "کفایی"
           ],
           "page": 7
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "ud2bZ1S": {
       "video_code": "ud2bZ1S",
@@ -153889,10 +154731,10 @@
       "sender_name": "نبض تو",
       "category_id": 13,
       "duration": 60,
-      "visit_count": 37300,
+      "visit_count": 37301,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:55.410Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:54.464Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153909,9 +154751,21 @@
             "کفایی"
           ],
           "page": 7
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "uZo7CIK": {
       "video_code": "uZo7CIK",
@@ -153919,10 +154773,10 @@
       "sender_name": "دوربین مخفی دهقان",
       "category_id": 2,
       "duration": 739,
-      "visit_count": 41300,
+      "visit_count": 41301,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:55.410Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:54.464Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153939,9 +154793,21 @@
             "کفایی"
           ],
           "page": 7
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "zM6w5Oa": {
       "video_code": "zM6w5Oa",
@@ -153952,7 +154818,7 @@
       "visit_count": 111221,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:55.410Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:54.464Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153969,9 +154835,21 @@
             "کفایی"
           ],
           "page": 7
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "FH23T8c": {
       "video_code": "FH23T8c",
@@ -153982,7 +154860,7 @@
       "visit_count": 40879,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:55.410Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:54.464Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153999,9 +154877,21 @@
             "کفایی"
           ],
           "page": 7
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "Ya0cyo4": {
       "video_code": "Ya0cyo4",
@@ -154012,7 +154902,7 @@
       "visit_count": 25022,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:01.649Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:55.518Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154029,9 +154919,21 @@
             "کفایی"
           ],
           "page": 8
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "JRj3cFW": {
       "video_code": "JRj3cFW",
@@ -154039,10 +154941,10 @@
       "sender_name": "دوربین مخفی دهقان",
       "category_id": 2,
       "duration": 554,
-      "visit_count": 26636,
+      "visit_count": 26637,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:01.649Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:55.518Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154059,9 +154961,21 @@
             "کفایی"
           ],
           "page": 8
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "L2WzoR6": {
       "video_code": "L2WzoR6",
@@ -154072,7 +154986,7 @@
       "visit_count": 24074,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:01.649Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:55.518Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154089,9 +155003,21 @@
             "کفایی"
           ],
           "page": 8
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "cxChp3Y": {
       "video_code": "cxChp3Y",
@@ -154102,7 +155028,7 @@
       "visit_count": 24931,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:01.649Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:55.518Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154119,9 +155045,21 @@
             "کفایی"
           ],
           "page": 8
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "PyBxND8": {
       "video_code": "PyBxND8",
@@ -154132,7 +155070,7 @@
       "visit_count": 27955,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:01.649Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:55.518Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154149,9 +155087,21 @@
             "کفایی"
           ],
           "page": 8
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "fcuYec7": {
       "video_code": "fcuYec7",
@@ -154159,10 +155109,10 @@
       "sender_name": "سعید",
       "category_id": 1,
       "duration": 60,
-      "visit_count": 22991,
+      "visit_count": 22992,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:01.649Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:55.518Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154179,9 +155129,21 @@
             "کفایی"
           ],
           "page": 8
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.690Z"
     },
     "m762cv9": {
       "video_code": "m762cv9",
@@ -154192,7 +155154,7 @@
       "visit_count": 30853,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:01.649Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:55.518Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154209,9 +155171,21 @@
             "کفایی"
           ],
           "page": 8
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.691Z"
     },
     "LnDSItm": {
       "video_code": "LnDSItm",
@@ -154222,7 +155196,7 @@
       "visit_count": 23307,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:01.649Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:55.518Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154239,9 +155213,21 @@
             "کفایی"
           ],
           "page": 8
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.691Z"
     },
     "xJlxw2X": {
       "video_code": "xJlxw2X",
@@ -154252,7 +155238,7 @@
       "visit_count": 48406,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:03.078Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:56.632Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154269,9 +155255,21 @@
             "کفایی"
           ],
           "page": 9
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.691Z"
     },
     "zN3gZEq": {
       "video_code": "zN3gZEq",
@@ -154282,7 +155280,7 @@
       "visit_count": 38369,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:03.078Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:56.632Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154299,9 +155297,21 @@
             "کفایی"
           ],
           "page": 9
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.691Z"
     },
     "kJuSx6b": {
       "video_code": "kJuSx6b",
@@ -154312,7 +155322,7 @@
       "visit_count": 28579,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:03.078Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:56.632Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154329,9 +155339,21 @@
             "کفایی"
           ],
           "page": 9
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.691Z"
     },
     "rqqZdsb": {
       "video_code": "rqqZdsb",
@@ -154342,7 +155364,7 @@
       "visit_count": 41040,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:03.078Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:56.632Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154359,9 +155381,21 @@
             "کفایی"
           ],
           "page": 9
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.691Z"
     },
     "YPytIR3": {
       "video_code": "YPytIR3",
@@ -154372,7 +155406,7 @@
       "visit_count": 24541,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:03.078Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:56.632Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154389,9 +155423,21 @@
             "کفایی"
           ],
           "page": 9
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.691Z"
     },
     "5GwmaMv": {
       "video_code": "5GwmaMv",
@@ -154402,7 +155448,7 @@
       "visit_count": 26762,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:03.078Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:56.632Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154419,9 +155465,21 @@
             "کفایی"
           ],
           "page": 9
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.691Z"
     },
     "DijZn7Y": {
       "video_code": "DijZn7Y",
@@ -154432,7 +155490,7 @@
       "visit_count": 27776,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:03.078Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:56.632Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154449,9 +155507,21 @@
             "کفایی"
           ],
           "page": 9
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.691Z"
     },
     "RsDqvbZ": {
       "video_code": "RsDqvbZ",
@@ -154459,10 +155529,10 @@
       "sender_name": "دوربین مخفی دهقان",
       "category_id": 25,
       "duration": 1074,
-      "visit_count": 35869,
+      "visit_count": 35870,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:03.078Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:56.632Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154479,9 +155549,21 @@
             "کفایی"
           ],
           "page": 9
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.691Z"
     },
     "eLMkgZv": {
       "video_code": "eLMkgZv",
@@ -154492,7 +155574,7 @@
       "visit_count": 25791,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:04.164Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:57.742Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154509,9 +155591,21 @@
             "کفایی"
           ],
           "page": 10
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.691Z"
     },
     "mOCiOpz": {
       "video_code": "mOCiOpz",
@@ -154522,7 +155616,7 @@
       "visit_count": 27890,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:04.164Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:57.742Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154539,9 +155633,21 @@
             "کفایی"
           ],
           "page": 10
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.691Z"
     },
     "pBJjmnK": {
       "video_code": "pBJjmnK",
@@ -154552,7 +155658,7 @@
       "visit_count": 23277,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:04.164Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:57.742Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154569,9 +155675,21 @@
             "کفایی"
           ],
           "page": 10
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.691Z"
     },
     "x68YdFo": {
       "video_code": "x68YdFo",
@@ -154582,7 +155700,7 @@
       "visit_count": 52179,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:04.164Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:57.742Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154599,9 +155717,21 @@
             "کفایی"
           ],
           "page": 10
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.691Z"
     },
     "8ypg44d": {
       "video_code": "8ypg44d",
@@ -154612,7 +155742,7 @@
       "visit_count": 27628,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:04.164Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:57.742Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154629,9 +155759,21 @@
             "کفایی"
           ],
           "page": 10
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.472Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.691Z"
     },
     "GnQQg7A": {
       "video_code": "GnQQg7A",
@@ -154639,10 +155781,10 @@
       "sender_name": "رسانه آوا 1400",
       "category_id": 3,
       "duration": 499,
-      "visit_count": 25238,
+      "visit_count": 25239,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:04.164Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:57.742Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154659,9 +155801,21 @@
             "کفایی"
           ],
           "page": 10
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.472Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.691Z"
     },
     "VlnQi1H": {
       "video_code": "VlnQi1H",
@@ -154672,7 +155826,7 @@
       "visit_count": 25996,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:04.164Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:57.742Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154689,9 +155843,21 @@
             "کفایی"
           ],
           "page": 10
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.472Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.691Z"
     },
     "uH5hSNk": {
       "video_code": "uH5hSNk",
@@ -154702,7 +155868,7 @@
       "visit_count": 22434,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:06.405Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:00.284Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154719,9 +155885,21 @@
             "کفایی"
           ],
           "page": 12
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 12
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.472Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.692Z"
     },
     "YynDe3r": {
       "video_code": "YynDe3r",
@@ -154732,7 +155910,7 @@
       "visit_count": 22404,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:06.405Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:00.284Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154749,9 +155927,21 @@
             "کفایی"
           ],
           "page": 12
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 12
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.472Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.692Z"
     },
     "T3DvEzb": {
       "video_code": "T3DvEzb",
@@ -154762,7 +155952,7 @@
       "visit_count": 49221,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:08.762Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:02.539Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154779,9 +155969,21 @@
             "کفایی"
           ],
           "page": 14
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 14
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.473Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.693Z"
     },
     "SeL9Gom": {
       "video_code": "SeL9Gom",
@@ -154792,7 +155994,7 @@
       "visit_count": 35908,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:24:57.868Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:05:04.543Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154819,9 +156021,21 @@
             "کنست"
           ],
           "page": 36
+        },
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 16
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:25:35.887Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.693Z"
     },
     "TUhCOHS": {
       "video_code": "TUhCOHS",
@@ -155080,35 +156294,6 @@
             "لطفی"
           ],
           "page": 41
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.476Z"
-    },
-    "DkkU7Ct": {
-      "video_code": "DkkU7Ct",
-      "title": "انیمیشن جذاب گردو شکن وسنگ سحر آمیز/انیمیشن عاشقانه/فیلم سینمایی/کارتون سینمایی",
-      "sender_name": "(آیدی کانال روبیکا karnet_t)",
-      "category_id": 21,
-      "duration": 6481,
-      "visit_count": 22029,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:07.796Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سحر لطفی",
-          "trendTitle": "سحر لطفی",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 21:40:00 -0800",
-          "trendKeywords": [
-            "سحر",
-            "لطفی"
-          ],
-          "page": 42
         }
       ],
       "lastTrendMatchedAt": "2026-11-18T10:26:15.476Z"
@@ -164860,7 +166045,7 @@
       "visit_count": 80741,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:58.203Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:27.368Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -164877,7 +166062,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.525Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.654Z"
     },
     "Pm6DpmW": {
       "video_code": "Pm6DpmW",
@@ -164888,7 +166073,7 @@
       "visit_count": 59906,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:58.203Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:27.368Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -164905,7 +166090,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.525Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.655Z"
     },
     "OxxlQ4G": {
       "video_code": "OxxlQ4G",
@@ -164916,7 +166101,7 @@
       "visit_count": 28765,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:58.203Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:27.368Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -164933,7 +166118,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.525Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.655Z"
     },
     "Jnm5Teq": {
       "video_code": "Jnm5Teq",
@@ -164944,7 +166129,7 @@
       "visit_count": 139352,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:58.585Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:27.861Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -164961,7 +166146,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.525Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.655Z"
     },
     "zR9i7St": {
       "video_code": "zR9i7St",
@@ -164972,7 +166157,7 @@
       "visit_count": 118038,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:58.585Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:27.861Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -164989,7 +166174,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.525Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.655Z"
     },
     "IpyGInU": {
       "video_code": "IpyGInU",
@@ -165000,7 +166185,7 @@
       "visit_count": 39115,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:58.585Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:27.861Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -165017,7 +166202,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.525Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.655Z"
     },
     "foLfLUR": {
       "video_code": "foLfLUR",
@@ -165028,7 +166213,7 @@
       "visit_count": 69754,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:58.585Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:27.861Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -165045,7 +166230,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.525Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.655Z"
     },
     "75GuztB": {
       "video_code": "75GuztB",
@@ -165056,7 +166241,7 @@
       "visit_count": 57793,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:58.585Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:27.861Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -165073,7 +166258,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.525Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.655Z"
     },
     "4SAOKd9": {
       "video_code": "4SAOKd9",
@@ -165084,7 +166269,7 @@
       "visit_count": 26766,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:58.585Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:27.861Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -165101,7 +166286,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.526Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.655Z"
     },
     "9VEYiaZ": {
       "video_code": "9VEYiaZ",
@@ -165112,7 +166297,7 @@
       "visit_count": 27292,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:58.585Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:27.861Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -165129,7 +166314,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.526Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.656Z"
     },
     "79zO71l": {
       "video_code": "79zO71l",
@@ -169585,7 +170770,7 @@
       "visit_count": 101119,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:31.295Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:21.787Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -169602,7 +170787,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.492Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.641Z"
     },
     "M3DotId": {
       "video_code": "M3DotId",
@@ -169613,7 +170798,7 @@
       "visit_count": 71449,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:31.295Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:21.787Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -169630,7 +170815,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.492Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.641Z"
     },
     "mESqUJ8": {
       "video_code": "mESqUJ8",
@@ -169641,7 +170826,7 @@
       "visit_count": 25036,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:31.295Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:21.787Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -169658,7 +170843,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.492Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.641Z"
     },
     "xw1O77X": {
       "video_code": "xw1O77X",
@@ -169669,7 +170854,7 @@
       "visit_count": 101834,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:31.295Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:21.787Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -169686,7 +170871,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.492Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.641Z"
     },
     "1XNSbY8": {
       "video_code": "1XNSbY8",
@@ -169697,7 +170882,7 @@
       "visit_count": 29891,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:31.295Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:21.787Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -169714,7 +170899,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.492Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.642Z"
     },
     "9UWFG4o": {
       "video_code": "9UWFG4o",
@@ -169725,7 +170910,7 @@
       "visit_count": 60161,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:33.499Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:22.639Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -169742,7 +170927,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.493Z"
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.642Z"
     },
     "dUFTvXz": {
       "video_code": "dUFTvXz",
@@ -170442,8 +171627,140 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-18T15:45:35.549Z"
+    },
+    "90LMYs5": {
+      "video_code": "90LMYs5",
+      "title": "کنسرت ابی (حنجره طلا ایرانی)",
+      "sender_name": "عاشقانه و موسیقی ✅",
+      "category_id": 9,
+      "duration": 60,
+      "visit_count": 34053,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:36.344Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "کنست",
+          "trendTitle": "کنست",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:10:00 -0800",
+          "trendKeywords": [
+            "کنست"
+          ],
+          "page": 73
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.668Z"
+    },
+    "S53Dm86": {
+      "video_code": "S53Dm86",
+      "title": "🎥 مشاهده شدن موشک های کروز پرتاب شده از مبدأ ایران بر فراز عراق",
+      "sender_name": "فیلم بازان",
+      "category_id": 1,
+      "duration": 9,
+      "visit_count": 24929,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:49.276Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "عراق ۱-۱ ایران؛ ۸۳ دقیقه انتظار برای پاسخ به گل ثانیه ۲۲ و فرار از شکست در بصره",
+          "trendTitle": "تیم ملی فوتبال ازبکستان",
+          "trendTraffic": 20000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:50:00 -0800",
+          "trendKeywords": [
+            "تیم",
+            "ملی",
+            "فوتبال",
+            "ازبکستان"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.679Z"
+    },
+    "VFDOjRy": {
+      "video_code": "VFDOjRy",
+      "title": "نرخ فاحشه در ايران از تايلند و حتی عراق هم ارزانتر است... خاطرات يک جوان عراقی...يعنی",
+      "sender_name": "ویدیوهای داغ اینستاگرام",
+      "category_id": 1,
+      "duration": 60,
+      "visit_count": 27407,
+      "create_date": "7 سال پیش",
+      "styled_create_date": "7 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:51.016Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "عراق ۱-۱ ایران؛ ۸۳ دقیقه انتظار برای پاسخ به گل ثانیه ۲۲ و فرار از شکست در بصره",
+          "trendTitle": "تیم ملی فوتبال ازبکستان",
+          "trendTraffic": 20000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:50:00 -0800",
+          "trendKeywords": [
+            "تیم",
+            "ملی",
+            "فوتبال",
+            "ازبکستان"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.679Z"
+    },
+    "q8DlSJM": {
+      "video_code": "q8DlSJM",
+      "title": "وحید مرادی قتل حسین",
+      "sender_name": "رضا",
+      "category_id": 1,
+      "duration": 136,
+      "visit_count": 9637,
+      "create_date": "7 سال پیش",
+      "styled_create_date": "7 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T16:04:50.541Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "آیتالله وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 15
+        },
+        {
+          "query": "عکس: آیت الله العظمی حسین وحید خراسانی",
+          "trendTitle": "آیتالله وحید خراسانی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
+          "trendKeywords": [
+            "آیتالله",
+            "وحید",
+            "خراسانی"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T16:05:22.696Z"
     }
   },
-  "totalPagesFetched": 13005,
-  "totalVideosSeen": 235272
+  "totalPagesFetched": 13166,
+  "totalVideosSeen": 238126
 }
