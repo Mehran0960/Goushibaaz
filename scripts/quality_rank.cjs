@@ -13,6 +13,17 @@ const MULTI_CLIP_RISK = /\b(compilation|roundup|recap|best of|top\s*\d+|ranking|
 
 // Editorial ranking only. A score never grants permission to republish a video.
 const TOPICS = [
+  { key: 'news_current_affairs', base: 20, patterns: [/news|breaking|current affairs|journalism|reporting|press briefing|election|campaign|parliament|government|policy debate|public hearing|investigation/i, /خبر|اخبار|خبر فوری|گزارش خبری|خبرنگار|رویداد روز|انتخابات|سیاست|سیاسی|مجلس|دولت|مذاکره|تحلیل سیاسی|تحولات منطقه|تحولات جهان/i] },
+  { key: 'economy_finance', base: 20, patterns: [/economy|economic|finance|inflation|interest rates?|currency|exchange rate|stock market|markets?|bitcoin|crypto|cryptocurrency|business|trade|industry/i, /اقتصاد|اقتصادی|مالی|تورم|نرخ بهره|ارز|دلار|طلا|بورس|بازار سرمایه|رمزارز|بیت.?کوین|کسب.?و.?کار|تجارت|صنعت/i] },
+  { key: 'society_law', base: 20, patterns: [/society|social issue|law|legal|court|justice|civil rights|public services|community/i, /جامعه|اجتماعی|حقوق|قانون|دادگاه|عدالت|حقوق شهروندی|خدمات عمومی|مردم/i] },
+  { key: 'health_medicine', base: 20, patterns: [/health|medical|medicine|hospital|public health|wellness research/i, /سلامت|پزشکی|درمان|بیمارستان|بهداشت|پژوهش پزشکی/i] },
+  { key: 'education_books', base: 20, patterns: [/education|learning|school|university|literature|books?|author|language/i, /آموزش|تحصیل|مدرسه|دانشگاه|ادبیات|کتاب|نویسنده|زبان/i] },
+  { key: 'film_media_art', base: 20, patterns: [/cinema|film|movie|television|series|media|photography|visual art|theatre/i, /سینما|فیلم|سریال|تلویزیون|رسانه|عکاسی|هنرهای تجسمی|تئاتر|نمایش/i] },
+  { key: 'music_audio', base: 20, patterns: [/music|song|concert|album|musician|instrument|audio/i, /موسیقی|ترانه|آهنگ|کنسرت|آلبوم|خواننده|نوازنده|ساز/i] },
+  { key: 'religion_philosophy', base: 20, patterns: [/religion|religious|faith|philosophy|theology|spirituality/i, /دین|مذهبی|مذهب|باور|فلسفه|الهیات|معنویت/i] },
+  { key: 'environment_climate', base: 20, patterns: [/environment|climate|climate change|conservation|pollution|sustainability/i, /محیط زیست|اقلیم|تغییرات آب.?و.?هوایی|حفاظت|آلودگی|پایداری/i] },
+  { key: 'history_politics', base: 20, patterns: [/history|historical|archaeology|geopolitics|international relations|conflict analysis/i, /تاریخ|تاریخی|باستان.?شناسی|روابط بین.?الملل|ژئوپلیتیک|تحلیل درگیری/i] },
+  { key: 'transport_energy', base: 20, patterns: [/transport|aviation|railway|shipping|energy|electricity|oil and gas/i, /حمل.?و.?نقل|هوانوردی|راه.?آهن|کشتیرانی|انرژی|برق|نفت|گاز/i] }
   { key: 'sports_skill', base: 20, patterns: [/football|soccer|basketball|skateboard|parkour|trick shot|freestyle|sports? skill|goal|dunk/i, /فوتبال|بسکتبال|والیبال|ورزش|گل زیبا|حرکت نمایشی|دریبل|اسکیت|مهارت عجیب/i] },
   { key: 'technology_demo', base: 20, patterns: [/technology demo|AI demo|robot demo|smart device|gadget demo|new technology|invention demo/i, /هوش مصنوعی|فناوری|تکنولوژی|ربات|گجت|دستگاه هوشمند|دموی فناوری|ابزار جدید/i] },
   { key: 'science_tech', base: 20, patterns: [/science experiment|experiment|optical illusion|brain teaser|puzzle|physics|astronomy|space footage|planetary science/i, /آزمایش علمی|علمی|خطای دید|معما|فیزیک|نجوم|کهکشان|سیاره|فضا|پدیده علمی/i] },
@@ -29,18 +40,7 @@ const TOPICS = [
   { key: 'diy_creativity', base: 20, patterns: [/DIY|craft|woodworking|pottery|handmade|creative process|miniature build/i, /کاردستی|نجاری|سفالگری|ساخت دست.?ساز|خلاقانه|ساخت ماکت/i] },
   { key: 'home_cleaning', base: 20, patterns: [/cleaning|deep clean|home organization|declutter|organizing|tidying/i, /تمیزکاری|نظم.?دهی|مرتب.?سازی|پاکسازی|سازماندهی خانه/i] },
   { key: 'fashion_culture', base: 20, patterns: [/fashion show|runway|pageant|traditional dress|national costume/i, /فشن شو|مدلینگ|لباس سنتی|لباس ملی|مسابقه زیبایی/i] },
-  { key: 'persian_comedy', base: 20, patterns: [/hidden camera|prank|comedy|comed(y|ic)|humou?r|funny|reaction|meme|sketch|fail|caught on camera|unexpected|surprise/i, /طنز|خنده|بامزه|سوتی|دوربین مخفی|دوبله|میم|چالش|واکنش|اتفاق غیرمنتظره|غافلگیر/i] },,
-  { key: 'news_current_affairs', base: 20, patterns: [/news|breaking|current affairs|journalism|reporting|press briefing|election|campaign|parliament|government|policy debate|public hearing|investigation/i, /خبر|اخبار|خبر فوری|گزارش خبری|خبرنگار|رویداد روز|انتخابات|سیاست|سیاسی|مجلس|دولت|مذاکره|تحلیل سیاسی|تحولات منطقه|تحولات جهان/i] },
-  { key: 'economy_finance', base: 20, patterns: [/economy|economic|finance|inflation|interest rates?|currency|exchange rate|stock market|markets?|bitcoin|crypto|cryptocurrency|business|trade|industry/i, /اقتصاد|اقتصادی|مالی|تورم|نرخ بهره|ارز|دلار|طلا|بورس|بازار سرمایه|رمزارز|بیت.?کوین|کسب.?و.?کار|تجارت|صنعت/i] },
-  { key: 'society_law', base: 20, patterns: [/society|social issue|law|legal|court|justice|civil rights|public services|community/i, /جامعه|اجتماعی|حقوق|قانون|دادگاه|عدالت|حقوق شهروندی|خدمات عمومی|مردم/i] },
-  { key: 'health_medicine', base: 20, patterns: [/health|medical|medicine|hospital|public health|wellness research/i, /سلامت|پزشکی|درمان|بیمارستان|بهداشت|پژوهش پزشکی/i] },
-  { key: 'education_books', base: 20, patterns: [/education|learning|school|university|literature|books?|author|language/i, /آموزش|تحصیل|مدرسه|دانشگاه|ادبیات|کتاب|نویسنده|زبان/i] },
-  { key: 'film_media_art', base: 20, patterns: [/cinema|film|movie|television|series|media|photography|visual art|theatre/i, /سینما|فیلم|سریال|تلویزیون|رسانه|عکاسی|هنرهای تجسمی|تئاتر|نمایش/i] },
-  { key: 'music_audio', base: 20, patterns: [/music|song|concert|album|musician|instrument|audio/i, /موسیقی|ترانه|آهنگ|کنسرت|آلبوم|خواننده|نوازنده|ساز/i] },
-  { key: 'religion_philosophy', base: 20, patterns: [/religion|religious|faith|philosophy|theology|spirituality/i, /دین|مذهبی|مذهب|باور|فلسفه|الهیات|معنویت/i] },
-  { key: 'environment_climate', base: 20, patterns: [/environment|climate|climate change|conservation|pollution|sustainability/i, /محیط زیست|اقلیم|تغییرات آب.?و.?هوایی|حفاظت|آلودگی|پایداری/i] },
-  { key: 'history_politics', base: 20, patterns: [/history|historical|archaeology|geopolitics|international relations|conflict analysis/i, /تاریخ|تاریخی|باستان.?شناسی|روابط بین.?الملل|ژئوپلیتیک|تحلیل درگیری/i] },
-  { key: 'transport_energy', base: 20, patterns: [/transport|aviation|railway|shipping|energy|electricity|oil and gas/i, /حمل.?و.?نقل|هوانوردی|راه.?آهن|کشتیرانی|انرژی|برق|نفت|گاز/i] }
+  { key: 'persian_comedy', base: 20, patterns: [/hidden camera|prank|comedy|comed(y|ic)|humou?r|funny|reaction|meme|sketch|fail|caught on camera|unexpected|surprise/i, /طنز|خنده|بامزه|سوتی|دوربین مخفی|دوبله|میم|چالش|واکنش|اتفاق غیرمنتظره|غافلگیر/i] },
 ];
 const HOOKS = [
   /news|breaking|report|reporting|journalism|press briefing|election|campaign|debate|policy|court ruling|market update|economic report|announced|investigation|discovery|research findings/i,
@@ -126,9 +126,14 @@ function categoryFor(value) {
       diy_creativity: 'diy_creativity',
       home_cleaning: 'home_cleaning',
       fashion_culture: 'fashion_culture',
+      news: 'news_current_affairs',
+      politics: 'news_current_affairs',
+      political: 'news_current_affairs',
       news_or_current_affairs: 'news_current_affairs',
       politics_or_elections: 'news_current_affairs',
       current_affairs: 'news_current_affairs',
+      economy: 'economy_finance',
+      finance: 'economy_finance',
       economics_or_finance: 'economy_finance',
       business_and_markets: 'economy_finance',
       crypto_and_digital_assets: 'economy_finance',
