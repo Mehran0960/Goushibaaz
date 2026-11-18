@@ -1656,8 +1656,8 @@ assert.equal(candidateExternalTopicKey({ title: 'طنز ویدئوی بامزه 
 assert.equal(candidateExternalTopicKey({
   title: 'کلیپ بلوچی آهنگ بلوچی دوردو',
   feed_tag_label: 'آهنگ'
-}), 'performance_magic',
-  'Filo music feed labels must map into the shared music/dance topic instead of generic entertainment');
+}), 'music_audio',
+  'Filo music feed labels must map into the dedicated music topic lane');
 assert.equal(candidateExternalTopicKey({
   title: 'ویدئوی کوتاه',
   feed_tag_label: 'هوش مصنوعی'
