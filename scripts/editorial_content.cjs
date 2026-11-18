@@ -1,16 +1,17 @@
-'use strict';
-
-const EXCLUDED = /\b(protests?|protesters?|demonstrations?|riot|riots|war|missile|military|army|weapon|weapons|election|politics|political|parliament|government|police crackdown)\b|اعتراضات?|تظاهرات|اغتشاش|جنگ|موشک|پهپاد|بمب|نظامی|تسلیحات|سلاح|انتخابات|سیاست|سیاسی|مجلس|دولت|درگیری|سرکوب/i;
-
-const RELEVANT = /\b(cat|cats|kitten|kittens|feline|dog|dogs|puppy|puppies|pet|pets|bird|birds|parrot|parrots|pigeon|mouse|mice|hamster|hamsters|gerbil|gerbils|squirrel|squirrels|monkey|monkeys|rabbit|rabbits|animal|wildlife|funny|unexpected|surprise|caught on camera|playing|playful|fail|visual comedy|oddly satisfying|satisfying|hidden camera|prank|comedy|comed(y|ic)|humou?r|reaction|meme|sketch|football|soccer|basketball|skateboard|parkour|trick shot|science experiment|invention|technology demo|optical illusion|brain teaser|puzzle|cooking|recipe|food art|food hack|kitchen|baking|street food|woodworking|pottery|craft|restoration|dance|music performance|juggling|nature|landscape|weather phenomenon|ocean|volcano|waterfall|travel|tourism|culture|architecture|traditional|family friendly|animation)\b|گربه|سگ|حیوان|پرنده|موش|همستر|بامزه|طنز|خنده|دوربین مخفی|سوتی|پرنک|چالش|واکنش|فوتبال|بسکتبال|ورزش|حرکت نمایشی|آزمایش علمی|اختراع|فناوری|خطای دید|معما|آشپزی|غذا|خوراکی|شیرینی|کاردستی|نجاری|سفال|رضایت.?بخش|بازسازی|رقص|نوازندگی|موسیقی|طبیعت|آبشار|سفر|گردشگری|فرهنگ|معماری|انیمیشن/i;
+// Topic-agnostic discovery. Safety, source rights and editorial quality are checked downstream.
+const GENERIC_TITLE_WORDS = new Set([
+  'file','video','clip','footage','commons','archive','short','the','a','an','and','or',
+  'of','to','in','on','from','with','for','by','at','is','are','was','were','this','that',
+  'moment','story','درباره','برای','این','یک','ویدیو','ویدئو','کلیپ','لحظه','از','در','با','به','که','را','های'
+]);
 
 function sourceText(fileTitle, description) {
   return [fileTitle, description].filter(Boolean).join(' ').toLocaleLowerCase('fa');
 }
 
 function looksRelevant(fileTitle, description = '') {
-  const text = sourceText(fileTitle, description);
-  return Boolean(text) && !EXCLUDED.test(text) && RELEVANT.test(text);
+  // Any identifiable source metadata may enter discovery; subject labels are not an allowlist.
+  return Boolean(sourceText(fileTitle, description).trim());
 }
 
 function persianTitle(fileTitle, description = '') {
@@ -82,6 +83,17 @@ function persianTitle(fileTitle, description = '') {
     if (/surprise|unexpected|غافلگیر|غیرمنتظره/.test(text)) return 'اتفاقی غیرمنتظره در چند ثانیه';
     return '';
   }
+  // Factual fallback for subjects outside legacy caption templates.
+  // Preserve source wording; do not invent scene details.
+  const sourceTitle = String(fileTitle || '')
+    .replace(/^File:\s*/i, '')
+    .replace(/\.(?:webm|mp4|mov|m4v|mkv)$/i, '')
+    .replace(/https?:\/\/\S+/gi, '')
+    .replace(/[#@][\w-]+/g, '')
+    .replace(/\s+/g, ' ').trim();
+  const titleTokens = sourceTitle.toLocaleLowerCase('fa').match(/[a-z0-9\u0600-\u06ff]+/g) || [];
+  const specificTokens = [...new Set(titleTokens.filter(token => token.length >= 3 && !GENERIC_TITLE_WORDS.has(token)))];
+  if (sourceTitle.length >= 12 && sourceTitle.length <= 80 && specificTokens.length >= 2) return sourceTitle;
   return '';
 }
 

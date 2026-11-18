@@ -36,8 +36,10 @@ const newsVariant = buildFiloTrendQueries([{
     { title: 'انتخابات میان‌دوره آمریکا و بیتکوین' }
   ]
 }], { maxTopics: 1, maxQueriesPerTopic: 3 });
-assert.equal(newsVariant.length, 2, 'related Google Trends news headlines should become extra search variants');
+assert.equal(newsVariant.length, 3, 'all related Google Trends headlines should become extra search variants');
 assert.equal(newsVariant[1].query, 'اجرای تازه شکیرا در کنسرت مادرید');
+assert.equal(newsVariant[2].query, 'انتخابات میان‌دوره آمریکا و بیتکوین',
+  'political and digital-asset headlines must remain searchable');
 
 const calls = [];
 const pages = {

@@ -224,16 +224,29 @@ assert.equal(unknownThird[0].recencyMomentumEvidence.ageBand, 'unknown_age');
 
 const recencyFresh = candidateRecencyMomentumEvidence({
   ageHours: 4,
-  accelerationEvidence: { passed:true, velocityPerMinute:0.06, accelerationPerMinute:0, sampleCount:3, metric:'plays' }
+  accelerationEvidence: { passed:true, velocityPerMinute:0.06, accelerationPerMinute:0.01, sampleCount:3, metric:'plays' }
 });
-assert.equal(recencyFresh.passed,true,
-  'fresh videos may pass the base velocity threshold without positive acceleration');
+assert.equal(recencyFresh.passed,true, 'fresh content must also show positive acceleration');
 const recencyMidAge = candidateRecencyMomentumEvidence({
   ageHours: 48,
   accelerationEvidence: { passed:true, velocityPerMinute:0.10, accelerationPerMinute:0.01, sampleCount:4, metric:'plays' }
 });
 assert.equal(recencyMidAge.passed,true,
   'videos between 24 and 72 hours need at least 0.08 per minute and positive acceleration');
+const viewAccelerationFallback = candidateAccelerationEvidence({
+  playMetric:{available:true,value:500}, playCounterZeroStalled:false,
+  momentum:{playsSampleCount:2,playsPerMinute:1,playsAccelerationAvailable:false,playsAccelerationPerMinute:0,
+    viewsSampleCount:3,viewsPerMinute:2,viewsAccelerationAvailable:true,viewsAccelerationPerMinute:0.2}
+});
+assert.equal(viewAccelerationFallback.metric,'views','view acceleration is fallback when play acceleration cannot be calculated');
+assert.equal(viewAccelerationFallback.passed,true);
+const negativePlayAcceleration = candidateAccelerationEvidence({
+  playMetric:{available:true,value:500}, playCounterZeroStalled:false,
+  momentum:{playsSampleCount:3,playsPerMinute:2,playsAccelerationAvailable:true,playsAccelerationPerMinute:-0.2,
+    viewsSampleCount:3,viewsPerMinute:3,viewsAccelerationAvailable:true,viewsAccelerationPerMinute:0.5}
+});
+assert.equal(negativePlayAcceleration.metric,'plays','negative play acceleration cannot be bypassed by view growth');
+assert.equal(negativePlayAcceleration.passed,false);
 const recencyMidAgeFlat = candidateRecencyMomentumEvidence({
   ageHours: 48,
   accelerationEvidence: { passed:true, velocityPerMinute:0.10, accelerationPerMinute:0, sampleCount:4, metric:'plays' }
@@ -279,10 +292,10 @@ assert.equal(shouldStartPublishingCycle('2026-11-05T04:18:00.000Z',
   Date.parse('2026-11-05T04:17:59.000Z')), false,
   'a future prior-cycle timestamp is rejected to guard against clock skew');
 assert.equal(feedCandidateEligible(valid, { posts: [] }), true);
-assert.equal(feedCandidateEligible({ ...valid, video_code:'Military01', title:'فیلم/ لحظه رهگیری و انهدام پهپاد MQ۹ آمریکایی در شرق تنگه هرمز' }, { posts:[] }), false,
-  'military conflict footage must be excluded before detail review');
-assert.equal(feedCandidateEligible({ ...valid, video_code:'Military02', title:'ویدئوی سرگرم‌کننده', feed_tag_label:'سپاه پاسداران' }, { posts:[] }), false,
-  'military topic labels must be considered even when the title is vague');
+assert.equal(feedCandidateEligible({ ...valid, video_code:'Military01', title:'فیلم/ لحظه رهگیری و انهدام پهپاد MQ۹ آمریکایی در شرق تنگه هرمز' }, { posts:[] }), true,
+  'conflict reporting remains discoverable; actual content and Filo permissions are checked later');
+assert.equal(feedCandidateEligible({ ...valid, video_code:'Military02', title:'ویدئوی سرگرم‌کننده', feed_tag_label:'سپاه پاسداران' }, { posts:[] }), true,
+  'military/institutional labels are not topic-based discovery bans');
 assert.equal(feedCandidateEligible({ ...valid, video_code:'Birthday01', title:'23 آبان ماهی تولدت مبارک / کلیپ استوری تولد متولدین 23 آبان ماهی' }, { posts:[] }), false,
   'generic birthday-story greeting templates are low-value filler');
 assert.equal(feedCandidateEligible({ ...valid, video_code:'TinyTitle', title:'کم', description:'', sender_name:'' }, { posts:[] }), true,
@@ -362,15 +375,17 @@ assert.equal(feedCandidateEligible(valid,mixedRejectionLedger),false,
   'any non-metadata rejection for the same source must block the metadata-only retry exception');
 assert.equal(feedCandidateEligible(valid,{posts:[{sourceCode:valid.video_code,status:'public_verified'}]}),false,
   'a previously verified publication must never be submitted again');
-assert.equal(feedCandidateEligible({ ...valid, title: 'خبر فوری جنگ و حمله نظامی' }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, title: 'خبر فوری جنگ و حمله نظامی' }, { posts: [] }), true);
 assert.equal(feedCandidateEligible({ ...valid, title: 'پیغام توهین آمیز در پایان مسابقه' }, { posts: [] }), false);
-assert.equal(feedCandidateEligible({ ...valid, title: 'سکانس سریال ایرانی' }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, title: 'سکانس سریال ایرانی' }, { posts: [] }), true,
+  'film and series subjects are not blocked by title alone; item-level rights checks remain authoritative');
 assert.equal(feedCandidateEligible({ ...valid, title: 'تصاویر دوربین مداربسته بدون رضایت افراد' }, { posts: [] }), false);
 assert.equal(policyTextRiskReason({ title: 'پیغام توهین آمیز به یک بازیکن' }), 'insult_or_defamation');
-assert.equal(policyTextRiskReason({ title: 'شبیه ساز بمب اتم در تهران' }), 'weapons_or_explosives');
+assert.equal(policyTextRiskReason({ title: 'شبیه ساز بمب اتم در تهران' }), 'dangerous_weapon_construction_instructions');
 assert.equal(feedCandidateEligible({ ...valid, title: 'شبیه ساز بمب اتم در تهران' }, { posts: [] }), false);
 assert.equal(policyTextRiskReason({ description: 'دانلود و تماشای رایگان جدیدترین ویدیوها با کیفیت عالی در رسانه آی‌آرمووی.' }), 'external_video_service_advertising');
-assert.equal(feedCandidateEligible({ ...valid, title: 'رقص و حرکات موزون' }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, title: 'رقص و حرکات موزون' }, { posts: [] }), true,
+  'music and dance subjects are not automatically prohibited');
 assert.equal(feedCandidateEligible({ ...valid, title: 'صحنه اعدام با سلاح' }, { posts: [] }), false);
 assert.equal(feedCandidateEligible(valid, { posts: [{ sourceCode: 'AbC1234', status: 'submitted_pending_approval' }] }), false);
 assert.equal(feedCandidateEligible(valid, { posts: [{ sourceCode: 'AbC1234', status: 'submitted_unconfirmed' }] }), false);
@@ -1146,8 +1161,10 @@ const baseline = [
 const firstRank = rankCandidatesByMomentum(baseline, momentumState, momentumStart);
 assert.equal(firstRank.length, 4,
   'older videos remain eligible for observation alongside new candidates; first sightings still use safe cumulative-count fallback');
-assert.equal(firstRank[0].rankingMetric, 'cumulative_plays');
-assert.equal(firstRank[0].selectionMode, 'cumulative_play_fallback');
+assert.equal(firstRank[0].rankingMetric, 'freshness');
+assert.equal(firstRank[0].selectionMode, 'awaiting_independent_acceleration');
+assert.equal(firstRank.every(entry => entry.growthGatePassed === false), true,
+  'cumulative play/view counts cannot qualify a new candidate without independent acceleration');
 assert.equal(firstRank.every(entry => !entry.hasMeasuredGrowth), true);
 
 const secondScan = [
@@ -1162,15 +1179,17 @@ const comedyRank = secondRank.find(entry => entry.item.video_code === 'Comedy01'
 assert.ok(comedyRank);
 assert.equal(comedyRank.momentum.playsPerMinute, 2);
 assert.equal(comedyRank.momentum.viewsPerMinute, 10);
-assert.equal(comedyRank.rankingMetric, 'plays');
+assert.equal(comedyRank.rankingMetric, 'freshness',
+  'two observations show velocity but not yet acceleration; candidate must await a third sample');
 const tutorialRank = secondRank.find(entry => entry.item.video_code === 'Tutorial1');
 assert.equal(tutorialRank.momentum.playsPerMinute, 1);
 const viewsOnlyRank = secondRank.find(entry => entry.item.video_code === 'ViewsOnly');
 assert.ok(viewsOnlyRank);
-assert.equal(viewsOnlyRank.rankingMetric, 'views',
-  'a candidate with no play counter may fall back to measured view growth');
-assert.ok(secondRank.indexOf(comedyRank) < secondRank.indexOf(viewsOnlyRank),
-  'measured play growth must outrank a views-only candidate while older qualified candidates remain in the pool');
+assert.equal(viewsOnlyRank.rankingMetric, 'freshness',
+  'views velocity alone is not an acceleration fallback until a third independent sample arrives');
+assert.equal(comedyRank.growthGatePassed, false);
+assert.equal(viewsOnlyRank.growthGatePassed, false,
+  'neither play nor view velocity alone can pass the acceleration gate');
 const olderRank = secondRank.find(entry => entry.item.video_code === 'Old001');
 assert.ok(olderRank, 'a 73-hour candidate remains in the discovery/ranking pool');
 assert.equal(olderRank.hasPositivePlayGrowth, true);
@@ -1202,9 +1221,17 @@ const hintSecondScan = [
   {...hintBaseline[0],visit_count:700,plays:210},
   {...hintBaseline[1],visit_count:150,plays:20}
 ];
-const hintRank = rankCandidatesByMomentum(hintSecondScan,hintPriorityState,hintPriorityStart+5*60*1000);
+rankCandidatesByMomentum(hintSecondScan,hintPriorityState,hintPriorityStart+5*60*1000);
+const hintThirdScan = [
+  {...hintBaseline[0],visit_count:1600,plays:1000},
+  {...hintBaseline[1],visit_count:175,plays:25}
+];
+const hintRank = rankCandidatesByMomentum(hintThirdScan,hintPriorityState,hintPriorityStart+10*60*1000);
 assert.equal(hintRank[0].item.video_code,'FastGrowth',
-  'measured play momentum must outrank a slower candidate with more favorable feed hints');
+  'positive measured play acceleration across three independent observations must outrank feed hints');
+assert.equal(hintRank.find(entry=>entry.item.video_code==='FastGrowth').growthGatePassed,true);
+assert.equal(hintRank.find(entry=>entry.item.video_code==='SlowGrowth').growthGatePassed,false,
+  'a slower or decelerating candidate cannot win through authoritative feed hints');
 
 const thirdScan = [
   { ...baseline[0], visit_count: 500, plays: 50 },
@@ -1288,8 +1315,8 @@ assert.equal(playAccelerator.hasPositiveAcceleration, true,
   'a positive increase in play velocity across three observations must pass');
 assert.equal(stableVelocity.hasPositiveAcceleration, false,
   'acceleration remains zero when positive play velocity is flat');
-assert.equal(stableVelocity.growthGatePassed, true,
-  'positive measured play velocity with three samples must pass even without positive acceleration');
+assert.equal(stableVelocity.growthGatePassed, false,
+  'flat play velocity acceleration is not publishable under the acceleration-first gate');
 assert.equal(viewAccelerator.accelerationEvidence.metric, 'views');
 assert.equal(viewAccelerator.hasPositiveAcceleration, true,
   'views acceleration is the fallback only when a play counter is unavailable');
@@ -1302,29 +1329,29 @@ assert.equal(flatPlayView.playCounterZeroStalled, false);
 assert.equal(flatPlayView.hasPositiveAcceleration, false,
   'a nonzero but flat play counter must not be bypassed by growing views');
 assert.equal(flatPlayView.growthGatePassed, false);
-assert.equal(stableView.growthGatePassed, true,
-  'positive, stable view velocity must pass when the play counter is absent');
+assert.equal(stableView.growthGatePassed, false,
+  'stable view velocity without positive acceleration is not publishable');
 assert.equal(stableView.hasPositiveAcceleration, false,
-  'acceleration is a ranking bonus rather than a mandatory publication gate');
+  'flat view velocity must not be mistaken for positive acceleration');
 
 assert.equal(candidateAccelerationEvidence({
   playMetric:{available:true,value:100},
   hasPositivePlayGrowth:true,
-  momentum:{sampleCount:3,playsPerMinute:4,playsAccelerationPerMinute:0}
-}).passed,true,
-  'positive measured play velocity is sufficient even when acceleration is zero');
+  momentum:{playsSampleCount:3,playsPerMinute:4,playsAccelerationAvailable:true,playsAccelerationPerMinute:0}
+}).passed,false,
+  'positive play velocity without positive acceleration is not sufficient');
 
 const lowPlayVelocity = candidateAccelerationEvidence({
   playMetric:{available:true,value:10},
   hasPositivePlayGrowth:true,
-  momentum:{playsSampleCount:3,playsPerMinute:0.04,playsAccelerationPerMinute:0}
+  momentum:{playsSampleCount:3,playsPerMinute:0.04,playsAccelerationAvailable:true,playsAccelerationPerMinute:0.01}
 });
 assert.equal(lowPlayVelocity.passed,false, 'tiny positive play movement is not sufficient evidence of meaningful momentum');
 assert.equal(lowPlayVelocity.reason,'play_velocity_below_minimum');
 const lowViewVelocity = candidateAccelerationEvidence({
   playMetric:{available:false,value:null},
   hasPositiveViewGrowth:true,
-  momentum:{viewsSampleCount:3,viewsPerMinute:0.02,viewsAccelerationPerMinute:0}
+  momentum:{viewsSampleCount:3,viewsPerMinute:0.02,viewsAccelerationAvailable:true,viewsAccelerationPerMinute:0.01}
 });
 assert.equal(lowViewVelocity.passed,false, 'tiny positive view movement is not sufficient evidence of meaningful momentum');
 assert.equal(lowViewVelocity.reason,'view_velocity_below_minimum');
@@ -1333,15 +1360,15 @@ assert.equal(candidateAccelerationEvidence({
   playMetric:{available:true,value:100},
   hasPositivePlayGrowth:false,
   hasPositiveViewGrowth:true,
-  momentum:{sampleCount:3,playsPerMinute:0,playsAccelerationPerMinute:0,
-    viewsPerMinute:20,viewsAccelerationPerMinute:10}
+  momentum:{playsSampleCount:3,playsPerMinute:0,playsAccelerationAvailable:true,playsAccelerationPerMinute:0,
+    viewsSampleCount:3,viewsPerMinute:20,viewsAccelerationAvailable:true,viewsAccelerationPerMinute:10}
 }).passed,false,
   'view growth must not replace an available but non-growing play counter');
 assert.equal(candidateAccelerationEvidence({
   playMetric:{available:false},
   hasPositivePlayGrowth:false,
   hasPositiveViewGrowth:true,
-  momentum:{sampleCount:3,viewsPerMinute:20,viewsAccelerationPerMinute:10}
+  momentum:{viewsSampleCount:3,viewsPerMinute:20,viewsAccelerationAvailable:true,viewsAccelerationPerMinute:10}
 }).passed,true,
   'view acceleration is allowed when no play counter is available');
 assert.equal(candidateAccelerationEvidence({
@@ -1349,13 +1376,13 @@ assert.equal(candidateAccelerationEvidence({
   playCounterZeroStalled:true,
   hasPositivePlayGrowth:false,
   hasPositiveViewGrowth:true,
-  momentum:{sampleCount:3,playsPerMinute:0,playsAccelerationPerMinute:0,
-    viewsPerMinute:20,viewsAccelerationPerMinute:10}
+  momentum:{playsSampleCount:3,playsPerMinute:0,playsAccelerationAvailable:false,playsAccelerationPerMinute:0,
+    viewsSampleCount:3,viewsPerMinute:20,viewsAccelerationAvailable:true,viewsAccelerationPerMinute:10}
 }).passed,true,
   'view acceleration can replace a play counter only when it is independently proven stuck at zero');
 assert.equal(candidateAccelerationEvidence({
   hasPositivePlayGrowth:true,
-  momentum:{sampleCount:2,playsPerMinute:10,playsAccelerationPerMinute:3}
+  momentum:{playsSampleCount:2,playsPerMinute:10,playsAccelerationAvailable:false,playsAccelerationPerMinute:3}
 }).passed, false, 'acceleration requires at least three independent samples');
 
 assert.equal(isInsufficientAccelerationSampleReason('insufficient_play_samples'), true,
@@ -1383,10 +1410,10 @@ const plateauCandidate = plateauRank.find(entry => entry.item.video_code === 'Pl
 assert.equal(plateauCandidate.momentum.viewsSampleCount, 4);
 assert.ok(plateauCandidate.momentum.viewsPerMinute > 0,
   'a flat final five-minute interval must not erase growth measured across the recent sample window');
-assert.equal(plateauCandidate.growthGatePassed, true,
-  'three or more independent views samples with positive trailing-window velocity must pass when plays are absent');
+assert.equal(plateauCandidate.growthGatePassed, false,
+  'positive trailing-window view velocity without positive acceleration cannot pass the acceleration-first publication gate');
 assert.equal(plateauCandidate.hasPositiveAcceleration, false,
-  'a plateau in the latest interval must remove only the acceleration bonus, not measured positive velocity');
+  'a plateau in the latest interval must be treated as non-accelerating, not as momentum');
 
 const audienceState = { posts: [] };
 const audienceStart = Date.parse('2026-11-06T03:00:00.000Z');
@@ -1541,9 +1568,15 @@ const topicSecondScan = [
   { ...topicBaseline[1], visit_count:115, plays:15 },
   { ...topicBaseline[2], visit_count:120, plays:20 }
 ];
-const topicRank = rankCandidatesByMomentum(topicSecondScan, topicState, topicStart + 5 * 60 * 1000);
+rankCandidatesByMomentum(topicSecondScan, topicState, topicStart + 5 * 60 * 1000);
+const topicThirdScan = [
+  { ...topicBaseline[0], visit_count:180, plays:50 },
+  { ...topicBaseline[1], visit_count:140, plays:30 },
+  { ...topicBaseline[2], visit_count:130, plays:25 }
+];
+const topicRank = rankCandidatesByMomentum(topicThirdScan, topicState, topicStart + 10 * 60 * 1000);
 assert.equal(topicRank[0].item.video_code, 'HotA01',
-  'a corroborated topic cohort may lift a slightly slower candidate above a similarly paced isolated candidate');
+  'two corroborating candidates with positive play acceleration may lift a hot topic above an isolated/decelerating topic');
 assert.ok(topicRank[0].topicDemandScore > topicRank[2].topicDemandScore,
   'topic demand must be derived from multiple candidates showing measured growth');
 assert.ok(topicRank[0].rankingScore > 0);
@@ -1564,9 +1597,9 @@ const singleGrowingTopicDemand = summarizeTopicDemand([
 assert.equal(singleGrowingTopicDemand['weak-growth'].demandScore, 0,
   'topic-level demand needs at least two distinct growing candidates');
 const corroboratedTopicDemand = summarizeTopicDemand([
-  { topicKey:'corroborated', hasPositivePlayGrowth:true, hasPositiveViewGrowth:false,
+  { topicKey:'corroborated', accelerationEvidence:{passed:true,metric:'plays'},
     momentum:{playsPerMinute:3,playsAccelerationPerMinute:1} },
-  { topicKey:'corroborated', hasPositivePlayGrowth:false, hasPositiveViewGrowth:true,
+  { topicKey:'corroborated', accelerationEvidence:{passed:true,metric:'views'},
     momentum:{viewsPerMinute:5,viewsAccelerationPerMinute:2} }
 ]);
 assert.ok(corroboratedTopicDemand.corroborated.demandScore > 0,
@@ -1623,8 +1656,8 @@ assert.equal(candidateExternalTopicKey({ title: 'طنز ویدئوی بامزه 
 assert.equal(candidateExternalTopicKey({
   title: 'کلیپ بلوچی آهنگ بلوچی دوردو',
   feed_tag_label: 'آهنگ'
-}), 'performance_magic',
-  'Filo music feed labels must map into the shared music/dance topic instead of generic entertainment');
+}), 'music_audio',
+  'Filo music feed labels must map into the dedicated music topic lane');
 assert.equal(candidateExternalTopicKey({
   title: 'ویدئوی کوتاه',
   feed_tag_label: 'هوش مصنوعی'

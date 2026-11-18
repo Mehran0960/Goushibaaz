@@ -17,6 +17,13 @@ on:
       - "docs/FILO-INBOUND-INGESTION-ROADMAP.md"
       - "docs/FILO-NATIVE-REPUBLICATION.md"
       - "docs/CHANGELOG.md"
+      - "scripts/quality_rank.cjs"
+      - "scripts/test_quality_rank.cjs"
+      - "scripts/editorial_content.cjs"
+      - "scripts/test_editorial_content.cjs"
+      - "scripts/trend_discovery.cjs"
+      - "scripts/test_trend_discovery.cjs"
+      - "config/content-policy.json"
       - "scripts/filo_global_search.cjs"
       - "scripts/filo_trend_search_worker.cjs"
       - "scripts/test_filo_global_search.cjs"
@@ -39,6 +46,13 @@ on:
       - "docs/FILO-INBOUND-INGESTION-ROADMAP.md"
       - "docs/FILO-NATIVE-REPUBLICATION.md"
       - "docs/CHANGELOG.md"
+      - "scripts/quality_rank.cjs"
+      - "scripts/test_quality_rank.cjs"
+      - "scripts/editorial_content.cjs"
+      - "scripts/test_editorial_content.cjs"
+      - "scripts/trend_discovery.cjs"
+      - "scripts/test_trend_discovery.cjs"
+      - "config/content-policy.json"
       - "scripts/filo_global_search.cjs"
       - "scripts/filo_trend_search_worker.cjs"
       - "scripts/test_filo_global_search.cjs"
@@ -78,6 +92,15 @@ jobs:
           node scripts/test_filo_native_republish.cjs
           node scripts/test_filo_publication_cadence.cjs
           node scripts/test_filo_external_ingest_due.cjs
+          node --check scripts/quality_rank.cjs
+          node --check scripts/editorial_content.cjs
+          node --check scripts/trend_discovery.cjs
+          node --check scripts/test_quality_rank.cjs
+          node --check scripts/test_editorial_content.cjs
+          node --check scripts/test_trend_discovery.cjs
+          node scripts/test_quality_rank.cjs
+          node scripts/test_editorial_content.cjs
+          node scripts/test_trend_discovery.cjs
           node --check scripts/filo_global_search.cjs
           node --check scripts/filo_trend_search_worker.cjs
           node --check scripts/test_filo_global_search.cjs

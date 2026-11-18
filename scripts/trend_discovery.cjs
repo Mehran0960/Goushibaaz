@@ -16,19 +16,8 @@ const SAFE_LANES = new Set([
   'life_hacks', 'heartwarming', 'diy_creativity', 'home_cleaning',
   'fashion_culture', 'persian_comedy'
 ]);
-const LANE_PRIORITY = {
-  comedy: 12, surprise_or_reveal: 11, human_reaction_or_relatable: 10,
-  skill_or_spectacle: 9, sports_or_athletic_skill: 9, technology_demo: 9,
-  transformation_or_satisfying: 8, practical_tips_or_life_hacks: 8,
-  food_cooking: 8, wholesome_or_heartwarming: 7, diy_and_creativity: 7,
-  music_or_dance: 6, animals: 5, pets_animals: 5,
-  home_organization_or_cleaning: 5, travel_and_places: 4, nature_and_wildlife: 3,
-  science_curiosity: 3, fashion_or_cultural_showcase: 3,
-  surprise_reveal: 11, human_reaction: 10, sports_skill: 9, science_tech: 7,
-  satisfying_craft: 8, life_hacks: 8, food_cooking: 8, heartwarming: 7,
-  diy_creativity: 7, performance_magic: 7, home_cleaning: 5,
-  travel_culture: 4, nature_wildlife: 3, fashion_culture: 3
-};
+// No fixed subject bonus: observed velocity, acceleration and freshness set trend priority.
+const LANE_PRIORITY = Object.freeze({});
 const STOP_WORDS = new Set([
   'the','and','this','that','when','where','what','which','who','with','from','into',
   'about','how','why','are','was','were','his','her','their','they','them','he','she',
@@ -41,7 +30,7 @@ const STOP_WORDS = new Set([
   'میاد','میاره','باید','خیلی','چطور','چرا','چی','چه','کدام','چند','پس','مثل',
   'بدون','بعد','قبل','هر','همین','اونها','ایشون','خودش','خود','شما','من','ما'
 ]);
-const UNSAFE_TITLE = /porn|nsfw|sexual|sexually|gore|graphic violence|suicide|self.?harm|terror|war footage|election|politic|politics|جنگ|سیاست|سیاسی|انتخابات|ترور|قتل|خودکشی|جنسی|پورن|خشونت شدید/i;
+const UNSAFE_TITLE = /porn|nsfw|explicit sexual|sexual exploitation|gore|graphic violence|dismemberment|suicide|self.?harm|non.?consensual intimate|revenge porn|پورنو|پورن|محتوای جنسی صریح|قطع عضو|صحنه دلخراش|خودکشی|خودآزاری|انتشار تصاویر خصوصی بدون رضایت/i;
 
 function tokens(value) {
   return String(value || '')
@@ -85,7 +74,6 @@ function buildTrendSearches(snapshot = readTrendSnapshot(), options = {}) {
     for (const [id, item] of Object.entries(entries)) {
       if (!item || typeof item !== 'object' || item.velocity_kind !== 'observed') continue;
       const lane = String(item.lane || '').trim().toLowerCase();
-      if (!SAFE_LANES.has(lane)) continue;
       if (UNSAFE_TITLE.test(String(item.title || ''))) continue;
       const seenAt = Date.parse(item.last_seen_at || item.updated_at || '');
       if (!Number.isFinite(seenAt) || seenAt > nowMs + 5 * 60000 || nowMs - seenAt > 36 * 3600000) continue;

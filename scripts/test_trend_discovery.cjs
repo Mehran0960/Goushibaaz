@@ -57,8 +57,17 @@ const firstSlot = buildTrendSearches(snapshot, { nowMs: now });
 assert.equal(firstSlot.length, 1);
 assert.match(firstSlot[0].query, /^filetype:video /);
 assert.ok(firstSlot[0].trendTitle);
-assert.ok(['comedy', 'food_cooking'].includes(firstSlot[0].trendLane));
+assert.equal(firstSlot[0].trendLane, 'news_or_current_affairs',
+  'highest observed velocity, not an entertainment lane bonus, should lead trend discovery');
 assert.equal(firstSlot[0].trendUrl.startsWith('https://t.me/'), true);
+const expandedTrends = buildTrendSearches(snapshot, { nowMs: now, limit: 12 });
+assert.ok(expandedTrends.some(item => item.trendLane === 'news_or_current_affairs'),
+  'current-affairs lanes must be included when velocity is observed');
+assert.equal(buildTrendSearches({telegram:{harmful:{
+  title:'Graphic violence and gore', lane:'news_or_current_affairs', velocity_kind:'observed',
+  velocity_per_hour:999999, last_seen_at:new Date(now).toISOString()
+}}},{nowMs:now,limit:4}).length,0,
+  'graphic content remains excluded independently of its topic');
 
 const fourLeads = buildTrendSearches({
   aparat: {

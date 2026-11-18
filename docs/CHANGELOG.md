@@ -535,3 +535,12 @@
 - نسخهٔ سیاست بازنویسی عنوان از ۹ به ۱۰ افزایش یافت تا ردهای موقت مبتنی بر سیاست قبلی دوباره ارزیابی شوند.
 - آزمون: عناوین ژانر+شماره بدون موضوع باید رد شوند؛ عنوان شماره‌دار با موضوع روشن باید پذیرفته شود؛ شرح عمومی نباید به‌عنوان موضوع جعل شود.
 - اثر: فقط عناوین انتشارهای آینده سخت‌گیرانه‌تر می‌شوند. عنوان پست‌های عمومی قبلی خودکار تغییر نمی‌کند و برای اصلاح آن‌ها مشاهدهٔ ویدئو لازم است.
+
+
+## 2026-11-18 — Remove topic bans and prioritize measured acceleration
+
+- Opened discovery and ranking to all subject areas; removed topic-only blocks from Filo global search, native feed filtering, cross-platform trend discovery, external licensed-source screening and quality ranking.
+- Added broader topic taxonomy, neutral topic weights, Persian Filo category feeds and rotating Commons/Internet Archive searches across current affairs, economics, science, health, education, culture, law, environment, film/music and additional fields.
+- Candidate-level play acceleration is primary; candidate-level view acceleration is only a fallback when play acceleration is unavailable (or a zero play counter is demonstrably stalled). Negative acceleration is preserved. All age bands now require positive acceleration, three independent samples and the existing age-adjusted velocity threshold.
+- Rights, source authorization, privacy, explicit harmful-content and platform permission gates remain intact. Regression tests and CI coverage were updated.
+- Production effect remains pending until the new main commit runs in production and any resulting public post is independently verified.

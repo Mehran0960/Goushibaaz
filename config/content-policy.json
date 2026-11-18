@@ -5,24 +5,13 @@
     "primary_language": "Persian (fa)",
     "primary_market": "Iran",
     "preferred_topics": [
-      "Iranian and Persian social comedy",
-      "hidden-camera and harmless funny moments",
-      "surprise, reveal and clear visual payoff",
-      "human reactions and relatable everyday moments",
-      "sports skills, tricks and spectacular performances",
-      "technology demonstrations and practical life hacks",
-      "satisfying transformations and creative making",
-      "food and cooking",
-      "pets and animal behavior",
-      "music, dance and heartwarming moments"
+      "All discoverable subjects, including current affairs, politics, economics, science, health, education, sport, culture, religion, arts, entertainment and practical topics",
+      "Persian-language and Iran-relevant material where supported by source metadata",
+      "Original or creator-authorized material with clear, verifiable reuse rights"
     ],
     "prioritize_original_or_creator_authorized_material": true,
-    "deprioritized_topics": [
-      "generic space and institutional science footage",
-      "long-form explainers and documentaries",
-      "multi-clip compilations and recycled roundups",
-      "promotional and affiliate-style videos"
-    ]
+    "deprioritized_topics": [],
+    "topic_based_exclusions": []
   },
   "vertical_video": {
     "output_width": 1080,
@@ -40,13 +29,12 @@
     ]
   },
   "ranking_order": [
-    "iranian_audience_content_fit",
-    "strong_hook_and_clear_payoff",
-    "measured_recent_growth",
-    "persian_language_and_local_relevance",
-    "freshness",
-    "portrait_source_quality_without_foreground_crop",
-    "category_diversity"
+    "verified candidate-level play-count acceleration",
+    "candidate-level view-count acceleration only when play acceleration is unavailable",
+    "source-backed editorial quality and clear subject",
+    "freshness and format suitability",
+    "measured trend demand and local relevance",
+    "category diversity"
   ],
   "rights_gate": {
     "require_verified_republication_rights": true,
@@ -77,24 +65,35 @@
     }
   },
   "audience_priority_weights": {
-    "persian_comedy": 32,
-    "surprise_reveal": 30,
-    "human_reaction": 29,
-    "sports_skill": 27,
-    "satisfying_craft": 26,
-    "life_hacks": 25,
-    "science_tech": 12,
-    "performance_magic": 24,
-    "food_cooking": 24,
-    "heartwarming": 23,
-    "diy_creativity": 22,
-    "pets_animals": 21,
-    "home_cleaning": 19,
-    "travel_culture": 18,
-    "fashion_culture": 17,
-    "nature_wildlife": 14,
-    "general_entertainment": 6,
-    "technology_demo": 25
+    "persian_comedy": 20,
+    "surprise_reveal": 20,
+    "human_reaction": 20,
+    "sports_skill": 20,
+    "satisfying_craft": 20,
+    "life_hacks": 20,
+    "science_tech": 20,
+    "performance_magic": 20,
+    "food_cooking": 20,
+    "heartwarming": 20,
+    "diy_creativity": 20,
+    "pets_animals": 20,
+    "home_cleaning": 20,
+    "travel_culture": 20,
+    "fashion_culture": 20,
+    "nature_wildlife": 20,
+    "general_entertainment": 20,
+    "technology_demo": 20,
+    "news_current_affairs": 20,
+    "economy_finance": 20,
+    "society_law": 20,
+    "health_medicine": 20,
+    "education_books": 20,
+    "film_media_art": 20,
+    "music_audio": 20,
+    "religion_philosophy": 20,
+    "environment_climate": 20,
+    "history_politics": 20,
+    "transport_energy": 20
   },
   "video_processing": {
     "output_mode": "9:16",
@@ -114,5 +113,6 @@
       "CC BY-SA 4.0"
     ],
     "trend_source_is_discovery_only": true
-  }
+  },
+  "topic_weight_policy": "neutral_default_equal_weight; measured candidate acceleration and source quality determine selection"
 }

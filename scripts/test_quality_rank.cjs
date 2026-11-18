@@ -169,8 +169,10 @@ const institutionalSpace = {
   sourceAspectRatio: 1.777,
   age_hours: 2
 };
+assert.equal(scoreCandidate(institutionalSpace).reasons.includes('excluded:institutional_or_current_affairs'), false,
+  'science and institutional footage are no longer topic-excluded');
 assert.ok(scoreCandidate(audienceComedy).score > scoreCandidate(institutionalSpace).score,
-  'Iranian-audience comedy should outrank generic institutional/science footage');
+  'specific hooks and metadata can still differentiate otherwise open topics');
 
 const trendLaneMatch = scoreCandidate({
   fileTitle: 'Unexpected athletic trick shot with a surprising payoff',
@@ -196,11 +198,19 @@ assert.ok(acceleratingTrendMatch.score > trendLaneMatch.score,
 assert.ok(acceleratingTrendMatch.reasons.some(reason => reason.startsWith('observed_trend_acceleration:')),
   'the acceleration bonus should be auditable');
 
-assert.equal(scoreCandidate({
+const currentAffairs = scoreCandidate({
   fileTitle: 'Election campaign and political rally footage',
-  description: 'A current affairs clip.',
-  durationSeconds: 20
-}).eligible, false, 'political/current-affairs footage must not pass the entertainment publisher');
+  description: 'A reported public campaign event and political debate.',
+  durationSeconds: 20, sourceAspectRatio: 0.5625
+});
+assert.equal(currentAffairs.eligible, true, 'political reporting remains eligible when metadata is specific');
+assert.equal(currentAffairs.topic, 'news_current_affairs');
+const marketReport = scoreCandidate({
+  fileTitle: 'Unexpected market reaction after currency announcement',
+  description: 'A report on economic policy and exchange-rate response.',
+  durationSeconds: 22, sourceAspectRatio: 0.5625
+});
+assert.equal(marketReport.eligible, true, 'economic and finance reporting remains discoverable');
 
 assert.equal(scoreCandidate({
   fileTitle: 'A sponsored product discount code and buy now promotion',

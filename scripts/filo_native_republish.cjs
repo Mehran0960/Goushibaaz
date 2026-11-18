@@ -39,7 +39,26 @@ const FALLBACK_VIDEO_TAG_FEEDS = [
   { key: 'q-فیلم', label: 'فیلم' },
   { key: 'q-سریال', label: 'سریال' },
   { key: 'q-مذهبی', label: 'مذهبی' },
-  { key: 'q-خبری', label: 'خبری' }
+  { key: 'q-خبری', label: 'خبری' },
+  { key: 'q-سیاست', label: 'سیاست و انتخابات' },
+  { key: 'q-اقتصاد', label: 'اقتصاد' },
+  { key: 'q-بازار', label: 'بازار و سرمایه' },
+  { key: 'q-رمزارز', label: 'رمزارز' },
+  { key: 'q-جهان', label: 'رویدادهای جهان' },
+  { key: 'q-جامعه', label: 'جامعه' },
+  { key: 'q-علم', label: 'علم' },
+  { key: 'q-سلامت', label: 'سلامت' },
+  { key: 'q-آموزش', label: 'آموزش' },
+  { key: 'q-تاریخ', label: 'تاریخ' },
+  { key: 'q-فرهنگ', label: 'فرهنگ' },
+  { key: 'q-هنر', label: 'هنر' },
+  { key: 'q-موسیقی', label: 'موسیقی' },
+  { key: 'q-کتاب', label: 'کتاب و ادبیات' },
+  { key: 'q-محیط-زیست', label: 'محیط زیست' },
+  { key: 'q-قانون', label: 'حقوق و قانون' },
+  { key: 'q-انرژی', label: 'انرژی' },
+  { key: 'q-کشاورزی', label: 'کشاورزی' },
+  { key: 'q-حمل-ونقل', label: 'حمل و نقل' }
 ];
 const MAX_DISCOVERED_CATEGORY_IDS = 64;
 // Keep the native discovery window shallow: page one plus pages two and three.
@@ -405,17 +424,14 @@ function sourceText(item) {
     .filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
 }
 
-const EXCLUDED = /(?:اخبار|خبر فوری|تحلیل سیاسی|سیاست|سیاسی|انتخابات|جنگ|حمله نظامی|موشک|انفجار|تروریست|ترور|اعدام|شلیک|سلاح|بمب|هسته.?ای|مواد منفجره|ساخت.?(?:بمب|سلاح|موشک)|شبیه.?ساز.{0,24}(?:بمب|موشک|سلاح)|پهپاد نظامی|مهمات|خشونت|مداحی|تبلیغات|کازینو|شرط.?بندی|قمار|محتوای بزرگسال|پورنو|قتل|خودکشی|خودآزاری|صحنه دلخراش|تصادف مرگبار|حیوان.?آزاری|رقص|حرکات موزون|تک.?خوانی.{0,8}زن|خوانندگی.{0,8}زن|فحاشی|الفاظ رکیک|افترا|تهمت|توهین|ناسزا|بددهنی|تحقیر|تمسخر|دوربین.?مداربسته|فیلم.?برداری.?مخفی|افشای اطلاعات|کد ملی|خبر جعلی|اطلاعات نادرست|فیلم سینمایی|فیلم ایرانی|سریال|مجموعه تلویزیونی|محصول نمایش خانگی|شبکه نمایش خانگی|صدا.?و.?سیما|فیلیمو|نماوا|فیلم.?نت|تلوبیون|آی.?آر.?مووی|IR.?Movie|مواد مخدر|مشروبات الکلی|برهنگی|محتوای جنسی)/i;
+const EXCLUDED = /(?:محتوای بزرگسال|پورنو|خودکشی|خودآزاری|صحنه دلخراش|تصاویر دلخراش|قطع عضو|خونریزی شدید|حیوان.?آزاری|فحاشی|الفاظ رکیک|افترا|تهمت|توهین|ناسزا|بددهنی|تحقیر|تمسخر|دوربین.?مداربسته|فیلم.?برداری.?مخفی|افشای اطلاعات|کد ملی|خبر جعلی|اطلاعات نادرست|مواد مخدر|مشروبات الکلی|برهنگی|محتوای جنسی|صحنه اعدام)/i;
 const POLICY_TEXT_RISKS = [
- {reason:'military_or_conflict_content',pattern:/(?:(?:پهپاد|هواپیمای بدون سرنشین|drone|uav|mq[-\s]?[0-9۰-۹]+|جنگنده|ناو جنگی|شناور نظامی|موشک|پدافند هوایی|سامانه پدافند).{0,100}(?:رهگیری|انهدام|سرنگونی|حمله|رزمایش|عملیات|جنگ|درگیری|تنگه.{0,8}هرمز|سپاه|ارتش|نظامی|آمریکا|آمریکایی|اسرائیل|ایران)|(?:رهگیری|انهدام|سرنگونی|حمله|رزمایش|عملیات نظامی).{0,100}(?:پهپاد|هواپیمای بدون سرنشین|جنگنده|ناو|شناور|موشک|پدافند|تنگه.{0,8}هرمز)|(?:سپاه پاسداران|نیروی دریایی|ارتش ایران|خبر نظامی|عملیات نظامی|رزمایش نظامی))/i},
  {reason:'low_value_greeting_or_calendar_filler',pattern:/(?:کلیپ\s*استوری\s*تولد|تبریک\s*تولد.{0,55}متولدین|متولدین\s*[0-9۰-۹]+\s*(?:فروردین|اردیبهشت|خرداد|تیر|مرداد|شهریور|مهر|آبان|آذر|دی|بهمن|اسفند).{0,35}(?:تولدت|تبریک))/i},
- {reason:'weapons_or_explosives',pattern:/(?:بمب\s*(?:اتم|هسته.?ای)?|سلاح\s*هسته.?ای|انفجار\s*هسته.?ای|مواد\s*منفجره|ساخت\s*(?:بمب|سلاح|موشک)|شبیه.?ساز.{0,24}(?:بمب|موشک|سلاح)|پهپاد\s*نظامی|مهمات)/i},
+ {reason:'dangerous_weapon_construction_instructions',pattern:/(?:آموزش|نحوه|راهنمای)\s*(?:ساخت|تهیه|مونتاژ)\s*(?:بمب|سلاح|موشک|مواد\s*منفجره)|ساخت\s*(?:بمب|سلاح|موشک|مواد\s*منفجره)|شبیه.?ساز.{0,24}(?:بمب|موشک|سلاح)|(?:how to|instructions? to)\s*(?:build|make|assemble)\s*(?:a\s*)?(?:bomb|weapon|missile|explosive)/i},
  {reason:'insult_or_defamation',pattern:/(?:توهین|توهین\s*آمیز|فحاشی|الفاظ\s*رکیک|ناسزا|بددهنی|افترا|تهمت|تحقیر|تمسخر)/i},
  {reason:'privacy_exposure',pattern:/(?:دوربین\s*مداربسته|\bCCTV\b|افشای\s*(?:اطلاعات|آدرس|شماره)|کد\s*ملی|شماره\s*(?:موبایل|تلفن)|آدرس\s*منزل|بدون\s*رضایت|فیلم.?برداری\s*مخفی)/i},
  {reason:'group_harassment',pattern:/(?:(?:تمسخر|توهین|تحقیر|نفرت.?پراکنی|نژاد.?پرستی|قوم.?ستیزی).{0,30}(?:قوم|نژاد|دین|مذهب|جنسیت|اقلیت)|(?:قوم|نژاد|دین|مذهب|جنسیت|اقلیت).{0,30}(?:تمسخر|توهین|تحقیر|نفرت.?پراکنی|نژاد.?پرستی|قوم.?ستیزی))/i},
- {reason:'copyrighted_film_or_series',pattern:/(?:فیلم\s*(?:سینمایی|ایرانی|فرار\s*از\s*زندان)|سریال(?:\s*تلویزیونی)?|مجموعه\s*تلویزیونی|سکانس\s*(?:از\s*)?(?:فیلم|سریال)|قسمت\s*کامل|محصول\s*نمایش\s*خانگی|شبکه\s*نمایش\s*خانگی|فیلیمو|نماوا|فیلم\s*نت|تلوبیون|صدا\s*و\s*سیما|صداوسیما|فرار\s*از\s*زندان|prison\s*break)/i},
  {reason:'external_video_service_advertising',pattern:/(?:آی[\s‌-]*آر[\s‌-]*مووی|ir[\s-]?movie|دانلود\s+(?:و\s+)?تماشای\s+رایگان|فیلم.{0,40}سریال.{0,30}درخواستی|سریال.{0,30}فیلم.{0,30}درخواستی|درخواست\s+(?:فیلم|سریال)|ویدیو(?:ها)?\s+درخواستی|رسانه\s+.{0,50}(?:فیلم|ویدیو)|سایت\s+.{0,50}(?:فیلم|سریال))/i},
- {reason:'prohibited_dance_or_solo_singing',pattern:/(?:رقص|حرکات\s*موزون|تک.?خوانی.{0,10}زن|خوانندگی.{0,10}زن)/i},
  {reason:'misleading_or_false_information',pattern:/(?:شایعه|خبر\s*جعلی|اطلاعات\s*نادرست|خبر\s*دروغ|اطلاعات\s*غیرواقعی)/i},
  {reason:'adult_or_sexual_content',pattern:/(?:محتوای\s*جنسی|پورنوگرافی|برهنگی|برهنه|جفت.?گیری\s*حیوانات)/i},
  {reason:'illegal_goods_or_gambling',pattern:/(?:مواد\s*مخدر|مشروبات\s*الکلی|کازینو|شرط.?بندی|قمار|فروش\s*(?:مشروب|مواد\s*مخدر|سلاح))/i}
@@ -912,12 +928,16 @@ function updateCandidateMomentum(state, items, now = Date.now()) {
     const plays = trailingMetricRate(samples, 'plays', 'playsAvailable');
     const previousRate = entry.lastRate && typeof entry.lastRate === 'object'
       ? entry.lastRate : null;
-    const viewsAcceleration = views.ratePerMinute !== null && previousRate &&
-      previousRate.viewsPerMinute !== null && previousRate.viewsPerMinute !== undefined
-      ? Math.max(0, views.ratePerMinute - Math.max(0, num(previousRate.viewsPerMinute))) : 0;
-    const playsAcceleration = plays.ratePerMinute !== null && previousRate &&
-      previousRate.playsPerMinute !== null && previousRate.playsPerMinute !== undefined
-      ? Math.max(0, plays.ratePerMinute - Math.max(0, num(previousRate.playsPerMinute))) : 0;
+    const viewsAccelerationAvailable = views.ratePerMinute !== null && previousRate &&
+      previousRate.viewsPerMinute !== null && previousRate.viewsPerMinute !== undefined &&
+      Number.isFinite(Number(previousRate.viewsPerMinute));
+    const playsAccelerationAvailable = plays.ratePerMinute !== null && previousRate &&
+      previousRate.playsPerMinute !== null && previousRate.playsPerMinute !== undefined &&
+      Number.isFinite(Number(previousRate.playsPerMinute));
+    const viewsAcceleration = viewsAccelerationAvailable
+      ? views.ratePerMinute - num(previousRate.viewsPerMinute) : 0;
+    const playsAcceleration = playsAccelerationAvailable
+      ? plays.ratePerMinute - num(previousRate.playsPerMinute) : 0;
 
     const rate = {
       viewsPerMinute: views.ratePerMinute === null
@@ -926,6 +946,8 @@ function updateCandidateMomentum(state, items, now = Date.now()) {
         ? null : Math.round(plays.ratePerMinute * 100) / 100,
       viewsAccelerationPerMinute: Math.round(viewsAcceleration * 100) / 100,
       playsAccelerationPerMinute: Math.round(playsAcceleration * 100) / 100,
+      viewsAccelerationAvailable: Boolean(viewsAccelerationAvailable),
+      playsAccelerationAvailable: Boolean(playsAccelerationAvailable),
       accelerationPerMinute: Math.round(viewsAcceleration * 100) / 100,
       playsAvailable: playMetric.available,
       playCounterPresent: playMetric.available,
@@ -1027,11 +1049,10 @@ function summarizeTopicDemand(entries) {
 
   const result = {};
   for (const [key, group] of groups.entries()) {
-    const growing = group.filter(entry => entry.hasPositivePlayGrowth || entry.hasPositiveViewGrowth);
-    const velocities = growing.map(entry => entry.hasPositivePlayGrowth
-      ? num(entry.momentum.playsPerMinute)
-      : num(entry.momentum.viewsPerMinute));
-    const accelerations = growing.map(entry => entry.hasPositivePlayGrowth
+    const growing = group.filter(entry => entry.accelerationEvidence && entry.accelerationEvidence.passed === true);
+    const velocities = growing.map(entry => entry.accelerationEvidence.metric === 'plays'
+      ? num(entry.momentum.playsPerMinute) : num(entry.momentum.viewsPerMinute));
+    const accelerations = growing.map(entry => entry.accelerationEvidence.metric === 'plays'
       ? num(entry.momentum.playsAccelerationPerMinute)
       : num(entry.momentum.viewsAccelerationPerMinute ?? entry.momentum.accelerationPerMinute));
     const averageVelocity = velocities.length
@@ -1059,21 +1080,15 @@ function summarizeTopicDemand(entries) {
 }
 
 function candidateMomentumScore(entry) {
-  if (entry.hasPositivePlayGrowth) {
-    return 0.65 * logScaleScore(entry.momentum.playsPerMinute, 20) +
-      0.35 * logScaleScore(entry.momentum.playsAccelerationPerMinute, 5);
+  const evidence = entry && entry.accelerationEvidence;
+  if (!evidence || evidence.accelerationAvailable !== true || evidence.passed !== true) return 0;
+  if (evidence.metric === 'plays') {
+    return 0.35 * logScaleScore(entry.momentum.playsPerMinute, 20) +
+      0.65 * logScaleScore(Math.max(0, entry.momentum.playsAccelerationPerMinute), 5);
   }
-  if (entry.hasPositiveViewGrowth) {
-    return 0.65 * logScaleScore(entry.momentum.viewsPerMinute, 20) +
-      0.35 * logScaleScore(
-        entry.momentum.viewsAccelerationPerMinute ?? entry.momentum.accelerationPerMinute, 5
-      );
-  }
-  if (entry.playMetric.available && entry.playMetric.value > 0) {
-    return logScaleScore(entry.playMetric.value, 1000000);
-  }
-  if (entry.viewMetric.available && entry.viewMetric.value > 0) {
-    return logScaleScore(entry.viewMetric.value, 1000000);
+  if (evidence.metric === 'views') {
+    return 0.35 * logScaleScore(entry.momentum.viewsPerMinute, 20) +
+      0.65 * logScaleScore(Math.max(0, entry.momentum.viewsAccelerationPerMinute ?? entry.momentum.accelerationPerMinute), 5);
   }
   return 0;
 }
@@ -1087,98 +1102,62 @@ function isInsufficientAccelerationSampleReason(reason) {
 }
 
 function candidateAccelerationEvidence(entry) {
-  const momentum = entry && entry.momentum && typeof entry.momentum === 'object'
-    ? entry.momentum : {};
+  const momentum = entry && entry.momentum && typeof entry.momentum === 'object' ? entry.momentum : {};
   const playCounterAvailable = Boolean(entry && entry.playMetric && entry.playMetric.available);
   const playCounterZeroStalled = Boolean(entry && entry.playCounterZeroStalled === true);
+  const playSampleCount = Math.trunc(num(momentum.playsSampleCount ?? momentum.sampleCount, 0));
+  const viewSampleCount = Math.trunc(num(momentum.viewsSampleCount ?? momentum.sampleCount, 0));
+  const playVelocity = momentum.playsPerMinute == null ? null : Number(momentum.playsPerMinute);
+  const viewVelocity = momentum.viewsPerMinute == null ? null : Number(momentum.viewsPerMinute);
+  const playAcceleration = momentum.playsAccelerationPerMinute == null ? null : Number(momentum.playsAccelerationPerMinute);
+  const viewAccelerationRaw = momentum.viewsAccelerationPerMinute ?? momentum.accelerationPerMinute;
+  const viewAcceleration = viewAccelerationRaw == null ? null : Number(viewAccelerationRaw);
+  const usablePlayAcceleration = playCounterAvailable && !playCounterZeroStalled &&
+    playSampleCount >= MIN_ACCELERATION_SAMPLES && momentum.playsAccelerationAvailable === true &&
+    Number.isFinite(playVelocity) && Number.isFinite(playAcceleration);
+  const usableViewAcceleration = viewSampleCount >= MIN_ACCELERATION_SAMPLES &&
+    momentum.viewsAccelerationAvailable === true && Number.isFinite(viewVelocity) &&
+    Number.isFinite(viewAcceleration);
 
-  if (playCounterAvailable && !playCounterZeroStalled) {
-    const sampleCount = Math.trunc(num(momentum.playsSampleCount ?? momentum.sampleCount, 0));
-    if (sampleCount < MIN_ACCELERATION_SAMPLES) {
-      return {
-        passed: false,
-        reason: 'insufficient_play_samples',
-        metric: 'plays',
-        sampleCount,
-        minimumSamples: MIN_ACCELERATION_SAMPLES,
-        minimumVelocityPerMinute: MIN_MEASURED_VELOCITY_PER_MINUTE,
-        velocityPerMinute: null,
-        accelerationPerMinute: null
-      };
-    }
-    const velocity = num(momentum.playsPerMinute, 0);
-    const acceleration = num(momentum.playsAccelerationPerMinute, 0);
+  if (usablePlayAcceleration) {
+    const passed = playVelocity >= MIN_MEASURED_VELOCITY_PER_MINUTE && playAcceleration > 0;
     return {
-      passed: entry.hasPositivePlayGrowth === true && velocity >= MIN_MEASURED_VELOCITY_PER_MINUTE,
-      reason: entry.hasPositivePlayGrowth !== true || velocity <= 0
-        ? 'no_positive_play_velocity'
-        : velocity < MIN_MEASURED_VELOCITY_PER_MINUTE ? 'play_velocity_below_minimum'
-        : acceleration <= 0 ? 'positive_play_velocity_without_acceleration'
-          : 'positive_play_acceleration',
-      metric: 'plays',
-      sampleCount,
-      minimumSamples: MIN_ACCELERATION_SAMPLES,
+      passed,
+      reason: playVelocity < MIN_MEASURED_VELOCITY_PER_MINUTE ? 'play_velocity_below_minimum'
+        : playAcceleration <= 0 ? 'play_acceleration_not_positive' : 'positive_play_acceleration',
+      metric: 'plays', sampleCount: playSampleCount, minimumSamples: MIN_ACCELERATION_SAMPLES,
       minimumVelocityPerMinute: MIN_MEASURED_VELOCITY_PER_MINUTE,
-      velocityPerMinute: velocity,
-      accelerationPerMinute: acceleration
+      velocityPerMinute: playVelocity, accelerationPerMinute: playAcceleration, accelerationAvailable: true
     };
   }
 
-  if (entry && entry.hasPositiveViewGrowth &&
-      (!playCounterAvailable || playCounterZeroStalled)) {
-    const sampleCount = Math.trunc(num(momentum.viewsSampleCount ?? momentum.sampleCount, 0));
-    if (sampleCount < MIN_ACCELERATION_SAMPLES) {
-      return {
-        passed: false,
-        reason: 'insufficient_view_samples',
-        metric: 'views',
-        sampleCount,
-        minimumSamples: MIN_ACCELERATION_SAMPLES,
-        minimumVelocityPerMinute: MIN_MEASURED_VELOCITY_PER_MINUTE,
-        velocityPerMinute: null,
-        accelerationPerMinute: null
-      };
-    }
-    const velocity = num(momentum.viewsPerMinute, 0);
-    const acceleration = num(
-      momentum.viewsAccelerationPerMinute ?? momentum.accelerationPerMinute, 0
-    );
-    const zeroPlayFallback = playCounterAvailable && playCounterZeroStalled;
+  // A measured flat/negative play acceleration is authoritative; views cannot override it.
+  if (usableViewAcceleration && (!playCounterAvailable || playCounterZeroStalled || !usablePlayAcceleration)) {
+    const passed = viewVelocity >= MIN_MEASURED_VELOCITY_PER_MINUTE && viewAcceleration > 0;
+    const fallbackReason = playCounterZeroStalled ? 'play_counter_zero_stalled'
+      : playCounterAvailable ? 'play_acceleration_unavailable' : 'play_counter_unavailable';
     return {
-      passed: velocity >= MIN_MEASURED_VELOCITY_PER_MINUTE,
-      reason: velocity <= 0 ? 'no_positive_view_velocity'
-        : velocity < MIN_MEASURED_VELOCITY_PER_MINUTE ? 'view_velocity_below_minimum'
-        : acceleration <= 0 ? zeroPlayFallback
-          ? 'positive_view_velocity_zero_play_counter_stalled'
-          : 'positive_view_velocity_without_acceleration'
-        : zeroPlayFallback ? 'positive_view_acceleration_zero_play_counter_stalled'
-          : 'positive_view_acceleration',
-      metric: 'views',
-      fallbackReason: zeroPlayFallback ? 'play_counter_zero_for_three_independent_samples'
-        : !playCounterAvailable ? 'play_counter_unavailable' : null,
-      sampleCount,
-      minimumSamples: MIN_ACCELERATION_SAMPLES,
-      minimumVelocityPerMinute: MIN_MEASURED_VELOCITY_PER_MINUTE,
-      velocityPerMinute: velocity,
-      accelerationPerMinute: acceleration
+      passed,
+      reason: viewVelocity < MIN_MEASURED_VELOCITY_PER_MINUTE ? 'view_velocity_below_minimum'
+        : viewAcceleration <= 0 ? 'view_acceleration_not_positive' : 'positive_view_acceleration_fallback',
+      metric: 'views', fallbackReason, sampleCount: viewSampleCount,
+      minimumSamples: MIN_ACCELERATION_SAMPLES, minimumVelocityPerMinute: MIN_MEASURED_VELOCITY_PER_MINUTE,
+      velocityPerMinute: viewVelocity, accelerationPerMinute: viewAcceleration, accelerationAvailable: true
     };
   }
 
   return {
     passed: false,
-    reason: 'no_measured_positive_velocity',
-    metric: null,
-    sampleCount: Math.max(
-      Math.trunc(num(momentum.playsSampleCount, 0)),
-      Math.trunc(num(momentum.viewsSampleCount, 0)),
-      Math.trunc(num(momentum.sampleCount, 0))
-    ),
-    minimumSamples: MIN_ACCELERATION_SAMPLES,
-    velocityPerMinute: null,
-    accelerationPerMinute: null
+    reason: playCounterAvailable && !playCounterZeroStalled
+      ? playSampleCount < MIN_ACCELERATION_SAMPLES ? 'insufficient_play_samples'
+        : 'play_acceleration_unavailable_and_view_acceleration_unavailable'
+      : viewSampleCount < MIN_ACCELERATION_SAMPLES ? 'insufficient_view_samples'
+        : 'view_acceleration_unavailable',
+    metric: null, sampleCount: Math.max(playSampleCount, viewSampleCount),
+    minimumSamples: MIN_ACCELERATION_SAMPLES, minimumVelocityPerMinute: MIN_MEASURED_VELOCITY_PER_MINUTE,
+    velocityPerMinute: null, accelerationPerMinute: null, accelerationAvailable: false
   };
 }
-
 function candidateRecencyMomentumEvidence(entry) {
   const age = Number(entry && entry.ageHours);
   const ageKnown = Number.isFinite(age) && age >= 0;
@@ -1188,7 +1167,7 @@ function candidateRecencyMomentumEvidence(entry) {
         : 'older_than_72h';
   const minimumVelocityPerMinute = ageBand === 'fresh_24h' ? 0.05
     : ageBand === '24_to_72h' ? 0.08 : 0.12;
-  const requiresPositiveAcceleration = ageBand !== 'fresh_24h';
+  const requiresPositiveAcceleration = true;
   const acceleration = entry && entry.accelerationEvidence && typeof entry.accelerationEvidence === 'object'
     ? entry.accelerationEvidence : {};
   const velocityPerMinute = num(acceleration.velocityPerMinute, 0);
@@ -1198,7 +1177,7 @@ function candidateRecencyMomentumEvidence(entry) {
   if (acceleration.passed !== true) reason = acceleration.reason || 'base_velocity_gate_failed';
   else if (sampleCount < MIN_ACCELERATION_SAMPLES) reason = 'insufficient_independent_samples';
   else if (velocityPerMinute < minimumVelocityPerMinute) reason = 'age_adjusted_velocity_below_minimum';
-  else if (requiresPositiveAcceleration && accelerationPerMinute <= 0) reason = 'positive_acceleration_required_for_older_or_unknown_content';
+  else if (requiresPositiveAcceleration && accelerationPerMinute <= 0) reason = 'positive_acceleration_required_for_all_content';
   return {
     passed: reason === 'age_adaptive_velocity_passed',
     reason,
@@ -1396,7 +1375,18 @@ function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicW
     entry.accelerationEvidence = candidateAccelerationEvidence(entry);
     entry.recencyMomentumEvidence = candidateRecencyMomentumEvidence(entry);
     entry.growthGatePassed = entry.recencyMomentumEvidence.passed;
+    entry.rankingMetric = entry.accelerationEvidence.metric || 'freshness';
+    entry.selectionMode = entry.accelerationEvidence.metric === 'plays'
+      ? 'measured_play_acceleration'
+      : entry.accelerationEvidence.metric === 'views'
+        ? 'measured_view_acceleration_fallback'
+        : 'awaiting_independent_acceleration';
     entry.hasPositiveAcceleration = num(entry.accelerationEvidence.accelerationPerMinute, 0) > 0;
+    entry.hasPositivePlayAcceleration = entry.accelerationEvidence.metric === 'plays' && entry.hasPositiveAcceleration;
+    entry.hasPositiveViewAcceleration = entry.accelerationEvidence.metric === 'views' && entry.hasPositiveAcceleration;
+    const hasQualifiedAcceleration = entry.accelerationEvidence.passed === true;
+    entry.rankingTier = hasQualifiedAcceleration && entry.accelerationEvidence.metric === 'plays' ? 4
+      : hasQualifiedAcceleration && entry.accelerationEvidence.metric === 'views' ? 3 : 0;
     entry.momentumScore = candidateMomentumScore(entry);
     return entry;
   }).filter(entry => {
@@ -1436,8 +1426,8 @@ function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicW
       rankingScore: Math.round(rankingScore * 100) / 100
     };
   }).sort((a, b) => {
-    // Keep the established evidence hierarchy: measured plays growth first,
-    // then measured views growth, then cumulative counters, then freshness.
+    // Only candidates with measured positive play acceleration (or the explicit
+    // view fallback) receive a momentum tier; cumulative counters are never a tier.
     if (a.rankingTier !== b.rankingTier) return b.rankingTier - a.rankingTier;
     if (Math.abs(b.rankingScore - a.rankingScore) > 0.001) {
       return b.rankingScore - a.rankingScore;
