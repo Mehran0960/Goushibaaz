@@ -177,6 +177,7 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
   const fields = [...new Set([...preferred, ...FEED_DATE_FIELDS])];
   const futureToleranceMs = 5 * 60 * 1000;
   const numberWords = {
+    'نیم': 0.5, 'نصف': 0.5, 'half': 0.5,
     'یک': 1, 'یه': 1, 'one': 1, 'a': 1,
     'دو': 2, 'two': 2, 'سه': 3, 'three': 3,
     'چهار': 4, 'four': 4, 'پنج': 5, 'five': 5,
@@ -184,7 +185,7 @@ function reliableFeedAgeBounds(item, now = Date.now()) {
     'هشت': 8, 'eight': 8, 'نه': 9, 'nine': 9,
     'ده': 10, 'ten': 10
   };
-  const numberToken = '(\\d+(?:[.,]\\d+)?|یک|یه|دو|سه|چهار|پنج|شش|هفت|هشت|نه|ده|one|two|three|four|five|six|seven|eight|nine|ten|a)';
+  const numberToken = '(\\d+(?:[.,]\\d+)?|نیم|نصف|half|یک|یه|دو|سه|چهار|پنج|شش|هفت|هشت|نه|ده|one|two|three|four|five|six|seven|eight|nine|ten|a)';
   const parseCount = match => {
     if (!match) return 0;
     const token = String(match[1] || '').toLocaleLowerCase('fa-IR').replace(',', '.');
