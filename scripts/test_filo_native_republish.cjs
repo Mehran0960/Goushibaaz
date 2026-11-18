@@ -108,6 +108,10 @@ const valid = {
 };
 
 assert.equal(ageHours({ create_date: '۲ ساعت پیش' }), 2);
+assert.equal(ageHours({ create_date: ' نیم ساعت پیش' }), 0.5,
+  'half-hour Persian relative timestamps must be parsed as fresh, reliable age evidence');
+assert.equal(ageHours({ create_date: 'نصف ساعت پیش' }), 0.5,
+  'the common Persian half-hour synonym must be supported');
 const jalaliNow = Date.parse('2026-11-05T06:30:00.000Z');
 assert.equal(ageHours({ create_date: '۱۴۰۵/۰۸/۱۴ ساعت ۰۹:۳۰' }, jalaliNow), 0.5,
   'Jalali timestamps must also drive candidate ranking and the 72-hour cutoff');
