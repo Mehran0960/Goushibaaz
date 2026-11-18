@@ -1,7 +1,7 @@
 'use strict';
 
 const DEFAULT_MIN_PUBLICATION_GAP_MS = 0;
-const DEFAULT_MAX_DAILY_PUBLICATIONS = 288;
+const DEFAULT_MAX_DAILY_PUBLICATIONS = 36;
 const OPERATION_STATUSES = new Set([
   'public_verified',
   'published',
@@ -36,6 +36,14 @@ function getCombinedPublicationOperationTimes({
     .map(operationTimestamp)
     .filter(timestamp => Number.isFinite(timestamp) && timestamp <= nowMs)
     .sort((a, b) => a - b);
+}
+
+function getActiveAccountQuotaCooldown(entry, now = Date.now()) {
+  if (!entry || typeof entry !== 'object') return null;
+  const current = Number.isFinite(Number(now)) ? Number(now) : Date.now();
+  const retryAfter = Date.parse(entry.retryAfterAt || '');
+  if (!Number.isFinite(retryAfter) || retryAfter <= current) return null;
+  return { ...entry, remainingMs: retryAfter - current };
 }
 
 function evaluatePublicationCadence({
@@ -74,6 +82,7 @@ module.exports = {
   OPERATION_STATUSES,
   operationTimestamp,
   isPublicationOperation,
+  getActiveAccountQuotaCooldown,
   getCombinedPublicationOperationTimes,
   evaluatePublicationCadence
 };
