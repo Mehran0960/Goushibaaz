@@ -1748,7 +1748,7 @@ assert.equal(dailyCount(dailyPacingState,pacingNow),40,
 
 const quotaBackoffState = {};
 const quotaFirst = setAccountRepublishQuotaCooldown(quotaBackoffState,pacingNow);
-assert.equal(quotaFirst.cooldownMs,2*60*60*1000);
+assert.equal(quotaFirst.cooldownMs,24*60*60*1000);
 const quotaSecond = setAccountRepublishQuotaCooldown(quotaBackoffState,pacingNow+60*60*1000);
 assert.equal(quotaSecond.cooldownMs,24*60*60*1000,
   'a confirmed daily quota always uses a full 24-hour guard rather than a short guessed backoff');
