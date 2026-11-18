@@ -1175,6 +1175,22 @@ const olderRank = secondRank.find(entry => entry.item.video_code === 'Old001');
 assert.ok(olderRank, 'a 73-hour candidate remains in the discovery/ranking pool');
 assert.equal(olderRank.hasPositivePlayGrowth, true);
 
+const nativeCadenceState = { candidateMomentum:{} };
+const nativeCadenceStart = Date.parse('2026-11-06T02:00:00.000Z');
+const nativeCadenceItem = {
+  video_code:'NativeCadence',
+  title:'ویدئوی تازه با نمونه‌های مستقل',
+  create_date:'۲ ساعت پیش',
+  visit_count:100,
+  plays:10
+};
+rankCandidatesByMomentum([nativeCadenceItem], nativeCadenceState, nativeCadenceStart);
+rankCandidatesByMomentum([
+  {...nativeCadenceItem, visit_count:140, plays:30}
+], nativeCadenceState, nativeCadenceStart + 4 * 60 * 1000);
+assert.equal(nativeCadenceState.candidateMomentum.NativeCadence.samples.length,2,
+  'native feed observations four minutes apart must count as independent samples');
+
 const hintPriorityState = {posts:[]};
 const hintPriorityStart = Date.parse('2026-11-04T01:00:00.000Z');
 const hintBaseline = [
@@ -1412,9 +1428,11 @@ const catalogSecond = update24HourCandidateCatalog(catalogState, [{
   visit_count:350,
   play_count:160,
   feed_tag_label:'طنز'
-}], catalogStart + 10 * 60 * 1000);
+}], catalogStart + 4 * 60 * 1000);
 assert.equal(catalogSecond.uniqueVideos,1);
-assert.equal(catalogSecond.withComparableBaseline,1);
+assert.equal(catalogSecond.observedThisCycle,1);
+assert.equal(catalogSecond.withComparableBaseline,1,
+  'a second fresh-video observation just over four minutes later must establish a comparable baseline');
 assert.equal(catalogSecond.positiveObservedWindowPlayGrowth,1);
 assert.equal(catalogSecond.positiveObservedWindowViewGrowth,1);
 assert.equal(catalogSecond.topObservedGrowth[0].playsDelta,60);
