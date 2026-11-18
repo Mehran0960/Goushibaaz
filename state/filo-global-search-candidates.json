@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-18T12:45:32.981Z",
-  "trendsFetchedAt": "2026-11-18T12:44:13.659Z",
+  "updatedAt": "2026-11-18T13:05:24.014Z",
+  "trendsFetchedAt": "2026-11-18T13:04:07.826Z",
   "trends": [
     {
       "title": "الهام اخوان بازیگر",
@@ -13,7 +13,7 @@
       ],
       "traffic": 2000,
       "publishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
-      "ageHours": 0.6
+      "ageHours": 0.9
     },
     {
       "title": "metacritic",
@@ -22,7 +22,7 @@
       ],
       "traffic": 2000,
       "publishedAt": "Wed, 18 Nov 2026 03:00:00 -0800",
-      "ageHours": 1.7
+      "ageHours": 2.1
     },
     {
       "title": "سرباز",
@@ -31,7 +31,7 @@
       ],
       "traffic": 2000,
       "publishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-      "ageHours": 2.4
+      "ageHours": 2.7
     },
     {
       "title": "پیشکسوت",
@@ -40,26 +40,25 @@
       ],
       "traffic": 1000,
       "publishedAt": "Wed, 18 Nov 2026 03:20:00 -0800",
-      "ageHours": 1.4
-    },
-    {
-      "title": "فراس البریکان",
-      "keywords": [
-        "فراس",
-        "البریکان"
-      ],
-      "traffic": 1000,
-      "publishedAt": "Wed, 18 Nov 2026 03:10:00 -0800",
-      "ageHours": 1.6
+      "ageHours": 1.7
     },
     {
       "title": "کمیسیون",
       "keywords": [
         "کمیسیون"
       ],
-      "traffic": 200,
+      "traffic": 500,
       "publishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
-      "ageHours": 0.6
+      "ageHours": 0.9
+    },
+    {
+      "title": "twitch",
+      "keywords": [
+        "twitch"
+      ],
+      "traffic": 500,
+      "publishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
+      "ageHours": 2.4
     },
     {
       "title": "سامان قدوس",
@@ -69,7 +68,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Wed, 18 Nov 2026 03:30:00 -0800",
-      "ageHours": 1.2
+      "ageHours": 1.6
     },
     {
       "title": "پدری",
@@ -78,7 +77,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
-      "ageHours": 0.6
+      "ageHours": 0.9
     },
     {
       "title": "استریم",
@@ -87,7 +86,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Wed, 18 Nov 2026 04:00:00 -0800",
-      "ageHours": 0.7
+      "ageHours": 1.1
     },
     {
       "title": "جیمز باند",
@@ -97,7 +96,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Wed, 18 Nov 2026 03:10:00 -0800",
-      "ageHours": 1.6
+      "ageHours": 1.9
     }
   ],
   "queries": {
@@ -5776,12 +5775,12 @@
     "خرید بلیط قطار": {
       "query": "خرید بلیط قطار",
       "normalized": "خرید بلیط قطار",
-      "nextPage": 51,
-      "complete": false,
-      "pagesFetched": 60,
-      "videosSeen": 1186,
+      "nextPage": 52,
+      "complete": true,
+      "pagesFetched": 66,
+      "videosSeen": 1271,
       "createdAt": "2026-11-18T05:49:36.468Z",
-      "lastAttemptAt": "2026-11-18T09:05:24.751Z",
+      "lastAttemptAt": "2026-11-18T13:05:23.803Z",
       "lastError": null,
       "trendTitle": "خرید بلیط قطار",
       "trendTraffic": 500,
@@ -5793,7 +5792,8 @@
       ],
       "lastTrendSeenAt": "2026-11-18T06:24:22.035Z",
       "activeInLatestFeed": false,
-      "termination": "max_pages_reached"
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T13:05:23.803Z"
     },
     "پیش فروش بلیط قطارهای مسافری آذرماه از چهارشنبه ۲۷ آبان آغاز می شود": {
       "query": "پیش‌فروش بلیط قطارهای مسافری آذرماه از چهارشنبه ۲۷ آبان آغاز می‌شود",
@@ -7225,19 +7225,19 @@
         "البریکان"
       ],
       "lastTrendSeenAt": "2026-11-18T12:44:14.421Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-18T11:45:28.837Z"
     },
     "سرباز بیرانوند به تایلند رسید": {
       "query": "سرباز بیرانوند؛ به تایلند رسید",
       "normalized": "سرباز بیرانوند به تایلند رسید",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 400,
       "createdAt": "2026-11-18T09:24:12.153Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T13:05:23.808Z",
       "lastError": null,
       "trendTitle": "بازیکن فوتبال",
       "trendTraffic": 200,
@@ -7247,7 +7247,8 @@
         "فوتبال"
       ],
       "lastTrendSeenAt": "2026-11-18T09:24:12.153Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "max_pages_reached"
     },
     "نخست وزیر عراق": {
       "query": "نخست وزیر عراق",
@@ -7667,12 +7668,12 @@
     "سرباز": {
       "query": "سرباز",
       "normalized": "سرباز",
-      "nextPage": 66,
+      "nextPage": 81,
       "complete": false,
-      "pagesFetched": 80,
-      "videosSeen": 1600,
+      "pagesFetched": 100,
+      "videosSeen": 2000,
       "createdAt": "2026-11-18T10:54:20.813Z",
-      "lastAttemptAt": "2026-11-18T12:45:32.612Z",
+      "lastAttemptAt": "2026-11-18T13:05:23.802Z",
       "lastError": null,
       "trendTitle": "سرباز",
       "trendTraffic": 2000,
@@ -7680,7 +7681,7 @@
       "trendKeywords": [
         "سرباز"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.420Z",
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -7695,13 +7696,13 @@
       "lastAttemptAt": "2026-11-18T12:25:28.813Z",
       "lastError": null,
       "trendTitle": "سرباز",
-      "trendTraffic": 1000,
+      "trendTraffic": 2000,
       "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
       "trendKeywords": [
         "سرباز"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:24:07.877Z",
-      "activeInLatestFeed": false,
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
+      "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T12:25:28.813Z",
       "refreshOnly": false,
@@ -7965,12 +7966,12 @@
     "پیام تسلیت وزیر ورزش و جوانان در پی درگذشت حاج مهدی اربابی": {
       "query": "پیام تسلیت وزیر ورزش و جوانان در پی درگذشت حاج مهدی اربابی",
       "normalized": "پیام تسلیت وزیر ورزش و جوانان در پی درگذشت حاج مهدی اربابی",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-18T11:14:11.150Z",
-      "lastAttemptAt": "2026-11-18T11:45:28.855Z",
+      "lastAttemptAt": "2026-11-18T13:05:23.765Z",
       "lastError": null,
       "trendTitle": "پیشکسوت",
       "trendTraffic": 1000,
@@ -7978,10 +7979,12 @@
       "trendKeywords": [
         "پیشکسوت"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.420Z",
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T11:45:28.855Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T13:05:23.765Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T13:05:23.765Z"
     },
     "رمزگشایی از جلد ۲۰۲۷ اکونومیست آینده جهان در یک نگاه": {
       "query": "رمزگشایی از جلد ۲۰۲۷ اکونومیست؛ آینده جهان در یک نگاه",
@@ -8007,64 +8010,68 @@
     "twitch": {
       "query": "twitch",
       "normalized": "twitch",
-      "nextPage": 21,
+      "nextPage": 36,
       "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 400,
+      "pagesFetched": 40,
+      "videosSeen": 800,
       "createdAt": "2026-11-18T11:14:11.150Z",
-      "lastAttemptAt": "2026-11-18T11:45:28.859Z",
+      "lastAttemptAt": "2026-11-18T13:05:23.772Z",
       "lastError": null,
       "trendTitle": "twitch",
-      "trendTraffic": 200,
+      "trendTraffic": 500,
       "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
       "trendKeywords": [
         "twitch"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
-      "activeInLatestFeed": false,
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
+      "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "ai is still weighing on streamers at twitch s biggest event of the year": {
       "query": "AI is still weighing on streamers at Twitch’s biggest event of the year",
       "normalized": "ai is still weighing on streamers at twitch s biggest event of the year",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-18T11:14:11.150Z",
-      "lastAttemptAt": "2026-11-18T11:45:28.860Z",
+      "lastAttemptAt": "2026-11-18T13:05:23.765Z",
       "lastError": null,
       "trendTitle": "twitch",
-      "trendTraffic": 200,
+      "trendTraffic": 500,
       "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
       "trendKeywords": [
         "twitch"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T11:45:28.860Z"
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
+      "activeInLatestFeed": true,
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T13:05:23.765Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T13:05:23.765Z"
     },
     "openai booth draws criticism at twitchcon over ai s role in creative work": {
       "query": "OpenAI booth draws criticism at TwitchCon over AI’s role in creative work",
       "normalized": "openai booth draws criticism at twitchcon over ai s role in creative work",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-18T11:14:11.150Z",
-      "lastAttemptAt": "2026-11-18T11:45:28.860Z",
+      "lastAttemptAt": "2026-11-18T13:05:23.765Z",
       "lastError": null,
       "trendTitle": "twitch",
-      "trendTraffic": 200,
+      "trendTraffic": 500,
       "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
       "trendKeywords": [
         "twitch"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T11:45:28.860Z"
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
+      "activeInLatestFeed": true,
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T13:05:23.765Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T13:05:23.765Z"
     },
     "ماتا بطل العالم 2010 یعلن اعتزاله فی سن 38 عاما": {
       "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
@@ -8127,7 +8134,7 @@
         "البریکان"
       ],
       "lastTrendSeenAt": "2026-11-18T12:44:14.420Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-18T12:05:28.274Z"
     },
@@ -8169,7 +8176,7 @@
       "trendKeywords": [
         "metacritic"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.420Z",
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T12:05:28.274Z"
@@ -8190,7 +8197,7 @@
       "trendKeywords": [
         "metacritic"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.420Z",
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T12:45:32.576Z"
@@ -8258,12 +8265,12 @@
     "جیمز باند": {
       "query": "جیمز باند",
       "normalized": "جیمز باند",
-      "nextPage": 36,
+      "nextPage": 51,
       "complete": false,
-      "pagesFetched": 40,
-      "videosSeen": 753,
+      "pagesFetched": 60,
+      "videosSeen": 1153,
       "createdAt": "2026-11-18T11:44:08.631Z",
-      "lastAttemptAt": "2026-11-18T12:45:32.590Z",
+      "lastAttemptAt": "2026-11-18T13:05:23.791Z",
       "lastError": null,
       "trendTitle": "جیمز باند",
       "trendTraffic": 100,
@@ -8272,7 +8279,7 @@
         "جیمز",
         "باند"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.421Z",
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -8293,7 +8300,7 @@
         "جیمز",
         "باند"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.421Z",
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T12:05:28.282Z"
@@ -8315,7 +8322,7 @@
         "جیمز",
         "باند"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.421Z",
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T12:05:28.282Z"
@@ -8355,7 +8362,7 @@
       "trendKeywords": [
         "سرباز"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.420Z",
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -8398,7 +8405,7 @@
       "trendKeywords": [
         "پیشکسوت"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.420Z",
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T12:25:28.845Z"
@@ -8419,7 +8426,7 @@
       "trendKeywords": [
         "پیشکسوت"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.420Z",
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T12:25:28.846Z"
@@ -8441,7 +8448,7 @@
         "سامان",
         "قدوس"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.421Z",
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -8462,7 +8469,7 @@
         "سامان",
         "قدوس"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.421Z",
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T12:25:28.853Z"
@@ -8484,8 +8491,8 @@
         "سامان",
         "قدوس"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:24:07.878Z",
-      "activeInLatestFeed": false,
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
+      "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T12:25:28.855Z"
     },
@@ -8569,12 +8576,12 @@
     "استریم": {
       "query": "استریم",
       "normalized": "استریم",
-      "nextPage": 21,
+      "nextPage": 36,
       "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 394,
+      "pagesFetched": 40,
+      "videosSeen": 794,
       "createdAt": "2026-11-18T12:24:07.877Z",
-      "lastAttemptAt": "2026-11-18T12:45:32.599Z",
+      "lastAttemptAt": "2026-11-18T13:05:23.797Z",
       "lastError": null,
       "trendTitle": "استریم",
       "trendTraffic": 100,
@@ -8582,7 +8589,7 @@
       "trendKeywords": [
         "استریم"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.421Z",
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -8602,7 +8609,7 @@
       "trendKeywords": [
         "استریم"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.421Z",
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T12:45:32.599Z"
@@ -8623,7 +8630,7 @@
       "trendKeywords": [
         "استریم"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.421Z",
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T12:45:32.599Z"
@@ -8684,7 +8691,7 @@
         "البریکان"
       ],
       "lastTrendSeenAt": "2026-11-18T12:44:14.421Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "الهام اخوان بازیگر": {
@@ -8705,7 +8712,7 @@
         "اخوان",
         "بازیگر"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.420Z",
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T12:45:32.628Z"
@@ -8728,7 +8735,7 @@
         "اخوان",
         "بازیگر"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.420Z",
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T12:45:32.628Z"
@@ -8751,7 +8758,7 @@
         "اخوان",
         "بازیگر"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.420Z",
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T12:45:32.628Z"
@@ -8759,12 +8766,12 @@
     "review grand theft auto 6 a landmark achievement that redefines a console generation": {
       "query": "Review: Grand Theft Auto 6: A Landmark Achievement That Redefines a Console Generation",
       "normalized": "review grand theft auto 6 a landmark achievement that redefines a console generation",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 3,
+      "videosSeen": 4,
       "createdAt": "2026-11-18T12:44:14.420Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T13:05:23.772Z",
       "lastError": null,
       "trendTitle": "metacritic",
       "trendTraffic": 2000,
@@ -8772,8 +8779,10 @@
       "trendKeywords": [
         "metacritic"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.420Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T13:05:23.772Z"
     },
     "شهادت سرباز وظیفه دلیجانی در مرزهای غرب کشور": {
       "query": "شهادت سرباز وظیفه دلیجانی در مرزهای غرب کشور",
@@ -8792,64 +8801,70 @@
         "سرباز"
       ],
       "lastTrendSeenAt": "2026-11-18T12:44:14.420Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "کمیسیون": {
       "query": "کمیسیون",
       "normalized": "کمیسیون",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 14,
+      "complete": true,
+      "pagesFetched": 13,
+      "videosSeen": 225,
       "createdAt": "2026-11-18T12:44:14.421Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T13:05:23.778Z",
       "lastError": null,
       "trendTitle": "کمیسیون",
-      "trendTraffic": 200,
+      "trendTraffic": 500,
       "trendPublishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
       "trendKeywords": [
         "کمیسیون"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.421Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T13:05:23.778Z"
     },
     "بررسی وضعیت بنگاه های اقتصادی در مازندران": {
       "query": "بررسی وضعیت بنگاه‌های اقتصادی در مازندران",
       "normalized": "بررسی وضعیت بنگاه های اقتصادی در مازندران",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 3,
+      "videosSeen": 1,
       "createdAt": "2026-11-18T12:44:14.421Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T13:05:23.778Z",
       "lastError": null,
       "trendTitle": "کمیسیون",
-      "trendTraffic": 200,
+      "trendTraffic": 500,
       "trendPublishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
       "trendKeywords": [
         "کمیسیون"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.421Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T13:05:23.778Z"
     },
     "امنیت و انسجام ملی سرمایه اصلی کشور است لزوم پیگیری جدی آسیب های اجتماعی و مفاسد اقتصادی کلان": {
       "query": "امنیت و انسجام ملی سرمایه اصلی کشور است / لزوم پیگیری جدی آسیب‌های اجتماعی و مفاسد اقتصادی کلان",
       "normalized": "امنیت و انسجام ملی سرمایه اصلی کشور است لزوم پیگیری جدی آسیب های اجتماعی و مفاسد اقتصادی کلان",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T12:44:14.421Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T13:05:23.778Z",
       "lastError": null,
       "trendTitle": "کمیسیون",
-      "trendTraffic": 200,
+      "trendTraffic": 500,
       "trendPublishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
       "trendKeywords": [
         "کمیسیون"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.421Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T13:05:23.778Z"
     },
     "یک هفته دیگر گذشت و این ۳ نفر خداحافظی نکردند": {
       "query": "یک هفته دیگر گذشت و این ۳ نفر خداحافظی نکردند!",
@@ -8869,17 +8884,17 @@
         "قدوس"
       ],
       "lastTrendSeenAt": "2026-11-18T12:44:14.421Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "پدری": {
       "query": "پدری",
       "normalized": "پدری",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 400,
       "createdAt": "2026-11-18T12:44:14.421Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T13:05:23.786Z",
       "lastError": null,
       "trendTitle": "پدری",
       "trendTraffic": 100,
@@ -8887,8 +8902,9 @@
       "trendKeywords": [
         "پدری"
       ],
-      "lastTrendSeenAt": "2026-11-18T12:44:14.421Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T13:04:08.344Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     }
   },
   "items": {
@@ -19571,45 +19587,6 @@
       "lastTrendMatchedAt": "2026-11-18T00:00:19.716Z",
       "lastMetricsFetchedAt": "2026-11-17T23:59:52.699Z"
     },
-    "IC3tqBO": {
-      "video_code": "IC3tqBO",
-      "title": "فوری/شبکه خبر:یک خلبان زن اسراییلی توسط ارتش جمهوری اسلامی ایران به اسارت گرفته شده است",
-      "sender_name": "خدیجه",
-      "category_id": 1,
-      "duration": 29,
-      "visit_count": 7685,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "شبکه خبر",
-          "trendTitle": "شبکه خبر",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
-          "trendKeywords": [
-            "شبکه",
-            "خبر"
-          ],
-          "page": 4
-        },
-        {
-          "query": "خبر فوری",
-          "trendTitle": "خبر فوری",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:40:00 -0800",
-          "trendKeywords": [
-            "خبر",
-            "فوری"
-          ],
-          "page": 10
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:59:38.768Z"
-    },
     "LWs4rcn": {
       "video_code": "LWs4rcn",
       "title": "وداع ابدی با دو خبرنگار ایسنا و ایرنا",
@@ -28689,33 +28666,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T21:55:12.044Z"
     },
-    "wpS4YOO": {
-      "video_code": "wpS4YOO",
-      "title": "سریال وحشی قسم ۵۱ دوبله فارسی",
-      "sender_name": "کلیپ میویس",
-      "category_id": 3,
-      "duration": 3605,
-      "visit_count": 20898,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 34
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.044Z"
-    },
     "0OYrSJq": {
       "video_code": "0OYrSJq",
       "title": "کلیپ مامان جونم چه ماهی فدات بشم الهی",
@@ -31867,10 +31817,20 @@
             "سرلشکر"
           ],
           "page": 1
+        },
+        {
+          "query": "پدری",
+          "trendTitle": "پدری",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
+          "trendKeywords": [
+            "پدری"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:45:52.282Z",
-      "lastMetricsFetchedAt": "2026-11-17T16:45:33.371Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.781Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:36.640Z"
     },
     "05wG0MH": {
       "video_code": "05wG0MH",
@@ -32382,10 +32342,20 @@
             "سرلشکر"
           ],
           "page": 1
+        },
+        {
+          "query": "پدری",
+          "trendTitle": "پدری",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
+          "trendKeywords": [
+            "پدری"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:45:52.282Z",
-      "lastMetricsFetchedAt": "2026-11-17T16:45:33.371Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.781Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:37.632Z"
     },
     "n5y00Wa": {
       "video_code": "n5y00Wa",
@@ -41830,44 +41800,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.362Z"
     },
-    "ePsB9Ho": {
-      "video_code": "ePsB9Ho",
-      "title": "حمله کوسه به دختر جوان در خلیج فارس سیل زلزله",
-      "sender_name": "علی",
-      "category_id": 1,
-      "duration": 15,
-      "visit_count": 7695,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فارس",
-          "trendTitle": "فارس",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:30:00 -0800",
-          "trendKeywords": [
-            "فارس"
-          ],
-          "page": 12
-        },
-        {
-          "query": "خبرگزاری فارس",
-          "trendTitle": "خبرگزاری فارس",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:40:00 -0800",
-          "trendKeywords": [
-            "خبرگزاری",
-            "فارس"
-          ],
-          "page": 12
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.362Z"
-    },
     "6GsW9Bp": {
       "video_code": "6GsW9Bp",
       "title": "چگونگی حمله عراق به کویت و منجرشدن به جنگ خلیج فارس",
@@ -45672,33 +45604,6 @@
       "lastTrendMatchedAt": "2026-11-17T19:25:53.228Z",
       "lastMetricsFetchedAt": "2026-11-17T19:25:39.536Z"
     },
-    "e9DCxLS": {
-      "video_code": "e9DCxLS",
-      "title": "سریال ترکی قسم 304 زیرنویس فارسی",
-      "sender_name": "Apratgram",
-      "category_id": 3,
-      "duration": 3487,
-      "visit_count": 20845,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 46
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.341Z"
-    },
     "IgU3MKg": {
       "video_code": "IgU3MKg",
       "title": "دانلود انیمیشن پهلوانان ۱۴۰۲ قسمت ۶ ششم 🎵",
@@ -47501,10 +47406,20 @@
             "سرلشکر"
           ],
           "page": 2
+        },
+        {
+          "query": "پدری",
+          "trendTitle": "پدری",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
+          "trendKeywords": [
+            "پدری"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:45:52.282Z",
-      "lastMetricsFetchedAt": "2026-11-17T16:45:34.321Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.781Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:38.650Z"
     },
     "2JIMK93": {
       "video_code": "2JIMK93",
@@ -54096,10 +54011,21 @@
             "سرباز"
           ],
           "page": 3
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.607Z",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:49.798Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:08.267Z"
     },
     "HGmvfFv": {
       "video_code": "HGmvfFv",
@@ -54536,10 +54462,21 @@
             "سرباز"
           ],
           "page": 9
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 18
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.352Z",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:35.709Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.807Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:21.620Z"
     },
     "p0l83lC": {
       "video_code": "p0l83lC",
@@ -56495,33 +56432,6 @@
       "category_id": 3,
       "duration": 2848,
       "visit_count": 51807,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "شکار دو فروند پهپاد شناسایی آمریکایی از نوع MQM-170 در آسمان جنوب",
-          "trendTitle": "پهپاد",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 18:10:00 -0800",
-          "trendKeywords": [
-            "پهپاد"
-          ],
-          "page": 16
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T04:05:15.883Z"
-    },
-    "JHX9ziE": {
-      "video_code": "JHX9ziE",
-      "title": "Ep173}سریال برگریزان – قسمت 173– دوبله فارسی",
-      "sender_name": "Farsi 1",
-      "category_id": 3,
-      "duration": 2448,
-      "visit_count": 20907,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -71795,10 +71705,21 @@
             "البریکان"
           ],
           "page": 2
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.599Z",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:45.658Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.803Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:04.685Z"
     },
     "nwsPA4B": {
       "video_code": "nwsPA4B",
@@ -71929,10 +71850,21 @@
             "البریکان"
           ],
           "page": 2
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.599Z",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:45.658Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:06.195Z"
     },
     "bs7ykj9": {
       "video_code": "bs7ykj9",
@@ -72053,10 +71985,21 @@
             "البریکان"
           ],
           "page": 2
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.599Z",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:45.658Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:06.195Z"
     },
     "ZT6VMBR": {
       "video_code": "ZT6VMBR",
@@ -72284,10 +72227,21 @@
             "البریکان"
           ],
           "page": 3
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.600Z",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:46.878Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:07.187Z"
     },
     "zArgwAa": {
       "video_code": "zArgwAa",
@@ -72432,10 +72386,21 @@
             "البریکان"
           ],
           "page": 5
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.600Z",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:49.172Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.805Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:12.935Z"
     },
     "gv4H0qR": {
       "video_code": "gv4H0qR",
@@ -75863,33 +75828,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T16:10:32.619Z"
     },
-    "EuI0rdb": {
-      "video_code": "EuI0rdb",
-      "title": "قسمت ۳۶ - وی سِکسِکی ، سوراخ ، گرانی تاثیر ندارد",
-      "sender_name": "حسین نقیبی",
-      "category_id": 0,
-      "duration": 1454,
-      "visit_count": 20846,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "تایر",
-          "trendTitle": "تایر",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Tue, 3 Nov 2026 07:40:00 -0800",
-          "trendKeywords": [
-            "تایر"
-          ],
-          "page": 17
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.619Z"
-    },
     "yPHHED6": {
       "video_code": "yPHHED6",
       "title": "آیسان آقاخانی همسر محمدرضا گلزار کیست؟! / پدر عروس خانم تاجر سرشناس است !",
@@ -77635,10 +77573,21 @@
             "سرباز"
           ],
           "page": 6
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.351Z",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:33.421Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.805Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:12.935Z"
     },
     "GDJ8697": {
       "video_code": "GDJ8697",
@@ -79112,33 +79061,6 @@
       "visit_count": 33125,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 73
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T17:41:43.096Z"
-    },
-    "D76Rhip": {
-      "video_code": "D76Rhip",
-      "title": "تیزر دوم فصل ششم سریال قیام عثمان،دوبله فارسی",
-      "sender_name": "خدیجه",
-      "category_id": 3,
-      "duration": 192,
-      "visit_count": 20814,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -102588,7 +102510,7 @@
       "visit_count": 37703,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:44:38.670Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:27.757Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -102615,7 +102537,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.767Z"
     },
     "fCxWfZV": {
       "video_code": "fCxWfZV",
@@ -105978,35 +105900,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T16:45:52.276Z"
     },
-    "Ig3rNf3": {
-      "video_code": "Ig3rNf3",
-      "title": "ویدیو کوتاه ابراهام رفیق صمیمی پیمان ادیداس در غم نبود رفیقش",
-      "sender_name": "فیلمدوانه",
-      "category_id": 11,
-      "duration": 22,
-      "visit_count": 20830,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:45:46.262Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پیمان جبلی",
-          "trendTitle": "پیمان جبلی",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 08:10:00 -0800",
-          "trendKeywords": [
-            "پیمان",
-            "جبلی"
-          ],
-          "page": 14
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T16:45:52.276Z"
-    },
     "KVMaKD8": {
       "video_code": "KVMaKD8",
       "title": "دوربین مخفی دختره پویان رو شناخت باهمدیگه ترتیب پیمان رو دادند",
@@ -107761,35 +107654,6 @@
       "visit_count": 66343,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:45:46.910Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "محمد شعبانپور",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 29
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T16:45:52.290Z"
-    },
-    "OCqKpLx": {
-      "video_code": "OCqKpLx",
-      "title": "محمد قلی | تماس با ممد قلی|محمد قلی",
-      "sender_name": "شاه خیار ʕ´•ᴥ•`ʔ",
-      "category_id": 0,
-      "duration": 48,
-      "visit_count": 20844,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T16:45:46.910Z",
       "active": 1,
       "can_republish": 1,
@@ -122017,35 +121881,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T18:05:35.135Z"
     },
-    "JLgXFoI": {
-      "video_code": "JLgXFoI",
-      "title": "سریال مردان آنجلس قسمت ۲۰ آخر",
-      "sender_name": "کاربر فیلو",
-      "category_id": 3,
-      "duration": 3158,
-      "visit_count": 20858,
-      "create_date": "6 سال پیش",
-      "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:05:21.013Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 56
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T18:05:35.135Z"
-    },
     "F0WOBxI": {
       "video_code": "F0WOBxI",
       "title": "سریال نجلا فصل ۲ قسمت ۳۶ آخر",
@@ -122535,35 +122370,6 @@
             "شعبانپور"
           ],
           "page": 58
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T18:05:35.135Z"
-    },
-    "T9cVWUO": {
-      "video_code": "T9cVWUO",
-      "title": "ناروتو شیپودن فصل۴ قسمت آخر با دوبله فارسی",
-      "sender_name": "pouriya 2018",
-      "category_id": 21,
-      "duration": 1384,
-      "visit_count": 20900,
-      "create_date": "7 سال پیش",
-      "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:05:24.974Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 59
         }
       ],
       "lastTrendMatchedAt": "2026-11-17T18:05:35.135Z"
@@ -125855,7 +125661,7 @@
       "visit_count": 91170,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:34.223Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:15.041Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -125880,9 +125686,20 @@
             "سرباز"
           ],
           "page": 7
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 12
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.351Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.806Z"
     },
     "h4uN9MJ": {
       "video_code": "h4uN9MJ",
@@ -132436,34 +132253,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:07:45.406Z"
     },
-    "hfHdUkE": {
-      "video_code": "hfHdUkE",
-      "title": "سریال به عشق تو سوگند قسمت ۱۵۱",
-      "sender_name": "منتخب فیلو✅",
-      "category_id": 3,
-      "duration": 2505,
-      "visit_count": 20860,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:07:17.478Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 17
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.406Z"
-    },
     "s1DUFse": {
       "video_code": "s1DUFse",
       "title": "سریال سوگند قسمت 47 زیرنویس فارسی سانسورشده",
@@ -133650,7 +133439,7 @@
       "visit_count": 36262,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:46.878Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:08.267Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -133677,9 +133466,20 @@
             "البریکان"
           ],
           "page": 3
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.600Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "1dcMgFv": {
       "video_code": "1dcMgFv",
@@ -140951,34 +140751,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T12:45:32.639Z"
     },
-    "3nhIkXH": {
-      "video_code": "3nhIkXH",
-      "title": "طنز جدید صمد ممد مجلس عروسی",
-      "sender_name": "Starmedia",
-      "category_id": 6,
-      "duration": 654,
-      "visit_count": 20817,
-      "create_date": "6 سال پیش",
-      "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:45:18.827Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "مجلس",
-          "trendTitle": "مجلس",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 19:50:00 -0800",
-          "trendKeywords": [
-            "مجلس"
-          ],
-          "page": 5
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.639Z"
-    },
     "6NylDZ4": {
       "video_code": "6NylDZ4",
       "title": "شعر خوانی عاشورایی مسعود پزشکیان در صحن مجلس",
@@ -141100,34 +140872,6 @@
       "visit_count": 73569,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T04:20:04.329Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "مجلس",
-          "trendTitle": "مجلس",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 19:50:00 -0800",
-          "trendKeywords": [
-            "مجلس"
-          ],
-          "page": 6
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T04:20:41.596Z"
-    },
-    "1ySXJBF": {
-      "video_code": "1ySXJBF",
-      "title": "دختربازی نماینده مجلس سید حسین نقوی حسینی!",
-      "sender_name": "£sajjad£",
-      "category_id": 1,
-      "duration": 861,
-      "visit_count": 20884,
-      "create_date": "7 سال پیش",
-      "styled_create_date": "7 سال پیش",
       "lastMetricsFetchedAt": "2026-11-18T04:20:04.329Z",
       "active": 1,
       "can_republish": 1,
@@ -143417,35 +143161,6 @@
             "لطفی"
           ],
           "page": 31
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T07:15:34.064Z"
-    },
-    "nVZqQ7m": {
-      "video_code": "nVZqQ7m",
-      "title": "ویدیو جدید از سحر و مریم که مریم طلسم شده",
-      "sender_name": "محسن",
-      "category_id": 3,
-      "duration": 608,
-      "visit_count": 20845,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:15:02.643Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سحر لطفی",
-          "trendTitle": "سحر لطفی",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 21:40:00 -0800",
-          "trendKeywords": [
-            "سحر",
-            "لطفی"
-          ],
-          "page": 32
         }
       ],
       "lastTrendMatchedAt": "2026-11-18T07:15:34.064Z"
@@ -148935,35 +148650,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T08:25:08.864Z"
     },
-    "N2kAvdu": {
-      "video_code": "N2kAvdu",
-      "title": "مصاحبه جنجالی میثاقی با خداداد افشاریان ریس کمیته داوران فوتبال",
-      "sender_name": "DinarTavalod",
-      "category_id": 11,
-      "duration": 178,
-      "visit_count": 20828,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T08:24:34.468Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "بازیکن فوتبال",
-          "trendTitle": "بازیکن فوتبال",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
-          "trendKeywords": [
-            "بازیکن",
-            "فوتبال"
-          ],
-          "page": 38
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T08:25:08.864Z"
-    },
     "NIEJLkF": {
       "video_code": "NIEJLkF",
       "title": "کل کل و شوخی فوق جنجالی خداداد عزیزی با هاشم بیک زاده درباره نسل برتر فوتبال",
@@ -149301,34 +148987,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-18T08:25:08.893Z"
-    },
-    "DiDccHL": {
-      "video_code": "DiDccHL",
-      "title": "چالغذا خوری خنده دار 😝چالش غذایی خوردن چیپس خیلی تند - چالش آشپزی سرگرمی،بانوان",
-      "sender_name": "✅تک تاز فیلم",
-      "category_id": 6,
-      "duration": 158,
-      "visit_count": 20874,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T08:24:44.367Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "آشپزی",
-          "trendTitle": "آشپزی",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
-          "trendKeywords": [
-            "آشپزی"
-          ],
-          "page": 65
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T08:25:08.894Z"
     },
     "re5SVpF": {
       "video_code": "re5SVpF",
@@ -154462,36 +154120,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T10:05:35.668Z"
     },
-    "wbojc8w": {
-      "video_code": "wbojc8w",
-      "title": "فیلم لحظه قتل آیت الله سلیمانی در بانک بابلسر",
-      "sender_name": "رنگارنگ",
-      "category_id": 1,
-      "duration": 81,
-      "visit_count": 20828,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:05:06.227Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "مراسم تشییع آیت‌الله «وحیدخراسانی»",
-          "trendTitle": "ایت الله کفایی",
-          "trendTraffic": 5000,
-          "trendPublishedAt": "Wed, 18 Nov 2026 00:30:00 -0800",
-          "trendKeywords": [
-            "ایت",
-            "الله",
-            "کفایی"
-          ],
-          "page": 6
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T10:05:35.668Z"
-    },
     "e45AmQL": {
       "video_code": "e45AmQL",
       "title": "حمله مسلحانه به آیت الله سلیمانی",
@@ -154944,46 +154572,6 @@
       "lastMetricsFetchedAt": "2026-11-18T10:25:34.605Z",
       "active": 1,
       "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "نفت خام",
-          "trendTitle": "نفت خام",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
-          "trendKeywords": [
-            "نفت",
-            "خام"
-          ],
-          "page": 12
-        },
-        {
-          "query": "قیمت نفت به 92 دلار و 75 سنت رسید",
-          "trendTitle": "نفت خام",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
-          "trendKeywords": [
-            "نفت",
-            "خام"
-          ],
-          "page": 17
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.442Z"
-    },
-    "mkhmAw6": {
-      "video_code": "mkhmAw6",
-      "title": "قسمت 1 سریال دکل نفت The Rig با زیرنویس فارسی چسبیده",
-      "sender_name": "سیم خاردار❤️",
-      "category_id": 3,
-      "duration": 2970,
-      "visit_count": 7677,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:34.605Z",
-      "active": 1,
-      "can_republish": 0,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -159455,35 +159043,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T10:56:03.478Z"
     },
-    "L0h8jwH": {
-      "video_code": "L0h8jwH",
-      "title": "قهوه معروف عاج سیاه از مدفوع فیل با قیمت کیلوی 80 میلیون دلار",
-      "sender_name": "علی فلاحی ::::» سلطان پلاسمای خون ایران",
-      "category_id": 29,
-      "duration": 45,
-      "visit_count": 20826,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:54.412Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قیمت نفت به 92 دلار و 75 سنت رسید",
-          "trendTitle": "نفت خام",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
-          "trendKeywords": [
-            "نفت",
-            "خام"
-          ],
-          "page": 21
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.475Z"
-    },
     "apS5wDI": {
       "video_code": "apS5wDI",
       "title": "آپدیت قیمت بنزین توسط رئیس ستاد پزشکیان. 50هزار تومان",
@@ -159659,7 +159218,7 @@
       "visit_count": 135175,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:49.102Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:04.685Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159674,9 +159233,20 @@
             "سرباز"
           ],
           "page": 2
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.606Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.803Z"
     },
     "S3iJkSa": {
       "video_code": "S3iJkSa",
@@ -159687,7 +159257,7 @@
       "visit_count": 45260,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:49.102Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:04.685Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159702,9 +159272,20 @@
             "سرباز"
           ],
           "page": 2
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.606Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "orcRyfC": {
       "video_code": "orcRyfC",
@@ -159715,7 +159296,7 @@
       "visit_count": 89037,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:49.102Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:04.685Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159730,9 +159311,20 @@
             "سرباز"
           ],
           "page": 2
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.606Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "DzCNttZ": {
       "video_code": "DzCNttZ",
@@ -159743,7 +159335,7 @@
       "visit_count": 36196,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:49.102Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:04.685Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159758,9 +159350,20 @@
             "سرباز"
           ],
           "page": 2
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.606Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "kIHGTB5": {
       "video_code": "kIHGTB5",
@@ -159771,7 +159374,7 @@
       "visit_count": 32274,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:49.798Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:06.195Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -159786,9 +159389,20 @@
             "سرباز"
           ],
           "page": 3
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.606Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "ukXvexi": {
       "video_code": "ukXvexi",
@@ -159799,7 +159413,7 @@
       "visit_count": 67435,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:49.798Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:06.195Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159814,9 +159428,20 @@
             "سرباز"
           ],
           "page": 3
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.607Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "NPTelYl": {
       "video_code": "NPTelYl",
@@ -159827,7 +159452,7 @@
       "visit_count": 44299,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:49.798Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:07.187Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -159842,9 +159467,20 @@
             "سرباز"
           ],
           "page": 3
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.607Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "m8yUhe8": {
       "video_code": "m8yUhe8",
@@ -159855,7 +159491,7 @@
       "visit_count": 236841,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:49.798Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:07.187Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159870,9 +159506,20 @@
             "سرباز"
           ],
           "page": 3
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.607Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "N0EQT4d": {
       "video_code": "N0EQT4d",
@@ -159883,7 +159530,7 @@
       "visit_count": 49049,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:49.798Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:07.187Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -159898,9 +159545,20 @@
             "سرباز"
           ],
           "page": 3
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.607Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "gD58CLI": {
       "video_code": "gD58CLI",
@@ -159911,7 +159569,7 @@
       "visit_count": 88696,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:49.798Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:07.187Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159926,9 +159584,20 @@
             "سرباز"
           ],
           "page": 3
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.607Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "WN5FQay": {
       "video_code": "WN5FQay",
@@ -159939,7 +159608,7 @@
       "visit_count": 53214,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:49.798Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:07.187Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -159954,9 +159623,20 @@
             "سرباز"
           ],
           "page": 3
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.607Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "x66rgA4": {
       "video_code": "x66rgA4",
@@ -159967,7 +159647,7 @@
       "visit_count": 30497,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:49.798Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:08.267Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -159982,9 +159662,20 @@
             "سرباز"
           ],
           "page": 3
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.607Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "PLHzzaw": {
       "video_code": "PLHzzaw",
@@ -159995,7 +159686,7 @@
       "visit_count": 83390,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:49.798Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:08.267Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160010,9 +159701,20 @@
             "سرباز"
           ],
           "page": 3
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.607Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "aaETSkv": {
       "video_code": "aaETSkv",
@@ -160023,7 +159725,7 @@
       "visit_count": 24491,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:49.798Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:08.267Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -160038,9 +159740,20 @@
             "سرباز"
           ],
           "page": 3
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.607Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "i2R3DBZ": {
       "video_code": "i2R3DBZ",
@@ -160051,7 +159764,7 @@
       "visit_count": 22785,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:50.529Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:08.267Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160066,9 +159779,20 @@
             "سرباز"
           ],
           "page": 4
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.607Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "Pe3cGd8": {
       "video_code": "Pe3cGd8",
@@ -160079,7 +159803,7 @@
       "visit_count": 21166,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:50.529Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:10.816Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160094,9 +159818,20 @@
             "سرباز"
           ],
           "page": 4
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.607Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.805Z"
     },
     "uuwrg2v": {
       "video_code": "uuwrg2v",
@@ -160107,7 +159842,7 @@
       "visit_count": 24433,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:33.421Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:12.935Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160122,9 +159857,20 @@
             "سرباز"
           ],
           "page": 6
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.351Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.805Z"
     },
     "1LEaHrS": {
       "video_code": "1LEaHrS",
@@ -160135,7 +159881,7 @@
       "visit_count": 51758,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:33.421Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:12.935Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160150,9 +159896,20 @@
             "سرباز"
           ],
           "page": 6
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.351Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.805Z"
     },
     "7sqqfxS": {
       "video_code": "7sqqfxS",
@@ -160160,10 +159917,10 @@
       "sender_name": "مریم",
       "category_id": 3,
       "duration": 6342,
-      "visit_count": 40704,
+      "visit_count": 40705,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:33.421Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:13.935Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160178,9 +159935,20 @@
             "سرباز"
           ],
           "page": 6
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 11
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.351Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.805Z"
     },
     "kQfbnk4": {
       "video_code": "kQfbnk4",
@@ -160191,7 +159959,7 @@
       "visit_count": 24871,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:33.421Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:13.935Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160206,9 +159974,20 @@
             "سرباز"
           ],
           "page": 6
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 11
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.351Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.806Z"
     },
     "OnEtwdn": {
       "video_code": "OnEtwdn",
@@ -160219,7 +159998,7 @@
       "visit_count": 22455,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:34.223Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:15.041Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -160234,9 +160013,20 @@
             "سرباز"
           ],
           "page": 7
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 12
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.351Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.806Z"
     },
     "sxgCN13": {
       "video_code": "sxgCN13",
@@ -160247,7 +160037,7 @@
       "visit_count": 22220,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:34.223Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:15.041Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -160262,9 +160052,20 @@
             "سرباز"
           ],
           "page": 7
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 12
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.351Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.806Z"
     },
     "2JlenPn": {
       "video_code": "2JlenPn",
@@ -160275,7 +160076,7 @@
       "visit_count": 37701,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:34.948Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:17.311Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -160290,9 +160091,20 @@
             "سرباز"
           ],
           "page": 8
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 14
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.352Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.806Z"
     },
     "iGEgSAH": {
       "video_code": "iGEgSAH",
@@ -160303,7 +160115,7 @@
       "visit_count": 24229,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:35.709Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:20.520Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160318,9 +160130,20 @@
             "سرباز"
           ],
           "page": 9
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 17
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.352Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.807Z"
     },
     "1SRW3ll": {
       "video_code": "1SRW3ll",
@@ -160331,7 +160154,7 @@
       "visit_count": 32674,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:35.709Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:20.520Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160346,9 +160169,20 @@
             "سرباز"
           ],
           "page": 9
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 17
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.352Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.807Z"
     },
     "5916Q9G": {
       "video_code": "5916Q9G",
@@ -160359,7 +160193,7 @@
       "visit_count": 38370,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:35.709Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:20.520Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160374,9 +160208,20 @@
             "سرباز"
           ],
           "page": 9
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 17
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.352Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.807Z"
     },
     "6FFzrBg": {
       "video_code": "6FFzrBg",
@@ -160387,7 +160232,7 @@
       "visit_count": 27167,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:36.393Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:22.633Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -160402,9 +160247,20 @@
             "سرباز"
           ],
           "page": 10
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.352Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.808Z"
     },
     "4djtqFV": {
       "video_code": "4djtqFV",
@@ -160415,7 +160271,7 @@
       "visit_count": 23502,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:37.086Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:23.763Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -160430,9 +160286,20 @@
             "سرباز"
           ],
           "page": 11
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 20
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.353Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.808Z"
     },
     "SXwltZh": {
       "video_code": "SXwltZh",
@@ -163302,7 +163169,7 @@
       "visit_count": 33426,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:44:37.001Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:27.089Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -163319,7 +163186,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.766Z"
     },
     "yuo0xEj": {
       "video_code": "yuo0xEj",
@@ -163330,7 +163197,7 @@
       "visit_count": 27348,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:44:37.001Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:27.089Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -163347,7 +163214,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.766Z"
     },
     "jF02nZF": {
       "video_code": "jF02nZF",
@@ -163358,7 +163225,7 @@
       "visit_count": 41050,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:44:37.001Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:27.089Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -163375,7 +163242,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.766Z"
     },
     "0CXQKC9": {
       "video_code": "0CXQKC9",
@@ -163386,7 +163253,7 @@
       "visit_count": 21430,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:44:38.670Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:27.757Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -163403,7 +163270,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.767Z"
     },
     "LhqspRd": {
       "video_code": "LhqspRd",
@@ -163414,7 +163281,7 @@
       "visit_count": 23401,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:44:38.670Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:27.757Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -163431,7 +163298,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.767Z"
     },
     "HPWjVoJ": {
       "video_code": "HPWjVoJ",
@@ -163442,7 +163309,7 @@
       "visit_count": 21801,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:44:38.670Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:27.757Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -163459,7 +163326,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.767Z"
     },
     "8QHYANv": {
       "video_code": "8QHYANv",
@@ -163470,7 +163337,7 @@
       "visit_count": 22042,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:44:38.670Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:27.757Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -163487,7 +163354,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.767Z"
     },
     "p0epwqO": {
       "video_code": "p0epwqO",
@@ -163498,7 +163365,7 @@
       "visit_count": 22936,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:44:40.178Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:28.506Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -163515,7 +163382,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.767Z"
     },
     "866Wwod": {
       "video_code": "866Wwod",
@@ -163526,7 +163393,7 @@
       "visit_count": 63507,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:44:40.178Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:28.506Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -163543,7 +163410,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.767Z"
     },
     "GkTfjyX": {
       "video_code": "GkTfjyX",
@@ -163554,7 +163421,7 @@
       "visit_count": 31085,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:44:40.178Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:28.506Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -163571,7 +163438,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.768Z"
     },
     "7j2o2iR": {
       "video_code": "7j2o2iR",
@@ -163582,7 +163449,7 @@
       "visit_count": 26838,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:44:40.178Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:28.506Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -163599,7 +163466,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.768Z"
     },
     "OwvGXHI": {
       "video_code": "OwvGXHI",
@@ -163610,7 +163477,7 @@
       "visit_count": 34631,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:44:40.178Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:28.506Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -163627,7 +163494,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.768Z"
     },
     "anzwu3g": {
       "video_code": "anzwu3g",
@@ -164799,7 +164666,7 @@
       "visit_count": 32005,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:33.773Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:40.850Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -164817,7 +164684,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.577Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.786Z"
     },
     "cY7Ka2n": {
       "video_code": "cY7Ka2n",
@@ -164828,7 +164695,7 @@
       "visit_count": 51645,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:33.773Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:40.850Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -164846,7 +164713,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.577Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.786Z"
     },
     "aIYFZDt": {
       "video_code": "aIYFZDt",
@@ -164857,7 +164724,7 @@
       "visit_count": 24125,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:33.773Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:40.850Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -164875,7 +164742,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.577Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.786Z"
     },
     "SWxYdD0": {
       "video_code": "SWxYdD0",
@@ -164886,7 +164753,7 @@
       "visit_count": 33353,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:33.773Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:40.850Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -164904,7 +164771,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.577Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.786Z"
     },
     "jw10uKi": {
       "video_code": "jw10uKi",
@@ -166987,7 +166854,7 @@
       "visit_count": 53467,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:35.615Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:44.014Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -167004,7 +166871,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.591Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.792Z"
     },
     "jT5PG65": {
       "video_code": "jT5PG65",
@@ -167015,7 +166882,7 @@
       "visit_count": 26326,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:35.615Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:04:44.014Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167032,7 +166899,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.591Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.792Z"
     },
     "Z9bk1GF": {
       "video_code": "Z9bk1GF",
@@ -167043,7 +166910,7 @@
       "visit_count": 131813,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:45.658Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:04.685Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167059,9 +166926,20 @@
             "البریکان"
           ],
           "page": 2
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.599Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.803Z"
     },
     "3NKPEs0": {
       "video_code": "3NKPEs0",
@@ -167072,7 +166950,7 @@
       "visit_count": 50994,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:45.658Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:06.195Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167088,9 +166966,20 @@
             "البریکان"
           ],
           "page": 2
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.599Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "9yFol1W": {
       "video_code": "9yFol1W",
@@ -167101,7 +166990,7 @@
       "visit_count": 52505,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:45.658Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:06.195Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -167117,9 +167006,20 @@
             "البریکان"
           ],
           "page": 2
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.599Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "kd2aF1t": {
       "video_code": "kd2aF1t",
@@ -167130,7 +167030,7 @@
       "visit_count": 57763,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:45.658Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:06.195Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167146,9 +167046,20 @@
             "البریکان"
           ],
           "page": 2
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.599Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "cYiyQmg": {
       "video_code": "cYiyQmg",
@@ -167159,7 +167070,7 @@
       "visit_count": 105706,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:45.658Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:06.195Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167175,9 +167086,20 @@
             "البریکان"
           ],
           "page": 2
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.600Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "MBeZxyI": {
       "video_code": "MBeZxyI",
@@ -167188,7 +167110,7 @@
       "visit_count": 88556,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:45.658Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:06.195Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167204,9 +167126,20 @@
             "البریکان"
           ],
           "page": 2
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.600Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "OZ3MAci": {
       "video_code": "OZ3MAci",
@@ -167217,7 +167150,7 @@
       "visit_count": 105987,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:46.878Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:07.187Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167233,9 +167166,20 @@
             "البریکان"
           ],
           "page": 3
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.600Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "GqdGuBF": {
       "video_code": "GqdGuBF",
@@ -167246,7 +167190,7 @@
       "visit_count": 34059,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:46.878Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:07.187Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167262,9 +167206,20 @@
             "البریکان"
           ],
           "page": 3
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.600Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
     },
     "5zzUTma": {
       "video_code": "5zzUTma",
@@ -167275,7 +167230,7 @@
       "visit_count": 37298,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:48.114Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:09.716Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167291,9 +167246,20 @@
             "البریکان"
           ],
           "page": 4
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.600Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.805Z"
     },
     "eW5pZNB": {
       "video_code": "eW5pZNB",
@@ -167304,7 +167270,7 @@
       "visit_count": 62467,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:48.114Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:09.716Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167320,9 +167286,20 @@
             "البریکان"
           ],
           "page": 4
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.600Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.805Z"
     },
     "VSjjMwd": {
       "video_code": "VSjjMwd",
@@ -167333,7 +167310,7 @@
       "visit_count": 21941,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:44:48.114Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:09.716Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167349,11 +167326,792 @@
             "البریکان"
           ],
           "page": 4
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.600Z"
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.805Z"
+    },
+    "LT42GvP": {
+      "video_code": "LT42GvP",
+      "title": "سوال میثاقی از بیرانوند فامیل پدری کیه؟!",
+      "sender_name": "Beautiful star (فالو=فالو✨لایک=لایک)",
+      "category_id": 1,
+      "duration": 77,
+      "visit_count": 10351,
+      "create_date": "1 سال پیش",
+      "styled_create_date": "1 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:17.311Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "پدری",
+          "trendTitle": "پدری",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
+          "trendKeywords": [
+            "پدری"
+          ],
+          "page": 3
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 14
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.806Z"
+    },
+    "TJbHixs": {
+      "video_code": "TJbHixs",
+      "title": "صدای زیبای سرباز",
+      "sender_name": "حامد",
+      "category_id": 9,
+      "duration": 47,
+      "visit_count": 18713,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:06.195Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "سرباز",
+          "trendTitle": "سرباز",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "سرباز"
+          ],
+          "page": 2
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
+    },
+    "rEXuUnN": {
+      "video_code": "rEXuUnN",
+      "title": "کلیپ غمگین سرباز عاشق??",
+      "sender_name": "محمد",
+      "category_id": 8,
+      "duration": 60,
+      "visit_count": 15791,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:06.195Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "سرباز",
+          "trendTitle": "سرباز",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "سرباز"
+          ],
+          "page": 2
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
+    },
+    "xFT2qCp": {
+      "video_code": "xFT2qCp",
+      "title": "سرود سرباز های حیدر",
+      "sender_name": "احمد",
+      "category_id": 8,
+      "duration": 255,
+      "visit_count": 9383,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:07.187Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "سرباز",
+          "trendTitle": "سرباز",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "سرباز"
+          ],
+          "page": 3
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
+    },
+    "XIBQ8K0": {
+      "video_code": "XIBQ8K0",
+      "title": "فیلم سینمایی سرباز خانه خانم ها",
+      "sender_name": "کانال رسمی S_Market",
+      "category_id": 3,
+      "duration": 4671,
+      "visit_count": 15525,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:07.187Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "سرباز",
+          "trendTitle": "سرباز",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "سرباز"
+          ],
+          "page": 3
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
+    },
+    "9bEYNRJ": {
+      "video_code": "9bEYNRJ",
+      "title": "دانلود کلیپ غمگین سرباز عاشق",
+      "sender_name": "سبحان",
+      "category_id": 1,
+      "duration": 60,
+      "visit_count": 10577,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:08.267Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "سرباز",
+          "trendTitle": "سرباز",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "سرباز"
+          ],
+          "page": 3
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 6
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
+    },
+    "2hFixTs": {
+      "video_code": "2hFixTs",
+      "title": "داستان غمگین شکست عشقی سرباز??",
+      "sender_name": "کلیپ نما",
+      "category_id": 4,
+      "duration": 60,
+      "visit_count": 8529,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:08.267Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "سرباز",
+          "trendTitle": "سرباز",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "سرباز"
+          ],
+          "page": 4
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 6
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
+    },
+    "zRtJV4t": {
+      "video_code": "zRtJV4t",
+      "title": "کلیپ عاشقانه سرباز دلتنگی",
+      "sender_name": "qwert",
+      "category_id": 4,
+      "duration": 35,
+      "visit_count": 9474,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:08.267Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "سرباز",
+          "trendTitle": "سرباز",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "سرباز"
+          ],
+          "page": 4
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 6
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
+    },
+    "lp7Ai1A": {
+      "video_code": "lp7Ai1A",
+      "title": "کلیپ عاشقانه یلدا و سرباز عاشق",
+      "sender_name": "⭐ کلیپ آنلاین ⭐",
+      "category_id": 4,
+      "duration": 59,
+      "visit_count": 13282,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:09.716Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "سرباز",
+          "trendTitle": "سرباز",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "سرباز"
+          ],
+          "page": 4
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 7
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
+    },
+    "RnGn7FV": {
+      "video_code": "RnGn7FV",
+      "title": "دوربین مخفی ایرانی و غافیلگیری سرباز",
+      "sender_name": "Moklip",
+      "category_id": 2,
+      "duration": 223,
+      "visit_count": 7990,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:09.716Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "سرباز",
+          "trendTitle": "سرباز",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "سرباز"
+          ],
+          "page": 4
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 7
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.804Z"
+    },
+    "Ryl02n6": {
+      "video_code": "Ryl02n6",
+      "title": "چهل سرباز قسمت 12",
+      "sender_name": "rokhshareh",
+      "category_id": 1,
+      "duration": 2993,
+      "visit_count": 9498,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:10.816Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "سرباز",
+          "trendTitle": "سرباز",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "سرباز"
+          ],
+          "page": 4
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 8
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.805Z"
+    },
+    "XepubsQ": {
+      "video_code": "XepubsQ",
+      "title": "فیلم/ سرباز روسی که ۷ جان داشت!",
+      "sender_name": "امیر",
+      "category_id": 3,
+      "duration": 117,
+      "visit_count": 15657,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:10.816Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "سرباز",
+          "trendTitle": "سرباز",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "سرباز"
+          ],
+          "page": 4
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 8
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.805Z"
+    },
+    "lGSj8KV": {
+      "video_code": "lGSj8KV",
+      "title": "خفه کردن سرباز مرد توسط زن",
+      "sender_name": "Javad",
+      "category_id": 0,
+      "duration": 59,
+      "visit_count": 17278,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:10.816Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "سرباز",
+          "trendTitle": "سرباز",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "سرباز"
+          ],
+          "page": 4
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 8
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.805Z"
+    },
+    "HkaD7lF": {
+      "video_code": "HkaD7lF",
+      "title": "فیلم سرباز جهانی ۲ دوبله فارسی",
+      "sender_name": "کالکشن",
+      "category_id": 3,
+      "duration": 4571,
+      "visit_count": 17347,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:10.816Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "سرباز",
+          "trendTitle": "سرباز",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "سرباز"
+          ],
+          "page": 5
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 8
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.805Z"
+    },
+    "PsVq0uP": {
+      "video_code": "PsVq0uP",
+      "title": "فیلم سینمایی سرباز دوبله فارسی",
+      "sender_name": "دنیای انیمیشن و سینما",
+      "category_id": 3,
+      "duration": 8557,
+      "visit_count": 11601,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:10.816Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "سرباز",
+          "trendTitle": "سرباز",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "سرباز"
+          ],
+          "page": 5
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 8
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.805Z"
+    },
+    "snUUK94": {
+      "video_code": "snUUK94",
+      "title": "قول دو سرباز به همدیگر بعد از پایان خدمت ( کلیپ فوق احساسی )",
+      "sender_name": "mohammad",
+      "category_id": 1,
+      "duration": 598,
+      "visit_count": 15271,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:11.817Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "سرباز",
+          "trendTitle": "سرباز",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "سرباز"
+          ],
+          "page": 5
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 9
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.805Z"
+    },
+    "RZ2fvsy": {
+      "video_code": "RZ2fvsy",
+      "title": "طنز خنده دار معرفی سرباز",
+      "sender_name": "نواب ",
+      "category_id": 6,
+      "duration": 60,
+      "visit_count": 7881,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:11.817Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "سرباز",
+          "trendTitle": "سرباز",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "سرباز"
+          ],
+          "page": 5
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 9
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.805Z"
+    },
+    "q1ynnSH": {
+      "video_code": "q1ynnSH",
+      "title": "فیلم کوچک‌ترین سرباز دوبله فارسی 2019",
+      "sender_name": "سمیرا",
+      "category_id": 3,
+      "duration": 5188,
+      "visit_count": 9671,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:11.817Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "سرباز",
+          "trendTitle": "سرباز",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "سرباز"
+          ],
+          "page": 5
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 9
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.805Z"
+    },
+    "QJApecA": {
+      "video_code": "QJApecA",
+      "title": "انیمه سرباز در بند قسمت ۹ با زیرنویس فارسی چسبیده",
+      "sender_name": "انیمه رزمی《{[دنبال=دنبال]}》",
+      "category_id": 21,
+      "duration": 1422,
+      "visit_count": 20710,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:11.817Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "سرباز",
+          "trendTitle": "سرباز",
+          "trendTraffic": 2000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "سرباز"
+          ],
+          "page": 5
+        },
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 9
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.805Z"
+    },
+    "oB9vUjQ": {
+      "video_code": "oB9vUjQ",
+      "title": "رقص لری علیرضا بیرانوند در عروسی",
+      "sender_name": "رنگارنگ",
+      "category_id": 9,
+      "duration": 34,
+      "visit_count": 918523,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T13:05:04.685Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "سرباز بیرانوند؛ به تایلند رسید",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T13:05:23.803Z"
     }
   },
-  "totalPagesFetched": 11626,
-  "totalVideosSeen": 210330
+  "totalPagesFetched": 11776,
+  "totalVideosSeen": 213045
 }
