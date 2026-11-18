@@ -1527,26 +1527,34 @@ assert.equal(getAccountRepublishQuotaCooldown(quotaState, quotaStart + 24 * 60 *
 
 assert.equal(quotaState.accountRepublishQuotaCooldown, undefined);
 
+const probeStart = Date.parse('2026-11-18T18:00:00.000Z');
 const legacyQuotaState = {
+  accountQuota403ProbeMigrationAt: '2026-11-06T10:08:35.695Z',
   candidateRejections: {
-    BestCode1: { reason: 'detail_fetch:forbidden_403', retryAfterAt: '2026-11-06T15:00:00.000Z' },
-    NextCode2: { reason: 'detail_fetch:forbidden_403', retryAfterAt: '2026-11-06T15:00:00.000Z' }
+    BestCode1: { reason: 'detail_fetch:forbidden_403', retryAfterAt: '2026-11-19T14:00:00.000Z' },
+    NextCode2: { reason: 'detail_fetch:forbidden_403', retryAfterAt: '2026-11-19T14:00:00.000Z' }
   }
 };
 const legacyProbe = releaseOneLegacy403CacheForAccountQuotaProbe(legacyQuotaState, [
   { item: { video_code: 'BestCode1' } },
   { item: { video_code: 'NextCode2' } }
-], quotaStart);
+], probeStart);
 assert.equal(legacyProbe, 'BestCode1',
-  'one top-ranked legacy 403 cache entry must be released to obtain an authoritative account-level quota response');
+  'an old migration marker must not disable future throttled account-quota probes');
 assert.equal(legacyQuotaState.candidateRejections.BestCode1, undefined);
 assert.ok(legacyQuotaState.candidateRejections.NextCode2,
-  'the migration must not clear the remaining per-video rejection cache');
+  'only the single highest-ranked cached 403 entry may be released');
 assert.equal(legacyQuotaState.accountQuota403ProbeCode, 'BestCode1');
+assert.equal(legacyQuotaState.accountQuota403ProbeAt, new Date(probeStart).toISOString());
 assert.equal(releaseOneLegacy403CacheForAccountQuotaProbe(legacyQuotaState, [
   { item: { video_code: 'NextCode2' } }
-], quotaStart), null,
-  'the legacy quota probe migration must run only once');
+], probeStart + 6 * 60 * 60 * 1000), null,
+  'the account-level quota probe must not run again inside the 12-hour interval');
+assert.equal(releaseOneLegacy403CacheForAccountQuotaProbe(legacyQuotaState, [
+  { item: { video_code: 'NextCode2' } }
+], probeStart + 12 * 60 * 60 * 1000), 'NextCode2',
+  'one further cached candidate may be probed after 12 hours if no account quota was confirmed');
+assert.equal(legacyQuotaState.candidateRejections.NextCode2, undefined);
 
 const activeQuotaState = {
   accountRepublishQuotaCooldown: {
