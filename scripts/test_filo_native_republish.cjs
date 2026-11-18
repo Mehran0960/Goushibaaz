@@ -1303,8 +1303,8 @@ assert.equal(playAccelerator.hasPositiveAcceleration, true,
   'a positive increase in play velocity across three observations must pass');
 assert.equal(stableVelocity.hasPositiveAcceleration, false,
   'acceleration remains zero when positive play velocity is flat');
-assert.equal(stableVelocity.growthGatePassed, true,
-  'positive measured play velocity with three samples must pass even without positive acceleration');
+assert.equal(stableVelocity.growthGatePassed, false,
+  'flat play velocity acceleration is not publishable under the acceleration-first gate');
 assert.equal(viewAccelerator.accelerationEvidence.metric, 'views');
 assert.equal(viewAccelerator.hasPositiveAcceleration, true,
   'views acceleration is the fallback only when a play counter is unavailable');
@@ -1317,29 +1317,29 @@ assert.equal(flatPlayView.playCounterZeroStalled, false);
 assert.equal(flatPlayView.hasPositiveAcceleration, false,
   'a nonzero but flat play counter must not be bypassed by growing views');
 assert.equal(flatPlayView.growthGatePassed, false);
-assert.equal(stableView.growthGatePassed, true,
-  'positive, stable view velocity must pass when the play counter is absent');
+assert.equal(stableView.growthGatePassed, false,
+  'stable view velocity without positive acceleration is not publishable');
 assert.equal(stableView.hasPositiveAcceleration, false,
-  'acceleration is a ranking bonus rather than a mandatory publication gate');
+  'flat view velocity must not be mistaken for positive acceleration');
 
 assert.equal(candidateAccelerationEvidence({
   playMetric:{available:true,value:100},
   hasPositivePlayGrowth:true,
-  momentum:{sampleCount:3,playsPerMinute:4,playsAccelerationPerMinute:0}
-}).passed,true,
-  'positive measured play velocity is sufficient even when acceleration is zero');
+  momentum:{playsSampleCount:3,playsPerMinute:4,playsAccelerationAvailable:true,playsAccelerationPerMinute:0}
+}).passed,false,
+  'positive play velocity without positive acceleration is not sufficient');
 
 const lowPlayVelocity = candidateAccelerationEvidence({
   playMetric:{available:true,value:10},
   hasPositivePlayGrowth:true,
-  momentum:{playsSampleCount:3,playsPerMinute:0.04,playsAccelerationPerMinute:0}
+  momentum:{playsSampleCount:3,playsPerMinute:0.04,playsAccelerationAvailable:true,playsAccelerationPerMinute:0.01}
 });
 assert.equal(lowPlayVelocity.passed,false, 'tiny positive play movement is not sufficient evidence of meaningful momentum');
 assert.equal(lowPlayVelocity.reason,'play_velocity_below_minimum');
 const lowViewVelocity = candidateAccelerationEvidence({
   playMetric:{available:false,value:null},
   hasPositiveViewGrowth:true,
-  momentum:{viewsSampleCount:3,viewsPerMinute:0.02,viewsAccelerationPerMinute:0}
+  momentum:{viewsSampleCount:3,viewsPerMinute:0.02,viewsAccelerationAvailable:true,viewsAccelerationPerMinute:0.01}
 });
 assert.equal(lowViewVelocity.passed,false, 'tiny positive view movement is not sufficient evidence of meaningful momentum');
 assert.equal(lowViewVelocity.reason,'view_velocity_below_minimum');
@@ -1348,15 +1348,15 @@ assert.equal(candidateAccelerationEvidence({
   playMetric:{available:true,value:100},
   hasPositivePlayGrowth:false,
   hasPositiveViewGrowth:true,
-  momentum:{sampleCount:3,playsPerMinute:0,playsAccelerationPerMinute:0,
-    viewsPerMinute:20,viewsAccelerationPerMinute:10}
+  momentum:{playsSampleCount:3,playsPerMinute:0,playsAccelerationAvailable:true,playsAccelerationPerMinute:0,
+    viewsSampleCount:3,viewsPerMinute:20,viewsAccelerationAvailable:true,viewsAccelerationPerMinute:10}
 }).passed,false,
   'view growth must not replace an available but non-growing play counter');
 assert.equal(candidateAccelerationEvidence({
   playMetric:{available:false},
   hasPositivePlayGrowth:false,
   hasPositiveViewGrowth:true,
-  momentum:{sampleCount:3,viewsPerMinute:20,viewsAccelerationPerMinute:10}
+  momentum:{viewsSampleCount:3,viewsPerMinute:20,viewsAccelerationAvailable:true,viewsAccelerationPerMinute:10}
 }).passed,true,
   'view acceleration is allowed when no play counter is available');
 assert.equal(candidateAccelerationEvidence({
@@ -1364,13 +1364,13 @@ assert.equal(candidateAccelerationEvidence({
   playCounterZeroStalled:true,
   hasPositivePlayGrowth:false,
   hasPositiveViewGrowth:true,
-  momentum:{sampleCount:3,playsPerMinute:0,playsAccelerationPerMinute:0,
-    viewsPerMinute:20,viewsAccelerationPerMinute:10}
+  momentum:{playsSampleCount:3,playsPerMinute:0,playsAccelerationAvailable:false,playsAccelerationPerMinute:0,
+    viewsSampleCount:3,viewsPerMinute:20,viewsAccelerationAvailable:true,viewsAccelerationPerMinute:10}
 }).passed,true,
   'view acceleration can replace a play counter only when it is independently proven stuck at zero');
 assert.equal(candidateAccelerationEvidence({
   hasPositivePlayGrowth:true,
-  momentum:{sampleCount:2,playsPerMinute:10,playsAccelerationPerMinute:3}
+  momentum:{playsSampleCount:2,playsPerMinute:10,playsAccelerationAvailable:false,playsAccelerationPerMinute:3}
 }).passed, false, 'acceleration requires at least three independent samples');
 
 assert.equal(isInsufficientAccelerationSampleReason('insufficient_play_samples'), true,
