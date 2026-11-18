@@ -57,7 +57,8 @@ const firstSlot = buildTrendSearches(snapshot, { nowMs: now });
 assert.equal(firstSlot.length, 1);
 assert.match(firstSlot[0].query, /^filetype:video /);
 assert.ok(firstSlot[0].trendTitle);
-assert.ok(['comedy', 'food_cooking'].includes(firstSlot[0].trendLane));
+assert.equal(firstSlot[0].trendLane, 'news_or_current_affairs',
+  'highest observed velocity, not an entertainment lane bonus, should lead trend discovery');
 assert.equal(firstSlot[0].trendUrl.startsWith('https://t.me/'), true);
 const expandedTrends = buildTrendSearches(snapshot, { nowMs: now, limit: 12 });
 assert.ok(expandedTrends.some(item => item.trendLane === 'news_or_current_affairs'),
