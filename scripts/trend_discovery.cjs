@@ -16,24 +16,8 @@ const SAFE_LANES = new Set([
   'life_hacks', 'heartwarming', 'diy_creativity', 'home_cleaning',
   'fashion_culture', 'persian_comedy'
 ]);
-const LANE_PRIORITY = {
-  comedy: 12, surprise_or_reveal: 11, human_reaction_or_relatable: 10,
-  skill_or_spectacle: 9, sports_or_athletic_skill: 9, technology_demo: 9,
-  transformation_or_satisfying: 8, practical_tips_or_life_hacks: 8,
-  food_cooking: 8, wholesome_or_heartwarming: 7, diy_and_creativity: 7,
-  music_or_dance: 6, animals: 5, pets_animals: 5,
-  home_organization_or_cleaning: 5, travel_and_places: 4, nature_and_wildlife: 3,
-  science_curiosity: 3, fashion_or_cultural_showcase: 3,
-  news_or_current_affairs: 7, politics_or_elections: 7, current_affairs: 7,
-  economics_or_finance: 7, business_and_markets: 7, crypto_and_digital_assets: 6,
-  public_affairs: 7, health_and_medicine: 6, education_and_books: 6,
-  film_and_tv: 6, music_and_art: 6, religion_and_culture: 5,
-  environment_and_climate: 6, history_and_archaeology: 5, transport_and_energy: 5,
-  surprise_reveal: 11, human_reaction: 10, sports_skill: 9, science_tech: 7,
-  satisfying_craft: 8, life_hacks: 8, food_cooking: 8, heartwarming: 7,
-  diy_creativity: 7, performance_magic: 7, home_cleaning: 5,
-  travel_culture: 4, nature_wildlife: 3, fashion_culture: 3
-};
+// No fixed subject bonus: observed velocity, acceleration and freshness set trend priority.
+const LANE_PRIORITY = Object.freeze({});
 const STOP_WORDS = new Set([
   'the','and','this','that','when','where','what','which','who','with','from','into',
   'about','how','why','are','was','were','his','her','their','they','them','he','she',
