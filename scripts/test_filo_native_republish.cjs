@@ -1568,9 +1568,15 @@ const topicSecondScan = [
   { ...topicBaseline[1], visit_count:115, plays:15 },
   { ...topicBaseline[2], visit_count:120, plays:20 }
 ];
-const topicRank = rankCandidatesByMomentum(topicSecondScan, topicState, topicStart + 5 * 60 * 1000);
+rankCandidatesByMomentum(topicSecondScan, topicState, topicStart + 5 * 60 * 1000);
+const topicThirdScan = [
+  { ...topicBaseline[0], visit_count:180, plays:50 },
+  { ...topicBaseline[1], visit_count:140, plays:30 },
+  { ...topicBaseline[2], visit_count:130, plays:25 }
+];
+const topicRank = rankCandidatesByMomentum(topicThirdScan, topicState, topicStart + 10 * 60 * 1000);
 assert.equal(topicRank[0].item.video_code, 'HotA01',
-  'a corroborated topic cohort may lift a slightly slower candidate above a similarly paced isolated candidate');
+  'two corroborating candidates with positive play acceleration may lift a hot topic above an isolated/decelerating topic');
 assert.ok(topicRank[0].topicDemandScore > topicRank[2].topicDemandScore,
   'topic demand must be derived from multiple candidates showing measured growth');
 assert.ok(topicRank[0].rankingScore > 0);
@@ -1591,9 +1597,9 @@ const singleGrowingTopicDemand = summarizeTopicDemand([
 assert.equal(singleGrowingTopicDemand['weak-growth'].demandScore, 0,
   'topic-level demand needs at least two distinct growing candidates');
 const corroboratedTopicDemand = summarizeTopicDemand([
-  { topicKey:'corroborated', hasPositivePlayGrowth:true, hasPositiveViewGrowth:false,
+  { topicKey:'corroborated', accelerationEvidence:{passed:true,metric:'plays'},
     momentum:{playsPerMinute:3,playsAccelerationPerMinute:1} },
-  { topicKey:'corroborated', hasPositivePlayGrowth:false, hasPositiveViewGrowth:true,
+  { topicKey:'corroborated', accelerationEvidence:{passed:true,metric:'views'},
     momentum:{viewsPerMinute:5,viewsAccelerationPerMinute:2} }
 ]);
 assert.ok(corroboratedTopicDemand.corroborated.demandScore > 0,
