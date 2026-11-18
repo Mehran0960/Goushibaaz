@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-18T08:07:23.481Z",
-  "trendsFetchedAt": "2026-11-18T08:06:06.014Z",
+  "updatedAt": "2026-11-18T08:25:09.205Z",
+  "trendsFetchedAt": "2026-11-18T08:24:05.397Z",
   "trends": [
     {
       "title": "قرارداد جدید بیمه تکمیلی بازنشستگان تامین اجتماعی",
@@ -17,7 +17,7 @@
       ],
       "traffic": 2000,
       "publishedAt": "Tue, 17 Nov 2026 22:10:00 -0800",
-      "ageHours": 1.9
+      "ageHours": 2.2
     },
     {
       "title": "ابلاغیه",
@@ -26,7 +26,7 @@
       ],
       "traffic": 2000,
       "publishedAt": "Tue, 17 Nov 2026 22:10:00 -0800",
-      "ageHours": 1.9
+      "ageHours": 2.2
     },
     {
       "title": "ابلاغ",
@@ -35,7 +35,16 @@
       ],
       "traffic": 1000,
       "publishedAt": "Tue, 17 Nov 2026 21:50:00 -0800",
-      "ageHours": 2.3
+      "ageHours": 2.6
+    },
+    {
+      "title": "کنکل",
+      "keywords": [
+        "کنکل"
+      ],
+      "traffic": 500,
+      "publishedAt": "Tue, 17 Nov 2026 22:40:00 -0800",
+      "ageHours": 1.7
     },
     {
       "title": "بازیکن فوتبال",
@@ -45,16 +54,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
-      "ageHours": 1.3
-    },
-    {
-      "title": "کنکل",
-      "keywords": [
-        "کنکل"
-      ],
-      "traffic": 200,
-      "publishedAt": "Tue, 17 Nov 2026 22:40:00 -0800",
-      "ageHours": 1.4
+      "ageHours": 1.6
     },
     {
       "title": "آشپزی",
@@ -63,7 +63,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
-      "ageHours": 1.6
+      "ageHours": 1.9
     },
     {
       "title": "رالف فاینز",
@@ -73,7 +73,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Tue, 17 Nov 2026 22:10:00 -0800",
-      "ageHours": 1.9
+      "ageHours": 2.2
     },
     {
       "title": "محمدجواد لاریجانی",
@@ -83,7 +83,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Tue, 17 Nov 2026 23:00:00 -0800",
-      "ageHours": 1.1
+      "ageHours": 1.4
     },
     {
       "title": "استارشیپ",
@@ -92,7 +92,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Tue, 17 Nov 2026 23:00:00 -0800",
-      "ageHours": 1.1
+      "ageHours": 1.4
     }
   ],
   "queries": {
@@ -2777,12 +2777,12 @@
     "بازی پرتغال": {
       "query": "بازی پرتغال",
       "normalized": "بازی پرتغال",
-      "nextPage": 66,
+      "nextPage": 81,
       "complete": false,
-      "pagesFetched": 80,
-      "videosSeen": 1586,
+      "pagesFetched": 100,
+      "videosSeen": 1984,
       "createdAt": "2026-11-17T20:59:33.860Z",
-      "lastAttemptAt": "2026-11-18T05:30:32.458Z",
+      "lastAttemptAt": "2026-11-18T08:25:08.908Z",
       "lastError": null,
       "trendTitle": "بازی پرتغال",
       "trendTraffic": 1000,
@@ -4845,12 +4845,12 @@
     "سهراب بختیاریزاده": {
       "query": "سهراب بختیاریزاده",
       "normalized": "سهراب بختیاریزاده",
-      "nextPage": 111,
-      "complete": false,
-      "pagesFetched": 140,
-      "videosSeen": 2800,
+      "nextPage": 126,
+      "complete": true,
+      "pagesFetched": 160,
+      "videosSeen": 3176,
       "createdAt": "2026-11-18T03:19:30.785Z",
-      "lastAttemptAt": "2026-11-18T05:30:32.440Z",
+      "lastAttemptAt": "2026-11-18T08:25:08.901Z",
       "lastError": null,
       "trendTitle": "سهراب بختیاریزاده",
       "trendTraffic": 200,
@@ -4861,7 +4861,8 @@
       ],
       "lastTrendSeenAt": "2026-11-18T05:29:25.703Z",
       "activeInLatestFeed": false,
-      "termination": "max_pages_reached"
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T08:25:08.901Z"
     },
     "عصبانیت بختیاری زاده به اوج رسید اولتیماتوم سهراب به مدیران استقلال": {
       "query": "عصبانیت بختیاری‌زاده به اوج رسید؛ اولتیماتوم سهراب به مدیران استقلال",
@@ -6065,12 +6066,12 @@
     "ابلاغ": {
       "query": "ابلاغ",
       "normalized": "ابلاغ",
-      "nextPage": 48,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 57,
-      "videosSeen": 1020,
+      "pagesFetched": 62,
+      "videosSeen": 1120,
       "createdAt": "2026-11-18T06:24:22.035Z",
-      "lastAttemptAt": "2026-11-18T07:15:34.086Z",
+      "lastAttemptAt": "2026-11-18T08:25:08.856Z",
       "lastError": null,
       "trendTitle": "ابلاغ",
       "trendTraffic": 1000,
@@ -6078,10 +6079,12 @@
       "trendKeywords": [
         "ابلاغ"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T07:15:34.086Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T08:25:08.856Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T08:25:08.856Z"
     },
     "ابلاغ دستورالعمل پیشگیری و کنترل عفونت بیمارستانی در بیماری های حاد تنفسی": {
       "query": "ابلاغ دستورالعمل پیشگیری و کنترل عفونت بیمارستانی در بیماری‌های حاد تنفسی",
@@ -6099,7 +6102,7 @@
       "trendKeywords": [
         "ابلاغ"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T08:07:23.218Z",
@@ -6122,7 +6125,7 @@
       "trendKeywords": [
         "ابلاغ"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T08:07:23.218Z",
@@ -6254,7 +6257,7 @@
       "trendKeywords": [
         "ابلاغیه"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T08:07:23.220Z",
@@ -6277,7 +6280,7 @@
       "trendKeywords": [
         "ابلاغیه"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T08:07:23.220Z",
@@ -6287,12 +6290,12 @@
     "محدودیت واردات به تقویت بازار غیررسمی دامن می زند": {
       "query": "محدودیت واردات به تقویت بازار غیررسمی دامن می‌زند",
       "normalized": "محدودیت واردات به تقویت بازار غیررسمی دامن می زند",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-18T06:54:09.823Z",
-      "lastAttemptAt": "2026-11-18T07:15:34.044Z",
+      "lastAttemptAt": "2026-11-18T08:25:08.856Z",
       "lastError": null,
       "trendTitle": "ابلاغیه",
       "trendTraffic": 2000,
@@ -6300,20 +6303,22 @@
       "trendKeywords": [
         "ابلاغیه"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T07:15:34.044Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T08:25:08.856Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T08:25:08.856Z"
     },
     "آشپزی": {
       "query": "آشپزی",
       "normalized": "آشپزی",
-      "nextPage": 51,
+      "nextPage": 66,
       "complete": false,
-      "pagesFetched": 60,
-      "videosSeen": 1199,
+      "pagesFetched": 80,
+      "videosSeen": 1599,
       "createdAt": "2026-11-18T06:54:09.823Z",
-      "lastAttemptAt": "2026-11-18T08:07:23.249Z",
+      "lastAttemptAt": "2026-11-18T08:25:08.894Z",
       "lastError": null,
       "trendTitle": "آشپزی",
       "trendTraffic": 200,
@@ -6321,19 +6326,19 @@
       "trendKeywords": [
         "آشپزی"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "۵ مقصد آشپزی برجسته در قلب شنژن مدرن": {
       "query": "۵ مقصد آشپزی برجسته در قلب شنژن مدرن",
       "normalized": "۵ مقصد آشپزی برجسته در قلب شنژن مدرن",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-18T06:54:09.823Z",
-      "lastAttemptAt": "2026-11-18T07:15:34.053Z",
+      "lastAttemptAt": "2026-11-18T08:25:08.856Z",
       "lastError": null,
       "trendTitle": "آشپزی",
       "trendTraffic": 200,
@@ -6341,20 +6346,22 @@
       "trendKeywords": [
         "آشپزی"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T07:15:34.053Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T08:25:08.856Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T08:25:08.856Z"
     },
     "شانزده پروژه برجسته در دور نهایی مسابقه استارتاپ های خلاق شهر هوئه ۲۰۲۶ به رقابت خواهند پرداخت": {
       "query": "شانزده پروژه برجسته در دور نهایی مسابقه استارتاپ‌های خلاق شهر هوئه ۲۰۲۶ به رقابت خواهند پرداخت.",
       "normalized": "شانزده پروژه برجسته در دور نهایی مسابقه استارتاپ های خلاق شهر هوئه ۲۰۲۶ به رقابت خواهند پرداخت",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-18T06:54:09.823Z",
-      "lastAttemptAt": "2026-11-18T07:15:34.053Z",
+      "lastAttemptAt": "2026-11-18T08:25:08.856Z",
       "lastError": null,
       "trendTitle": "آشپزی",
       "trendTraffic": 200,
@@ -6362,20 +6369,22 @@
       "trendKeywords": [
         "آشپزی"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T07:15:34.053Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T08:25:08.856Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T08:25:08.856Z"
     },
     "رالف فاینز": {
       "query": "رالف فاینز",
       "normalized": "رالف فاینز",
-      "nextPage": 13,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 12,
-      "videosSeen": 215,
+      "pagesFetched": 17,
+      "videosSeen": 315,
       "createdAt": "2026-11-18T06:54:09.823Z",
-      "lastAttemptAt": "2026-11-18T07:15:34.059Z",
+      "lastAttemptAt": "2026-11-18T08:25:08.859Z",
       "lastError": null,
       "trendTitle": "رالف فاینز",
       "trendTraffic": 200,
@@ -6384,20 +6393,22 @@
         "رالف",
         "فاینز"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T07:15:34.059Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T08:25:08.859Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T08:25:08.859Z"
     },
     "رالف فاینز ولدمورت هم بدهید رابرت پتینسون بازی کند": {
       "query": "رالف فاینز: ولدمورت هم بدهید رابرت پتینسون بازی کند!",
       "normalized": "رالف فاینز ولدمورت هم بدهید رابرت پتینسون بازی کند",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-18T06:54:09.823Z",
-      "lastAttemptAt": "2026-11-18T07:15:34.059Z",
+      "lastAttemptAt": "2026-11-18T08:25:08.859Z",
       "lastError": null,
       "trendTitle": "رالف فاینز",
       "trendTraffic": 200,
@@ -6406,20 +6417,22 @@
         "رالف",
         "فاینز"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T07:15:34.059Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T08:25:08.859Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T08:25:08.859Z"
     },
     "رالف فاینز رابرت پتینسون را برای نقش ولدمورت پیشنهاد داد": {
       "query": "رالف فاینز رابرت پتینسون را برای نقش ولدمورت پیشنهاد داد",
       "normalized": "رالف فاینز رابرت پتینسون را برای نقش ولدمورت پیشنهاد داد",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-18T06:54:09.823Z",
-      "lastAttemptAt": "2026-11-18T07:15:34.059Z",
+      "lastAttemptAt": "2026-11-18T08:25:08.859Z",
       "lastError": null,
       "trendTitle": "رالف فاینز",
       "trendTraffic": 200,
@@ -6428,10 +6441,12 @@
         "رالف",
         "فاینز"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T07:15:34.059Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T08:25:08.859Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T08:25:08.859Z"
     },
     "شایعه": {
       "query": "شایعه",
@@ -6493,12 +6508,12 @@
     "قرارداد جدید بیمه تکمیلی بازنشستگان تامین اجتماعی": {
       "query": "قرارداد جدید بیمه تکمیلی بازنشستگان تامین اجتماعی",
       "normalized": "قرارداد جدید بیمه تکمیلی بازنشستگان تامین اجتماعی",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 3,
-      "videosSeen": 5,
+      "pagesFetched": 5,
+      "videosSeen": 10,
       "createdAt": "2026-11-18T07:14:19.216Z",
-      "lastAttemptAt": "2026-11-18T07:15:34.086Z",
+      "lastAttemptAt": "2026-11-18T08:25:08.859Z",
       "lastError": null,
       "trendTitle": "قرارداد جدید بیمه تکمیلی بازنشستگان تامین اجتماعی",
       "trendTraffic": 2000,
@@ -6512,10 +6527,12 @@
         "تامین",
         "اجتماعی"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T07:15:34.086Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T08:25:08.859Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T08:25:08.859Z"
     },
     "قرارداد جدید بیمه تکمیلی بازنشستگان": {
       "query": "قرارداد جدید بیمه تکمیلی بازنشستگان",
@@ -6539,7 +6556,7 @@
         "تامین",
         "اجتماعی"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T07:35:53.633Z"
@@ -6547,12 +6564,12 @@
     "بازیکن فوتبال": {
       "query": "بازیکن فوتبال",
       "normalized": "بازیکن فوتبال",
-      "nextPage": 36,
+      "nextPage": 51,
       "complete": false,
-      "pagesFetched": 40,
-      "videosSeen": 795,
+      "pagesFetched": 60,
+      "videosSeen": 1195,
       "createdAt": "2026-11-18T07:14:19.217Z",
-      "lastAttemptAt": "2026-11-18T08:07:23.227Z",
+      "lastAttemptAt": "2026-11-18T08:25:08.871Z",
       "lastError": null,
       "trendTitle": "بازیکن فوتبال",
       "trendTraffic": 200,
@@ -6561,7 +6578,7 @@
         "بازیکن",
         "فوتبال"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -6583,7 +6600,7 @@
         "فوتبال"
       ],
       "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-18T07:35:53.639Z"
     },
@@ -6610,40 +6627,41 @@
     "کنکل": {
       "query": "کنکل",
       "normalized": "کنکل",
-      "nextPage": 36,
-      "complete": false,
-      "pagesFetched": 40,
-      "videosSeen": 791,
+      "nextPage": 38,
+      "complete": true,
+      "pagesFetched": 47,
+      "videosSeen": 892,
       "createdAt": "2026-11-18T07:14:19.217Z",
-      "lastAttemptAt": "2026-11-18T08:07:23.238Z",
+      "lastAttemptAt": "2026-11-18T08:25:08.873Z",
       "lastError": null,
       "trendTitle": "کنکل",
-      "trendTraffic": 200,
+      "trendTraffic": 500,
       "trendPublishedAt": "Tue, 17 Nov 2026 22:40:00 -0800",
       "trendKeywords": [
         "کنکل"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
-      "termination": "max_pages_reached"
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T08:25:08.873Z"
     },
     "صابر ابر و هانیه توسلی در سریال مینی سیتی داستانی از خالق کنکل": {
       "query": "صابر ابر و هانیه توسلی در سریال «مینی‌سیتی»؛ داستانی از خالق «کنکل»",
       "normalized": "صابر ابر و هانیه توسلی در سریال مینی سیتی داستانی از خالق کنکل",
-      "nextPage": 36,
+      "nextPage": 51,
       "complete": false,
-      "pagesFetched": 40,
-      "videosSeen": 797,
+      "pagesFetched": 60,
+      "videosSeen": 1196,
       "createdAt": "2026-11-18T07:14:19.217Z",
-      "lastAttemptAt": "2026-11-18T08:07:23.244Z",
+      "lastAttemptAt": "2026-11-18T08:25:08.886Z",
       "lastError": null,
       "trendTitle": "کنکل",
-      "trendTraffic": 200,
+      "trendTraffic": 500,
       "trendPublishedAt": "Tue, 17 Nov 2026 22:40:00 -0800",
       "trendKeywords": [
         "کنکل"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -6658,12 +6676,12 @@
       "lastAttemptAt": "2026-11-18T07:35:53.650Z",
       "lastError": null,
       "trendTitle": "کنکل",
-      "trendTraffic": 200,
+      "trendTraffic": 500,
       "trendPublishedAt": "Tue, 17 Nov 2026 22:40:00 -0800",
       "trendKeywords": [
         "کنکل"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T07:35:53.650Z"
@@ -6685,7 +6703,7 @@
         "محمدجواد",
         "لاریجانی"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -6706,7 +6724,7 @@
         "محمدجواد",
         "لاریجانی"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T07:35:53.661Z"
@@ -6728,7 +6746,7 @@
         "محمدجواد",
         "لاریجانی"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T07:35:53.661Z"
@@ -6749,7 +6767,7 @@
       "trendKeywords": [
         "استارشیپ"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T07:35:53.662Z"
@@ -6770,7 +6788,7 @@
       "trendKeywords": [
         "استارشیپ"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T08:07:23.220Z"
@@ -6791,7 +6809,7 @@
       "trendKeywords": [
         "استارشیپ"
       ],
-      "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T08:07:23.220Z"
@@ -6834,9 +6852,74 @@
         "فوتبال"
       ],
       "lastTrendSeenAt": "2026-11-18T08:06:06.308Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-18T08:07:23.254Z"
+    },
+    "قرارداد جدید بیمه تکمیلی بازنشستگان تأمین اجتماعی از اول آذر اجرا می شود": {
+      "query": "قرارداد جدید بیمه تکمیلی بازنشستگان تأمین اجتماعی از اول آذر اجرا می‌شود",
+      "normalized": "قرارداد جدید بیمه تکمیلی بازنشستگان تأمین اجتماعی از اول آذر اجرا می شود",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T08:24:05.785Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "قرارداد جدید بیمه تکمیلی بازنشستگان تامین اجتماعی",
+      "trendTraffic": 2000,
+      "trendPublishedAt": "Tue, 17 Nov 2026 22:10:00 -0800",
+      "trendKeywords": [
+        "قرارداد",
+        "جدید",
+        "بیمه",
+        "تکمیلی",
+        "بازنشستگان",
+        "تامین",
+        "اجتماعی"
+      ],
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
+      "activeInLatestFeed": true
+    },
+    "دو غایب ایران مقابل عراق حسین نژاد و زارع مصدوم شدند": {
+      "query": "دو غایب ایران مقابل عراق؛ حسین‌نژاد و زارع مصدوم شدند",
+      "normalized": "دو غایب ایران مقابل عراق حسین نژاد و زارع مصدوم شدند",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T08:24:05.785Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "بازیکن فوتبال",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+      "trendKeywords": [
+        "بازیکن",
+        "فوتبال"
+      ],
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
+      "activeInLatestFeed": true
+    },
+    "احتمال غیبت مدافع ملی پوش پرسپولیس برابر پیکان قوت گرفت": {
+      "query": "احتمال غیبت مدافع ملی پوش پرسپولیس برابر پیکان قوت گرفت",
+      "normalized": "احتمال غیبت مدافع ملی پوش پرسپولیس برابر پیکان قوت گرفت",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T08:24:05.785Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "بازیکن فوتبال",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+      "trendKeywords": [
+        "بازیکن",
+        "فوتبال"
+      ],
+      "lastTrendSeenAt": "2026-11-18T08:24:05.785Z",
+      "activeInLatestFeed": true
     }
   },
   "items": {
@@ -15182,53 +15265,6 @@
             "قشم"
           ],
           "page": 3
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:56:47.319Z"
-    },
-    "sgiyaiA": {
-      "video_code": "sgiyaiA",
-      "title": "ولاگ قشم گردی به همراه مانی و سپیده همراه با چالش",
-      "sender_name": "kiana",
-      "category_id": 22,
-      "duration": 825,
-      "visit_count": 2369,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 1
-        },
-        {
-          "query": "زنده - شنیده شدن صدای دست‌کم ۶ انفجار در جزیره قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 4
-        },
-        {
-          "query": "فوری؛ شنیده شدن صدای پنج انفجار در جزیره قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 4
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T21:56:47.319Z"
@@ -28156,33 +28192,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T21:55:12.043Z"
     },
-    "8g6m2wa": {
-      "video_code": "8g6m2wa",
-      "title": "کلیپ قدم نو رسیده مبارک (پسر)",
-      "sender_name": "Peony",
-      "category_id": 28,
-      "duration": 19,
-      "visit_count": 17479,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 31
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.043Z"
-    },
     "uhfFtZ5": {
       "video_code": "uhfFtZ5",
       "title": "فیلم سینمایی هندی سانی دئول دئول قسم",
@@ -29079,33 +29088,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-03T02:37:37.092Z"
-    },
-    "eu5T0j2": {
-      "video_code": "eu5T0j2",
-      "title": "آهنگ جدید امیر تتلو به نام قسم",
-      "sender_name": "cliper",
-      "category_id": 9,
-      "duration": 598,
-      "visit_count": 17465,
-      "create_date": "6 سال پیش",
-      "styled_create_date": "6 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 35
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.044Z"
     },
     "ljwFyhz": {
       "video_code": "ljwFyhz",
@@ -48587,33 +48569,6 @@
       "styled_create_date": "2 سال پیش",
       "active": 1,
       "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 55
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.344Z"
-    },
-    "MwzRA0h": {
-      "video_code": "MwzRA0h",
-      "title": "سریال ترکی قسم قسمت 393 زیرنویس فارسی",
-      "sender_name": "هانا کلیپ",
-      "category_id": 3,
-      "duration": 6439,
-      "visit_count": 17528,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 0,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -68775,34 +68730,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T05:06:09.149Z"
     },
-    "WQq5JSp": {
-      "video_code": "WQq5JSp",
-      "title": "حمله تروریستی طالبان عکس های از جنگ ایران و افغانستان",
-      "sender_name": "علی",
-      "category_id": 1,
-      "duration": 107,
-      "visit_count": 17519,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "افغانی افغانستان",
-          "trendTitle": "افغانی افغانستان",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "افغانی",
-            "افغانستان"
-          ],
-          "page": 30
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.150Z"
-    },
     "D7ptgxQ": {
       "video_code": "D7ptgxQ",
       "title": "دانلود فیلم جنگی جنگ افغانستان با دوبله فارسی ۲۰۲۴",
@@ -78436,33 +78363,6 @@
       "category_id": 21,
       "duration": 1369,
       "visit_count": 19119,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "تیم",
-          "trendTitle": "تیم",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 3 Nov 2026 02:00:00 -0800",
-          "trendKeywords": [
-            "تیم"
-          ],
-          "page": 18
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:51:08.347Z"
-    },
-    "88N6IxE": {
-      "video_code": "88N6IxE",
-      "title": "انیمیشن تیم اومی زومی قسمت6 فصل دوم دوبله فارسی",
-      "sender_name": "✅کافه فیلم✅",
-      "category_id": 21,
-      "duration": 1339,
-      "visit_count": 17454,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -91916,44 +91816,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-04T03:01:42.317Z"
-    },
-    "2R3Chat": {
-      "video_code": "2R3Chat",
-      "title": "جسیکا، حمله نهنگ قاتل به صاحبش/اخبار حوادث",
-      "sender_name": "دنیای فیلم",
-      "category_id": 1,
-      "duration": 24,
-      "visit_count": 6419,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "جسیکا تارلوف",
-          "trendTitle": "جسیکا تارلوف",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 3 Nov 2026 14:50:00 -0800",
-          "trendKeywords": [
-            "جسیکا",
-            "تارلوف"
-          ],
-          "page": 2
-        },
-        {
-          "query": "اخبار",
-          "trendTitle": "اخبار",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 3 Nov 2026 18:50:00 -0800",
-          "trendKeywords": [
-            "اخبار"
-          ],
-          "page": 6
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.914Z"
     },
     "2WQjhUu": {
       "video_code": "2WQjhUu",
@@ -106310,35 +106172,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T16:23:43.653Z"
     },
-    "jrAoE1M": {
-      "video_code": "jrAoE1M",
-      "title": "فیلم جنجالی شنای دختران در دریاچه آزادی تهران",
-      "sender_name": "آماندا",
-      "category_id": 3,
-      "duration": 9,
-      "visit_count": 17521,
-      "create_date": "7 سال پیش",
-      "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:22:46.469Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "تجاوز آهن و ربات، به عرصه و حریم «برج آزادی»",
-          "trendTitle": "نمایشگاه سیتکس",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:20:00 -0800",
-          "trendKeywords": [
-            "نمایشگاه",
-            "سیتکس"
-          ],
-          "page": 29
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T16:23:43.655Z"
-    },
     "eSvaqxW": {
       "video_code": "eSvaqxW",
       "title": "علی طولابی در مسابقات ترکیه وگریه مجری",
@@ -106783,7 +106616,7 @@
       "visit_count": 18342,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T05:50:16.419Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:25:02.646Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -106809,9 +106642,20 @@
             "پرتغال"
           ],
           "page": 1
+        },
+        {
+          "query": "بازی پرتغال",
+          "trendTitle": "بازی پرتغال",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Tue, 17 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "بازی",
+            "پرتغال"
+          ],
+          "page": 80
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T05:50:36.161Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.907Z"
     },
     "wJ9L5lH": {
       "video_code": "wJ9L5lH",
@@ -135175,35 +135019,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T20:01:23.957Z"
     },
-    "9aCOlUO": {
-      "video_code": "9aCOlUO",
-      "title": "فیلم سینمایی کامل - پرده - جعفر پناهی - Pardeh Movie",
-      "sender_name": "d1400",
-      "category_id": 3,
-      "duration": 6353,
-      "visit_count": 17465,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T20:00:59.243Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "جعفر سلمانی",
-          "trendTitle": "جعفر سلمانی",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Tue, 17 Nov 2026 10:00:00 -0800",
-          "trendKeywords": [
-            "جعفر",
-            "سلمانی"
-          ],
-          "page": 3
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T20:01:23.957Z"
-    },
     "dnLanqX": {
       "video_code": "dnLanqX",
       "title": "انیمه افسانه پریان سیب شکری - Sugar Apple Fairy Tale قسمت 7",
@@ -136196,34 +136011,6 @@
       "category_id": 1,
       "duration": 98,
       "visit_count": 19779,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T04:00:41.580Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "بازداشت",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 4
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
-    },
-    "VOAcElG": {
-      "video_code": "VOAcElG",
-      "title": "ویدیو بازداشت مرزبان ایرانی توسط طالبان",
-      "sender_name": "IFILO MOVIE",
-      "category_id": 1,
-      "duration": 16,
-      "visit_count": 17467,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "lastMetricsFetchedAt": "2026-11-18T04:00:41.580Z",
@@ -140025,34 +139812,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:07:45.403Z"
     },
-    "rwsW5Qq": {
-      "video_code": "rwsW5Qq",
-      "title": "سریال هندی به عشق تو سوگند قسمت 9 دوبله فارسی",
-      "sender_name": "سریال جدید",
-      "category_id": 3,
-      "duration": 2325,
-      "visit_count": 17499,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:06:58.486Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 9
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.403Z"
-    },
     "GAL4NqU": {
       "video_code": "GAL4NqU",
       "title": "فیلم جذاب هندی سوگند انتقام",
@@ -142470,34 +142229,6 @@
       "visit_count": 25458,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:07:12.911Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 15
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.405Z"
-    },
-    "IUNhQHZ": {
-      "video_code": "IUNhQHZ",
-      "title": "قسمت 43 سریال به عشق تو سوگند دوبله فارسی",
-      "sender_name": "سریال جدید",
-      "category_id": 3,
-      "duration": 2414,
-      "visit_count": 17506,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T19:07:12.911Z",
       "active": 1,
       "can_republish": 0,
@@ -145754,34 +145485,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:25:53.225Z"
     },
-    "ULilQFQ": {
-      "video_code": "ULilQFQ",
-      "title": "قسمت 169 به عشق تو سوگند دوبله فارسی",
-      "sender_name": "هانا کلیپ",
-      "category_id": 3,
-      "duration": 2417,
-      "visit_count": 17470,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:27.600Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 21
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.225Z"
-    },
     "yYEE54P": {
       "video_code": "yYEE54P",
       "title": "سریال به عشق تو سوگند قسمت 255 دوبله فارسی",
@@ -146211,34 +145914,6 @@
       "visit_count": 30475,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:28.789Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 22
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.225Z"
-    },
-    "lu7ZO5W": {
-      "video_code": "lu7ZO5W",
-      "title": "سریال به عشق تو سوگند قسمت 221 دوبله فارسی",
-      "sender_name": "جهان فیلم ✅",
-      "category_id": 3,
-      "duration": 2446,
-      "visit_count": 17448,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T19:25:28.789Z",
       "active": 1,
       "can_republish": 0,
@@ -147443,34 +147118,6 @@
       "visit_count": 26694,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:36.192Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 28
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.227Z"
-    },
-    "BUln5eY": {
-      "video_code": "BUln5eY",
-      "title": "سریال به عشق تو سوگند قسمت 143 دوبله فارسی",
-      "sender_name": "جهان فیلم ✅",
-      "category_id": 3,
-      "duration": 2474,
-      "visit_count": 17485,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T19:25:36.192Z",
       "active": 1,
       "can_republish": 0,
@@ -149347,7 +148994,7 @@
       "visit_count": 123689,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T05:50:16.419Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:56.151Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -149374,9 +149021,20 @@
             "پرتغال"
           ],
           "page": 1
+        },
+        {
+          "query": "بازی پرتغال",
+          "trendTitle": "بازی پرتغال",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Tue, 17 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "بازی",
+            "پرتغال"
+          ],
+          "page": 73
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T05:50:36.160Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.905Z"
     },
     "EMazSCq": {
       "video_code": "EMazSCq",
@@ -149418,34 +149076,6 @@
       "lastMetricsFetchedAt": "2026-11-18T05:30:09.822Z",
       "active": 1,
       "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فلز",
-          "trendTitle": "فلز",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "فلز"
-          ],
-          "page": 1
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T05:30:32.458Z"
-    },
-    "uq32PdA": {
-      "video_code": "uq32PdA",
-      "title": "سریال فلز درهم تنیده{Twisted Metal } قسمت1 با دوبله فارسی",
-      "sender_name": "Cinema First",
-      "category_id": 3,
-      "duration": 1777,
-      "visit_count": 17520,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T05:30:09.822Z",
-      "active": 1,
-      "can_republish": 0,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -150069,10 +149699,10 @@
       "sender_name": "دیجیتال گالری",
       "category_id": 11,
       "duration": 904,
-      "visit_count": 4916,
+      "visit_count": 4917,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T05:30:05.699Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:46.547Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -150122,7 +149752,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T05:30:32.450Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.901Z"
     },
     "3q0Y9xd": {
       "video_code": "3q0Y9xd",
@@ -150172,7 +149802,7 @@
       "visit_count": 30534,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T05:50:16.419Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:52.637Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -150187,9 +149817,20 @@
             "پرتغال"
           ],
           "page": 1
+        },
+        {
+          "query": "بازی پرتغال",
+          "trendTitle": "بازی پرتغال",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Tue, 17 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "بازی",
+            "پرتغال"
+          ],
+          "page": 69
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T05:50:36.160Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.904Z"
     },
     "5sRC0on": {
       "video_code": "5sRC0on",
@@ -150200,7 +149841,7 @@
       "visit_count": 48036,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T05:50:16.419Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:45.621Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -150228,7 +149869,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T05:50:36.160Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.901Z"
     },
     "7h7aMVj": {
       "video_code": "7h7aMVj",
@@ -152723,10 +152364,10 @@
       "sender_name": "رنگارنگ",
       "category_id": 9,
       "duration": 114,
-      "visit_count": 80122,
+      "visit_count": 80123,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T05:29:54.780Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:41.577Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152744,7 +152385,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T05:30:32.428Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.895Z"
     },
     "ykubeHw": {
       "video_code": "ykubeHw",
@@ -152755,7 +152396,7 @@
       "visit_count": 30820,
       "create_date": "9 ماه پیش",
       "styled_create_date": "9 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-18T05:29:54.780Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:41.577Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -152773,7 +152414,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T05:30:32.429Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.895Z"
     },
     "FI7SILS": {
       "video_code": "FI7SILS",
@@ -152784,7 +152425,7 @@
       "visit_count": 21727,
       "create_date": "8 سال پیش",
       "styled_create_date": "8 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T05:29:54.780Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:41.577Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152802,7 +152443,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T05:30:32.429Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.896Z"
     },
     "fbQUs1F": {
       "video_code": "fbQUs1F",
@@ -152813,7 +152454,7 @@
       "visit_count": 29694,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T05:29:54.780Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:41.577Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152831,7 +152472,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T05:30:32.429Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.896Z"
     },
     "FUePOGc": {
       "video_code": "FUePOGc",
@@ -152839,10 +152480,10 @@
       "sender_name": "naz_br",
       "category_id": 8,
       "duration": 14,
-      "visit_count": 42517,
+      "visit_count": 42518,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T05:29:54.780Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:41.577Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152860,7 +152501,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T05:30:32.429Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.896Z"
     },
     "M45RNfn": {
       "video_code": "M45RNfn",
@@ -152871,7 +152512,7 @@
       "visit_count": 37858,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T05:29:54.780Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:41.577Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152889,7 +152530,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T05:30:32.429Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.896Z"
     },
     "iVplNsQ": {
       "video_code": "iVplNsQ",
@@ -152897,10 +152538,10 @@
       "sender_name": "naz_br",
       "category_id": 3,
       "duration": 17,
-      "visit_count": 33977,
+      "visit_count": 33979,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T05:29:54.780Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:41.577Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152918,7 +152559,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T05:30:32.429Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.896Z"
     },
     "IJsMkzZ": {
       "video_code": "IJsMkzZ",
@@ -152929,7 +152570,7 @@
       "visit_count": 18215,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T05:29:54.780Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:41.577Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152947,7 +152588,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T05:30:32.429Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.896Z"
     },
     "NCz5Ni1": {
       "video_code": "NCz5Ni1",
@@ -152958,7 +152599,7 @@
       "visit_count": 24484,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T05:29:55.643Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:42.364Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152976,7 +152617,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T05:30:32.429Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.896Z"
     },
     "Fq2xY89": {
       "video_code": "Fq2xY89",
@@ -152987,7 +152628,7 @@
       "visit_count": 23555,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T05:29:55.643Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:42.364Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153005,7 +152646,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T05:30:32.430Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.896Z"
     },
     "dHHEoMW": {
       "video_code": "dHHEoMW",
@@ -153016,7 +152657,7 @@
       "visit_count": 21748,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T05:29:55.643Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:42.364Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153034,7 +152675,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T05:30:32.430Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.896Z"
     },
     "YZ1wB8H": {
       "video_code": "YZ1wB8H",
@@ -154579,34 +154220,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-18T04:20:41.596Z"
-    },
-    "GKA7O72": {
-      "video_code": "GKA7O72",
-      "title": "سوتی های وحشتناک نادر قاضی پور نماینده ارومیه در صحن علنی مجلس",
-      "sender_name": "مای دراما",
-      "category_id": 1,
-      "duration": 60,
-      "visit_count": 17523,
-      "create_date": "6 سال پیش",
-      "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T04:20:06.020Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "مجلس",
-          "trendTitle": "مجلس",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 19:50:00 -0800",
-          "trendKeywords": [
-            "مجلس"
-          ],
-          "page": 8
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T04:20:41.597Z"
     },
     "Euk59ND": {
       "video_code": "Euk59ND",
@@ -156233,7 +155846,7 @@
       "visit_count": 31307,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:14:44.438Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:25.770Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -156251,7 +155864,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:15:34.054Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.856Z"
     },
     "VhAtesx": {
       "video_code": "VhAtesx",
@@ -156262,7 +155875,7 @@
       "visit_count": 51494,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:14:44.438Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:25.770Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -156280,7 +155893,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:15:34.054Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.856Z"
     },
     "C0UrDqP": {
       "video_code": "C0UrDqP",
@@ -156291,7 +155904,7 @@
       "visit_count": 29387,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:14:44.438Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:25.770Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -156309,7 +155922,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:15:34.054Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.856Z"
     },
     "A4MrAdi": {
       "video_code": "A4MrAdi",
@@ -156320,7 +155933,7 @@
       "visit_count": 33192,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:14:44.438Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:25.770Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -156338,7 +155951,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:15:34.054Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.857Z"
     },
     "s89vVYL": {
       "video_code": "s89vVYL",
@@ -156349,7 +155962,7 @@
       "visit_count": 37861,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:14:44.438Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:25.770Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -156367,7 +155980,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:15:34.054Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.857Z"
     },
     "RRzh9qI": {
       "video_code": "RRzh9qI",
@@ -156526,35 +156139,6 @@
       "lastMetricsFetchedAt": "2026-11-18T07:14:56.361Z",
       "active": 1,
       "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سحر لطفی",
-          "trendTitle": "سحر لطفی",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 21:40:00 -0800",
-          "trendKeywords": [
-            "سحر",
-            "لطفی"
-          ],
-          "page": 24
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T07:15:34.061Z"
-    },
-    "nvEISSE": {
-      "video_code": "nvEISSE",
-      "title": "آهنگ مازندرانی - قِشنگ دلخواه برو از مهدی لطفی",
-      "sender_name": "نودیجه",
-      "category_id": 9,
-      "duration": 255,
-      "visit_count": 17464,
-      "create_date": "8 سال پیش",
-      "styled_create_date": "8 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:14:56.361Z",
-      "active": 1,
-      "can_republish": 1,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -157181,35 +156765,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T07:15:34.063Z"
     },
-    "CVnEOZD": {
-      "video_code": "CVnEOZD",
-      "title": "موزیک سحر قریشی .",
-      "sender_name": "d1400",
-      "category_id": 9,
-      "duration": 188,
-      "visit_count": 17501,
-      "create_date": "7 سال پیش",
-      "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:15:00.267Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سحر لطفی",
-          "trendTitle": "سحر لطفی",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 21:40:00 -0800",
-          "trendKeywords": [
-            "سحر",
-            "لطفی"
-          ],
-          "page": 29
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T07:15:34.063Z"
-    },
     "U1TZeeg": {
       "video_code": "U1TZeeg",
       "title": "ویدیو از نیما و مریم و سحر (برا نیما تتو میزنند)",
@@ -157799,7 +157354,7 @@
       "visit_count": 39914,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T08:06:35.766Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:28.478Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157817,7 +157372,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T08:07:23.220Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.860Z"
     },
     "RA9r2nQ": {
       "video_code": "RA9r2nQ",
@@ -157828,7 +157383,7 @@
       "visit_count": 23816,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T08:06:35.766Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:28.478Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157846,7 +157401,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T08:07:23.220Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.860Z"
     },
     "JJrs9hd": {
       "video_code": "JJrs9hd",
@@ -157857,7 +157412,7 @@
       "visit_count": 400256,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T08:06:43.362Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:35.450Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157874,7 +157429,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T08:07:23.238Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.875Z"
     },
     "dvqCyxv": {
       "video_code": "dvqCyxv",
@@ -157885,7 +157440,7 @@
       "visit_count": 18765,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T08:06:44.940Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:39.498Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157902,7 +157457,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T08:07:23.239Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.876Z"
     },
     "VJXIxCm": {
       "video_code": "VJXIxCm",
@@ -157913,7 +157468,7 @@
       "visit_count": 6918,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T08:06:44.940Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:39.498Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157940,7 +157495,7 @@
           "page": 32
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T08:07:23.239Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.876Z"
     },
     "asVahQf": {
       "video_code": "asVahQf",
@@ -159469,7 +159024,7 @@
       "visit_count": 36584,
       "create_date": "12 ماه پیش",
       "styled_create_date": "12 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:36.281Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:34.234Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -159484,9 +159039,19 @@
             "کنکل"
           ],
           "page": 11
+        },
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 52
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.647Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.888Z"
     },
     "43alHyO": {
       "video_code": "43alHyO",
@@ -159525,7 +159090,7 @@
       "visit_count": 20494,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:36.281Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:35.082Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -159540,9 +159105,19 @@
             "کنکل"
           ],
           "page": 11
+        },
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 53
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.647Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.889Z"
     },
     "NtPfpXR": {
       "video_code": "NtPfpXR",
@@ -159553,7 +159128,7 @@
       "visit_count": 23580,
       "create_date": "12 ماه پیش",
       "styled_create_date": "12 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:36.281Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:35.082Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159568,9 +159143,19 @@
             "کنکل"
           ],
           "page": 11
+        },
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 53
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.647Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.889Z"
     },
     "2rYLrM4": {
       "video_code": "2rYLrM4",
@@ -159581,7 +159166,7 @@
       "visit_count": 26052,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:38.091Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:36.540Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159596,9 +159181,19 @@
             "کنکل"
           ],
           "page": 12
+        },
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 55
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.647Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.890Z"
     },
     "RKv1GJU": {
       "video_code": "RKv1GJU",
@@ -159609,7 +159204,7 @@
       "visit_count": 46167,
       "create_date": "12 ماه پیش",
       "styled_create_date": "12 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:38.091Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:35.790Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159624,9 +159219,19 @@
             "کنکل"
           ],
           "page": 12
+        },
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 54
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.647Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.889Z"
     },
     "N7bUyfT": {
       "video_code": "N7bUyfT",
@@ -159637,7 +159242,7 @@
       "visit_count": 23845,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:40.021Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:40.510Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -159652,9 +159257,19 @@
             "کنکل"
           ],
           "page": 13
+        },
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 60
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.647Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.891Z"
     },
     "oK7y3On": {
       "video_code": "oK7y3On",
@@ -159665,7 +159280,7 @@
       "visit_count": 23240,
       "create_date": "11 ماه پیش",
       "styled_create_date": "11 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:40.021Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:40.510Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -159680,9 +159295,19 @@
             "کنکل"
           ],
           "page": 13
+        },
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 60
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.647Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.891Z"
     },
     "mphYVs2": {
       "video_code": "mphYVs2",
@@ -159693,7 +159318,7 @@
       "visit_count": 21084,
       "create_date": "12 ماه پیش",
       "styled_create_date": "12 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:40.021Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:41.314Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -159708,9 +159333,19 @@
             "کنکل"
           ],
           "page": 13
+        },
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 61
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.648Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.892Z"
     },
     "zmwNhM7": {
       "video_code": "zmwNhM7",
@@ -159721,7 +159356,7 @@
       "visit_count": 29012,
       "create_date": "11 ماه پیش",
       "styled_create_date": "11 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:40.021Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:40.510Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -159736,9 +159371,19 @@
             "کنکل"
           ],
           "page": 13
+        },
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 60
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.648Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.892Z"
     },
     "zYY19mx": {
       "video_code": "zYY19mx",
@@ -159749,7 +159394,7 @@
       "visit_count": 18860,
       "create_date": "11 ماه پیش",
       "styled_create_date": "11 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:40.021Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:41.314Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -159764,9 +159409,19 @@
             "کنکل"
           ],
           "page": 13
+        },
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 61
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.648Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.892Z"
     },
     "stcGKRl": {
       "video_code": "stcGKRl",
@@ -159777,7 +159432,7 @@
       "visit_count": 42610,
       "create_date": "12 ماه پیش",
       "styled_create_date": "12 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:40.021Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:41.314Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159792,9 +159447,19 @@
             "کنکل"
           ],
           "page": 13
+        },
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 61
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.648Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.892Z"
     },
     "qMy2OpR": {
       "video_code": "qMy2OpR",
@@ -159805,7 +159470,7 @@
       "visit_count": 28177,
       "create_date": "12 ماه پیش",
       "styled_create_date": "12 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:40.021Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:41.314Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159820,9 +159485,19 @@
             "کنکل"
           ],
           "page": 13
+        },
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 61
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.648Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.892Z"
     },
     "kqKpthj": {
       "video_code": "kqKpthj",
@@ -159833,7 +159508,7 @@
       "visit_count": 31868,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:40.021Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:41.314Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159848,9 +159523,19 @@
             "کنکل"
           ],
           "page": 13
+        },
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 61
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.648Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.892Z"
     },
     "9yrlLfp": {
       "video_code": "9yrlLfp",
@@ -159861,7 +159546,7 @@
       "visit_count": 30126,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:40.021Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:41.314Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -159876,9 +159561,19 @@
             "کنکل"
           ],
           "page": 13
+        },
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 61
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.648Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.892Z"
     },
     "OdOQIeU": {
       "video_code": "OdOQIeU",
@@ -159917,7 +159612,7 @@
       "visit_count": 23957,
       "create_date": "12 ماه پیش",
       "styled_create_date": "12 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:42.016Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:42.888Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -159932,9 +159627,19 @@
             "کنکل"
           ],
           "page": 14
+        },
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 63
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.648Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.894Z"
     },
     "8coG2Yc": {
       "video_code": "8coG2Yc",
@@ -160001,7 +159706,7 @@
       "visit_count": 32335,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:43.941Z",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:44.367Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -160016,9 +159721,19 @@
             "کنکل"
           ],
           "page": 15
+        },
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 65
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.648Z"
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.894Z"
     },
     "ue1KlAW": {
       "video_code": "ue1KlAW",
@@ -161276,34 +160991,6 @@
             "آشپزی"
           ],
           "page": 31
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.655Z"
-    },
-    "qLVtdXz": {
-      "video_code": "qLVtdXz",
-      "title": "کام تا لام/قسمت جدید/مسابقه عجیب آشپزی با مجازات/آشپزی هست یا میدون جنگ؟",
-      "sender_name": "خدیجه",
-      "category_id": 29,
-      "duration": 3568,
-      "visit_count": 17500,
-      "create_date": "12 ماه پیش",
-      "styled_create_date": "12 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:35.771Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "آشپزی",
-          "trendTitle": "آشپزی",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
-          "trendKeywords": [
-            "آشپزی"
-          ],
-          "page": 32
         }
       ],
       "lastTrendMatchedAt": "2026-11-18T07:35:53.655Z"
@@ -162853,8 +162540,575 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-18T08:07:23.249Z"
+    },
+    "UZCRYSF": {
+      "video_code": "UZCRYSF",
+      "title": "بخش اول گفتگوی پژمان جمشیدی و عادل فردوسی پور در برنامه فوتبال ۳۶۰ بخش اول",
+      "sender_name": "رنگارنگ",
+      "category_id": 11,
+      "duration": 4721,
+      "visit_count": 24736,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:32.902Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بازیکن فوتبال",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 36
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.864Z"
+    },
+    "BXIgRjO": {
+      "video_code": "BXIgRjO",
+      "title": "رونالدو پسر کوچکش را به این دلیل از ارث محروم می کند/فوتبال/کریستیانو رونالدو",
+      "sender_name": "متین",
+      "category_id": 11,
+      "duration": 60,
+      "visit_count": 32599,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:33.693Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بازیکن فوتبال",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 37
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.864Z"
+    },
+    "On39ncs": {
+      "video_code": "On39ncs",
+      "title": "اموزش زدن قیچی برگردون در فوتبال به راحت ترین شکل ممکن",
+      "sender_name": "امیر ",
+      "category_id": 7,
+      "duration": 113,
+      "visit_count": 21055,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:33.693Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بازیکن فوتبال",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 37
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.864Z"
+    },
+    "tIv3oaS": {
+      "video_code": "tIv3oaS",
+      "title": "فیلم سینمایی دوبله فارسی فوتبال شائولین ۲۰۰۱ رزمی اکشن ماجراجویی کمدی",
+      "sender_name": "دنیای فیلم",
+      "category_id": 3,
+      "duration": 6742,
+      "visit_count": 21217,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:33.693Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بازیکن فوتبال",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 37
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.864Z"
+    },
+    "N2kAvdu": {
+      "video_code": "N2kAvdu",
+      "title": "مصاحبه جنجالی میثاقی با خداداد افشاریان ریس کمیته داوران فوتبال",
+      "sender_name": "DinarTavalod",
+      "category_id": 11,
+      "duration": 178,
+      "visit_count": 20828,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:34.468Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بازیکن فوتبال",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 38
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.864Z"
+    },
+    "NIEJLkF": {
+      "video_code": "NIEJLkF",
+      "title": "کل کل و شوخی فوق جنجالی خداداد عزیزی با هاشم بیک زاده درباره نسل برتر فوتبال",
+      "sender_name": "Ehsan",
+      "category_id": 11,
+      "duration": 351,
+      "visit_count": 22853,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:39.034Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بازیکن فوتبال",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 44
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.868Z"
+    },
+    "Zk2iY8y": {
+      "video_code": "Zk2iY8y",
+      "title": "نگاهی به ماشین لوکس و هوش پَران رامین رضاییان ستاره فوتبال/ این ماشین نیست هواپی",
+      "sender_name": "سرگرمی متنوع  (فالو = فالو )",
+      "category_id": 25,
+      "duration": 27,
+      "visit_count": 29205,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:39.034Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بازیکن فوتبال",
+          "trendTitle": "بازیکن فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "بازیکن",
+            "فوتبال"
+          ],
+          "page": 44
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.868Z"
+    },
+    "icaR0S2": {
+      "video_code": "icaR0S2",
+      "title": "چالش خنده دار غذایی قرمز و آبی ، چالش آشپزی ، موقعیت های خنده دار غذایی",
+      "sender_name": "کودک و سرگرمی",
+      "category_id": 6,
+      "duration": 1201,
+      "visit_count": 23796,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:33.487Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 51
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.888Z"
+    },
+    "4xfOAKS": {
+      "video_code": "4xfOAKS",
+      "title": "آشپزی خنده دار دیانا برای روما با غذاهای اسباب بازی",
+      "sender_name": "آماندا",
+      "category_id": 6,
+      "duration": 301,
+      "visit_count": 25036,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:33.487Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 51
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.888Z"
+    },
+    "bS1iLpm": {
+      "video_code": "bS1iLpm",
+      "title": "فیلم ماشین بازی کودکانه + آشپزی غذاهای سالم",
+      "sender_name": "کارتون کودکانه",
+      "category_id": 29,
+      "duration": 353,
+      "visit_count": 36774,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:34.234Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 52
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.888Z"
+    },
+    "dTyPBBU": {
+      "video_code": "dTyPBBU",
+      "title": "کمدی مرد عنکبوتی در دنیای واقعی ، آشپزی و شنا و بازی با تیم مرد عنکبوتی",
+      "sender_name": "کافه فیلم✔",
+      "category_id": 3,
+      "duration": 805,
+      "visit_count": 41527,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:35.082Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 53
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.889Z"
+    },
+    "MCHIUxm": {
+      "video_code": "MCHIUxm",
+      "title": "ترفند آشپزی - چالش غذا خوری - چالش اسمرفود - چالش غذایی",
+      "sender_name": "Sahar",
+      "category_id": 29,
+      "duration": 119,
+      "visit_count": 22770,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:35.790Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 54
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.889Z"
+    },
+    "Tat5yed": {
+      "video_code": "Tat5yed",
+      "title": "شکار حیوانات، زندگی و آشپزی در جنگل آمازون ـ بسیار جالب و جدید",
+      "sender_name": "HEMN TV",
+      "category_id": 13,
+      "duration": 609,
+      "visit_count": 24381,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:35.790Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 54
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.889Z"
+    },
+    "BjUrByd": {
+      "video_code": "BjUrByd",
+      "title": "چالش غذایی - بهترین چالش آشپزی با ونزدی آدامز - چالش سرگرمی",
+      "sender_name": "انیمه ۹۷",
+      "category_id": 29,
+      "duration": 204,
+      "visit_count": 26198,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:39.000Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 58
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.891Z"
+    },
+    "qz4ivBi": {
+      "video_code": "qz4ivBi",
+      "title": "چالش غذا خوری - چالش خوردن کیک ۴ طبقه - چالش آشپزی بانوان",
+      "sender_name": "انیمه ۹۷",
+      "category_id": 29,
+      "duration": 111,
+      "visit_count": 46052,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:39.700Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 59
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.891Z"
+    },
+    "dup8ASt": {
+      "video_code": "dup8ASt",
+      "title": "کیک مینیاتوری خوشگل // آشپزخانه مینیاتوری // لذت آشپزی مینیاتوری // شیرینی مینیاتوری",
+      "sender_name": "‫سید حمید حوائجی",
+      "category_id": 29,
+      "duration": 248,
+      "visit_count": 18133,
+      "create_date": "1 سال پیش",
+      "styled_create_date": "1 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:40.510Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 60
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.891Z"
+    },
+    "ml8r2cV": {
+      "video_code": "ml8r2cV",
+      "title": "ترفند آشپزی - چالش غذا خوری - چالش اسمرفود - چالش غذایی",
+      "sender_name": "Faribaa.r",
+      "category_id": 29,
+      "duration": 119,
+      "visit_count": 22782,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:41.314Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 61
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.892Z"
+    },
+    "v4wM7JK": {
+      "video_code": "v4wM7JK",
+      "title": "چالش غذاخوری خنده دار - چالش غذایی همبرگر - مسابقه چالش آشپزی",
+      "sender_name": "سریال 97...تفریحی",
+      "category_id": 6,
+      "duration": 198,
+      "visit_count": 26098,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:42.888Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 63
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.893Z"
+    },
+    "DiDccHL": {
+      "video_code": "DiDccHL",
+      "title": "چالغذا خوری خنده دار 😝چالش غذایی خوردن چیپس خیلی تند - چالش آشپزی سرگرمی،بانوان",
+      "sender_name": "✅تک تاز فیلم",
+      "category_id": 6,
+      "duration": 158,
+      "visit_count": 20874,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:44.367Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 65
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.894Z"
+    },
+    "bcNhKFq": {
+      "video_code": "bcNhKFq",
+      "title": "ساخت خانه مینیاتوری | سرگرمی هنری | آموزش خانه مینیاتوری |کاردستی خانه مینیاتوری آشپزی",
+      "sender_name": "🖤کافه سرگرمی🖤",
+      "category_id": 7,
+      "duration": 848,
+      "visit_count": 18782,
+      "create_date": "12 ماه پیش",
+      "styled_create_date": "12 ماه پیش",
+      "lastMetricsFetchedAt": "2026-11-18T08:24:44.367Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "آشپزی",
+          "trendTitle": "آشپزی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "آشپزی"
+          ],
+          "page": 65
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T08:25:08.894Z"
     }
   },
-  "totalPagesFetched": 9452,
-  "totalVideosSeen": 170418
+  "totalPagesFetched": 9576,
+  "totalVideosSeen": 172697
 }
