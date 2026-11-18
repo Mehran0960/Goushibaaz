@@ -23,7 +23,7 @@ const TOPICS = [
   { key: 'religion_philosophy', base: 20, patterns: [/religion|religious|faith|philosophy|theology|spirituality/i, /دین|مذهبی|مذهب|باور|فلسفه|الهیات|معنویت/i] },
   { key: 'environment_climate', base: 20, patterns: [/environment|climate|climate change|conservation|pollution|sustainability/i, /محیط زیست|اقلیم|تغییرات آب.?و.?هوایی|حفاظت|آلودگی|پایداری/i] },
   { key: 'history_politics', base: 20, patterns: [/history|historical|archaeology|geopolitics|international relations|conflict analysis/i, /تاریخ|تاریخی|باستان.?شناسی|روابط بین.?الملل|ژئوپلیتیک|تحلیل درگیری/i] },
-  { key: 'transport_energy', base: 20, patterns: [/transport|aviation|railway|shipping|energy|electricity|oil and gas/i, /حمل.?و.?نقل|هوانوردی|راه.?آهن|کشتیرانی|انرژی|برق|نفت|گاز/i] }
+  { key: 'transport_energy', base: 20, patterns: [/transport|aviation|railway|shipping|energy|electricity|oil and gas/i, /حمل.?و.?نقل|هوانوردی|راه.?آهن|کشتیرانی|انرژی|برق|نفت|گاز/i] },
   { key: 'sports_skill', base: 20, patterns: [/football|soccer|basketball|skateboard|parkour|trick shot|freestyle|sports? skill|goal|dunk/i, /فوتبال|بسکتبال|والیبال|ورزش|گل زیبا|حرکت نمایشی|دریبل|اسکیت|مهارت عجیب/i] },
   { key: 'technology_demo', base: 20, patterns: [/technology demo|AI demo|robot demo|smart device|gadget demo|new technology|invention demo/i, /هوش مصنوعی|فناوری|تکنولوژی|ربات|گجت|دستگاه هوشمند|دموی فناوری|ابزار جدید/i] },
   { key: 'science_tech', base: 20, patterns: [/science experiment|experiment|optical illusion|brain teaser|puzzle|physics|astronomy|space footage|planetary science/i, /آزمایش علمی|علمی|خطای دید|معما|فیزیک|نجوم|کهکشان|سیاره|فضا|پدیده علمی/i] },
