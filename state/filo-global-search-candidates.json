@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-18T13:25:12.805Z",
-  "trendsFetchedAt": "2026-11-18T13:24:01.103Z",
+  "updatedAt": "2026-11-18T13:45:08.585Z",
+  "trendsFetchedAt": "2026-11-18T13:44:04.182Z",
   "trends": [
     {
       "title": "الهام اخوان بازیگر",
@@ -13,7 +13,7 @@
       ],
       "traffic": 2000,
       "publishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
-      "ageHours": 1.2
+      "ageHours": 1.6
     },
     {
       "title": "پیشکسوت",
@@ -22,16 +22,25 @@
       ],
       "traffic": 2000,
       "publishedAt": "Wed, 18 Nov 2026 03:20:00 -0800",
-      "ageHours": 2.1
+      "ageHours": 2.4
     },
     {
-      "title": "metacritic",
+      "title": "بیرانوند",
       "keywords": [
-        "metacritic"
+        "بیرانوند"
       ],
-      "traffic": 2000,
-      "publishedAt": "Wed, 18 Nov 2026 03:00:00 -0800",
-      "ageHours": 2.4
+      "traffic": 1000,
+      "publishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+      "ageHours": 0.6
+    },
+    {
+      "title": "کمیسیون",
+      "keywords": [
+        "کمیسیون"
+      ],
+      "traffic": 1000,
+      "publishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
+      "ageHours": 1.6
     },
     {
       "title": "روز پدر ۱۴۰۵",
@@ -42,16 +51,26 @@
       ],
       "traffic": 500,
       "publishedAt": "Wed, 18 Nov 2026 04:50:00 -0800",
+      "ageHours": 0.9
+    },
+    {
+      "title": "رزیتا غفاری",
+      "keywords": [
+        "رزیتا",
+        "غفاری"
+      ],
+      "traffic": 200,
+      "publishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
       "ageHours": 0.6
     },
     {
-      "title": "کمیسیون",
+      "title": "پدری",
       "keywords": [
-        "کمیسیون"
+        "پدری"
       ],
-      "traffic": 500,
+      "traffic": 200,
       "publishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
-      "ageHours": 1.2
+      "ageHours": 1.6
     },
     {
       "title": "سامان قدوس",
@@ -61,16 +80,16 @@
       ],
       "traffic": 200,
       "publishedAt": "Wed, 18 Nov 2026 03:30:00 -0800",
-      "ageHours": 1.9
+      "ageHours": 2.2
     },
     {
-      "title": "پدری",
+      "title": "چین",
       "keywords": [
-        "پدری"
+        "چین"
       ],
       "traffic": 100,
-      "publishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
-      "ageHours": 1.2
+      "publishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+      "ageHours": 0.4
     },
     {
       "title": "استریم",
@@ -79,27 +98,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Wed, 18 Nov 2026 04:00:00 -0800",
-      "ageHours": 1.4
-    },
-    {
-      "title": "جیمز باند",
-      "keywords": [
-        "جیمز",
-        "باند"
-      ],
-      "traffic": 100,
-      "publishedAt": "Wed, 18 Nov 2026 03:10:00 -0800",
-      "ageHours": 2.2
-    },
-    {
-      "title": "فراس البریکان",
-      "keywords": [
-        "فراس",
-        "البریکان"
-      ],
-      "traffic": 100,
-      "publishedAt": "Wed, 18 Nov 2026 03:10:00 -0800",
-      "ageHours": 2.2
+      "ageHours": 1.7
     }
   ],
   "queries": {
@@ -6323,12 +6322,12 @@
     "آشپزی": {
       "query": "آشپزی",
       "normalized": "آشپزی",
-      "nextPage": 126,
+      "nextPage": 141,
       "complete": false,
-      "pagesFetched": 160,
-      "videosSeen": 3199,
+      "pagesFetched": 180,
+      "videosSeen": 3599,
       "createdAt": "2026-11-18T06:54:09.823Z",
-      "lastAttemptAt": "2026-11-18T09:45:34.695Z",
+      "lastAttemptAt": "2026-11-18T13:45:08.268Z",
       "lastError": null,
       "trendTitle": "آشپزی",
       "trendTraffic": 500,
@@ -6461,12 +6460,12 @@
     "شایعه": {
       "query": "شایعه",
       "normalized": "شایعه",
-      "nextPage": 21,
+      "nextPage": 36,
       "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 400,
+      "pagesFetched": 40,
+      "videosSeen": 792,
       "createdAt": "2026-11-18T06:54:09.823Z",
-      "lastAttemptAt": "2026-11-18T09:45:34.731Z",
+      "lastAttemptAt": "2026-11-18T13:45:08.274Z",
       "lastError": null,
       "trendTitle": "شایعه",
       "trendTraffic": 100,
@@ -7074,7 +7073,7 @@
         "پدر",
         "۱۴۰۵"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T13:25:12.524Z",
@@ -7099,7 +7098,7 @@
         "پدر",
         "۱۴۰۵"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T13:25:12.524Z"
@@ -7986,7 +7985,7 @@
       "trendKeywords": [
         "پیشکسوت"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T13:05:23.765Z",
@@ -8141,7 +8140,7 @@
         "البریکان"
       ],
       "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T13:25:12.524Z",
       "refreshOnly": false,
@@ -8186,7 +8185,7 @@
         "metacritic"
       ],
       "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T13:25:12.524Z",
       "refreshOnly": false,
@@ -8209,7 +8208,7 @@
         "metacritic"
       ],
       "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-18T12:45:32.576Z"
     },
@@ -8291,7 +8290,7 @@
         "باند"
       ],
       "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "واکنش هالیوودی ها به انتخاب رابرت پتینسون برای نقش جیمز باند": {
@@ -8312,7 +8311,7 @@
         "باند"
       ],
       "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T13:25:12.524Z",
       "refreshOnly": false,
@@ -8336,7 +8335,7 @@
         "باند"
       ],
       "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T13:25:12.524Z",
       "refreshOnly": false,
@@ -8407,12 +8406,12 @@
     "پیشکسوت": {
       "query": "پیشکسوت",
       "normalized": "پیشکسوت",
-      "nextPage": 15,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 14,
-      "videosSeen": 246,
+      "pagesFetched": 19,
+      "videosSeen": 346,
       "createdAt": "2026-11-18T12:04:25.218Z",
-      "lastAttemptAt": "2026-11-18T12:25:28.845Z",
+      "lastAttemptAt": "2026-11-18T13:45:08.224Z",
       "lastError": null,
       "trendTitle": "پیشکسوت",
       "trendTraffic": 2000,
@@ -8420,20 +8419,22 @@
       "trendKeywords": [
         "پیشکسوت"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T12:25:28.845Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T13:45:08.224Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T13:45:08.223Z"
     },
     "پیام تسلیت فدراسیون": {
       "query": "پیام تسلیت فدراسیون",
       "normalized": "پیام تسلیت فدراسیون",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 5,
-      "videosSeen": 48,
+      "pagesFetched": 9,
+      "videosSeen": 96,
       "createdAt": "2026-11-18T12:04:25.218Z",
-      "lastAttemptAt": "2026-11-18T12:25:28.846Z",
+      "lastAttemptAt": "2026-11-18T13:45:08.226Z",
       "lastError": null,
       "trendTitle": "پیشکسوت",
       "trendTraffic": 2000,
@@ -8441,20 +8442,22 @@
       "trendKeywords": [
         "پیشکسوت"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T12:25:28.846Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T13:45:08.226Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T13:45:08.226Z"
     },
     "سامان قدوس": {
       "query": "سامان قدوس",
       "normalized": "سامان قدوس",
-      "nextPage": 51,
+      "nextPage": 66,
       "complete": false,
-      "pagesFetched": 60,
-      "videosSeen": 1108,
+      "pagesFetched": 80,
+      "videosSeen": 1484,
       "createdAt": "2026-11-18T12:04:25.218Z",
-      "lastAttemptAt": "2026-11-18T13:25:12.538Z",
+      "lastAttemptAt": "2026-11-18T13:45:08.251Z",
       "lastError": null,
       "trendTitle": "سامان قدوس",
       "trendTraffic": 200,
@@ -8463,19 +8466,19 @@
         "سامان",
         "قدوس"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "پیرمردهای تیم ملی همچنان منتظر دعوت قلعه نویی چرا قبول نمی کنید تمام شده اید": {
       "query": "پیرمردهای تیم ملی همچنان منتظر دعوت قلعه‌نویی؛ چرا قبول نمی‌کنید تمام شده‌اید؟!",
       "normalized": "پیرمردهای تیم ملی همچنان منتظر دعوت قلعه نویی چرا قبول نمی کنید تمام شده اید",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-18T12:04:25.218Z",
-      "lastAttemptAt": "2026-11-18T12:25:28.853Z",
+      "lastAttemptAt": "2026-11-18T13:45:08.226Z",
       "lastError": null,
       "trendTitle": "سامان قدوس",
       "trendTraffic": 200,
@@ -8484,20 +8487,22 @@
         "سامان",
         "قدوس"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T12:25:28.853Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T13:45:08.226Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T13:45:08.226Z"
     },
     "مهدی توتونچی سامان قدوس حرفه ای بود و چراغ اول را روشن کرد": {
       "query": "مهدی توتونچی: سامان قدوس حرفه ای بود و چراغ اول را روشن کرد!",
       "normalized": "مهدی توتونچی سامان قدوس حرفه ای بود و چراغ اول را روشن کرد",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 3,
-      "videosSeen": 17,
+      "pagesFetched": 5,
+      "videosSeen": 34,
       "createdAt": "2026-11-18T12:04:25.218Z",
-      "lastAttemptAt": "2026-11-18T12:25:28.855Z",
+      "lastAttemptAt": "2026-11-18T13:45:08.227Z",
       "lastError": null,
       "trendTitle": "سامان قدوس",
       "trendTraffic": 200,
@@ -8506,10 +8511,12 @@
         "سامان",
         "قدوس"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T12:25:28.855Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T13:45:08.227Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T13:45:08.227Z"
     },
     "ps5": {
       "query": "ps5",
@@ -8591,12 +8598,12 @@
     "استریم": {
       "query": "استریم",
       "normalized": "استریم",
-      "nextPage": 51,
-      "complete": false,
-      "pagesFetched": 60,
-      "videosSeen": 1194,
+      "nextPage": 55,
+      "complete": true,
+      "pagesFetched": 69,
+      "videosSeen": 1340,
       "createdAt": "2026-11-18T12:24:07.877Z",
-      "lastAttemptAt": "2026-11-18T13:25:12.554Z",
+      "lastAttemptAt": "2026-11-18T13:45:08.260Z",
       "lastError": null,
       "trendTitle": "استریم",
       "trendTraffic": 100,
@@ -8604,9 +8611,10 @@
       "trendKeywords": [
         "استریم"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
       "activeInLatestFeed": true,
-      "termination": "max_pages_reached"
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T13:45:08.260Z"
     },
     "چین قوانین عجیبی برای استریم بازی gta 6 وضع کرد سرقت خودرو حمله به پلیس و نمایش خون ممنوع شد": {
       "query": "چین قوانین عجیبی برای استریم بازی GTA 6 وضع کرد؛ سرقت خودرو، حمله به پلیس و نمایش خون ممنوع شد",
@@ -8624,7 +8632,7 @@
       "trendKeywords": [
         "استریم"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T12:45:32.599Z"
@@ -8645,7 +8653,7 @@
       "trendKeywords": [
         "استریم"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T12:45:32.599Z"
@@ -8691,21 +8699,20 @@
     "بیرانوند وارد بانکوک شد": {
       "query": "بیرانوند وارد بانکوک شد",
       "normalized": "بیرانوند وارد بانکوک شد",
-      "nextPage": 36,
+      "nextPage": 51,
       "complete": false,
-      "pagesFetched": 40,
-      "videosSeen": 798,
+      "pagesFetched": 60,
+      "videosSeen": 1196,
       "createdAt": "2026-11-18T12:24:07.878Z",
-      "lastAttemptAt": "2026-11-18T13:25:12.533Z",
+      "lastAttemptAt": "2026-11-18T13:45:08.246Z",
       "lastError": null,
-      "trendTitle": "فراس البریکان",
-      "trendTraffic": 100,
-      "trendPublishedAt": "Wed, 18 Nov 2026 03:10:00 -0800",
+      "trendTitle": "بیرانوند",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
       "trendKeywords": [
-        "فراس",
-        "البریکان"
+        "بیرانوند"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -8727,7 +8734,7 @@
         "اخوان",
         "بازیگر"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T12:45:32.628Z"
@@ -8750,7 +8757,7 @@
         "اخوان",
         "بازیگر"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T12:45:32.628Z"
@@ -8773,7 +8780,7 @@
         "اخوان",
         "بازیگر"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T12:45:32.628Z"
@@ -8829,12 +8836,12 @@
       "lastAttemptAt": "2026-11-18T13:05:23.778Z",
       "lastError": null,
       "trendTitle": "کمیسیون",
-      "trendTraffic": 500,
+      "trendTraffic": 1000,
       "trendPublishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
       "trendKeywords": [
         "کمیسیون"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T13:05:23.778Z"
@@ -8850,12 +8857,12 @@
       "lastAttemptAt": "2026-11-18T13:05:23.778Z",
       "lastError": null,
       "trendTitle": "کمیسیون",
-      "trendTraffic": 500,
+      "trendTraffic": 1000,
       "trendPublishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
       "trendKeywords": [
         "کمیسیون"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T13:05:23.778Z"
@@ -8871,12 +8878,12 @@
       "lastAttemptAt": "2026-11-18T13:05:23.778Z",
       "lastError": null,
       "trendTitle": "کمیسیون",
-      "trendTraffic": 500,
+      "trendTraffic": 1000,
       "trendPublishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
       "trendKeywords": [
         "کمیسیون"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T13:05:23.778Z"
@@ -8904,20 +8911,20 @@
     "پدری": {
       "query": "پدری",
       "normalized": "پدری",
-      "nextPage": 36,
+      "nextPage": 51,
       "complete": false,
-      "pagesFetched": 40,
-      "videosSeen": 800,
+      "pagesFetched": 60,
+      "videosSeen": 1200,
       "createdAt": "2026-11-18T12:44:14.421Z",
-      "lastAttemptAt": "2026-11-18T13:25:12.543Z",
+      "lastAttemptAt": "2026-11-18T13:45:08.258Z",
       "lastError": null,
       "trendTitle": "پدری",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
       "trendKeywords": [
         "پدری"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -8938,19 +8945,19 @@
         "metacritic"
       ],
       "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-18T13:25:12.554Z"
     },
     "روز پدر ۱۴۰۵": {
       "query": "روز پدر ۱۴۰۵",
       "normalized": "روز پدر ۱۴۰۵",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 19,
+      "complete": true,
+      "pagesFetched": 18,
+      "videosSeen": 311,
       "createdAt": "2026-11-18T13:24:01.679Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T13:45:08.237Z",
       "lastError": null,
       "trendTitle": "روز پدر ۱۴۰۵",
       "trendTraffic": 500,
@@ -8960,65 +8967,208 @@
         "پدر",
         "۱۴۰۵"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T13:45:08.237Z"
     },
     "دخترکشی در ایران به نام پدر از رومینا اشرافی تا سوگند صیادی": {
       "query": "دخترکشی در ایران «به نام پدر»؛ از رومینا اشرافی تا سوگند صیادی",
       "normalized": "دخترکشی در ایران به نام پدر از رومینا اشرافی تا سوگند صیادی",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T13:24:01.679Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T13:45:08.237Z",
       "lastError": null,
       "trendTitle": "پدری",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
       "trendKeywords": [
         "پدری"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T13:45:08.237Z"
     },
     "بازخوانی مبانی فقهی عدم قصاص پدر و ضرورت اصلاح مجازات قتل عمدی فرزند": {
       "query": "بازخوانی مبانی فقهی عدم قصاص پدر و ضرورت اصلاح مجازات قتل عمدی فرزند",
       "normalized": "بازخوانی مبانی فقهی عدم قصاص پدر و ضرورت اصلاح مجازات قتل عمدی فرزند",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T13:24:01.679Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T13:45:08.237Z",
       "lastError": null,
       "trendTitle": "پدری",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
       "trendKeywords": [
         "پدری"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T13:45:08.237Z"
     },
     "24 ساعت سرنوشت ساز در انتظار فوتبال ایران توپ طلا در یک قدمی بیرو": {
       "query": "24 ساعت سرنوشت‌ساز در انتظار فوتبال ایران؛ توپ طلا در یک‌قدمی «بیرو»",
       "normalized": "24 ساعت سرنوشت ساز در انتظار فوتبال ایران توپ طلا در یک قدمی بیرو",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T13:24:01.679Z",
+      "lastAttemptAt": "2026-11-18T13:45:08.237Z",
+      "lastError": null,
+      "trendTitle": "بیرانوند",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+      "trendKeywords": [
+        "بیرانوند"
+      ],
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T13:45:08.237Z"
+    },
+    "بیرانوند": {
+      "query": "بیرانوند",
+      "normalized": "بیرانوند",
       "nextPage": 1,
       "complete": false,
       "pagesFetched": 0,
       "videosSeen": 0,
-      "createdAt": "2026-11-18T13:24:01.679Z",
+      "createdAt": "2026-11-18T13:44:04.696Z",
       "lastAttemptAt": null,
       "lastError": null,
-      "trendTitle": "فراس البریکان",
-      "trendTraffic": 100,
-      "trendPublishedAt": "Wed, 18 Nov 2026 03:10:00 -0800",
+      "trendTitle": "بیرانوند",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
       "trendKeywords": [
-        "فراس",
-        "البریکان"
+        "بیرانوند"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:24:01.679Z",
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "activeInLatestFeed": true
+    },
+    "رزیتا غفاری": {
+      "query": "رزیتا غفاری",
+      "normalized": "رزیتا غفاری",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T13:44:04.696Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "رزیتا غفاری",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+      "trendKeywords": [
+        "رزیتا",
+        "غفاری"
+      ],
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "activeInLatestFeed": true
+    },
+    "المیرا دهقانی و همسرش در مراسم اکران خصوصی یک فیلم عکس": {
+      "query": "المیرا دهقانی و همسرش در مراسم اکران خصوصی یک فیلم + عکس",
+      "normalized": "المیرا دهقانی و همسرش در مراسم اکران خصوصی یک فیلم عکس",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T13:44:04.696Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "رزیتا غفاری",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+      "trendKeywords": [
+        "رزیتا",
+        "غفاری"
+      ],
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "activeInLatestFeed": true
+    },
+    "اکران خصوصی فیلم همسفر با حضور المیرا دهقانی و رزیتا غفاری برگزار شد": {
+      "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+      "normalized": "اکران خصوصی فیلم همسفر با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T13:44:04.696Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "رزیتا غفاری",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+      "trendKeywords": [
+        "رزیتا",
+        "غفاری"
+      ],
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "activeInLatestFeed": true
+    },
+    "چین": {
+      "query": "چین",
+      "normalized": "چین",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T13:44:04.696Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "چین",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+      "trendKeywords": [
+        "چین"
+      ],
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "activeInLatestFeed": true
+    },
+    "زنده دیدار شی و پوتین پیش از ملاقات با ترامپ": {
+      "query": "زنده دیدار شی و پوتین پیش از ملاقات با ترامپ",
+      "normalized": "زنده دیدار شی و پوتین پیش از ملاقات با ترامپ",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T13:44:04.696Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "چین",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+      "trendKeywords": [
+        "چین"
+      ],
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "activeInLatestFeed": true
+    },
+    "نخستین تصویر مشترک ترامپ پوتین و شی در حاشیه نشست اپک پیش از دیدار تاریخی سه جانبه": {
+      "query": "نخستین تصویر مشترک ترامپ، پوتین و شی در حاشیه نشست «اپک» پیش از دیدار تاریخی سه‌جانبه",
+      "normalized": "نخستین تصویر مشترک ترامپ پوتین و شی در حاشیه نشست اپک پیش از دیدار تاریخی سه جانبه",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T13:44:04.696Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "چین",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+      "trendKeywords": [
+        "چین"
+      ],
+      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
       "activeInLatestFeed": true
     }
   },
@@ -31944,8 +32094,8 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.539Z",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:31.488Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.252Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:33.783Z"
     },
     "05wG0MH": {
       "video_code": "05wG0MH",
@@ -32469,8 +32619,8 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.539Z",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:32.209Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.252Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:34.414Z"
     },
     "n5y00Wa": {
       "video_code": "n5y00Wa",
@@ -47533,8 +47683,8 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.539Z",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:32.957Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.252Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:35.184Z"
     },
     "2JIMK93": {
       "video_code": "2JIMK93",
@@ -71831,10 +71981,20 @@
             "فوتبال"
           ],
           "page": 3
+        },
+        {
+          "query": "بیرانوند وارد بانکوک شد",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.525Z",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:25.087Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:32.969Z"
     },
     "nwsPA4B": {
       "video_code": "nwsPA4B",
@@ -71976,10 +72136,20 @@
             "فوتبال"
           ],
           "page": 4
+        },
+        {
+          "query": "بیرانوند وارد بانکوک شد",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.525Z",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:25.087Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:32.969Z"
     },
     "bs7ykj9": {
       "video_code": "bs7ykj9",
@@ -72111,10 +72281,20 @@
             "فوتبال"
           ],
           "page": 4
+        },
+        {
+          "query": "بیرانوند وارد بانکوک شد",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.525Z",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:25.087Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:32.969Z"
     },
     "ZT6VMBR": {
       "video_code": "ZT6VMBR",
@@ -72192,8 +72372,8 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:25:28.841Z",
-      "lastMetricsFetchedAt": "2026-11-18T12:24:35.647Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.220Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:23.040Z"
     },
     "sAe8jIs": {
       "video_code": "sAe8jIs",
@@ -72353,10 +72533,20 @@
             "فوتبال"
           ],
           "page": 5
+        },
+        {
+          "query": "بیرانوند وارد بانکوک شد",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.525Z",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:25.800Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:33.666Z"
     },
     "zArgwAa": {
       "video_code": "zArgwAa",
@@ -72512,10 +72702,20 @@
             "فوتبال"
           ],
           "page": 10
+        },
+        {
+          "query": "بیرانوند وارد بانکوک شد",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.527Z",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:26.955Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.239Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:34.851Z"
     },
     "gv4H0qR": {
       "video_code": "gv4H0qR",
@@ -133554,7 +133754,7 @@
       "visit_count": 36262,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:25.800Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:33.666Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -133592,9 +133792,19 @@
             "فوتبال"
           ],
           "page": 6
+        },
+        {
+          "query": "بیرانوند وارد بانکوک شد",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.526Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z"
     },
     "1dcMgFv": {
       "video_code": "1dcMgFv",
@@ -149786,7 +149996,7 @@
       "visit_count": 38989,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:54:55.469Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:27.595Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -149802,9 +150012,21 @@
             "پدر"
           ],
           "page": 5
+        },
+        {
+          "query": "روز پدر ۱۴۰۵",
+          "trendTitle": "روز پدر ۱۴۰۵",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 04:50:00 -0800",
+          "trendKeywords": [
+            "روز",
+            "پدر",
+            "۱۴۰۵"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.480Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.228Z"
     },
     "7dnku0k": {
       "video_code": "7dnku0k",
@@ -149960,7 +150182,7 @@
       "visit_count": 13065,
       "create_date": "10 ماه پیش",
       "styled_create_date": "10 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:24.970Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:28.901Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -150010,9 +150232,21 @@
             "۱۴۰۵"
           ],
           "page": 2
+        },
+        {
+          "query": "روز پدر ۱۴۰۵",
+          "trendTitle": "روز پدر ۱۴۰۵",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Wed, 18 Nov 2026 04:50:00 -0800",
+          "trendKeywords": [
+            "روز",
+            "پدر",
+            "۱۴۰۵"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.522Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.228Z"
     },
     "fj8wZSQ": {
       "video_code": "fj8wZSQ",
@@ -152174,7 +152408,7 @@
       "visit_count": 210664,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:24:35.647Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:23.040Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152213,7 +152447,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:25:28.841Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.220Z"
     },
     "mqQuJQY": {
       "video_code": "mqQuJQY",
@@ -153388,7 +153622,7 @@
       "visit_count": 101827,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:45:17.565Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:51.171Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153405,7 +153639,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:45:34.726Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.268Z"
     },
     "8r7ciVM": {
       "video_code": "8r7ciVM",
@@ -153416,7 +153650,7 @@
       "visit_count": 34678,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:45:17.565Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:51.171Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153433,7 +153667,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:45:34.726Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.268Z"
     },
     "JLHdY92": {
       "video_code": "JLHdY92",
@@ -153444,7 +153678,7 @@
       "visit_count": 30775,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:45:17.565Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:51.171Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153461,7 +153695,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:45:34.726Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.268Z"
     },
     "fvmmh5X": {
       "video_code": "fvmmh5X",
@@ -153472,7 +153706,7 @@
       "visit_count": 21009,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:45:18.560Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:52.198Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153489,7 +153723,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:45:34.726Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.268Z"
     },
     "qIOjuSy": {
       "video_code": "qIOjuSy",
@@ -159273,7 +159507,7 @@
       "visit_count": 29223,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:24:35.647Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:23.040Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -159312,7 +159546,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:25:28.841Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.220Z"
     },
     "6vYrpl1": {
       "video_code": "6vYrpl1",
@@ -167017,7 +167251,7 @@
       "visit_count": 53467,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:44.376Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:47.751Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -167034,7 +167268,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.549Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.259Z"
     },
     "jT5PG65": {
       "video_code": "jT5PG65",
@@ -167045,7 +167279,7 @@
       "visit_count": 26326,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:44.376Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:47.751Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167062,7 +167296,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.549Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.259Z"
     },
     "Z9bk1GF": {
       "video_code": "Z9bk1GF",
@@ -167073,7 +167307,7 @@
       "visit_count": 131813,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:25.087Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:32.969Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167100,9 +167334,19 @@
             "فوتبال"
           ],
           "page": 3
+        },
+        {
+          "query": "بیرانوند وارد بانکوک شد",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.525Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z"
     },
     "3NKPEs0": {
       "video_code": "3NKPEs0",
@@ -167113,7 +167357,7 @@
       "visit_count": 50994,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:25.087Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:32.969Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167140,9 +167384,19 @@
             "فوتبال"
           ],
           "page": 4
+        },
+        {
+          "query": "بیرانوند وارد بانکوک شد",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.525Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z"
     },
     "9yFol1W": {
       "video_code": "9yFol1W",
@@ -167153,7 +167407,7 @@
       "visit_count": 52505,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:25.087Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:32.969Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -167180,9 +167434,19 @@
             "فوتبال"
           ],
           "page": 4
+        },
+        {
+          "query": "بیرانوند وارد بانکوک شد",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.525Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z"
     },
     "kd2aF1t": {
       "video_code": "kd2aF1t",
@@ -167193,7 +167457,7 @@
       "visit_count": 57763,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:25.087Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:32.969Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167220,9 +167484,19 @@
             "فوتبال"
           ],
           "page": 4
+        },
+        {
+          "query": "بیرانوند وارد بانکوک شد",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.525Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z"
     },
     "cYiyQmg": {
       "video_code": "cYiyQmg",
@@ -167233,7 +167507,7 @@
       "visit_count": 105706,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:25.087Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:32.969Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167260,9 +167534,19 @@
             "فوتبال"
           ],
           "page": 4
+        },
+        {
+          "query": "بیرانوند وارد بانکوک شد",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.525Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z"
     },
     "MBeZxyI": {
       "video_code": "MBeZxyI",
@@ -167273,7 +167557,7 @@
       "visit_count": 88556,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:25.087Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:32.969Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167300,9 +167584,19 @@
             "فوتبال"
           ],
           "page": 4
+        },
+        {
+          "query": "بیرانوند وارد بانکوک شد",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.525Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z"
     },
     "OZ3MAci": {
       "video_code": "OZ3MAci",
@@ -167313,7 +167607,7 @@
       "visit_count": 105987,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:25.800Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:33.666Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167340,9 +167634,19 @@
             "فوتبال"
           ],
           "page": 5
+        },
+        {
+          "query": "بیرانوند وارد بانکوک شد",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.525Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z"
     },
     "GqdGuBF": {
       "video_code": "GqdGuBF",
@@ -167353,7 +167657,7 @@
       "visit_count": 34059,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:25.800Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:33.666Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167380,9 +167684,19 @@
             "فوتبال"
           ],
           "page": 5
+        },
+        {
+          "query": "بیرانوند وارد بانکوک شد",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.525Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z"
     },
     "5zzUTma": {
       "video_code": "5zzUTma",
@@ -167393,7 +167707,7 @@
       "visit_count": 37298,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:26.520Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:34.323Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167420,9 +167734,19 @@
             "فوتبال"
           ],
           "page": 7
+        },
+        {
+          "query": "بیرانوند وارد بانکوک شد",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.526Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.239Z"
     },
     "eW5pZNB": {
       "video_code": "eW5pZNB",
@@ -167433,7 +167757,7 @@
       "visit_count": 62467,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:26.520Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:34.323Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167460,9 +167784,19 @@
             "فوتبال"
           ],
           "page": 7
+        },
+        {
+          "query": "بیرانوند وارد بانکوک شد",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.526Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.239Z"
     },
     "VSjjMwd": {
       "video_code": "VSjjMwd",
@@ -167473,7 +167807,7 @@
       "visit_count": 21941,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:26.520Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:34.323Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167500,9 +167834,19 @@
             "فوتبال"
           ],
           "page": 7
+        },
+        {
+          "query": "بیرانوند وارد بانکوک شد",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.526Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.239Z"
     },
     "LT42GvP": {
       "video_code": "LT42GvP",
@@ -167513,7 +167857,7 @@
       "visit_count": 10351,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:32.209Z",
+      "lastMetricsFetchedAt": "2026-11-18T13:44:34.414Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167541,7 +167885,7 @@
           "page": 14
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.539Z"
+      "lastTrendMatchedAt": "2026-11-18T13:45:08.252Z"
     },
     "TJbHixs": {
       "video_code": "TJbHixs",
@@ -168275,6 +168619,6 @@
       "lastTrendMatchedAt": "2026-11-18T13:05:23.803Z"
     }
   },
-  "totalPagesFetched": 11925,
-  "totalVideosSeen": 215783
+  "totalPagesFetched": 12070,
+  "totalVideosSeen": 218371
 }
