@@ -1893,9 +1893,13 @@ function isAccountRepublishQuotaMessage(value) {
   const explicitQuota = /سقف.{0,35}(?:بازنشر|انتشار|آپلود).{0,40}(?:تموم|تمام|پر|تکمیل|به پایان)|(?:ساعاتی|چند ساعت).{0,30}(?:بعد|دیگر).{0,30}(?:بازنشر|انتشار|مراجعه)|(?:repost|republish|upload).{0,30}(?:limit|quota).{0,30}(?:reached|exceeded|used up)/iu;
   // Filo currently returns: «شما در روز بیشتر از 36 نمیتوانید بازنشر کنید!».
   // Accept ASCII/Persian/Arabic digits and ZWNJ spelling variants as account-wide quota.
-  const persianDailyQuota = /(?:در\s*روز|روزانه).{0,90}(?:(?:بیشتر|بیش)\s*از|حداکثر|سقف|محدودیت).{0,35}(?:[0-9۰-۹٠-٩]+.{0,30})?(?:نمی\s*توان(?:ید)?|مجاز\s*نیست(?:ید)?|امکان.{0,20}نیست).{0,35}(?:بازنشر|بازپخش|انتشار|آپلود)/iu;
+  const persianDailyLimitLead = /(?:در\s*روز|روزانه).{0,90}(?:(?:بیشتر|بیش)\s*از|حداکثر|سقف|محدودیت).{0,35}(?:[0-9۰-۹٠-٩]+)?/iu;
+  const persianRepublishMention = /(?:بازنشر|بازپخش|انتشار|آپلود)/iu;
+  const persianQuotaRefusal = /(?:نمی\s*توان(?:ید)?|مجاز\s*نیست(?:ید)?|امکان.{0,20}نیست|ندار(?:ید)?|به\s*پایان\s*رسیده)/iu;
   const englishDailyQuota = /(?:daily|per\s+day).{0,50}(?:repost|republish|upload).{0,50}(?:limit|quota|maximum|max|[0-9]+)/iu;
-  return explicitQuota.test(text) || persianDailyQuota.test(text) || englishDailyQuota.test(text);
+  const persianDailyQuota = persianDailyLimitLead.test(text) &&
+    persianRepublishMention.test(text) && persianQuotaRefusal.test(text);
+  return explicitQuota.test(text) || persianDailyQuota || englishDailyQuota.test(text);
 }
 
 function setAccountRepublishQuotaCooldown(state, now = Date.now()) {
