@@ -1503,6 +1503,12 @@ assert.equal(durationPreferenceScore({}) , 50,
 const quotaMessage = 'سقف بازنشر شما تموم شده؛ ساعاتی بعد برای بازنشر مراجعه کن';
 assert.equal(isAccountRepublishQuotaMessage(quotaMessage), true,
   'Filo account repost quota errors must be identified as a global account gate');
+assert.equal(isAccountRepublishQuotaMessage('شما در روز بیشتر از 36 نمیتوانید بازنشر کنید!'), true,
+  'Filo daily 36-repost message must be recognized as an account-wide quota');
+assert.equal(isAccountRepublishQuotaMessage('شما در روز بیشتر از ۳۶ نمی‌توانید بازنشر کنید!'), true,
+  'Persian digits and ZWNJ spelling variants of the daily quota must be recognized');
+assert.equal(isAccountRepublishQuotaMessage('روزانه حداکثر ۳۶ بار امکان بازنشر ندارید'), true,
+  'alternate Persian daily-limit wording must be recognized');
 assert.equal(isAccountRepublishQuotaMessage('republish limit reached; try again later'), true,
   'English quota responses must also be recognized');
 assert.equal(isAccountRepublishQuotaMessage('permission denied for this single video'), false,
@@ -1511,11 +1517,13 @@ assert.equal(isAccountRepublishQuotaMessage('permission denied for this single v
 const quotaState = {};
 const quotaStart = Date.parse('2026-11-06T09:00:00.000Z');
 const quotaCooldown = setAccountRepublishQuotaCooldown(quotaState, quotaStart);
-assert.equal(quotaCooldown.retryAfterAt, '2026-11-06T11:00:00.000Z');
+assert.equal(quotaCooldown.retryAfterAt, '2026-11-07T09:00:00.000Z');
 assert.ok(getAccountRepublishQuotaCooldown(quotaState, quotaStart + 60 * 60 * 1000),
   'account cooldown must suppress repeated detail requests during the cooldown window');
-assert.equal(getAccountRepublishQuotaCooldown(quotaState, quotaStart + 2 * 60 * 60 * 1000), null,
-  'account cooldown must expire and allow a fresh authoritative recheck');
+assert.ok(getAccountRepublishQuotaCooldown(quotaState, quotaStart + 23 * 60 * 60 * 1000),
+  'the daily quota guard must remain active through the first 23 hours');
+assert.equal(getAccountRepublishQuotaCooldown(quotaState, quotaStart + 24 * 60 * 60 * 1000), null,
+  'account cooldown must expire after 24 hours and allow a fresh authoritative recheck');
 
 assert.equal(quotaState.accountRepublishQuotaCooldown, undefined);
 
@@ -1740,10 +1748,10 @@ assert.equal(dailyCount(dailyPacingState,pacingNow),40,
 
 const quotaBackoffState = {};
 const quotaFirst = setAccountRepublishQuotaCooldown(quotaBackoffState,pacingNow);
-assert.equal(quotaFirst.cooldownMs,2*60*60*1000);
+assert.equal(quotaFirst.cooldownMs,24*60*60*1000);
 const quotaSecond = setAccountRepublishQuotaCooldown(quotaBackoffState,pacingNow+60*60*1000);
-assert.equal(quotaSecond.cooldownMs,4*60*60*1000,
-  'a repeated account quota response within 24h must increase the cooldown');
+assert.equal(quotaSecond.cooldownMs,24*60*60*1000,
+  'a confirmed daily quota always uses a full 24-hour guard rather than a short guessed backoff');
 assert.equal(quotaSecond.occurrenceCountIn24h,2);
 
 async function testPublicationPacingWait() {

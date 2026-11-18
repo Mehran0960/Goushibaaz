@@ -118,8 +118,19 @@ jobs:
           node scripts/test_filo_publication_cadence.cjs
           node scripts/test_filo_external_ingest_due.cjs
       - name: Record native Filo scheduler trigger diagnostics
+        env:
+          WORKFLOW_ACTOR: ${{ github.actor }}
+          TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+          REPOSITORY_REF: ${{ github.ref }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
         run: |
           echo "event_name=${{ github.event_name }}"
+          echo "actor=$WORKFLOW_ACTOR"
+          echo "triggering_actor=$TRIGGERING_ACTOR"
+          echo "ref=$REPOSITORY_REF"
+          echo "run_id=$RUN_ID"
+          echo "run_attempt=$RUN_ATTEMPT"
           echo "runner_utc=$(date -u +%FT%TZ)"
 
       - name: Discover Filo videos with native repost permission and publish one
