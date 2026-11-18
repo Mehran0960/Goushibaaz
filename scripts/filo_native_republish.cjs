@@ -2747,6 +2747,34 @@ function extractVideoTagFeeds(payload) {
   return feeds;
 }
 
+function mergeVideoTagFeeds(primaryFeeds, supplementalFeeds = FALLBACK_VIDEO_TAG_FEEDS, maxCount = MAX_DISCOVERED_CATEGORY_IDS) {
+  const limit = Math.max(1, Math.min(256, Math.trunc(num(maxCount, MAX_DISCOVERED_CATEGORY_IDS))));
+  const normalize = feeds => {
+    const seen = new Set();
+    return (Array.isArray(feeds) ? feeds : []).filter(feed => {
+      const key = String(feed && feed.key || '').trim();
+      const label = String(feed && feed.label || '').trim();
+      if (!/^(?:all|\d{1,10}|q-[^/?#]{1,100})$/u.test(key) || !label || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }).map(feed => ({ key: String(feed.key).trim(), label: String(feed.label).trim() }));
+  };
+  const primary = normalize(primaryFeeds);
+  const supplemental = normalize(supplementalFeeds);
+  const primaryKeys = new Set(primary.map(feed => feed.key));
+  const reservedSupplementCount = supplemental.filter(feed => !primaryKeys.has(feed.key)).length;
+  const primaryLimit = Math.max(0, limit - Math.min(limit, reservedSupplementCount));
+  const merged = primary.slice(0, primaryLimit);
+  const seen = new Set(merged.map(feed => feed.key));
+  for (const feed of supplemental) {
+    if (merged.length >= limit) break;
+    if (seen.has(feed.key)) continue;
+    merged.push(feed);
+    seen.add(feed.key);
+  }
+  return merged;
+}
+
 function summarizeVideoTagPayload(payload) {
   const root = parseApiBody(payload) || payload;
   const tags = root && Array.isArray(root.tags) ? root.tags
@@ -2788,18 +2816,21 @@ async function discoverVideoTagFeeds(page) {
       throw new Error('filo_tag_catalog_http_' + (result && result.status) + ':' + hint);
     }
     const payload = parseJson(result.body);
-    const feeds = extractVideoTagFeeds(payload);
-    if (!feeds.length) throw new Error('filo_tag_catalog_empty');
+    const recommendedFeeds = extractVideoTagFeeds(payload);
+    if (!recommendedFeeds.length) throw new Error('filo_tag_catalog_empty');
+    const feeds = mergeVideoTagFeeds(recommendedFeeds, FALLBACK_VIDEO_TAG_FEEDS);
     return {
-      feeds: feeds.slice(0, MAX_DISCOVERED_CATEGORY_IDS),
-      source: 'filo_recommend_user_tags',
+      feeds,
+      source: 'filo_recommend_user_tags_plus_public_frontpage_categories',
+      recommendedFeedCount: recommendedFeeds.length,
+      supplementalFeedCount: Math.max(0, feeds.length - recommendedFeeds.length),
       error: null,
       shape: summarizeVideoTagPayload(payload)
     };
   } catch (error) {
     return {
-      feeds: FALLBACK_VIDEO_TAG_FEEDS.slice(),
-      source: 'static_filo_tag_fallback',
+      feeds: mergeVideoTagFeeds([], FALLBACK_VIDEO_TAG_FEEDS),
+      source: 'static_public_frontpage_category_fallback',
       error: String(error && error.message || error).slice(0, 220),
       shape: null
     };
@@ -4332,6 +4363,7 @@ module.exports = {
   fetchFiloGlobalSearchPage,
   normalizeVideoFeedItem,
   extractVideoTagFeeds,
+  mergeVideoTagFeeds,
   summarizeVideoTagPayload,
   candidateMetricValue,
   candidateMetricSnapshot,
