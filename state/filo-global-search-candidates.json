@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-18T13:45:08.585Z",
-  "trendsFetchedAt": "2026-11-18T13:44:04.182Z",
+  "updatedAt": "2026-11-18T14:05:36.140Z",
+  "trendsFetchedAt": "2026-11-18T14:04:07.443Z",
   "trends": [
     {
       "title": "الهام اخوان بازیگر",
@@ -13,16 +13,7 @@
       ],
       "traffic": 2000,
       "publishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
-      "ageHours": 1.6
-    },
-    {
-      "title": "پیشکسوت",
-      "keywords": [
-        "پیشکسوت"
-      ],
-      "traffic": 2000,
-      "publishedAt": "Wed, 18 Nov 2026 03:20:00 -0800",
-      "ageHours": 2.4
+      "ageHours": 1.9
     },
     {
       "title": "بیرانوند",
@@ -31,7 +22,17 @@
       ],
       "traffic": 1000,
       "publishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
-      "ageHours": 0.6
+      "ageHours": 0.9
+    },
+    {
+      "title": "مدیران خودرو",
+      "keywords": [
+        "مدیران",
+        "خودرو"
+      ],
+      "traffic": 1000,
+      "publishedAt": "Wed, 18 Nov 2026 05:00:00 -0800",
+      "ageHours": 1.1
     },
     {
       "title": "کمیسیون",
@@ -40,7 +41,7 @@
       ],
       "traffic": 1000,
       "publishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
-      "ageHours": 1.6
+      "ageHours": 1.9
     },
     {
       "title": "روز پدر ۱۴۰۵",
@@ -51,7 +52,7 @@
       ],
       "traffic": 500,
       "publishedAt": "Wed, 18 Nov 2026 04:50:00 -0800",
-      "ageHours": 0.9
+      "ageHours": 1.2
     },
     {
       "title": "رزیتا غفاری",
@@ -61,7 +62,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
-      "ageHours": 0.6
+      "ageHours": 0.9
     },
     {
       "title": "پدری",
@@ -70,7 +71,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Wed, 18 Nov 2026 04:10:00 -0800",
-      "ageHours": 1.6
+      "ageHours": 1.9
     },
     {
       "title": "سامان قدوس",
@@ -80,7 +81,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Wed, 18 Nov 2026 03:30:00 -0800",
-      "ageHours": 2.2
+      "ageHours": 2.6
     },
     {
       "title": "چین",
@@ -89,7 +90,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
-      "ageHours": 0.4
+      "ageHours": 0.7
     },
     {
       "title": "استریم",
@@ -98,7 +99,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Wed, 18 Nov 2026 04:00:00 -0800",
-      "ageHours": 1.7
+      "ageHours": 2.1
     }
   ],
   "queries": {
@@ -7073,7 +7074,7 @@
         "پدر",
         "۱۴۰۵"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T13:25:12.524Z",
@@ -7098,7 +7099,7 @@
         "پدر",
         "۱۴۰۵"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T13:25:12.524Z"
@@ -7441,12 +7442,12 @@
     "اقتدار ملی برخاسته از استوار بودن در برابر اراده های بیگانه است": {
       "query": "اقتدار ملی برخاسته از استوار بودن در برابر اراده‌های بیگانه است",
       "normalized": "اقتدار ملی برخاسته از استوار بودن در برابر اراده های بیگانه است",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T10:04:11.055Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T14:05:35.857Z",
       "lastError": null,
       "trendTitle": "محمدجواد لاریجانی",
       "trendTraffic": 200,
@@ -7456,7 +7457,9 @@
         "لاریجانی"
       ],
       "lastTrendSeenAt": "2026-11-18T10:04:11.055Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T14:05:35.857Z"
     },
     "نفت خام": {
       "query": "نفت خام",
@@ -7482,12 +7485,12 @@
     "قیمت جدید نفت اعلام شد": {
       "query": "قیمت جدید نفت اعلام شد",
       "normalized": "قیمت جدید نفت اعلام شد",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 392,
       "createdAt": "2026-11-18T10:04:11.055Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T14:05:35.865Z",
       "lastError": null,
       "trendTitle": "نفت خام",
       "trendTraffic": 100,
@@ -7497,7 +7500,8 @@
         "خام"
       ],
       "lastTrendSeenAt": "2026-11-18T10:04:11.055Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "max_pages_reached"
     },
     "قیمت نفت به 92 دلار و 75 سنت رسید": {
       "query": "قیمت نفت به 92 دلار و 75 سنت رسید",
@@ -7986,7 +7990,7 @@
         "پیشکسوت"
       ],
       "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T13:05:23.765Z",
       "refreshOnly": false,
@@ -8420,7 +8424,7 @@
         "پیشکسوت"
       ],
       "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T13:45:08.224Z",
       "refreshOnly": false,
@@ -8443,7 +8447,7 @@
         "پیشکسوت"
       ],
       "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T13:45:08.226Z",
       "refreshOnly": false,
@@ -8466,7 +8470,7 @@
         "سامان",
         "قدوس"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -8487,7 +8491,7 @@
         "سامان",
         "قدوس"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T13:45:08.226Z",
@@ -8511,7 +8515,7 @@
         "سامان",
         "قدوس"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T13:45:08.227Z",
@@ -8611,7 +8615,7 @@
       "trendKeywords": [
         "استریم"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T13:45:08.260Z"
@@ -8619,12 +8623,12 @@
     "چین قوانین عجیبی برای استریم بازی gta 6 وضع کرد سرقت خودرو حمله به پلیس و نمایش خون ممنوع شد": {
       "query": "چین قوانین عجیبی برای استریم بازی GTA 6 وضع کرد؛ سرقت خودرو، حمله به پلیس و نمایش خون ممنوع شد",
       "normalized": "چین قوانین عجیبی برای استریم بازی gta 6 وضع کرد سرقت خودرو حمله به پلیس و نمایش خون ممنوع شد",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-18T12:24:07.877Z",
-      "lastAttemptAt": "2026-11-18T12:45:32.599Z",
+      "lastAttemptAt": "2026-11-18T14:05:35.808Z",
       "lastError": null,
       "trendTitle": "استریم",
       "trendTraffic": 100,
@@ -8632,20 +8636,22 @@
       "trendKeywords": [
         "استریم"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T12:45:32.599Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T14:05:35.808Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T14:05:35.808Z"
     },
     "راک استار در چین برای بازی gta vi تبلیغ می کند بدون مجوز فروش رسمی": {
       "query": "راک‌استار در چین برای بازی GTA VI تبلیغ می‌کند؛ بدون مجوز فروش رسمی",
       "normalized": "راک استار در چین برای بازی gta vi تبلیغ می کند بدون مجوز فروش رسمی",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-18T12:24:07.877Z",
-      "lastAttemptAt": "2026-11-18T12:45:32.599Z",
+      "lastAttemptAt": "2026-11-18T14:05:35.808Z",
       "lastError": null,
       "trendTitle": "استریم",
       "trendTraffic": 100,
@@ -8653,10 +8659,12 @@
       "trendKeywords": [
         "استریم"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T12:45:32.599Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T14:05:35.808Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T14:05:35.808Z"
     },
     "sony squeezes out a playstation 5 firmware update before the release of gta 6": {
       "query": "Sony squeezes out a PlayStation 5 firmware update before the release of GTA 6",
@@ -8712,19 +8720,19 @@
       "trendKeywords": [
         "بیرانوند"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "الهام اخوان بازیگر": {
       "query": "الهام اخوان بازیگر",
       "normalized": "الهام اخوان بازیگر",
-      "nextPage": 9,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 8,
-      "videosSeen": 120,
+      "pagesFetched": 13,
+      "videosSeen": 217,
       "createdAt": "2026-11-18T12:44:14.420Z",
-      "lastAttemptAt": "2026-11-18T12:45:32.628Z",
+      "lastAttemptAt": "2026-11-18T14:05:35.814Z",
       "lastError": null,
       "trendTitle": "الهام اخوان بازیگر",
       "trendTraffic": 2000,
@@ -8734,20 +8742,22 @@
         "اخوان",
         "بازیگر"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T12:45:32.628Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T14:05:35.814Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T14:05:35.814Z"
     },
     "روایت الهام اخوان از معجزه ازدواجش": {
       "query": "روایت الهام اخوان از معجزه ازدواجش",
       "normalized": "روایت الهام اخوان از معجزه ازدواجش",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 3,
-      "videosSeen": 4,
+      "pagesFetched": 5,
+      "videosSeen": 8,
       "createdAt": "2026-11-18T12:44:14.420Z",
-      "lastAttemptAt": "2026-11-18T12:45:32.628Z",
+      "lastAttemptAt": "2026-11-18T14:05:35.814Z",
       "lastError": null,
       "trendTitle": "الهام اخوان بازیگر",
       "trendTraffic": 2000,
@@ -8757,20 +8767,22 @@
         "اخوان",
         "بازیگر"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T12:45:32.628Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T14:05:35.814Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T14:05:35.814Z"
     },
     "مراسم عروسی الهام اخوان بازیگر و همسر مدلینگش تصاویر": {
       "query": "مراسم عروسی الهام اخوان بازیگر و همسر مدلینگش | تصاویر",
       "normalized": "مراسم عروسی الهام اخوان بازیگر و همسر مدلینگش تصاویر",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-18T12:44:14.420Z",
-      "lastAttemptAt": "2026-11-18T12:45:32.628Z",
+      "lastAttemptAt": "2026-11-18T14:05:35.814Z",
       "lastError": null,
       "trendTitle": "الهام اخوان بازیگر",
       "trendTraffic": 2000,
@@ -8780,10 +8792,12 @@
         "اخوان",
         "بازیگر"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T12:45:32.628Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T14:05:35.814Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T14:05:35.814Z"
     },
     "review grand theft auto 6 a landmark achievement that redefines a console generation": {
       "query": "Review: Grand Theft Auto 6: A Landmark Achievement That Redefines a Console Generation",
@@ -8841,7 +8855,7 @@
       "trendKeywords": [
         "کمیسیون"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T13:05:23.778Z"
@@ -8862,7 +8876,7 @@
       "trendKeywords": [
         "کمیسیون"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T13:05:23.778Z"
@@ -8883,7 +8897,7 @@
       "trendKeywords": [
         "کمیسیون"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T13:05:23.778Z"
@@ -8924,7 +8938,7 @@
       "trendKeywords": [
         "پدری"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -8967,7 +8981,7 @@
         "پدر",
         "۱۴۰۵"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T13:45:08.237Z"
@@ -8988,7 +9002,7 @@
       "trendKeywords": [
         "پدری"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T13:45:08.237Z"
@@ -9009,7 +9023,7 @@
       "trendKeywords": [
         "پدری"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T13:45:08.237Z"
@@ -9030,7 +9044,7 @@
       "trendKeywords": [
         "بیرانوند"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T13:45:08.237Z"
@@ -9038,12 +9052,12 @@
     "بیرانوند": {
       "query": "بیرانوند",
       "normalized": "بیرانوند",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 400,
       "createdAt": "2026-11-18T13:44:04.696Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T14:05:35.829Z",
       "lastError": null,
       "trendTitle": "بیرانوند",
       "trendTraffic": 1000,
@@ -9051,18 +9065,19 @@
       "trendKeywords": [
         "بیرانوند"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "رزیتا غفاری": {
       "query": "رزیتا غفاری",
       "normalized": "رزیتا غفاری",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 393,
       "createdAt": "2026-11-18T13:44:04.696Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T14:05:35.840Z",
       "lastError": null,
       "trendTitle": "رزیتا غفاری",
       "trendTraffic": 200,
@@ -9071,18 +9086,19 @@
         "رزیتا",
         "غفاری"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "المیرا دهقانی و همسرش در مراسم اکران خصوصی یک فیلم عکس": {
       "query": "المیرا دهقانی و همسرش در مراسم اکران خصوصی یک فیلم + عکس",
       "normalized": "المیرا دهقانی و همسرش در مراسم اکران خصوصی یک فیلم عکس",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T13:44:04.696Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T14:05:35.840Z",
       "lastError": null,
       "trendTitle": "رزیتا غفاری",
       "trendTraffic": 200,
@@ -9091,18 +9107,20 @@
         "رزیتا",
         "غفاری"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T14:05:35.840Z"
     },
     "اکران خصوصی فیلم همسفر با حضور المیرا دهقانی و رزیتا غفاری برگزار شد": {
       "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
       "normalized": "اکران خصوصی فیلم همسفر با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 400,
       "createdAt": "2026-11-18T13:44:04.696Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T14:05:35.850Z",
       "lastError": null,
       "trendTitle": "رزیتا غفاری",
       "trendTraffic": 200,
@@ -9111,18 +9129,19 @@
         "رزیتا",
         "غفاری"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "چین": {
       "query": "چین",
       "normalized": "چین",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 400,
       "createdAt": "2026-11-18T13:44:04.696Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T14:05:35.857Z",
       "lastError": null,
       "trendTitle": "چین",
       "trendTraffic": 100,
@@ -9130,18 +9149,19 @@
       "trendKeywords": [
         "چین"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "زنده دیدار شی و پوتین پیش از ملاقات با ترامپ": {
       "query": "زنده دیدار شی و پوتین پیش از ملاقات با ترامپ",
       "normalized": "زنده دیدار شی و پوتین پیش از ملاقات با ترامپ",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 3,
+      "videosSeen": 6,
       "createdAt": "2026-11-18T13:44:04.696Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T14:05:35.857Z",
       "lastError": null,
       "trendTitle": "چین",
       "trendTraffic": 100,
@@ -9149,18 +9169,20 @@
       "trendKeywords": [
         "چین"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T14:05:35.857Z"
     },
     "نخستین تصویر مشترک ترامپ پوتین و شی در حاشیه نشست اپک پیش از دیدار تاریخی سه جانبه": {
       "query": "نخستین تصویر مشترک ترامپ، پوتین و شی در حاشیه نشست «اپک» پیش از دیدار تاریخی سه‌جانبه",
       "normalized": "نخستین تصویر مشترک ترامپ پوتین و شی در حاشیه نشست اپک پیش از دیدار تاریخی سه جانبه",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T13:44:04.696Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T14:05:35.857Z",
       "lastError": null,
       "trendTitle": "چین",
       "trendTraffic": 100,
@@ -9168,7 +9190,69 @@
       "trendKeywords": [
         "چین"
       ],
-      "lastTrendSeenAt": "2026-11-18T13:44:04.696Z",
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T14:05:35.857Z"
+    },
+    "مدیران خودرو": {
+      "query": "مدیران خودرو",
+      "normalized": "مدیران خودرو",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T14:04:07.980Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "مدیران خودرو",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 05:00:00 -0800",
+      "trendKeywords": [
+        "مدیران",
+        "خودرو"
+      ],
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
+      "activeInLatestFeed": true
+    },
+    "آغاز ثبت نام فونیکس مدیران خودرو با قیمت جدید آبان ۱۴۰۵": {
+      "query": "آغاز ثبت نام فونیکس مدیران خودرو با قیمت جدید – آبان ۱۴۰۵",
+      "normalized": "آغاز ثبت نام فونیکس مدیران خودرو با قیمت جدید آبان ۱۴۰۵",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T14:04:07.980Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "مدیران خودرو",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 05:00:00 -0800",
+      "trendKeywords": [
+        "مدیران",
+        "خودرو"
+      ],
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
+      "activeInLatestFeed": true
+    },
+    "فروش فونیکس fx برقی با قیمت جدید آغاز شد": {
+      "query": "فروش فونیکس FX برقی با قیمت جدید آغاز شد",
+      "normalized": "فروش فونیکس fx برقی با قیمت جدید آغاز شد",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T14:04:07.980Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "مدیران خودرو",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 05:00:00 -0800",
+      "trendKeywords": [
+        "مدیران",
+        "خودرو"
+      ],
+      "lastTrendSeenAt": "2026-11-18T14:04:07.980Z",
       "activeInLatestFeed": true
     }
   },
@@ -10361,33 +10445,6 @@
       "styled_create_date": "5 سال پیش",
       "active": 1,
       "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "گندم",
-          "trendTitle": "گندم",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 10:50:00 -0800",
-          "trendKeywords": [
-            "گندم"
-          ],
-          "page": 2
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T20:32:47.111Z"
-    },
-    "ma6sUuR": {
-      "video_code": "ma6sUuR",
-      "title": "آهنگ بابک جهان بخش برای امام رضا (کاسه گندم)",
-      "sender_name": "neda",
-      "category_id": 9,
-      "duration": 95,
-      "visit_count": 20936,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -14177,45 +14234,6 @@
             "قالیباف"
           ],
           "page": 11
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:04:30.306Z"
-    },
-    "bUzWnj8": {
-      "video_code": "bUzWnj8",
-      "title": "دختر قالیباف ماجرای سیسمونی دروغ بود",
-      "sender_name": "کاربر فیلو",
-      "category_id": 1,
-      "duration": 150,
-      "visit_count": 7758,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "محمدباقر قالیباف",
-          "trendTitle": "محمدباقر قالیباف",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
-          "trendKeywords": [
-            "محمدباقر",
-            "قالیباف"
-          ],
-          "page": 5
-        },
-        {
-          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
-          "trendTitle": "محمدباقر قالیباف",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
-          "trendKeywords": [
-            "محمدباقر",
-            "قالیباف"
-          ],
-          "page": 12
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T21:04:30.306Z"
@@ -18491,34 +18509,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-03T05:06:09.132Z"
-    },
-    "AjfkeGB": {
-      "video_code": "AjfkeGB",
-      "title": "بهترین های حسن ریوندی",
-      "sender_name": "کاربر فیلو",
-      "category_id": 8,
-      "duration": 1021,
-      "visit_count": 21011,
-      "create_date": "6 سال پیش",
-      "styled_create_date": "6 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 16
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:30:01.338Z"
     },
     "KVMo0wE": {
       "video_code": "KVMo0wE",
@@ -25696,34 +25686,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T21:31:42.829Z"
     },
-    "Zq2Kr6C": {
-      "video_code": "Zq2Kr6C",
-      "title": "آهنگ رپ افغانی سلام برار",
-      "sender_name": "وحید احمدی",
-      "category_id": 9,
-      "duration": 145,
-      "visit_count": 20966,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "افغانی افغانستان",
-          "trendTitle": "افغانی افغانستان",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "افغانی",
-            "افغانستان"
-          ],
-          "page": 18
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:31:42.829Z"
-    },
     "IMDVYwi": {
       "video_code": "IMDVYwi",
       "title": "آهنگ افغانی لالا با صدای فرشاد محمد جانی /رقص زیبا در تالار الماس",
@@ -29239,33 +29201,6 @@
       "lastTrendMatchedAt": "2026-11-17T19:07:45.404Z",
       "lastMetricsFetchedAt": "2026-11-17T19:07:04.072Z"
     },
-    "P7F00mN": {
-      "video_code": "P7F00mN",
-      "title": "قسمت 316 (1) سریال قسم زيرنويس فارسی",
-      "sender_name": "Apratgram",
-      "category_id": 3,
-      "duration": 3516,
-      "visit_count": 21130,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 35
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.044Z"
-    },
     "hGrFzHQ": {
       "video_code": "hGrFzHQ",
       "title": "قسمت-2-سریال-قسم--سوگند--زیرنویس-",
@@ -31019,34 +30954,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
       "lastMetricsFetchedAt": "2026-11-18T04:00:12.642Z"
-    },
-    "b9mGhtS": {
-      "video_code": "b9mGhtS",
-      "title": "طنز حسن ریوندی و محمود شهریاری",
-      "sender_name": "⭐Aramesh⭐",
-      "category_id": 6,
-      "duration": 258,
-      "visit_count": 20948,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 23
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.048Z"
     },
     "fz3jnyu": {
       "video_code": "fz3jnyu",
@@ -33761,10 +33668,20 @@
             "کویت"
           ],
           "page": 4
+        },
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:25:12.556Z",
-      "lastMetricsFetchedAt": "2026-11-18T13:24:54.501Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.852Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:45.713Z"
     },
     "onHgAzB": {
       "video_code": "onHgAzB",
@@ -45983,7 +45900,7 @@
       "sender_name": "سعید",
       "category_id": 1,
       "duration": 94,
-      "visit_count": 65007,
+      "visit_count": 65012,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -46000,9 +45917,20 @@
             "قشم"
           ],
           "page": 48
+        },
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.342Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.853Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:47.412Z"
     },
     "lcMlDRc": {
       "video_code": "lcMlDRc",
@@ -46230,33 +46158,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.342Z"
     },
-    "govWJKD": {
-      "video_code": "govWJKD",
-      "title": "فیلم هندی هیجان انگیز خشم دوبله فارسی 2022",
-      "sender_name": "دانلود روزانه فیلو✅",
-      "category_id": 3,
-      "duration": 6356,
-      "visit_count": 21119,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 51
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.343Z"
-    },
     "QgzxrEa": {
       "video_code": "QgzxrEa",
       "title": "سریال ترکی قسم قسمت 337 زیرنویس فارسی",
@@ -46280,33 +46181,6 @@
             "قشم"
           ],
           "page": 51
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.343Z"
-    },
-    "RJR9z0S": {
-      "video_code": "RJR9z0S",
-      "title": "سریال ترکی قسم قسمت 391 زیرنویس فارسی",
-      "sender_name": "⭐ کلیپ آنلاین ⭐",
-      "category_id": 3,
-      "duration": 6357,
-      "visit_count": 21105,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 52
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.343Z"
@@ -54601,33 +54475,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T04:05:15.871Z"
     },
-    "nX08cZg": {
-      "video_code": "nX08cZg",
-      "title": "سامانه پدافندی ایران، پهپاد پیشرفته آمریکایی را سرنگون کرد ! (فیلم)",
-      "sender_name": "سعید",
-      "category_id": 1,
-      "duration": 43,
-      "visit_count": 20952,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پهپاد",
-          "trendTitle": "پهپاد",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 18:10:00 -0800",
-          "trendKeywords": [
-            "پهپاد"
-          ],
-          "page": 5
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T04:05:15.872Z"
-    },
     "7Oc7KtF": {
       "video_code": "7Oc7KtF",
       "title": "پهپاد انتحاری اوکراینی برج مراقبت روسیه را منهدم کرد",
@@ -57183,33 +57030,6 @@
       "category_id": 3,
       "duration": 2690,
       "visit_count": 21681,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "شکار دو فروند پهپاد شناسایی آمریکایی از نوع MQM-170 در آسمان جنوب",
-          "trendTitle": "پهپاد",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 18:10:00 -0800",
-          "trendKeywords": [
-            "پهپاد"
-          ],
-          "page": 18
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T04:05:15.883Z"
-    },
-    "ssOZsvV": {
-      "video_code": "ssOZsvV",
-      "title": "سریال تازه عروس قسمت 178",
-      "sender_name": "🌺 ثـــریا 🌺",
-      "category_id": 3,
-      "duration": 3003,
-      "visit_count": 20948,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -61634,10 +61454,21 @@
             "خام"
           ],
           "page": 10
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:25.553Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:07.219Z"
     },
     "CtGEMEl": {
       "video_code": "CtGEMEl",
@@ -62106,10 +61937,21 @@
             "خام"
           ],
           "page": 10
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:25.553Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:07.219Z"
     },
     "AyW9uyH": {
       "video_code": "AyW9uyH",
@@ -64388,10 +64230,21 @@
             "خام"
           ],
           "page": 9
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:24.154Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.860Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:06.216Z"
     },
     "r9WeoqQ": {
       "video_code": "r9WeoqQ",
@@ -64544,34 +64397,6 @@
       "styled_create_date": "3 سال پیش",
       "active": 1,
       "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فرشته حسینی",
-          "trendTitle": "فرشته حسینی",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 20:30:00 -0800",
-          "trendKeywords": [
-            "فرشته",
-            "حسینی"
-          ],
-          "page": 16
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.145Z"
-    },
-    "GNlaEPt": {
-      "video_code": "GNlaEPt",
-      "title": "فیلم سینمایی زن ها فرشته اند تریلر",
-      "sender_name": "2مدال دار⭐ فیلو ✅",
-      "category_id": 3,
-      "duration": 119,
-      "visit_count": 20933,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 0,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -65108,34 +64933,6 @@
       "visit_count": 22760,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "افغانی افغانستان",
-          "trendTitle": "افغانی افغانستان",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "افغانی",
-            "افغانستان"
-          ],
-          "page": 22
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.147Z"
-    },
-    "Sw89pSk": {
-      "video_code": "Sw89pSk",
-      "title": "موزیک ویدیو زیبا و عاشقانه افغانی از ضیا نجرابی - جان جان تو بیا",
-      "sender_name": "آماندا",
-      "category_id": 9,
-      "duration": 292,
-      "visit_count": 20997,
-      "create_date": "6 سال پیش",
-      "styled_create_date": "6 سال پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -71991,10 +71788,20 @@
             "بیرانوند"
           ],
           "page": 2
+        },
+        {
+          "query": "بیرانوند",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:32.969Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.815Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:30.279Z"
     },
     "nwsPA4B": {
       "video_code": "nwsPA4B",
@@ -72146,10 +71953,20 @@
             "بیرانوند"
           ],
           "page": 2
+        },
+        {
+          "query": "بیرانوند",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:32.969Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.815Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:30.279Z"
     },
     "bs7ykj9": {
       "video_code": "bs7ykj9",
@@ -72291,10 +72108,20 @@
             "بیرانوند"
           ],
           "page": 2
+        },
+        {
+          "query": "بیرانوند",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:32.969Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.815Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:30.279Z"
     },
     "ZT6VMBR": {
       "video_code": "ZT6VMBR",
@@ -72431,34 +72258,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T10:51:08.333Z"
     },
-    "p6Qr8Oj": {
-      "video_code": "p6Qr8Oj",
-      "title": "قهرمانی پرسپولیس در آسیا ( جام در جام آسیا )",
-      "sender_name": "abdollah",
-      "category_id": 11,
-      "duration": 131,
-      "visit_count": 21085,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سخنگوی پرسپولیس: هوچی‌گری کنید، ما به CAS می‌رویم!",
-          "trendTitle": "بهنام ابوالقاسمپور",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:40:00 -0800",
-          "trendKeywords": [
-            "بهنام",
-            "ابوالقاسمپور"
-          ],
-          "page": 8
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:51:08.333Z"
-    },
     "6qQr2zX": {
       "video_code": "6qQr2zX",
       "title": "خلاصه بازی استقلال - پرسپولیس / با گزارش عباس قانع - کیفیت HD",
@@ -72543,10 +72342,20 @@
             "بیرانوند"
           ],
           "page": 3
+        },
+        {
+          "query": "بیرانوند",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:33.666Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.816Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:31.252Z"
     },
     "zArgwAa": {
       "video_code": "zArgwAa",
@@ -72662,7 +72471,7 @@
       "sender_name": "حامی",
       "category_id": 11,
       "duration": 11,
-      "visit_count": 62222,
+      "visit_count": 62223,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -72712,10 +72521,20 @@
             "بیرانوند"
           ],
           "page": 5
+        },
+        {
+          "query": "بیرانوند",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.239Z",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:34.851Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.818Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:32.247Z"
     },
     "gv4H0qR": {
       "video_code": "gv4H0qR",
@@ -78335,10 +78154,21 @@
             "خام"
           ],
           "page": 10
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:25.553Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:07.219Z"
     },
     "mH7FSt9": {
       "video_code": "mH7FSt9",
@@ -78386,10 +78216,21 @@
             "خام"
           ],
           "page": 14
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 14
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.441Z",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:30.390Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.862Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:11.507Z"
     },
     "chLL63N": {
       "video_code": "chLL63N",
@@ -79745,33 +79586,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T17:41:43.102Z"
     },
-    "v9Z54YJ": {
-      "video_code": "v9Z54YJ",
-      "title": "سریال بهتره با ساول تماس بگیری فصل ششم قسمت ششم دوبله فارسی",
-      "sender_name": "ali",
-      "category_id": 3,
-      "duration": 2635,
-      "visit_count": 20967,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 77
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T17:41:43.102Z"
-    },
     "hEmH8JG": {
       "video_code": "hEmH8JG",
       "title": "سریال : تین ولف Teen Wolf فصل ششم قسمت 12",
@@ -79945,33 +79759,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T16:45:52.282Z",
       "lastMetricsFetchedAt": "2026-11-17T16:45:34.321Z"
-    },
-    "zTvy5RS": {
-      "video_code": "zTvy5RS",
-      "title": "فیلم《خوک مار و کبوتر 2024》دوبله فارسی The Pig the Snake and the Pigeon",
-      "sender_name": "انیمه رزمی《{[دنبال=دنبال]}》",
-      "category_id": 3,
-      "duration": 7798,
-      "visit_count": 20966,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "psg",
-          "trendTitle": "psg",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 3 Nov 2026 12:40:00 -0800",
-          "trendKeywords": [
-            "psg"
-          ],
-          "page": 7
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
     },
     "7OUmbRg": {
       "video_code": "7OUmbRg",
@@ -80876,33 +80663,6 @@
             "اسرائیل"
           ],
           "page": 7
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.882Z"
-    },
-    "RGIB2oh": {
-      "video_code": "RGIB2oh",
-      "title": "آهنگ مخصوص انتقام ایران از اسرائیل (حمله موشکی )",
-      "sender_name": "Mr",
-      "category_id": 1,
-      "duration": 249,
-      "visit_count": 20937,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "اسرائیل",
-          "trendTitle": "اسرائیل",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Tue, 3 Nov 2026 16:20:00 -0800",
-          "trendKeywords": [
-            "اسرائیل"
-          ],
-          "page": 8
         }
       ],
       "lastTrendMatchedAt": "2026-11-04T02:45:21.882Z"
@@ -81896,7 +81656,7 @@
       "sender_name": "سعید",
       "category_id": 1,
       "duration": 1021,
-      "visit_count": 133061,
+      "visit_count": 133064,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -81913,9 +81673,20 @@
             "ایرنا"
           ],
           "page": 64
+        },
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.886Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.851Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:44.168Z"
     },
     "omA3OXO": {
       "video_code": "omA3OXO",
@@ -83082,7 +82853,7 @@
       "sender_name": "مهدی",
       "category_id": 1,
       "duration": 572,
-      "visit_count": 52422,
+      "visit_count": 52423,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -83099,9 +82870,20 @@
             "ایرنا"
           ],
           "page": 67
+        },
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.887Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.853Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:47.412Z"
     },
     "eN9H6o8": {
       "video_code": "eN9H6o8",
@@ -86990,34 +86772,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-04T03:01:42.325Z"
     },
-    "ri1Vhea": {
-      "video_code": "ri1Vhea",
-      "title": "انیمیشن«تیتان ها به پیش»",
-      "sender_name": "تماشا خونه✅✅",
-      "category_id": 21,
-      "duration": 626,
-      "visit_count": 21124,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پیش فروش",
-          "trendTitle": "پیش فروش",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Tue, 3 Nov 2026 17:50:00 -0800",
-          "trendKeywords": [
-            "پیش",
-            "فروش"
-          ],
-          "page": 20
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:01:42.325Z"
-    },
     "DeQ65NW": {
       "video_code": "DeQ65NW",
       "title": "رب فروش معروف قسمت 1",
@@ -87165,10 +86919,21 @@
             "خام"
           ],
           "page": 11
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 11
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:26.677Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:08.275Z"
     },
     "hR4EWmH": {
       "video_code": "hR4EWmH",
@@ -87719,7 +87484,7 @@
       "sender_name": "احمد علی - 1",
       "category_id": 1,
       "duration": 562,
-      "visit_count": 30797,
+      "visit_count": 30798,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -87737,9 +87502,20 @@
             "۳۵"
           ],
           "page": 2
+        },
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T03:01:42.328Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.853Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:47.412Z"
     },
     "YzdTzb2": {
       "video_code": "YzdTzb2",
@@ -87797,10 +87573,21 @@
             "خام"
           ],
           "page": 11
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 11
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.386Z",
-      "lastMetricsFetchedAt": "2026-11-18T11:15:05.609Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:08.275Z"
     },
     "xWCpTrS": {
       "video_code": "xWCpTrS",
@@ -91767,34 +91554,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-04T03:21:52.910Z"
     },
-    "jaVDlvY": {
-      "video_code": "jaVDlvY",
-      "title": "سریال ترکی گودال قسمت ۳۳۵ دوبله فارسی",
-      "sender_name": "نفس",
-      "category_id": 3,
-      "duration": 2224,
-      "visit_count": 21089,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سوخو-۳۵",
-          "trendTitle": "سوخو-۳۵",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 3 Nov 2026 18:20:00 -0800",
-          "trendKeywords": [
-            "سوخو",
-            "۳۵"
-          ],
-          "page": 33
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.910Z"
-    },
     "pzMXm3l": {
       "video_code": "pzMXm3l",
       "title": "خواهران و برادران قسمت 133-134-135 زیرنویس فارسی",
@@ -92232,7 +91991,7 @@
       "sender_name": "AZKURDAN",
       "category_id": 3,
       "duration": 1854,
-      "visit_count": 23191,
+      "visit_count": 23226,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -92250,9 +92009,21 @@
             "۳۵"
           ],
           "page": 35
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.911Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:42.557Z"
     },
     "AVgCPcT": {
       "video_code": "AVgCPcT",
@@ -92319,34 +92090,6 @@
       "visit_count": 30094,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سوخو-۳۵",
-          "trendTitle": "سوخو-۳۵",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 3 Nov 2026 18:20:00 -0800",
-          "trendKeywords": [
-            "سوخو",
-            "۳۵"
-          ],
-          "page": 36
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.911Z"
-    },
-    "ASD1Yhj": {
-      "video_code": "ASD1Yhj",
-      "title": "قسمت 35 سریال ضربان قلب با دوبله فارسی",
-      "sender_name": "Saleh",
-      "category_id": 3,
-      "duration": 2553,
-      "visit_count": 21104,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -93313,34 +93056,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-04T03:21:52.912Z"
     },
-    "TKMmvUl": {
-      "video_code": "TKMmvUl",
-      "title": "سریال کره ای رودخانه طلوع ماه قسمت 35 دوبله فارسی",
-      "sender_name": "آماندا",
-      "category_id": 3,
-      "duration": 1780,
-      "visit_count": 21048,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سوخو-۳۵",
-          "trendTitle": "سوخو-۳۵",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 3 Nov 2026 18:20:00 -0800",
-          "trendKeywords": [
-            "سوخو",
-            "۳۵"
-          ],
-          "page": 40
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.912Z"
-    },
     "GVHesn2": {
       "video_code": "GVHesn2",
       "title": "سریال قیام عثمان قسمت ۱۳۱ / فصل پنجم ۵ قسمت اول / تیزر اول",
@@ -93641,33 +93356,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-04T03:21:52.913Z"
     },
-    "FNwTRJt": {
-      "video_code": "FNwTRJt",
-      "title": "اخبار به زبان عجیب قزاقستان",
-      "sender_name": "یونس بهبودی",
-      "category_id": 1,
-      "duration": 60,
-      "visit_count": 21036,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "اخبار",
-          "trendTitle": "اخبار",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 3 Nov 2026 18:50:00 -0800",
-          "trendKeywords": [
-            "اخبار"
-          ],
-          "page": 3
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.913Z"
-    },
     "wT8pnEG": {
       "video_code": "wT8pnEG",
       "title": "اخبار - جزئیاتی از حمله طالبان در مرز های ایران",
@@ -93796,33 +93484,6 @@
       "visit_count": 53109,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "اخبار",
-          "trendTitle": "اخبار",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 3 Nov 2026 18:50:00 -0800",
-          "trendKeywords": [
-            "اخبار"
-          ],
-          "page": 4
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.913Z"
-    },
-    "FHqseqQ": {
-      "video_code": "FHqseqQ",
-      "title": "اخبار جدید از وضعیت سلامتی و جسمانی آرمان امیدی",
-      "sender_name": "nadia",
-      "category_id": 30,
-      "duration": 41,
-      "visit_count": 20982,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -95264,34 +94925,6 @@
       "styled_create_date": "3 سال پیش",
       "active": 1,
       "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "هوای تهران",
-          "trendTitle": "هوای تهران",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:30:00 -0800",
-          "trendKeywords": [
-            "هوای",
-            "تهران"
-          ],
-          "page": 46
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.928Z"
-    },
-    "kiPYRhh": {
-      "video_code": "kiPYRhh",
-      "title": "فیلم سینمایی تهران لندن",
-      "sender_name": "《بهترین ویدیوها》",
-      "category_id": 3,
-      "duration": 4935,
-      "visit_count": 21072,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 0,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -102536,34 +102169,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T12:25:28.881Z"
     },
-    "MPGzhBm": {
-      "video_code": "MPGzhBm",
-      "title": "شکارچی جنگ زمستان دوبله فارسی",
-      "sender_name": "رنگارنگ فالو=فالو",
-      "category_id": 21,
-      "duration": 6381,
-      "visit_count": 20995,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:25:13.982Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "شکارچی",
-          "trendTitle": "شکارچی",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Tue, 17 Nov 2026 06:50:00 -0800",
-          "trendKeywords": [
-            "شکارچی"
-          ],
-          "page": 5
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T12:25:28.881Z"
-    },
     "uwja5z4": {
       "video_code": "uwja5z4",
       "title": "فیلم سینمایی خارجی \" شکارچی \" دوبله فارسی",
@@ -103820,35 +103425,6 @@
       "lastMetricsFetchedAt": "2026-11-17T18:25:07.280Z",
       "active": 1,
       "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پیمان جبلی",
-          "trendTitle": "پیمان جبلی",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 08:10:00 -0800",
-          "trendKeywords": [
-            "پیمان",
-            "جبلی"
-          ],
-          "page": 4
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T18:26:31.299Z"
-    },
-    "TS7x62X": {
-      "video_code": "TS7x62X",
-      "title": "پیمان و غزل (فحاشی)",
-      "sender_name": "محسن مهرعلیان",
-      "category_id": 0,
-      "duration": 85,
-      "visit_count": 20995,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:25:07.280Z",
-      "active": 1,
-      "can_republish": 1,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -106012,35 +105588,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T16:45:52.276Z"
     },
-    "DpOiGLd": {
-      "video_code": "DpOiGLd",
-      "title": "کارتون پیمان دوستی قسمت ۲۴ با زیرنویس انگلیسی",
-      "sender_name": "تماشا ۲",
-      "category_id": 21,
-      "duration": 1418,
-      "visit_count": 20973,
-      "create_date": "7 سال پیش",
-      "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:45:45.529Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پیمان جبلی",
-          "trendTitle": "پیمان جبلی",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 08:10:00 -0800",
-          "trendKeywords": [
-            "پیمان",
-            "جبلی"
-          ],
-          "page": 13
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T16:45:52.276Z"
-    },
     "8FAuY4f": {
       "video_code": "8FAuY4f",
       "title": "اجرای استنداپ کمدی پیمان ابراهیمی در نیمه نهایی عصر جدید",
@@ -106931,35 +106478,6 @@
       "visit_count": 65181,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:45:40.744Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "محمد شعبانپور",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 22
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T16:45:52.288Z"
-    },
-    "hcr0kiv": {
-      "video_code": "hcr0kiv",
-      "title": "کلیب محمد قلی طولانی",
-      "sender_name": "فیلم سون | Filmseven",
-      "category_id": 6,
-      "duration": 287,
-      "visit_count": 20947,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T16:45:40.744Z",
       "active": 1,
       "can_republish": 1,
@@ -116907,35 +116425,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T17:25:47.892Z"
     },
-    "A0rrPrC": {
-      "video_code": "A0rrPrC",
-      "title": "سریال دیرین دیرین قسمت ۵۰ (آخر)",
-      "sender_name": "پرشین فیلم",
-      "category_id": 21,
-      "duration": 1466,
-      "visit_count": 20956,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T17:25:35.813Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 42
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T17:25:47.892Z"
-    },
     "TrHWCdu": {
       "video_code": "TrHWCdu",
       "title": "قسمت آخر سریال دلدادگان",
@@ -119140,35 +118629,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T17:25:47.893Z"
     },
-    "tNemGBJ": {
-      "video_code": "tNemGBJ",
-      "title": "سریال ارتدال قسمت ۱۸ دوبله فارسی قسمت آخر",
-      "sender_name": "سکانس و فیلم سینمایی",
-      "category_id": 3,
-      "duration": 4969,
-      "visit_count": 20993,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T17:25:45.134Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 48
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T17:25:47.893Z"
-    },
     "O3V0I7U": {
       "video_code": "O3V0I7U",
       "title": "سریال شهر دور قسمت آخر (دوبله فارسی)",
@@ -120920,35 +120380,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T18:05:35.134Z"
     },
-    "5qONj3e": {
-      "video_code": "5qONj3e",
-      "title": "سریال دونده دوست داشتنی قسمت آخر زیرنویس",
-      "sender_name": "Serials1989",
-      "category_id": 3,
-      "duration": 3733,
-      "visit_count": 20960,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:05:14.654Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 51
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T18:05:35.134Z"
-    },
     "0UinVdA": {
       "video_code": "0UinVdA",
       "title": "سریال کره ای پینوکیو قسمت 20 (آخر) زیرنویس فارسی",
@@ -121148,35 +120579,6 @@
             "شعبانپور"
           ],
           "page": 51
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T18:05:35.134Z"
-    },
-    "4kH1rXA": {
-      "video_code": "4kH1rXA",
-      "title": "سریال آیسان قسمت ۷۵ (آخر)",
-      "sender_name": "علیرضا",
-      "category_id": 3,
-      "duration": 3794,
-      "visit_count": 21009,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:05:15.980Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 52
         }
       ],
       "lastTrendMatchedAt": "2026-11-17T18:05:35.134Z"
@@ -123124,35 +122526,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T18:05:35.136Z"
     },
-    "AJQTeLS": {
-      "video_code": "AJQTeLS",
-      "title": "قسمت16(قسمت آخر) سریال طنز ترش و شیرین",
-      "sender_name": "هانده ارچل",
-      "category_id": 6,
-      "duration": 2903,
-      "visit_count": 20957,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:05:27.723Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 61
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T18:05:35.136Z"
-    },
     "GmG64bP": {
       "video_code": "GmG64bP",
       "title": "سریال زیرخاکی قسمت آخر",
@@ -123162,64 +122535,6 @@
       "visit_count": 22489,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:05:27.723Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 61
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T18:05:35.136Z"
-    },
-    "PbEa93k": {
-      "video_code": "PbEa93k",
-      "title": "Ep41)سریال دو حرف - قسمت ۴۱ آخر - دوبله فارسی",
-      "sender_name": "Farsi 1",
-      "category_id": 3,
-      "duration": 2158,
-      "visit_count": 21115,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:05:27.723Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 61
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T18:05:35.136Z"
-    },
-    "zieEW36": {
-      "video_code": "zieEW36",
-      "title": "سریال تپه بادخیز قسمت ۲۱۷ (قسمت آخر)با زیرنویس فارسی",
-      "sender_name": "🍿فری تایم | freetime 🎬🎧",
-      "category_id": 3,
-      "duration": 5107,
-      "visit_count": 21124,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T18:05:27.723Z",
       "active": 1,
       "can_republish": 0,
@@ -123481,35 +122796,6 @@
       "visit_count": 27687,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:05:30.319Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 63
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T18:05:35.136Z"
-    },
-    "HUU6CKE": {
-      "video_code": "HUU6CKE",
-      "title": "سریال ونزدی قسمت 8 (قسمت آخر) دوبله فارسی Wednesday 2022",
-      "sender_name": "آماندا",
-      "category_id": 3,
-      "duration": 3110,
-      "visit_count": 20946,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T18:05:30.319Z",
       "active": 1,
       "can_republish": 0,
@@ -130888,34 +130174,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:07:45.404Z"
     },
-    "yjW6lk6": {
-      "video_code": "yjW6lk6",
-      "title": "به عشق تو سوگند قسمت ۱۰۷ دوبله فارسی",
-      "sender_name": "🌙Moon clip",
-      "category_id": 3,
-      "duration": 2591,
-      "visit_count": 21046,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:07:06.065Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 12
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.404Z"
-    },
     "JbG4iuN": {
       "video_code": "JbG4iuN",
       "title": "سریال سوگند قسمت 38 زیرنویس فارسی سانسورشده",
@@ -133100,34 +132358,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:07:45.406Z"
     },
-    "MWFfEwa": {
-      "video_code": "MWFfEwa",
-      "title": "سریال به عشق تو سوگند قسمت 189 دوبله فارسی",
-      "sender_name": "یاس فیلم",
-      "category_id": 3,
-      "duration": 2501,
-      "visit_count": 21095,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:07:20.055Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 18
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.406Z"
-    },
     "ZKrzJC3": {
       "video_code": "ZKrzJC3",
       "title": "قسمت 360 سریال سوگند با زیرنویس فارسی",
@@ -133754,7 +132984,7 @@
       "visit_count": 36262,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:33.666Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:31.252Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -133802,9 +133032,19 @@
             "بیرانوند"
           ],
           "page": 3
+        },
+        {
+          "query": "بیرانوند",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.816Z"
     },
     "1dcMgFv": {
       "video_code": "1dcMgFv",
@@ -137036,34 +136276,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:25:53.230Z"
     },
-    "uviC7Zj": {
-      "video_code": "uviC7Zj",
-      "title": "Ep181}دانلود سریال سوگند - قسمت ۱۸۱ - دوبله فارسی",
-      "sender_name": "Filo Series",
-      "category_id": 3,
-      "duration": 2654,
-      "visit_count": 21007,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:44.518Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 35
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.230Z"
-    },
     "j0K0TuF": {
       "video_code": "j0K0TuF",
       "title": "Ep124}دانلود سریال سوگند - قسمت ۱۲۴ - دوبله فارسی",
@@ -137474,34 +136686,6 @@
       "lastMetricsFetchedAt": "2026-11-17T20:20:46.308Z",
       "active": 1,
       "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فلز",
-          "trendTitle": "فلز",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "فلز"
-          ],
-          "page": 22
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T20:21:46.072Z"
-    },
-    "JQ6Zvxp": {
-      "video_code": "JQ6Zvxp",
-      "title": "سریال فلش فصل 5 قسمت 15 دوبله فارسی سانسورشده",
-      "sender_name": "Mehrshad",
-      "category_id": 3,
-      "duration": 2433,
-      "visit_count": 21061,
-      "create_date": "6 سال پیش",
-      "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T20:20:46.308Z",
-      "active": 1,
-      "can_republish": 1,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -139411,35 +138595,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T04:00:57.648Z"
     },
-    "L9jvoDc": {
-      "video_code": "L9jvoDc",
-      "title": "مرور سایت دارک وب ! هیچ وقت این کار را انجام ندهید | پوریا پوتک",
-      "sender_name": "فیلی فیلم",
-      "category_id": 0,
-      "duration": 905,
-      "visit_count": 21115,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T04:00:05.989Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سایت سنجش",
-          "trendTitle": "سایت سنجش",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 16:10:00 -0800",
-          "trendKeywords": [
-            "سایت",
-            "سنجش"
-          ],
-          "page": 4
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T04:00:57.649Z"
-    },
     "4GzmuOT": {
       "video_code": "4GzmuOT",
       "title": "سایت همسریابی آغاز نو",
@@ -140630,35 +139785,6 @@
       "category_id": 1,
       "duration": 95,
       "visit_count": 28516,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T08:07:06.556Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "تصاویر انهدام عظیم یک سوپرنفتکش دیگر",
-          "trendTitle": "کشتی نفتکش",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 18:10:00 -0800",
-          "trendKeywords": [
-            "کشتی",
-            "نفتکش"
-          ],
-          "page": 2
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T08:07:23.255Z"
-    },
-    "MzL9qJf": {
-      "video_code": "MzL9qJf",
-      "title": "انهدام اس ۳۰۰ اوکراین",
-      "sender_name": "کاربر فیلو",
-      "category_id": 1,
-      "duration": 60,
-      "visit_count": 21077,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "lastMetricsFetchedAt": "2026-11-18T08:07:06.556Z",
@@ -146570,34 +145696,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T08:45:13.958Z"
     },
-    "nqTznxJ": {
-      "video_code": "nqTznxJ",
-      "title": "تزیین کیک مینیاتوری // کاپ کیک اورئو شکلاتی دوست داشتنی // کیک و دسر ریز مینی",
-      "sender_name": "‫سید حمید حوائجی",
-      "category_id": 29,
-      "duration": 216,
-      "visit_count": 21063,
-      "create_date": "12 ماه پیش",
-      "styled_create_date": "12 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:49.820Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "صابر ابر و هانیه توسلی در سریال «مینی‌سیتی»؛ داستانی از خالق «کنکل»",
-          "trendTitle": "کنکل",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 22:40:00 -0800",
-          "trendKeywords": [
-            "کنکل"
-          ],
-          "page": 18
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.649Z"
-    },
     "uyNi6qe": {
       "video_code": "uyNi6qe",
       "title": "دستور پخت مینی کیک، تزئین کیک مینیاتوری , آشپزخانه مینیاتوری , پخت کیک ریز مینیاتوری",
@@ -148020,34 +147118,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T07:35:53.656Z"
     },
-    "72DRLq0": {
-      "video_code": "72DRLq0",
-      "title": "طرز پخت نان بدون فر / تابه ای و پنبه ای / آموزش آشپزی ایرانی",
-      "sender_name": "فیلم سون | Filmseven",
-      "category_id": 7,
-      "duration": 221,
-      "visit_count": 20949,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:38.269Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "آشپزی",
-          "trendTitle": "آشپزی",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
-          "trendKeywords": [
-            "آشپزی"
-          ],
-          "page": 35
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.656Z"
-    },
     "FKR6Nvy": {
       "video_code": "FKR6Nvy",
       "title": "عجیب ترین پک ای فوتبال که فقط 1 بار فروخته شد ! مسی 105 ؟! | مهدی پی اس",
@@ -148719,34 +147789,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T08:07:23.248Z"
     },
-    "ScifUnR": {
-      "video_code": "ScifUnR",
-      "title": "چالش غذایی مادربزرگ طولانی با ترفندهای آشپزی - سرگرمی بانوان چالش غذا",
-      "sender_name": "filofilm.ss",
-      "category_id": 29,
-      "duration": 2516,
-      "visit_count": 20943,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T08:06:56.612Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "آشپزی",
-          "trendTitle": "آشپزی",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
-          "trendKeywords": [
-            "آشپزی"
-          ],
-          "page": 46
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T08:07:23.248Z"
-    },
     "gxzm5j4": {
       "video_code": "gxzm5j4",
       "title": "چالش خنده دار غذایی غذاهای 100 طبقه ای ، چالش خنده دار آشپزی",
@@ -148897,35 +147939,6 @@
       "visit_count": 32599,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T08:24:33.693Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "بازیکن فوتبال",
-          "trendTitle": "بازیکن فوتبال",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
-          "trendKeywords": [
-            "بازیکن",
-            "فوتبال"
-          ],
-          "page": 37
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T08:25:08.864Z"
-    },
-    "On39ncs": {
-      "video_code": "On39ncs",
-      "title": "اموزش زدن قیچی برگردون در فوتبال به راحت ترین شکل ممکن",
-      "sender_name": "امیر ",
-      "category_id": 7,
-      "duration": 113,
-      "visit_count": 21055,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
       "lastMetricsFetchedAt": "2026-11-18T08:24:33.693Z",
       "active": 1,
       "can_republish": 1,
@@ -152627,35 +151640,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T09:45:34.713Z"
     },
-    "2PaXGMr": {
-      "video_code": "2PaXGMr",
-      "title": "(مهدی بیزیکسر) ویدترن (۴) | جوجو! / با گوجی و فریبرز",
-      "sender_name": "Abolfazl X Ms.",
-      "category_id": 21,
-      "duration": 1577,
-      "visit_count": 20999,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:45:05.276Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "مهدی قایدی",
-          "trendTitle": "مهدی قایدی",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Wed, 18 Nov 2026 01:00:00 -0800",
-          "trendKeywords": [
-            "مهدی",
-            "قایدی"
-          ],
-          "page": 22
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T09:45:34.713Z"
-    },
     "EgXwHuI": {
       "video_code": "EgXwHuI",
       "title": "آهنگ تیتراژ سریال ترکی ضربان قلب | مهدی اسدی طاها - گوشواره",
@@ -153697,34 +152681,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T13:45:08.268Z"
     },
-    "fvmmh5X": {
-      "video_code": "fvmmh5X",
-      "title": "فیلم | واکنش نعیمه نظام دوست به شایعه ازدواجش با عمو پورنگ و سیاوش مفیدی",
-      "sender_name": "Ali✅",
-      "category_id": 3,
-      "duration": 61,
-      "visit_count": 21009,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:52.198Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "شایعه",
-          "trendTitle": "شایعه",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 21:10:00 -0800",
-          "trendKeywords": [
-            "شایعه"
-          ],
-          "page": 2
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.268Z"
-    },
     "qIOjuSy": {
       "video_code": "qIOjuSy",
       "title": "فیلم | مهدی هاشمی نسب | افشاگری رهبری‌فرد درباره هاشمی‎‌نسب بعد از ۲۰ سال",
@@ -154676,7 +153632,7 @@
       "visit_count": 11253,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:56.584Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:11.507Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154703,9 +153659,20 @@
             "خام"
           ],
           "page": 14
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 14
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.381Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.862Z"
     },
     "L1WPYEa": {
       "video_code": "L1WPYEa",
@@ -154716,7 +153683,7 @@
       "visit_count": 12883,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:26.677Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:08.275Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154743,9 +153710,20 @@
             "خام"
           ],
           "page": 11
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 11
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z"
     },
     "cgOZpmx": {
       "video_code": "cgOZpmx",
@@ -154756,7 +153734,7 @@
       "visit_count": 11033,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:15:05.609Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:08.275Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154793,9 +153771,20 @@
             "سوریه"
           ],
           "page": 3
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 11
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.386Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z"
     },
     "MX8XOdY": {
       "video_code": "MX8XOdY",
@@ -154806,7 +153795,7 @@
       "visit_count": 11855,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:29.184Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:10.405Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154833,9 +153822,20 @@
             "خام"
           ],
           "page": 13
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 13
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.441Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.862Z"
     },
     "DBrWIB3": {
       "video_code": "DBrWIB3",
@@ -154846,7 +153846,7 @@
       "visit_count": 19636,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:29.184Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:10.405Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154873,9 +153873,20 @@
             "خام"
           ],
           "page": 13
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 13
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.441Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.862Z"
     },
     "dT7mZPv": {
       "video_code": "dT7mZPv",
@@ -154886,7 +153897,7 @@
       "visit_count": 68974,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:33.430Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:13.648Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154913,9 +153924,20 @@
             "خام"
           ],
           "page": 16
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 16
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.441Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.863Z"
     },
     "WCDEI9O": {
       "video_code": "WCDEI9O",
@@ -154926,7 +153948,7 @@
       "visit_count": 7793,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:33.430Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:13.648Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154953,9 +153975,20 @@
             "خام"
           ],
           "page": 16
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 16
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.441Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.863Z"
     },
     "mYwT8xn": {
       "video_code": "mYwT8xn",
@@ -154966,7 +153999,7 @@
       "visit_count": 47952,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:34.605Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:14.693Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154993,9 +154026,20 @@
             "خام"
           ],
           "page": 17
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 17
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.442Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.864Z"
     },
     "1i5Once": {
       "video_code": "1i5Once",
@@ -155006,7 +154050,7 @@
       "visit_count": 7705,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:35.866Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:15.728Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155033,9 +154077,20 @@
             "خام"
           ],
           "page": 18
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 18
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.442Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.864Z"
     },
     "3W4bi9K": {
       "video_code": "3W4bi9K",
@@ -155046,7 +154101,7 @@
       "visit_count": 13557,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:38.395Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:17.702Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155073,9 +154128,20 @@
             "خام"
           ],
           "page": 20
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 20
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.442Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.865Z"
     },
     "JQ6W9Ou": {
       "video_code": "JQ6W9Ou",
@@ -155086,7 +154152,7 @@
       "visit_count": 3527865,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:21.890Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:04.102Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155102,9 +154168,20 @@
             "خام"
           ],
           "page": 7
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.439Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.860Z"
     },
     "aWnqGY0": {
       "video_code": "aWnqGY0",
@@ -155115,7 +154192,7 @@
       "visit_count": 55723,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:23.034Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:05.163Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155131,9 +154208,20 @@
             "خام"
           ],
           "page": 8
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.439Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.860Z"
     },
     "uYPIXBl": {
       "video_code": "uYPIXBl",
@@ -155144,7 +154232,7 @@
       "visit_count": 1051918,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:23.034Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:05.163Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155160,9 +154248,20 @@
             "خام"
           ],
           "page": 8
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.860Z"
     },
     "h0XsMD6": {
       "video_code": "h0XsMD6",
@@ -155173,7 +154272,7 @@
       "visit_count": 81219,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:23.034Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:05.163Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155189,9 +154288,20 @@
             "خام"
           ],
           "page": 8
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.860Z"
     },
     "rwNFN3W": {
       "video_code": "rwNFN3W",
@@ -155202,7 +154312,7 @@
       "visit_count": 473445,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:23.034Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:05.163Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155218,9 +154328,20 @@
             "خام"
           ],
           "page": 8
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.860Z"
     },
     "ex7fQCY": {
       "video_code": "ex7fQCY",
@@ -155231,7 +154352,7 @@
       "visit_count": 480170,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:23.034Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:05.163Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155247,9 +154368,20 @@
             "خام"
           ],
           "page": 8
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.860Z"
     },
     "pxsGcjT": {
       "video_code": "pxsGcjT",
@@ -155260,7 +154392,7 @@
       "visit_count": 192148,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:23.034Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:05.163Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155276,9 +154408,20 @@
             "خام"
           ],
           "page": 8
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.860Z"
     },
     "7Q0hTFn": {
       "video_code": "7Q0hTFn",
@@ -155289,7 +154432,7 @@
       "visit_count": 74478,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:24.154Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:06.216Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155305,9 +154448,20 @@
             "خام"
           ],
           "page": 9
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.860Z"
     },
     "gmOnrHX": {
       "video_code": "gmOnrHX",
@@ -155315,10 +154469,10 @@
       "sender_name": "Mr.Reza(video)",
       "category_id": 13,
       "duration": 90,
-      "visit_count": 324502,
+      "visit_count": 324503,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:24.154Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:06.216Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155334,9 +154488,20 @@
             "خام"
           ],
           "page": 9
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.860Z"
     },
     "NBrZkPE": {
       "video_code": "NBrZkPE",
@@ -155347,7 +154512,7 @@
       "visit_count": 140389,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:24.154Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:06.216Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155363,9 +154528,20 @@
             "خام"
           ],
           "page": 9
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.860Z"
     },
     "xjXtJ78": {
       "video_code": "xjXtJ78",
@@ -155376,7 +154552,7 @@
       "visit_count": 182647,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:24.154Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:06.216Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155392,9 +154568,20 @@
             "خام"
           ],
           "page": 9
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.860Z"
     },
     "rO5OrWM": {
       "video_code": "rO5OrWM",
@@ -155405,7 +154592,7 @@
       "visit_count": 35163,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:24.154Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:06.216Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155421,9 +154608,20 @@
             "خام"
           ],
           "page": 9
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.860Z"
     },
     "tFddpWJ": {
       "video_code": "tFddpWJ",
@@ -155434,7 +154632,7 @@
       "visit_count": 42332,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:24.154Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:06.216Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155450,9 +154648,20 @@
             "خام"
           ],
           "page": 9
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.860Z"
     },
     "2prJPqC": {
       "video_code": "2prJPqC",
@@ -155463,7 +154672,7 @@
       "visit_count": 101041,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:25.553Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:07.219Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155479,9 +154688,20 @@
             "خام"
           ],
           "page": 10
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z"
     },
     "Od02iJV": {
       "video_code": "Od02iJV",
@@ -155492,7 +154712,7 @@
       "visit_count": 141309,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:25.553Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:07.219Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155508,9 +154728,20 @@
             "خام"
           ],
           "page": 10
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z"
     },
     "fzI27uG": {
       "video_code": "fzI27uG",
@@ -155521,7 +154752,7 @@
       "visit_count": 47665,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:25.553Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:07.219Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155537,9 +154768,20 @@
             "خام"
           ],
           "page": 10
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z"
     },
     "Rrv5JKk": {
       "video_code": "Rrv5JKk",
@@ -155547,10 +154789,10 @@
       "sender_name": "✅️Filo.film30nema",
       "category_id": 3,
       "duration": 188,
-      "visit_count": 119953,
+      "visit_count": 119954,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:25.553Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:07.219Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -155566,9 +154808,20 @@
             "خام"
           ],
           "page": 10
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z"
     },
     "mw32Rfs": {
       "video_code": "mw32Rfs",
@@ -155579,7 +154832,7 @@
       "visit_count": 80156,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:26.677Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:08.275Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155595,9 +154848,20 @@
             "خام"
           ],
           "page": 11
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 11
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z"
     },
     "K81t96S": {
       "video_code": "K81t96S",
@@ -155608,7 +154872,7 @@
       "visit_count": 68420,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:26.677Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:08.275Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155624,9 +154888,20 @@
             "خام"
           ],
           "page": 11
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 11
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z"
     },
     "5kcvY1A": {
       "video_code": "5kcvY1A",
@@ -155637,7 +154912,7 @@
       "visit_count": 69890,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:26.677Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:08.275Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155653,9 +154928,20 @@
             "خام"
           ],
           "page": 11
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 11
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z"
     },
     "tolzGhL": {
       "video_code": "tolzGhL",
@@ -155666,7 +154952,7 @@
       "visit_count": 56360,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:26.677Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:08.275Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155682,9 +154968,20 @@
             "خام"
           ],
           "page": 11
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 11
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z"
     },
     "Bx79Vii": {
       "video_code": "Bx79Vii",
@@ -155695,7 +154992,7 @@
       "visit_count": 27639,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:26.677Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:08.275Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155711,9 +155008,20 @@
             "خام"
           ],
           "page": 11
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 11
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z"
     },
     "AiNaoRn": {
       "video_code": "AiNaoRn",
@@ -155721,10 +155029,10 @@
       "sender_name": "Araam",
       "category_id": 8,
       "duration": 76,
-      "visit_count": 33316,
+      "visit_count": 33317,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:26.677Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:08.275Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155740,9 +155048,20 @@
             "خام"
           ],
           "page": 11
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 11
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z"
     },
     "5a6yBd6": {
       "video_code": "5a6yBd6",
@@ -155753,7 +155072,7 @@
       "visit_count": 30088,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:26.677Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:08.275Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155769,9 +155088,20 @@
             "خام"
           ],
           "page": 11
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 11
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z"
     },
     "jtLYnfy": {
       "video_code": "jtLYnfy",
@@ -155782,7 +155112,7 @@
       "visit_count": 102202,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:27.920Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:09.332Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155798,9 +155128,20 @@
             "خام"
           ],
           "page": 12
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 12
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z"
     },
     "afwRwii": {
       "video_code": "afwRwii",
@@ -155811,7 +155152,7 @@
       "visit_count": 37522,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:27.920Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:09.332Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155827,9 +155168,20 @@
             "خام"
           ],
           "page": 12
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 12
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z"
     },
     "KFln6Rw": {
       "video_code": "KFln6Rw",
@@ -155840,7 +155192,7 @@
       "visit_count": 34078,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:27.920Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:09.332Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155856,9 +155208,20 @@
             "خام"
           ],
           "page": 12
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 12
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.862Z"
     },
     "YxGOM3c": {
       "video_code": "YxGOM3c",
@@ -155869,7 +155232,7 @@
       "visit_count": 53342,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:29.184Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:10.405Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155885,9 +155248,20 @@
             "خام"
           ],
           "page": 13
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 13
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.441Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.862Z"
     },
     "OxLAlQM": {
       "video_code": "OxLAlQM",
@@ -155898,7 +155272,7 @@
       "visit_count": 21507,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:29.184Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:10.405Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155914,9 +155288,20 @@
             "خام"
           ],
           "page": 13
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 13
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.441Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.862Z"
     },
     "eWY3TAY": {
       "video_code": "eWY3TAY",
@@ -155927,7 +155312,7 @@
       "visit_count": 38049,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:29.184Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:10.405Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155943,9 +155328,20 @@
             "خام"
           ],
           "page": 13
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 13
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.441Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.862Z"
     },
     "uSI1gXi": {
       "video_code": "uSI1gXi",
@@ -155956,7 +155352,7 @@
       "visit_count": 25975,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:30.390Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:11.507Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155972,9 +155368,20 @@
             "خام"
           ],
           "page": 14
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 14
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.441Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.862Z"
     },
     "EX3tezQ": {
       "video_code": "EX3tezQ",
@@ -155985,7 +155392,7 @@
       "visit_count": 35278,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:30.390Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:11.507Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -156001,9 +155408,20 @@
             "خام"
           ],
           "page": 14
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 14
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.441Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.862Z"
     },
     "zUReqwC": {
       "video_code": "zUReqwC",
@@ -156014,7 +155432,7 @@
       "visit_count": 31271,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:30.390Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:11.507Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -156030,9 +155448,20 @@
             "خام"
           ],
           "page": 14
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 14
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.441Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.862Z"
     },
     "Cgn0jgI": {
       "video_code": "Cgn0jgI",
@@ -156043,7 +155472,7 @@
       "visit_count": 50770,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:30.390Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:11.507Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -156059,9 +155488,20 @@
             "خام"
           ],
           "page": 14
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 14
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.441Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.862Z"
     },
     "Iu2fCSN": {
       "video_code": "Iu2fCSN",
@@ -156072,7 +155512,7 @@
       "visit_count": 42250,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:31.981Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:12.605Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -156088,9 +155528,20 @@
             "خام"
           ],
           "page": 15
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 15
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.441Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.862Z"
     },
     "hPbsWiV": {
       "video_code": "hPbsWiV",
@@ -156101,7 +155552,7 @@
       "visit_count": 36350,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:31.981Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:12.605Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -156117,9 +155568,20 @@
             "خام"
           ],
           "page": 15
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 15
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.441Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.863Z"
     },
     "eDi3taL": {
       "video_code": "eDi3taL",
@@ -156130,7 +155592,7 @@
       "visit_count": 31273,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:31.981Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:12.605Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -156146,9 +155608,20 @@
             "خام"
           ],
           "page": 15
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 15
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.441Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.863Z"
     },
     "iNIbFZQ": {
       "video_code": "iNIbFZQ",
@@ -156159,7 +155632,7 @@
       "visit_count": 67328,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:33.430Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:13.648Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -156175,9 +155648,20 @@
             "خام"
           ],
           "page": 16
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 16
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.441Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.863Z"
     },
     "Dl5oAQP": {
       "video_code": "Dl5oAQP",
@@ -156188,7 +155672,7 @@
       "visit_count": 32560,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:33.430Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:13.648Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -156204,9 +155688,20 @@
             "خام"
           ],
           "page": 16
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 16
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.441Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.863Z"
     },
     "7IJMSE6": {
       "video_code": "7IJMSE6",
@@ -156217,7 +155712,7 @@
       "visit_count": 36082,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:34.605Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:14.693Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -156233,9 +155728,20 @@
             "خام"
           ],
           "page": 17
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 17
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.442Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.864Z"
     },
     "jhYD8bi": {
       "video_code": "jhYD8bi",
@@ -156246,7 +155752,7 @@
       "visit_count": 24977,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:35.866Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:15.728Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -156262,9 +155768,20 @@
             "خام"
           ],
           "page": 18
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 18
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.442Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.864Z"
     },
     "jLe5CbL": {
       "video_code": "jLe5CbL",
@@ -156275,7 +155792,7 @@
       "visit_count": 34431,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:35.866Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:05:15.728Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -156291,9 +155808,20 @@
             "خام"
           ],
           "page": 18
+        },
+        {
+          "query": "قیمت جدید نفت اعلام شد",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 18
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.442Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.864Z"
     },
     "oge5Kea": {
       "video_code": "oge5Kea",
@@ -160740,48 +160268,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T12:25:28.824Z"
     },
-    "gq6Lxcy": {
-      "video_code": "gq6Lxcy",
-      "title": "فرانکلین در جی تی ای 6 هست؟ پیر شده",
-      "sender_name": "ahmadrexa GTA",
-      "category_id": 0,
-      "duration": 862,
-      "visit_count": 7731,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:24:27.917Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "جی تی ای ۶",
-          "trendTitle": "جی تی ای ۶",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-          "trendKeywords": [
-            "جی",
-            "تی",
-            "ای"
-          ],
-          "page": 1
-        },
-        {
-          "query": "جی تی ای",
-          "trendTitle": "جی تی ای ۶",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-          "trendKeywords": [
-            "جی",
-            "تی",
-            "ای"
-          ],
-          "page": 15
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T12:25:28.824Z"
-    },
     "Rz8Ywf7": {
       "video_code": "Rz8Ywf7",
       "title": "کورس بین ۲۰۶ فول اسپرت با پورشه در جی تی ای انلاین",
@@ -162486,36 +161972,6 @@
       "lastMetricsFetchedAt": "2026-11-18T11:14:46.225Z",
       "active": 1,
       "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "جی تی ای",
-          "trendTitle": "جی تی ای ۶",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-          "trendKeywords": [
-            "جی",
-            "تی",
-            "ای"
-          ],
-          "page": 14
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.364Z"
-    },
-    "SJoSMQz": {
-      "video_code": "SJoSMQz",
-      "title": "احمد رکسا،تبدیل به پولدار ترین آدم جی تی ای وی شدم",
-      "sender_name": "MEHDI",
-      "category_id": 4,
-      "duration": 1001,
-      "visit_count": 20980,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:46.225Z",
-      "active": 1,
-      "can_republish": 0,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -167307,7 +166763,7 @@
       "visit_count": 131813,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:32.969Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:29.264Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167344,9 +166800,19 @@
             "بیرانوند"
           ],
           "page": 2
+        },
+        {
+          "query": "بیرانوند",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.815Z"
     },
     "3NKPEs0": {
       "video_code": "3NKPEs0",
@@ -167357,7 +166823,7 @@
       "visit_count": 50994,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:32.969Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:30.279Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167394,9 +166860,19 @@
             "بیرانوند"
           ],
           "page": 2
+        },
+        {
+          "query": "بیرانوند",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.815Z"
     },
     "9yFol1W": {
       "video_code": "9yFol1W",
@@ -167407,7 +166883,7 @@
       "visit_count": 52505,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:32.969Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:30.279Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -167444,9 +166920,19 @@
             "بیرانوند"
           ],
           "page": 2
+        },
+        {
+          "query": "بیرانوند",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.815Z"
     },
     "kd2aF1t": {
       "video_code": "kd2aF1t",
@@ -167457,7 +166943,7 @@
       "visit_count": 57763,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:32.969Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:30.279Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167494,9 +166980,19 @@
             "بیرانوند"
           ],
           "page": 2
+        },
+        {
+          "query": "بیرانوند",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.815Z"
     },
     "cYiyQmg": {
       "video_code": "cYiyQmg",
@@ -167507,7 +167003,7 @@
       "visit_count": 105706,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:32.969Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:30.279Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167544,9 +167040,19 @@
             "بیرانوند"
           ],
           "page": 2
+        },
+        {
+          "query": "بیرانوند",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.815Z"
     },
     "MBeZxyI": {
       "video_code": "MBeZxyI",
@@ -167557,7 +167063,7 @@
       "visit_count": 88556,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:32.969Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:30.279Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167594,9 +167100,19 @@
             "بیرانوند"
           ],
           "page": 2
+        },
+        {
+          "query": "بیرانوند",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.816Z"
     },
     "OZ3MAci": {
       "video_code": "OZ3MAci",
@@ -167607,7 +167123,7 @@
       "visit_count": 105987,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:33.666Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:30.279Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167644,9 +167160,19 @@
             "بیرانوند"
           ],
           "page": 3
+        },
+        {
+          "query": "بیرانوند",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.816Z"
     },
     "GqdGuBF": {
       "video_code": "GqdGuBF",
@@ -167657,7 +167183,7 @@
       "visit_count": 34059,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:33.666Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:31.252Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167694,9 +167220,19 @@
             "بیرانوند"
           ],
           "page": 3
+        },
+        {
+          "query": "بیرانوند",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.238Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.816Z"
     },
     "5zzUTma": {
       "video_code": "5zzUTma",
@@ -167707,7 +167243,7 @@
       "visit_count": 37298,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:34.323Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:32.247Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167744,9 +167280,19 @@
             "بیرانوند"
           ],
           "page": 4
+        },
+        {
+          "query": "بیرانوند",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.239Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.817Z"
     },
     "eW5pZNB": {
       "video_code": "eW5pZNB",
@@ -167757,7 +167303,7 @@
       "visit_count": 62467,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:34.323Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:32.247Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167794,9 +167340,19 @@
             "بیرانوند"
           ],
           "page": 4
+        },
+        {
+          "query": "بیرانوند",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.239Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.817Z"
     },
     "VSjjMwd": {
       "video_code": "VSjjMwd",
@@ -167807,7 +167363,7 @@
       "visit_count": 21941,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:34.323Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:32.247Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167844,9 +167400,19 @@
             "بیرانوند"
           ],
           "page": 4
+        },
+        {
+          "query": "بیرانوند",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.239Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.817Z"
     },
     "LT42GvP": {
       "video_code": "LT42GvP",
@@ -167857,7 +167423,7 @@
       "visit_count": 10351,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:34.414Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:34.541Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -167883,9 +167449,19 @@
             "فوتبال"
           ],
           "page": 14
+        },
+        {
+          "query": "بیرانوند",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.252Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.819Z"
     },
     "TJbHixs": {
       "video_code": "TJbHixs",
@@ -168598,7 +168174,7 @@
       "visit_count": 918523,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:05:04.685Z",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:29.264Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -168614,11 +168190,1421 @@
             "فوتبال"
           ],
           "page": 3
+        },
+        {
+          "query": "بیرانوند",
+          "trendTitle": "بیرانوند",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "بیرانوند"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:05:23.803Z"
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.815Z"
+    },
+    "1fLemxR": {
+      "video_code": "1fLemxR",
+      "title": "کلیپ زیباترین دختر و زن ایرانی رزیتا دغلاوی نژاد",
+      "sender_name": "آرش زارع",
+      "category_id": 4,
+      "duration": 8,
+      "visit_count": 62309,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:31.171Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "رزیتا غفاری",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.830Z"
+    },
+    "SLxy5bk": {
+      "video_code": "SLxy5bk",
+      "title": "سکانس تاریخی فیلم همسفر با بازی بهروز وثوقی و گوگوش",
+      "sender_name": "لیلا",
+      "category_id": 3,
+      "duration": 58,
+      "visit_count": 78273,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:35.860Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.840Z"
+    },
+    "qnAAEbN": {
+      "video_code": "qnAAEbN",
+      "title": "فیلم همسفر با بازی بهروز وثوقی",
+      "sender_name": "خدیجه",
+      "category_id": 3,
+      "duration": 62,
+      "visit_count": 50429,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:35.860Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.840Z"
+    },
+    "JVyvAJk": {
+      "video_code": "JVyvAJk",
+      "title": "سریال همسفر من قسمت ۵۵ دوبله فارسی",
+      "sender_name": "AHILHOME",
+      "category_id": 3,
+      "duration": 2276,
+      "visit_count": 57440,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:39.142Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "jBfRys1": {
+      "video_code": "jBfRys1",
+      "title": "سریال همسفر من قسمت ۵۴ دوبله فارسی",
+      "sender_name": "AZKURDAN",
+      "category_id": 3,
+      "duration": 2022,
+      "visit_count": 36860,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:39.142Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "90XXPXn": {
+      "video_code": "90XXPXn",
+      "title": "سریال همسفر من قسمت ۵۰ دوبله فارسی",
+      "sender_name": "AZKURDAN",
+      "category_id": 3,
+      "duration": 2112,
+      "visit_count": 30773,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:39.142Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "C50ZncY": {
+      "video_code": "C50ZncY",
+      "title": "سریال همسفر من قسمت ۱۸ دوبله فارسی",
+      "sender_name": "AHILHOME",
+      "category_id": 3,
+      "duration": 2114,
+      "visit_count": 28984,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:39.142Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "IzNUh2R": {
+      "video_code": "IzNUh2R",
+      "title": "سریال همسفر من قسمت ۳۰ دوبله فارسی",
+      "sender_name": "AZKURDAN",
+      "category_id": 3,
+      "duration": 1865,
+      "visit_count": 28227,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:39.142Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "rs9nXTZ": {
+      "video_code": "rs9nXTZ",
+      "title": "سریال همسفر من قسمت ۵۳ دوبله فارسی",
+      "sender_name": "AZKURDAN",
+      "category_id": 3,
+      "duration": 1928,
+      "visit_count": 31342,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:39.142Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "NU2R74w": {
+      "video_code": "NU2R74w",
+      "title": "سریال همسفر من قسمت ۴۵ دوبله فارسی",
+      "sender_name": "AZKURDAN",
+      "category_id": 3,
+      "duration": 1873,
+      "visit_count": 31735,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:39.142Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "C6eLc5i": {
+      "video_code": "C6eLc5i",
+      "title": "سریال همسفر من قسمت ۴۰ دوبله فارسی",
+      "sender_name": "AZKURDAN",
+      "category_id": 3,
+      "duration": 1817,
+      "visit_count": 27648,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:39.142Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "FYkgS22": {
+      "video_code": "FYkgS22",
+      "title": "سریال همسفر من قسمت ۴۶ دوبله فارسی",
+      "sender_name": "AZKURDAN",
+      "category_id": 3,
+      "duration": 1838,
+      "visit_count": 28867,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:39.142Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "uQWDTRX": {
+      "video_code": "uQWDTRX",
+      "title": "سریال همسفر من قسمت ۴۸ دوبله فارسی",
+      "sender_name": "AZKURDAN",
+      "category_id": 3,
+      "duration": 2039,
+      "visit_count": 28401,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:39.142Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "LOJiEP5": {
+      "video_code": "LOJiEP5",
+      "title": "سریال همسفر من قسمت 26 دوبله فارسی",
+      "sender_name": "AHILHOME",
+      "category_id": 3,
+      "duration": 2187,
+      "visit_count": 31719,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:39.142Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "iwEnQHO": {
+      "video_code": "iwEnQHO",
+      "title": "سریال همسفر من قسمت ۴۹ دوبله فارسی",
+      "sender_name": "AZKURDAN",
+      "category_id": 3,
+      "duration": 1806,
+      "visit_count": 27529,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:39.142Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "hbN3wmM": {
+      "video_code": "hbN3wmM",
+      "title": "سریال همسفر من قسمت ۱۷ دوبله فارسی",
+      "sender_name": "AHILHOME",
+      "category_id": 3,
+      "duration": 2059,
+      "visit_count": 24978,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:39.142Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "ec6ztKB": {
+      "video_code": "ec6ztKB",
+      "title": "سریال همسفر من قسمت ۵۱ دوبله فارسی",
+      "sender_name": "AHILHOME",
+      "category_id": 3,
+      "duration": 2046,
+      "visit_count": 28984,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:39.142Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "vRJscaI": {
+      "video_code": "vRJscaI",
+      "title": "سریال همسفر من قسمت ۵۲ دوبله فارسی",
+      "sender_name": "AHILHOME",
+      "category_id": 3,
+      "duration": 1949,
+      "visit_count": 24613,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:39.142Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "tWSRuJh": {
+      "video_code": "tWSRuJh",
+      "title": "سریال همسفر من قسمت ۴۷ دوبله فارسی",
+      "sender_name": "AHILHOME",
+      "category_id": 3,
+      "duration": 1727,
+      "visit_count": 22966,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:39.142Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "YFCln7o": {
+      "video_code": "YFCln7o",
+      "title": "سریال همسفر من قسمت ۱۶ دوبله فارسی",
+      "sender_name": "AHILHOME",
+      "category_id": 3,
+      "duration": 1855,
+      "visit_count": 23455,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:39.142Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "1spMPT7": {
+      "video_code": "1spMPT7",
+      "title": "سریال همسفر من قسمت ۳۴ دوبله فارسی",
+      "sender_name": "AZKURDAN",
+      "category_id": 3,
+      "duration": 2149,
+      "visit_count": 27050,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:42.557Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "wkVfebj": {
+      "video_code": "wkVfebj",
+      "title": "سریال همسفر من قسمت ۳۳ دوبله فارسی",
+      "sender_name": "AZKURDAN",
+      "category_id": 3,
+      "duration": 1900,
+      "visit_count": 26271,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:42.557Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "ShgfvGI": {
+      "video_code": "ShgfvGI",
+      "title": "سریال همسفر من قسمت ۲۹ دوبله فارسی",
+      "sender_name": "AHILHOME",
+      "category_id": 3,
+      "duration": 2087,
+      "visit_count": 22544,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:42.557Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "7yTJJKK": {
+      "video_code": "7yTJJKK",
+      "title": "سریال همسفر من قسمت ۲۵ دوبله فارسی",
+      "sender_name": "AZKURDAN",
+      "category_id": 3,
+      "duration": 1955,
+      "visit_count": 29885,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:42.557Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "OprAQJM": {
+      "video_code": "OprAQJM",
+      "title": "سریال همسفر من قسمت ۳۹ دوبله فارسی",
+      "sender_name": "AZKURDAN",
+      "category_id": 3,
+      "duration": 2086,
+      "visit_count": 23333,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:42.557Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "vUkaqNB": {
+      "video_code": "vUkaqNB",
+      "title": "موزیک ویدئو خاطره انگیز \" همسفر \" با صدای امید",
+      "sender_name": "علیرضا",
+      "category_id": 9,
+      "duration": 252,
+      "visit_count": 22479,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:42.557Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "4kj5UUO": {
+      "video_code": "4kj5UUO",
+      "title": "سریال همسفر من قسمت 37 دوبله فارسی",
+      "sender_name": "AZKURDAN",
+      "category_id": 3,
+      "duration": 2127,
+      "visit_count": 22162,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:42.557Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "MZwCqAR": {
+      "video_code": "MZwCqAR",
+      "title": "سریال پاکستانی \"همسفر من\" قسمت اول با دوبله فارسی",
+      "sender_name": "🌺 ثـــریا 🌺",
+      "category_id": 3,
+      "duration": 1877,
+      "visit_count": 22381,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:42.557Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "رزیتا غفاری",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+          "trendKeywords": [
+            "رزیتا",
+            "غفاری"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.841Z"
+    },
+    "oBnDvpT": {
+      "video_code": "oBnDvpT",
+      "title": "دیده شدن اژدها در چین",
+      "sender_name": "همراه پلاس",
+      "category_id": 13,
+      "duration": 60,
+      "visit_count": 80741,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:44.168Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.851Z"
+    },
+    "Pm6DpmW": {
+      "video_code": "Pm6DpmW",
+      "title": "ویروس زامبی شیان چین",
+      "sender_name": "خبرونه",
+      "category_id": 1,
+      "duration": 63,
+      "visit_count": 59906,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:44.168Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.851Z"
+    },
+    "OxxlQ4G": {
+      "video_code": "OxxlQ4G",
+      "title": "???شورت آقات چین چینه???",
+      "sender_name": "⭐ کلیپ آنلاین ⭐",
+      "category_id": 29,
+      "duration": 35,
+      "visit_count": 28765,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:44.168Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.851Z"
+    },
+    "Jnm5Teq": {
+      "video_code": "Jnm5Teq",
+      "title": "ببینید تو چین چطوری آمپول تزریق میکنن",
+      "sender_name": "m.safaree",
+      "category_id": 30,
+      "duration": 75,
+      "visit_count": 139352,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:44.931Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.851Z"
+    },
+    "zR9i7St": {
+      "video_code": "zR9i7St",
+      "title": "فوری واکنش جهان به اولین هواپیما مسافربری چین",
+      "sender_name": "alimohammadifg",
+      "category_id": 1,
+      "duration": 116,
+      "visit_count": 118038,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:44.931Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.851Z"
+    },
+    "IpyGInU": {
+      "video_code": "IpyGInU",
+      "title": "فیلم | تجهیزات نظامی چین که با دیدنشان حیرت‌زده می‌شوید",
+      "sender_name": "Ali✅",
+      "category_id": 3,
+      "duration": 657,
+      "visit_count": 39115,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:44.931Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.851Z"
+    },
+    "foLfLUR": {
+      "video_code": "foLfLUR",
+      "title": "فیلم هندی از چاندی چوک به چین Chandni Chowk",
+      "sender_name": "farham",
+      "category_id": 3,
+      "duration": 6991,
+      "visit_count": 69754,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:44.931Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.851Z"
+    },
+    "75GuztB": {
+      "video_code": "75GuztB",
+      "title": "دیده شدن سیمرغ پرنده افسانه ای در چین",
+      "sender_name": "حسین",
+      "category_id": 13,
+      "duration": 6,
+      "visit_count": 57793,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:44.931Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.851Z"
+    },
+    "4SAOKd9": {
+      "video_code": "4SAOKd9",
+      "title": "ته چین بادمجان و گردو یک غذای گیاهی خوشمزه | آموزش آشپزی ایرانی",
+      "sender_name": "سیم خاردار❤️",
+      "category_id": 7,
+      "duration": 230,
+      "visit_count": 26766,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:44.931Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.852Z"
+    },
+    "9VEYiaZ": {
+      "video_code": "9VEYiaZ",
+      "title": "تولد اژدهای واقعی در آزمایشگاهی در چین",
+      "sender_name": "احمد بزرگیانی مقدم",
+      "category_id": 13,
+      "duration": 58,
+      "visit_count": 27292,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:44.931Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.852Z"
+    },
+    "79zO71l": {
+      "video_code": "79zO71l",
+      "title": "ویروس زامبی هم واقعیت شد خبر عجیب ویروس جدید زامبی در شیان چین",
+      "sender_name": "فیلم سینمای و کلیپ عاشقانه و غ",
+      "category_id": 2,
+      "duration": 174,
+      "visit_count": 90905,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:45.713Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 6
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.852Z"
+    },
+    "m0xX1oO": {
+      "video_code": "m0xX1oO",
+      "title": "چین و ایران اینگونه در جنگ اوکراین به روسیه یاری میرسانند...",
+      "sender_name": "مهدی",
+      "category_id": 1,
+      "duration": 100,
+      "visit_count": 70345,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:45.713Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 6
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.852Z"
+    },
+    "EyCLiZB": {
+      "video_code": "EyCLiZB",
+      "title": "فوری اولین هواپیما مسافربری چین",
+      "sender_name": "AM_TEKNOO",
+      "category_id": 1,
+      "duration": 116,
+      "visit_count": 26485,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:45.713Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 6
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.852Z"
+    },
+    "nWcd18r": {
+      "video_code": "nWcd18r",
+      "title": "فیلم سفر به چین: راز ماسک آهنی",
+      "sender_name": "farham",
+      "category_id": 3,
+      "duration": 7199,
+      "visit_count": 22039,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:45.713Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 6
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.853Z"
+    },
+    "pDrmqbX": {
+      "video_code": "pDrmqbX",
+      "title": "گزارش شبکه خبری ترکیه از رزمایش دریایی مشترک ایران، چین و روسیه...",
+      "sender_name": "مهدی مهماندوست",
+      "category_id": 1,
+      "duration": 97,
+      "visit_count": 36173,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:48.124Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 9
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.853Z"
+    },
+    "KvLPgJ9": {
+      "video_code": "KvLPgJ9",
+      "title": "فیلم سینمایی سفر به چین: راز نقـاب آهنین دوبله فارسی ۲۰۱۹ با بازی جکی چان",
+      "sender_name": "دنیای انیمیشن و سینما",
+      "category_id": 3,
+      "duration": 7055,
+      "visit_count": 41687,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:48.124Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 9
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.853Z"
+    },
+    "lMuIVBW": {
+      "video_code": "lMuIVBW",
+      "title": "(ویدئو) مزرعه پرورش کبوتر در چین؛ فرایند فرآوری گوشت کبوتر در یک کارگاه سنتی",
+      "sender_name": "سعید",
+      "category_id": 29,
+      "duration": 842,
+      "visit_count": 27034,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:48.124Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 9
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.854Z"
+    },
+    "MWHNkcD": {
+      "video_code": "MWHNkcD",
+      "title": "پیدا شدن تخم دایناسور مربوط به 70 میلیون سال قبل در چین",
+      "sender_name": "بهترین میکس وکلیپ",
+      "category_id": 13,
+      "duration": 35,
+      "visit_count": 35334,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:48.879Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 10
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.854Z"
+    },
+    "iR7TvcZ": {
+      "video_code": "iR7TvcZ",
+      "title": "خوردن سوسک غذایی از سوسک حمام مزرعه پرورش سوسک حمام در چین!!!!!!",
+      "sender_name": "Hamid",
+      "category_id": 13,
+      "duration": 138,
+      "visit_count": 26706,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:49.646Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 11
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.854Z"
+    },
+    "yKpOeps": {
+      "video_code": "yKpOeps",
+      "title": "خوراک زنده چین مثبت ۵۰",
+      "sender_name": "کاربر فیلو",
+      "category_id": 29,
+      "duration": 31,
+      "visit_count": 23303,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:50.382Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 12
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.854Z"
+    },
+    "ahcMYkj": {
+      "video_code": "ahcMYkj",
+      "title": "استقلال 4-3 دالیان چین (نیمه نهایی جام باشگاهای آسیا 1378)",
+      "sender_name": "asma",
+      "category_id": 11,
+      "duration": 331,
+      "visit_count": 21397,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T14:04:50.382Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "چین",
+          "trendTitle": "چین",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+          "trendKeywords": [
+            "چین"
+          ],
+          "page": 12
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T14:05:35.854Z"
     }
   },
-  "totalPagesFetched": 12070,
-  "totalVideosSeen": 218371
+  "totalPagesFetched": 12189,
+  "totalVideosSeen": 220463
 }
