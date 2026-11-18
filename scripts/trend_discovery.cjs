@@ -24,6 +24,11 @@ const LANE_PRIORITY = {
   music_or_dance: 6, animals: 5, pets_animals: 5,
   home_organization_or_cleaning: 5, travel_and_places: 4, nature_and_wildlife: 3,
   science_curiosity: 3, fashion_or_cultural_showcase: 3,
+  news_or_current_affairs: 7, politics_or_elections: 7, current_affairs: 7,
+  economics_or_finance: 7, business_and_markets: 7, crypto_and_digital_assets: 6,
+  public_affairs: 7, health_and_medicine: 6, education_and_books: 6,
+  film_and_tv: 6, music_and_art: 6, religion_and_culture: 5,
+  environment_and_climate: 6, history_and_archaeology: 5, transport_and_energy: 5,
   surprise_reveal: 11, human_reaction: 10, sports_skill: 9, science_tech: 7,
   satisfying_craft: 8, life_hacks: 8, food_cooking: 8, heartwarming: 7,
   diy_creativity: 7, performance_magic: 7, home_cleaning: 5,
@@ -41,7 +46,7 @@ const STOP_WORDS = new Set([
   'میاد','میاره','باید','خیلی','چطور','چرا','چی','چه','کدام','چند','پس','مثل',
   'بدون','بعد','قبل','هر','همین','اونها','ایشون','خودش','خود','شما','من','ما'
 ]);
-const UNSAFE_TITLE = /porn|nsfw|sexual|sexually|gore|graphic violence|suicide|self.?harm|terror|war footage|election|politic|politics|جنگ|سیاست|سیاسی|انتخابات|ترور|قتل|خودکشی|جنسی|پورن|خشونت شدید/i;
+const UNSAFE_TITLE = /porn|nsfw|explicit sexual|sexual exploitation|gore|graphic violence|dismemberment|suicide|self.?harm|non.?consensual intimate|revenge porn|پورنو|پورن|محتوای جنسی صریح|قطع عضو|صحنه دلخراش|خودکشی|خودآزاری|انتشار تصاویر خصوصی بدون رضایت/i;
 
 function tokens(value) {
   return String(value || '')
@@ -85,7 +90,6 @@ function buildTrendSearches(snapshot = readTrendSnapshot(), options = {}) {
     for (const [id, item] of Object.entries(entries)) {
       if (!item || typeof item !== 'object' || item.velocity_kind !== 'observed') continue;
       const lane = String(item.lane || '').trim().toLowerCase();
-      if (!SAFE_LANES.has(lane)) continue;
       if (UNSAFE_TITLE.test(String(item.title || ''))) continue;
       const seenAt = Date.parse(item.last_seen_at || item.updated_at || '');
       if (!Number.isFinite(seenAt) || seenAt > nowMs + 5 * 60000 || nowMs - seenAt > 36 * 3600000) continue;

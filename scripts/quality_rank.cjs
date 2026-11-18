@@ -5,34 +5,46 @@ const CONTENT_POLICY = require('../config/content-policy.json');
 const AUDIENCE_WEIGHTS = CONTENT_POLICY.audience_priority_weights || {};
 
 const CONTENT_EXCLUSIONS = [
-  { key: 'institutional_or_current_affairs', pattern: /\bNASA\b|National Aeronautics and Space Administration|\bwar\b|\bexplosion\b|\bmissile\b|\bshooting\b|\bkilled\b|\binjured\b|\belection\b|\bpresident\b|politic|protest|government|sanction|geopolitical|russia|ukraine|israel|\bamerica\b|جنگ|انفجار|موشک|تیراندازی|کشته|مجروح|انتخابات|رئیس.?جمهور|سیاست|اعتراض|تحریم|درگیری|روسیه|اوکراین|اسرائیل|آمریکا/i },
-  { key: 'sensitive_or_graphic_content', pattern: /gore|graphic violence|self.?harm|suicide|porn|explicit sexual|rape|blood|قتل|خون|قطع عضو|خودکشی|پورن|جنسی صریح|تجاوز جنسی/i },
+  { key: 'graphic_or_exploitative_content', pattern: /gore|graphic violence|dismemberment|self.?harm|suicide|porn|explicit sexual|rape|sexual exploitation|صحنه دلخراش|تصاویر دلخراش|قطع عضو|خونریزی شدید|خودکشی|پورن|جنسی صریح|تجاوز جنسی/i },
   { key: 'promotional_content', pattern: /sponsored|affiliate|discount code|buy now|shop now|sign up now|link in bio|use my code|limited offer|promo code|visit our website|تبلیغات|اسپانسر|تخفیف|کد تخفیف|برای خرید|لینک خرید|ثبت.?نام کنید|لینک در بیو|فروش ویژه/i },
-  { key: 'weapon_or_military_safety_review', pattern: /\bweapon\b|\bfirearm\b|\bgun\b|military training|سلاح|اسلحه|تفنگ|جنگ.?افزار|آموزش.?های.?نظامی/i }
+  { key: 'dangerous_instructional_content', pattern: /how to (?:build|make|assemble) (?:a )?(?:bomb|explosive|weapon)|instructions? to (?:make|build) (?:a )?(?:bomb|weapon)|ساخت\s*(?:بمب|مواد منفجره|سلاح)|آموزش\s*(?:ساخت|تهیه)\s*(?:بمب|مواد منفجره|سلاح)/i }
 ];
 const MULTI_CLIP_RISK = /\b(compilation|roundup|recap|best of|top\s*\d+|ranking|highlights|viral moments|top moments)\b|[0-9۰-۹]+\s*تا\s*(?:فان|کلیپ|اتفاق|لحظه|ویدیو|ویدئو)|(?:چندتا|چند)\s*(?:کلیپ|اتفاق|لحظه|ویدیو|ویدئو|فان)|گلچین|گزیده|مجموعه(?:ای)? از|تاپ\s*\d+|برترین لحظات|بهترین لحظات|گلچین لحظات/i;
 
 // Editorial ranking only. A score never grants permission to republish a video.
 const TOPICS = [
-  { key: 'sports_skill', base: 23, patterns: [/football|soccer|basketball|skateboard|parkour|trick shot|freestyle|sports? skill|goal|dunk/i, /فوتبال|بسکتبال|والیبال|ورزش|گل زیبا|حرکت نمایشی|دریبل|اسکیت|مهارت عجیب/i] },
-  { key: 'technology_demo', base: 24, patterns: [/technology demo|AI demo|robot demo|smart device|gadget demo|new technology|invention demo/i, /هوش مصنوعی|فناوری|تکنولوژی|ربات|گجت|دستگاه هوشمند|دموی فناوری|ابزار جدید/i] },
-  { key: 'science_tech', base: 16, patterns: [/science experiment|experiment|optical illusion|brain teaser|puzzle|physics|astronomy|space footage|planetary science/i, /آزمایش علمی|علمی|خطای دید|معما|فیزیک|نجوم|کهکشان|سیاره|فضا|پدیده علمی/i] },
-  { key: 'satisfying_craft', base: 24, patterns: [/oddly satisfying|satisfying|restoration|woodworking|pottery|craft|miniature|before and after|transformation/i, /رضایت بخش|رضایت‌بخش|ساختنی|کاردستی|نجاری|سفال|مرمت|بازسازی|قبل و بعد|تغییر شگفت انگیز/i] },
-  { key: 'food_cooking', base: 21, patterns: [/cooking|recipe|food art|food hack|kitchen|baking|street food/i, /آشپزی|غذا|دستور پخت|خوراکی|شیرینی|نان پزی|نان‌پزی|آشپزخانه|غذای خیابانی|ترفند غذایی/i] },
-  { key: 'pets_animals', base: 19, patterns: [/cats?|kittens?|felines?|dogs?|pupp(y|ies)|pets?|birds?|parrots?|squirrels?|monkeys?|rabbits?|animals?|wildlife|hamsters?/i, /گربه|سگ|توله|حیوان|جانور|پرنده|طوطی|میمون|خرگوش|سنجاب|حیات وحش|حیوان خانگی/i] },
-  { key: 'performance_magic', base: 21, patterns: [/magic|illusion|dancing|dance|music performance|musician|singing|instrument|juggling/i, /شعبده|جادو|رقص|نوازندگی|موسیقی|خوانندگی|اجرای زنده|هنرنمایی|آکروبات/i] },
-  { key: 'nature_wildlife', base: 17, patterns: [/nature|landscape|weather phenomenon|wildlife|ocean|volcano|waterfall|space footage/i, /طبیعت|حیات وحش|آبشار|اقیانوس|آسمان|پدیده جوی|شفق|آتشفشان|منظره|فضا/i] },
-  { key: 'travel_culture', base: 16, patterns: [/travel|tourism|street life|local culture|traditional|architecture|iranian market/i, /سفر|گردشگری|فرهنگ|سنتی|بازار|خیابان|معماری|ایرانگردی|جاذبه دیدنی|زندگی روزمره/i] },
-  { key: 'human_reaction', base: 23, patterns: [/human reaction|people react|street interview|relatable moment|caught on camera/i, /واکنش مردم|مصاحبه خیابانی|اتفاق روزمره|لحظه آشنا|عکس.?العمل/i] },
-  { key: 'surprise_reveal', base: 24, patterns: [/unexpected|surprise|plot twist|reveal|mystery|wait until|final result|hidden result/i, /غیرمنتظره|غافلگیر|آخرش|نتیجه نهایی|راز|معما|ناگهان|باور نمی.?کنی/i] },
-  { key: 'life_hacks', base: 22, patterns: [/life hack|useful tip|everyday hack|home hack|simple solution|how to/i, /ترفند کاربردی|ترفند روزمره|هک زندگی|راه حل ساده|نکته مفید|روش ساده/i] },
-  { key: 'heartwarming', base: 22, patterns: [/heartwarming|wholesome|kindness|reunion|feel.?good|animal rescue|family moment/i, /مهربانی|کمک غیرمنتظره|دیدار دوباره|لحظه احساسی|نجات حیوان|خانواده/i] },
-  { key: 'diy_creativity', base: 21, patterns: [/DIY|craft|woodworking|pottery|handmade|creative process|miniature build/i, /کاردستی|نجاری|سفالگری|ساخت دست.?ساز|خلاقانه|ساخت ماکت/i] },
+  { key: 'sports_skill', base: 20, patterns: [/football|soccer|basketball|skateboard|parkour|trick shot|freestyle|sports? skill|goal|dunk/i, /فوتبال|بسکتبال|والیبال|ورزش|گل زیبا|حرکت نمایشی|دریبل|اسکیت|مهارت عجیب/i] },
+  { key: 'technology_demo', base: 20, patterns: [/technology demo|AI demo|robot demo|smart device|gadget demo|new technology|invention demo/i, /هوش مصنوعی|فناوری|تکنولوژی|ربات|گجت|دستگاه هوشمند|دموی فناوری|ابزار جدید/i] },
+  { key: 'science_tech', base: 20, patterns: [/science experiment|experiment|optical illusion|brain teaser|puzzle|physics|astronomy|space footage|planetary science/i, /آزمایش علمی|علمی|خطای دید|معما|فیزیک|نجوم|کهکشان|سیاره|فضا|پدیده علمی/i] },
+  { key: 'satisfying_craft', base: 20, patterns: [/oddly satisfying|satisfying|restoration|woodworking|pottery|craft|miniature|before and after|transformation/i, /رضایت بخش|رضایت‌بخش|ساختنی|کاردستی|نجاری|سفال|مرمت|بازسازی|قبل و بعد|تغییر شگفت انگیز/i] },
+  { key: 'food_cooking', base: 20, patterns: [/cooking|recipe|food art|food hack|kitchen|baking|street food/i, /آشپزی|غذا|دستور پخت|خوراکی|شیرینی|نان پزی|نان‌پزی|آشپزخانه|غذای خیابانی|ترفند غذایی/i] },
+  { key: 'pets_animals', base: 20, patterns: [/cats?|kittens?|felines?|dogs?|pupp(y|ies)|pets?|birds?|parrots?|squirrels?|monkeys?|rabbits?|animals?|wildlife|hamsters?/i, /گربه|سگ|توله|حیوان|جانور|پرنده|طوطی|میمون|خرگوش|سنجاب|حیات وحش|حیوان خانگی/i] },
+  { key: 'performance_magic', base: 20, patterns: [/magic|illusion|dancing|dance|music performance|musician|singing|instrument|juggling/i, /شعبده|جادو|رقص|نوازندگی|موسیقی|خوانندگی|اجرای زنده|هنرنمایی|آکروبات/i] },
+  { key: 'nature_wildlife', base: 20, patterns: [/nature|landscape|weather phenomenon|wildlife|ocean|volcano|waterfall|space footage/i, /طبیعت|حیات وحش|آبشار|اقیانوس|آسمان|پدیده جوی|شفق|آتشفشان|منظره|فضا/i] },
+  { key: 'travel_culture', base: 20, patterns: [/travel|tourism|street life|local culture|traditional|architecture|iranian market/i, /سفر|گردشگری|فرهنگ|سنتی|بازار|خیابان|معماری|ایرانگردی|جاذبه دیدنی|زندگی روزمره/i] },
+  { key: 'human_reaction', base: 20, patterns: [/human reaction|people react|street interview|relatable moment|caught on camera/i, /واکنش مردم|مصاحبه خیابانی|اتفاق روزمره|لحظه آشنا|عکس.?العمل/i] },
+  { key: 'surprise_reveal', base: 20, patterns: [/unexpected|surprise|plot twist|reveal|mystery|wait until|final result|hidden result/i, /غیرمنتظره|غافلگیر|آخرش|نتیجه نهایی|راز|معما|ناگهان|باور نمی.?کنی/i] },
+  { key: 'life_hacks', base: 20, patterns: [/life hack|useful tip|everyday hack|home hack|simple solution|how to/i, /ترفند کاربردی|ترفند روزمره|هک زندگی|راه حل ساده|نکته مفید|روش ساده/i] },
+  { key: 'heartwarming', base: 20, patterns: [/heartwarming|wholesome|kindness|reunion|feel.?good|animal rescue|family moment/i, /مهربانی|کمک غیرمنتظره|دیدار دوباره|لحظه احساسی|نجات حیوان|خانواده/i] },
+  { key: 'diy_creativity', base: 20, patterns: [/DIY|craft|woodworking|pottery|handmade|creative process|miniature build/i, /کاردستی|نجاری|سفالگری|ساخت دست.?ساز|خلاقانه|ساخت ماکت/i] },
   { key: 'home_cleaning', base: 20, patterns: [/cleaning|deep clean|home organization|declutter|organizing|tidying/i, /تمیزکاری|نظم.?دهی|مرتب.?سازی|پاکسازی|سازماندهی خانه/i] },
-  { key: 'fashion_culture', base: 18, patterns: [/fashion show|runway|pageant|traditional dress|national costume/i, /فشن شو|مدلینگ|لباس سنتی|لباس ملی|مسابقه زیبایی/i] },
-  { key: 'persian_comedy', base: 25, patterns: [/hidden camera|prank|comedy|comed(y|ic)|humou?r|funny|reaction|meme|sketch|fail|caught on camera|unexpected|surprise/i, /طنز|خنده|بامزه|سوتی|دوربین مخفی|دوبله|میم|چالش|واکنش|اتفاق غیرمنتظره|غافلگیر/i] },
+  { key: 'fashion_culture', base: 20, patterns: [/fashion show|runway|pageant|traditional dress|national costume/i, /فشن شو|مدلینگ|لباس سنتی|لباس ملی|مسابقه زیبایی/i] },
+  { key: 'persian_comedy', base: 20, patterns: [/hidden camera|prank|comedy|comed(y|ic)|humou?r|funny|reaction|meme|sketch|fail|caught on camera|unexpected|surprise/i, /طنز|خنده|بامزه|سوتی|دوربین مخفی|دوبله|میم|چالش|واکنش|اتفاق غیرمنتظره|غافلگیر/i] },,
+  { key: 'news_current_affairs', base: 20, patterns: [/news|breaking|current affairs|journalism|reporting|press briefing|election|campaign|parliament|government|policy debate|public hearing|investigation/i, /خبر|اخبار|خبر فوری|گزارش خبری|خبرنگار|رویداد روز|انتخابات|سیاست|سیاسی|مجلس|دولت|مذاکره|تحلیل سیاسی|تحولات منطقه|تحولات جهان/i] },
+  { key: 'economy_finance', base: 20, patterns: [/economy|economic|finance|inflation|interest rates?|currency|exchange rate|stock market|markets?|bitcoin|crypto|cryptocurrency|business|trade|industry/i, /اقتصاد|اقتصادی|مالی|تورم|نرخ بهره|ارز|دلار|طلا|بورس|بازار سرمایه|رمزارز|بیت.?کوین|کسب.?و.?کار|تجارت|صنعت/i] },
+  { key: 'society_law', base: 20, patterns: [/society|social issue|law|legal|court|justice|civil rights|public services|community/i, /جامعه|اجتماعی|حقوق|قانون|دادگاه|عدالت|حقوق شهروندی|خدمات عمومی|مردم/i] },
+  { key: 'health_medicine', base: 20, patterns: [/health|medical|medicine|hospital|public health|wellness research/i, /سلامت|پزشکی|درمان|بیمارستان|بهداشت|پژوهش پزشکی/i] },
+  { key: 'education_books', base: 20, patterns: [/education|learning|school|university|literature|books?|author|language/i, /آموزش|تحصیل|مدرسه|دانشگاه|ادبیات|کتاب|نویسنده|زبان/i] },
+  { key: 'film_media_art', base: 20, patterns: [/cinema|film|movie|television|series|media|photography|visual art|theatre/i, /سینما|فیلم|سریال|تلویزیون|رسانه|عکاسی|هنرهای تجسمی|تئاتر|نمایش/i] },
+  { key: 'music_audio', base: 20, patterns: [/music|song|concert|album|musician|instrument|audio/i, /موسیقی|ترانه|آهنگ|کنسرت|آلبوم|خواننده|نوازنده|ساز/i] },
+  { key: 'religion_philosophy', base: 20, patterns: [/religion|religious|faith|philosophy|theology|spirituality/i, /دین|مذهبی|مذهب|باور|فلسفه|الهیات|معنویت/i] },
+  { key: 'environment_climate', base: 20, patterns: [/environment|climate|climate change|conservation|pollution|sustainability/i, /محیط زیست|اقلیم|تغییرات آب.?و.?هوایی|حفاظت|آلودگی|پایداری/i] },
+  { key: 'history_politics', base: 20, patterns: [/history|historical|archaeology|geopolitics|international relations|conflict analysis/i, /تاریخ|تاریخی|باستان.?شناسی|روابط بین.?الملل|ژئوپلیتیک|تحلیل درگیری/i] },
+  { key: 'transport_energy', base: 20, patterns: [/transport|aviation|railway|shipping|energy|electricity|oil and gas/i, /حمل.?و.?نقل|هوانوردی|راه.?آهن|کشتیرانی|انرژی|برق|نفت|گاز/i] }
 ];
 const HOOKS = [
+  /news|breaking|report|reporting|journalism|press briefing|election|campaign|debate|policy|court ruling|market update|economic report|announced|investigation|discovery|research findings/i,
+  /خبر|گزارش|گزارش خبری|خبرنگار|رویداد|انتخابات|کارزار|مناظره|سیاست|رأی دادگاه|تحولات بازار|گزارش اقتصادی|اعلام شد|تحقیق|کشف|یافته پژوهشی/i,
   /unexpected|surprise|caught on camera|reaction|fail|prank|challenge|before and after|transformation|trick shot|impossible|unbelievable|oddly satisfying|close call|plot twist|reveal|mystery|wait until|one take/i,
   /غیرمنتظره|غافلگیر|واکنش|سوتی|دوربین مخفی|چالش|قبل و بعد|تغییر شگفت|حرکت عجیب|باورنکردنی|نتیجه نهایی|آخرش|باور نمی کنی|باور نمی‌کنی|ناگهان|راز|معمای تصویری|خطای دید|مهارت خارق|یک ضرب|بدون برش/i,
 ];
@@ -113,7 +125,22 @@ function categoryFor(value) {
       heartwarming: 'heartwarming',
       diy_creativity: 'diy_creativity',
       home_cleaning: 'home_cleaning',
-      fashion_culture: 'fashion_culture'
+      fashion_culture: 'fashion_culture',
+      news_or_current_affairs: 'news_current_affairs',
+      politics_or_elections: 'news_current_affairs',
+      current_affairs: 'news_current_affairs',
+      economics_or_finance: 'economy_finance',
+      business_and_markets: 'economy_finance',
+      crypto_and_digital_assets: 'economy_finance',
+      public_affairs: 'society_law',
+      health_and_medicine: 'health_medicine',
+      education_and_books: 'education_books',
+      film_and_tv: 'film_media_art',
+      music_and_art: 'music_audio',
+      religion_and_culture: 'religion_philosophy',
+      environment_and_climate: 'environment_climate',
+      history_and_archaeology: 'history_politics',
+      transport_and_energy: 'transport_energy'
     };
     if (laneMap[lane]) return laneMap[lane];
   }
@@ -202,7 +229,7 @@ function scoreCandidate(candidate, options = {}) {
     return { eligible: false, score: -1000, topic, durationSeconds: duration, reasons: ['multi_clip_roundup_not_allowed'] };
   }
   const configuredBase = safeNumber(AUDIENCE_WEIGHTS[topic]);
-  let score = configuredBase !== null ? configuredBase : (topicInfo ? topicInfo.base : 6);
+  let score = configuredBase !== null ? configuredBase : (topicInfo ? topicInfo.base : 20);
   reasons.push('iranian_audience_topic:' + topic);
 
   const hookCount = HOOKS.reduce((sum, pattern) => sum + (pattern.test(text) ? 1 : 0), 0);
