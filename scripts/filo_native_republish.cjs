@@ -1384,7 +1384,9 @@ function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicW
     entry.hasPositiveAcceleration = num(entry.accelerationEvidence.accelerationPerMinute, 0) > 0;
     entry.hasPositivePlayAcceleration = entry.accelerationEvidence.metric === 'plays' && entry.hasPositiveAcceleration;
     entry.hasPositiveViewAcceleration = entry.accelerationEvidence.metric === 'views' && entry.hasPositiveAcceleration;
-    entry.rankingTier = entry.hasPositivePlayAcceleration ? 4 : entry.hasPositiveViewAcceleration ? 3 : 0;
+    const hasQualifiedAcceleration = entry.accelerationEvidence.passed === true;
+    entry.rankingTier = hasQualifiedAcceleration && entry.accelerationEvidence.metric === 'plays' ? 4
+      : hasQualifiedAcceleration && entry.accelerationEvidence.metric === 'views' ? 3 : 0;
     entry.momentumScore = candidateMomentumScore(entry);
     return entry;
   }).filter(entry => {
