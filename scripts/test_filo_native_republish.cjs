@@ -1161,8 +1161,10 @@ const baseline = [
 const firstRank = rankCandidatesByMomentum(baseline, momentumState, momentumStart);
 assert.equal(firstRank.length, 4,
   'older videos remain eligible for observation alongside new candidates; first sightings still use safe cumulative-count fallback');
-assert.equal(firstRank[0].rankingMetric, 'cumulative_plays');
-assert.equal(firstRank[0].selectionMode, 'cumulative_play_fallback');
+assert.equal(firstRank[0].rankingMetric, 'freshness');
+assert.equal(firstRank[0].selectionMode, 'awaiting_independent_acceleration');
+assert.equal(firstRank.every(entry => entry.growthGatePassed === false), true,
+  'cumulative play/view counts cannot qualify a new candidate without independent acceleration');
 assert.equal(firstRank.every(entry => !entry.hasMeasuredGrowth), true);
 
 const secondScan = [
@@ -1177,15 +1179,17 @@ const comedyRank = secondRank.find(entry => entry.item.video_code === 'Comedy01'
 assert.ok(comedyRank);
 assert.equal(comedyRank.momentum.playsPerMinute, 2);
 assert.equal(comedyRank.momentum.viewsPerMinute, 10);
-assert.equal(comedyRank.rankingMetric, 'plays');
+assert.equal(comedyRank.rankingMetric, 'freshness',
+  'two observations show velocity but not yet acceleration; candidate must await a third sample');
 const tutorialRank = secondRank.find(entry => entry.item.video_code === 'Tutorial1');
 assert.equal(tutorialRank.momentum.playsPerMinute, 1);
 const viewsOnlyRank = secondRank.find(entry => entry.item.video_code === 'ViewsOnly');
 assert.ok(viewsOnlyRank);
-assert.equal(viewsOnlyRank.rankingMetric, 'views',
-  'a candidate with no play counter may fall back to measured view growth');
-assert.ok(secondRank.indexOf(comedyRank) < secondRank.indexOf(viewsOnlyRank),
-  'measured play growth must outrank a views-only candidate while older qualified candidates remain in the pool');
+assert.equal(viewsOnlyRank.rankingMetric, 'freshness',
+  'views velocity alone is not an acceleration fallback until a third independent sample arrives');
+assert.equal(comedyRank.growthGatePassed, false);
+assert.equal(viewsOnlyRank.growthGatePassed, false,
+  'neither play nor view velocity alone can pass the acceleration gate');
 const olderRank = secondRank.find(entry => entry.item.video_code === 'Old001');
 assert.ok(olderRank, 'a 73-hour candidate remains in the discovery/ranking pool');
 assert.equal(olderRank.hasPositivePlayGrowth, true);
