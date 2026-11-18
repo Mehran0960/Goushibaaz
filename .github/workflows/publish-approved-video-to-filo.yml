@@ -7,7 +7,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: filo-native-republish-publisher
+  group: filo-account-publisher-production
   cancel-in-progress: false
 
 jobs:
