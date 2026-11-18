@@ -1,19 +1,18 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-18T16:26:23.535Z",
-  "trendsFetchedAt": "2026-11-18T16:24:16.136Z",
+  "updatedAt": "2026-11-18T16:46:27.254Z",
+  "trendsFetchedAt": "2026-11-18T16:44:48.429Z",
   "trends": [
     {
-      "title": "آیتالله وحید خراسانی",
+      "title": "تأمین اجتماعی",
       "keywords": [
-        "آیتالله",
-        "وحید",
-        "خراسانی"
+        "تأمین",
+        "اجتماعی"
       ],
-      "traffic": 2000,
-      "publishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
-      "ageHours": 1.9
+      "traffic": 20000,
+      "publishedAt": "Wed, 18 Nov 2026 06:40:00 -0800",
+      "ageHours": 2.1
     },
     {
       "title": "کنست",
@@ -22,6 +21,28 @@
       ],
       "traffic": 1000,
       "publishedAt": "Wed, 18 Nov 2026 06:10:00 -0800",
+      "ageHours": 2.6
+    },
+    {
+      "title": "شی جین پینگ",
+      "keywords": [
+        "شی",
+        "جین",
+        "پینگ"
+      ],
+      "traffic": 500,
+      "publishedAt": "Wed, 18 Nov 2026 08:20:00 -0800",
+      "ageHours": 0.4
+    },
+    {
+      "title": "آیتالله وحید خراسانی",
+      "keywords": [
+        "آیتالله",
+        "وحید",
+        "خراسانی"
+      ],
+      "traffic": 500,
+      "publishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
       "ageHours": 2.2
     },
     {
@@ -33,7 +54,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Wed, 18 Nov 2026 07:50:00 -0800",
-      "ageHours": 0.6
+      "ageHours": 0.9
     },
     {
       "title": "آدان",
@@ -42,7 +63,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Wed, 18 Nov 2026 07:40:00 -0800",
-      "ageHours": 0.7
+      "ageHours": 1.1
     },
     {
       "title": "پپ گواردیولا",
@@ -52,7 +73,16 @@
       ],
       "traffic": 200,
       "publishedAt": "Wed, 18 Nov 2026 07:30:00 -0800",
-      "ageHours": 0.9
+      "ageHours": 1.2
+    },
+    {
+      "title": "شکایت",
+      "keywords": [
+        "شکایت"
+      ],
+      "traffic": 200,
+      "publishedAt": "Wed, 18 Nov 2026 06:40:00 -0800",
+      "ageHours": 2.1
     },
     {
       "title": "افزایش حقوق کارمندان امروز در مجلس",
@@ -64,7 +94,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Wed, 18 Nov 2026 08:00:00 -0800",
-      "ageHours": 0.4
+      "ageHours": 0.7
     },
     {
       "title": "وزیر اطلاعات",
@@ -74,16 +104,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Wed, 18 Nov 2026 07:30:00 -0800",
-      "ageHours": 0.9
-    },
-    {
-      "title": "شکایت",
-      "keywords": [
-        "شکایت"
-      ],
-      "traffic": 100,
-      "publishedAt": "Wed, 18 Nov 2026 06:40:00 -0800",
-      "ageHours": 1.7
+      "ageHours": 1.2
     }
   ],
   "queries": {
@@ -7112,12 +7133,12 @@
     "مهدی قایدی": {
       "query": "مهدی قایدی",
       "normalized": "مهدی قایدی",
-      "nextPage": 81,
+      "nextPage": 96,
       "complete": false,
-      "pagesFetched": 100,
-      "videosSeen": 1872,
+      "pagesFetched": 120,
+      "videosSeen": 2268,
       "createdAt": "2026-11-18T09:24:12.153Z",
-      "lastAttemptAt": "2026-11-18T11:15:32.349Z",
+      "lastAttemptAt": "2026-11-18T16:46:27.035Z",
       "lastError": null,
       "trendTitle": "مهدی قایدی",
       "trendTraffic": 2000,
@@ -7930,12 +7951,12 @@
     "مهدی اربابی فوتبال": {
       "query": "مهدی اربابی فوتبال",
       "normalized": "مهدی اربابی فوتبال",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 11,
+      "complete": true,
+      "pagesFetched": 10,
+      "videosSeen": 165,
       "createdAt": "2026-11-18T11:14:11.150Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T16:46:27.030Z",
       "lastError": null,
       "trendTitle": "مهدی اربابی فوتبال",
       "trendTraffic": 200,
@@ -7946,7 +7967,9 @@
         "فوتبال"
       ],
       "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T16:46:27.030Z"
     },
     "مهدی اربابی درگذشت": {
       "query": "مهدی اربابی درگذشت",
@@ -9327,7 +9350,7 @@
       "trendKeywords": [
         "کنست"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -9347,7 +9370,7 @@
       "trendKeywords": [
         "کنست"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T16:05:22.641Z",
@@ -9400,68 +9423,74 @@
     "تأمین اجتماعی": {
       "query": "تأمین اجتماعی",
       "normalized": "تأمین اجتماعی",
-      "nextPage": 8,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 7,
-      "videosSeen": 92,
+      "pagesFetched": 12,
+      "videosSeen": 176,
       "createdAt": "2026-11-18T15:04:26.775Z",
-      "lastAttemptAt": "2026-11-18T15:05:53.008Z",
+      "lastAttemptAt": "2026-11-18T16:46:27.000Z",
       "lastError": null,
       "trendTitle": "تأمین اجتماعی",
-      "trendTraffic": 2000,
+      "trendTraffic": 20000,
       "trendPublishedAt": "Wed, 18 Nov 2026 06:40:00 -0800",
       "trendKeywords": [
         "تأمین",
         "اجتماعی"
       ],
-      "lastTrendSeenAt": "2026-11-18T15:24:10.327Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T15:05:53.008Z"
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
+      "activeInLatestFeed": true,
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T16:46:27.000Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T16:46:27.000Z"
     },
     "زمان پرداخت حقوق بازنشستگان اعلام شد جزئیات": {
       "query": "زمان پرداخت حقوق بازنشستگان اعلام شد+ جزئیات",
       "normalized": "زمان پرداخت حقوق بازنشستگان اعلام شد جزئیات",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 3,
-      "videosSeen": 13,
+      "pagesFetched": 5,
+      "videosSeen": 26,
       "createdAt": "2026-11-18T15:04:26.775Z",
-      "lastAttemptAt": "2026-11-18T15:05:53.009Z",
+      "lastAttemptAt": "2026-11-18T16:46:27.001Z",
       "lastError": null,
-      "trendTitle": "تامین اجتماعی",
-      "trendTraffic": 10000,
-      "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+      "trendTitle": "تأمین اجتماعی",
+      "trendTraffic": 20000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 06:40:00 -0800",
       "trendKeywords": [
-        "تامین",
+        "تأمین",
         "اجتماعی"
       ],
-      "lastTrendSeenAt": "2026-11-18T15:44:05.275Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T15:05:53.009Z"
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
+      "activeInLatestFeed": true,
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T16:46:27.001Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T16:46:27.001Z"
     },
     "آغاز واریز حقوق آبان بازنشستگان تأمین اجتماعی از فردا": {
       "query": "آغاز واریز حقوق آبان بازنشستگان تأمین‌اجتماعی از فردا",
       "normalized": "آغاز واریز حقوق آبان بازنشستگان تأمین اجتماعی از فردا",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 3,
-      "videosSeen": 2,
+      "pagesFetched": 5,
+      "videosSeen": 4,
       "createdAt": "2026-11-18T15:04:26.775Z",
-      "lastAttemptAt": "2026-11-18T15:05:53.009Z",
+      "lastAttemptAt": "2026-11-18T16:46:27.001Z",
       "lastError": null,
-      "trendTitle": "تامین اجتماعی",
-      "trendTraffic": 10000,
-      "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+      "trendTitle": "تأمین اجتماعی",
+      "trendTraffic": 20000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 06:40:00 -0800",
       "trendKeywords": [
-        "تامین",
+        "تأمین",
         "اجتماعی"
       ],
-      "lastTrendSeenAt": "2026-11-18T15:44:05.275Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T15:05:53.009Z"
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
+      "activeInLatestFeed": true,
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T16:46:27.001Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T16:46:27.001Z"
     },
     "بیرانوند امیدوارم مرد سال آسیا شوم": {
       "query": "بیرانوند: امیدوارم مرد سال آسیا شوم",
@@ -9529,85 +9558,92 @@
     "شکایت": {
       "query": "شکایت",
       "normalized": "شکایت",
-      "nextPage": 66,
+      "nextPage": 81,
       "complete": false,
-      "pagesFetched": 80,
-      "videosSeen": 1598,
+      "pagesFetched": 100,
+      "videosSeen": 1998,
       "createdAt": "2026-11-18T15:04:26.775Z",
-      "lastAttemptAt": "2026-11-18T16:26:23.171Z",
+      "lastAttemptAt": "2026-11-18T16:46:27.027Z",
       "lastError": null,
       "trendTitle": "شکایت",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Wed, 18 Nov 2026 06:40:00 -0800",
       "trendKeywords": [
         "شکایت"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "شکایت ماهیگیران اکوادوری از دولت تروریستی ترامپ": {
       "query": "شکایت ماهیگیران اکوادوری از دولت تروریستی ترامپ",
       "normalized": "شکایت ماهیگیران اکوادوری از دولت تروریستی ترامپ",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-18T15:04:26.775Z",
-      "lastAttemptAt": "2026-11-18T15:25:35.846Z",
+      "lastAttemptAt": "2026-11-18T16:46:27.001Z",
       "lastError": null,
       "trendTitle": "شکایت",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Wed, 18 Nov 2026 06:40:00 -0800",
       "trendKeywords": [
         "شکایت"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T15:25:35.846Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T16:46:27.001Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T16:46:27.001Z"
     },
     "رئیس جمهور اکوادور پایگاه نظامی آمریکایی در کشورمان نداریم": {
       "query": "رئیس‌جمهور اکوادور: پایگاه نظامی آمریکایی در کشورمان نداریم",
       "normalized": "رئیس جمهور اکوادور پایگاه نظامی آمریکایی در کشورمان نداریم",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-18T15:04:26.775Z",
-      "lastAttemptAt": "2026-11-18T15:25:35.846Z",
+      "lastAttemptAt": "2026-11-18T16:46:27.001Z",
       "lastError": null,
       "trendTitle": "شکایت",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Wed, 18 Nov 2026 06:40:00 -0800",
       "trendKeywords": [
         "شکایت"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T15:25:35.846Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T16:46:27.001Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T16:46:27.001Z"
     },
     "استقبال کم سابقه شی از ترامپ در چین رهبران سه قدرت جهانی آماده نشست سه جانبه می شوند": {
       "query": "استقبال کم‌سابقه شی از ترامپ در چین؛ رهبران سه قدرت جهانی آماده نشست سه‌جانبه می‌شوند",
       "normalized": "استقبال کم سابقه شی از ترامپ در چین رهبران سه قدرت جهانی آماده نشست سه جانبه می شوند",
-      "nextPage": 7,
-      "complete": true,
-      "pagesFetched": 2,
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-18T15:24:10.327Z",
-      "lastAttemptAt": "2026-11-18T15:25:35.892Z",
-      "lastError": null,
-      "trendTitle": "چین",
+      "lastAttemptAt": "2026-11-18T16:46:27.001Z",
+      "lastError": "page.evaluate: TimeoutError: signal timed out",
+      "trendTitle": "شی جین پینگ",
       "trendTraffic": 500,
-      "trendPublishedAt": "Wed, 18 Nov 2026 05:20:00 -0800",
+      "trendPublishedAt": "Wed, 18 Nov 2026 08:20:00 -0800",
       "trendKeywords": [
-        "چین"
+        "شی",
+        "جین",
+        "پینگ"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:04:01.769Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T15:25:35.892Z"
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
+      "activeInLatestFeed": true,
+      "termination": "request_failed",
+      "completedAt": "2026-11-18T15:25:35.892Z",
+      "refreshOnly": true
     },
     "آنتونیو آدان": {
       "query": "آنتونیو آدان",
@@ -9647,7 +9683,7 @@
       "trendKeywords": [
         "آدان"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T15:45:35.492Z"
@@ -9748,7 +9784,7 @@
       "trendKeywords": [
         "کنست"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T16:05:22.641Z"
@@ -9769,7 +9805,7 @@
       "trendKeywords": [
         "آدان"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T16:05:22.641Z"
@@ -9855,14 +9891,14 @@
       "lastAttemptAt": "2026-11-18T16:26:23.188Z",
       "lastError": null,
       "trendTitle": "آیتالله وحید خراسانی",
-      "trendTraffic": 2000,
+      "trendTraffic": 500,
       "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
       "trendKeywords": [
         "آیتالله",
         "وحید",
         "خراسانی"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -9877,14 +9913,14 @@
       "lastAttemptAt": "2026-11-18T16:05:22.696Z",
       "lastError": null,
       "trendTitle": "آیتالله وحید خراسانی",
-      "trendTraffic": 2000,
+      "trendTraffic": 500,
       "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
       "trendKeywords": [
         "آیتالله",
         "وحید",
         "خراسانی"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T16:05:22.696Z"
@@ -9900,14 +9936,14 @@
       "lastAttemptAt": "2026-11-18T16:05:22.698Z",
       "lastError": null,
       "trendTitle": "آیتالله وحید خراسانی",
-      "trendTraffic": 2000,
+      "trendTraffic": 500,
       "trendPublishedAt": "Wed, 18 Nov 2026 06:30:00 -0800",
       "trendKeywords": [
         "آیتالله",
         "وحید",
         "خراسانی"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T16:05:22.698Z"
@@ -9934,12 +9970,12 @@
     "پپ گواردیولا": {
       "query": "پپ گواردیولا",
       "normalized": "پپ گواردیولا",
-      "nextPage": 21,
-      "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 385,
+      "nextPage": 35,
+      "complete": true,
+      "pagesFetched": 39,
+      "videosSeen": 705,
       "createdAt": "2026-11-18T16:04:01.769Z",
-      "lastAttemptAt": "2026-11-18T16:26:23.149Z",
+      "lastAttemptAt": "2026-11-18T16:46:27.017Z",
       "lastError": null,
       "trendTitle": "پپ گواردیولا",
       "trendTraffic": 200,
@@ -9948,9 +9984,10 @@
         "پپ",
         "گواردیولا"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true,
-      "termination": "max_pages_reached"
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T16:46:27.017Z"
     },
     "پوچتینو به گواردیولا توصیه می کنم سرمربی آمریکا شود باید سریعا شرایط یونایتد را تغییر دهیم": {
       "query": "پوچتینو: به گواردیولا توصیه می‌کنم سرمربی آمریکا شود؛ باید سریعاً شرایط یونایتد را تغییر دهیم",
@@ -9969,7 +10006,7 @@
         "پپ",
         "گواردیولا"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T16:26:23.149Z"
@@ -9991,7 +10028,7 @@
         "پپ",
         "گواردیولا"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T16:26:23.151Z"
@@ -9999,12 +10036,12 @@
     "وزیر اطلاعات": {
       "query": "وزیر اطلاعات",
       "normalized": "وزیر اطلاعات",
-      "nextPage": 21,
+      "nextPage": 36,
       "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 385,
+      "pagesFetched": 40,
+      "videosSeen": 771,
       "createdAt": "2026-11-18T16:04:01.769Z",
-      "lastAttemptAt": "2026-11-18T16:26:23.161Z",
+      "lastAttemptAt": "2026-11-18T16:46:27.022Z",
       "lastError": null,
       "trendTitle": "وزیر اطلاعات",
       "trendTraffic": 100,
@@ -10013,7 +10050,7 @@
         "وزیر",
         "اطلاعات"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -10034,7 +10071,7 @@
         "وزیر",
         "اطلاعات"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T16:26:23.162Z"
@@ -10056,7 +10093,7 @@
         "وزیر",
         "اطلاعات"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T16:26:23.163Z"
@@ -10079,7 +10116,7 @@
         "احمدیان",
         "شوشتر"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T16:26:23.188Z"
@@ -10102,7 +10139,7 @@
         "احمدیان",
         "شوشتر"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T16:26:23.195Z"
@@ -10125,7 +10162,7 @@
         "احمدیان",
         "شوشتر"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T16:26:23.195Z"
@@ -10133,12 +10170,12 @@
     "آدان": {
       "query": "آدان",
       "normalized": "آدان",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 400,
       "createdAt": "2026-11-18T16:24:16.493Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T16:46:27.011Z",
       "lastError": null,
       "trendTitle": "آدان",
       "trendTraffic": 200,
@@ -10146,18 +10183,19 @@
       "trendKeywords": [
         "آدان"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "افزایش حقوق کارمندان امروز در مجلس": {
       "query": "افزایش حقوق کارمندان امروز در مجلس",
       "normalized": "افزایش حقوق کارمندان امروز در مجلس",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 4,
+      "videosSeen": 33,
       "createdAt": "2026-11-18T16:24:16.493Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T16:46:27.012Z",
       "lastError": null,
       "trendTitle": "افزایش حقوق کارمندان امروز در مجلس",
       "trendTraffic": 100,
@@ -10168,18 +10206,20 @@
         "کارمندان",
         "مجلس"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T16:46:27.012Z"
     },
     "افزایش حقوق کارمندان مجلس": {
       "query": "افزایش حقوق کارمندان مجلس",
       "normalized": "افزایش حقوق کارمندان مجلس",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 4,
+      "videosSeen": 35,
       "createdAt": "2026-11-18T16:24:16.493Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T16:46:27.013Z",
       "lastError": null,
       "trendTitle": "افزایش حقوق کارمندان امروز در مجلس",
       "trendTraffic": 100,
@@ -10190,7 +10230,51 @@
         "کارمندان",
         "مجلس"
       ],
-      "lastTrendSeenAt": "2026-11-18T16:24:16.493Z",
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T16:46:27.013Z"
+    },
+    "شی جین پینگ": {
+      "query": "شی جین پینگ",
+      "normalized": "شی جین پینگ",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T16:44:48.602Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "شی جین پینگ",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Wed, 18 Nov 2026 08:20:00 -0800",
+      "trendKeywords": [
+        "شی",
+        "جین",
+        "پینگ"
+      ],
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
+      "activeInLatestFeed": true
+    },
+    "استقبال کم سابقه شی جین پینگ از رئیس جمهوری آمریکا رئیس جمهوری چین شخصا به استقبال ترامپ رفت": {
+      "query": "استقبال کم‌سابقه شی جین‌پینگ از رئیس جمهوری آمریکا؛ رئیس‌جمهوری چین شخصا به استقبال ترامپ رفت",
+      "normalized": "استقبال کم سابقه شی جین پینگ از رئیس جمهوری آمریکا رئیس جمهوری چین شخصا به استقبال ترامپ رفت",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T16:44:48.602Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "شی جین پینگ",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Wed, 18 Nov 2026 08:20:00 -0800",
+      "trendKeywords": [
+        "شی",
+        "جین",
+        "پینگ"
+      ],
+      "lastTrendSeenAt": "2026-11-18T16:44:48.602Z",
       "activeInLatestFeed": true
     }
   },
@@ -12047,10 +12131,21 @@
             "خودرو"
           ],
           "page": 31
+        },
+        {
+          "query": "وزیر اطلاعات",
+          "trendTitle": "وزیر اطلاعات",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 07:30:00 -0800",
+          "trendKeywords": [
+            "وزیر",
+            "اطلاعات"
+          ],
+          "page": 21
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T14:45:23.110Z",
-      "lastMetricsFetchedAt": "2026-11-18T14:44:35.809Z"
+      "lastTrendMatchedAt": "2026-11-18T16:46:27.019Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:45:45.924Z"
     },
     "MvCjW5F": {
       "video_code": "MvCjW5F",
@@ -27038,8 +27133,8 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T16:26:23.164Z",
-      "lastMetricsFetchedAt": "2026-11-18T16:24:50.753Z"
+      "lastTrendMatchedAt": "2026-11-18T16:46:27.023Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:45:36.211Z"
     },
     "LqcSwzA": {
       "video_code": "LqcSwzA",
@@ -133938,7 +134033,7 @@
       "visit_count": 35239,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:44:52.056Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:45:53.721Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -133975,9 +134070,21 @@
             "اربابی"
           ],
           "page": 20
+        },
+        {
+          "query": "مهدی اربابی فوتبال",
+          "trendTitle": "مهدی اربابی فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی",
+            "فوتبال"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z"
+      "lastTrendMatchedAt": "2026-11-18T16:46:27.028Z"
     },
     "GTIK0ZZ": {
       "video_code": "GTIK0ZZ",
@@ -143338,7 +143445,7 @@
       "visit_count": 25528,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:24:40.372Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:45:53.721Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -143377,9 +143484,21 @@
             "ای"
           ],
           "page": 44
+        },
+        {
+          "query": "مهدی اربابی فوتبال",
+          "trendTitle": "مهدی اربابی فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی",
+            "فوتبال"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:25:28.831Z"
+      "lastTrendMatchedAt": "2026-11-18T16:46:27.028Z"
     },
     "ItUSSV5": {
       "video_code": "ItUSSV5",
@@ -146168,7 +146287,7 @@
       "visit_count": 107441,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:44:50.906Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:45:55.738Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -146197,7 +146316,7 @@
           "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z"
+      "lastTrendMatchedAt": "2026-11-18T16:46:27.030Z"
     },
     "R2aRN3v": {
       "video_code": "R2aRN3v",
@@ -148148,10 +148267,10 @@
       "sender_name": "فیلی فیلم",
       "category_id": 11,
       "duration": 892,
-      "visit_count": 22681,
+      "visit_count": 22682,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:45:09.672Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:45:53.721Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -148167,9 +148286,21 @@
             "قایدی"
           ],
           "page": 27
+        },
+        {
+          "query": "مهدی اربابی فوتبال",
+          "trendTitle": "مهدی اربابی فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی",
+            "فوتبال"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:45:34.715Z"
+      "lastTrendMatchedAt": "2026-11-18T16:46:27.028Z"
     },
     "qRKLKHX": {
       "video_code": "qRKLKHX",
@@ -148180,7 +148311,7 @@
       "visit_count": 42370,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:45:09.672Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:45:53.721Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -148196,9 +148327,21 @@
             "قایدی"
           ],
           "page": 27
+        },
+        {
+          "query": "مهدی اربابی فوتبال",
+          "trendTitle": "مهدی اربابی فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی",
+            "فوتبال"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:45:34.715Z"
+      "lastTrendMatchedAt": "2026-11-18T16:46:27.028Z"
     },
     "hzPAnLh": {
       "video_code": "hzPAnLh",
@@ -148499,7 +148642,7 @@
       "visit_count": 24481,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:45:15.317Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:45:53.721Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -148515,9 +148658,21 @@
             "قایدی"
           ],
           "page": 33
+        },
+        {
+          "query": "مهدی اربابی فوتبال",
+          "trendTitle": "مهدی اربابی فوتبال",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی",
+            "فوتبال"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:45:34.718Z"
+      "lastTrendMatchedAt": "2026-11-18T16:46:27.028Z"
     },
     "B3J3liU": {
       "video_code": "B3J3liU",
@@ -155598,7 +155753,7 @@
       "visit_count": 11085,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:55:08.192Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:46:01.092Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155625,9 +155780,20 @@
             "خام"
           ],
           "page": 33
+        },
+        {
+          "query": "وزیر اطلاعات",
+          "trendTitle": "وزیر اطلاعات",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 07:30:00 -0800",
+          "trendKeywords": [
+            "وزیر",
+            "اطلاعات"
+          ],
+          "page": 34
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:56:03.478Z"
+      "lastTrendMatchedAt": "2026-11-18T16:46:27.022Z"
     },
     "apS5wDI": {
       "video_code": "apS5wDI",
@@ -169705,7 +169871,7 @@
       "visit_count": 101119,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T16:24:49.983Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:45:35.370Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -169722,7 +169888,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T16:26:23.163Z"
+      "lastTrendMatchedAt": "2026-11-18T16:46:27.023Z"
     },
     "M3DotId": {
       "video_code": "M3DotId",
@@ -169733,7 +169899,7 @@
       "visit_count": 71449,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T16:24:49.983Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:45:35.370Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -169750,7 +169916,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T16:26:23.163Z"
+      "lastTrendMatchedAt": "2026-11-18T16:46:27.023Z"
     },
     "mESqUJ8": {
       "video_code": "mESqUJ8",
@@ -169761,7 +169927,7 @@
       "visit_count": 25036,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T16:24:49.983Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:45:35.370Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -169778,7 +169944,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T16:26:23.163Z"
+      "lastTrendMatchedAt": "2026-11-18T16:46:27.023Z"
     },
     "xw1O77X": {
       "video_code": "xw1O77X",
@@ -169789,7 +169955,7 @@
       "visit_count": 101834,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T16:24:49.983Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:45:35.370Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -169806,7 +169972,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T16:26:23.163Z"
+      "lastTrendMatchedAt": "2026-11-18T16:46:27.023Z"
     },
     "1XNSbY8": {
       "video_code": "1XNSbY8",
@@ -169817,7 +169983,7 @@
       "visit_count": 29891,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T16:24:49.983Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:45:35.370Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -169834,7 +170000,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T16:26:23.163Z"
+      "lastTrendMatchedAt": "2026-11-18T16:46:27.023Z"
     },
     "9UWFG4o": {
       "video_code": "9UWFG4o",
@@ -169845,7 +170011,7 @@
       "visit_count": 60161,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T16:24:50.753Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:45:36.211Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -169862,7 +170028,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T16:26:23.164Z"
+      "lastTrendMatchedAt": "2026-11-18T16:46:27.023Z"
     },
     "dUFTvXz": {
       "video_code": "dUFTvXz",
@@ -170704,7 +170870,7 @@
       "visit_count": 204495,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T16:24:42.673Z",
+      "lastMetricsFetchedAt": "2026-11-18T16:45:39.643Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -170722,7 +170888,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T16:26:23.154Z"
+      "lastTrendMatchedAt": "2026-11-18T16:46:27.019Z"
     },
     "mbdflfo": {
       "video_code": "mbdflfo",
@@ -171976,6 +172142,6 @@
       "lastTrendMatchedAt": "2026-11-18T16:26:23.189Z"
     }
   },
-  "totalPagesFetched": 13343,
-  "totalVideosSeen": 241317
+  "totalPagesFetched": 13472,
+  "totalVideosSeen": 243551
 }
