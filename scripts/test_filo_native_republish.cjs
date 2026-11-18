@@ -1744,13 +1744,31 @@ const dailyPacingState = { posts: Array.from({length:40},(_,index)=>({
   status:'public_verified',
   submittedAt:new Date(pacingNow - (23*60+index)*60*1000).toISOString()
 })) };
-const unblockedByDailyVolume = getPublicationPacingGate(dailyPacingState, pacingNow);
-assert.equal(unblockedByDailyVolume.blocked, false,
-  'more than 36 operations in a rolling 24-hour window must not create a local publishing cap');
-assert.equal(unblockedByDailyVolume.rolling24hOperations, 40);
-assert.equal(unblockedByDailyVolume.internalDailyCap, null);
+const blockedByDailyVolume = getPublicationPacingGate(dailyPacingState, pacingNow);
+assert.equal(blockedByDailyVolume.blocked, true,
+  '36 or more publication operations inside the rolling 24-hour window must block another submit');
+assert.equal(blockedByDailyVolume.rolling24hOperations, 40);
+assert.equal(blockedByDailyVolume.internalDailyCap, 36);
+assert.equal(blockedByDailyVolume.remainingDailySlots, 0);
+assert.ok(blockedByDailyVolume.reasons.includes('rolling_24h_republish_cap_36'));
+const expectedNextSlot = Date.parse(dailyPacingState.posts[35].submittedAt) + 24*60*60*1000 + 1;
+assert.equal(Date.parse(blockedByDailyVolume.nextEligibleAt), expectedNextSlot,
+  'the next slot opens only when enough of the oldest rolling-window operations expire');
 assert.equal(dailyCount(dailyPacingState,pacingNow),40,
-  'daily operation count remains diagnostic only after removing the daily cap');
+  'daily diagnostics include all persisted publication operations');
+
+const belowCapState = { posts: dailyPacingState.posts.slice(0,35) };
+const belowCapGate = getPublicationPacingGate(belowCapState, pacingNow);
+assert.equal(belowCapGate.blocked, false,
+  '35 operations in the rolling window leave one slot available');
+assert.equal(belowCapGate.remainingDailySlots, 1);
+
+const mixedNativeState = { posts: dailyPacingState.posts.slice(0,18) };
+const mixedExternalPosts = dailyPacingState.posts.slice(18,36);
+const mixedLedgerGate = getPublicationPacingGate(mixedNativeState, pacingNow, mixedExternalPosts);
+assert.equal(mixedLedgerGate.blocked, true,
+  'native and licensed-source ledgers must share the same 36-operation account cap');
+assert.equal(mixedLedgerGate.rolling24hOperations, 36);
 
 
 

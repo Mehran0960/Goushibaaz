@@ -20,16 +20,15 @@ on:
       - "docs/CHANGELOG.md"
       - ".github/pull_request_template.md"
       - "README.md"
-  # Native five-minute trigger; workflow_dispatch remains available for manual or authorized external dispatch.
+  # Single automatic source: native 15-minute schedule. Manual dispatch is intentionally disabled.
   schedule:
-    - cron: "*/5 * * * *"
-  workflow_dispatch:
+    - cron: "*/15 * * * *"
 
 permissions:
   contents: read
 
 concurrency:
-  group: filo-native-republish-${{ github.event_name == 'pull_request' && github.run_id || 'publisher' }}
+  group: filo-account-publisher-${{ github.event_name == 'pull_request' && github.run_id || 'production' }}
   cancel-in-progress: false
 
 jobs:
@@ -76,7 +75,7 @@ jobs:
           node scripts/test_filo_external_ingest_due.cjs
 
   republish:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' }}
+    if: ${{ github.event_name == 'schedule' }}
     permissions:
       contents: write
     runs-on: ubuntu-latest
@@ -140,47 +139,6 @@ jobs:
           FILO_PASS: ${{ secrets.FILO_PASS }}
         run: node scripts/filo_native_republish.cjs
 
-      - name: Check whether the independent licensed-source scan is due
-        id: external_due
-        if: steps.republish.outcome == 'success'
-        run: node scripts/filo_external_ingest_due.cjs
-
-      - name: Search Filo global catalog using current Iranian trends
-        id: global_filo_search
-        if: steps.external_due.outputs.due == 'true'
-        continue-on-error: true
-        env:
-          FILO_USER: ${{ secrets.FILO_USER }}
-          FILO_PASS: ${{ secrets.FILO_PASS }}
-        run: node scripts/filo_trend_search_worker.cjs
-
-      - name: Persist global Filo trend-search observations
-        if: always() && steps.external_due.outputs.due == 'true'
-        run: bash scripts/persist_state_file.sh state/filo-global-search-candidates.json "Record global Filo trend-search observations [skip ci]"
-
-      - name: Install FFmpeg and fonts for external video preparation
-        if: steps.external_due.outputs.due == 'true'
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg fonts-noto-core
-
-      - name: Independently search Persian trend-led open-license sources and publish one eligible video
-        if: steps.external_due.outputs.due == 'true'
-        env:
-          FILO_USER: ${{ secrets.FILO_USER }}
-          FILO_PASS: ${{ secrets.FILO_PASS }}
-          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY || vars.PEXELS_API_KEY }}
-          PEXELS_AUTOMATED_REPUBLISH_APPROVED: ${{ vars.PEXELS_AUTOMATED_REPUBLISH_APPROVED || 'false' }}
-        run: node scripts/filo_publish_cc0.cjs
-
-      - name: Persist external scan cadence
-        if: always() && steps.external_due.outputs.due == 'true'
-        run: bash scripts/persist_state_file.sh state/filo-external-ingest-schedule.json "Record Filo external ingestion scan cadence [skip ci]"
-
-      - name: Persist licensed external publication ledger
-        if: always() && steps.external_due.outputs.due == 'true'
-        run: bash scripts/persist_state_file.sh state/filo-published.json "Record Filo licensed external publication state [skip ci]"
-
       - name: Persist idempotency ledger after a submission
         if: always()
         run: bash scripts/persist_state_file.sh state/filo-native-republished.json "Record Filo native republish state [skip ci]"
@@ -191,6 +149,5 @@ jobs:
           name: filo-native-republish-${{ github.run_id }}
           path: |
             out/filo-native-republish.json
-            out/filo-global-search-worker.json
           if-no-files-found: warn
           retention-days: 14

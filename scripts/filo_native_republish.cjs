@@ -16,7 +16,6 @@ const STATE_PATH = path.join('state', 'filo-native-republished.json');
 const REPORT_PATH = path.join('out', 'filo-native-republish.json');
 const PLATFORM_TRENDS_PATH = path.join('state', 'platform-trends.json');
 const PLATFORM_TRENDS_MAX_AGE_MS = 48 * 60 * 60 * 1000;
-const GLOBAL_SEARCH_STATE_PATH = path.join('state', 'filo-global-search-candidates.json');
 const GLOBAL_SEARCH_CANDIDATE_MAX_AGE_MS = 25 * 60 * 1000;
 const FALLBACK_CATEGORY_IDS = [6, 11, 13, 29, 2, 22, 17, 25, 15, 3];
 const FALLBACK_VIDEO_TAG_FEEDS = [
@@ -82,7 +81,8 @@ const ACCOUNT_REPUBLISH_QUOTA_COOLDOWN_MS = 24 * 60 * 60 * 1000;
 // account-wide quota from genuinely video-specific access denials.
 const ACCOUNT_QUOTA_403_PROBE_INTERVAL_MS = 12 * 60 * 60 * 1000;
 const MIN_PUBLISH_GAP_MS = 0;
-// No local delay is imposed; Filo's own account quota/cooldown remains authoritative.
+// Hard account-level ceiling shared with the licensed-source publisher.
+const MAX_DAILY_PUBLICATIONS = 36;
 const MAX_PACING_WAIT_MS = 0;
 const MAX_DETAIL_CHECKS = 90;
 const MIN_DURATION_SECONDS = 10;
@@ -2367,21 +2367,33 @@ function getPublicationPacingGate(state, now = Date.now(), externalPosts = []) {
   const rollingHour = times.filter(at => at > hourStart);
   const rolling24h = times.filter(at => at > dayStart);
   const latestOperationAt = times.at(-1) ?? null;
-  const nextEligibleAt = latestOperationAt === null
+  const dailyLimitReached = rolling24h.length >= MAX_DAILY_PUBLICATIONS;
+  // `times` is sorted oldest-first. At the limit, wait until the oldest counted
+  // operation leaves the rolling 24-hour window; this is not a UTC calendar-day reset.
+  const nextDailyEligibleMs = dailyLimitReached
+    ? rolling24h[rolling24h.length - MAX_DAILY_PUBLICATIONS] + 24 * 60 * 60 * 1000 + 1
+    : null;
+  const nextGapEligibleMs = latestOperationAt === null
     ? null
     : latestOperationAt + MIN_PUBLISH_GAP_MS;
-  const blocked = nextEligibleAt !== null && nextEligibleAt > nowMs;
+  const gapBlocked = nextGapEligibleMs !== null && nextGapEligibleMs > nowMs;
+  const blocked = dailyLimitReached || gapBlocked;
+  const reasons = [];
+  if (dailyLimitReached) reasons.push('rolling_24h_republish_cap_36');
+  if (gapBlocked) reasons.push('minimum_gap_between_republish_operations');
+  const nextEligibleMs = dailyLimitReached ? nextDailyEligibleMs : gapBlocked ? nextGapEligibleMs : null;
 
   return {
     blocked,
-    reasons: blocked ? ['minimum_gap_between_republish_operations'] : [],
-    nextEligibleAt: blocked ? new Date(nextEligibleAt).toISOString() : null,
+    reasons,
+    nextEligibleAt: nextEligibleMs === null ? null : new Date(nextEligibleMs).toISOString(),
     minimumGapMs: MIN_PUBLISH_GAP_MS,
     lastOperationAt: latestOperationAt === null ? null : new Date(latestOperationAt).toISOString(),
     rollingHourOperations: rollingHour.length,
     rolling24hOperations: rolling24h.length,
+    remainingDailySlots: Math.max(0, MAX_DAILY_PUBLICATIONS - rolling24h.length),
     internalHourlyCap: null,
-    internalDailyCap: null
+    internalDailyCap: MAX_DAILY_PUBLICATIONS
   };
 }
 
@@ -3772,45 +3784,8 @@ async function main() {
     };
 
     const cycleAt = Date.parse(report.createdAt);
-    let globalSearchState = null;
-    let globalSearchStateError = null;
-    try {
-      if (fs.existsSync(GLOBAL_SEARCH_STATE_PATH)) {
-        globalSearchState = JSON.parse(fs.readFileSync(GLOBAL_SEARCH_STATE_PATH, 'utf8'));
-      }
-    } catch (error) {
-      globalSearchStateError = String(error && error.message || error).slice(0, 180);
-    }
-
-    const globalSearchCandidates = extractFreshGlobalSearchCandidates(
-      globalSearchState, cycleAt, GLOBAL_SEARCH_CANDIDATE_MAX_AGE_MS
-    );
-    let globalSearchMerged = 0;
-    let globalSearchDuplicates = 0;
-    for (const item of globalSearchCandidates) {
-      if (byCode.has(item.video_code)) {
-        // Prefer the native feed snapshot when both sources observed the same code.
-        globalSearchDuplicates += 1;
-        continue;
-      }
-      byCode.set(item.video_code, item);
-      globalSearchMerged += 1;
-    }
-
-    report.discovery.globalSearch = {
-      statePath: GLOBAL_SEARCH_STATE_PATH,
-      stateAvailable: Boolean(globalSearchState),
-      stateUpdatedAt: globalSearchState && globalSearchState.updatedAt || null,
-      lastTrendFetchAt: globalSearchState && globalSearchState.trendsFetchedAt || null,
-      cachedCandidates: globalSearchState && globalSearchState.items
-        ? Object.keys(globalSearchState.items).length : 0,
-      freshCandidates: globalSearchCandidates.length,
-      mergedCandidates: globalSearchMerged,
-      duplicatesAlreadyInNativeFeeds: globalSearchDuplicates,
-      maxObservationAgeMinutes: Math.round(GLOBAL_SEARCH_CANDIDATE_MAX_AGE_MS / 60000),
-      error: globalSearchStateError
-    };
-
+    // Automatic native republication intentionally stays on current Filo category/tag feeds.
+    // Global catalog and licensed-source discovery are kept outside this critical path.
     const discoveredItems = [...byCode.values()];
     const currentMomentumRates = updateCandidateMomentum(state, discoveredItems, cycleAt);
     report.discovery.catalog24h = update24HourCandidateCatalog(state, discoveredItems, cycleAt);
@@ -4002,7 +3977,7 @@ async function main() {
         retryAfterAt: publicationPacing.nextEligibleAt,
         retryOnNextScheduledRun: true,
         discoveryContinues: true,
-        internalOperationCaps: 'disabled',
+        internalOperationCaps: 'rolling_24h_36',
         waitSkippedBecauseOutsideSchedulerWindow: pacingWait.waitSkipped
       };
       return;
