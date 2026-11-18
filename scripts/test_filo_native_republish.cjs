@@ -224,16 +224,29 @@ assert.equal(unknownThird[0].recencyMomentumEvidence.ageBand, 'unknown_age');
 
 const recencyFresh = candidateRecencyMomentumEvidence({
   ageHours: 4,
-  accelerationEvidence: { passed:true, velocityPerMinute:0.06, accelerationPerMinute:0, sampleCount:3, metric:'plays' }
+  accelerationEvidence: { passed:true, velocityPerMinute:0.06, accelerationPerMinute:0.01, sampleCount:3, metric:'plays' }
 });
-assert.equal(recencyFresh.passed,true,
-  'fresh videos may pass the base velocity threshold without positive acceleration');
+assert.equal(recencyFresh.passed,true, 'fresh content must also show positive acceleration');
 const recencyMidAge = candidateRecencyMomentumEvidence({
   ageHours: 48,
   accelerationEvidence: { passed:true, velocityPerMinute:0.10, accelerationPerMinute:0.01, sampleCount:4, metric:'plays' }
 });
 assert.equal(recencyMidAge.passed,true,
   'videos between 24 and 72 hours need at least 0.08 per minute and positive acceleration');
+const viewAccelerationFallback = candidateAccelerationEvidence({
+  playMetric:{available:true,value:500}, playCounterZeroStalled:false,
+  momentum:{playsSampleCount:2,playsPerMinute:1,playsAccelerationAvailable:false,playsAccelerationPerMinute:0,
+    viewsSampleCount:3,viewsPerMinute:2,viewsAccelerationAvailable:true,viewsAccelerationPerMinute:0.2}
+});
+assert.equal(viewAccelerationFallback.metric,'views','view acceleration is fallback when play acceleration cannot be calculated');
+assert.equal(viewAccelerationFallback.passed,true);
+const negativePlayAcceleration = candidateAccelerationEvidence({
+  playMetric:{available:true,value:500}, playCounterZeroStalled:false,
+  momentum:{playsSampleCount:3,playsPerMinute:2,playsAccelerationAvailable:true,playsAccelerationPerMinute:-0.2,
+    viewsSampleCount:3,viewsPerMinute:3,viewsAccelerationAvailable:true,viewsAccelerationPerMinute:0.5}
+});
+assert.equal(negativePlayAcceleration.metric,'plays','negative play acceleration cannot be bypassed by view growth');
+assert.equal(negativePlayAcceleration.passed,false);
 const recencyMidAgeFlat = candidateRecencyMomentumEvidence({
   ageHours: 48,
   accelerationEvidence: { passed:true, velocityPerMinute:0.10, accelerationPerMinute:0, sampleCount:4, metric:'plays' }
@@ -279,10 +292,10 @@ assert.equal(shouldStartPublishingCycle('2026-11-05T04:18:00.000Z',
   Date.parse('2026-11-05T04:17:59.000Z')), false,
   'a future prior-cycle timestamp is rejected to guard against clock skew');
 assert.equal(feedCandidateEligible(valid, { posts: [] }), true);
-assert.equal(feedCandidateEligible({ ...valid, video_code:'Military01', title:'فیلم/ لحظه رهگیری و انهدام پهپاد MQ۹ آمریکایی در شرق تنگه هرمز' }, { posts:[] }), false,
-  'military conflict footage must be excluded before detail review');
-assert.equal(feedCandidateEligible({ ...valid, video_code:'Military02', title:'ویدئوی سرگرم‌کننده', feed_tag_label:'سپاه پاسداران' }, { posts:[] }), false,
-  'military topic labels must be considered even when the title is vague');
+assert.equal(feedCandidateEligible({ ...valid, video_code:'Military01', title:'فیلم/ لحظه رهگیری و انهدام پهپاد MQ۹ آمریکایی در شرق تنگه هرمز' }, { posts:[] }), true,
+  'conflict reporting remains discoverable; actual content and Filo permissions are checked later');
+assert.equal(feedCandidateEligible({ ...valid, video_code:'Military02', title:'ویدئوی سرگرم‌کننده', feed_tag_label:'سپاه پاسداران' }, { posts:[] }), true,
+  'military/institutional labels are not topic-based discovery bans');
 assert.equal(feedCandidateEligible({ ...valid, video_code:'Birthday01', title:'23 آبان ماهی تولدت مبارک / کلیپ استوری تولد متولدین 23 آبان ماهی' }, { posts:[] }), false,
   'generic birthday-story greeting templates are low-value filler');
 assert.equal(feedCandidateEligible({ ...valid, video_code:'TinyTitle', title:'کم', description:'', sender_name:'' }, { posts:[] }), true,
@@ -362,15 +375,17 @@ assert.equal(feedCandidateEligible(valid,mixedRejectionLedger),false,
   'any non-metadata rejection for the same source must block the metadata-only retry exception');
 assert.equal(feedCandidateEligible(valid,{posts:[{sourceCode:valid.video_code,status:'public_verified'}]}),false,
   'a previously verified publication must never be submitted again');
-assert.equal(feedCandidateEligible({ ...valid, title: 'خبر فوری جنگ و حمله نظامی' }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, title: 'خبر فوری جنگ و حمله نظامی' }, { posts: [] }), true);
 assert.equal(feedCandidateEligible({ ...valid, title: 'پیغام توهین آمیز در پایان مسابقه' }, { posts: [] }), false);
-assert.equal(feedCandidateEligible({ ...valid, title: 'سکانس سریال ایرانی' }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, title: 'سکانس سریال ایرانی' }, { posts: [] }), true,
+  'film and series subjects are not blocked by title alone; item-level rights checks remain authoritative');
 assert.equal(feedCandidateEligible({ ...valid, title: 'تصاویر دوربین مداربسته بدون رضایت افراد' }, { posts: [] }), false);
 assert.equal(policyTextRiskReason({ title: 'پیغام توهین آمیز به یک بازیکن' }), 'insult_or_defamation');
 assert.equal(policyTextRiskReason({ title: 'شبیه ساز بمب اتم در تهران' }), 'weapons_or_explosives');
 assert.equal(feedCandidateEligible({ ...valid, title: 'شبیه ساز بمب اتم در تهران' }, { posts: [] }), false);
 assert.equal(policyTextRiskReason({ description: 'دانلود و تماشای رایگان جدیدترین ویدیوها با کیفیت عالی در رسانه آی‌آرمووی.' }), 'external_video_service_advertising');
-assert.equal(feedCandidateEligible({ ...valid, title: 'رقص و حرکات موزون' }, { posts: [] }), false);
+assert.equal(feedCandidateEligible({ ...valid, title: 'رقص و حرکات موزون' }, { posts: [] }), true,
+  'music and dance subjects are not automatically prohibited');
 assert.equal(feedCandidateEligible({ ...valid, title: 'صحنه اعدام با سلاح' }, { posts: [] }), false);
 assert.equal(feedCandidateEligible(valid, { posts: [{ sourceCode: 'AbC1234', status: 'submitted_pending_approval' }] }), false);
 assert.equal(feedCandidateEligible(valid, { posts: [{ sourceCode: 'AbC1234', status: 'submitted_unconfirmed' }] }), false);
