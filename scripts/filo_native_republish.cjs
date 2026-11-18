@@ -21,36 +21,39 @@ const GLOBAL_SEARCH_CANDIDATE_MAX_AGE_MS = 25 * 60 * 1000;
 const FALLBACK_CATEGORY_IDS = [6, 11, 13, 29, 2, 22, 17, 25, 15, 3];
 const FALLBACK_VIDEO_TAG_FEEDS = [
   { key: 'all', label: 'همه' },
-  { key: 'q-آهنگ', label: 'آهنگ' },
-  { key: 'q-آشپزی', label: 'آشپزی' },
-  { key: 'q-ورزش', label: 'ورزش' },
+  { key: 'q-طنز', label: 'طنز' },
+  { key: 'q-آموزش', label: 'آموزش' },
   { key: 'q-خلاقیت', label: 'خلاقیت' },
-  { key: 'q-مذهبی', label: 'مذهبی' },
-  { key: 'q-خبری', label: 'خبری' },
   { key: 'q-تکنولوژی', label: 'تکنولوژی' },
-  { key: 'q-بازی', label: 'بازی' },
+  { key: 'q-آشپزی', label: 'آشپزی' },
+  { key: 'q-حیوانات', label: 'حیوانات' },
+  { key: 'q-خودرو', label: 'خودرو' },
+  { key: 'q-ورزش', label: 'ورزش' },
   { key: 'q-طبیعت', label: 'طبیعت' },
+  { key: 'q-بازی', label: 'بازی' },
+  { key: 'q-مستند', label: 'مستند' },
+  { key: 'q-سفر', label: 'سفر' },
+  { key: 'q-سلامت', label: 'سلامت' },
+  { key: 'q-آهنگ', label: 'آهنگ' },
+  { key: 'q-کارتون', label: 'کارتون' },
   { key: 'q-فیلم', label: 'فیلم' },
   { key: 'q-سریال', label: 'سریال' },
-  { key: 'q-کارتون', label: 'کارتون' },
-  { key: 'q-طنز', label: 'طنز' },
-  { key: 'q-مستند', label: 'مستند' },
-  { key: 'q-آموزش', label: 'آموزش' },
-  { key: 'q-سلامت', label: 'سلامت' },
-  { key: 'q-سفر', label: 'سفر' },
-  { key: 'q-حیوانات', label: 'حیوانات' },
-  { key: 'q-خودرو', label: 'خودرو' }
+  { key: 'q-مذهبی', label: 'مذهبی' },
+  { key: 'q-خبری', label: 'خبری' }
 ];
 const MAX_DISCOVERED_CATEGORY_IDS = 64;
-const MAX_PAGES_PER_CATEGORY = 1000;
-const MAX_TOTAL_CATEGORY_PAGE_REQUESTS = 420;
+// Keep the native discovery window shallow: page one plus pages two and three.
+// Each cycle refreshes the first page for every category and rotates the two
+// depth pages across categories; older archives are not a useful freshness source.
+const MAX_PAGES_PER_CATEGORY = 3;
+const MAX_TOTAL_CATEGORY_PAGE_REQUESTS = 120;
 const CATEGORY_PAGE_CONCURRENCY = 4;
-const CATEGORY_SCAN_BUDGET_MS = 30 * 60 * 1000;
+const CATEGORY_SCAN_BUDGET_MS = 4 * 60 * 1000;
 // Retained only for age diagnostics; it is no longer an admission or pagination cutoff.
 const CATEGORY_LOOKBACK_HOURS = 72;
 const MIN_CYCLE_INTERVAL_MS = 0;
 const DEPTH_CATEGORIES_PER_CYCLE = 21;
-const DEPTH_PAGES_PER_CATEGORY_PER_CYCLE = 20;
+const DEPTH_PAGES_PER_CATEGORY_PER_CYCLE = 2;
 const TOPIC_DUPLICATE_WINDOW_MS = 48 * 60 * 60 * 1000;
 const CANDIDATE_REJECTION_TTL_MS = 6 * 60 * 60 * 1000;
 const ACCOUNT_REPUBLISH_QUOTA_COOLDOWN_MS = 2 * 60 * 60 * 1000;
@@ -2761,12 +2764,13 @@ function mergeVideoTagFeeds(primaryFeeds, supplementalFeeds = FALLBACK_VIDEO_TAG
   };
   const primary = normalize(primaryFeeds);
   const supplemental = normalize(supplementalFeeds);
-  const primaryKeys = new Set(primary.map(feed => feed.key));
-  const reservedSupplementCount = supplemental.filter(feed => !primaryKeys.has(feed.key)).length;
-  const primaryLimit = Math.max(0, limit - Math.min(limit, reservedSupplementCount));
-  const merged = primary.slice(0, primaryLimit);
+  const primaryByKey = new Map(primary.map(feed => [feed.key, feed]));
+  // Start with the public front-page taxonomy so the first rotating depth
+  // batch covers broad, high-interest categories rather than only account
+  // personalization. Live account labels still win for duplicate keys.
+  const merged = supplemental.map(feed => primaryByKey.get(feed.key) || feed).slice(0, limit);
   const seen = new Set(merged.map(feed => feed.key));
-  for (const feed of supplemental) {
+  for (const feed of primary) {
     if (merged.length >= limit) break;
     if (seen.has(feed.key)) continue;
     merged.push(feed);
