@@ -75,7 +75,9 @@ const DEPTH_CATEGORIES_PER_CYCLE = 21;
 const DEPTH_PAGES_PER_CATEGORY_PER_CYCLE = 2;
 const TOPIC_DUPLICATE_WINDOW_MS = 48 * 60 * 60 * 1000;
 const CANDIDATE_REJECTION_TTL_MS = 6 * 60 * 60 * 1000;
-const ACCOUNT_REPUBLISH_QUOTA_COOLDOWN_MS = 2 * 60 * 60 * 1000;
+// Filo's explicit daily quota is account-wide. Pause native detail/publish calls
+// for a full rolling day after confirmation; keep feed discovery and sampling alive.
+const ACCOUNT_REPUBLISH_QUOTA_COOLDOWN_MS = 24 * 60 * 60 * 1000;
 const MIN_PUBLISH_GAP_MS = 0;
 // No local delay is imposed; Filo's own account quota/cooldown remains authoritative.
 const MAX_PACING_WAIT_MS = 0;
@@ -1884,9 +1886,16 @@ function detailFetchHttpDisposition(status) {
 
 
 function isAccountRepublishQuotaMessage(value) {
-  const text = String(value || '').replace(/[\r\n]+/g, ' ')
+  const text = String(value || '')
+    .replace(/[\u200c\u200d\u200e\u200f\u202a-\u202e]/g, '')
+    .replace(/[\r\n]+/g, ' ')
     .replace(/\s+/g, ' ').trim().toLocaleLowerCase('fa-IR');
-  return /سقف.{0,35}(?:بازنشر|انتشار|آپلود).{0,40}(?:تموم|تمام|پر|تکمیل|به پایان)|(?:ساعاتی|چند ساعت).{0,30}(?:بعد|دیگر).{0,30}(?:بازنشر|انتشار|مراجعه)|(?:repost|republish|upload).{0,30}(?:limit|quota).{0,30}(?:reached|exceeded|used up)/iu.test(text);
+  const explicitQuota = /سقف.{0,35}(?:بازنشر|انتشار|آپلود).{0,40}(?:تموم|تمام|پر|تکمیل|به پایان)|(?:ساعاتی|چند ساعت).{0,30}(?:بعد|دیگر).{0,30}(?:بازنشر|انتشار|مراجعه)|(?:repost|republish|upload).{0,30}(?:limit|quota).{0,30}(?:reached|exceeded|used up)/iu;
+  // Filo currently returns: «شما در روز بیشتر از 36 نمیتوانید بازنشر کنید!».
+  // Accept ASCII/Persian/Arabic digits and ZWNJ spelling variants as account-wide quota.
+  const persianDailyQuota = /(?:در\s*روز|روزانه).{0,90}(?:(?:بیشتر|بیش)\s*از|حداکثر|سقف|محدودیت).{0,35}(?:[0-9۰-۹٠-٩]+.{0,30})?(?:نمی\s*توان(?:ید)?|مجاز\s*نیست(?:ید)?|امکان.{0,20}نیست).{0,35}(?:بازنشر|بازپخش|انتشار|آپلود)/iu;
+  const englishDailyQuota = /(?:daily|per\s+day).{0,50}(?:repost|republish|upload).{0,50}(?:limit|quota|maximum|max|[0-9]+)/iu;
+  return explicitQuota.test(text) || persianDailyQuota.test(text) || englishDailyQuota.test(text);
 }
 
 function setAccountRepublishQuotaCooldown(state, now = Date.now()) {
@@ -1902,10 +1911,9 @@ function setAccountRepublishQuotaCooldown(state, now = Date.now()) {
     .slice(-6)
     .map(at => new Date(at).toISOString());
   const occurrenceCount = state.accountRepublishQuotaEvents.length;
-  const cooldownMs = occurrenceCount === 1
-    ? ACCOUNT_REPUBLISH_QUOTA_COOLDOWN_MS
-    : Math.min(6 * 60 * 60 * 1000,
-      ACCOUNT_REPUBLISH_QUOTA_COOLDOWN_MS * Math.pow(2, occurrenceCount - 1));
+  // A stated per-day limit is not safely retryable after a 2–6 hour guess.
+  // Use a full rolling 24-hour guard; occurrenceCount remains diagnostic only.
+  const cooldownMs = ACCOUNT_REPUBLISH_QUOTA_COOLDOWN_MS;
   const entry = {
     reason: 'filo_account_republish_quota_reached',
     detectedAt: new Date(detectedAt).toISOString(),
