@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-18T01:00:32.291Z",
-  "trendsFetchedAt": "2026-11-18T00:59:34.347Z",
+  "updatedAt": "2026-11-18T01:20:31.023Z",
+  "trendsFetchedAt": "2026-11-18T01:19:23.551Z",
   "trends": [
     {
       "title": "نتایج کنکور",
@@ -12,17 +12,7 @@
       ],
       "traffic": 2000,
       "publishedAt": "Tue, 17 Nov 2026 16:20:00 -0800",
-      "ageHours": 0.7
-    },
-    {
-      "title": "کارت سوخت",
-      "keywords": [
-        "کارت",
-        "سوخت"
-      ],
-      "traffic": 1000,
-      "publishedAt": "Tue, 17 Nov 2026 12:40:00 -0800",
-      "ageHours": 4.3
+      "ageHours": 1
     },
     {
       "title": "ایسنا",
@@ -31,7 +21,7 @@
       ],
       "traffic": 500,
       "publishedAt": "Tue, 17 Nov 2026 16:10:00 -0800",
-      "ageHours": 0.8
+      "ageHours": 1.2
     },
     {
       "title": "argentina vs costa rica",
@@ -43,7 +33,7 @@
       ],
       "traffic": 500,
       "publishedAt": "Tue, 17 Nov 2026 14:30:00 -0800",
-      "ageHours": 2.5
+      "ageHours": 2.8
     },
     {
       "title": "سایت سنجش",
@@ -53,7 +43,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Tue, 17 Nov 2026 16:10:00 -0800",
-      "ageHours": 0.8
+      "ageHours": 1.2
     },
     {
       "title": "steam",
@@ -62,7 +52,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Tue, 17 Nov 2026 15:00:00 -0800",
-      "ageHours": 2
+      "ageHours": 2.3
     },
     {
       "title": "کویت",
@@ -71,7 +61,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Tue, 17 Nov 2026 14:30:00 -0800",
-      "ageHours": 2.5
+      "ageHours": 2.8
     },
     {
       "title": "کارلوس فوربس",
@@ -81,7 +71,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Tue, 17 Nov 2026 13:20:00 -0800",
-      "ageHours": 3.7
+      "ageHours": 4
     },
     {
       "title": "هالند",
@@ -90,7 +80,16 @@
       ],
       "traffic": 200,
       "publishedAt": "Tue, 17 Nov 2026 13:00:00 -0800",
-      "ageHours": 4
+      "ageHours": 4.3
+    },
+    {
+      "title": "kick",
+      "keywords": [
+        "kick"
+      ],
+      "traffic": 100,
+      "publishedAt": "Tue, 17 Nov 2026 15:50:00 -0800",
+      "ageHours": 1.5
     },
     {
       "title": "nations league",
@@ -100,7 +99,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Tue, 17 Nov 2026 13:40:00 -0800",
-      "ageHours": 3.3
+      "ageHours": 3.7
     }
   ],
   "queries": {
@@ -322,7 +321,7 @@
         "سوخت"
       ],
       "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T01:00:31.966Z",
       "refreshOnly": false,
@@ -1342,12 +1341,12 @@
     "سوریه": {
       "query": "سوریه",
       "normalized": "سوریه",
-      "nextPage": 126,
+      "nextPage": 141,
       "complete": false,
-      "pagesFetched": 160,
-      "videosSeen": 3200,
+      "pagesFetched": 180,
+      "videosSeen": 3600,
       "createdAt": "2026-11-17T18:04:25.776Z",
-      "lastAttemptAt": "2026-11-17T23:00:31.861Z",
+      "lastAttemptAt": "2026-11-18T01:20:30.841Z",
       "lastError": null,
       "trendTitle": "سوریه",
       "trendTraffic": 500,
@@ -2753,7 +2752,7 @@
         "سوخت"
       ],
       "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "ابهام درباره میزان تولید و مصرف بنزین وزارت نفت شفاف سازی کند": {
@@ -2774,7 +2773,7 @@
         "سوخت"
       ],
       "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T01:00:31.966Z",
       "refreshOnly": false,
@@ -2873,10 +2872,10 @@
       "normalized": "هالند",
       "nextPage": 1,
       "complete": true,
-      "pagesFetched": 99,
-      "videosSeen": 1941,
+      "pagesFetched": 104,
+      "videosSeen": 2041,
       "createdAt": "2026-11-17T21:19:23.307Z",
-      "lastAttemptAt": "2026-11-18T00:00:19.698Z",
+      "lastAttemptAt": "2026-11-18T01:20:30.811Z",
       "lastError": null,
       "trendTitle": "هالند",
       "trendTraffic": 200,
@@ -2884,12 +2883,12 @@
       "trendKeywords": [
         "هالند"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
-      "completedAt": "2026-11-18T00:00:19.698Z",
+      "completedAt": "2026-11-18T01:20:30.811Z",
       "refreshOnly": false,
-      "lastRefreshAt": "2026-11-18T00:00:19.698Z"
+      "lastRefreshAt": "2026-11-18T01:20:30.811Z"
     },
     "اطمینان پرس از جذب هالند خوشبین به محرومیت سیتی": {
       "query": "اطمینان پرس از جذب هالند؛ خوشبین به محرومیت سیتی",
@@ -2954,7 +2953,7 @@
         "کارلوس",
         "فوربس"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T00:20:49.622Z",
@@ -3065,7 +3064,7 @@
       "trendKeywords": [
         "هالند"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T00:40:19.254Z",
@@ -3077,10 +3076,10 @@
       "normalized": "nations league",
       "nextPage": 1,
       "complete": true,
-      "pagesFetched": 32,
-      "videosSeen": 617,
+      "pagesFetched": 37,
+      "videosSeen": 717,
       "createdAt": "2026-11-17T21:59:35.837Z",
-      "lastAttemptAt": "2026-11-18T00:00:19.699Z",
+      "lastAttemptAt": "2026-11-18T01:20:30.812Z",
       "lastError": null,
       "trendTitle": "nations league",
       "trendTraffic": 100,
@@ -3089,12 +3088,12 @@
         "nations",
         "league"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
-      "completedAt": "2026-11-18T00:00:19.699Z",
+      "completedAt": "2026-11-18T01:20:30.812Z",
       "refreshOnly": false,
-      "lastRefreshAt": "2026-11-18T00:00:19.699Z"
+      "lastRefreshAt": "2026-11-18T01:20:30.812Z"
     },
     "poland vs sweden uefa nations league stats head to head": {
       "query": "Poland vs Sweden: UEFA Nations League stats & head-to-head",
@@ -3135,7 +3134,7 @@
         "nations",
         "league"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T00:20:49.622Z",
@@ -3159,7 +3158,7 @@
         "کارلوس",
         "فوربس"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T01:00:31.966Z",
@@ -3404,7 +3403,7 @@
         "costa",
         "rica"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T00:20:49.622Z",
@@ -3475,7 +3474,7 @@
       "trendKeywords": [
         "کویت"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T00:40:19.266Z"
@@ -3565,7 +3564,7 @@
         "کارلوس",
         "فوربس"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T01:00:31.966Z"
@@ -3587,7 +3586,7 @@
         "nations",
         "league"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T01:00:31.966Z",
@@ -3597,12 +3596,12 @@
     "sweden equalized in the nations league match against poland interia sport": {
       "query": "Sweden equalized in the Nations League match against Poland — Interia Sport",
       "normalized": "sweden equalized in the nations league match against poland interia sport",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-17T22:59:25.602Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T01:20:30.837Z",
       "lastError": null,
       "trendTitle": "nations league",
       "trendTraffic": 100,
@@ -3612,7 +3611,9 @@
         "league"
       ],
       "lastTrendSeenAt": "2026-11-17T22:59:25.602Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T01:20:30.837Z"
     },
     "خلاصه بازی ولز ۲ ۳ پرتغال": {
       "query": "خلاصه بازی ولز ۲-۳ پرتغال",
@@ -3707,7 +3708,7 @@
         "rica"
       ],
       "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T00:40:19.254Z",
       "refreshOnly": false,
@@ -3773,7 +3774,7 @@
       "trendKeywords": [
         "هالند"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T01:00:31.966Z",
@@ -3783,12 +3784,12 @@
     "صدای انفجار و آژیر هشدار در کویت": {
       "query": "صدای انفجار و آژیر هشدار در کویت",
       "normalized": "صدای انفجار و آژیر هشدار در کویت",
-      "nextPage": 81,
+      "nextPage": 96,
       "complete": false,
-      "pagesFetched": 100,
-      "videosSeen": 2000,
+      "pagesFetched": 120,
+      "videosSeen": 2400,
       "createdAt": "2026-11-17T23:39:55.726Z",
-      "lastAttemptAt": "2026-11-18T01:00:31.995Z",
+      "lastAttemptAt": "2026-11-18T01:20:30.827Z",
       "lastError": null,
       "trendTitle": "کویت",
       "trendTraffic": 200,
@@ -3796,7 +3797,7 @@
       "trendKeywords": [
         "کویت"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -3932,7 +3933,7 @@
         "rica"
       ],
       "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-18T00:20:49.653Z"
     },
@@ -3963,12 +3964,12 @@
     "نتایج کنکور": {
       "query": "نتایج کنکور",
       "normalized": "نتایج کنکور",
-      "nextPage": 36,
+      "nextPage": 51,
       "complete": false,
-      "pagesFetched": 40,
-      "videosSeen": 774,
+      "pagesFetched": 60,
+      "videosSeen": 1170,
       "createdAt": "2026-11-18T00:39:19.699Z",
-      "lastAttemptAt": "2026-11-18T01:00:32.001Z",
+      "lastAttemptAt": "2026-11-18T01:20:30.830Z",
       "lastError": null,
       "trendTitle": "نتایج کنکور",
       "trendTraffic": 2000,
@@ -3977,7 +3978,7 @@
         "نتایج",
         "کنکور"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:59:34.934Z",
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -3998,8 +3999,8 @@
         "نتایج",
         "کنکور"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:39:19.700Z",
-      "activeInLatestFeed": false,
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
+      "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T00:40:19.279Z"
     },
@@ -4020,20 +4021,20 @@
         "نتایج",
         "کنکور"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:39:19.700Z",
-      "activeInLatestFeed": false,
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
+      "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T00:40:19.279Z"
     },
     "ایسنا": {
       "query": "ایسنا",
       "normalized": "ایسنا",
-      "nextPage": 36,
+      "nextPage": 51,
       "complete": false,
-      "pagesFetched": 40,
-      "videosSeen": 793,
+      "pagesFetched": 60,
+      "videosSeen": 1190,
       "createdAt": "2026-11-18T00:39:19.700Z",
-      "lastAttemptAt": "2026-11-18T01:00:32.009Z",
+      "lastAttemptAt": "2026-11-18T01:20:30.834Z",
       "lastError": null,
       "trendTitle": "ایسنا",
       "trendTraffic": 500,
@@ -4041,19 +4042,19 @@
       "trendKeywords": [
         "ایسنا"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "سایت سنجش": {
       "query": "سایت سنجش",
       "normalized": "سایت سنجش",
-      "nextPage": 21,
+      "nextPage": 36,
       "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 399,
+      "pagesFetched": 40,
+      "videosSeen": 798,
       "createdAt": "2026-11-18T00:39:19.700Z",
-      "lastAttemptAt": "2026-11-18T00:40:19.292Z",
+      "lastAttemptAt": "2026-11-18T01:20:30.818Z",
       "lastError": null,
       "trendTitle": "سایت سنجش",
       "trendTraffic": 200,
@@ -4062,7 +4063,7 @@
         "سایت",
         "سنجش"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -4083,7 +4084,7 @@
         "سایت",
         "سنجش"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T01:00:31.966Z"
@@ -4105,7 +4106,7 @@
         "سایت",
         "سنجش"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T01:00:31.966Z"
@@ -4128,7 +4129,7 @@
         "کنکور"
       ],
       "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "نتایج کنکور سراسری تا این تاریخ اعلام می شود": {
       "query": "نتایج کنکور سراسری تا این تاریخ اعلام می‌شود",
@@ -4148,17 +4149,17 @@
         "کنکور"
       ],
       "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "steam": {
       "query": "steam",
       "normalized": "steam",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 393,
       "createdAt": "2026-11-18T00:59:34.935Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T01:20:30.821Z",
       "lastError": null,
       "trendTitle": "steam",
       "trendTraffic": 200,
@@ -4166,18 +4167,19 @@
       "trendKeywords": [
         "steam"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "trump faces gop pushback to his order to use steam to launch jets from aircraft carriers": {
       "query": "Trump faces GOP pushback to his order to use steam to launch jets from aircraft carriers",
       "normalized": "trump faces gop pushback to his order to use steam to launch jets from aircraft carriers",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T00:59:34.935Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T01:20:30.821Z",
       "lastError": null,
       "trendTitle": "steam",
       "trendTraffic": 200,
@@ -4185,8 +4187,10 @@
       "trendKeywords": [
         "steam"
       ],
-      "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T01:20:30.821Z"
     },
     "key republican rejects trump order on steam driven launch system": {
       "query": "Key Republican Rejects Trump Order on Steam-Driven Launch System",
@@ -4205,6 +4209,133 @@
         "steam"
       ],
       "lastTrendSeenAt": "2026-11-18T00:59:34.935Z",
+      "activeInLatestFeed": false
+    },
+    "del derechazo cruzado al potente zurdazo al ángulo los dos golazos de julián álvarez para la selección argentina frente a costa rica": {
+      "query": "Del derechazo cruzado al potente zurdazo al ángulo: los dos golazos de Julián Álvarez para la selección argentina frente a Costa Rica",
+      "normalized": "del derechazo cruzado al potente zurdazo al ángulo los dos golazos de julián álvarez para la selección argentina frente a costa rica",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T01:19:24.162Z",
+      "lastAttemptAt": "2026-11-18T01:20:30.834Z",
+      "lastError": null,
+      "trendTitle": "argentina vs costa rica",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Tue, 17 Nov 2026 14:30:00 -0800",
+      "trendKeywords": [
+        "argentina",
+        "vs",
+        "costa",
+        "rica"
+      ],
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T01:20:30.834Z"
+    },
+    "mastantuono ingresó y marcó un doblete para argentina vs costa rica": {
+      "query": "Mastantuono ingresó y marcó un doblete para Argentina vs. Costa Rica",
+      "normalized": "mastantuono ingresó y marcó un doblete para argentina vs costa rica",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T01:19:24.162Z",
+      "lastAttemptAt": "2026-11-18T01:20:30.834Z",
+      "lastError": null,
+      "trendTitle": "argentina vs costa rica",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Tue, 17 Nov 2026 14:30:00 -0800",
+      "trendKeywords": [
+        "argentina",
+        "vs",
+        "costa",
+        "rica"
+      ],
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T01:20:30.834Z"
+    },
+    "reverting ford class carriers to steam is non starter says sasc chair wicker": {
+      "query": "Reverting Ford-class Carriers to Steam is ‘Non-Starter,’ Says SASC Chair Wicker",
+      "normalized": "reverting ford class carriers to steam is non starter says sasc chair wicker",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T01:19:24.162Z",
+      "lastAttemptAt": "2026-11-18T01:20:30.834Z",
+      "lastError": null,
+      "trendTitle": "steam",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 17 Nov 2026 15:00:00 -0800",
+      "trendKeywords": [
+        "steam"
+      ],
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T01:20:30.834Z"
+    },
+    "kick": {
+      "query": "kick",
+      "normalized": "kick",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 370,
+      "createdAt": "2026-11-18T01:19:24.162Z",
+      "lastAttemptAt": "2026-11-18T01:20:30.837Z",
+      "lastError": null,
+      "trendTitle": "kick",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 17 Nov 2026 15:50:00 -0800",
+      "trendKeywords": [
+        "kick"
+      ],
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "dallas cowboys linebacker von miller rowdy kick off mcallen holiday parade hype": {
+      "query": "Dallas Cowboys linebacker Von Miller, Rowdy kick off McAllen Holiday Parade hype",
+      "normalized": "dallas cowboys linebacker von miller rowdy kick off mcallen holiday parade hype",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T01:19:24.162Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "kick",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 17 Nov 2026 15:50:00 -0800",
+      "trendKeywords": [
+        "kick"
+      ],
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
+      "activeInLatestFeed": true
+    },
+    "starting xi lineup notes usmnt vs haiti concacaf nations league quarterfinals": {
+      "query": "Starting XI & Lineup Notes: USMNT vs. Haiti | Concacaf Nations League Quarterfinals",
+      "normalized": "starting xi lineup notes usmnt vs haiti concacaf nations league quarterfinals",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T01:19:24.162Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "kick",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 17 Nov 2026 15:50:00 -0800",
+      "trendKeywords": [
+        "kick"
+      ],
+      "lastTrendSeenAt": "2026-11-18T01:19:24.162Z",
       "activeInLatestFeed": true
     }
   },
@@ -4650,8 +4781,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.287Z",
-      "lastMetricsFetchedAt": "2026-11-18T00:40:05.592Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.812Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:45.591Z"
     },
     "FfCarT0": {
       "video_code": "FfCarT0",
@@ -16813,8 +16944,8 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:32.001Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:04.319Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.830Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:00.463Z"
     },
     "x5nUNiU": {
       "video_code": "x5nUNiU",
@@ -23737,8 +23868,8 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.286Z",
-      "lastMetricsFetchedAt": "2026-11-18T00:40:04.837Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.812Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:45.071Z"
     },
     "Ai3ueY9": {
       "video_code": "Ai3ueY9",
@@ -31785,8 +31916,8 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.984Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.006Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.821Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.042Z"
     },
     "RexUbT7": {
       "video_code": "RexUbT7",
@@ -31843,8 +31974,8 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.984Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.006Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.042Z"
     },
     "2Bikqu2": {
       "video_code": "2Bikqu2",
@@ -31921,8 +32052,8 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.985Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.006Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.042Z"
     },
     "yiX1IzV": {
       "video_code": "yiX1IzV",
@@ -31990,8 +32121,8 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.985Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.006Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.042Z"
     },
     "Xfv1Hzs": {
       "video_code": "Xfv1Hzs",
@@ -32038,8 +32169,8 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.985Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.006Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.042Z"
     },
     "GydFwZt": {
       "video_code": "GydFwZt",
@@ -32086,8 +32217,8 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.985Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.006Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.042Z"
     },
     "7szEMTk": {
       "video_code": "7szEMTk",
@@ -32144,8 +32275,8 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.985Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.006Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.042Z"
     },
     "mkVZq1r": {
       "video_code": "mkVZq1r",
@@ -32192,8 +32323,8 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.986Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.006Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.042Z"
     },
     "NFsCRgu": {
       "video_code": "NFsCRgu",
@@ -32250,8 +32381,8 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.986Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.006Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.042Z"
     },
     "uOjmEaE": {
       "video_code": "uOjmEaE",
@@ -32318,8 +32449,8 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.986Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.006Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.042Z"
     },
     "nKbmwDV": {
       "video_code": "nKbmwDV",
@@ -32376,8 +32507,8 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.986Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.006Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.042Z"
     },
     "onHgAzB": {
       "video_code": "onHgAzB",
@@ -32434,8 +32565,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.986Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.421Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.567Z"
     },
     "GMZI8pg": {
       "video_code": "GMZI8pg",
@@ -32492,8 +32623,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.986Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.421Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.567Z"
     },
     "nKilwLi": {
       "video_code": "nKilwLi",
@@ -32540,8 +32671,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.986Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.421Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.567Z"
     },
     "DdcI9eI": {
       "video_code": "DdcI9eI",
@@ -32588,8 +32719,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.986Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.421Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.567Z"
     },
     "rutEUbY": {
       "video_code": "rutEUbY",
@@ -32647,8 +32778,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.986Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.421Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.567Z"
     },
     "TFJkdI5": {
       "video_code": "TFJkdI5",
@@ -32716,8 +32847,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.987Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.421Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.567Z"
     },
     "vIALsC7": {
       "video_code": "vIALsC7",
@@ -32764,8 +32895,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.987Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.421Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.567Z"
     },
     "7Xnebrd": {
       "video_code": "7Xnebrd",
@@ -32833,8 +32964,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.987Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.421Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.567Z"
     },
     "Dqi25a7": {
       "video_code": "Dqi25a7",
@@ -32881,8 +33012,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.987Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.421Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.567Z"
     },
     "F2Vv4Jd": {
       "video_code": "F2Vv4Jd",
@@ -32929,8 +33060,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.987Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.421Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.567Z"
     },
     "jnASWcA": {
       "video_code": "jnASWcA",
@@ -32977,8 +33108,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.987Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.421Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.567Z"
     },
     "WMGALK3": {
       "video_code": "WMGALK3",
@@ -33035,8 +33166,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.987Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.421Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.822Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.567Z"
     },
     "JzOBzKM": {
       "video_code": "JzOBzKM",
@@ -33104,8 +33235,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.987Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.421Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.823Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.567Z"
     },
     "n6UNNc6": {
       "video_code": "n6UNNc6",
@@ -35236,8 +35367,8 @@
           "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:40:59.325Z",
-      "lastMetricsFetchedAt": "2026-11-17T23:40:36.725Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.838Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:18.571Z"
     },
     "i6fl6XG": {
       "video_code": "i6fl6XG",
@@ -50504,8 +50635,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:32.003Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:08.001Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.831Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:03.131Z"
     },
     "U8MUO9J": {
       "video_code": "U8MUO9J",
@@ -50940,8 +51071,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:32.003Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:08.001Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.831Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:03.131Z"
     },
     "utRKJwf": {
       "video_code": "utRKJwf",
@@ -51167,8 +51298,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:32.003Z",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:08.001Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.831Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:03.131Z"
     },
     "VJIXZFR": {
       "video_code": "VJIXZFR",
@@ -77277,8 +77408,8 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.252Z",
-      "lastMetricsFetchedAt": "2026-11-18T00:39:38.061Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.808Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:43.512Z"
     },
     "bgZVBzl": {
       "video_code": "bgZVBzl",
@@ -85512,8 +85643,8 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:15.165Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.838Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:16.780Z"
     },
     "ELD6Fhh": {
       "video_code": "ELD6Fhh",
@@ -86138,8 +86269,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.287Z",
-      "lastMetricsFetchedAt": "2026-11-18T00:40:05.592Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.813Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:45.591Z"
     },
     "Ch8uFlh": {
       "video_code": "Ch8uFlh",
@@ -93605,8 +93736,8 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:15.165Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:16.780Z"
     },
     "kd4zQ5t": {
       "video_code": "kd4zQ5t",
@@ -100559,7 +100690,7 @@
       "sender_name": "نیلا",
       "category_id": 22,
       "duration": 120,
-      "visit_count": 28483,
+      "visit_count": 28485,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -100576,9 +100707,20 @@
             "اخبار"
           ],
           "page": 12
+        },
+        {
+          "query": "ایسنا",
+          "trendTitle": "ایسنا",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Tue, 17 Nov 2026 16:10:00 -0800",
+          "trendKeywords": [
+            "ایسنا"
+          ],
+          "page": 41
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.915Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.832Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:08.275Z"
     },
     "or7tw8O": {
       "video_code": "or7tw8O",
@@ -124151,7 +124293,7 @@
       "visit_count": 32321,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:14.231Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:15.778Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -124179,7 +124321,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "ttPcCmC": {
       "video_code": "ttPcCmC",
@@ -131808,7 +131950,7 @@
       "visit_count": 814628,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:12.934Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:14.803Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131825,7 +131967,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.856Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "e3Uql9d": {
       "video_code": "e3Uql9d",
@@ -131836,7 +131978,7 @@
       "visit_count": 107074,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:12.934Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:14.803Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131853,7 +131995,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.856Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "p5ymPi1": {
       "video_code": "p5ymPi1",
@@ -131864,7 +132006,7 @@
       "visit_count": 84910,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:12.934Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:14.803Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -131881,7 +132023,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.856Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "cUtWgSj": {
       "video_code": "cUtWgSj",
@@ -131892,7 +132034,7 @@
       "visit_count": 39213,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:12.934Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:14.803Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131909,7 +132051,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.856Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "DLaEniO": {
       "video_code": "DLaEniO",
@@ -131920,7 +132062,7 @@
       "visit_count": 16573,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:12.934Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:14.803Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131937,7 +132079,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.856Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "9iYAm2V": {
       "video_code": "9iYAm2V",
@@ -131948,7 +132090,7 @@
       "visit_count": 42992,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:12.934Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:14.803Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131965,7 +132107,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.856Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "UjsngTs": {
       "video_code": "UjsngTs",
@@ -131976,7 +132118,7 @@
       "visit_count": 40054,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:12.934Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:14.803Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -131993,7 +132135,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.856Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "F4aMdDK": {
       "video_code": "F4aMdDK",
@@ -132004,7 +132146,7 @@
       "visit_count": 92713,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:12.934Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:14.803Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132021,7 +132163,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.856Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "L7NpgL8": {
       "video_code": "L7NpgL8",
@@ -132032,7 +132174,7 @@
       "visit_count": 110930,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:12.934Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:14.803Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132049,7 +132191,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.856Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "0xjxPXn": {
       "video_code": "0xjxPXn",
@@ -132060,7 +132202,7 @@
       "visit_count": 45515,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:12.934Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:14.803Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132077,7 +132219,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.856Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "aDnMmv5": {
       "video_code": "aDnMmv5",
@@ -132088,7 +132230,7 @@
       "visit_count": 21311,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:12.934Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:14.803Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132105,7 +132247,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.856Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "foW2e1Q": {
       "video_code": "foW2e1Q",
@@ -132116,7 +132258,7 @@
       "visit_count": 27829,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:12.934Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:14.803Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132133,7 +132275,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.856Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "SyjqVqe": {
       "video_code": "SyjqVqe",
@@ -132144,7 +132286,7 @@
       "visit_count": 40339,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:14.231Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:15.778Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132161,7 +132303,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "j67LGjO": {
       "video_code": "j67LGjO",
@@ -132172,7 +132314,7 @@
       "visit_count": 74644,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:14.231Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:15.778Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132189,7 +132331,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "CjSsOi0": {
       "video_code": "CjSsOi0",
@@ -132200,7 +132342,7 @@
       "visit_count": 17605,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:14.231Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:15.778Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132217,7 +132359,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "KPqLUDZ": {
       "video_code": "KPqLUDZ",
@@ -132228,7 +132370,7 @@
       "visit_count": 78026,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:14.231Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:15.778Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132245,7 +132387,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "nwlMJKQ": {
       "video_code": "nwlMJKQ",
@@ -132256,7 +132398,7 @@
       "visit_count": 20320,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:14.231Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:15.778Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132273,7 +132415,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "UdhFsqs": {
       "video_code": "UdhFsqs",
@@ -132284,7 +132426,7 @@
       "visit_count": 26998,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:14.231Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:15.778Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132301,7 +132443,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "tOhaySm": {
       "video_code": "tOhaySm",
@@ -132312,7 +132454,7 @@
       "visit_count": 31150,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:14.231Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:15.778Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132329,7 +132471,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "JyWtsQB": {
       "video_code": "JyWtsQB",
@@ -132340,7 +132482,7 @@
       "visit_count": 23290,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:14.231Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:15.778Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132357,7 +132499,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "c8tDZRM": {
       "video_code": "c8tDZRM",
@@ -132365,10 +132507,10 @@
       "sender_name": "Ali✅",
       "category_id": 3,
       "duration": 5943,
-      "visit_count": 36892,
+      "visit_count": 36893,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:14.231Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:15.778Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -132385,7 +132527,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "KmTgtxX": {
       "video_code": "KmTgtxX",
@@ -132396,7 +132538,7 @@
       "visit_count": 19227,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:15.165Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:16.780Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132413,7 +132555,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "W7AxxK3": {
       "video_code": "W7AxxK3",
@@ -132424,7 +132566,7 @@
       "visit_count": 21633,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:15.165Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:16.780Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132441,7 +132583,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "Gau8t1I": {
       "video_code": "Gau8t1I",
@@ -132452,7 +132594,7 @@
       "visit_count": 79514,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:15.165Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:16.780Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -132469,7 +132611,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "vbwxF6e": {
       "video_code": "vbwxF6e",
@@ -132480,7 +132622,7 @@
       "visit_count": 39911,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:15.165Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:16.780Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132497,7 +132639,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "7SfIhPf": {
       "video_code": "7SfIhPf",
@@ -132508,7 +132650,7 @@
       "visit_count": 39998,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:15.165Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:16.780Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132525,7 +132667,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "SArOhLg": {
       "video_code": "SArOhLg",
@@ -132536,7 +132678,7 @@
       "visit_count": 51890,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:15.165Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:16.780Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132553,7 +132695,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "2H6Tp41": {
       "video_code": "2H6Tp41",
@@ -132564,7 +132706,7 @@
       "visit_count": 16788,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:15.165Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:16.780Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132581,7 +132723,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "fqv7YtE": {
       "video_code": "fqv7YtE",
@@ -132592,7 +132734,7 @@
       "visit_count": 16861,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:15.165Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:16.780Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132609,7 +132751,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.837Z"
     },
     "Y9HtC0s": {
       "video_code": "Y9HtC0s",
@@ -132620,7 +132762,7 @@
       "visit_count": 18767,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:15.165Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:16.780Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132637,7 +132779,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.838Z"
     },
     "KoSw9I2": {
       "video_code": "KoSw9I2",
@@ -132648,7 +132790,7 @@
       "visit_count": 43503,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:16.432Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:17.797Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132665,7 +132807,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.838Z"
     },
     "AWNkXgw": {
       "video_code": "AWNkXgw",
@@ -132676,7 +132818,7 @@
       "visit_count": 28732,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:16.432Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:17.797Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132693,7 +132835,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.838Z"
     },
     "KbDmwDe": {
       "video_code": "KbDmwDe",
@@ -132704,7 +132846,7 @@
       "visit_count": 27720,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:16.432Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:17.797Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132721,7 +132863,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.838Z"
     },
     "enWG9sZ": {
       "video_code": "enWG9sZ",
@@ -132732,7 +132874,7 @@
       "visit_count": 27357,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:17.139Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:18.571Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132749,7 +132891,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.857Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.838Z"
     },
     "kCrItJ4": {
       "video_code": "kCrItJ4",
@@ -132757,10 +132899,10 @@
       "sender_name": "الناز",
       "category_id": 3,
       "duration": 92,
-      "visit_count": 24867,
+      "visit_count": 24868,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:00:17.139Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:20:18.571Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -132777,7 +132919,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:00:31.858Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.838Z"
     },
     "N6O3P3e": {
       "video_code": "N6O3P3e",
@@ -155352,10 +155494,10 @@
       "sender_name": "فیلی فیلم",
       "category_id": 4,
       "duration": 947,
-      "visit_count": 20960,
+      "visit_count": 20961,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:59:42.556Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:43.512Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155372,7 +155514,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:00:19.697Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.808Z"
     },
     "saUK3hA": {
       "video_code": "saUK3hA",
@@ -155383,7 +155525,7 @@
       "visit_count": 5936,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:59:42.556Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:43.512Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155410,7 +155552,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:00:19.697Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.808Z"
     },
     "00FyUUh": {
       "video_code": "00FyUUh",
@@ -155566,7 +155708,7 @@
       "visit_count": 37991,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:59:42.905Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:42.960Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -155584,7 +155726,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:00:19.698Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.811Z"
     },
     "nP2C7TZ": {
       "video_code": "nP2C7TZ",
@@ -155592,10 +155734,10 @@
       "sender_name": "جهان فیلم ✅",
       "category_id": 3,
       "duration": 7202,
-      "visit_count": 33940,
+      "visit_count": 33941,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:59:42.905Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:42.960Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -155613,7 +155755,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:00:19.698Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.811Z"
     },
     "BzRaHe5": {
       "video_code": "BzRaHe5",
@@ -155624,7 +155766,7 @@
       "visit_count": 33475,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:59:42.905Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:42.960Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -155642,7 +155784,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:00:19.698Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.811Z"
     },
     "cVLSwUJ": {
       "video_code": "cVLSwUJ",
@@ -155653,7 +155795,7 @@
       "visit_count": 32738,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:59:42.905Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:42.960Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -155671,7 +155813,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:00:19.698Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.811Z"
     },
     "UtiAvuc": {
       "video_code": "UtiAvuc",
@@ -155682,7 +155824,7 @@
       "visit_count": 18567,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:59:42.905Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:42.960Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155700,7 +155842,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:00:19.698Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.811Z"
     },
     "6B29g7p": {
       "video_code": "6B29g7p",
@@ -155711,7 +155853,7 @@
       "visit_count": 24079,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:59:42.905Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:42.960Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155729,7 +155871,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:00:19.698Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.811Z"
     },
     "WKd6vMI": {
       "video_code": "WKd6vMI",
@@ -155740,7 +155882,7 @@
       "visit_count": 20793,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T23:59:42.905Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:42.960Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155758,7 +155900,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:00:19.698Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.811Z"
     },
     "8t6mEo0": {
       "video_code": "8t6mEo0",
@@ -155798,7 +155940,7 @@
       "visit_count": 46657,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:02.006Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:51.042Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155825,7 +155967,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.984Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.821Z"
     },
     "T2GvmF5": {
       "video_code": "T2GvmF5",
@@ -155864,7 +156006,7 @@
       "visit_count": 485078,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:06.435Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:55.932Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -155882,7 +156024,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:31.996Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.827Z"
     },
     "f2E1GJG": {
       "video_code": "f2E1GJG",
@@ -157352,7 +157494,7 @@
       "visit_count": 38010,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T00:40:03.899Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:44.295Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -157370,7 +157512,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.286Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.812Z"
     },
     "Hh6Ag6b": {
       "video_code": "Hh6Ag6b",
@@ -157381,7 +157523,7 @@
       "visit_count": 19665,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T00:40:03.899Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:44.295Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157399,7 +157541,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.286Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.812Z"
     },
     "lvnuzLI": {
       "video_code": "lvnuzLI",
@@ -157410,7 +157552,7 @@
       "visit_count": 65438,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T00:40:03.899Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:44.295Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157428,7 +157570,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.286Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.812Z"
     },
     "tlS4enH": {
       "video_code": "tlS4enH",
@@ -157439,7 +157581,7 @@
       "visit_count": 17655,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T00:40:03.899Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:44.295Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157457,7 +157599,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.286Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.812Z"
     },
     "nj062pW": {
       "video_code": "nj062pW",
@@ -157468,7 +157610,7 @@
       "visit_count": 45406,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T00:40:03.899Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:44.295Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -157486,7 +157628,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.286Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.812Z"
     },
     "mdJQE3x": {
       "video_code": "mdJQE3x",
@@ -157497,7 +157639,7 @@
       "visit_count": 24724,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T00:40:03.899Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:44.295Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157515,7 +157657,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.286Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.812Z"
     },
     "L9jvoDc": {
       "video_code": "L9jvoDc",
@@ -157526,7 +157668,7 @@
       "visit_count": 21115,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T00:40:04.837Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:45.071Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157544,7 +157686,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.286Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.812Z"
     },
     "4GzmuOT": {
       "video_code": "4GzmuOT",
@@ -157555,7 +157697,7 @@
       "visit_count": 25391,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T00:40:04.837Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:45.071Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157573,7 +157715,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.286Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.812Z"
     },
     "Mrp3tWC": {
       "video_code": "Mrp3tWC",
@@ -157584,7 +157726,7 @@
       "visit_count": 17624,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T00:40:04.837Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:45.071Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157602,7 +157744,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.286Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.812Z"
     },
     "MtIj4ot": {
       "video_code": "MtIj4ot",
@@ -157613,7 +157755,7 @@
       "visit_count": 40185,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T00:40:05.592Z",
+      "lastMetricsFetchedAt": "2026-11-18T01:19:45.591Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -157631,7 +157773,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.287Z"
+      "lastTrendMatchedAt": "2026-11-18T01:20:30.813Z"
     },
     "rHn2nP9": {
       "video_code": "rHn2nP9",
@@ -157892,6 +158034,6 @@
       "lastTrendMatchedAt": "2026-11-18T01:00:32.021Z"
     }
   },
-  "totalPagesFetched": 6769,
-  "totalVideosSeen": 122775
+  "totalPagesFetched": 6929,
+  "totalVideosSeen": 125730
 }
