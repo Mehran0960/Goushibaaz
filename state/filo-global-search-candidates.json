@@ -1,38 +1,36 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-18T11:15:32.618Z",
-  "trendsFetchedAt": "2026-11-18T11:14:10.789Z",
+  "updatedAt": "2026-11-18T11:45:29.125Z",
+  "trendsFetchedAt": "2026-11-18T11:44:08.310Z",
   "trends": [
     {
-      "title": "مهدی قایدی",
+      "title": "فراس البریکان",
       "keywords": [
-        "مهدی",
-        "قایدی"
+        "فراس",
+        "البریکان"
       ],
-      "traffic": 2000,
-      "publishedAt": "Wed, 18 Nov 2026 01:00:00 -0800",
-      "ageHours": 2.2
+      "traffic": 1000,
+      "publishedAt": "Wed, 18 Nov 2026 03:10:00 -0800",
+      "ageHours": 0.6
+    },
+    {
+      "title": "metacritic",
+      "keywords": [
+        "metacritic"
+      ],
+      "traffic": 1000,
+      "publishedAt": "Wed, 18 Nov 2026 03:00:00 -0800",
+      "ageHours": 0.7
     },
     {
       "title": "سرباز",
       "keywords": [
         "سرباز"
       ],
-      "traffic": 500,
+      "traffic": 1000,
       "publishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-      "ageHours": 0.9
-    },
-    {
-      "title": "مهدی اربابی فوتبال",
-      "keywords": [
-        "مهدی",
-        "اربابی",
-        "فوتبال"
-      ],
-      "traffic": 200,
-      "publishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
-      "ageHours": 0.4
+      "ageHours": 1.4
     },
     {
       "title": "جی تی ای ۶",
@@ -41,9 +39,38 @@
         "تی",
         "ای"
       ],
+      "traffic": 1000,
+      "publishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+      "ageHours": 1.4
+    },
+    {
+      "title": "مهدی اربابی",
+      "keywords": [
+        "مهدی",
+        "اربابی"
+      ],
+      "traffic": 200,
+      "publishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+      "ageHours": 0.9
+    },
+    {
+      "title": "twitch",
+      "keywords": [
+        "twitch"
+      ],
+      "traffic": 200,
+      "publishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
+      "ageHours": 1.1
+    },
+    {
+      "title": "خوان ماتا",
+      "keywords": [
+        "خوان",
+        "ماتا"
+      ],
       "traffic": 200,
       "publishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-      "ageHours": 0.9
+      "ageHours": 1.4
     },
     {
       "title": "اکونومیست",
@@ -52,7 +79,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Wed, 18 Nov 2026 01:50:00 -0800",
-      "ageHours": 1.4
+      "ageHours": 1.9
     },
     {
       "title": "نفت خام",
@@ -62,36 +89,17 @@
       ],
       "traffic": 200,
       "publishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
-      "ageHours": 1.6
-    },
-    {
-      "title": "محسن فخریزاده",
-      "keywords": [
-        "محسن",
-        "فخریزاده"
-      ],
-      "traffic": 200,
-      "publishedAt": "Wed, 18 Nov 2026 01:10:00 -0800",
       "ageHours": 2.1
     },
     {
-      "title": "twitch",
+      "title": "جیمز باند",
       "keywords": [
-        "twitch"
+        "جیمز",
+        "باند"
       ],
       "traffic": 100,
-      "publishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
+      "publishedAt": "Wed, 18 Nov 2026 03:10:00 -0800",
       "ageHours": 0.6
-    },
-    {
-      "title": "خوان ماتا",
-      "keywords": [
-        "خوان",
-        "ماتا"
-      ],
-      "traffic": 100,
-      "publishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-      "ageHours": 0.9
     }
   ],
   "queries": {
@@ -889,12 +897,12 @@
     "بمب کثیف": {
       "query": "بمب کثیف",
       "normalized": "بمب کثیف",
-      "nextPage": 231,
+      "nextPage": 246,
       "complete": false,
-      "pagesFetched": 300,
-      "videosSeen": 5895,
+      "pagesFetched": 320,
+      "videosSeen": 6294,
       "createdAt": "2026-11-17T16:22:10.479Z",
-      "lastAttemptAt": "2026-11-18T08:07:23.263Z",
+      "lastAttemptAt": "2026-11-18T11:45:28.881Z",
       "lastError": null,
       "trendTitle": "بمب کثیف",
       "trendTraffic": 500,
@@ -6486,7 +6494,7 @@
         "قایدی"
       ],
       "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T10:56:03.458Z",
       "refreshOnly": false,
@@ -6848,12 +6856,12 @@
     "رقابت طارمی و آسانی برای کسب عنوان بهترین بازیکن هفته آسیا دو ستاره فوتبال ایران در فهرست afc": {
       "query": "رقابت طارمی و آسانی برای کسب عنوان بهترین بازیکن هفته آسیا/ دو ستاره فوتبال ایران در فهرست AFC",
       "normalized": "رقابت طارمی و آسانی برای کسب عنوان بهترین بازیکن هفته آسیا دو ستاره فوتبال ایران در فهرست afc",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T07:34:43.032Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T11:45:28.877Z",
       "lastError": null,
       "trendTitle": "بازیکن فوتبال",
       "trendTraffic": 100,
@@ -6863,7 +6871,9 @@
         "فوتبال"
       ],
       "lastTrendSeenAt": "2026-11-18T07:34:43.032Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T11:45:28.877Z"
     },
     "عکس طارمی و آسانی نامزد بهترین بازیکن هفته آسیا شدند": {
       "query": "عکس| طارمی و آسانی نامزد بهترین بازیکن هفته آسیا شدند",
@@ -7126,7 +7136,7 @@
         "قایدی"
       ],
       "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "دلیل عدم دعوت از قایدی آماده استراماچونی با احتساب آقای قلعه نویی": {
@@ -7147,7 +7157,7 @@
         "قایدی"
       ],
       "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-18T10:56:03.459Z",
       "refreshOnly": false,
@@ -7200,22 +7210,24 @@
     "بررسی عملکرد رقبای بیرانوند برای فتح جایزه بازیکن سال از آقای فوق ستاره تا زننده گل قهرمانی": {
       "query": "بررسی عملکرد رقبای بیرانوند برای فتح جایزه بازیکن سال؛ از آقای فوق ستاره تا زننده گل قهرمانی",
       "normalized": "بررسی عملکرد رقبای بیرانوند برای فتح جایزه بازیکن سال از آقای فوق ستاره تا زننده گل قهرمانی",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T09:24:12.153Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T11:45:28.837Z",
       "lastError": null,
-      "trendTitle": "بازیکن فوتبال",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
+      "trendTitle": "فراس البریکان",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 03:10:00 -0800",
       "trendKeywords": [
-        "بازیکن",
-        "فوتبال"
+        "فراس",
+        "البریکان"
       ],
-      "lastTrendSeenAt": "2026-11-18T09:24:12.153Z",
-      "activeInLatestFeed": false
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T11:45:28.837Z"
     },
     "سرباز بیرانوند به تایلند رسید": {
       "query": "سرباز بیرانوند؛ به تایلند رسید",
@@ -7456,7 +7468,7 @@
         "نفت",
         "خام"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -7483,12 +7495,12 @@
     "قیمت نفت به 92 دلار و 75 سنت رسید": {
       "query": "قیمت نفت به 92 دلار و 75 سنت رسید",
       "normalized": "قیمت نفت به 92 دلار و 75 سنت رسید",
-      "nextPage": 36,
+      "nextPage": 51,
       "complete": false,
-      "pagesFetched": 40,
-      "videosSeen": 786,
+      "pagesFetched": 60,
+      "videosSeen": 1179,
       "createdAt": "2026-11-18T10:04:11.055Z",
-      "lastAttemptAt": "2026-11-18T10:56:03.479Z",
+      "lastAttemptAt": "2026-11-18T11:45:28.847Z",
       "lastError": null,
       "trendTitle": "نفت خام",
       "trendTraffic": 200,
@@ -7497,7 +7509,7 @@
         "نفت",
         "خام"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -7579,7 +7591,7 @@
       "trendKeywords": [
         "اکونومیست"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T10:56:03.460Z"
@@ -7621,7 +7633,7 @@
       "trendKeywords": [
         "اکونومیست"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T10:56:03.460Z"
@@ -7643,7 +7655,7 @@
         "نفت",
         "خام"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T10:56:03.463Z"
@@ -7651,20 +7663,20 @@
     "سرباز": {
       "query": "سرباز",
       "normalized": "سرباز",
-      "nextPage": 21,
+      "nextPage": 36,
       "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 400,
+      "pagesFetched": 40,
+      "videosSeen": 800,
       "createdAt": "2026-11-18T10:54:20.813Z",
-      "lastAttemptAt": "2026-11-18T11:15:32.355Z",
+      "lastAttemptAt": "2026-11-18T11:45:28.872Z",
       "lastError": null,
       "trendTitle": "سرباز",
-      "trendTraffic": 500,
+      "trendTraffic": 1000,
       "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
       "trendKeywords": [
         "سرباز"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -7679,12 +7691,12 @@
       "lastAttemptAt": "2026-11-18T11:15:32.355Z",
       "lastError": null,
       "trendTitle": "سرباز",
-      "trendTraffic": 500,
+      "trendTraffic": 1000,
       "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
       "trendKeywords": [
         "سرباز"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T11:15:32.355Z"
@@ -7706,29 +7718,29 @@
         "سرباز"
       ],
       "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-18T11:15:32.355Z"
     },
     "جی تی ای ۶": {
       "query": "جی تی ای ۶",
       "normalized": "جی تی ای ۶",
-      "nextPage": 21,
+      "nextPage": 36,
       "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 394,
+      "pagesFetched": 40,
+      "videosSeen": 765,
       "createdAt": "2026-11-18T10:54:20.814Z",
-      "lastAttemptAt": "2026-11-18T11:15:32.360Z",
+      "lastAttemptAt": "2026-11-18T11:45:28.877Z",
       "lastError": null,
       "trendTitle": "جی تی ای ۶",
-      "trendTraffic": 200,
+      "trendTraffic": 1000,
       "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
       "trendKeywords": [
         "جی",
         "تی",
         "ای"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -7743,14 +7755,14 @@
       "lastAttemptAt": "2026-11-18T11:15:32.366Z",
       "lastError": null,
       "trendTitle": "جی تی ای ۶",
-      "trendTraffic": 200,
+      "trendTraffic": 1000,
       "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
       "trendKeywords": [
         "جی",
         "تی",
         "ای"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -7773,7 +7785,7 @@
         "ای"
       ],
       "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-18T11:15:32.366Z"
     },
@@ -7788,13 +7800,13 @@
       "lastAttemptAt": "2026-11-18T11:15:32.371Z",
       "lastError": null,
       "trendTitle": "خوان ماتا",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
       "trendKeywords": [
         "خوان",
         "ماتا"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -7856,7 +7868,7 @@
         "فخریزاده"
       ],
       "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "پیش بینی شهید فخری زاده از جنگهای آینده جهان": {
@@ -7877,7 +7889,7 @@
         "فخریزاده"
       ],
       "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-18T11:15:32.375Z"
     },
@@ -7899,7 +7911,7 @@
         "فخریزاده"
       ],
       "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "مهدی اربابی فوتبال": {
@@ -7921,59 +7933,60 @@
         "فوتبال"
       ],
       "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "مهدی اربابی درگذشت": {
       "query": "مهدی اربابی درگذشت",
       "normalized": "مهدی اربابی درگذشت",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 397,
       "createdAt": "2026-11-18T11:14:11.150Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T11:45:28.855Z",
       "lastError": null,
-      "trendTitle": "مهدی اربابی فوتبال",
+      "trendTitle": "مهدی اربابی",
       "trendTraffic": 200,
       "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
       "trendKeywords": [
         "مهدی",
-        "اربابی",
-        "فوتبال"
+        "اربابی"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "پیام تسلیت وزیر ورزش و جوانان در پی درگذشت حاج مهدی اربابی": {
       "query": "پیام تسلیت وزیر ورزش و جوانان در پی درگذشت حاج مهدی اربابی",
       "normalized": "پیام تسلیت وزیر ورزش و جوانان در پی درگذشت حاج مهدی اربابی",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T11:14:11.150Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T11:45:28.855Z",
       "lastError": null,
-      "trendTitle": "مهدی اربابی فوتبال",
+      "trendTitle": "مهدی اربابی",
       "trendTraffic": 200,
       "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
       "trendKeywords": [
         "مهدی",
-        "اربابی",
-        "فوتبال"
+        "اربابی"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T11:45:28.855Z"
     },
     "رمزگشایی از جلد ۲۰۲۷ اکونومیست آینده جهان در یک نگاه": {
       "query": "رمزگشایی از جلد ۲۰۲۷ اکونومیست؛ آینده جهان در یک نگاه",
       "normalized": "رمزگشایی از جلد ۲۰۲۷ اکونومیست آینده جهان در یک نگاه",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 3,
+      "videosSeen": 1,
       "createdAt": "2026-11-18T11:14:11.150Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T11:45:28.855Z",
       "lastError": null,
       "trendTitle": "اکونومیست",
       "trendTraffic": 200,
@@ -7981,104 +7994,310 @@
       "trendKeywords": [
         "اکونومیست"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T11:45:28.855Z"
     },
     "twitch": {
       "query": "twitch",
       "normalized": "twitch",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 400,
       "createdAt": "2026-11-18T11:14:11.150Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T11:45:28.859Z",
       "lastError": null,
       "trendTitle": "twitch",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
       "trendKeywords": [
         "twitch"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "ai is still weighing on streamers at twitch s biggest event of the year": {
       "query": "AI is still weighing on streamers at Twitch’s biggest event of the year",
       "normalized": "ai is still weighing on streamers at twitch s biggest event of the year",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T11:14:11.150Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T11:45:28.860Z",
       "lastError": null,
       "trendTitle": "twitch",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
       "trendKeywords": [
         "twitch"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T11:45:28.860Z"
     },
     "openai booth draws criticism at twitchcon over ai s role in creative work": {
       "query": "OpenAI booth draws criticism at TwitchCon over AI’s role in creative work",
       "normalized": "openai booth draws criticism at twitchcon over ai s role in creative work",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T11:14:11.150Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T11:45:28.860Z",
       "lastError": null,
       "trendTitle": "twitch",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
       "trendKeywords": [
         "twitch"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T11:45:28.860Z"
     },
     "ماتا بطل العالم 2010 یعلن اعتزاله فی سن 38 عاما": {
       "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
       "normalized": "ماتا بطل العالم 2010 یعلن اعتزاله فی سن 38 عاما",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 396,
       "createdAt": "2026-11-18T11:14:11.150Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T11:45:28.868Z",
       "lastError": null,
       "trendTitle": "خوان ماتا",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
       "trendKeywords": [
         "خوان",
         "ماتا"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "خوان ماتا یعلن اعتزال کرة القدم نهائی ا": {
       "query": "خوان ماتا يعلن اعتزال كرة القدم نهائيًا",
       "normalized": "خوان ماتا یعلن اعتزال کرة القدم نهائی ا",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T11:14:11.150Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T11:45:28.868Z",
       "lastError": null,
       "trendTitle": "خوان ماتا",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
       "trendKeywords": [
         "خوان",
         "ماتا"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:14:11.150Z",
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T11:45:28.868Z"
+    },
+    "فراس البریکان": {
+      "query": "فراس البریکان",
+      "normalized": "فراس البریکان",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T11:44:08.631Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "فراس البریکان",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 03:10:00 -0800",
+      "trendKeywords": [
+        "فراس",
+        "البریکان"
+      ],
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "activeInLatestFeed": true
+    },
+    "دیدار مهدی تاج و علیرضا بیرانوند در آستانه مراسم های بزرگ فوتبال آسیا": {
+      "query": "دیدار مهدی تاج و علیرضا بیرانوند در آستانه مراسم‌های بزرگ فوتبال آسیا",
+      "normalized": "دیدار مهدی تاج و علیرضا بیرانوند در آستانه مراسم های بزرگ فوتبال آسیا",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T11:44:08.631Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "فراس البریکان",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 03:10:00 -0800",
+      "trendKeywords": [
+        "فراس",
+        "البریکان"
+      ],
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "activeInLatestFeed": true
+    },
+    "metacritic": {
+      "query": "metacritic",
+      "normalized": "metacritic",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T11:44:08.631Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "metacritic",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 03:00:00 -0800",
+      "trendKeywords": [
+        "metacritic"
+      ],
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "activeInLatestFeed": true
+    },
+    "grand theft auto vi review it will steal your heart": {
+      "query": "Grand Theft Auto VI Review: It Will Steal Your Heart",
+      "normalized": "grand theft auto vi review it will steal your heart",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T11:44:08.631Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "metacritic",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 03:00:00 -0800",
+      "trendKeywords": [
+        "metacritic"
+      ],
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "activeInLatestFeed": true
+    },
+    "grand theft auto vi is a masterpiece": {
+      "query": "Grand Theft Auto VI Is a Masterpiece",
+      "normalized": "grand theft auto vi is a masterpiece",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T11:44:08.631Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "metacritic",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 03:00:00 -0800",
+      "trendKeywords": [
+        "metacritic"
+      ],
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "activeInLatestFeed": true
+    },
+    "شهادت سرباز وظیفه در درگیری با گروهک تروریستی پژاک": {
+      "query": "شهادت سرباز وظیفه در درگیری با گروهک تروریستی پژاک",
+      "normalized": "شهادت سرباز وظیفه در درگیری با گروهک تروریستی پژاک",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T11:44:08.631Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "سرباز",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+      "trendKeywords": [
+        "سرباز"
+      ],
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "activeInLatestFeed": true
+    },
+    "مهدی اربابی": {
+      "query": "مهدی اربابی",
+      "normalized": "مهدی اربابی",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T11:44:08.631Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "مهدی اربابی",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+      "trendKeywords": [
+        "مهدی",
+        "اربابی"
+      ],
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "activeInLatestFeed": true
+    },
+    "جیمز باند": {
+      "query": "جیمز باند",
+      "normalized": "جیمز باند",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T11:44:08.631Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "جیمز باند",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Wed, 18 Nov 2026 03:10:00 -0800",
+      "trendKeywords": [
+        "جیمز",
+        "باند"
+      ],
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "activeInLatestFeed": true
+    },
+    "واکنش هالیوودی ها به انتخاب رابرت پتینسون برای نقش جیمز باند": {
+      "query": "واکنش هالیوودی‌ها به انتخاب رابرت پتینسون برای نقش جیمز باند",
+      "normalized": "واکنش هالیوودی ها به انتخاب رابرت پتینسون برای نقش جیمز باند",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T11:44:08.631Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "جیمز باند",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Wed, 18 Nov 2026 03:10:00 -0800",
+      "trendKeywords": [
+        "جیمز",
+        "باند"
+      ],
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "activeInLatestFeed": true
+    },
+    "ایفاگران نقش جیمزباند مأمور ۰۰۷": {
+      "query": "ایفاگران نقش جیمزباند، مأمور ۰۰۷",
+      "normalized": "ایفاگران نقش جیمزباند مأمور ۰۰۷",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T11:44:08.631Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "جیمز باند",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Wed, 18 Nov 2026 03:10:00 -0800",
+      "trendKeywords": [
+        "جیمز",
+        "باند"
+      ],
+      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
       "activeInLatestFeed": true
     }
   },
@@ -13297,45 +13516,6 @@
             "قالیباف"
           ],
           "page": 16
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:04:30.307Z"
-    },
-    "pZ8sUfD": {
-      "video_code": "pZ8sUfD",
-      "title": "عروسی دختر « قالیباف » را خراب کردم « یاشار سلطانی/",
-      "sender_name": "سرگرمخانه",
-      "category_id": 1,
-      "duration": 140,
-      "visit_count": 7474,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "محمدباقر قالیباف",
-          "trendTitle": "محمدباقر قالیباف",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
-          "trendKeywords": [
-            "محمدباقر",
-            "قالیباف"
-          ],
-          "page": 6
-        },
-        {
-          "query": "دوگانه‌ای که شکل نگرفت؛ قالیباف و رضایی در یک جبهه",
-          "trendTitle": "محمدباقر قالیباف",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:30:00 -0800",
-          "trendKeywords": [
-            "محمدباقر",
-            "قالیباف"
-          ],
-          "page": 17
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T21:04:30.307Z"
@@ -29146,7 +29326,7 @@
       "sender_name": "Serials1989",
       "category_id": 3,
       "duration": 4135,
-      "visit_count": 194112,
+      "visit_count": 194128,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
       "active": 1,
@@ -29163,9 +29343,22 @@
             "قشم"
           ],
           "page": 38
+        },
+        {
+          "query": "جی تی ای ۶",
+          "trendTitle": "جی تی ای ۶",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "جی",
+            "تی",
+            "ای"
+          ],
+          "page": 29
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.045Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.875Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:12.711Z"
     },
     "QiJGnCY": {
       "video_code": "QiJGnCY",
@@ -30343,34 +30536,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T21:55:12.048Z"
     },
-    "I6VPl4N": {
-      "video_code": "I6VPl4N",
-      "title": "طنز حسن ریوندی😂😂😂😂😂😂😂😂😂🤣😂🤣😂🤣🥶😂",
-      "sender_name": "احمد رکسا",
-      "category_id": 6,
-      "duration": 59,
-      "visit_count": 20166,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 24
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.048Z"
-    },
     "XkOVwNT": {
       "video_code": "XkOVwNT",
       "title": "حسن ریوندی در برنامه تلویزیونی اجرا داشت",
@@ -30740,34 +30905,6 @@
       "lastTrendMatchedAt": "2026-11-18T04:00:57.668Z",
       "lastMetricsFetchedAt": "2026-11-18T04:00:14.329Z"
     },
-    "3xEnZuw": {
-      "video_code": "3xEnZuw",
-      "title": "طنز،،سم حسن ریوندی🤣🤣🤣🤣🤣🤣",
-      "sender_name": "احمد رکسا",
-      "category_id": 6,
-      "duration": 46,
-      "visit_count": 20235,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 27
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.049Z"
-    },
     "pqjBVRW": {
       "video_code": "pqjBVRW",
       "title": "فینال حسن یزدانی و حریف آمریکایی قهرمانی کشتی جهان مجارستان ۲۰۲۴",
@@ -31067,34 +31204,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T21:55:12.049Z"
-    },
-    "XcYHvbq": {
-      "video_code": "XcYHvbq",
-      "title": "حسن ریوندی در برنامه تلویزیونی اجرا داشت",
-      "sender_name": "فیلم بازان",
-      "category_id": 6,
-      "duration": 328,
-      "visit_count": 20199,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 29
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.050Z"
     },
     "gZh6NI7": {
       "video_code": "gZh6NI7",
@@ -53270,34 +53379,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T02:37:37.093Z"
     },
-    "6CHaAal": {
-      "video_code": "6CHaAal",
-      "title": "فصل دوم سریال خارجی The 100 صد نفر با زیرنویس فارسی قسمت 9",
-      "sender_name": "نگین",
-      "category_id": 3,
-      "duration": 2542,
-      "visit_count": 20233,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قیمت نفت",
-          "trendTitle": "قیمت نفت",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 14:00:00 -0800",
-          "trendKeywords": [
-            "قیمت",
-            "نفت"
-          ],
-          "page": 10
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T02:37:37.093Z"
-    },
     "2HiLMJt": {
       "video_code": "2HiLMJt",
       "title": "فصل دوم سریال خارجی The 100 صد نفر با زیرنویس فارسی قسمت 16",
@@ -53863,8 +53944,8 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.350Z",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:30.986Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.868Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:59.084Z"
     },
     "HGmvfFv": {
       "video_code": "HGmvfFv",
@@ -54209,33 +54290,6 @@
       "category_id": 1,
       "duration": 39,
       "visit_count": 57921,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پهپاد",
-          "trendTitle": "پهپاد",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 18:10:00 -0800",
-          "trendKeywords": [
-            "پهپاد"
-          ],
-          "page": 5
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T04:05:15.871Z"
-    },
-    "2HfCqhK": {
-      "video_code": "2HfCqhK",
-      "title": "لحظه ورود پهپاد انتحاری روسیه به سنگر اوکراینی‌ها",
-      "sender_name": "فالو = فالو",
-      "category_id": 1,
-      "duration": 73,
-      "visit_count": 20167,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -57780,33 +57834,6 @@
       "category_id": 3,
       "duration": 2751,
       "visit_count": 20401,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "شکار دو فروند پهپاد شناسایی آمریکایی از نوع MQM-170 در آسمان جنوب",
-          "trendTitle": "پهپاد",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 18:10:00 -0800",
-          "trendKeywords": [
-            "پهپاد"
-          ],
-          "page": 20
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T04:05:15.884Z"
-    },
-    "ZsPtejB": {
-      "video_code": "ZsPtejB",
-      "title": "سریال تازه عروس قسمت ۱۷۴",
-      "sender_name": "منتخب فیلو✅",
-      "category_id": 3,
-      "duration": 2836,
-      "visit_count": 20283,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -67347,34 +67374,6 @@
       "lastTrendMatchedAt": "2026-11-17T16:45:52.288Z",
       "lastMetricsFetchedAt": "2026-11-17T16:45:41.783Z"
     },
-    "ncMW6Cs": {
-      "video_code": "ncMW6Cs",
-      "title": "فلب سلطان قلب ها گرفت فردین",
-      "sender_name": "فالو مساوی با فالو",
-      "category_id": 11,
-      "duration": 299,
-      "visit_count": 20250,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فردین هدایتی",
-          "trendTitle": "فردین هدایتی",
-          "trendTraffic": 5000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
-          "trendKeywords": [
-            "فردین",
-            "هدایتی"
-          ],
-          "page": 6
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:07:04.995Z"
-    },
     "pCtscu1": {
       "video_code": "pCtscu1",
       "title": "شعر خوانی بر سر قبر محمدعلی فردین",
@@ -68983,34 +68982,6 @@
       "category_id": 9,
       "duration": 59,
       "visit_count": 26853,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فردین هدایتی",
-          "trendTitle": "فردین هدایتی",
-          "trendTraffic": 5000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
-          "trendKeywords": [
-            "فردین",
-            "هدایتی"
-          ],
-          "page": 11
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:07:04.997Z"
-    },
-    "8RBRykN": {
-      "video_code": "8RBRykN",
-      "title": "صحبت های بازیگران قدیمی در مورد فردین",
-      "sender_name": "فالو مساوی با فالو",
-      "category_id": 3,
-      "duration": 57,
-      "visit_count": 20208,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -73013,10 +72984,21 @@
             "قایدی"
           ],
           "page": 20
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.284Z",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:10.930Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:50.906Z"
     },
     "x3wqnER": {
       "video_code": "x3wqnER",
@@ -73404,10 +73386,22 @@
             "ای"
           ],
           "page": 18
+        },
+        {
+          "query": "جی تی ای ۶",
+          "trendTitle": "جی تی ای ۶",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "جی",
+            "تی",
+            "ای"
+          ],
+          "page": 25
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.365Z",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:49.231Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.874Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:08.709Z"
     },
     "maQBdeX": {
       "video_code": "maQBdeX",
@@ -74391,10 +74385,21 @@
             "فوتبال"
           ],
           "page": 28
+        },
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T08:07:23.223Z",
-      "lastMetricsFetchedAt": "2026-11-18T08:06:46.082Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.860Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:00.314Z"
     },
     "4ciIUVG": {
       "video_code": "4ciIUVG",
@@ -76876,8 +76881,8 @@
           "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.363Z",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:43.196Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.872Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:58.248Z"
     },
     "WsgbxKU": {
       "video_code": "WsgbxKU",
@@ -77357,8 +77362,8 @@
           "page": 13
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.363Z",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:45.449Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.872Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:06.436Z"
     },
     "fOxFNA9": {
       "video_code": "fOxFNA9",
@@ -77826,7 +77831,7 @@
       "sender_name": "کاربر فیلو",
       "category_id": 17,
       "duration": 926,
-      "visit_count": 13123,
+      "visit_count": 13126,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
       "active": 1,
@@ -77853,9 +77858,22 @@
             "psg"
           ],
           "page": 5
+        },
+        {
+          "query": "جی تی ای ۶",
+          "trendTitle": "جی تی ای ۶",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "جی",
+            "تی",
+            "ای"
+          ],
+          "page": 27
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T21:48:40.430Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.875Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:10.661Z"
     },
     "1tFWUYS": {
       "video_code": "1tFWUYS",
@@ -78318,7 +78336,7 @@
       "sender_name": "مجتبی فالو=فالو",
       "category_id": 25,
       "duration": 141,
-      "visit_count": 3122,
+      "visit_count": 3130,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -78358,9 +78376,21 @@
             "خودرو"
           ],
           "page": 1
+        },
+        {
+          "query": "قیمت نفت به 92 دلار و 75 سنت رسید",
+          "trendTitle": "نفت خام",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
+          "trendKeywords": [
+            "نفت",
+            "خام"
+          ],
+          "page": 38
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T17:41:43.092Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.842Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:38.291Z"
     },
     "RQp7Sd3": {
       "video_code": "RQp7Sd3",
@@ -79339,33 +79369,6 @@
       "visit_count": 34790,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 73
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T17:41:43.100Z"
-    },
-    "WRlxKfF": {
-      "video_code": "WRlxKfF",
-      "title": "سریال گیم آف ترونز \"فصل هشتم قسمت ششم\" زیرنویس فارسی سانسورشده",
-      "sender_name": "Mehrshad",
-      "category_id": 3,
-      "duration": 4746,
-      "visit_count": 20213,
-      "create_date": "6 سال پیش",
-      "styled_create_date": "6 سال پیش",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -101304,35 +101307,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T16:23:43.662Z"
     },
-    "kappCrt": {
-      "video_code": "kappCrt",
-      "title": "چالش غذایی ، چالش موکبانگ ، چالش خوراکی ، چالش پختن غذا دوستانه",
-      "sender_name": "رضا ۱۵۵",
-      "category_id": 29,
-      "duration": 176,
-      "visit_count": 20213,
-      "create_date": "12 ماه پیش",
-      "styled_create_date": "12 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:23:06.219Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "مسابقات دوستانه",
-          "trendTitle": "مسابقات دوستانه",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "مسابقات",
-            "دوستانه"
-          ],
-          "page": 13
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T16:23:43.662Z"
-    },
     "8vfNuQ9": {
       "video_code": "8vfNuQ9",
       "title": "مقایسه فیگورهای آرنولد و هادی چوپان در مسابقات آرنولد کلاسیک",
@@ -102670,34 +102644,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T08:45:13.964Z"
     },
-    "h5LpkhF": {
-      "video_code": "h5LpkhF",
-      "title": "فیلم شکارچی شکارچی Hunter Hunter",
-      "sender_name": "farham",
-      "category_id": 3,
-      "duration": 5447,
-      "visit_count": 20225,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T08:44:57.912Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "شکارچی",
-          "trendTitle": "شکارچی",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Tue, 17 Nov 2026 06:50:00 -0800",
-          "trendKeywords": [
-            "شکارچی"
-          ],
-          "page": 4
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T08:45:13.964Z"
-    },
     "BMUEIjY": {
       "video_code": "BMUEIjY",
       "title": "فیلم کراون شکارچی Kraven the Hunter 2023",
@@ -103348,10 +103294,10 @@
       "sender_name": "دنیای انیمیشن و سینما",
       "category_id": 3,
       "duration": 6394,
-      "visit_count": 37702,
+      "visit_count": 37703,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:45:21.986Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:38.670Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -103366,9 +103312,19 @@
             "شکارچی"
           ],
           "page": 7
+        },
+        {
+          "query": "twitch",
+          "trendTitle": "twitch",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
+          "trendKeywords": [
+            "twitch"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:45:52.267Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
     },
     "fCxWfZV": {
       "video_code": "fCxWfZV",
@@ -114557,35 +114513,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T11:15:32.386Z"
     },
-    "1UL2foZ": {
-      "video_code": "1UL2foZ",
-      "title": "زندگینامه محمد صادقی",
-      "sender_name": "صادق",
-      "category_id": 0,
-      "duration": 87,
-      "visit_count": 20181,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T17:05:35.300Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "محمد شعبانپور",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 37
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T17:05:51.952Z"
-    },
     "e0PKK4s": {
       "video_code": "e0PKK4s",
       "title": "فیلم عروسی محمد رضا گلزار و آیسان آقاخانی",
@@ -114894,35 +114821,6 @@
       "category_id": 9,
       "duration": 24,
       "visit_count": 71894,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T17:05:37.809Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "محمد شعبانپور",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 40
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T17:05:51.953Z"
-    },
-    "gbR6dqv": {
-      "video_code": "gbR6dqv",
-      "title": "تمام حواشی عروسی محمد رضا گلزار و آیسان آقاخانی برملا شد",
-      "sender_name": "d1400",
-      "category_id": 3,
-      "duration": 269,
-      "visit_count": 20170,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T17:05:37.809Z",
@@ -115273,35 +115171,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-17T17:25:47.882Z"
-    },
-    "51k5ZfA": {
-      "video_code": "51k5ZfA",
-      "title": "کلنجار رفتن پلیس با موتور سیکلت بمب گزاری شده",
-      "sender_name": "فیلم سریال انیمیشن",
-      "category_id": 1,
-      "duration": 15,
-      "visit_count": 20288,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T17:25:08.801Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "بمب کثیف",
-          "trendTitle": "بمب کثیف",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بمب",
-            "کثیف"
-          ],
-          "page": 54
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T17:25:47.886Z"
     },
     "MbHyIjx": {
       "video_code": "MbHyIjx",
@@ -117046,35 +116915,6 @@
       "lastMetricsFetchedAt": "2026-11-17T17:25:33.096Z",
       "active": 1,
       "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 40
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T17:25:47.891Z"
-    },
-    "xunYqi3": {
-      "video_code": "xunYqi3",
-      "title": "سریال آقای ملکه قسمت ۲۰ آخر دوبله فارسی",
-      "sender_name": "Ali",
-      "category_id": 3,
-      "duration": 3877,
-      "visit_count": 20328,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T17:25:33.096Z",
-      "active": 1,
-      "can_republish": 1,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -121427,34 +121267,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T11:15:32.386Z"
     },
-    "nwlMJKQ": {
-      "video_code": "nwlMJKQ",
-      "title": "ایران چگونه تهاجم نیروهای اوکراینی و کُرد علیه روس‌ها را در سوریه خنثی کرد؟",
-      "sender_name": "احمد علی - 1",
-      "category_id": 1,
-      "duration": 927,
-      "visit_count": 20320,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:15:04.671Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سوریه",
-          "trendTitle": "سوریه",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 09:30:00 -0800",
-          "trendKeywords": [
-            "سوریه"
-          ],
-          "page": 2
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.386Z"
-    },
     "UdhFsqs": {
       "video_code": "UdhFsqs",
       "title": "عصبانیت شدید کارشناس اینترنشنال از سفر ابراهیم رئیسی به سوریه",
@@ -122902,35 +122714,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T18:05:35.134Z"
     },
-    "h44UXIq": {
-      "video_code": "h44UXIq",
-      "title": "سریال انیمه آئواشی ۲۰۲۲ قسمت آخر",
-      "sender_name": "فیلم و سریال ✅",
-      "category_id": 21,
-      "duration": 1470,
-      "visit_count": 20158,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:05:18.491Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 54
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T18:05:35.134Z"
-    },
     "iEeiRX0": {
       "video_code": "iEeiRX0",
       "title": "سریال فرار از زندان فصل ۴ قسمت ۲۳ (آخر)",
@@ -123491,35 +123274,6 @@
       "visit_count": 42191,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:05:22.387Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 57
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T18:05:35.135Z"
-    },
-    "ftJO21K": {
-      "video_code": "ftJO21K",
-      "title": "سریال کره ای بازرس مخفی سلطنتی قسمت 16 (قسمت آخر) دوبله فارسی",
-      "sender_name": "آماندا",
-      "category_id": 3,
-      "duration": 3990,
-      "visit_count": 20221,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T18:05:22.387Z",
       "active": 1,
       "can_republish": 0,
@@ -133031,34 +132785,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:07:45.405Z"
     },
-    "7fJMM1G": {
-      "video_code": "7fJMM1G",
-      "title": "سریال هندی به عشق تو سوگند قسمت 17 دوبله فارسی",
-      "sender_name": "سریال جدید",
-      "category_id": 3,
-      "duration": 2412,
-      "visit_count": 20272,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:07:11.148Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 14
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.405Z"
-    },
     "FWiAlSO": {
       "video_code": "FWiAlSO",
       "title": "Ep73)دانلود سریال سوگند با دوبلۀ فارسی",
@@ -134291,34 +134017,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:07:45.406Z"
     },
-    "FJUKlOQ": {
-      "video_code": "FJUKlOQ",
-      "title": "سریال سوگند قسمت 228 - دوبله فارسی",
-      "sender_name": "گودزیلا",
-      "category_id": 3,
-      "duration": 2402,
-      "visit_count": 20270,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:07:17.478Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 17
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.406Z"
-    },
     "kXoB747": {
       "video_code": "kXoB747",
       "title": "Ep75)دانلود سریال سوگند با دوبلۀ فارسی",
@@ -134690,34 +134388,6 @@
       "category_id": 3,
       "duration": 2463,
       "visit_count": 20554,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:07:20.055Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 18
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.406Z"
-    },
-    "fORkGY8": {
-      "video_code": "fORkGY8",
-      "title": "قسمت 163 سریال به عشق تو سوگند دوبله فارسی",
-      "sender_name": "🌙Moon clip",
-      "category_id": 3,
-      "duration": 2464,
-      "visit_count": 20262,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T19:07:20.055Z",
@@ -135299,34 +134969,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:07:45.407Z"
     },
-    "mGgOMKg": {
-      "video_code": "mGgOMKg",
-      "title": "سریال هندی به عشق تو سوگند قسمت 46 دوبله فارسی",
-      "sender_name": "Apratgram",
-      "category_id": 3,
-      "duration": 2475,
-      "visit_count": 20319,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:07:23.727Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 20
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.407Z"
-    },
     "8TejdUv": {
       "video_code": "8TejdUv",
       "title": "Ep24)دانلود سریال سوگند با دوبلۀ فارسی _ قسمت 24",
@@ -135334,34 +134976,6 @@
       "category_id": 3,
       "duration": 2746,
       "visit_count": 42477,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:07:23.727Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 20
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.407Z"
-    },
-    "UZmMBj5": {
-      "video_code": "UZmMBj5",
-      "title": "Ep76)دانلود سریال سوگند با دوبلۀ فارسی",
-      "sender_name": "Filo Series",
-      "category_id": 3,
-      "duration": 2667,
-      "visit_count": 20269,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T19:07:23.727Z",
@@ -138476,34 +138090,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:25:53.229Z"
     },
-    "XeGrePn": {
-      "video_code": "XeGrePn",
-      "title": "Ep166}دانلود سریال سوگند - قسمت ۱۶۶ - دوبله فارسی",
-      "sender_name": "Filo Series",
-      "category_id": 3,
-      "duration": 2638,
-      "visit_count": 20181,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:43.187Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 34
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.229Z"
-    },
     "Z05ERzk": {
       "video_code": "Z05ERzk",
       "title": "E193}دانلود سریال سوگند - قسمت ۱۹۳ - دوبله فارسی",
@@ -139764,10 +139350,10 @@
       "sender_name": "فیلی فیلم",
       "category_id": 11,
       "duration": 991,
-      "visit_count": 35238,
+      "visit_count": 35239,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:45:05.276Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:52.056Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139793,9 +139379,20 @@
             "قایدی"
           ],
           "page": 22
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 20
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:45:34.712Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z"
     },
     "GTIK0ZZ": {
       "video_code": "GTIK0ZZ",
@@ -141041,34 +140638,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T00:40:19.282Z"
     },
-    "p7q0s3s": {
-      "video_code": "p7q0s3s",
-      "title": "سریال ایسان قسمت ۴۱ دوبله فارسی",
-      "sender_name": "پرشین فیلم",
-      "category_id": 3,
-      "duration": 3932,
-      "visit_count": 20265,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T00:40:05.081Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "ایسنا",
-          "trendTitle": "ایسنا",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Tue, 17 Nov 2026 16:10:00 -0800",
-          "trendKeywords": [
-            "ایسنا"
-          ],
-          "page": 9
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.282Z"
-    },
     "BRySXLq": {
       "video_code": "BRySXLq",
       "title": "اینا میخوان از چشمام تو رو بندازنت نمیدونن چشامی :)",
@@ -141526,35 +141095,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-18T01:00:32.007Z"
-    },
-    "4UsVdrJ": {
-      "video_code": "4UsVdrJ",
-      "title": "حماسه جدید و زننده محمد صادقی اینبار با خط چشم و گوشواره و لاک قرمز🔴",
-      "sender_name": "نبض تو",
-      "category_id": 21,
-      "duration": 45,
-      "visit_count": 20254,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T01:00:25.417Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "محمد شعبانپور",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 132
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T01:00:32.017Z"
     },
     "T7S3EkX": {
       "video_code": "T7S3EkX",
@@ -148533,34 +148073,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T08:45:13.956Z"
     },
-    "yy9n9jL": {
-      "video_code": "yy9n9jL",
-      "title": "کیک شکلاتی مینیاتوری - طرز تهیه کیک و کلوچه مینیاتوری - مینی کیک - کیک ریز مینیاتوری",
-      "sender_name": "‫سید حمید حوائجی",
-      "category_id": 29,
-      "duration": 834,
-      "visit_count": 20237,
-      "create_date": "12 ماه پیش",
-      "styled_create_date": "12 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:46.003Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "صابر ابر و هانیه توسلی در سریال «مینی‌سیتی»؛ داستانی از خالق «کنکل»",
-          "trendTitle": "کنکل",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 22:40:00 -0800",
-          "trendKeywords": [
-            "کنکل"
-          ],
-          "page": 16
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.648Z"
-    },
     "REyoq7B": {
       "video_code": "REyoq7B",
       "title": "پختن و تزیین کیک مینیاتوری رنگین کمانی :: مینی کیک کیت کت :: کیک ریز :: آشپزی مینیاتوری",
@@ -151680,34 +151192,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T08:45:13.947Z"
     },
-    "FCbY4O1": {
-      "video_code": "FCbY4O1",
-      "title": "من در مقابل مادربزرگ: چالش آشپزی | چالش نوشیدنی ها | چالش بانوان",
-      "sender_name": "سریال 97",
-      "category_id": 29,
-      "duration": 353,
-      "visit_count": 20308,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T08:44:43.708Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "آشپزی",
-          "trendTitle": "آشپزی",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
-          "trendKeywords": [
-            "آشپزی"
-          ],
-          "page": 69
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T08:45:13.957Z"
-    },
     "KAaGdgp": {
       "video_code": "KAaGdgp",
       "title": "ولاد و نیکی: ولاد آشپزی اسلایم بازی-ولاد و نیکی جدید ولاد نیکیتا ولاد نیکی",
@@ -153412,7 +152896,7 @@
       "visit_count": 107441,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:29.614Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:50.906Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153428,9 +152912,20 @@
             "قایدی"
           ],
           "page": 1
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.340Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z"
     },
     "R2aRN3v": {
       "video_code": "R2aRN3v",
@@ -153441,7 +152936,7 @@
       "visit_count": 112385,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:06.512Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:45.176Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153457,9 +152952,20 @@
             "قایدی"
           ],
           "page": 15
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 14
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.282Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.853Z"
     },
     "pTIuSpF": {
       "video_code": "pTIuSpF",
@@ -153470,7 +152976,7 @@
       "visit_count": 228924,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:07.348Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:46.338Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153486,9 +152992,20 @@
             "قایدی"
           ],
           "page": 16
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 15
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.282Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "Ihy2QoB": {
       "video_code": "Ihy2QoB",
@@ -153499,7 +153016,7 @@
       "visit_count": 20583,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:07.348Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:46.338Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153515,9 +153032,20 @@
             "قایدی"
           ],
           "page": 16
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 15
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.282Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "B27Lr8e": {
       "video_code": "B27Lr8e",
@@ -153528,7 +153056,7 @@
       "visit_count": 53303,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:07.348Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:46.338Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153544,9 +153072,20 @@
             "قایدی"
           ],
           "page": 16
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 15
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "FnC2ewO": {
       "video_code": "FnC2ewO",
@@ -153557,7 +153096,7 @@
       "visit_count": 31233,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:07.348Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:47.396Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153573,9 +153112,20 @@
             "قایدی"
           ],
           "page": 16
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 16
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "kFbVRde": {
       "video_code": "kFbVRde",
@@ -153583,10 +153133,10 @@
       "sender_name": "به رنگ آسمان",
       "category_id": 8,
       "duration": 688,
-      "visit_count": 33070,
+      "visit_count": 33071,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:07.348Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:47.396Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153602,9 +153152,20 @@
             "قایدی"
           ],
           "page": 16
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 16
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "1CS9SBc": {
       "video_code": "1CS9SBc",
@@ -153615,7 +153176,7 @@
       "visit_count": 38032,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:07.348Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:47.396Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153631,9 +153192,20 @@
             "قایدی"
           ],
           "page": 16
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 16
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "RzU2JEr": {
       "video_code": "RzU2JEr",
@@ -153644,7 +153216,7 @@
       "visit_count": 52625,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:08.198Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:47.396Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153660,9 +153232,20 @@
             "قایدی"
           ],
           "page": 17
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 16
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "MEGNTn6": {
       "video_code": "MEGNTn6",
@@ -153673,7 +153256,7 @@
       "visit_count": 252931,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:08.198Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:47.396Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153689,9 +153272,20 @@
             "قایدی"
           ],
           "page": 17
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 16
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "vyD9WkF": {
       "video_code": "vyD9WkF",
@@ -153702,7 +153296,7 @@
       "visit_count": 103390,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:08.198Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:47.396Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -153718,9 +153312,20 @@
             "قایدی"
           ],
           "page": 17
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 16
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "SNaI14d": {
       "video_code": "SNaI14d",
@@ -153731,7 +153336,7 @@
       "visit_count": 41426,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:08.198Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:47.396Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153747,9 +153352,20 @@
             "قایدی"
           ],
           "page": 17
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 16
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "jvNeqlZ": {
       "video_code": "jvNeqlZ",
@@ -153760,7 +153376,7 @@
       "visit_count": 55878,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:08.198Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:47.396Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153776,9 +153392,20 @@
             "قایدی"
           ],
           "page": 17
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 16
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "Yzza1Dp": {
       "video_code": "Yzza1Dp",
@@ -153789,7 +153416,7 @@
       "visit_count": 95205,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:08.198Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:47.396Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153805,9 +153432,20 @@
             "قایدی"
           ],
           "page": 17
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 16
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "gKOeedg": {
       "video_code": "gKOeedg",
@@ -153818,7 +153456,7 @@
       "visit_count": 78861,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:08.198Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:47.396Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153834,9 +153472,20 @@
             "قایدی"
           ],
           "page": 17
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 16
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "Pqg1QDb": {
       "video_code": "Pqg1QDb",
@@ -153847,7 +153496,7 @@
       "visit_count": 39366,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:09.082Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:48.596Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153863,9 +153512,20 @@
             "قایدی"
           ],
           "page": 18
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 17
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "ZNhGf5D": {
       "video_code": "ZNhGf5D",
@@ -153876,7 +153536,7 @@
       "visit_count": 487562,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:09.082Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:48.596Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -153892,9 +153552,20 @@
             "قایدی"
           ],
           "page": 18
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 17
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "DuEviyb": {
       "video_code": "DuEviyb",
@@ -153905,7 +153576,7 @@
       "visit_count": 27473,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:09.082Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:48.596Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153921,9 +153592,20 @@
             "قایدی"
           ],
           "page": 18
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 17
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "seFPcBF": {
       "video_code": "seFPcBF",
@@ -153934,7 +153616,7 @@
       "visit_count": 24167,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:09.082Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:48.596Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153950,9 +153632,20 @@
             "قایدی"
           ],
           "page": 18
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 17
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "SPcWcnD": {
       "video_code": "SPcWcnD",
@@ -153963,7 +153656,7 @@
       "visit_count": 22872,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:09.915Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:48.596Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153979,9 +153672,20 @@
             "قایدی"
           ],
           "page": 19
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 17
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "26lsIPS": {
       "video_code": "26lsIPS",
@@ -153992,7 +153696,7 @@
       "visit_count": 21181,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:09.915Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:48.596Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154008,9 +153712,20 @@
             "قایدی"
           ],
           "page": 19
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 17
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "zXdAhV3": {
       "video_code": "zXdAhV3",
@@ -154021,7 +153736,7 @@
       "visit_count": 36364,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:09.915Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:49.890Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154037,9 +153752,20 @@
             "قایدی"
           ],
           "page": 19
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 18
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "mf90ovS": {
       "video_code": "mf90ovS",
@@ -154050,7 +153776,7 @@
       "visit_count": 56936,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:09.915Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:49.890Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154066,9 +153792,20 @@
             "قایدی"
           ],
           "page": 19
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 18
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "HxVZaYB": {
       "video_code": "HxVZaYB",
@@ -154076,10 +153813,10 @@
       "sender_name": "Abolfazl X Ms.",
       "category_id": 2,
       "duration": 1184,
-      "visit_count": 51924,
+      "visit_count": 51925,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:09.915Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:49.890Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154095,9 +153832,20 @@
             "قایدی"
           ],
           "page": 19
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 18
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "7PUXJQ5": {
       "video_code": "7PUXJQ5",
@@ -154108,7 +153856,7 @@
       "visit_count": 178686,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:09.915Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:49.890Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154124,9 +153872,20 @@
             "قایدی"
           ],
           "page": 19
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 18
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "3Z0wMvi": {
       "video_code": "3Z0wMvi",
@@ -154137,7 +153896,7 @@
       "visit_count": 53642,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:09.915Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:49.890Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154153,9 +153912,20 @@
             "قایدی"
           ],
           "page": 19
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 18
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.854Z"
     },
     "b9FGzPm": {
       "video_code": "b9FGzPm",
@@ -154166,7 +153936,7 @@
       "visit_count": 25162,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:09.915Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:49.890Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154182,9 +153952,20 @@
             "قایدی"
           ],
           "page": 19
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 18
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z"
     },
     "8WzJYim": {
       "video_code": "8WzJYim",
@@ -154195,7 +153976,7 @@
       "visit_count": 48740,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:10.930Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:49.890Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154211,9 +153992,20 @@
             "قایدی"
           ],
           "page": 20
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 18
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z"
     },
     "p1gx8xd": {
       "video_code": "p1gx8xd",
@@ -154224,7 +154016,7 @@
       "visit_count": 155786,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:10.930Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:50.906Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154240,9 +154032,20 @@
             "قایدی"
           ],
           "page": 20
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.283Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z"
     },
     "MSYTaui": {
       "video_code": "MSYTaui",
@@ -154253,7 +154056,7 @@
       "visit_count": 120864,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:10.930Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:50.906Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154269,9 +154072,20 @@
             "قایدی"
           ],
           "page": 20
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.284Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z"
     },
     "wcG3c3C": {
       "video_code": "wcG3c3C",
@@ -154282,7 +154096,7 @@
       "visit_count": 24540,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:10.930Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:50.906Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -154298,9 +154112,20 @@
             "قایدی"
           ],
           "page": 20
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.284Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z"
     },
     "X1q6DFF": {
       "video_code": "X1q6DFF",
@@ -154311,7 +154136,7 @@
       "visit_count": 28438,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:25:10.930Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:50.906Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154327,9 +154152,20 @@
             "قایدی"
           ],
           "page": 20
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.284Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z"
     },
     "zRtQGsF": {
       "video_code": "zRtQGsF",
@@ -154340,7 +154176,7 @@
       "visit_count": 37374,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:45:04.463Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:50.906Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154356,9 +154192,20 @@
             "قایدی"
           ],
           "page": 21
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:45:34.712Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z"
     },
     "Wg8wbB0": {
       "video_code": "Wg8wbB0",
@@ -154369,7 +154216,7 @@
       "visit_count": 210664,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:45:04.463Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:50.906Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154385,9 +154232,20 @@
             "قایدی"
           ],
           "page": 21
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:45:34.712Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.847Z"
     },
     "mqQuJQY": {
       "video_code": "mqQuJQY",
@@ -154398,7 +154256,7 @@
       "visit_count": 21668,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:45:04.463Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:52.056Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154414,9 +154272,20 @@
             "قایدی"
           ],
           "page": 21
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 20
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:45:34.712Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z"
     },
     "qrI7M1O": {
       "video_code": "qrI7M1O",
@@ -154427,7 +154296,7 @@
       "visit_count": 23101,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:45:04.463Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:52.056Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154443,9 +154312,20 @@
             "قایدی"
           ],
           "page": 21
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 20
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:45:34.712Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z"
     },
     "tKQlaXh": {
       "video_code": "tKQlaXh",
@@ -154453,10 +154333,10 @@
       "sender_name": "hamidrezahassan3",
       "category_id": 2,
       "duration": 612,
-      "visit_count": 21051,
+      "visit_count": 21052,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:45:05.276Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:52.056Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -154472,9 +154352,20 @@
             "قایدی"
           ],
           "page": 22
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 20
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:45:34.712Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z"
     },
     "l0C6d4C": {
       "video_code": "l0C6d4C",
@@ -158286,35 +158177,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T10:26:15.441Z"
     },
-    "uKRiwqq": {
-      "video_code": "uKRiwqq",
-      "title": "?دوراهی عجیب به قیمت جان مردم! ?",
-      "sender_name": "متین",
-      "category_id": 1,
-      "duration": 234,
-      "visit_count": 20238,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:33.430Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قیمت نفت به 92 دلار و 75 سنت رسید",
-          "trendTitle": "نفت خام",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
-          "trendKeywords": [
-            "نفت",
-            "خام"
-          ],
-          "page": 16
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.441Z"
-    },
     "iNIbFZQ": {
       "video_code": "iNIbFZQ",
       "title": "آپدیت قیمت بنزین توسط رئیس ستاد پزشکیان: ۵۰ هزار تومان!",
@@ -160950,36 +160812,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T10:26:15.472Z"
     },
-    "N5PoXQT": {
-      "video_code": "N5PoXQT",
-      "title": "وحید رهام - مرضیه",
-      "sender_name": "پازل موزیک",
-      "category_id": 9,
-      "duration": 205,
-      "visit_count": 20304,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:04.164Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "آیت الله العظمی وحید خراسانی در قم تشییع شد",
-          "trendTitle": "ایت الله کفایی",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Wed, 18 Nov 2026 00:30:00 -0800",
-          "trendKeywords": [
-            "ایت",
-            "الله",
-            "کفایی"
-          ],
-          "page": 10
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.472Z"
-    },
     "GnQQg7A": {
       "video_code": "GnQQg7A",
       "title": "فیلم جذاب ترین گنده لات ایران ! / وحید مرادی کی بود ؟!",
@@ -161908,7 +161740,7 @@
       "visit_count": 29223,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:36.989Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:29.660Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -161924,9 +161756,20 @@
             "قایدی"
           ],
           "page": 71
+        },
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.345Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.847Z"
     },
     "WHjwJuF": {
       "video_code": "WHjwJuF",
@@ -162024,7 +161867,7 @@
       "visit_count": 135175,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:30.087Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:58.082Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -162041,7 +161884,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.349Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.868Z"
     },
     "S3iJkSa": {
       "video_code": "S3iJkSa",
@@ -162052,7 +161895,7 @@
       "visit_count": 45260,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:30.087Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:58.082Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -162069,7 +161912,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.349Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.868Z"
     },
     "orcRyfC": {
       "video_code": "orcRyfC",
@@ -162080,7 +161923,7 @@
       "visit_count": 89037,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:30.087Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:58.082Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -162097,7 +161940,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.349Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.868Z"
     },
     "DzCNttZ": {
       "video_code": "DzCNttZ",
@@ -162108,7 +161951,7 @@
       "visit_count": 36196,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:30.087Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:58.082Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -162125,7 +161968,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.349Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.868Z"
     },
     "kIHGTB5": {
       "video_code": "kIHGTB5",
@@ -162136,7 +161979,7 @@
       "visit_count": 32274,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:30.986Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:59.084Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -162153,7 +161996,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.349Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.868Z"
     },
     "ukXvexi": {
       "video_code": "ukXvexi",
@@ -162164,7 +162007,7 @@
       "visit_count": 67435,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:30.986Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:59.084Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -162181,7 +162024,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.349Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.868Z"
     },
     "NPTelYl": {
       "video_code": "NPTelYl",
@@ -162192,7 +162035,7 @@
       "visit_count": 44299,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:30.986Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:59.084Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -162209,7 +162052,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.349Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.868Z"
     },
     "m8yUhe8": {
       "video_code": "m8yUhe8",
@@ -162220,7 +162063,7 @@
       "visit_count": 236841,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:30.986Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:59.084Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -162237,7 +162080,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.349Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.868Z"
     },
     "N0EQT4d": {
       "video_code": "N0EQT4d",
@@ -162248,7 +162091,7 @@
       "visit_count": 49049,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:30.986Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:59.084Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -162265,7 +162108,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.349Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.868Z"
     },
     "gD58CLI": {
       "video_code": "gD58CLI",
@@ -162276,7 +162119,7 @@
       "visit_count": 88696,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:30.986Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:59.084Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -162293,7 +162136,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.349Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.868Z"
     },
     "WN5FQay": {
       "video_code": "WN5FQay",
@@ -162301,10 +162144,10 @@
       "sender_name": "فیلم و سریال (دوبله شده)",
       "category_id": 3,
       "duration": 10238,
-      "visit_count": 53213,
+      "visit_count": 53214,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:30.986Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:59.084Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -162321,7 +162164,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.349Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.868Z"
     },
     "x66rgA4": {
       "video_code": "x66rgA4",
@@ -162332,7 +162175,7 @@
       "visit_count": 30497,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:30.986Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:59.084Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -162349,7 +162192,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.349Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.868Z"
     },
     "PLHzzaw": {
       "video_code": "PLHzzaw",
@@ -162360,7 +162203,7 @@
       "visit_count": 83390,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:30.986Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:59.084Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -162377,7 +162220,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.350Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.868Z"
     },
     "aaETSkv": {
       "video_code": "aaETSkv",
@@ -162388,7 +162231,7 @@
       "visit_count": 24491,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:30.986Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:59.084Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -162405,7 +162248,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.350Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.868Z"
     },
     "i2R3DBZ": {
       "video_code": "i2R3DBZ",
@@ -162416,7 +162259,7 @@
       "visit_count": 22785,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:31.888Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:00.240Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -162433,7 +162276,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.350Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.868Z"
     },
     "Pe3cGd8": {
       "video_code": "Pe3cGd8",
@@ -162444,7 +162287,7 @@
       "visit_count": 21166,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:31.888Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:00.240Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -162461,7 +162304,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.350Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.869Z"
     },
     "QJApecA": {
       "video_code": "QJApecA",
@@ -162472,7 +162315,7 @@
       "visit_count": 20710,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:32.631Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:01.083Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -162489,7 +162332,7 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.350Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.869Z"
     },
     "uuwrg2v": {
       "video_code": "uuwrg2v",
@@ -162836,7 +162679,7 @@
       "visit_count": 15780,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:42.455Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:58.248Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -162867,7 +162710,7 @@
           "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.362Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.872Z"
     },
     "gq6Lxcy": {
       "video_code": "gq6Lxcy",
@@ -162878,7 +162721,7 @@
       "visit_count": 7731,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:47.015Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:07.545Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -162909,7 +162752,7 @@
           "page": 15
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.364Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.872Z"
     },
     "Rz8Ywf7": {
       "video_code": "Rz8Ywf7",
@@ -162920,7 +162763,7 @@
       "visit_count": 28437,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:47.760Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:07.545Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -162951,7 +162794,7 @@
           "page": 16
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.364Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.872Z"
     },
     "bwh7Fck": {
       "video_code": "bwh7Fck",
@@ -162959,10 +162802,10 @@
       "sender_name": "ALIXSHOTGAME",
       "category_id": 11,
       "duration": 792,
-      "visit_count": 9581,
+      "visit_count": 9582,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:48.503Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:07.545Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -162993,7 +162836,7 @@
           "page": 17
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.365Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.872Z"
     },
     "fJ72dwl": {
       "video_code": "fJ72dwl",
@@ -164156,7 +163999,7 @@
       "visit_count": 38313,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:44.550Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:06.436Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -164173,9 +164016,21 @@
             "ای"
           ],
           "page": 12
+        },
+        {
+          "query": "جی تی ای ۶",
+          "trendTitle": "جی تی ای ۶",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "جی",
+            "تی",
+            "ای"
+          ],
+          "page": 23
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.363Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.874Z"
     },
     "DTu4JQU": {
       "video_code": "DTu4JQU",
@@ -164276,7 +164131,7 @@
       "visit_count": 35803,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:44.550Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:06.436Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -164293,9 +164148,21 @@
             "ای"
           ],
           "page": 12
+        },
+        {
+          "query": "جی تی ای ۶",
+          "trendTitle": "جی تی ای ۶",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "جی",
+            "تی",
+            "ای"
+          ],
+          "page": 23
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.363Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.874Z"
     },
     "BZotw2S": {
       "video_code": "BZotw2S",
@@ -164366,7 +164233,7 @@
       "visit_count": 21980,
       "create_date": "11 ماه پیش",
       "styled_create_date": "11 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:44.550Z",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:06.436Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -164383,9 +164250,21 @@
             "ای"
           ],
           "page": 12
+        },
+        {
+          "query": "جی تی ای ۶",
+          "trendTitle": "جی تی ای ۶",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "جی",
+            "تی",
+            "ای"
+          ],
+          "page": 23
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.363Z"
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.874Z"
     },
     "x4qsWHf": {
       "video_code": "x4qsWHf",
@@ -165594,8 +165473,899 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-18T11:15:32.378Z"
+    },
+    "NtFaqji": {
+      "video_code": "NtFaqji",
+      "title": "کلیپ طنز جدید مهدی داب در پیج من لایک یادت نره",
+      "sender_name": "shakilafaridipage",
+      "category_id": 6,
+      "duration": 74,
+      "visit_count": 221951,
+      "create_date": "1 سال پیش",
+      "styled_create_date": "1 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:45.176Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 14
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.853Z"
+    },
+    "KN0eUxO": {
+      "video_code": "KN0eUxO",
+      "title": "فیلم دعوای حامد تبریزی و مهدی امینی",
+      "sender_name": "حمیدرضا",
+      "category_id": 3,
+      "duration": 513,
+      "visit_count": 152969,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:45.176Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 14
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.853Z"
+    },
+    "QzClecq": {
+      "video_code": "QzClecq",
+      "title": "گل سلطان مهدی طارمی به سبک رونالدو به چلسی مهدی طارمی",
+      "sender_name": "fotbali",
+      "category_id": 11,
+      "duration": 49,
+      "visit_count": 92742,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:45.176Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 14
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.853Z"
+    },
+    "eKfGIaq": {
+      "video_code": "eKfGIaq",
+      "title": "دعوای مهدی امینی و حامد تبریزی",
+      "sender_name": "Captain ATA",
+      "category_id": 1,
+      "duration": 523,
+      "visit_count": 44521,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:45.176Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 14
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.853Z"
+    },
+    "I4zYctZ": {
+      "video_code": "I4zYctZ",
+      "title": "دوربین مخفی«مهدی و شقایق»",
+      "sender_name": "تماشا خونه✅✅",
+      "category_id": 2,
+      "duration": 1042,
+      "visit_count": 23718,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:46.338Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "مهدی اربابی درگذشت",
+          "trendTitle": "مهدی اربابی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+          "trendKeywords": [
+            "مهدی",
+            "اربابی"
+          ],
+          "page": 15
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.853Z"
+    },
+    "ObIuSbi": {
+      "video_code": "ObIuSbi",
+      "title": "فیلم مسابقه تا کوهستان اسرارآمیز Race to Witch Mountain",
+      "sender_name": "moviextc",
+      "category_id": 3,
+      "duration": 5898,
+      "visit_count": 33426,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:37.001Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "twitch",
+          "trendTitle": "twitch",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
+          "trendKeywords": [
+            "twitch"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z"
+    },
+    "yuo0xEj": {
+      "video_code": "yuo0xEj",
+      "title": "سریال بدترین جادوگر فصل 4 قسمت 1 دوبله فارسی The Worst Witch",
+      "sender_name": "مووی باکس `ღ´-",
+      "category_id": 3,
+      "duration": 1800,
+      "visit_count": 27348,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:37.001Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "twitch",
+          "trendTitle": "twitch",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
+          "trendKeywords": [
+            "twitch"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z"
+    },
+    "jF02nZF": {
+      "video_code": "jF02nZF",
+      "title": "فیلم ترسناک جادوگر The Witch 2015 - با زیرنویس فارسی",
+      "sender_name": "کاربر فیلو",
+      "category_id": 3,
+      "duration": 5231,
+      "visit_count": 41050,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:37.001Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "twitch",
+          "trendTitle": "twitch",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
+          "trendKeywords": [
+            "twitch"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.855Z"
+    },
+    "0CXQKC9": {
+      "video_code": "0CXQKC9",
+      "title": "انیمه عاشقانه آثار جادوگران - Witch Craft Works قسمت 3 زیرنویس فارسی",
+      "sender_name": "انیمه دوست",
+      "category_id": 21,
+      "duration": 1423,
+      "visit_count": 21430,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:38.670Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "twitch",
+          "trendTitle": "twitch",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
+          "trendKeywords": [
+            "twitch"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+    },
+    "LhqspRd": {
+      "video_code": "LhqspRd",
+      "title": "انیمه عاشقانه آثار جادوگران - Witch Craft Works قسمت 1 با زیرنویس فارسی",
+      "sender_name": "انیمه دوست",
+      "category_id": 21,
+      "duration": 1423,
+      "visit_count": 23401,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:38.670Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "twitch",
+          "trendTitle": "twitch",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
+          "trendKeywords": [
+            "twitch"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+    },
+    "HPWjVoJ": {
+      "video_code": "HPWjVoJ",
+      "title": "فیلم جا به‌ جایی شاهزاده The Princess Switch ۲۰۱۸ دوبله فارسی",
+      "sender_name": "محمدجواد",
+      "category_id": 3,
+      "duration": 6114,
+      "visit_count": 21801,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:38.670Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "twitch",
+          "trendTitle": "twitch",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
+          "trendKeywords": [
+            "twitch"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+    },
+    "8QHYANv": {
+      "video_code": "8QHYANv",
+      "title": "فیلم سینمایی(جادوگر)The Witch 2015+با زیرنویس چسبیده",
+      "sender_name": "🎬 سینمافیلم تی‌وی | CinemaFilm TV",
+      "category_id": 3,
+      "duration": 5231,
+      "visit_count": 22042,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:38.670Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "twitch",
+          "trendTitle": "twitch",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
+          "trendKeywords": [
+            "twitch"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+    },
+    "Bj9vAR9": {
+      "video_code": "Bj9vAR9",
+      "title": "دانلود فیلم سوئیچ خانواده دوبله فارسی Family Switch 2023",
+      "sender_name": "Baha2rnezhad",
+      "category_id": 3,
+      "duration": 6212,
+      "visit_count": 20758,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:38.670Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "twitch",
+          "trendTitle": "twitch",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
+          "trendKeywords": [
+            "twitch"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+    },
+    "p0epwqO": {
+      "video_code": "p0epwqO",
+      "title": "فیلم جادوگر: قسمت 1 The Witch: Part 1 2018 زیرنویس فارسی HD",
+      "sender_name": "✅کافه فیلم✅",
+      "category_id": 3,
+      "duration": 7422,
+      "visit_count": 22936,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:40.178Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "twitch",
+          "trendTitle": "twitch",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
+          "trendKeywords": [
+            "twitch"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+    },
+    "866Wwod": {
+      "video_code": "866Wwod",
+      "title": "فیلم سینمایی(جادوگر 2 دیگری)The Witch ۲ The Other One 2022+با دوبله فارسی",
+      "sender_name": "🎬 سینمافیلم تی‌وی | CinemaFilm TV",
+      "category_id": 3,
+      "duration": 8191,
+      "visit_count": 63507,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:40.178Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "twitch",
+          "trendTitle": "twitch",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
+          "trendKeywords": [
+            "twitch"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+    },
+    "GkTfjyX": {
+      "video_code": "GkTfjyX",
+      "title": "فیلم ترسناک جادوگر با زیرنویس فارسی The Witch 2015 BluRay",
+      "sender_name": "جهان فیلم ✅",
+      "category_id": 3,
+      "duration": 5231,
+      "visit_count": 31085,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:40.178Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "twitch",
+          "trendTitle": "twitch",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
+          "trendKeywords": [
+            "twitch"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+    },
+    "7j2o2iR": {
+      "video_code": "7j2o2iR",
+      "title": "فیلم سینمایی(جادوگر 1 براندازی)The Witch - The Subversion 2018+با دوبله فارسی",
+      "sender_name": "🎬 سینمافیلم تی‌وی | CinemaFilm TV",
+      "category_id": 3,
+      "duration": 7422,
+      "visit_count": 26838,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:40.178Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "twitch",
+          "trendTitle": "twitch",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
+          "trendKeywords": [
+            "twitch"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+    },
+    "OwvGXHI": {
+      "video_code": "OwvGXHI",
+      "title": "فیلم سینمایی جادوگر کوچک (The Little Witch",
+      "sender_name": "منتخب فیلو✅",
+      "category_id": 3,
+      "duration": 6183,
+      "visit_count": 34631,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:40.178Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "twitch",
+          "trendTitle": "twitch",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
+          "trendKeywords": [
+            "twitch"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+    },
+    "anzwu3g": {
+      "video_code": "anzwu3g",
+      "title": "فیلم کره ای جادوگر The Witch:Part 2- The Other One 2022 با زیرنویس فارسی",
+      "sender_name": "OnFilms&Songs",
+      "category_id": 3,
+      "duration": 8186,
+      "visit_count": 21319,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:44:44.000Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "twitch",
+          "trendTitle": "twitch",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
+          "trendKeywords": [
+            "twitch"
+          ],
+          "page": 7
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.856Z"
+    },
+    "9NPEOx6": {
+      "video_code": "9NPEOx6",
+      "title": "فیلم کتاب خوان The Reader 2008 زیرنویس فارسی چسبیده",
+      "sender_name": "تماشای آنلاین با ترافیک نیم بها",
+      "category_id": 3,
+      "duration": 6087,
+      "visit_count": 149959,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:00.314Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.860Z"
+    },
+    "oEOXFGf": {
+      "video_code": "oEOXFGf",
+      "title": "فیلم سینمایی گربه آوازه خوان",
+      "sender_name": "مای دراما",
+      "category_id": 13,
+      "duration": 4491,
+      "visit_count": 27626,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:00.314Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.860Z"
+    },
+    "o1UN2dt": {
+      "video_code": "o1UN2dt",
+      "title": "انیمیشن Sing 1 (اواز خوان 1) دوبله فارسی",
+      "sender_name": "فیلم و سریال جدید",
+      "category_id": 21,
+      "duration": 6474,
+      "visit_count": 42132,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:00.314Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.860Z"
+    },
+    "yzNUG57": {
+      "video_code": "yzNUG57",
+      "title": "خوانندگی مشترک عمو پورنگ و شاهرخ خوان",
+      "sender_name": "سعید",
+      "category_id": 9,
+      "duration": 16,
+      "visit_count": 21691,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:00.314Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.860Z"
+    },
+    "6xFSxzM": {
+      "video_code": "6xFSxzM",
+      "title": "امیر تتلو نوحه خوان شد | چرخش 360 درجه ای امیر تتلو",
+      "sender_name": "Joker",
+      "category_id": 8,
+      "duration": 81,
+      "visit_count": 22735,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:00.314Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.860Z"
+    },
+    "k4V0z5y": {
+      "video_code": "k4V0z5y",
+      "title": "فیلم ایرانی گربه آوازه خوان با کیفیت عالی 720p HD",
+      "sender_name": "امید فتاحی",
+      "category_id": 13,
+      "duration": 4975,
+      "visit_count": 28935,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:01.929Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.860Z"
+    },
+    "wirzqKX": {
+      "video_code": "wirzqKX",
+      "title": "سریال کره ای زیبای حقیقی با دوبله فارسی قسمت 6",
+      "sender_name": "نگین",
+      "category_id": 3,
+      "duration": 4362,
+      "visit_count": 479914,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:11.690Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "جی تی ای ۶",
+          "trendTitle": "جی تی ای ۶",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "جی",
+            "تی",
+            "ای"
+          ],
+          "page": 28
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.875Z"
+    },
+    "vblnboy": {
+      "video_code": "vblnboy",
+      "title": "آیا ۲۰۶ یهتره یا ۲۰۷ +درگ 😱/ بنیامین بی ای",
+      "sender_name": "بنیامین BE",
+      "category_id": 6,
+      "duration": 1580,
+      "visit_count": 21146,
+      "create_date": "1 سال پیش",
+      "styled_create_date": "1 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:11.690Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "جی تی ای ۶",
+          "trendTitle": "جی تی ای ۶",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "جی",
+            "تی",
+            "ای"
+          ],
+          "page": 28
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.875Z"
+    },
+    "NsTGT0C": {
+      "video_code": "NsTGT0C",
+      "title": "سریال کره ای زیبایی حقیقی قسمت 6 دوبله فارسی 2021 True Beauty",
+      "sender_name": "آماندا",
+      "category_id": 3,
+      "duration": 4135,
+      "visit_count": 239100,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:16.908Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "جی تی ای ۶",
+          "trendTitle": "جی تی ای ۶",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "جی",
+            "تی",
+            "ای"
+          ],
+          "page": 33
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.876Z"
+    },
+    "E0G0XSC": {
+      "video_code": "E0G0XSC",
+      "title": "سریال کره ای هوارانگ قسمت 6 دوبله فارسی Hwarang",
+      "sender_name": "آماندا",
+      "category_id": 3,
+      "duration": 3271,
+      "visit_count": 41963,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:19.092Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "جی تی ای ۶",
+          "trendTitle": "جی تی ای ۶",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "جی",
+            "تی",
+            "ای"
+          ],
+          "page": 35
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.876Z"
+    },
+    "tFoboZi": {
+      "video_code": "tFoboZi",
+      "title": "فیلم نگران کننده از ریحانه پارسا / خصوصی ای که نباید منتشر می شد !",
+      "sender_name": "فیلمدوانه",
+      "category_id": 3,
+      "duration": 108,
+      "visit_count": 287576,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:19.092Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "جی تی ای ۶",
+          "trendTitle": "جی تی ای ۶",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "جی",
+            "تی",
+            "ای"
+          ],
+          "page": 35
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.876Z"
+    },
+    "qmHGJ1y": {
+      "video_code": "qmHGJ1y",
+      "title": "سریال کره ای وینچنزو قسمت 6 دوبله فارسی",
+      "sender_name": "آماندا",
+      "category_id": 3,
+      "duration": 4856,
+      "visit_count": 50733,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T11:45:19.092Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "جی تی ای ۶",
+          "trendTitle": "جی تی ای ۶",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "جی",
+            "تی",
+            "ای"
+          ],
+          "page": 35
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T11:45:28.876Z"
     }
   },
-  "totalPagesFetched": 10982,
-  "totalVideosSeen": 198873
+  "totalPagesFetched": 11137,
+  "totalVideosSeen": 201630
 }
