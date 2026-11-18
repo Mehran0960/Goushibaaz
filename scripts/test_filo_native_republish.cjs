@@ -1410,10 +1410,10 @@ const plateauCandidate = plateauRank.find(entry => entry.item.video_code === 'Pl
 assert.equal(plateauCandidate.momentum.viewsSampleCount, 4);
 assert.ok(plateauCandidate.momentum.viewsPerMinute > 0,
   'a flat final five-minute interval must not erase growth measured across the recent sample window');
-assert.equal(plateauCandidate.growthGatePassed, true,
-  'three or more independent views samples with positive trailing-window velocity must pass when plays are absent');
+assert.equal(plateauCandidate.growthGatePassed, false,
+  'positive trailing-window view velocity without positive acceleration cannot pass the acceleration-first publication gate');
 assert.equal(plateauCandidate.hasPositiveAcceleration, false,
-  'a plateau in the latest interval must remove only the acceleration bonus, not measured positive velocity');
+  'a plateau in the latest interval must be treated as non-accelerating, not as momentum');
 
 const audienceState = { posts: [] };
 const audienceStart = Date.parse('2026-11-06T03:00:00.000Z');
