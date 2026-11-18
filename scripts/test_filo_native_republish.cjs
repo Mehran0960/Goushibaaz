@@ -46,6 +46,7 @@ const {
   fetchFiloGlobalSearchPage,
   normalizeVideoFeedItem,
   extractVideoTagFeeds,
+  mergeVideoTagFeeds,
   summarizeVideoTagPayload,
   candidateMetricValue,
   candidateMetricSnapshot,
@@ -465,6 +466,27 @@ assert.deepEqual(extractVideoTagFeeds({
 assert.deepEqual(extractVideoTagFeeds({
   data: { tags: [{ 'q-آموزش': 'آموزش' }] }
 }), [{ key: 'q-آموزش', label: 'آموزش' }], 'wrapped tag payload should be supported');
+
+const mergedTagFeeds = mergeVideoTagFeeds([
+  { key: 'all', label: 'همهٔ شخصی' },
+  { key: '1058', label: 'طنز' },
+  { key: 'q-طنز', label: 'طنز منتخب' }
+]);
+assert.equal(mergedTagFeeds.find(feed => feed.key === 'all').label, 'همهٔ شخصی',
+  'live personalized tags should keep their own labels');
+assert.equal(mergedTagFeeds.find(feed => feed.key === 'q-طنز').label, 'طنز منتخب',
+  'live tag definitions should take precedence over duplicate public tags');
+for (const key of ['q-آشپزی', 'q-آموزش', 'q-طبیعت', 'q-حیوانات', 'q-خودرو']) {
+  assert.ok(mergedTagFeeds.some(feed => feed.key === key),
+    'public front-page category must remain discoverable: ' + key);
+}
+const cappedTagFeeds = mergeVideoTagFeeds(
+  Array.from({ length: 64 }, (_, index) => ({ key: String(index + 100), label: 'شخصی ' + index }))
+);
+assert.equal(cappedTagFeeds.length, 64,
+  'the merged category catalog must respect the configured request cap');
+assert.ok(cappedTagFeeds.some(feed => feed.key === 'q-طنز'),
+  'public category coverage must be reserved even when the personalized catalog is large');
 const compactFeedItem = normalizeVideoFeedItem({
   v: 'AbC1234', t: 'یک کلیپ طنز', c: 6, du: 32, vc: 100, pd: 12,
   cd: '۲ ساعت پیش', hst: 1, co: 1, cr: 1, ac: 1
