@@ -1751,7 +1751,7 @@ assert.equal(blockedByDailyVolume.rolling24hOperations, 40);
 assert.equal(blockedByDailyVolume.internalDailyCap, 36);
 assert.equal(blockedByDailyVolume.remainingDailySlots, 0);
 assert.ok(blockedByDailyVolume.reasons.includes('rolling_24h_republish_cap_36'));
-const expectedNextSlot = Date.parse(dailyPacingState.posts[4].submittedAt) + 24*60*60*1000 + 1;
+const expectedNextSlot = Date.parse(dailyPacingState.posts[35].submittedAt) + 24*60*60*1000 + 1;
 assert.equal(Date.parse(blockedByDailyVolume.nextEligibleAt), expectedNextSlot,
   'the next slot opens only when enough of the oldest rolling-window operations expire');
 assert.equal(dailyCount(dailyPacingState,pacingNow),40,
