@@ -381,7 +381,7 @@ assert.equal(feedCandidateEligible({ ...valid, title: 'سکانس سریال ا�
   'film and series subjects are not blocked by title alone; item-level rights checks remain authoritative');
 assert.equal(feedCandidateEligible({ ...valid, title: 'تصاویر دوربین مداربسته بدون رضایت افراد' }, { posts: [] }), false);
 assert.equal(policyTextRiskReason({ title: 'پیغام توهین آمیز به یک بازیکن' }), 'insult_or_defamation');
-assert.equal(policyTextRiskReason({ title: 'شبیه ساز بمب اتم در تهران' }), 'weapons_or_explosives');
+assert.equal(policyTextRiskReason({ title: 'شبیه ساز بمب اتم در تهران' }), 'dangerous_weapon_construction_instructions');
 assert.equal(feedCandidateEligible({ ...valid, title: 'شبیه ساز بمب اتم در تهران' }, { posts: [] }), false);
 assert.equal(policyTextRiskReason({ description: 'دانلود و تماشای رایگان جدیدترین ویدیوها با کیفیت عالی در رسانه آی‌آرمووی.' }), 'external_video_service_advertising');
 assert.equal(feedCandidateEligible({ ...valid, title: 'رقص و حرکات موزون' }, { posts: [] }), true,
