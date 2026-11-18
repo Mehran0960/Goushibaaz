@@ -1531,8 +1531,8 @@ const probeStart = Date.parse('2026-11-18T18:00:00.000Z');
 const legacyQuotaState = {
   accountQuota403ProbeMigrationAt: '2026-11-06T10:08:35.695Z',
   candidateRejections: {
-    BestCode1: { reason: 'detail_fetch:forbidden_403', retryAfterAt: '2026-11-19T02:00:00.000Z' },
-    NextCode2: { reason: 'detail_fetch:forbidden_403', retryAfterAt: '2026-11-19T02:00:00.000Z' }
+    BestCode1: { reason: 'detail_fetch:forbidden_403', retryAfterAt: '2026-11-19T14:00:00.000Z' },
+    NextCode2: { reason: 'detail_fetch:forbidden_403', retryAfterAt: '2026-11-19T14:00:00.000Z' }
   }
 };
 const legacyProbe = releaseOneLegacy403CacheForAccountQuotaProbe(legacyQuotaState, [
