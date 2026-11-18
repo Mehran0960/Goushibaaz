@@ -145,7 +145,34 @@ const COMMONS_SEARCHES = [
     ['farm-life', 'filetype:video funny farm life'],
     ['puppies-and-kittens', 'filetype:video puppies kittens'],
     ['visual-mishaps', 'filetype:video harmless funny mishap'],
-    ['human-ingenuity', 'filetype:video human ingenuity invention']
+    ['human-ingenuity', 'filetype:video human ingenuity invention'],
+    ['iranian-news-reporting', 'filetype:video گزارش خبری ایران', true],
+    ['iranian-economy', 'filetype:video گزارش اقتصادی ایران', true],
+    ['iranian-markets-finance', 'filetype:video بازار سرمایه ارز طلا ایران', true],
+    ['iranian-civic-events', 'filetype:video انتخابات رویداد عمومی ایران', true],
+    ['world-news-reporting', 'filetype:video world news report press briefing'],
+    ['election-public-debate', 'filetype:video election public debate campaign'],
+    ['international-affairs', 'filetype:video international relations diplomacy'],
+    ['public-policy', 'filetype:video public policy parliamentary hearing'],
+    ['economy-market-update', 'filetype:video economy market update inflation'],
+    ['business-trade', 'filetype:video business trade industry'],
+    ['science-research', 'filetype:video science research discovery experiment'],
+    ['space-astronomy', 'filetype:video astronomy space telescope research'],
+    ['health-medicine', 'filetype:video medical research public health'],
+    ['education-learning', 'filetype:video education learning university'],
+    ['history-archaeology', 'filetype:video history archaeology museum'],
+    ['culture-heritage', 'filetype:video cultural heritage tradition'],
+    ['religion-faith', 'filetype:video religion faith ceremony'],
+    ['environment-climate', 'filetype:video environment climate change conservation'],
+    ['law-society', 'filetype:video law society court public service'],
+    ['energy-transport', 'filetype:video energy transport aviation railway'],
+    ['iranian-science', 'filetype:video پژوهش علمی ایران فناوری', true],
+    ['iranian-health', 'filetype:video سلامت پزشکی ایران', true],
+    ['iranian-culture-art', 'filetype:video فرهنگ هنر ایران', true],
+    ['iranian-history', 'filetype:video تاریخ ایران آثار تاریخی', true],
+    ['iranian-environment', 'filetype:video محیط زیست ایران طبیعت', true],
+    ['iranian-education', 'filetype:video آموزش دانشگاه ایران', true],
+    ['iranian-energy-transport', 'filetype:video انرژی حمل و نقل ایران', true]
   ].map(([key, query, localPriority = false]) => ({ key, query, localPriority }))
 
 ];
@@ -306,8 +333,8 @@ function parsedDurationSeconds(info) {
 }
 
 function isExcludedEditorialContent(text) {
-  // Do not mistake Iranian/political event footage for entertainment just because a place name appears.
-  return /\b(protests?|protesters?|demonstrations?|riot|riots|war|missile|military|army|weapon|weapons|election|politics|political|parliament|government|police crackdown)\b|اعتراضات?|تظاهرات|اغتشاش|جنگ|موشک|پهپاد|بمب|نظامی|تسلیحات|سلاح|انتخابات|سیاست|سیاسی|مجلس|دولت|درگیری|سرکوب/.test(String(text || '').toLowerCase());
+  // Content-level safeguards only. Current affairs, conflict reporting, religion and finance are not banned topics.
+  return /porn|nsfw|explicit sexual|sexual exploitation|revenge porn|gore|graphic violence|dismemberment|self.?harm|suicide|non.?consensual intimate|doxxing|how to (?:make|build) (?:a )?(?:bomb|weapon)|ساخت\s*(?:بمب|مواد منفجره|سلاح)|آموزش\s*(?:ساخت|تهیه)\s*(?:بمب|مواد منفجره|سلاح)|انتشار تصاویر خصوصی بدون رضایت|افشای آدرس منزل|کد ملی افراد|پورنو|محتوای جنسی صریح|صحنه دلخراش|قطع عضو|خودکشی|خودآزاری/i.test(String(text || ''));
 }
 
 function classifyCandidate(candidate) {
@@ -337,7 +364,7 @@ async function discoverCommercialCandidates(state) {
     .filter(item => ACTIVE_SOURCE_STATUSES.has(item.status) || item.status === 'ineligible_source')
     .map(item => item.sourcePage));
   // Each five-minute attempt rotates a small, balanced batch to avoid hammering public archives.
-  // One additional query is built from an actually observed high-velocity entertainment trend.
+  // Additional searches follow observed high-velocity trends from every subject area.
   const trendSearches = buildTrendSearches(undefined, { limit: 4 });
   const localSearches = rotateSearchBatch(COMMONS_SEARCHES.filter(item => item.localPriority), 4);
   const broadSearches = rotateSearchBatch(COMMONS_SEARCHES.filter(item => !item.localPriority), 6);

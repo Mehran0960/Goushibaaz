@@ -257,3 +257,15 @@ Workflow فعال در main در حال حاضر این محرک‌ها را ت�
 - فاصلهٔ داخلی بین انتشارها صفر است؛ ledger مشترک و concurrency از ارسال هم‌زمان/تکراری جلوگیری می‌کنند و quota/cooldown واقعی فیلو مقدم است.
 - نبود فایل مجاز/واجد کیفیت یا رد فیلو همچنان می‌تواند باعث چرخهٔ بدون ارسال شود. `public_verified` تنها انتشار عمومی قطعی است؛ وضعیت‌های pending/unconfirmed جدا گزارش می‌شوند.
 
+
+
+## 2026-11-18 — topic-agnostic discovery and acceleration-first ranking
+
+- Removed subject-only hard exclusions from native Filo feed prefiltering, global trend-to-search expansion, external archive discovery, trend-lane selection and quality ranking. Current affairs, politics/elections, conflict reporting, economy/markets/crypto, science, health, education, religion, arts, film/music, law, environment, transport and other source topics can compete in one discovery pool.
+- Native Filo tag discovery now includes additional topic feeds. Commons/Internet Archive discovery rotates through a wider mix of Persian/Iranian and international query families without increasing per-cycle query concurrency.
+- Topic labels classify and diversify content but do not create eligibility or hard preference. Topic weights are neutral by default; source specificity, editorial quality and candidate-level acceleration determine ranking.
+- Candidate-level play acceleration is primary. Candidate-level view acceleration is used only when play acceleration cannot be calculated or the play counter is zero and demonstrably stalled over three independent observations. A measured flat/negative play acceleration cannot be overridden by faster view growth.
+- Acceleration is signed: negative values are retained as deceleration. Publication requires positive acceleration for all age bands, at least three independent samples and the existing age-adjusted minimum velocity. Cumulative counts and external trend velocity cannot satisfy this gate.
+- External source metadata may use a grounded title fallback when the title is sufficiently specific; fallback preserves source wording and does not fabricate scene details.
+- Rights checks remain fail-closed: Commons/Archive reuse still requires an accepted explicit license; Filo-native republishing still requires authoritative permission and audio/monetization/status checks. Privacy exposure, explicit graphic/sexual content, self-harm and dangerous weapon-making instructions remain content-level exclusions, not topic bans.
+- CI now covers the expanded quality, editorial, trend-discovery and global-search regressions. Production publication is not implied by code merge or CI success; separate production execution and public verification remain required.
