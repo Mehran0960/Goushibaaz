@@ -1,9 +1,18 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-18T11:45:29.125Z",
-  "trendsFetchedAt": "2026-11-18T11:44:08.310Z",
+  "updatedAt": "2026-11-18T12:05:28.586Z",
+  "trendsFetchedAt": "2026-11-18T12:04:24.728Z",
   "trends": [
+    {
+      "title": "metacritic",
+      "keywords": [
+        "metacritic"
+      ],
+      "traffic": 2000,
+      "publishedAt": "Wed, 18 Nov 2026 03:00:00 -0800",
+      "ageHours": 1.1
+    },
     {
       "title": "فراس البریکان",
       "keywords": [
@@ -12,16 +21,7 @@
       ],
       "traffic": 1000,
       "publishedAt": "Wed, 18 Nov 2026 03:10:00 -0800",
-      "ageHours": 0.6
-    },
-    {
-      "title": "metacritic",
-      "keywords": [
-        "metacritic"
-      ],
-      "traffic": 1000,
-      "publishedAt": "Wed, 18 Nov 2026 03:00:00 -0800",
-      "ageHours": 0.7
+      "ageHours": 0.9
     },
     {
       "title": "سرباز",
@@ -30,7 +30,7 @@
       ],
       "traffic": 1000,
       "publishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-      "ageHours": 1.4
+      "ageHours": 1.7
     },
     {
       "title": "جی تی ای ۶",
@@ -41,26 +41,35 @@
       ],
       "traffic": 1000,
       "publishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-      "ageHours": 1.4
+      "ageHours": 1.7
     },
     {
-      "title": "مهدی اربابی",
+      "title": "پیشکسوت",
       "keywords": [
-        "مهدی",
-        "اربابی"
+        "پیشکسوت"
       ],
-      "traffic": 200,
-      "publishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
-      "ageHours": 0.9
+      "traffic": 500,
+      "publishedAt": "Wed, 18 Nov 2026 03:20:00 -0800",
+      "ageHours": 0.7
     },
     {
-      "title": "twitch",
+      "title": "سامان قدوس",
       "keywords": [
-        "twitch"
+        "سامان",
+        "قدوس"
       ],
       "traffic": 200,
-      "publishedAt": "Wed, 18 Nov 2026 02:40:00 -0800",
-      "ageHours": 1.1
+      "publishedAt": "Wed, 18 Nov 2026 03:30:00 -0800",
+      "ageHours": 0.6
+    },
+    {
+      "title": "ps5",
+      "keywords": [
+        "ps5"
+      ],
+      "traffic": 200,
+      "publishedAt": "Wed, 18 Nov 2026 03:30:00 -0800",
+      "ageHours": 0.6
     },
     {
       "title": "خوان ماتا",
@@ -70,7 +79,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-      "ageHours": 1.4
+      "ageHours": 1.7
     },
     {
       "title": "اکونومیست",
@@ -79,17 +88,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Wed, 18 Nov 2026 01:50:00 -0800",
-      "ageHours": 1.9
-    },
-    {
-      "title": "نفت خام",
-      "keywords": [
-        "نفت",
-        "خام"
-      ],
-      "traffic": 200,
-      "publishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
-      "ageHours": 2.1
+      "ageHours": 2.2
     },
     {
       "title": "جیمز باند",
@@ -99,7 +98,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Wed, 18 Nov 2026 03:10:00 -0800",
-      "ageHours": 0.6
+      "ageHours": 0.9
     }
   ],
   "queries": {
@@ -2785,12 +2784,12 @@
     "بازی پرتغال": {
       "query": "بازی پرتغال",
       "normalized": "بازی پرتغال",
-      "nextPage": 81,
+      "nextPage": 96,
       "complete": false,
-      "pagesFetched": 100,
-      "videosSeen": 1984,
+      "pagesFetched": 120,
+      "videosSeen": 2380,
       "createdAt": "2026-11-17T20:59:33.860Z",
-      "lastAttemptAt": "2026-11-18T08:25:08.908Z",
+      "lastAttemptAt": "2026-11-18T12:05:28.303Z",
       "lastError": null,
       "trendTitle": "بازی پرتغال",
       "trendTraffic": 1000,
@@ -6973,12 +6972,12 @@
     "اصلاح شناسه های imei و صدور کد ساتا همچنان معطل مانده است": {
       "query": "اصلاح شناسه‌های IMEI و صدور کد ساتا همچنان معطل مانده است",
       "normalized": "اصلاح شناسه های imei و صدور کد ساتا همچنان معطل مانده است",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T08:44:01.065Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T12:05:28.303Z",
       "lastError": null,
       "trendTitle": "ابلاغیه",
       "trendTraffic": 2000,
@@ -6987,7 +6986,9 @@
         "ابلاغیه"
       ],
       "lastTrendSeenAt": "2026-11-18T08:44:01.065Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T12:05:28.303Z"
     },
     "رفع مشکل رجیستری گوشی های ترخیص شده بدون کد ساتا در زمان جنگ": {
       "query": "رفع مشکل رجیستری گوشی‌های ترخیص‌شده بدون کد ساتا در زمان جنگ",
@@ -7224,7 +7225,7 @@
         "فراس",
         "البریکان"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T11:45:28.837Z"
@@ -7469,7 +7470,7 @@
         "خام"
       ],
       "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "قیمت جدید نفت اعلام شد": {
@@ -7510,7 +7511,7 @@
         "خام"
       ],
       "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "آیت الله العظمی وحید خراسانی در قم تشییع شد": {
@@ -7578,12 +7579,12 @@
     "اکونومیست": {
       "query": "اکونومیست",
       "normalized": "اکونومیست",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 4,
-      "videosSeen": 22,
+      "pagesFetched": 7,
+      "videosSeen": 44,
       "createdAt": "2026-11-18T10:24:47.393Z",
-      "lastAttemptAt": "2026-11-18T10:56:03.460Z",
+      "lastAttemptAt": "2026-11-18T12:05:28.248Z",
       "lastError": null,
       "trendTitle": "اکونومیست",
       "trendTraffic": 200,
@@ -7591,10 +7592,12 @@
       "trendKeywords": [
         "اکونومیست"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T10:56:03.460Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T12:05:28.248Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T12:05:28.248Z"
     },
     "سرنوشت جهان از نگاه اکونومیست منتظر این ۱۰ اتفاق در سال ۲۰۲۷ باشید فیلم": {
       "query": "سرنوشت جهان از نگاه اکونومیست/ منتظر این ۱۰ اتفاق در سال ۲۰۲۷ باشید +فیلم",
@@ -7620,12 +7623,12 @@
     "از پس لرزه های جنگ آمریکا با ایران تا جهان پساترامپ رمزگشایی از جلد جنجالی اکونومیست برای سال ۲۰۲۷": {
       "query": "از پس‌لرزه‌های جنگ آمریکا با ایران تا جهانِ پساترامپ؛ رمزگشایی از جلد جنجالی اکونومیست برای سال ۲۰۲۷",
       "normalized": "از پس لرزه های جنگ آمریکا با ایران تا جهان پساترامپ رمزگشایی از جلد جنجالی اکونومیست برای سال ۲۰۲۷",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 3,
-      "videosSeen": 1,
+      "pagesFetched": 5,
+      "videosSeen": 2,
       "createdAt": "2026-11-18T10:24:47.393Z",
-      "lastAttemptAt": "2026-11-18T10:56:03.460Z",
+      "lastAttemptAt": "2026-11-18T12:05:28.248Z",
       "lastError": null,
       "trendTitle": "اکونومیست",
       "trendTraffic": 200,
@@ -7633,10 +7636,12 @@
       "trendKeywords": [
         "اکونومیست"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-18T10:56:03.460Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-18T12:05:28.248Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-18T12:05:28.248Z"
     },
     "قیمت جهانی نفت با وجود تداوم حملات به نفتکش ها در خاورمیانه باز هم کاهش یافت": {
       "query": "قیمت جهانی نفت با وجود تداوم حملات به نفتکش‌ها در خاورمیانه باز هم کاهش یافت",
@@ -7656,7 +7661,7 @@
         "خام"
       ],
       "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-18T10:56:03.463Z"
     },
@@ -7676,7 +7681,7 @@
       "trendKeywords": [
         "سرباز"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -7696,7 +7701,7 @@
       "trendKeywords": [
         "سرباز"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T11:15:32.355Z"
@@ -7740,19 +7745,19 @@
         "تی",
         "ای"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "جی تی ای": {
       "query": "جی تی ای",
       "normalized": "جی تی ای",
-      "nextPage": 21,
+      "nextPage": 36,
       "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 391,
+      "pagesFetched": 40,
+      "videosSeen": 788,
       "createdAt": "2026-11-18T10:54:20.814Z",
-      "lastAttemptAt": "2026-11-18T11:15:32.366Z",
+      "lastAttemptAt": "2026-11-18T12:05:28.264Z",
       "lastError": null,
       "trendTitle": "جی تی ای ۶",
       "trendTraffic": 1000,
@@ -7762,7 +7767,7 @@
         "تی",
         "ای"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -7792,12 +7797,12 @@
     "خوان ماتا": {
       "query": "خوان ماتا",
       "normalized": "خوان ماتا",
-      "nextPage": 21,
+      "nextPage": 36,
       "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 397,
+      "pagesFetched": 40,
+      "videosSeen": 792,
       "createdAt": "2026-11-18T10:54:20.814Z",
-      "lastAttemptAt": "2026-11-18T11:15:32.371Z",
+      "lastAttemptAt": "2026-11-18T12:05:28.274Z",
       "lastError": null,
       "trendTitle": "خوان ماتا",
       "trendTraffic": 200,
@@ -7806,7 +7811,7 @@
         "خوان",
         "ماتا"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -7953,7 +7958,7 @@
         "اربابی"
       ],
       "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "پیام تسلیت وزیر ورزش و جوانان در پی درگذشت حاج مهدی اربابی": {
@@ -7966,14 +7971,13 @@
       "createdAt": "2026-11-18T11:14:11.150Z",
       "lastAttemptAt": "2026-11-18T11:45:28.855Z",
       "lastError": null,
-      "trendTitle": "مهدی اربابی",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Wed, 18 Nov 2026 02:50:00 -0800",
+      "trendTitle": "پیشکسوت",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Wed, 18 Nov 2026 03:20:00 -0800",
       "trendKeywords": [
-        "مهدی",
-        "اربابی"
+        "پیشکسوت"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T11:45:28.855Z"
@@ -7994,7 +7998,7 @@
       "trendKeywords": [
         "اکونومیست"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T11:45:28.855Z"
@@ -8016,7 +8020,7 @@
         "twitch"
       ],
       "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "ai is still weighing on streamers at twitch s biggest event of the year": {
@@ -8036,7 +8040,7 @@
         "twitch"
       ],
       "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-18T11:45:28.860Z"
     },
@@ -8057,19 +8061,19 @@
         "twitch"
       ],
       "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-18T11:45:28.860Z"
     },
     "ماتا بطل العالم 2010 یعلن اعتزاله فی سن 38 عاما": {
       "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
       "normalized": "ماتا بطل العالم 2010 یعلن اعتزاله فی سن 38 عاما",
-      "nextPage": 21,
+      "nextPage": 36,
       "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 396,
+      "pagesFetched": 40,
+      "videosSeen": 790,
       "createdAt": "2026-11-18T11:14:11.150Z",
-      "lastAttemptAt": "2026-11-18T11:45:28.868Z",
+      "lastAttemptAt": "2026-11-18T12:05:28.295Z",
       "lastError": null,
       "trendTitle": "خوان ماتا",
       "trendTraffic": 200,
@@ -8078,7 +8082,7 @@
         "خوان",
         "ماتا"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -8099,7 +8103,7 @@
         "خوان",
         "ماتا"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-18T11:45:28.868Z"
@@ -8107,12 +8111,12 @@
     "فراس البریکان": {
       "query": "فراس البریکان",
       "normalized": "فراس البریکان",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 3,
+      "videosSeen": 5,
       "createdAt": "2026-11-18T11:44:08.631Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T12:05:28.274Z",
       "lastError": null,
       "trendTitle": "فراس البریکان",
       "trendTraffic": 1000,
@@ -8121,18 +8125,20 @@
         "فراس",
         "البریکان"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T12:05:28.274Z"
     },
     "دیدار مهدی تاج و علیرضا بیرانوند در آستانه مراسم های بزرگ فوتبال آسیا": {
       "query": "دیدار مهدی تاج و علیرضا بیرانوند در آستانه مراسم‌های بزرگ فوتبال آسیا",
       "normalized": "دیدار مهدی تاج و علیرضا بیرانوند در آستانه مراسم های بزرگ فوتبال آسیا",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T11:44:08.631Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T12:05:28.274Z",
       "lastError": null,
       "trendTitle": "فراس البریکان",
       "trendTraffic": 1000,
@@ -8141,27 +8147,31 @@
         "فراس",
         "البریکان"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T12:05:28.274Z"
     },
     "metacritic": {
       "query": "metacritic",
       "normalized": "metacritic",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T11:44:08.631Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T12:05:28.274Z",
       "lastError": null,
       "trendTitle": "metacritic",
-      "trendTraffic": 1000,
+      "trendTraffic": 2000,
       "trendPublishedAt": "Wed, 18 Nov 2026 03:00:00 -0800",
       "trendKeywords": [
         "metacritic"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T12:05:28.274Z"
     },
     "grand theft auto vi review it will steal your heart": {
       "query": "Grand Theft Auto VI Review: It Will Steal Your Heart",
@@ -8180,26 +8190,28 @@
         "metacritic"
       ],
       "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "grand theft auto vi is a masterpiece": {
       "query": "Grand Theft Auto VI Is a Masterpiece",
       "normalized": "grand theft auto vi is a masterpiece",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 4,
+      "videosSeen": 25,
       "createdAt": "2026-11-18T11:44:08.631Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T12:05:28.275Z",
       "lastError": null,
       "trendTitle": "metacritic",
-      "trendTraffic": 1000,
+      "trendTraffic": 2000,
       "trendPublishedAt": "Wed, 18 Nov 2026 03:00:00 -0800",
       "trendKeywords": [
         "metacritic"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T12:05:28.275Z"
     },
     "شهادت سرباز وظیفه در درگیری با گروهک تروریستی پژاک": {
       "query": "شهادت سرباز وظیفه در درگیری با گروهک تروریستی پژاک",
@@ -8218,7 +8230,7 @@
         "سرباز"
       ],
       "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "مهدی اربابی": {
       "query": "مهدی اربابی",
@@ -8238,17 +8250,17 @@
         "اربابی"
       ],
       "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "جیمز باند": {
       "query": "جیمز باند",
       "normalized": "جیمز باند",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 364,
       "createdAt": "2026-11-18T11:44:08.631Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T12:05:28.282Z",
       "lastError": null,
       "trendTitle": "جیمز باند",
       "trendTraffic": 100,
@@ -8257,18 +8269,19 @@
         "جیمز",
         "باند"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "واکنش هالیوودی ها به انتخاب رابرت پتینسون برای نقش جیمز باند": {
       "query": "واکنش هالیوودی‌ها به انتخاب رابرت پتینسون برای نقش جیمز باند",
       "normalized": "واکنش هالیوودی ها به انتخاب رابرت پتینسون برای نقش جیمز باند",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T11:44:08.631Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T12:05:28.282Z",
       "lastError": null,
       "trendTitle": "جیمز باند",
       "trendTraffic": 100,
@@ -8277,18 +8290,20 @@
         "جیمز",
         "باند"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T12:05:28.282Z"
     },
     "ایفاگران نقش جیمزباند مأمور ۰۰۷": {
       "query": "ایفاگران نقش جیمزباند، مأمور ۰۰۷",
       "normalized": "ایفاگران نقش جیمزباند مأمور ۰۰۷",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-18T11:44:08.631Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-18T12:05:28.282Z",
       "lastError": null,
       "trendTitle": "جیمز باند",
       "trendTraffic": 100,
@@ -8297,7 +8312,223 @@
         "جیمز",
         "باند"
       ],
-      "lastTrendSeenAt": "2026-11-18T11:44:08.631Z",
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-18T12:05:28.282Z"
+    },
+    "grand theft auto vi review gaming s most depraved world is now also its greatest love story": {
+      "query": "Grand Theft Auto VI review – gaming’s most depraved world is now also its greatest love story",
+      "normalized": "grand theft auto vi review gaming s most depraved world is now also its greatest love story",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T12:04:25.218Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "metacritic",
+      "trendTraffic": 2000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 03:00:00 -0800",
+      "trendKeywords": [
+        "metacritic"
+      ],
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
+      "activeInLatestFeed": true
+    },
+    "تشییع پیکر ابوالفضل فخام در اردبیل": {
+      "query": "تشییع پیکر «ابوالفضل فخام» در اردبیل",
+      "normalized": "تشییع پیکر ابوالفضل فخام در اردبیل",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T12:04:25.218Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "سرباز",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+      "trendKeywords": [
+        "سرباز"
+      ],
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
+      "activeInLatestFeed": true
+    },
+    "نقدها و نمرات بازی gta 6 منتشر شدند": {
+      "query": "نقدها و نمرات بازی GTA 6 منتشر شدند",
+      "normalized": "نقدها و نمرات بازی gta 6 منتشر شدند",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T12:04:25.218Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "جی تی ای ۶",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+      "trendKeywords": [
+        "جی",
+        "تی",
+        "ای"
+      ],
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
+      "activeInLatestFeed": true
+    },
+    "پیشکسوت": {
+      "query": "پیشکسوت",
+      "normalized": "پیشکسوت",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T12:04:25.218Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "پیشکسوت",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Wed, 18 Nov 2026 03:20:00 -0800",
+      "trendKeywords": [
+        "پیشکسوت"
+      ],
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
+      "activeInLatestFeed": true
+    },
+    "پیام تسلیت فدراسیون": {
+      "query": "پیام تسلیت فدراسیون",
+      "normalized": "پیام تسلیت فدراسیون",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T12:04:25.218Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "پیشکسوت",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Wed, 18 Nov 2026 03:20:00 -0800",
+      "trendKeywords": [
+        "پیشکسوت"
+      ],
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
+      "activeInLatestFeed": true
+    },
+    "سامان قدوس": {
+      "query": "سامان قدوس",
+      "normalized": "سامان قدوس",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T12:04:25.218Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "سامان قدوس",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Wed, 18 Nov 2026 03:30:00 -0800",
+      "trendKeywords": [
+        "سامان",
+        "قدوس"
+      ],
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
+      "activeInLatestFeed": true
+    },
+    "پیرمردهای تیم ملی همچنان منتظر دعوت قلعه نویی چرا قبول نمی کنید تمام شده اید": {
+      "query": "پیرمردهای تیم ملی همچنان منتظر دعوت قلعه‌نویی؛ چرا قبول نمی‌کنید تمام شده‌اید؟!",
+      "normalized": "پیرمردهای تیم ملی همچنان منتظر دعوت قلعه نویی چرا قبول نمی کنید تمام شده اید",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T12:04:25.218Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "سامان قدوس",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Wed, 18 Nov 2026 03:30:00 -0800",
+      "trendKeywords": [
+        "سامان",
+        "قدوس"
+      ],
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
+      "activeInLatestFeed": true
+    },
+    "مهدی توتونچی سامان قدوس حرفه ای بود و چراغ اول را روشن کرد": {
+      "query": "مهدی توتونچی: سامان قدوس حرفه ای بود و چراغ اول را روشن کرد!",
+      "normalized": "مهدی توتونچی سامان قدوس حرفه ای بود و چراغ اول را روشن کرد",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T12:04:25.218Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "سامان قدوس",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Wed, 18 Nov 2026 03:30:00 -0800",
+      "trendKeywords": [
+        "سامان",
+        "قدوس"
+      ],
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
+      "activeInLatestFeed": true
+    },
+    "ps5": {
+      "query": "ps5",
+      "normalized": "ps5",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T12:04:25.218Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "ps5",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Wed, 18 Nov 2026 03:30:00 -0800",
+      "trendKeywords": [
+        "ps5"
+      ],
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
+      "activeInLatestFeed": true
+    },
+    "should i buy a gaming console just to play gta 6 that depends on your fomo": {
+      "query": "Should I buy a gaming console just to play 'GTA 6'? That depends on your FOMO.",
+      "normalized": "should i buy a gaming console just to play gta 6 that depends on your fomo",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T12:04:25.218Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "ps5",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Wed, 18 Nov 2026 03:30:00 -0800",
+      "trendKeywords": [
+        "ps5"
+      ],
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
+      "activeInLatestFeed": true
+    },
+    "playstation 5 gta 6 launch triggers global console shortages": {
+      "query": "PlayStation 5 — GTA 6 Launch Triggers Global Console Shortages",
+      "normalized": "playstation 5 gta 6 launch triggers global console shortages",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-18T12:04:25.218Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "ps5",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Wed, 18 Nov 2026 03:30:00 -0800",
+      "trendKeywords": [
+        "ps5"
+      ],
+      "lastTrendSeenAt": "2026-11-18T12:04:25.218Z",
       "activeInLatestFeed": true
     }
   },
@@ -9490,33 +9721,6 @@
       "styled_create_date": "5 سال پیش",
       "active": 1,
       "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "گندم",
-          "trendTitle": "گندم",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 10:50:00 -0800",
-          "trendKeywords": [
-            "گندم"
-          ],
-          "page": 2
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T20:32:47.111Z"
-    },
-    "yooLMOt": {
-      "video_code": "yooLMOt",
-      "title": "آموزش حلوا آرد گندم",
-      "sender_name": "shila",
-      "category_id": 7,
-      "duration": 121,
-      "visit_count": 20406,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -18762,34 +18966,6 @@
       "visit_count": 34997,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 20
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:30:01.339Z"
-    },
-    "cfzIp3O": {
-      "video_code": "cfzIp3O",
-      "title": "سوسیس عمو حسن رو خوردیم ( همش گوشت بود ) | احسان میرزاد",
-      "sender_name": "فیلی فیلم",
-      "category_id": 29,
-      "duration": 565,
-      "visit_count": 20429,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -31176,34 +31352,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-03T05:06:09.132Z"
-    },
-    "Ey2eftu": {
-      "video_code": "Ey2eftu",
-      "title": "طنز حسن ریوندی این قسمت : مشکلات زندگی",
-      "sender_name": "⭐Aramesh⭐",
-      "category_id": 6,
-      "duration": 60,
-      "visit_count": 20332,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 29
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.049Z"
     },
     "gZh6NI7": {
       "video_code": "gZh6NI7",
@@ -44716,33 +44864,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.340Z"
     },
-    "LZsElvL": {
-      "video_code": "LZsElvL",
-      "title": "قسمت 280 سریال قسم Yemin با دوبله فارسی",
-      "sender_name": "سیم خاردار❤️",
-      "category_id": 3,
-      "duration": 2597,
-      "visit_count": 20351,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 41
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.340Z"
-    },
     "TCjrn1H": {
       "video_code": "TCjrn1H",
       "title": "سریال ترکی قسم قسمت 349 زیرنویس فارسی",
@@ -45822,33 +45943,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.342Z"
-    },
-    "v47hRIh": {
-      "video_code": "v47hRIh",
-      "title": "فیلم سینمایی خشم تایتان ها با دوبله فارسی",
-      "sender_name": "منتخب فیلو✅",
-      "category_id": 3,
-      "duration": 5934,
-      "visit_count": 20336,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 50
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.343Z"
     },
     "govWJKD": {
       "video_code": "govWJKD",
@@ -57827,33 +57921,6 @@
       "lastTrendMatchedAt": "2026-11-17T17:05:51.947Z",
       "lastMetricsFetchedAt": "2026-11-17T17:05:46.514Z"
     },
-    "PCis0ck": {
-      "video_code": "PCis0ck",
-      "title": "سریال ترکی تازه عروس قسمت 172",
-      "sender_name": "سریال نما",
-      "category_id": 3,
-      "duration": 2751,
-      "visit_count": 20401,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "شکار دو فروند پهپاد شناسایی آمریکایی از نوع MQM-170 در آسمان جنوب",
-          "trendTitle": "پهپاد",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 18:10:00 -0800",
-          "trendKeywords": [
-            "پهپاد"
-          ],
-          "page": 20
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T04:05:15.884Z"
-    },
     "aVDpi0B": {
       "video_code": "aVDpi0B",
       "title": "خواهران و برادران قسمت ۱۷۱ دوبله فارسی",
@@ -65170,34 +65237,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T05:06:09.148Z"
     },
-    "cjTFUaL": {
-      "video_code": "cjTFUaL",
-      "title": "درگیری تیپ زرهی ارتش و گردان موشکی سپاه با طالبان افغانستان",
-      "sender_name": "بادیگارد",
-      "category_id": 1,
-      "duration": 32,
-      "visit_count": 20385,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "افغانی افغانستان",
-          "trendTitle": "افغانی افغانستان",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "افغانی",
-            "افغانستان"
-          ],
-          "page": 23
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.148Z"
-    },
     "1f8Aav4": {
       "video_code": "1f8Aav4",
       "title": "خبرفوری از اعزام یگان های جنگی سپاه به مرز افغانستان طالبان عقب نشینی کرد!",
@@ -69071,34 +69110,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T10:07:04.997Z"
     },
-    "Wid59JR": {
-      "video_code": "Wid59JR",
-      "title": "برنامه صداتو/یاد فردین با اجرای جوان خوش صدا زنده شد",
-      "sender_name": "علیرضا",
-      "category_id": 9,
-      "duration": 119,
-      "visit_count": 20353,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فردین هدایتی",
-          "trendTitle": "فردین هدایتی",
-          "trendTraffic": 5000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
-          "trendKeywords": [
-            "فردین",
-            "هدایتی"
-          ],
-          "page": 11
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:07:04.997Z"
-    },
     "L8EN10N": {
       "video_code": "L8EN10N",
       "title": "فیلم سینمایی چرخ وفلک با بازی محمدعلی فردین",
@@ -72794,7 +72805,7 @@
       "sender_name": "کودک و سرگرمی",
       "category_id": 17,
       "duration": 483,
-      "visit_count": 84529,
+      "visit_count": 84587,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -72811,9 +72822,22 @@
             "تیم"
           ],
           "page": 10
+        },
+        {
+          "query": "جی تی ای",
+          "trendTitle": "جی تی ای ۶",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "جی",
+            "تی",
+            "ای"
+          ],
+          "page": 23
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T10:51:08.344Z"
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.254Z",
+      "lastMetricsFetchedAt": "2026-11-18T12:04:51.857Z"
     },
     "6l3GhvX": {
       "video_code": "6l3GhvX",
@@ -74398,8 +74422,8 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.860Z",
-      "lastMetricsFetchedAt": "2026-11-18T11:45:00.314Z"
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.283Z",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:05.943Z"
     },
     "4ciIUVG": {
       "video_code": "4ciIUVG",
@@ -91964,34 +91988,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-04T03:21:52.911Z"
     },
-    "RE7FxF8": {
-      "video_code": "RE7FxF8",
-      "title": "سریال خیانت قسمت 35 زیرنویس فارسی / قسمت ۳۵ خیانت",
-      "sender_name": "LEVI",
-      "category_id": 3,
-      "duration": 9041,
-      "visit_count": 20402,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سوخو-۳۵",
-          "trendTitle": "سوخو-۳۵",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 3 Nov 2026 18:20:00 -0800",
-          "trendKeywords": [
-            "سوخو",
-            "۳۵"
-          ],
-          "page": 33
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.911Z"
-    },
     "mWyxedP": {
       "video_code": "mWyxedP",
       "title": "سریال اکیا قسمت 135 دوبله فارسی",
@@ -92197,34 +92193,6 @@
       "visit_count": 66767,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سوخو-۳۵",
-          "trendTitle": "سوخو-۳۵",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 3 Nov 2026 18:20:00 -0800",
-          "trendKeywords": [
-            "سوخو",
-            "۳۵"
-          ],
-          "page": 34
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.911Z"
-    },
-    "z1qf2be": {
-      "video_code": "z1qf2be",
-      "title": "سریال «چشم چران عمارت» قسمت 35 دوبله فارسی",
-      "sender_name": "Miladmehraad",
-      "category_id": 3,
-      "duration": 3829,
-      "visit_count": 20331,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -101775,35 +101743,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T16:23:43.669Z"
     },
-    "AwCpnFx": {
-      "video_code": "AwCpnFx",
-      "title": "بمب افکن جدید، دوربرد و رادار گریز PAK DA ارتش روسیه",
-      "sender_name": "الناز",
-      "category_id": 1,
-      "duration": 148,
-      "visit_count": 20352,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:23:08.023Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "بمب کثیف",
-          "trendTitle": "بمب کثیف",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بمب",
-            "کثیف"
-          ],
-          "page": 13
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T16:23:43.669Z"
-    },
     "DObCTVl": {
       "video_code": "DObCTVl",
       "title": "فیلم اسکورت دیدنی بمب افکن های توپولف روسی توسط اف۱۴ ارتش ایران",
@@ -101862,35 +101801,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T16:23:43.670Z"
     },
-    "Qy704ot": {
-      "video_code": "Qy704ot",
-      "title": "پاسخ بمب خنده نعیمه نظام دوست به سوال حامد آهنگی",
-      "sender_name": "فیلو کلوپ",
-      "category_id": 6,
-      "duration": 16,
-      "visit_count": 20418,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:23:10.403Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "بمب کثیف",
-          "trendTitle": "بمب کثیف",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بمب",
-            "کثیف"
-          ],
-          "page": 16
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T16:23:43.670Z"
-    },
     "qEiH6oP": {
       "video_code": "qEiH6oP",
       "title": "شبکه تروریستی همراه۴۳بمب بازداشت شدند/جلوگیری از بمب‌گذاری در مزار سردار سلیمانی",
@@ -101929,35 +101839,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-18T04:00:57.692Z"
-    },
-    "JwNz6P4": {
-      "video_code": "JwNz6P4",
-      "title": "لحظه فرود جنگنده بمب افکن آمریکا به نام B2",
-      "sender_name": "مهدی",
-      "category_id": 1,
-      "duration": 40,
-      "visit_count": 20399,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:23:12.155Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "بمب کثیف",
-          "trendTitle": "بمب کثیف",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بمب",
-            "کثیف"
-          ],
-          "page": 18
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T16:23:43.671Z"
     },
     "u8dgRbK": {
       "video_code": "u8dgRbK",
@@ -119136,35 +119017,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T17:25:47.892Z"
     },
-    "L0h83Ba": {
-      "video_code": "L0h83Ba",
-      "title": "سریال شیطان من قسمت شانزدهم قسمت آخر (زیرنویس فارسی)",
-      "sender_name": "بمب دانلود",
-      "category_id": 3,
-      "duration": 3924,
-      "visit_count": 20341,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T17:25:41.993Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 46
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T17:25:47.892Z"
-    },
     "oErR71H": {
       "video_code": "oErR71H",
       "title": "قسمت آخر سریال جامیونگ گو / جامیونگ گو قسمت آخر",
@@ -119406,35 +119258,6 @@
       "visit_count": 62933,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T17:25:43.435Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 47
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T17:25:47.893Z"
-    },
-    "IrVFG6u": {
-      "video_code": "IrVFG6u",
-      "title": "قسمت پایانی دختر کفشدوزکی ! فصل آخر",
-      "sender_name": "GEMVIDEO",
-      "category_id": 21,
-      "duration": 1479,
-      "visit_count": 20392,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T17:25:43.435Z",
       "active": 1,
       "can_republish": 1,
@@ -131189,34 +131012,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:07:45.403Z"
     },
-    "5Nnj8Rm": {
-      "video_code": "5Nnj8Rm",
-      "title": "قسمت 266 سریال به عشق تو سوگند",
-      "sender_name": "منتخب فیلو✅",
-      "category_id": 3,
-      "duration": 2439,
-      "visit_count": 20421,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:07:00.970Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 10
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.403Z"
-    },
     "KlooWVW": {
       "video_code": "KlooWVW",
       "title": "قسمت 154 سریال به عشق تو سوگند دوبله فارسی",
@@ -133100,34 +132895,6 @@
       "category_id": 3,
       "duration": 2533,
       "visit_count": 32991,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:07:12.911Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 15
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.405Z"
-    },
-    "Ugiry2l": {
-      "video_code": "Ugiry2l",
-      "title": "قسمت 192 به عشق تو سوگند دوبله فارسی",
-      "sender_name": "هانا کلیپ",
-      "category_id": 3,
-      "duration": 2492,
-      "visit_count": 20418,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T19:07:12.911Z",
@@ -135373,35 +135140,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:25:53.197Z"
     },
-    "t0DL0Ls": {
-      "video_code": "t0DL0Ls",
-      "title": "آخرین مبارزه واقعی بروسلی با قهرمان کاراته جهان",
-      "sender_name": "کافه فیلم",
-      "category_id": 3,
-      "duration": 107,
-      "visit_count": 20392,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:18.213Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قهرمان جهان به استقلال پیوست",
-          "trendTitle": "غلامرضا فرخی",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 10:30:00 -0800",
-          "trendKeywords": [
-            "غلامرضا",
-            "فرخی"
-          ],
-          "page": 17
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.199Z"
-    },
     "W9oLsoO": {
       "video_code": "W9oLsoO",
       "title": "سریال سوگند قسمت 30 زیرنویس فارسی سانسورشده",
@@ -137306,34 +137044,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:25:53.228Z"
     },
-    "t0NO9CY": {
-      "video_code": "t0NO9CY",
-      "title": "Ep218}دانلود سریال سوگند - قسمت ۲۱۸ - دوبله فارسی",
-      "sender_name": "Filo Series",
-      "category_id": 3,
-      "duration": 2722,
-      "visit_count": 20385,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:38.484Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 30
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.228Z"
-    },
     "1LqYAid": {
       "video_code": "1LqYAid",
       "title": "Ep152}سریال سوگند - قسمت ۱۵۲ - دوبله فارسی",
@@ -139136,7 +138846,7 @@
       "visit_count": 4917,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:24.591Z",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:09.924Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139197,7 +138907,7 @@
           "page": 110
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.432Z"
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.296Z"
     },
     "3q0Y9xd": {
       "video_code": "3q0Y9xd",
@@ -139286,7 +138996,7 @@
       "visit_count": 48036,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:04:53.287Z",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:08.935Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -139314,7 +139024,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:05:24.731Z"
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.295Z"
     },
     "7h7aMVj": {
       "video_code": "7h7aMVj",
@@ -139325,7 +139035,7 @@
       "visit_count": 20480,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:04:54.191Z",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:19.010Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -139340,9 +139050,20 @@
             "پرتغال"
           ],
           "page": 2
+        },
+        {
+          "query": "بازی پرتغال",
+          "trendTitle": "بازی پرتغال",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Tue, 17 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "بازی",
+            "پرتغال"
+          ],
+          "page": 86
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T09:05:24.732Z"
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.301Z"
     },
     "19mRvm9": {
       "video_code": "19mRvm9",
@@ -140514,34 +140235,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T00:40:19.281Z"
     },
-    "EQJGIDL": {
-      "video_code": "EQJGIDL",
-      "title": "سریال ایسان فصل یک قسمت 61 دوبله",
-      "sender_name": "فیلم +",
-      "category_id": 3,
-      "duration": 3902,
-      "visit_count": 20395,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T00:40:04.253Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "ایسنا",
-          "trendTitle": "ایسنا",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Tue, 17 Nov 2026 16:10:00 -0800",
-          "trendKeywords": [
-            "ایسنا"
-          ],
-          "page": 8
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.282Z"
-    },
     "mkyAdw5": {
       "video_code": "mkyAdw5",
       "title": "سریال ایسان فصل یک قسمت 75 دوبله",
@@ -141527,35 +141220,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-18T03:20:31.395Z"
-    },
-    "ZNts5Ej": {
-      "video_code": "ZNts5Ej",
-      "title": "من در نمیزنم میام با لگد سهراب ام جی",
-      "sender_name": "تکست بلوسوم ;) ",
-      "category_id": 11,
-      "duration": 28,
-      "visit_count": 20354,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:20:05.600Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سهراب بختیاریزاده",
-          "trendTitle": "سهراب بختیاریزاده",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 18:50:00 -0800",
-          "trendKeywords": [
-            "سهراب",
-            "بختیاریزاده"
-          ],
-          "page": 7
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T03:20:31.397Z"
     },
     "WTxFfyk": {
       "video_code": "WTxFfyk",
@@ -156445,36 +156109,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T10:05:35.668Z"
     },
-    "G2wWee2": {
-      "video_code": "G2wWee2",
-      "title": "فیلم لحظه ترور آیت الله سلیمانی در بانک",
-      "sender_name": "احسان",
-      "category_id": 1,
-      "duration": 118,
-      "visit_count": 20382,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:05:07.315Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "مراسم تشییع آیت‌الله «وحیدخراسانی»",
-          "trendTitle": "ایت الله کفایی",
-          "trendTraffic": 5000,
-          "trendPublishedAt": "Wed, 18 Nov 2026 00:30:00 -0800",
-          "trendKeywords": [
-            "ایت",
-            "الله",
-            "کفایی"
-          ],
-          "page": 7
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T10:05:35.669Z"
-    },
     "e45AmQL": {
       "video_code": "e45AmQL",
       "title": "حمله مسلحانه به آیت الله سلیمانی",
@@ -157374,35 +157008,6 @@
       "visit_count": 182647,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:24.154Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قیمت نفت به 92 دلار و 75 سنت رسید",
-          "trendTitle": "نفت خام",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Wed, 18 Nov 2026 01:40:00 -0800",
-          "trendKeywords": [
-            "نفت",
-            "خام"
-          ],
-          "page": 9
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.440Z"
-    },
-    "16ZTTEt": {
-      "video_code": "16ZTTEt",
-      "title": "خلاصه بازی استقلال 5 - 0 صنعت نفت آبادان",
-      "sender_name": "َََAli",
-      "category_id": 11,
-      "duration": 527,
-      "visit_count": 20420,
-      "create_date": "7 سال پیش",
-      "styled_create_date": "7 سال پیش",
       "lastMetricsFetchedAt": "2026-11-18T10:25:24.154Z",
       "active": 1,
       "can_republish": 1,
@@ -160429,36 +160034,6 @@
       "category_id": 2,
       "duration": 660,
       "visit_count": 38369,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:26:03.078Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "آیت الله العظمی وحید خراسانی در قم تشییع شد",
-          "trendTitle": "ایت الله کفایی",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Wed, 18 Nov 2026 00:30:00 -0800",
-          "trendKeywords": [
-            "ایت",
-            "الله",
-            "کفایی"
-          ],
-          "page": 9
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.471Z"
-    },
-    "7IaBsbZ": {
-      "video_code": "7IaBsbZ",
-      "title": "کلیپ قتل وحید مرادی",
-      "sender_name": "شاهین",
-      "category_id": 1,
-      "duration": 167,
-      "visit_count": 20342,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "lastMetricsFetchedAt": "2026-11-18T10:26:03.078Z",
@@ -164506,36 +164081,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T11:15:32.364Z"
     },
-    "jdfhv8n": {
-      "video_code": "jdfhv8n",
-      "title": "احمد رکسا*&چالش ۱۰۰ روز زنده ماندن در شهر زامبی جی تی ای وی",
-      "sender_name": "خدیجه",
-      "category_id": 1,
-      "duration": 1894,
-      "visit_count": 20427,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:46.225Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "جی تی ای",
-          "trendTitle": "جی تی ای ۶",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-          "trendKeywords": [
-            "جی",
-            "تی",
-            "ای"
-          ],
-          "page": 14
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.364Z"
-    },
     "lf7iGhL": {
       "video_code": "lf7iGhL",
       "title": "علی ایکس شات(جدید)//گنگسترهای لوس سانتوس//گنگ شخصیت های جی تی ای ۵*",
@@ -164845,7 +164390,7 @@
       "visit_count": 36322,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:46.143Z",
+      "lastMetricsFetchedAt": "2026-11-18T12:04:44.635Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -164863,7 +164408,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.366Z"
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.265Z"
     },
     "sMIBlCp": {
       "video_code": "sMIBlCp",
@@ -166020,7 +165565,7 @@
       "visit_count": 149959,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:45:00.314Z",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:05.943Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -166038,7 +165583,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.860Z"
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.283Z"
     },
     "oEOXFGf": {
       "video_code": "oEOXFGf",
@@ -166049,7 +165594,7 @@
       "visit_count": 27626,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:45:00.314Z",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:05.943Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -166067,7 +165612,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.860Z"
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.283Z"
     },
     "o1UN2dt": {
       "video_code": "o1UN2dt",
@@ -166078,7 +165623,7 @@
       "visit_count": 42132,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:45:00.314Z",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:05.943Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -166096,7 +165641,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.860Z"
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.283Z"
     },
     "yzNUG57": {
       "video_code": "yzNUG57",
@@ -166107,7 +165652,7 @@
       "visit_count": 21691,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:45:00.314Z",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:05.943Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -166125,7 +165670,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.860Z"
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.283Z"
     },
     "6xFSxzM": {
       "video_code": "6xFSxzM",
@@ -166136,7 +165681,7 @@
       "visit_count": 22735,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:45:00.314Z",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:05.943Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -166154,7 +165699,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.860Z"
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.283Z"
     },
     "k4V0z5y": {
       "video_code": "k4V0z5y",
@@ -166165,7 +165710,7 @@
       "visit_count": 28935,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:45:01.929Z",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:06.742Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -166183,7 +165728,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.860Z"
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.283Z"
     },
     "wirzqKX": {
       "video_code": "wirzqKX",
@@ -166364,8 +165909,943 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-18T11:45:28.876Z"
+    },
+    "fNJBPhg": {
+      "video_code": "fNJBPhg",
+      "title": "سرقت از خانه امیر تتلو در جی تی ای/ وقتی که دستش از دنیا کوتاهه!!!!",
+      "sender_name": "سعید",
+      "category_id": 1,
+      "duration": 921,
+      "visit_count": 65862,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:04:51.857Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "جی تی ای",
+          "trendTitle": "جی تی ای ۶",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "جی",
+            "تی",
+            "ای"
+          ],
+          "page": 23
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.254Z"
+    },
+    "kordh1c": {
+      "video_code": "kordh1c",
+      "title": "حمله مرد عنکبوتی به لشکر هالک با آر پی جی ، جی تی ای 5 مود شده",
+      "sender_name": "کودک و سرگرمی",
+      "category_id": 1,
+      "duration": 421,
+      "visit_count": 30751,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:04:58.352Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "جی تی ای",
+          "trendTitle": "جی تی ای ۶",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "جی",
+            "تی",
+            "ای"
+          ],
+          "page": 29
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.258Z"
+    },
+    "lmbQmyU": {
+      "video_code": "lmbQmyU",
+      "title": "قناری آواز خوان - قناری خوش صدا",
+      "sender_name": "قرائت قران و مستندهای متنوع",
+      "category_id": 9,
+      "duration": 1232,
+      "visit_count": 7877,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:06.742Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خوان ماتا",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 3
+        },
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.283Z"
+    },
+    "PW9ergs": {
+      "video_code": "PW9ergs",
+      "title": "سریال : ذهن خوان ( روانکاو ) The Mentalist فصل پنجم قسمت 22",
+      "sender_name": "امیر",
+      "category_id": 3,
+      "duration": 2409,
+      "visit_count": 14357,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:07.573Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خوان ماتا",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        },
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.284Z"
+    },
+    "ARMjyRJ": {
+      "video_code": "ARMjyRJ",
+      "title": "سریال : ذهن خوان ( روانکاو ) The Mentalist فصل پنجم قسمت 10",
+      "sender_name": "امیر",
+      "category_id": 3,
+      "duration": 2585,
+      "visit_count": 10993,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:07.573Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خوان ماتا",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        },
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.284Z"
+    },
+    "p1oYfMg": {
+      "video_code": "p1oYfMg",
+      "title": "سریال : ذهن خوان ( روانکاو ) The Mentalist فصل پنجم قسمت 17",
+      "sender_name": "امیر",
+      "category_id": 3,
+      "duration": 2594,
+      "visit_count": 7529,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:07.573Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خوان ماتا",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        },
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.284Z"
+    },
+    "wibFmWn": {
+      "video_code": "wibFmWn",
+      "title": "سریال : ذهن خوان ( روانکاو ) The Mentalist فصل پنجم قسمت 21",
+      "sender_name": "امیر",
+      "category_id": 3,
+      "duration": 2556,
+      "visit_count": 12992,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:07.573Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خوان ماتا",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        },
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.284Z"
+    },
+    "iBJLwIm": {
+      "video_code": "iBJLwIm",
+      "title": "سریال : ذهن خوان ( روانکاو ) The Mentalist فصل پنجم قسمت 6",
+      "sender_name": "امیر",
+      "category_id": 3,
+      "duration": 2454,
+      "visit_count": 11288,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:07.573Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خوان ماتا",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        },
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.284Z"
+    },
+    "IDhI4hq": {
+      "video_code": "IDhI4hq",
+      "title": "سریال : ذهن خوان ( روانکاو ) The Mentalist فصل پنجم قسمت 13",
+      "sender_name": "امیر",
+      "category_id": 3,
+      "duration": 2561,
+      "visit_count": 10622,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:07.573Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خوان ماتا",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        },
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.284Z"
+    },
+    "sq0InAA": {
+      "video_code": "sq0InAA",
+      "title": "سریال : ذهن خوان ( روانکاو ) The Mentalist فصل ششم قسمت 2",
+      "sender_name": "امیر",
+      "category_id": 3,
+      "duration": 2518,
+      "visit_count": 9570,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:07.573Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خوان ماتا",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        },
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.284Z"
+    },
+    "BTZE8Vk": {
+      "video_code": "BTZE8Vk",
+      "title": "سریال : ذهن خوان ( روانکاو ) The Mentalist فصل ششم قسمت 22",
+      "sender_name": "امیر",
+      "category_id": 3,
+      "duration": 2372,
+      "visit_count": 9987,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:07.573Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خوان ماتا",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        },
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.284Z"
+    },
+    "GJWNEMM": {
+      "video_code": "GJWNEMM",
+      "title": "سریال : ذهن خوان ( روانکاو ) The Mentalist فصل هفتم قسمت 5",
+      "sender_name": "امیر",
+      "category_id": 3,
+      "duration": 2406,
+      "visit_count": 11557,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:07.573Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خوان ماتا",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        },
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.284Z"
+    },
+    "OG5YMV2": {
+      "video_code": "OG5YMV2",
+      "title": "سریال : ذهن خوان ( روانکاو ) The Mentalist فصل هفتم قسمت 6",
+      "sender_name": "امیر",
+      "category_id": 3,
+      "duration": 2491,
+      "visit_count": 10915,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:07.573Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خوان ماتا",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        },
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.284Z"
+    },
+    "i9lEp8u": {
+      "video_code": "i9lEp8u",
+      "title": "سریال : ذهن خوان ( روانکاو ) The Mentalist فصل پنجم قسمت 20",
+      "sender_name": "امیر",
+      "category_id": 3,
+      "duration": 2159,
+      "visit_count": 10590,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:07.573Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خوان ماتا",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        },
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.284Z"
+    },
+    "3WaljkD": {
+      "video_code": "3WaljkD",
+      "title": "سریال : ذهن خوان ( روانکاو ) The Mentalist فصل ششم قسمت 21",
+      "sender_name": "امیر",
+      "category_id": 3,
+      "duration": 2467,
+      "visit_count": 11809,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:07.573Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خوان ماتا",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        },
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.284Z"
+    },
+    "FFXuq5S": {
+      "video_code": "FFXuq5S",
+      "title": "سریال : ذهن خوان ( روانکاو ) The Mentalist فصل پنجم قسمت 16",
+      "sender_name": "امیر",
+      "category_id": 3,
+      "duration": 2502,
+      "visit_count": 9950,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:07.573Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خوان ماتا",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        },
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.284Z"
+    },
+    "5z9bPnZ": {
+      "video_code": "5z9bPnZ",
+      "title": "سریال : ذهن خوان ( روانکاو ) The Mentalist فصل ششم قسمت 12",
+      "sender_name": "امیر",
+      "category_id": 3,
+      "duration": 2477,
+      "visit_count": 11915,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:08.036Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خوان ماتا",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 5
+        },
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.284Z"
+    },
+    "7QtMkDN": {
+      "video_code": "7QtMkDN",
+      "title": "سریال : ذهن خوان ( روانکاو ) The Mentalist فصل ششم قسمت 16",
+      "sender_name": "امیر",
+      "category_id": 3,
+      "duration": 2147,
+      "visit_count": 9767,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:08.036Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خوان ماتا",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 5
+        },
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.284Z"
+    },
+    "LjSXvGy": {
+      "video_code": "LjSXvGy",
+      "title": "سریال : ذهن خوان ( روانکاو ) The Mentalist فصل هفتم قسمت 12و13",
+      "sender_name": "امیر",
+      "category_id": 3,
+      "duration": 4764,
+      "visit_count": 9647,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:08.036Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خوان ماتا",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 5
+        },
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.285Z"
+    },
+    "XkCdGPe": {
+      "video_code": "XkCdGPe",
+      "title": "انیمیشن سینمایی دوبله فارسی باربی : مسابقه اواز خوان ۲۰۱۵ دخترانه ماجراجویی کمدی موزیکال",
+      "sender_name": "دنیای فیلم",
+      "duration": 5022,
+      "visit_count": 10930,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:08.036Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خوان ماتا",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 5
+        },
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.285Z"
+    },
+    "Kr3UKmi": {
+      "video_code": "Kr3UKmi",
+      "title": "سریال : ذهن خوان ( روانکاو ) The Mentalist فصل ششم قسمت 18",
+      "sender_name": "امیر",
+      "category_id": 3,
+      "duration": 2515,
+      "visit_count": 8547,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:05:08.036Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "خوان ماتا",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 5
+        },
+        {
+          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
+          "trendTitle": "خوان ماتا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
+          "trendKeywords": [
+            "خوان",
+            "ماتا"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.285Z"
+    },
+    "YS1Lkwi": {
+      "video_code": "YS1Lkwi",
+      "title": "سینمایی هندی جنگی جیمز باند ۲دوبله فارسی",
+      "sender_name": "aub",
+      "category_id": 3,
+      "duration": 8565,
+      "visit_count": 32005,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:04:58.794Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "جیمز باند",
+          "trendTitle": "جیمز باند",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 03:10:00 -0800",
+          "trendKeywords": [
+            "جیمز",
+            "باند"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.275Z"
+    },
+    "cY7Ka2n": {
+      "video_code": "cY7Ka2n",
+      "title": "فیلم جیمز باند روز دیگر بمیر 2002",
+      "sender_name": "farham",
+      "category_id": 3,
+      "duration": 7387,
+      "visit_count": 51645,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:04:58.794Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "جیمز باند",
+          "trendTitle": "جیمز باند",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 03:10:00 -0800",
+          "trendKeywords": [
+            "جیمز",
+            "باند"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.275Z"
+    },
+    "aIYFZDt": {
+      "video_code": "aIYFZDt",
+      "title": "فیلم جیمز باند: شما فقط دو بار زندگی می کنید",
+      "sender_name": "farham",
+      "category_id": 0,
+      "duration": 7018,
+      "visit_count": 24125,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:04:58.794Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "جیمز باند",
+          "trendTitle": "جیمز باند",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 03:10:00 -0800",
+          "trendKeywords": [
+            "جیمز",
+            "باند"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.275Z"
+    },
+    "SWxYdD0": {
+      "video_code": "SWxYdD0",
+      "title": "سینمایی جیمز باند در کازینو با دوبله فارسی فیلمی جذاب دیدنی اکشن هیجانی",
+      "sender_name": "aub",
+      "category_id": 3,
+      "duration": 6884,
+      "visit_count": 33353,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-18T12:04:58.794Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "جیمز باند",
+          "trendTitle": "جیمز باند",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Wed, 18 Nov 2026 03:10:00 -0800",
+          "trendKeywords": [
+            "جیمز",
+            "باند"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-18T12:05:28.275Z"
     }
   },
-  "totalPagesFetched": 11137,
-  "totalVideosSeen": 201630
+  "totalPagesFetched": 11259,
+  "totalVideosSeen": 203629
 }
