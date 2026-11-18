@@ -78,6 +78,9 @@ const CANDIDATE_REJECTION_TTL_MS = 6 * 60 * 60 * 1000;
 // Filo's explicit daily quota is account-wide. Pause native detail/publish calls
 // for a full rolling day after confirmation; keep feed discovery and sampling alive.
 const ACCOUNT_REPUBLISH_QUOTA_COOLDOWN_MS = 24 * 60 * 60 * 1000;
+// Retry at most one cached 403 candidate every 12 hours to distinguish an
+// account-wide quota from genuinely video-specific access denials.
+const ACCOUNT_QUOTA_403_PROBE_INTERVAL_MS = 12 * 60 * 60 * 1000;
 const MIN_PUBLISH_GAP_MS = 0;
 // No local delay is imposed; Filo's own account quota/cooldown remains authoritative.
 const MAX_PACING_WAIT_MS = 0;
@@ -1943,9 +1946,13 @@ function getAccountRepublishQuotaCooldown(state, now = Date.now()) {
 
 
 function releaseOneLegacy403CacheForAccountQuotaProbe(state, ranked, now = Date.now()) {
-  if (!state || state.accountQuota403ProbeMigrationAt) return null;
+  if (!state) return null;
   const current = Number.isFinite(Number(now)) ? Number(now) : Date.now();
   if (getAccountRepublishQuotaCooldown(state, current)) return null;
+  const lastProbeAt = Date.parse(state.accountQuota403ProbeAt || '');
+  if (Number.isFinite(lastProbeAt) && current - lastProbeAt < ACCOUNT_QUOTA_403_PROBE_INTERVAL_MS) {
+    return null;
+  }
   const cache = state.candidateRejections && typeof state.candidateRejections === 'object'
     ? state.candidateRejections : {};
   for (const entry of (Array.isArray(ranked) ? ranked : []).slice(0, MAX_DETAIL_CHECKS)) {
@@ -1955,15 +1962,17 @@ function releaseOneLegacy403CacheForAccountQuotaProbe(state, ranked, now = Date.
     if (!rejection || rejection.reason !== 'detail_fetch:forbidden_403') continue;
     const retryAt = Date.parse(rejection.retryAfterAt || '');
     if (!Number.isFinite(retryAt) || retryAt <= current) continue;
-    // Historical versions cached Filo's account-wide quota message as a
-    // per-video 403. Release exactly one top-ranked entry to obtain one
-    // authoritative detail response; never fan out retries across the cache.
+    // Some old 403 caches were created by account-wide quota messages. Release
+    // exactly one highest-ranked cached candidate at most every 12 hours. This
+    // permits one authoritative response without clearing unrelated 403 entries.
     delete cache[code];
-    state.accountQuota403ProbeMigrationAt = new Date(current).toISOString();
+    state.accountQuota403ProbeAt = new Date(current).toISOString();
     state.accountQuota403ProbeCode = code;
+    if (!state.accountQuota403ProbeMigrationAt) {
+      state.accountQuota403ProbeMigrationAt = new Date(current).toISOString();
+    }
     return code;
   }
-  state.accountQuota403ProbeMigrationAt = new Date(current).toISOString();
   return null;
 }
 
