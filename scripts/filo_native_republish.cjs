@@ -1081,7 +1081,7 @@ function summarizeTopicDemand(entries) {
 
 function candidateMomentumScore(entry) {
   const evidence = entry && entry.accelerationEvidence;
-  if (!evidence || evidence.accelerationAvailable !== true) return 0;
+  if (!evidence || evidence.accelerationAvailable !== true || evidence.passed !== true) return 0;
   if (evidence.metric === 'plays') {
     return 0.35 * logScaleScore(entry.momentum.playsPerMinute, 20) +
       0.65 * logScaleScore(Math.max(0, entry.momentum.playsAccelerationPerMinute), 5);
@@ -1375,6 +1375,12 @@ function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicW
     entry.accelerationEvidence = candidateAccelerationEvidence(entry);
     entry.recencyMomentumEvidence = candidateRecencyMomentumEvidence(entry);
     entry.growthGatePassed = entry.recencyMomentumEvidence.passed;
+    entry.rankingMetric = entry.accelerationEvidence.metric || 'freshness';
+    entry.selectionMode = entry.accelerationEvidence.metric === 'plays'
+      ? 'measured_play_acceleration'
+      : entry.accelerationEvidence.metric === 'views'
+        ? 'measured_view_acceleration_fallback'
+        : 'awaiting_independent_acceleration';
     entry.hasPositiveAcceleration = num(entry.accelerationEvidence.accelerationPerMinute, 0) > 0;
     entry.hasPositivePlayAcceleration = entry.accelerationEvidence.metric === 'plays' && entry.hasPositiveAcceleration;
     entry.hasPositiveViewAcceleration = entry.accelerationEvidence.metric === 'views' && entry.hasPositiveAcceleration;
@@ -1418,8 +1424,8 @@ function rankCandidatesByMomentum(items, state, now = Date.now(), platformTopicW
       rankingScore: Math.round(rankingScore * 100) / 100
     };
   }).sort((a, b) => {
-    // Keep the established evidence hierarchy: measured plays growth first,
-    // then measured views growth, then cumulative counters, then freshness.
+    // Only candidates with measured positive play acceleration (or the explicit
+    // view fallback) receive a momentum tier; cumulative counters are never a tier.
     if (a.rankingTier !== b.rankingTier) return b.rankingTier - a.rankingTier;
     if (Math.abs(b.rankingScore - a.rankingScore) > 0.001) {
       return b.rankingScore - a.rankingScore;
