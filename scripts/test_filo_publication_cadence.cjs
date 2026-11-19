@@ -54,4 +54,24 @@ const dailyCap = evaluatePublicationCadence({
 });
 assert.equal(dailyCap.allowed, false);
 assert.equal(dailyCap.status, 'daily_limit_reached');
+const sharedRollingCap = evaluatePublicationCadence({
+  nativePosts: Array.from({ length: 35 }, (_, index) => ({
+    status: 'public_verified',
+    submittedAt: new Date(now - (index + 1) * 60 * 1000).toISOString()
+  })),
+  externalPosts: [{
+    status: 'rejected_by_filo',
+    attemptedAt: new Date(now - 2 * 60 * 60 * 1000).toISOString()
+  }],
+  now,
+  maxDaily: 36
+});
+assert.equal(sharedRollingCap.allowed, false);
+assert.equal(sharedRollingCap.status, 'daily_limit_reached');
+assert.equal(sharedRollingCap.todayCount, 36);
+assert.equal(
+  sharedRollingCap.nextAllowedAt,
+  new Date(now - 2 * 60 * 60 * 1000 + 24 * 60 * 60 * 1000).toISOString(),
+  'the oldest counted operation must expire before the next slot opens'
+);
 console.log('FILO_SHARED_PUBLICATION_CADENCE_TESTS_OK');
