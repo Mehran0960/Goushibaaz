@@ -332,7 +332,6 @@ function publicationCadenceDecision(state, now = new Date()) {
     nextAllowedAt: cadence.nextAllowedAt
   };
 }
-}
 
 function parsedDurationSeconds(info) {
   const items = Array.isArray(info && info.commonmetadata) ? info.commonmetadata : [];
