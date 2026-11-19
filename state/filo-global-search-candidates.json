@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-19T18:47:09.862Z",
-  "trendsFetchedAt": "2026-11-19T18:44:36.285Z",
+  "updatedAt": "2026-11-19T19:06:07.396Z",
+  "trendsFetchedAt": "2026-11-19T19:04:31.346Z",
   "trends": [
     {
       "title": "ابوالفضل جلالی",
@@ -10,9 +10,9 @@
         "ابوالفضل",
         "جلالی"
       ],
-      "traffic": 1000,
+      "traffic": 2000,
       "publishedAt": "Thu, 19 Nov 2026 07:30:00 -0800",
-      "ageHours": 3.2
+      "ageHours": 3.6
     },
     {
       "title": "سهام عدالت",
@@ -22,7 +22,7 @@
       ],
       "traffic": 500,
       "publishedAt": "Thu, 19 Nov 2026 09:10:00 -0800",
-      "ageHours": 1.6
+      "ageHours": 1.9
     },
     {
       "title": "پاورچین",
@@ -31,7 +31,7 @@
       ],
       "traffic": 500,
       "publishedAt": "Thu, 19 Nov 2026 08:40:00 -0800",
-      "ageHours": 2.1
+      "ageHours": 2.4
     },
     {
       "title": "شرکت نفت بهران",
@@ -42,7 +42,7 @@
       ],
       "traffic": 500,
       "publishedAt": "Thu, 19 Nov 2026 07:40:00 -0800",
-      "ageHours": 3.1
+      "ageHours": 3.4
     },
     {
       "title": "اکبر عبدی",
@@ -52,7 +52,17 @@
       ],
       "traffic": 500,
       "publishedAt": "Thu, 19 Nov 2026 07:10:00 -0800",
-      "ageHours": 3.6
+      "ageHours": 3.9
+    },
+    {
+      "title": "المیرا دهقانی",
+      "keywords": [
+        "المیرا",
+        "دهقانی"
+      ],
+      "traffic": 200,
+      "publishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+      "ageHours": 0.6
     },
     {
       "title": "علی تاجرنیا",
@@ -62,19 +72,17 @@
       ],
       "traffic": 200,
       "publishedAt": "Thu, 19 Nov 2026 09:50:00 -0800",
-      "ageHours": 0.9
+      "ageHours": 1.2
     },
     {
-      "title": "قیمت خودرو آبان ۱۴۰۵",
+      "title": "وحید شمسایی",
       "keywords": [
-        "قیمت",
-        "خودرو",
-        "آبان",
-        "۱۴۰۵"
+        "وحید",
+        "شمسایی"
       ],
       "traffic": 200,
-      "publishedAt": "Thu, 19 Nov 2026 07:10:00 -0800",
-      "ageHours": 3.6
+      "publishedAt": "Thu, 19 Nov 2026 09:40:00 -0800",
+      "ageHours": 1.4
     },
     {
       "title": "محمد خردادیان",
@@ -84,7 +92,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
-      "ageHours": 0.6
+      "ageHours": 0.9
     },
     {
       "title": "ریاض",
@@ -93,16 +101,6 @@
       ],
       "traffic": 100,
       "publishedAt": "Thu, 19 Nov 2026 10:00:00 -0800",
-      "ageHours": 0.7
-    },
-    {
-      "title": "وحید شمسایی",
-      "keywords": [
-        "وحید",
-        "شمسایی"
-      ],
-      "traffic": 100,
-      "publishedAt": "Thu, 19 Nov 2026 09:40:00 -0800",
       "ageHours": 1.1
     }
   ],
@@ -2790,12 +2788,12 @@
     "بازی پرتغال": {
       "query": "بازی پرتغال",
       "normalized": "بازی پرتغال",
-      "nextPage": 96,
+      "nextPage": 111,
       "complete": false,
-      "pagesFetched": 120,
-      "videosSeen": 2380,
+      "pagesFetched": 140,
+      "videosSeen": 2772,
       "createdAt": "2026-11-17T20:59:33.860Z",
-      "lastAttemptAt": "2026-11-18T12:05:28.303Z",
+      "lastAttemptAt": "2026-11-19T19:06:07.181Z",
       "lastError": null,
       "trendTitle": "بازی پرتغال",
       "trendTraffic": 1000,
@@ -8612,12 +8610,12 @@
     "grand theft auto vi is an astonishing american epic": {
       "query": "‘Grand Theft Auto VI’ is an astonishing American epic",
       "normalized": "grand theft auto vi is an astonishing american epic",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 4,
+      "videosSeen": 25,
       "createdAt": "2026-11-18T12:24:07.877Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-19T19:06:07.181Z",
       "lastError": null,
       "trendTitle": "metacritic",
       "trendTraffic": 2000,
@@ -8626,7 +8624,9 @@
         "metacritic"
       ],
       "lastTrendSeenAt": "2026-11-18T12:24:07.877Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-19T19:06:07.181Z"
     },
     "استریم": {
       "query": "استریم",
@@ -9133,44 +9133,44 @@
       "normalized": "المیرا دهقانی و همسرش در مراسم اکران خصوصی یک فیلم عکس",
       "nextPage": 1,
       "complete": true,
-      "pagesFetched": 3,
+      "pagesFetched": 4,
       "videosSeen": 0,
       "createdAt": "2026-11-18T13:44:04.696Z",
-      "lastAttemptAt": "2026-11-18T15:25:35.835Z",
+      "lastAttemptAt": "2026-11-19T19:06:07.141Z",
       "lastError": null,
-      "trendTitle": "رزیتا غفاری",
+      "trendTitle": "المیرا دهقانی",
       "trendTraffic": 200,
-      "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+      "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
       "trendKeywords": [
-        "رزیتا",
-        "غفاری"
+        "المیرا",
+        "دهقانی"
       ],
-      "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
-      "activeInLatestFeed": false,
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
+      "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
-      "completedAt": "2026-11-18T15:25:35.835Z",
+      "completedAt": "2026-11-19T19:06:07.141Z",
       "refreshOnly": false,
-      "lastRefreshAt": "2026-11-18T15:25:35.835Z"
+      "lastRefreshAt": "2026-11-19T19:06:07.141Z"
     },
     "اکران خصوصی فیلم همسفر با حضور المیرا دهقانی و رزیتا غفاری برگزار شد": {
       "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
       "normalized": "اکران خصوصی فیلم همسفر با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
-      "nextPage": 96,
+      "nextPage": 111,
       "complete": false,
-      "pagesFetched": 120,
-      "videosSeen": 2396,
+      "pagesFetched": 140,
+      "videosSeen": 2793,
       "createdAt": "2026-11-18T13:44:04.696Z",
-      "lastAttemptAt": "2026-11-18T15:45:35.524Z",
+      "lastAttemptAt": "2026-11-19T19:06:07.152Z",
       "lastError": null,
-      "trendTitle": "رزیتا غفاری",
+      "trendTitle": "المیرا دهقانی",
       "trendTraffic": 200,
-      "trendPublishedAt": "Wed, 18 Nov 2026 05:10:00 -0800",
+      "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
       "trendKeywords": [
-        "رزیتا",
-        "غفاری"
+        "المیرا",
+        "دهقانی"
       ],
-      "lastTrendSeenAt": "2026-11-18T15:44:05.276Z",
-      "activeInLatestFeed": false,
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
+      "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "چین": {
@@ -10758,13 +10758,13 @@
       "lastAttemptAt": "2026-11-19T18:47:09.690Z",
       "lastError": null,
       "trendTitle": "ابوالفضل جلالی",
-      "trendTraffic": 1000,
+      "trendTraffic": 2000,
       "trendPublishedAt": "Thu, 19 Nov 2026 07:30:00 -0800",
       "trendKeywords": [
         "ابوالفضل",
         "جلالی"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.759Z",
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -10779,13 +10779,13 @@
       "lastAttemptAt": "2026-11-19T18:47:09.690Z",
       "lastError": null,
       "trendTitle": "ابوالفضل جلالی",
-      "trendTraffic": 1000,
+      "trendTraffic": 2000,
       "trendPublishedAt": "Thu, 19 Nov 2026 07:30:00 -0800",
       "trendKeywords": [
         "ابوالفضل",
         "جلالی"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.759Z",
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-19T18:47:09.690Z"
@@ -10801,13 +10801,13 @@
       "lastAttemptAt": "2026-11-19T18:47:09.690Z",
       "lastError": null,
       "trendTitle": "ابوالفضل جلالی",
-      "trendTraffic": 1000,
+      "trendTraffic": 2000,
       "trendPublishedAt": "Thu, 19 Nov 2026 07:30:00 -0800",
       "trendKeywords": [
         "ابوالفضل",
         "جلالی"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.759Z",
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-19T18:47:09.690Z"
@@ -10829,7 +10829,7 @@
         "سهام",
         "عدالت"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.759Z",
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -10850,7 +10850,7 @@
         "سهام",
         "عدالت"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.759Z",
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-19T18:47:09.696Z"
@@ -10872,7 +10872,7 @@
         "سهام",
         "عدالت"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.759Z",
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-19T18:47:09.696Z"
@@ -10893,7 +10893,7 @@
       "trendKeywords": [
         "پاورچین"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.759Z",
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-19T18:47:09.698Z"
@@ -10914,7 +10914,7 @@
       "trendKeywords": [
         "پاورچین"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.759Z",
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-19T18:47:09.698Z"
@@ -10935,7 +10935,7 @@
       "trendKeywords": [
         "پاورچین"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.759Z",
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -10957,7 +10957,7 @@
         "نفت",
         "بهران"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.759Z",
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-19T18:47:09.703Z"
@@ -10980,7 +10980,7 @@
         "نفت",
         "بهران"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.759Z",
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-19T18:47:09.703Z"
@@ -11003,7 +11003,7 @@
         "نفت",
         "بهران"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.759Z",
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-19T18:47:09.703Z"
@@ -11011,12 +11011,12 @@
     "اکبر عبدی": {
       "query": "اکبر عبدی",
       "normalized": "اکبر عبدی",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 400,
       "createdAt": "2026-11-19T18:44:36.759Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-19T19:06:07.159Z",
       "lastError": null,
       "trendTitle": "اکبر عبدی",
       "trendTraffic": 500,
@@ -11025,18 +11025,19 @@
         "اکبر",
         "عبدی"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.759Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "آینه ای در مترو برای اکبر عبدی این بار نوبت مردم است که لبخند را به یادش ثبت کنند عکس": {
       "query": "آینه‌ای در مترو برای اکبر عبدی؛ این‌بار نوبت مردم است که لبخند را به یادش ثبت کنند | عکس",
       "normalized": "آینه ای در مترو برای اکبر عبدی این بار نوبت مردم است که لبخند را به یادش ثبت کنند عکس",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-19T18:44:36.759Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-19T19:06:07.159Z",
       "lastError": null,
       "trendTitle": "اکبر عبدی",
       "trendTraffic": 500,
@@ -11045,18 +11046,20 @@
         "اکبر",
         "عبدی"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.759Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-19T19:06:07.159Z"
     },
     "حرکت عجیب در مراسم تشییع اکبر عبدی": {
       "query": "حرکت عجیب در مراسم تشییع اکبر عبدی",
       "normalized": "حرکت عجیب در مراسم تشییع اکبر عبدی",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 4,
+      "videosSeen": 28,
       "createdAt": "2026-11-19T18:44:36.759Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-19T19:06:07.160Z",
       "lastError": null,
       "trendTitle": "اکبر عبدی",
       "trendTraffic": 500,
@@ -11065,18 +11068,20 @@
         "اکبر",
         "عبدی"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.759Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-19T19:06:07.160Z"
     },
     "علی تاجرنیا": {
       "query": "علی تاجرنیا",
       "normalized": "علی تاجرنیا",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 400,
       "createdAt": "2026-11-19T18:44:36.759Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-19T19:06:07.166Z",
       "lastError": null,
       "trendTitle": "علی تاجرنیا",
       "trendTraffic": 200,
@@ -11085,18 +11090,19 @@
         "علی",
         "تاجرنیا"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.759Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "زلزله مدیریتی در استقلال منصوبین تاجرنیا در لیست اخراجی های متدین": {
       "query": "زلزله مدیریتی در استقلال؛ منصوبین تاجرنیا در لیست اخراجی‌های متدین!",
       "normalized": "زلزله مدیریتی در استقلال منصوبین تاجرنیا در لیست اخراجی های متدین",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-19T18:44:36.760Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-19T19:06:07.166Z",
       "lastError": null,
       "trendTitle": "علی تاجرنیا",
       "trendTraffic": 200,
@@ -11105,18 +11111,20 @@
         "علی",
         "تاجرنیا"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.760Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-19T19:06:07.166Z"
     },
     "متدین صحبتی برای جذب بازیکن جوان پرسپولیس نداشتیم برنامه ساخت ورزشگاه را داریم": {
       "query": "متدین: صحبتی برای جذب بازیکن جوان پرسپولیس نداشتیم/ برنامه ساخت ورزشگاه را داریم",
       "normalized": "متدین صحبتی برای جذب بازیکن جوان پرسپولیس نداشتیم برنامه ساخت ورزشگاه را داریم",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-19T18:44:36.760Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-19T19:06:07.166Z",
       "lastError": null,
       "trendTitle": "علی تاجرنیا",
       "trendTraffic": 200,
@@ -11125,8 +11133,10 @@
         "علی",
         "تاجرنیا"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.760Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-19T19:06:07.166Z"
     },
     "قیمت خودرو آبان ۱۴۰۵": {
       "query": "قیمت خودرو آبان ۱۴۰۵",
@@ -11148,7 +11158,7 @@
         "۱۴۰۵"
       ],
       "lastTrendSeenAt": "2026-11-19T18:44:36.760Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "قیمت خودرو در آخرین روزهای آبان یکدست قرمز شد جدول قیمت": {
       "query": "قیمت خودرو در آخرین روزهای آبان یکدست قرمز شد + جدول قیمت",
@@ -11170,7 +11180,7 @@
         "۱۴۰۵"
       ],
       "lastTrendSeenAt": "2026-11-19T18:44:36.760Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "قیمت خودرو امروز پنجشنبه ۲۸ آبان ۱۴۰۵": {
       "query": "قیمت خودرو امروز پنجشنبه ۲۸ آبان ۱۴۰۵",
@@ -11192,17 +11202,17 @@
         "۱۴۰۵"
       ],
       "lastTrendSeenAt": "2026-11-19T18:44:36.760Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "محمد خردادیان": {
       "query": "محمد خردادیان",
       "normalized": "محمد خردادیان",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 396,
       "createdAt": "2026-11-19T18:44:36.760Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-19T19:06:07.171Z",
       "lastError": null,
       "trendTitle": "محمد خردادیان",
       "trendTraffic": 100,
@@ -11211,18 +11221,19 @@
         "محمد",
         "خردادیان"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.760Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "ماجرای کتک خوردن خردادیان در ترکیه از زبان خودش": {
       "query": "ماجرای کتک خوردن خردادیان در ترکیه از زبان خودش",
       "normalized": "ماجرای کتک خوردن خردادیان در ترکیه از زبان خودش",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-19T18:44:36.760Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-19T19:06:07.171Z",
       "lastError": null,
       "trendTitle": "محمد خردادیان",
       "trendTraffic": 100,
@@ -11231,18 +11242,20 @@
         "محمد",
         "خردادیان"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.760Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-19T19:06:07.171Z"
     },
     "ببینید خردادیان شاه با دخترخاله اش رابطه پنهانی داشت": {
       "query": "ببینید| خردادیان: شاه با دخترخاله‌اش رابطه پنهانی داشت",
       "normalized": "ببینید خردادیان شاه با دخترخاله اش رابطه پنهانی داشت",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-19T18:44:36.760Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-19T19:06:07.171Z",
       "lastError": null,
       "trendTitle": "محمد خردادیان",
       "trendTraffic": 100,
@@ -11251,18 +11264,20 @@
         "محمد",
         "خردادیان"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.760Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-19T19:06:07.171Z"
     },
     "ریاض": {
       "query": "ریاض",
       "normalized": "ریاض",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 391,
       "createdAt": "2026-11-19T18:44:36.760Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-19T19:06:07.176Z",
       "lastError": null,
       "trendTitle": "ریاض",
       "trendTraffic": 100,
@@ -11270,8 +11285,9 @@
       "trendKeywords": [
         "ریاض"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.760Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "عربستان تایید کرد که بلندترین برج ریاض در حمله حوثی ها آسیب دیده است": {
       "query": "عربستان تایید کرد که بلندترین برج ریاض در حمله حوثی‌ها آسیب دیده است",
@@ -11289,7 +11305,7 @@
       "trendKeywords": [
         "ریاض"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.760Z",
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
       "activeInLatestFeed": true
     },
     "یحیی سریع 2 مرکز بسیار مهم دشمن سعودی مورد اصابت قرار گرفت": {
@@ -11308,7 +11324,7 @@
       "trendKeywords": [
         "ریاض"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.760Z",
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
       "activeInLatestFeed": true
     },
     "وحید شمسایی": {
@@ -11322,13 +11338,13 @@
       "lastAttemptAt": null,
       "lastError": null,
       "trendTitle": "وحید شمسایی",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Thu, 19 Nov 2026 09:40:00 -0800",
       "trendKeywords": [
         "وحید",
         "شمسایی"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.760Z",
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
       "activeInLatestFeed": true
     },
     "واکنش تند شمسایی به تصمیم afc حق بازیکنان ما خورده شد و عدالت زیر سوال رفت": {
@@ -11342,13 +11358,13 @@
       "lastAttemptAt": null,
       "lastError": null,
       "trendTitle": "وحید شمسایی",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Thu, 19 Nov 2026 09:40:00 -0800",
       "trendKeywords": [
         "وحید",
         "شمسایی"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.760Z",
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
       "activeInLatestFeed": true
     },
     "شوک در مراسم برترین های آسیا جایزه به فوتسالیست ایرانی نرسید": {
@@ -11362,13 +11378,33 @@
       "lastAttemptAt": null,
       "lastError": null,
       "trendTitle": "وحید شمسایی",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Thu, 19 Nov 2026 09:40:00 -0800",
       "trendKeywords": [
         "وحید",
         "شمسایی"
       ],
-      "lastTrendSeenAt": "2026-11-19T18:44:36.760Z",
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
+      "activeInLatestFeed": true
+    },
+    "المیرا دهقانی": {
+      "query": "المیرا دهقانی",
+      "normalized": "المیرا دهقانی",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-19T19:04:31.710Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "المیرا دهقانی",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+      "trendKeywords": [
+        "المیرا",
+        "دهقانی"
+      ],
+      "lastTrendSeenAt": "2026-11-19T19:04:31.710Z",
       "activeInLatestFeed": true
     }
   },
@@ -11467,7 +11503,7 @@
       "sender_name": "دنیای انیمیشن و سینما",
       "category_id": 7,
       "duration": 6300,
-      "visit_count": 15936,
+      "visit_count": 15938,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
       "active": 1,
@@ -11495,10 +11531,20 @@
             "کنکور"
           ],
           "page": 9
+        },
+        {
+          "query": "ریاض",
+          "trendTitle": "ریاض",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "ریاض"
+          ],
+          "page": 17
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.275Z",
-      "lastMetricsFetchedAt": "2026-11-18T00:39:50.883Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.175Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:43.680Z"
     },
     "lSxh7Gm": {
       "video_code": "lSxh7Gm",
@@ -11566,7 +11612,7 @@
       "sender_name": "دنیای انیمیشن و سینما",
       "category_id": 7,
       "duration": 5580,
-      "visit_count": 19582,
+      "visit_count": 19583,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
       "active": 1,
@@ -11604,10 +11650,20 @@
             "کنکور"
           ],
           "page": 9
+        },
+        {
+          "query": "ریاض",
+          "trendTitle": "ریاض",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "ریاض"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.275Z",
-      "lastMetricsFetchedAt": "2026-11-18T00:39:50.883Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.176Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:46.462Z"
     },
     "eh2hxvq": {
       "video_code": "eh2hxvq",
@@ -14588,43 +14644,6 @@
       "styled_create_date": "3 سال پیش",
       "active": 1,
       "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "ستاره اصلی Harry Potter به بازیگر جایگزین خود در سریال HBO هشدار داد",
-          "trendTitle": "اچبیاو",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:20:00 -0800",
-          "trendKeywords": [
-            "اچبیاو"
-          ],
-          "page": 4
-        },
-        {
-          "query": "پدر و مادر «هری پاتر» معرفی شدند",
-          "trendTitle": "اچبیاو",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:20:00 -0800",
-          "trendKeywords": [
-            "اچبیاو"
-          ],
-          "page": 4
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T20:35:59.738Z"
-    },
-    "W7Z86BC": {
-      "video_code": "W7Z86BC",
-      "title": "میکس هری پاتر هرمین و دراکو _حتی اگه جنگ بشه",
-      "sender_name": "filmmix",
-      "category_id": 21,
-      "duration": 173,
-      "visit_count": 8686,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -29021,33 +29040,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T21:55:12.036Z"
     },
-    "0COqKZG": {
-      "video_code": "0COqKZG",
-      "title": "آموزش قدم به قدم دوخت بالش گرد سنتی",
-      "sender_name": "میثم انصاری",
-      "category_id": 7,
-      "duration": 273,
-      "visit_count": 23585,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 25
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.041Z"
-    },
     "OYWKjvb": {
       "video_code": "OYWKjvb",
       "title": "فیلم سینمایی خشم اژدها (بروسلی)",
@@ -32301,45 +32293,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-03T05:06:09.132Z"
-    },
-    "oTP2bgp": {
-      "video_code": "oTP2bgp",
-      "title": "حسن ریوندی در برج میلاد تهران قسمت هفتم طنز",
-      "sender_name": "عبدالله قنبری نژاد بهبهان",
-      "category_id": 6,
-      "duration": 614,
-      "visit_count": 8703,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 25
-        },
-        {
-          "query": "هوای تهران",
-          "trendTitle": "هوای تهران",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:30:00 -0800",
-          "trendKeywords": [
-            "هوای",
-            "تهران"
-          ],
-          "page": 42
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.928Z"
     },
     "8VaJb2W": {
       "video_code": "8VaJb2W",
@@ -47626,34 +47579,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.352Z"
     },
-    "ySLlLOC": {
-      "video_code": "ySLlLOC",
-      "title": "خرسهای کله فندقی#کارتون#برنامه_کودک#شبکه_پویا#انیمیشن",
-      "sender_name": "✅شادکنک✅❤",
-      "category_id": 21,
-      "duration": 759,
-      "visit_count": 23609,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "شبکه خبر",
-          "trendTitle": "شبکه خبر",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:10:00 -0800",
-          "trendKeywords": [
-            "شبکه",
-            "خبر"
-          ],
-          "page": 47
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.355Z"
-    },
     "CcRQJ7W": {
       "video_code": "CcRQJ7W",
       "title": "درگیری یک زن بی حجاب با یک طلبه در قم که بصورت گسترده در شبکه های ماهواره ای روی",
@@ -49351,7 +49276,7 @@
       "sender_name": "فالو مساوی با فالو",
       "category_id": 3,
       "duration": 254,
-      "visit_count": 178491,
+      "visit_count": 178493,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -49379,10 +49304,21 @@
             "شعبانپور"
           ],
           "page": 14
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.739Z",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:58.129Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.939Z"
     },
     "XiaxZud": {
       "video_code": "XiaxZud",
@@ -53893,33 +53829,6 @@
       "lastTrendMatchedAt": "2026-11-17T16:06:04.728Z",
       "lastMetricsFetchedAt": "2026-11-17T16:05:33.093Z"
     },
-    "T1Je43M": {
-      "video_code": "T1Je43M",
-      "title": "تصاویر پرواز شگفت انگیز تریلی اسکانیا با استفاده از ۲۰۰۰ پهپاد",
-      "sender_name": "سعید",
-      "category_id": 2,
-      "duration": 82,
-      "visit_count": 23579,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پهپاد",
-          "trendTitle": "پهپاد",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 18:10:00 -0800",
-          "trendKeywords": [
-            "پهپاد"
-          ],
-          "page": 6
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T04:05:15.872Z"
-    },
     "JFNuap5": {
       "video_code": "JFNuap5",
       "title": "فیلم | سرباز روسی به پهپاد اوکراینی: من تسلیمم! جان مادرت منو نزن",
@@ -56530,33 +56439,6 @@
       "visit_count": 79826,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "شکار دو فروند پهپاد شناسایی آمریکایی از نوع MQM-170 در آسمان جنوب",
-          "trendTitle": "پهپاد",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 18:10:00 -0800",
-          "trendKeywords": [
-            "پهپاد"
-          ],
-          "page": 18
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T04:05:15.883Z"
-    },
-    "ZWiTEQZ": {
-      "video_code": "ZWiTEQZ",
-      "title": "Ep172}دانلود سریال سوگند - قسمت ۱۷۲ - دوبله فارسی",
-      "sender_name": "Filo Series",
-      "category_id": 3,
-      "duration": 2585,
-      "visit_count": 23649,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -64403,34 +64285,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T05:06:09.151Z"
     },
-    "mBYSTaa": {
-      "video_code": "mBYSTaa",
-      "title": "آهنگ افغانی بسیار زیبا",
-      "sender_name": "امید",
-      "category_id": 9,
-      "duration": 448,
-      "visit_count": 23646,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "افغانی افغانستان",
-          "trendTitle": "افغانی افغانستان",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "افغانی",
-            "افغانستان"
-          ],
-          "page": 37
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.152Z"
-    },
     "eXp2RcT": {
       "video_code": "eXp2RcT",
       "title": "پرتاب تریاک از خاک افغانستان به داخل ایران با منجنیق۵",
@@ -67057,34 +66911,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T10:07:04.996Z"
     },
-    "lYc4Kpq": {
-      "video_code": "lYc4Kpq",
-      "title": "کلیپ زیبا وخخاطر انیر فردین",
-      "sender_name": "فالو مساوی با فالو",
-      "category_id": 11,
-      "duration": 59,
-      "visit_count": 23624,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فردین هدایتی",
-          "trendTitle": "فردین هدایتی",
-          "trendTraffic": 5000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
-          "trendKeywords": [
-            "فردین",
-            "هدایتی"
-          ],
-          "page": 9
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:07:04.997Z"
-    },
     "RmksBVU": {
       "video_code": "RmksBVU",
       "title": "آهنگ فیلم قدیمی موطلایی شهر ما با صدای ایرج و بازی فردین (سرکارگر - مکانیک)",
@@ -67606,7 +67432,7 @@
       "sender_name": "فالو مساوی با فالو",
       "category_id": 11,
       "duration": 50,
-      "visit_count": 31947,
+      "visit_count": 31950,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -67624,9 +67450,21 @@
             "هدایتی"
           ],
           "page": 11
+        },
+        {
+          "query": "اکبر عبدی",
+          "trendTitle": "اکبر عبدی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Thu, 19 Nov 2026 07:10:00 -0800",
+          "trendKeywords": [
+            "اکبر",
+            "عبدی"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T10:07:04.997Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.153Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:51.718Z"
     },
     "SBy8BbA": {
       "video_code": "SBy8BbA",
@@ -68001,7 +67839,7 @@
       "sender_name": "فالو مساوی با فالو",
       "category_id": 11,
       "duration": 50,
-      "visit_count": 32679,
+      "visit_count": 32681,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -68019,9 +67857,21 @@
             "هدایتی"
           ],
           "page": 12
+        },
+        {
+          "query": "اکبر عبدی",
+          "trendTitle": "اکبر عبدی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Thu, 19 Nov 2026 07:10:00 -0800",
+          "trendKeywords": [
+            "اکبر",
+            "عبدی"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T10:07:04.998Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.153Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:51.718Z"
     },
     "cgv4qZ1": {
       "video_code": "cgv4qZ1",
@@ -68029,7 +67879,7 @@
       "sender_name": "فالو مساوی با فالو",
       "category_id": 11,
       "duration": 50,
-      "visit_count": 29018,
+      "visit_count": 29019,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -68047,9 +67897,21 @@
             "هدایتی"
           ],
           "page": 12
+        },
+        {
+          "query": "اکبر عبدی",
+          "trendTitle": "اکبر عبدی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Thu, 19 Nov 2026 07:10:00 -0800",
+          "trendKeywords": [
+            "اکبر",
+            "عبدی"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T10:07:04.998Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.153Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:51.718Z"
     },
     "tXtqUqA": {
       "video_code": "tXtqUqA",
@@ -68558,10 +68420,21 @@
             "شعبانپور"
           ],
           "page": 43
+        },
+        {
+          "query": "اکبر عبدی",
+          "trendTitle": "اکبر عبدی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Thu, 19 Nov 2026 07:10:00 -0800",
+          "trendKeywords": [
+            "اکبر",
+            "عبدی"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T17:05:51.954Z",
-      "lastMetricsFetchedAt": "2026-11-17T17:05:40.799Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.153Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:51.718Z"
     },
     "89QQYF3": {
       "video_code": "89QQYF3",
@@ -68789,34 +68662,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T17:05:51.957Z",
       "lastMetricsFetchedAt": "2026-11-17T17:05:46.078Z"
-    },
-    "GkKlk7I": {
-      "video_code": "GkKlk7I",
-      "title": "آهنگ فیلم قدیمی موطلایی شهر ما با صدای ایرج و بازی فردین (غزل آواز سه گاه)",
-      "sender_name": "اسماعیل",
-      "category_id": 9,
-      "duration": 254,
-      "visit_count": 23590,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فردین هدایتی",
-          "trendTitle": "فردین هدایتی",
-          "trendTraffic": 5000,
-          "trendPublishedAt": "Tue, 3 Nov 2026 01:20:00 -0800",
-          "trendKeywords": [
-            "فردین",
-            "هدایتی"
-          ],
-          "page": 16
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:07:05.000Z"
     },
     "SArLXJO": {
       "video_code": "SArLXJO",
@@ -72821,33 +72666,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T10:51:08.347Z"
     },
-    "Zukwbhu": {
-      "video_code": "Zukwbhu",
-      "title": "انیمیشن تیم اومی و زومی دوبله فارسی فصل ۱ قسمت ۵",
-      "sender_name": "کیدز گرام",
-      "category_id": 21,
-      "duration": 1350,
-      "visit_count": 23629,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "تیم",
-          "trendTitle": "تیم",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 3 Nov 2026 02:00:00 -0800",
-          "trendKeywords": [
-            "تیم"
-          ],
-          "page": 19
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:51:08.347Z"
-    },
     "DZzia1j": {
       "video_code": "DZzia1j",
       "title": "نبرد ابرقهرمانان در دنیای واقعی ، نبرد کامل تیم مرد عنکبوتی 1 ساعت",
@@ -75036,33 +74854,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T11:15:32.363Z",
       "lastMetricsFetchedAt": "2026-11-18T11:14:43.895Z"
-    },
-    "flScDQn": {
-      "video_code": "flScDQn",
-      "title": "ROLEPLAY GTA میا پلیز و کوروش",
-      "sender_name": "HALF_FACE",
-      "category_id": 17,
-      "duration": 787,
-      "visit_count": 23619,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "جیتیای",
-          "trendTitle": "جیتیای ۶",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 3 Nov 2026 06:30:00 -0800",
-          "trendKeywords": [
-            "جیتیای"
-          ],
-          "page": 6
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
     },
     "UPGGOT8": {
       "video_code": "UPGGOT8",
@@ -81573,33 +81364,6 @@
       "lastTrendMatchedAt": "2026-11-18T00:40:19.281Z",
       "lastMetricsFetchedAt": "2026-11-18T00:40:02.742Z"
     },
-    "HIMUGLn": {
-      "video_code": "HIMUGLn",
-      "title": "رزمایش کامل نیروی هوایی ارتش ایران",
-      "sender_name": "کاربر فیلو",
-      "category_id": 1,
-      "duration": 909,
-      "visit_count": 23579,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "ایرنا",
-          "trendTitle": "ایرنا",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "ایرنا"
-          ],
-          "page": 71
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.888Z"
-    },
     "LtOJ6V5": {
       "video_code": "LtOJ6V5",
       "title": "پایگاه موشکی محرمانه زیرزمینی ایران در عمق 500 متری",
@@ -84257,34 +84021,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-04T03:01:42.317Z"
     },
-    "2WQjhUu": {
-      "video_code": "2WQjhUu",
-      "title": "فیلم کره ای زامبی برای فروش دوبله فارسی",
-      "sender_name": "lili",
-      "category_id": 3,
-      "duration": 6735,
-      "visit_count": 23647,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پیش فروش",
-          "trendTitle": "پیش فروش",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Tue, 3 Nov 2026 17:50:00 -0800",
-          "trendKeywords": [
-            "پیش",
-            "فروش"
-          ],
-          "page": 19
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:01:42.325Z"
-    },
     "IFxPZeW": {
       "video_code": "IFxPZeW",
       "title": "انیمیشن تایتان های نوجوان به پیش قسمت 10 فصل 4 دوبله فارسی",
@@ -85583,33 +85319,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-04T03:01:42.333Z"
-    },
-    "b1uyZ1E": {
-      "video_code": "b1uyZ1E",
-      "title": "دانلود فیلم هرگز به عقب بازنگرد _تسلیم ناپذیر Never Back Down: No Surrender 2016",
-      "sender_name": "فیلم و سریال ، انیمیشن و انیمه",
-      "category_id": 3,
-      "duration": 5693,
-      "visit_count": 23649,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "تسنیم",
-          "trendTitle": "تسنیم",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 3 Nov 2026 19:00:00 -0800",
-          "trendKeywords": [
-            "تسنیم"
-          ],
-          "page": 6
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.901Z"
     },
     "S5KOTos": {
       "video_code": "S5KOTos",
@@ -89386,7 +89095,7 @@
       "sender_name": "AZKURDAN",
       "category_id": 3,
       "duration": 1854,
-      "visit_count": 23226,
+      "visit_count": 23229,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -89415,10 +89124,21 @@
             "غفاری"
           ],
           "page": 3
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.517Z",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:41.540Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.143Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:01.689Z"
     },
     "AVgCPcT": {
       "video_code": "AVgCPcT",
@@ -92473,34 +92193,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-04T03:21:52.930Z"
     },
-    "N3RarFZ": {
-      "video_code": "N3RarFZ",
-      "title": "فیلم جنجالی ضد هنجار دانشجویان دانشکده موسیقی تهران",
-      "sender_name": "Mr",
-      "category_id": 9,
-      "duration": 31,
-      "visit_count": 23650,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "هوای تهران",
-          "trendTitle": "هوای تهران",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:30:00 -0800",
-          "trendKeywords": [
-            "هوای",
-            "تهران"
-          ],
-          "page": 50
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.930Z"
-    },
     "IGYY2bq": {
       "video_code": "IGYY2bq",
       "title": "لحظه حمله قداره کشان به گنده لات تهران!",
@@ -94041,10 +93733,10 @@
       "sender_name": "FC",
       "category_id": 28,
       "duration": 182,
-      "visit_count": 841422,
+      "visit_count": 841425,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:55.189Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:33.093Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94060,9 +93752,20 @@
             "شعبانپور"
           ],
           "page": 11
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 15
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.739Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.170Z"
     },
     "4gSzFi4": {
       "video_code": "4gSzFi4",
@@ -94073,7 +93776,7 @@
       "visit_count": 487666,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:55.189Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:34.042Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -94089,9 +93792,20 @@
             "شعبانپور"
           ],
           "page": 11
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 16
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.739Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.170Z"
     },
     "XsdPaKR": {
       "video_code": "XsdPaKR",
@@ -94099,10 +93813,10 @@
       "sender_name": "bahram sh",
       "category_id": 9,
       "duration": 138,
-      "visit_count": 519944,
+      "visit_count": 519948,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:55.189Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:34.042Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94118,9 +93832,20 @@
             "شعبانپور"
           ],
           "page": 11
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 16
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.739Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.170Z"
     },
     "vK1QLZW": {
       "video_code": "vK1QLZW",
@@ -94128,10 +93853,10 @@
       "sender_name": "آرمیتا",
       "category_id": 9,
       "duration": 63,
-      "visit_count": 937023,
+      "visit_count": 937026,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:56.021Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:40.060Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94147,9 +93872,20 @@
             "شعبانپور"
           ],
           "page": 12
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 17
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.739Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.170Z"
     },
     "Mk9uR1I": {
       "video_code": "Mk9uR1I",
@@ -94160,7 +93896,7 @@
       "visit_count": 324486,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:56.021Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:40.060Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94176,9 +93912,20 @@
             "شعبانپور"
           ],
           "page": 12
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 17
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.739Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.170Z"
     },
     "Yhx3PGL": {
       "video_code": "Yhx3PGL",
@@ -94186,10 +93933,10 @@
       "sender_name": "Partisan",
       "category_id": 8,
       "duration": 52,
-      "visit_count": 302744,
+      "visit_count": 302752,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:56.021Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:40.060Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94205,9 +93952,20 @@
             "شعبانپور"
           ],
           "page": 12
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 17
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.739Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.170Z"
     },
     "Jraw3jU": {
       "video_code": "Jraw3jU",
@@ -94218,7 +93976,7 @@
       "visit_count": 74688,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T04:00:40.356Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:40.060Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94244,9 +94002,20 @@
             "بازداشت"
           ],
           "page": 2
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 17
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.170Z"
     },
     "vIi4MGY": {
       "video_code": "vIi4MGY",
@@ -94254,10 +94023,10 @@
       "sender_name": "Reza",
       "category_id": 0,
       "duration": 46,
-      "visit_count": 276424,
+      "visit_count": 276429,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:56.941Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:40.060Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -94273,9 +94042,20 @@
             "شعبانپور"
           ],
           "page": 13
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 17
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.739Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.170Z"
     },
     "KEEIO5p": {
       "video_code": "KEEIO5p",
@@ -94283,10 +94063,10 @@
       "sender_name": "جلال مختومی",
       "category_id": 8,
       "duration": 48,
-      "visit_count": 456107,
+      "visit_count": 456110,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:56.941Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:40.060Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94302,9 +94082,20 @@
             "شعبانپور"
           ],
           "page": 13
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 17
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.739Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.170Z"
     },
     "SAh7Krl": {
       "video_code": "SAh7Krl",
@@ -94312,10 +94103,10 @@
       "sender_name": "Mahsa",
       "category_id": 8,
       "duration": 60,
-      "visit_count": 35438,
+      "visit_count": 35439,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:56.941Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.028Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94331,9 +94122,20 @@
             "شعبانپور"
           ],
           "page": 13
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 18
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.739Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.170Z"
     },
     "gNMIwDj": {
       "video_code": "gNMIwDj",
@@ -94341,10 +94143,10 @@
       "sender_name": "alimohammadifg",
       "category_id": 28,
       "duration": 182,
-      "visit_count": 312795,
+      "visit_count": 312797,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:58.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.028Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94360,9 +94162,20 @@
             "شعبانپور"
           ],
           "page": 14
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 18
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.739Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "yOQ7yEB": {
       "video_code": "yOQ7yEB",
@@ -94370,10 +94183,10 @@
       "sender_name": "آی سریال",
       "category_id": 3,
       "duration": 552,
-      "visit_count": 499146,
+      "visit_count": 499147,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:58.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.028Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94389,9 +94202,20 @@
             "شعبانپور"
           ],
           "page": 14
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 18
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.739Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "HMXCZLQ": {
       "video_code": "HMXCZLQ",
@@ -94402,7 +94226,7 @@
       "visit_count": 113051,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:58.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.028Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94418,9 +94242,20 @@
             "شعبانپور"
           ],
           "page": 14
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 18
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.739Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "TlhieRA": {
       "video_code": "TlhieRA",
@@ -94428,10 +94263,10 @@
       "sender_name": "رضا",
       "category_id": 8,
       "duration": 48,
-      "visit_count": 166976,
+      "visit_count": 166977,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:58.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.028Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -94447,9 +94282,20 @@
             "شعبانپور"
           ],
           "page": 14
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 18
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.739Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "2En356g": {
       "video_code": "2En356g",
@@ -94457,10 +94303,10 @@
       "sender_name": "سارا",
       "category_id": 8,
       "duration": 75,
-      "visit_count": 44643,
+      "visit_count": 44644,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:58.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.028Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94476,9 +94322,20 @@
             "شعبانپور"
           ],
           "page": 14
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 18
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.739Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "gMtaXxx": {
       "video_code": "gMtaXxx",
@@ -94486,10 +94343,10 @@
       "sender_name": "shila",
       "category_id": 6,
       "duration": 81,
-      "visit_count": 232065,
+      "visit_count": 232066,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:58.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.028Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94505,9 +94362,20 @@
             "شعبانپور"
           ],
           "page": 14
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 18
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.739Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "zlh5p8o": {
       "video_code": "zlh5p8o",
@@ -94518,7 +94386,7 @@
       "visit_count": 42640,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T04:00:40.356Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.939Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94544,9 +94412,20 @@
             "بازداشت"
           ],
           "page": 2
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T04:00:57.691Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "Q8V5G8O": {
       "video_code": "Q8V5G8O",
@@ -94557,7 +94436,7 @@
       "visit_count": 559528,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:59:54.435Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.939Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94584,9 +94463,20 @@
             "فوربس"
           ],
           "page": 1
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:00:30.414Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "j6fJe4w": {
       "video_code": "j6fJe4w",
@@ -94594,10 +94484,10 @@
       "sender_name": "⭐ کلیپ آنلاین ⭐",
       "category_id": 4,
       "duration": 57,
-      "visit_count": 37386,
+      "visit_count": 37388,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:58.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.939Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94613,9 +94503,20 @@
             "شعبانپور"
           ],
           "page": 14
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.739Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "jiETs7C": {
       "video_code": "jiETs7C",
@@ -94623,10 +94524,10 @@
       "sender_name": "فالو مساوی با فالو",
       "category_id": 3,
       "duration": 178,
-      "visit_count": 90692,
+      "visit_count": 90693,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:58.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.939Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -94642,9 +94543,20 @@
             "شعبانپور"
           ],
           "page": 14
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.739Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "gQPvN60": {
       "video_code": "gQPvN60",
@@ -94652,10 +94564,10 @@
       "sender_name": "اسماعیل",
       "category_id": 9,
       "duration": 145,
-      "visit_count": 97730,
+      "visit_count": 97732,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:58.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.939Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94671,9 +94583,20 @@
             "شعبانپور"
           ],
           "page": 14
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.740Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "KZZq8YO": {
       "video_code": "KZZq8YO",
@@ -94681,10 +94604,10 @@
       "sender_name": "فالو مساوی با فالو",
       "category_id": 9,
       "duration": 126,
-      "visit_count": 56807,
+      "visit_count": 56811,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:58.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.939Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94700,9 +94623,20 @@
             "شعبانپور"
           ],
           "page": 14
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.740Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "b8d8QpW": {
       "video_code": "b8d8QpW",
@@ -94710,10 +94644,10 @@
       "sender_name": "اهواز تی وی",
       "category_id": 0,
       "duration": 230,
-      "visit_count": 64079,
+      "visit_count": 64082,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:59.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.939Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94729,9 +94663,20 @@
             "شعبانپور"
           ],
           "page": 15
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.740Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "Y92zU0f": {
       "video_code": "Y92zU0f",
@@ -94739,10 +94684,10 @@
       "sender_name": "life _fun",
       "category_id": 0,
       "duration": 48,
-      "visit_count": 66089,
+      "visit_count": 66090,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:59.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.939Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94758,9 +94703,20 @@
             "شعبانپور"
           ],
           "page": 15
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.740Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "asX0DMc": {
       "video_code": "asX0DMc",
@@ -94768,10 +94724,10 @@
       "sender_name": "خدیجه",
       "category_id": 3,
       "duration": 47,
-      "visit_count": 349515,
+      "visit_count": 349516,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T14:44:48.646Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.939Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94807,9 +94763,20 @@
             "کنست"
           ],
           "page": 9
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T14:45:23.131Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "BfR7mk0": {
       "video_code": "BfR7mk0",
@@ -94817,10 +94784,10 @@
       "sender_name": "حسین",
       "category_id": 9,
       "duration": 171,
-      "visit_count": 25746,
+      "visit_count": 25750,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:59.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.939Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94836,9 +94803,20 @@
             "شعبانپور"
           ],
           "page": 15
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.740Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "3dJkY6P": {
       "video_code": "3dJkY6P",
@@ -94846,10 +94824,10 @@
       "sender_name": "⭐ کلیپ آنلاین ⭐",
       "category_id": 8,
       "duration": 60,
-      "visit_count": 28198,
+      "visit_count": 28203,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:59.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.939Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94865,9 +94843,20 @@
             "شعبانپور"
           ],
           "page": 15
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.740Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "4qtF0Y0": {
       "video_code": "4qtF0Y0",
@@ -94875,10 +94864,10 @@
       "sender_name": "فیلو فیلم تک",
       "category_id": 3,
       "duration": 397,
-      "visit_count": 126014,
+      "visit_count": 126021,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:59.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.939Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -94894,9 +94883,20 @@
             "شعبانپور"
           ],
           "page": 15
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.740Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "yzIqonC": {
       "video_code": "yzIqonC",
@@ -94904,10 +94904,10 @@
       "sender_name": "اسماعیل",
       "category_id": 9,
       "duration": 239,
-      "visit_count": 45312,
+      "visit_count": 45313,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:59.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:42.866Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94923,9 +94923,20 @@
             "شعبانپور"
           ],
           "page": 15
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 20
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.740Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "Mcr5SSd": {
       "video_code": "Mcr5SSd",
@@ -94936,7 +94947,7 @@
       "visit_count": 28035,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:59.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:42.866Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94952,9 +94963,20 @@
             "شعبانپور"
           ],
           "page": 15
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 20
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.740Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "rfyp6gv": {
       "video_code": "rfyp6gv",
@@ -94962,10 +94984,10 @@
       "sender_name": "اسماعیل",
       "category_id": 9,
       "duration": 59,
-      "visit_count": 201191,
+      "visit_count": 201193,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:59.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:42.866Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -94981,9 +95003,20 @@
             "شعبانپور"
           ],
           "page": 15
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 20
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.740Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "KzmfVuy": {
       "video_code": "KzmfVuy",
@@ -94991,10 +95024,10 @@
       "sender_name": "⭐ کلیپ آنلاین ⭐",
       "category_id": 4,
       "duration": 60,
-      "visit_count": 32326,
+      "visit_count": 32327,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:59.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:42.866Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -95010,9 +95043,20 @@
             "شعبانپور"
           ],
           "page": 15
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 20
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.740Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "7Eht33Z": {
       "video_code": "7Eht33Z",
@@ -95020,10 +95064,10 @@
       "sender_name": "FilmKadeh",
       "category_id": 3,
       "duration": 62,
-      "visit_count": 261221,
+      "visit_count": 261223,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:59.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:42.866Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -95039,9 +95083,20 @@
             "شعبانپور"
           ],
           "page": 15
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 20
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.740Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "VSyzkMu": {
       "video_code": "VSyzkMu",
@@ -95049,10 +95104,10 @@
       "sender_name": "فالو مساوی با فالو",
       "category_id": 9,
       "duration": 298,
-      "visit_count": 42434,
+      "visit_count": 42436,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:59.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:42.866Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -95068,9 +95123,20 @@
             "شعبانپور"
           ],
           "page": 15
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 20
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.740Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "7I3V7bn": {
       "video_code": "7I3V7bn",
@@ -95078,10 +95144,10 @@
       "sender_name": "⭐ کلیپ آنلاین ⭐",
       "category_id": 8,
       "duration": 60,
-      "visit_count": 39411,
+      "visit_count": 39412,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:59.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:42.866Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -95097,9 +95163,20 @@
             "شعبانپور"
           ],
           "page": 15
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 20
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.740Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "Gugzgww": {
       "video_code": "Gugzgww",
@@ -95107,10 +95184,10 @@
       "sender_name": "بیا تو پیجم",
       "category_id": 8,
       "duration": 21,
-      "visit_count": 92480,
+      "visit_count": 92488,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:05:59.129Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:42.866Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -95126,9 +95203,20 @@
             "شعبانپور"
           ],
           "page": 15
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 20
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.740Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "dKVwKcg": {
       "video_code": "dKVwKcg",
@@ -95139,7 +95227,7 @@
       "visit_count": 73242,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:06:00.615Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:42.866Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -95155,9 +95243,20 @@
             "شعبانپور"
           ],
           "page": 16
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 20
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.740Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "GWWVWeW": {
       "video_code": "GWWVWeW",
@@ -95168,7 +95267,7 @@
       "visit_count": 160686,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:06:00.615Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:42.866Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -95184,9 +95283,20 @@
             "شعبانپور"
           ],
           "page": 16
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 20
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.740Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "g6OlHOK": {
       "video_code": "g6OlHOK",
@@ -95197,7 +95307,7 @@
       "visit_count": 177792,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:06:00.615Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:42.866Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -95213,9 +95323,20 @@
             "شعبانپور"
           ],
           "page": 16
+        },
+        {
+          "query": "محمد خردادیان",
+          "trendTitle": "محمد خردادیان",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:10:00 -0800",
+          "trendKeywords": [
+            "محمد",
+            "خردادیان"
+          ],
+          "page": 20
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:06:04.740Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
     },
     "FubCJrK": {
       "video_code": "FubCJrK",
@@ -106682,7 +106803,7 @@
       "visit_count": 41198,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T17:05:45.178Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:38.690Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -106698,9 +106819,19 @@
             "شعبانپور"
           ],
           "page": 30
+        },
+        {
+          "query": "ریاض",
+          "trendTitle": "ریاض",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "ریاض"
+          ],
+          "page": 12
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T17:05:51.946Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.174Z"
     },
     "62kc4BE": {
       "video_code": "62kc4BE",
@@ -110399,7 +110530,7 @@
       "visit_count": 29673,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T17:25:30.067Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:38.690Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -110415,9 +110546,19 @@
             "شعبانپور"
           ],
           "page": 38
+        },
+        {
+          "query": "ریاض",
+          "trendTitle": "ریاض",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "ریاض"
+          ],
+          "page": 12
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T17:25:47.891Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.174Z"
     },
     "Aww0NcZ": {
       "video_code": "Aww0NcZ",
@@ -129940,7 +130081,7 @@
       "visit_count": 4917,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:24:58.781Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:30.397Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -130011,7 +130152,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:25:28.856Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.177Z"
     },
     "3q0Y9xd": {
       "video_code": "3q0Y9xd",
@@ -130110,7 +130251,7 @@
       "visit_count": 48036,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:05:08.935Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:28.795Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -130138,7 +130279,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T12:05:28.295Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.176Z"
     },
     "7h7aMVj": {
       "video_code": "7h7aMVj",
@@ -132743,34 +132884,6 @@
       "lastMetricsFetchedAt": "2026-11-18T12:45:18.827Z",
       "active": 1,
       "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "مجلس",
-          "trendTitle": "مجلس",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 19:50:00 -0800",
-          "trendKeywords": [
-            "مجلس"
-          ],
-          "page": 5
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.639Z"
-    },
-    "W6j4za6": {
-      "video_code": "W6j4za6",
-      "title": "خوانندگی جواد یساری در مجلس عروسی",
-      "sender_name": "سجاد",
-      "category_id": 8,
-      "duration": 142,
-      "visit_count": 23585,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:45:18.827Z",
-      "active": 1,
-      "can_republish": 0,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -148031,35 +148144,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T10:26:15.454Z"
     },
-    "RfbNElQ": {
-      "video_code": "RfbNElQ",
-      "title": "فیلم حرکات غیرعادی مهدی سلوکی در برنامه تلویزیونی /بازیگر",
-      "sender_name": "بابایی ترین دختر دنیا",
-      "category_id": 3,
-      "duration": 60,
-      "visit_count": 23623,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T10:25:34.044Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "مهدی قایدی",
-          "trendTitle": "مهدی قایدی",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Wed, 18 Nov 2026 01:00:00 -0800",
-          "trendKeywords": [
-            "مهدی",
-            "قایدی"
-          ],
-          "page": 53
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T10:26:15.455Z"
-    },
     "rvRShUW": {
       "video_code": "rvRShUW",
       "title": "سینمایی شاه کش با بازی مهناز افشار و هادی حجازی فر علیرضا کمالی و مهدی کوشکی و..",
@@ -160152,10 +160236,10 @@
       "sender_name": "لیلا",
       "category_id": 3,
       "duration": 58,
-      "visit_count": 78274,
+      "visit_count": 78278,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:39.046Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:44.529Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160171,9 +160255,20 @@
             "غفاری"
           ],
           "page": 1
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 105
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.516Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.142Z"
     },
     "qnAAEbN": {
       "video_code": "qnAAEbN",
@@ -160181,10 +160276,10 @@
       "sender_name": "خدیجه",
       "category_id": 3,
       "duration": 62,
-      "visit_count": 50429,
+      "visit_count": 50430,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:39.046Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:06:03.832Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160200,9 +160295,20 @@
             "غفاری"
           ],
           "page": 1
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 109
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.516Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.142Z"
     },
     "JVyvAJk": {
       "video_code": "JVyvAJk",
@@ -160210,10 +160316,10 @@
       "sender_name": "AHILHOME",
       "category_id": 3,
       "duration": 2276,
-      "visit_count": 57440,
+      "visit_count": 57443,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:40.500Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:58.034Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160229,9 +160335,20 @@
             "غفاری"
           ],
           "page": 2
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.516Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.142Z"
     },
     "jBfRys1": {
       "video_code": "jBfRys1",
@@ -160239,10 +160356,10 @@
       "sender_name": "AZKURDAN",
       "category_id": 3,
       "duration": 2022,
-      "visit_count": 36860,
+      "visit_count": 36867,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:40.500Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:58.034Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160258,9 +160375,20 @@
             "غفاری"
           ],
           "page": 2
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.516Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.143Z"
     },
     "90XXPXn": {
       "video_code": "90XXPXn",
@@ -160268,10 +160396,10 @@
       "sender_name": "AZKURDAN",
       "category_id": 3,
       "duration": 2112,
-      "visit_count": 30773,
+      "visit_count": 30780,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:40.500Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:58.034Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160287,9 +160415,20 @@
             "غفاری"
           ],
           "page": 2
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.516Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.143Z"
     },
     "C50ZncY": {
       "video_code": "C50ZncY",
@@ -160297,10 +160436,10 @@
       "sender_name": "AHILHOME",
       "category_id": 3,
       "duration": 2114,
-      "visit_count": 28984,
+      "visit_count": 28987,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:40.500Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:58.034Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160316,9 +160455,20 @@
             "غفاری"
           ],
           "page": 2
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.516Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.143Z"
     },
     "IzNUh2R": {
       "video_code": "IzNUh2R",
@@ -160326,10 +160476,10 @@
       "sender_name": "AZKURDAN",
       "category_id": 3,
       "duration": 1865,
-      "visit_count": 28227,
+      "visit_count": 28232,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:40.500Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:58.034Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160345,9 +160495,20 @@
             "غفاری"
           ],
           "page": 2
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.516Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.143Z"
     },
     "rs9nXTZ": {
       "video_code": "rs9nXTZ",
@@ -160355,10 +160516,10 @@
       "sender_name": "AZKURDAN",
       "category_id": 3,
       "duration": 1928,
-      "visit_count": 31342,
+      "visit_count": 31351,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:40.500Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:58.034Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160374,9 +160535,20 @@
             "غفاری"
           ],
           "page": 2
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.516Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.143Z"
     },
     "NU2R74w": {
       "video_code": "NU2R74w",
@@ -160384,10 +160556,10 @@
       "sender_name": "AZKURDAN",
       "category_id": 3,
       "duration": 1873,
-      "visit_count": 31735,
+      "visit_count": 31742,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:40.500Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:58.034Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160403,9 +160575,20 @@
             "غفاری"
           ],
           "page": 2
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.516Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.143Z"
     },
     "C6eLc5i": {
       "video_code": "C6eLc5i",
@@ -160413,10 +160596,10 @@
       "sender_name": "AZKURDAN",
       "category_id": 3,
       "duration": 1817,
-      "visit_count": 27648,
+      "visit_count": 27652,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:40.500Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:58.034Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160432,9 +160615,20 @@
             "غفاری"
           ],
           "page": 2
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.516Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.143Z"
     },
     "FYkgS22": {
       "video_code": "FYkgS22",
@@ -160442,10 +160636,10 @@
       "sender_name": "AZKURDAN",
       "category_id": 3,
       "duration": 1838,
-      "visit_count": 28867,
+      "visit_count": 28872,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:40.500Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:58.034Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160461,9 +160655,20 @@
             "غفاری"
           ],
           "page": 2
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.516Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.143Z"
     },
     "uQWDTRX": {
       "video_code": "uQWDTRX",
@@ -160471,10 +160676,10 @@
       "sender_name": "AZKURDAN",
       "category_id": 3,
       "duration": 2039,
-      "visit_count": 28401,
+      "visit_count": 28405,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:40.500Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:58.034Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160490,9 +160695,20 @@
             "غفاری"
           ],
           "page": 2
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.516Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.143Z"
     },
     "LOJiEP5": {
       "video_code": "LOJiEP5",
@@ -160500,10 +160716,10 @@
       "sender_name": "AHILHOME",
       "category_id": 3,
       "duration": 2187,
-      "visit_count": 31720,
+      "visit_count": 31721,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:40.500Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:58.034Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160519,9 +160735,20 @@
             "غفاری"
           ],
           "page": 2
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.516Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.143Z"
     },
     "iwEnQHO": {
       "video_code": "iwEnQHO",
@@ -160529,10 +160756,10 @@
       "sender_name": "AZKURDAN",
       "category_id": 3,
       "duration": 1806,
-      "visit_count": 27529,
+      "visit_count": 27535,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:40.500Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:58.034Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160548,9 +160775,20 @@
             "غفاری"
           ],
           "page": 2
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.516Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.143Z"
     },
     "hbN3wmM": {
       "video_code": "hbN3wmM",
@@ -160561,7 +160799,7 @@
       "visit_count": 24978,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:40.500Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:58.034Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160577,9 +160815,20 @@
             "غفاری"
           ],
           "page": 2
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.516Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.143Z"
     },
     "ec6ztKB": {
       "video_code": "ec6ztKB",
@@ -160587,10 +160836,10 @@
       "sender_name": "AHILHOME",
       "category_id": 3,
       "duration": 2046,
-      "visit_count": 28984,
+      "visit_count": 28986,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:40.500Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:58.034Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160606,9 +160855,20 @@
             "غفاری"
           ],
           "page": 2
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.516Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.143Z"
     },
     "vRJscaI": {
       "video_code": "vRJscaI",
@@ -160616,10 +160876,10 @@
       "sender_name": "AHILHOME",
       "category_id": 3,
       "duration": 1949,
-      "visit_count": 24613,
+      "visit_count": 24615,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:40.500Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:58.034Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160635,9 +160895,20 @@
             "غفاری"
           ],
           "page": 2
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.516Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.143Z"
     },
     "1spMPT7": {
       "video_code": "1spMPT7",
@@ -160645,10 +160916,10 @@
       "sender_name": "AZKURDAN",
       "category_id": 3,
       "duration": 2149,
-      "visit_count": 27050,
+      "visit_count": 27053,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:41.540Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:01.689Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160664,9 +160935,20 @@
             "غفاری"
           ],
           "page": 3
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.516Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.143Z"
     },
     "wkVfebj": {
       "video_code": "wkVfebj",
@@ -160674,10 +160956,10 @@
       "sender_name": "AZKURDAN",
       "category_id": 3,
       "duration": 1900,
-      "visit_count": 26271,
+      "visit_count": 26274,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:41.540Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:01.689Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160693,9 +160975,20 @@
             "غفاری"
           ],
           "page": 3
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.516Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.143Z"
     },
     "7yTJJKK": {
       "video_code": "7yTJJKK",
@@ -160703,10 +160996,10 @@
       "sender_name": "AZKURDAN",
       "category_id": 3,
       "duration": 1955,
-      "visit_count": 29885,
+      "visit_count": 29887,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:44:41.540Z",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:01.689Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -160722,9 +161015,20 @@
             "غفاری"
           ],
           "page": 3
+        },
+        {
+          "query": "اکران خصوصی فیلم «همسفر» با حضور المیرا دهقانی و رزیتا غفاری برگزار شد",
+          "trendTitle": "المیرا دهقانی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:30:00 -0800",
+          "trendKeywords": [
+            "المیرا",
+            "دهقانی"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:45:35.517Z"
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.143Z"
     },
     "oBnDvpT": {
       "video_code": "oBnDvpT",
@@ -169785,34 +170089,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T17:25:48.109Z"
     },
-    "nXXK2ZU": {
-      "video_code": "nXXK2ZU",
-      "title": "آموزش سوره کوثر کودکانه برای کودکان",
-      "sender_name": "دنیای کلیپ و ویدیو",
-      "category_id": 7,
-      "duration": 30,
-      "visit_count": 23598,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T17:24:49.553Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "کوپر",
-          "trendTitle": "کوپر",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Wed, 18 Nov 2026 08:30:00 -0800",
-          "trendKeywords": [
-            "کوپر"
-          ],
-          "page": 9
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T17:25:48.109Z"
-    },
     "Kj0Rzz6": {
       "video_code": "Kj0Rzz6",
       "title": "فیلم | سوپر گل دیدنی علیرضا جهانبخش برای فاینورد _ فوتبال هلند",
@@ -174748,8 +175024,519 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-19T18:47:09.698Z"
+    },
+    "voU2rAy": {
+      "video_code": "voU2rAy",
+      "title": "حال بسیار وخیم اکبر عبدی",
+      "sender_name": "بادیگارد",
+      "category_id": 1,
+      "duration": 19,
+      "visit_count": 69662,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:50.647Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکبر عبدی",
+          "trendTitle": "اکبر عبدی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Thu, 19 Nov 2026 07:10:00 -0800",
+          "trendKeywords": [
+            "اکبر",
+            "عبدی"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.153Z"
+    },
+    "M6wHEEG": {
+      "video_code": "M6wHEEG",
+      "title": "فیلم سینمایی رسوایی1 با بازی اکبر عبدی و الناز شاکردوست",
+      "sender_name": "منتظر ظهور ",
+      "category_id": 3,
+      "duration": 6125,
+      "visit_count": 37626,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:50.647Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکبر عبدی",
+          "trendTitle": "اکبر عبدی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Thu, 19 Nov 2026 07:10:00 -0800",
+          "trendKeywords": [
+            "اکبر",
+            "عبدی"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.153Z"
+    },
+    "lud5AFx": {
+      "video_code": "lud5AFx",
+      "title": "فیلم سینمایی ایرانی شرط اول کمدی خنده دار اکبر عبدی",
+      "sender_name": "رضا",
+      "category_id": 3,
+      "duration": 5372,
+      "visit_count": 61562,
+      "create_date": "1 سال پیش",
+      "styled_create_date": "1 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:51.718Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکبر عبدی",
+          "trendTitle": "اکبر عبدی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Thu, 19 Nov 2026 07:10:00 -0800",
+          "trendKeywords": [
+            "اکبر",
+            "عبدی"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.153Z"
+    },
+    "F86sf6P": {
+      "video_code": "F86sf6P",
+      "title": "خاطره منشوری اکبر عبدی از پشت صحنه فیلم اخراجی ها!",
+      "sender_name": "ساسان",
+      "category_id": 3,
+      "duration": 26,
+      "visit_count": 25982,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-19T19:04:52.849Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "اکبر عبدی",
+          "trendTitle": "اکبر عبدی",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Thu, 19 Nov 2026 07:10:00 -0800",
+          "trendKeywords": [
+            "اکبر",
+            "عبدی"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.154Z"
+    },
+    "P2iEihg": {
+      "video_code": "P2iEihg",
+      "title": "اغنیه عود الحبیبک عود ریاض احمد کامله",
+      "sender_name": "فیلم و سریال ایرانی #سریال_نما",
+      "category_id": 8,
+      "duration": 847,
+      "visit_count": 50853,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:26.457Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "ریاض",
+          "trendTitle": "ریاض",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "ریاض"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.172Z"
+    },
+    "i1aIDqT": {
+      "video_code": "i1aIDqT",
+      "title": "سکانس کوتاه | اموزش ریاضی نهم فصل ۲ / عددهای حقیقی (جدید)",
+      "sender_name": "Kazem",
+      "category_id": 7,
+      "duration": 120,
+      "visit_count": 24368,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:39.685Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 21,
+      "globalTrendSearchMatches": [
+        {
+          "query": "ریاض",
+          "trendTitle": "ریاض",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "ریاض"
+          ],
+          "page": 13
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.174Z"
+    },
+    "ttvXyAh": {
+      "video_code": "ttvXyAh",
+      "title": "ریاضی سوم دبستان فصل چهارم مبحث ضرب",
+      "sender_name": "امین ",
+      "category_id": 7,
+      "duration": 949,
+      "visit_count": 50268,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:40.576Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "ریاض",
+          "trendTitle": "ریاض",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "ریاض"
+          ],
+          "page": 14
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.175Z"
+    },
+    "Pc4RSV5": {
+      "video_code": "Pc4RSV5",
+      "title": "انیمیشن جدید جشن ریاضی",
+      "sender_name": "filofilm.ss",
+      "category_id": 21,
+      "duration": 1405,
+      "visit_count": 25025,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:40.576Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "ریاض",
+          "trendTitle": "ریاض",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "ریاض"
+          ],
+          "page": 14
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.175Z"
+    },
+    "4ZpsyE5": {
+      "video_code": "4ZpsyE5",
+      "title": "ویدئویی از تدریس ریاضی معلم قائمشهری",
+      "sender_name": "محمد15صدرا",
+      "category_id": 7,
+      "duration": 40,
+      "visit_count": 23678,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:40.576Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "ریاض",
+          "trendTitle": "ریاض",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "ریاض"
+          ],
+          "page": 14
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.175Z"
+    },
+    "FmpNmkL": {
+      "video_code": "FmpNmkL",
+      "title": "انیمیشن جشن ریاضی/کارتون جدید/فیلوفیلم",
+      "sender_name": "filofilm.ss",
+      "category_id": 21,
+      "duration": 1448,
+      "visit_count": 26037,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.423Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "ریاض",
+          "trendTitle": "ریاض",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "ریاض"
+          ],
+          "page": 15
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.175Z"
+    },
+    "p0wB9UF": {
+      "video_code": "p0wB9UF",
+      "title": "ریاضی پنجم تبدیل ثانیه به ساعت ،دقیقه وثانیه(قسمت اول)",
+      "sender_name": "امین ",
+      "category_id": 7,
+      "duration": 206,
+      "visit_count": 35909,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:42.510Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "ریاض",
+          "trendTitle": "ریاض",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "ریاض"
+          ],
+          "page": 16
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.175Z"
+    },
+    "Hs3RfxP": {
+      "video_code": "Hs3RfxP",
+      "title": "حل تمرین کتاب ریاضی پایه ششم - فصل دوم - تمرین شماره ۸ صفحه 41|آموزشی",
+      "sender_name": "کاربر فیلو",
+      "category_id": 7,
+      "duration": 459,
+      "visit_count": 32462,
+      "create_date": "7 سال پیش",
+      "styled_create_date": "7 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:42.510Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "ریاض",
+          "trendTitle": "ریاض",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "ریاض"
+          ],
+          "page": 16
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.175Z"
+    },
+    "9cqkXP9": {
+      "video_code": "9cqkXP9",
+      "title": "ریاضی پایه پنجم فصل دوم دست ورزی ضرب کسرها",
+      "sender_name": "امین ",
+      "category_id": 7,
+      "duration": 93,
+      "visit_count": 24081,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:45.284Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "ریاض",
+          "trendTitle": "ریاض",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "ریاض"
+          ],
+          "page": 18
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.175Z"
+    },
+    "3udTNRY": {
+      "video_code": "3udTNRY",
+      "title": "ریاضی دوم دبستان - فصل اول - جدول ارزش مکانی",
+      "sender_name": "کلاس دوم دبستان-خانم رحیمی فرد",
+      "category_id": 7,
+      "duration": 492,
+      "visit_count": 35430,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:45.284Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "ریاض",
+          "trendTitle": "ریاض",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "ریاض"
+          ],
+          "page": 18
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.175Z"
+    },
+    "C9XSYy9": {
+      "video_code": "C9XSYy9",
+      "title": "ریاضی پنجم اعدادمرکب تبدیل ثانیه به ساعت و دقیقه(قسمت دوم)",
+      "sender_name": "امین ",
+      "category_id": 7,
+      "duration": 79,
+      "visit_count": 24236,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:46.462Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "ریاض",
+          "trendTitle": "ریاض",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Thu, 19 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "ریاض"
+          ],
+          "page": 19
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.176Z"
+    },
+    "4mqvkW9": {
+      "video_code": "4mqvkW9",
+      "title": "بازی ماینکرافت",
+      "sender_name": "مانی",
+      "category_id": 17,
+      "duration": 6266,
+      "visit_count": 215373,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:39.654Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بازی پرتغال",
+          "trendTitle": "بازی پرتغال",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Tue, 17 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "بازی",
+            "پرتغال"
+          ],
+          "page": 100
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.178Z"
+    },
+    "itMyk6x": {
+      "video_code": "itMyk6x",
+      "title": "اسباب بازیهای کودکانه ، بازی کودکان با ماشین های بزرگ اسباب بازی ، ماشین بازی",
+      "sender_name": "کودک و سرگرمی",
+      "category_id": 17,
+      "duration": 628,
+      "visit_count": 1220877,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:41.830Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بازی پرتغال",
+          "trendTitle": "بازی پرتغال",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Tue, 17 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "بازی",
+            "پرتغال"
+          ],
+          "page": 102
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.179Z"
+    },
+    "gLEImBS": {
+      "video_code": "gLEImBS",
+      "title": "غشی بازی فقط این",
+      "sender_name": "آوین",
+      "category_id": 0,
+      "duration": 32,
+      "visit_count": 96002,
+      "create_date": "1 سال پیش",
+      "styled_create_date": "1 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-19T19:05:42.966Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "بازی پرتغال",
+          "trendTitle": "بازی پرتغال",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Tue, 17 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "بازی",
+            "پرتغال"
+          ],
+          "page": 103
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-19T19:06:07.179Z"
     }
   },
-  "totalPagesFetched": 14345,
-  "totalVideosSeen": 259194
+  "totalPagesFetched": 14484,
+  "totalVideosSeen": 261623
 }
