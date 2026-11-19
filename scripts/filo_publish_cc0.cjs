@@ -9,7 +9,10 @@ const { looksRelevant, persianTitle } = require('./editorial_content.cjs');
 const { appendFiloEndCard } = require('./filo_endcard.cjs');
 const { discoverPexelsCandidates, PEXELS_LICENSE_URL } = require('./pexels_source.cjs');
 const { buildInternetArchiveSearchQuery } = require('./archive_search.cjs');
-const { evaluatePublicationCadence } = require('./filo_publication_cadence.cjs');
+const {
+  DEFAULT_MAX_DAILY_PUBLICATIONS,
+  evaluatePublicationCadence
+} = require('./filo_publication_cadence.cjs');
 const { inspectFiloUrlImportCandidate, isVerticalMediaForUrlImport } = require('./filo_url_import.cjs');
 const ACCOUNT = 'https://ifilo.net';
 const CC0_LICENSE_URL = 'https://creativecommons.org/publicdomain/zero/1.0/';
@@ -31,7 +34,7 @@ const COVER_HEIGHT = Number(FILO_PROFILE.cover_height) || 1280;
 const WORK_HEIGHT = 1080;
 const WORK_WIDTH = Math.round(WORK_HEIGHT * TARGET_WIDTH / TARGET_HEIGHT);
 // Fail closed on reuse rights: only explicit CC0 1.0 or CC BY 4.0 license metadata is accepted.
-const MAX_DAILY_PUBLICATIONS = 288;
+const MAX_DAILY_PUBLICATIONS = DEFAULT_MAX_DAILY_PUBLICATIONS;
 const MIN_PUBLICATION_GAP_MS = 0;
 const MIN_DURATION_SECONDS = 8;
 const MAX_DURATION_SECONDS = 180;
@@ -295,26 +298,40 @@ function descriptionForCandidate(candidate) {
 }
 
 function publicationCadenceDecision(state, now = new Date()) {
-  let nativePosts = [];
+  let nativeState = { posts: [] };
   try {
-    const nativeState = JSON.parse(fs.readFileSync(path.join('state', 'filo-native-republished.json'), 'utf8'));
-    if (Array.isArray(nativeState.posts)) nativePosts = nativeState.posts;
+    nativeState = JSON.parse(fs.readFileSync(path.join('state', 'filo-native-republished.json'), 'utf8'));
+    if (!Array.isArray(nativeState.posts)) nativeState.posts = [];
   } catch {
     // The native ledger may not exist on a first deployment; the external ledger remains active.
   }
 
+  const nowMs = now instanceof Date ? now.getTime() : Number(now);
   const cadence = evaluatePublicationCadence({
-    nativePosts,
+    nativePosts: nativeState.posts,
     externalPosts: Array.isArray(state.posts) ? state.posts : [],
-    now: now instanceof Date ? now.getTime() : now,
+    now: nowMs,
     minGapMs: MIN_PUBLICATION_GAP_MS,
     maxDaily: MAX_DAILY_PUBLICATIONS
   });
+  const quotaRetryAt = Date.parse(
+    nativeState.accountRepublishQuotaCooldown && nativeState.accountRepublishQuotaCooldown.retryAfterAt || ''
+  );
+  if (Number.isFinite(quotaRetryAt) && quotaRetryAt > nowMs) {
+    return {
+      ...cadence,
+      allowed: false,
+      status: 'filo_account_republish_quota_cooldown',
+      maxDaily: MAX_DAILY_PUBLICATIONS,
+      nextAllowedAt: new Date(quotaRetryAt).toISOString()
+    };
+  }
   return {
     ...cadence,
     maxDaily: MAX_DAILY_PUBLICATIONS,
     nextAllowedAt: cadence.nextAllowedAt
   };
+}
 }
 
 function parsedDurationSeconds(info) {
@@ -1243,7 +1260,7 @@ async function main() {
       todayCount: cadence.todayCount,
       maxDaily: cadence.maxDaily,
       nextAllowedAt: cadence.nextAllowedAt || null,
-      note: 'Filo permits at most 288 spaced attempts per UTC day; this is a ceiling, not a target. Only eligible verified-license media is submitted.'
+      note: 'The shared safety ceiling is 36 publication operations in any rolling 24-hour window across native and licensed external paths. Rejected, pending and unconfirmed attempts also consume the local ceiling.'
     }));
     return;
   }
