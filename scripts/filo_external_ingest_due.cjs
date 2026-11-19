@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const {
   DEFAULT_MIN_PUBLICATION_GAP_MS,
+  DEFAULT_MAX_DAILY_PUBLICATIONS,
   evaluatePublicationCadence
 } = require('./filo_publication_cadence.cjs');
 
@@ -38,6 +39,17 @@ function evaluateExternalIngestDue({
   intervalMs = EXTERNAL_SCAN_INTERVAL_MS
 } = {}) {
   const nowMs = Number.isFinite(Number(now)) ? Number(now) : Date.now();
+  const quotaRetryAt = Date.parse(
+    nativeState.accountRepublishQuotaCooldown && nativeState.accountRepublishQuotaCooldown.retryAfterAt || ''
+  );
+  if (Number.isFinite(quotaRetryAt) && quotaRetryAt > nowMs) {
+    return {
+      due: false,
+      reason: 'filo_account_republish_quota_cooldown',
+      retryAfterAt: new Date(quotaRetryAt).toISOString(),
+      nextAllowedAt: new Date(quotaRetryAt).toISOString()
+    };
+  }
   if (!nativeReport || !NATIVE_REPORT_STATUSES.has(String(nativeReport.status || ''))) {
     return { due: false, reason: 'native_cycle_report_missing_or_unrecognized' };
   }
@@ -63,7 +75,8 @@ function evaluateExternalIngestDue({
     nativePosts: nativeState.posts,
     externalPosts: externalState.posts,
     now: nowMs,
-    minGapMs
+    minGapMs,
+    maxDaily: DEFAULT_MAX_DAILY_PUBLICATIONS
   });
   if (!cadence.allowed) {
     return {
