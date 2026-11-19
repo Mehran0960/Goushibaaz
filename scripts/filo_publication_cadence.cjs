@@ -80,7 +80,6 @@ function evaluatePublicationCadence({
     remainingMs: blocked ? Math.max(0, nextAllowedMs - nowMs) : 0
   };
 }
-}
 
 module.exports = {
   DEFAULT_MIN_PUBLICATION_GAP_MS,
