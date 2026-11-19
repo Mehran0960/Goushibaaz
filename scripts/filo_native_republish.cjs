@@ -6,6 +6,7 @@ const crypto = require('node:crypto');
 const { chromium } = require('playwright');
 const { buildTrendWeights, categoryFor } = require('./quality_rank.cjs');
 const {
+  DEFAULT_MAX_DAILY_PUBLICATIONS,
   isPublicationOperation: isSharedPublicationOperation,
   operationTimestamp: sharedPublicationTimestamp,
   getCombinedPublicationOperationTimes
@@ -2367,21 +2368,39 @@ function getPublicationPacingGate(state, now = Date.now(), externalPosts = []) {
   const rollingHour = times.filter(at => at > hourStart);
   const rolling24h = times.filter(at => at > dayStart);
   const latestOperationAt = times.at(-1) ?? null;
-  const nextEligibleAt = latestOperationAt === null
+  const gapNextEligibleAt = latestOperationAt === null
     ? null
     : latestOperationAt + MIN_PUBLISH_GAP_MS;
-  const blocked = nextEligibleAt !== null && nextEligibleAt > nowMs;
+  const gapBlocked = gapNextEligibleAt !== null && gapNextEligibleAt > nowMs;
+  const dailyLimitReached = rolling24h.length >= DEFAULT_MAX_DAILY_PUBLICATIONS;
+  const dailyReleaseIndex = dailyLimitReached
+    ? rolling24h.length - DEFAULT_MAX_DAILY_PUBLICATIONS
+    : -1;
+  const dailyNextEligibleAt = dailyLimitReached
+    ? rolling24h[dailyReleaseIndex] + 24 * 60 * 60 * 1000
+    : null;
+  const blocked = gapBlocked || dailyLimitReached;
+  const reasons = [];
+  if (gapBlocked) reasons.push('minimum_gap_between_republish_operations');
+  if (dailyLimitReached) reasons.push('rolling_24h_publication_cap_reached');
+  const nextEligibleAt = blocked
+    ? Math.max(
+      gapBlocked ? gapNextEligibleAt : nowMs,
+      dailyLimitReached ? dailyNextEligibleAt : nowMs
+    )
+    : null;
 
   return {
     blocked,
-    reasons: blocked ? ['minimum_gap_between_republish_operations'] : [],
-    nextEligibleAt: blocked ? new Date(nextEligibleAt).toISOString() : null,
+    reasons,
+    nextEligibleAt: nextEligibleAt === null ? null : new Date(nextEligibleAt).toISOString(),
     minimumGapMs: MIN_PUBLISH_GAP_MS,
     lastOperationAt: latestOperationAt === null ? null : new Date(latestOperationAt).toISOString(),
     rollingHourOperations: rollingHour.length,
     rolling24hOperations: rolling24h.length,
     internalHourlyCap: null,
-    internalDailyCap: null
+    internalDailyCap: DEFAULT_MAX_DAILY_PUBLICATIONS,
+    dailyLimitReached
   };
 }
 

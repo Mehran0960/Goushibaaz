@@ -276,7 +276,7 @@ jobs:
           check_contains .github/workflows/publish-approved-video-to-filo.yml 'workflow_dispatch:'
           check_absent .github/workflows/publish-approved-video-to-filo.yml 'cron: "*/5 * * * *"'
           check_absent .github/workflows/publish-approved-video-to-filo.yml 'five-minute best-effort attempts'
-          check_contains scripts/filo_publish_cc0.cjs 'MAX_DAILY_PUBLICATIONS = 288'
+          check_contains scripts/filo_publish_cc0.cjs 'MAX_DAILY_PUBLICATIONS = DEFAULT_MAX_DAILY_PUBLICATIONS'
           check_contains scripts/filo_publish_cc0.cjs 'MIN_PUBLICATION_GAP_MS = 0'
           check_contains scripts/filo_publish_cc0.cjs 'buildTrendSearches(undefined, { limit: 4 })'
           check_contains scripts/rubika_publish_cc0.cjs 'rotateSearchBatch'

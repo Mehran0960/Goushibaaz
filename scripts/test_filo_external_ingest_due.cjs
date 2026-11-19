@@ -40,4 +40,35 @@ const due = evaluateExternalIngestDue({
 });
 assert.equal(due.due, true);
 assert.equal(due.reason, 'independent_licensed_external_scan_is_due');
+
+const atSharedCap = evaluateExternalIngestDue({
+  nativeReport,
+  nativeState: { posts: Array.from({ length: 35 }, (_, index) => ({
+    status: 'public_verified',
+    submittedAt: new Date(now - (index + 1) * 60 * 1000).toISOString()
+  })) },
+  externalState: { posts: [{
+    status: 'rejected_by_filo',
+    attemptedAt: new Date(now - 2 * 60 * 60 * 1000).toISOString()
+  }] },
+  scheduleState: { lastAttemptAt: new Date(now - EXTERNAL_SCAN_INTERVAL_MS).toISOString() },
+  now
+});
+assert.equal(atSharedCap.due, false);
+assert.equal(atSharedCap.reason, 'daily_limit_reached',
+  'external discovery must not dispatch a publish operation after the shared cap is reached');
+
+const activeAccountCooldown = evaluateExternalIngestDue({
+  nativeReport,
+  nativeState: {
+    posts: [],
+    accountRepublishQuotaCooldown: {
+      retryAfterAt: new Date(now + 6 * 60 * 60 * 1000).toISOString()
+    }
+  },
+  scheduleState: { lastAttemptAt: new Date(now - EXTERNAL_SCAN_INTERVAL_MS).toISOString() },
+  now
+});
+assert.equal(activeAccountCooldown.due, false);
+assert.equal(activeAccountCooldown.reason, 'filo_account_republish_quota_cooldown');
 console.log('FILO_EXTERNAL_INGEST_DUE_TESTS_OK');

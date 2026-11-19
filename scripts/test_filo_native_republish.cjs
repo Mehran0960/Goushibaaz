@@ -1744,14 +1744,18 @@ const dailyPacingState = { posts: Array.from({length:40},(_,index)=>({
   status:'public_verified',
   submittedAt:new Date(pacingNow - (23*60+index)*60*1000).toISOString()
 })) };
-const unblockedByDailyVolume = getPublicationPacingGate(dailyPacingState, pacingNow);
-assert.equal(unblockedByDailyVolume.blocked, false,
-  'more than 36 operations in a rolling 24-hour window must not create a local publishing cap');
-assert.equal(unblockedByDailyVolume.rolling24hOperations, 40);
-assert.equal(unblockedByDailyVolume.internalDailyCap, null);
+const blockedByDailyVolume = getPublicationPacingGate(dailyPacingState, pacingNow);
+assert.equal(blockedByDailyVolume.blocked, true,
+  'the shared rolling 36-operation window must block the next publish attempt');
+assert.equal(blockedByDailyVolume.rolling24hOperations,40);
+assert.equal(blockedByDailyVolume.internalDailyCap,36);
+assert.equal(blockedByDailyVolume.dailyLimitReached,true);
+assert.deepEqual(blockedByDailyVolume.reasons,['rolling_24h_publication_cap_reached']);
+assert.equal(blockedByDailyVolume.nextEligibleAt,
+  new Date(pacingNow - (23*60+35)*60*1000 + 24*60*60*1000).toISOString(),
+  'when over the cap, the fifth-oldest operation expiry releases the next slot');
 assert.equal(dailyCount(dailyPacingState,pacingNow),40,
-  'daily operation count remains diagnostic only after removing the daily cap');
-
+  'dailyCount remains diagnostic and includes every recorded publish operation');
 
 
 const quotaBackoffState = {};
