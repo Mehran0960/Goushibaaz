@@ -12,6 +12,111 @@ function safeError(error) {
   return text.replace(/([?&]key=)[^&]+/gi, "$1[redacted]").slice(0, 500);
 }
 
+let githubSigningKeysCache = { expiresAt: 0, keys: [] };
+
+function base64ToBytes(value) {
+  const normalized = String(value).replace(/-/g, "+").replace(/_/g, "/");
+  const padded = normalized + "=".repeat((4 - normalized.length % 4) % 4);
+  const binary = atob(padded);
+  return Uint8Array.from(binary, character => character.charCodeAt(0));
+}
+
+function bytesToBase64(value) {
+  let binary = "";
+  for (const byte of value) binary += String.fromCharCode(byte);
+  return btoa(binary);
+}
+
+async function getEncryptionCryptoKey(env) {
+  if (!env.YT_KEY_ENCRYPTION_KEY) throw new Error("YT_KEY_ENCRYPTION_KEY is not configured");
+  const raw = base64ToBytes(env.YT_KEY_ENCRYPTION_KEY);
+  if (raw.length !== 32) throw new Error("YT_KEY_ENCRYPTION_KEY must decode to 32 bytes");
+  return crypto.subtle.importKey("raw", raw, { name: "AES-GCM" }, false, ["encrypt", "decrypt"]);
+}
+
+async function encryptYoutubeApiKey(env, apiKey) {
+  const key = await getEncryptionCryptoKey(env);
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const encrypted = await crypto.subtle.encrypt(
+    { name: "AES-GCM", iv },
+    key,
+    new TextEncoder().encode(apiKey)
+  );
+  return "v1." + bytesToBase64(iv) + "." + bytesToBase64(new Uint8Array(encrypted));
+}
+
+async function decryptYoutubeApiKey(env, ciphertext) {
+  const [version, ivText, dataText] = String(ciphertext || "").split(".");
+  if (version !== "v1" || !ivText || !dataText) throw new Error("encrypted YouTube key format is invalid");
+  const key = await getEncryptionCryptoKey(env);
+  const plaintext = await crypto.subtle.decrypt(
+    { name: "AES-GCM", iv: base64ToBytes(ivText) },
+    key,
+    base64ToBytes(dataText)
+  );
+  return new TextDecoder().decode(plaintext);
+}
+
+async function loadYoutubeApiKey(env) {
+  if (!env.DB || !env.YT_KEY_ENCRYPTION_KEY) return null;
+  const row = await env.DB.prepare(
+    "SELECT value FROM app_config WHERE key = 'youtube_api_key_ciphertext' LIMIT 1"
+  ).first();
+  if (!row || !row.value) return null;
+  return decryptYoutubeApiKey(env, row.value);
+}
+
+async function verifyGitHubActionsToken(token) {
+  const parts = String(token || "").split(".");
+  if (parts.length !== 3) throw new Error("invalid GitHub OIDC token");
+  const header = JSON.parse(new TextDecoder().decode(base64ToBytes(parts[0])));
+  const claims = JSON.parse(new TextDecoder().decode(base64ToBytes(parts[1])));
+  if (header.alg !== "RS256" || !header.kid) throw new Error("unsupported GitHub OIDC signature");
+
+  if (Date.now() > githubSigningKeysCache.expiresAt) {
+    const response = await fetch("https://token.actions.githubusercontent.com/.well-known/jwks", {
+      headers: { accept: "application/json" }
+    });
+    if (!response.ok) throw new Error("unable to retrieve GitHub OIDC signing keys");
+    const body = await response.json();
+    githubSigningKeysCache = {
+      expiresAt: Date.now() + 10 * 60 * 1000,
+      keys: Array.isArray(body.keys) ? body.keys : []
+    };
+  }
+
+  const jwk = githubSigningKeysCache.keys.find(item => item.kid === header.kid);
+  if (!jwk) throw new Error("GitHub OIDC signing key was not found");
+  const publicKey = await crypto.subtle.importKey(
+    "jwk",
+    jwk,
+    { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" },
+    false,
+    ["verify"]
+  );
+  const signedContent = new TextEncoder().encode(parts[0] + "." + parts[1]);
+  const signatureValid = await crypto.subtle.verify(
+    { name: "RSASSA-PKCS1-v1_5" },
+    publicKey,
+    base64ToBytes(parts[2]),
+    signedContent
+  );
+  if (!signatureValid) throw new Error("GitHub OIDC signature is invalid");
+
+  const now = Math.floor(Date.now() / 1000);
+  const audience = Array.isArray(claims.aud) ? claims.aud : [claims.aud];
+  if (claims.iss !== "https://token.actions.githubusercontent.com") throw new Error("unexpected OIDC issuer");
+  if (!audience.includes("goushibaaz-trend-scout")) throw new Error("unexpected OIDC audience");
+  if (claims.repository !== "Mehran0960/Goushibaaz") throw new Error("unexpected repository");
+  if (claims.ref !== "refs/heads/main") throw new Error("only the main branch may sync credentials");
+  if (claims.workflow_ref !== "Mehran0960/Goushibaaz/.github/workflows/deploy-goushibaaz.yml@refs/heads/main") {
+    throw new Error("unexpected workflow identity");
+  }
+  if (!Number.isFinite(Number(claims.exp)) || Number(claims.exp) <= now) throw new Error("OIDC token expired");
+  if (claims.nbf && Number(claims.nbf) > now + 60) throw new Error("OIDC token is not active yet");
+  return claims;
+}
+
 function clampInt(value, fallback, min, max) {
   const n = Number.parseInt(value, 10);
   return Number.isFinite(n) ? Math.min(max, Math.max(min, n)) : fallback;
@@ -133,7 +238,13 @@ function scoreVideo(video, history, observedAt) {
 
 async function runScan(env, source) {
   if (!env.DB) return { ok: false, status: "configuration_required", missing: ["D1 binding DB"] };
-  if (!env.YOUTUBE_API_KEY) return { ok: false, status: "configuration_required", missing: ["YOUTUBE_API_KEY secret"] };
+  if (!env.YT_KEY_ENCRYPTION_KEY) {
+    return { ok: false, status: "configuration_required", missing: ["YT_KEY_ENCRYPTION_KEY secret"] };
+  }
+  const apiKey = await loadYoutubeApiKey(env).catch(() => null);
+  if (!apiKey) {
+    return { ok: false, status: "configuration_required", missing: ["encrypted YOUTUBE_API_KEY record"] };
+  }
 
   const runId = crypto.randomUUID();
   const startedAt = new Date().toISOString();
@@ -149,7 +260,7 @@ async function runScan(env, source) {
       chart: "mostPopular",
       regionCode,
       maxResults: 50
-    }, env.YOUTUBE_API_KEY);
+    }, apiKey);
     const itemsById = new Map();
     for (const item of (chartData.items || [])) {
       const parsed = parseVideo(item);
@@ -185,7 +296,7 @@ async function runScan(env, source) {
           relevanceLanguage: searchSpec.language,
           publishedAfter: new Date(Date.now() - 72 * 3600000).toISOString(),
           maxResults: 50
-        }, env.YOUTUBE_API_KEY);
+        }, apiKey);
         const ids = [...new Set((searchData.items || [])
           .map(item => item && item.id && item.id.videoId)
           .filter(Boolean))]
@@ -194,7 +305,7 @@ async function runScan(env, source) {
           const detailData = await youtube("videos", {
             part: "snippet,statistics,contentDetails,status",
             id: ids.slice(0, 50).join(",")
-          }, env.YOUTUBE_API_KEY);
+          }, apiKey);
           for (const item of (detailData.items || [])) {
             const parsed = parseVideo(item);
             if (parsed) itemsById.set(parsed.id, parsed);
@@ -408,14 +519,62 @@ async function authorized(request, env) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname === "/actions/sync-youtube-key" && request.method === "POST") {
+      if (!env.DB || !env.YT_KEY_ENCRYPTION_KEY) {
+        return json({ ok: false, error: "credential_storage_not_configured" }, 503);
+      }
+
+      const authorization = request.headers.get("authorization") || "";
+      const identityToken = authorization.startsWith("Bearer ") ? authorization.slice(7) : "";
+      if (!identityToken) return json({ ok: false, error: "github_oidc_token_required" }, 401);
+      try {
+        await verifyGitHubActionsToken(identityToken);
+      } catch {
+        return json({ ok: false, error: "github_oidc_identity_rejected" }, 401);
+      }
+
+      const contentLength = Number(request.headers.get("content-length") || 0);
+      if (contentLength > 8192) return json({ ok: false, error: "request_too_large" }, 413);
+      const rawBody = await request.text();
+      if (rawBody.length > 8192) return json({ ok: false, error: "request_too_large" }, 413);
+      let body;
+      try { body = JSON.parse(rawBody); } catch { return json({ ok: false, error: "invalid_json" }, 400); }
+      const apiKey = String(body && body.apiKey || "").trim();
+      if (!/^[A-Za-z0-9_-]{20,128}$/.test(apiKey)) {
+        return json({ ok: false, error: "invalid_youtube_api_key_format" }, 400);
+      }
+
+      try {
+        await youtube("videos", { part: "id", chart: "mostPopular", maxResults: 1 }, apiKey);
+        const encryptedKey = await encryptYoutubeApiKey(env, apiKey);
+        const now = new Date().toISOString();
+        await env.DB.prepare(
+          "INSERT INTO app_config (key, value, updated_at) VALUES ('youtube_api_key_ciphertext', ?, ?) " +
+          "ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at"
+        ).bind(encryptedKey, now).run();
+
+        const scan = await runScan(env, "github_oidc_key_sync");
+        return json({
+          ok: true,
+          keyStorage: "encrypted_at_rest",
+          credentialValidated: true,
+          scan
+        }, scan.ok ? 200 : 502);
+      } catch (error) {
+        return json({ ok: false, error: "credential_sync_failed", detail: safeError(error) }, 422);
+      }
+    }
+
     if (request.method === "GET" && url.pathname === "/health") {
+      const youtubeKeyConfigured = Boolean(await loadYoutubeApiKey(env).catch(() => null));
       return json({
         ok: true,
         service: "goushibaaz-trend-scout",
-        version: "0.1.0",
+        version: "0.2.0",
         configured: {
           database: Boolean(env.DB),
-          youtubeApiKey: Boolean(env.YOUTUBE_API_KEY),
+          youtubeApiKey: youtubeKeyConfigured,
+          youtubeKeyStorage: "encrypted_at_rest",
           adminToken: Boolean(env.ADMIN_TOKEN),
           filoConnector: Boolean(env.FILO_UPLOAD_BRIDGE_URL && env.FILO_UPLOAD_BRIDGE_TOKEN)
         }
@@ -569,7 +728,7 @@ export default {
   },
 
   async scheduled(controller, env, ctx) {
-    if (env.YOUTUBE_API_KEY && env.DB) {
+    if (env.YT_KEY_ENCRYPTION_KEY && env.DB) {
       ctx.waitUntil(runScan(env, "cron").then(result => {
         if (!result.ok) console.error("scheduled scan not successful: " + safeError(result.error || result.status));
       }).catch(error => console.error("scheduled scan error: " + safeError(error))));
