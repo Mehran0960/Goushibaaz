@@ -55,7 +55,6 @@ jobs:
             const chart = await youtube("videos", {
               part: "snippet,statistics,contentDetails,status",
               chart: "mostPopular",
-              regionCode: "IR",
               maxResults: 50
             });
             for (const item of chart.items || []) {
@@ -80,7 +79,6 @@ jobs:
                 type: "video",
                 order: "viewCount",
                 q: query,
-                regionCode: "IR",
                 relevanceLanguage: "fa",
                 publishedAfter: new Date(Date.now() - 72 * 60 * 60 * 1000).toISOString(),
                 maxResults: 50
