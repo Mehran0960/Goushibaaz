@@ -113,7 +113,10 @@
       "attemptedAt": "2026-11-18T05:25:23.298Z",
       "chatId": "6119465834",
       "messageId": "2270",
-      "publishedAt": "2026-11-18T05:25:26.004Z"
+      "publishedAt": "2026-11-18T05:25:26.004Z",
+      "retentionStatus": "outside_api_window",
+      "retentionFailure": "platform_bot_api_cannot_delete_messages_at_or_after_48_hours",
+      "retentionCheckedAt": "2026-11-20T07:49:10.991Z"
     }
   ],
   "lastOutcome": {
@@ -124,9 +127,9 @@
     "sha256": "0bed5d53f2056d8d8fc80297ab1b777008f8bdb663d18b5fbb9f23c51dcd382a"
   },
   "lastRetentionRun": {
-    "checkedAt": "2026-11-05T00:18:32.760Z",
+    "checkedAt": "2026-11-20T07:49:10.991Z",
     "deleted": 0,
-    "outsideApiWindow": 6,
+    "outsideApiWindow": 1,
     "failed": 0
   }
 }
