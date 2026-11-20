@@ -11,7 +11,7 @@
 - Cloudflare Worker با نام goushibaaz-trend-scout و cron ده‌دقیقه‌ای در حساب موجود است؛ آخرین deployment مشاهده‌شده 2026-10-27T20:45:11Z بود.
 - D1 database دارای شش جدول عملیاتی است، اما در query زندهٔ ۲۰ نوامبر ۲۰۲۶ تعداد ردیف‌های app_config، scan_runs، video_candidates، video_snapshots، publication_authorizations و delivery_jobs صفر بود.
 - فهرست secretهای Worker خالی بود؛ در نتیجه YOUTUBE_API_KEY به Worker نرسیده و کد قبل از ثبت scan run وضعیت configuration_required می‌دهد. بنابراین cron ثبت‌شده، به‌تنهایی اثبات پایش فعال نیست.
-- گردش‌کار deploy اکنون باید کلید YOUTUBE_API_KEY را از GitHub Actions Secret/Variable با ورودی stdin به Worker منتقل کند؛ مقدار کلید نباید در log ظاهر شود. پس از اجرای deploy، وجود scan run جدید و سپس candidate/snapshot واقعی در D1 معیار فعال‌شدن این adapter است.
+- گردش‌کار deploy اکنون باید کلید YOUTUBE_API_KEY را از GitHub Actions Secret با ورودی stdin به Worker منتقل کند؛ مقدار کلید نباید در log ظاهر شود. پس از اجرای deploy، وجود scan run جدید و سپس candidate/snapshot واقعی در D1 معیار فعال‌شدن این adapter است.
 - workflowهای چندمنبعی GitHub در repository cadenceهای ۱۵دقیقه‌ای (trend intelligence)، چهار‌ساعته (Firecrawl) و دوساعته (scout کامل‌تر) تعریف کرده‌اند. این‌ها سرنخ‌ها و متادیتا را ذخیره می‌کنند؛ هنوز معادل صف یکپارچهٔ انتشار نیستند.
 - تا وقتی adapterها دادهٔ fresh را به صف استاندارد وارد نکنند و انتخاب cross-platform در هر slot اثبات نشود، وضعیت قابلیت «کشف چندمنبعی موجود / انتخاب نهایی یکپارچه در حال توسعه» باقی می‌ماند.
 
