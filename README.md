@@ -4,6 +4,8 @@ Goushibaaz is focused on one job: discover videos that are gaining momentum **be
 
 ## Current architecture
 
+- **Cross-project priority:** see [PROJECT_PRIORITY.md](PROJECT_PRIORITY.md). This repository remains operational; noncritical feature work may be deferred while the trading project receives first engineering priority. Existing publishing schedules must remain intact.
+
 - **Cloudflare Workers + Cron:** scheduled scans.
 - **Cloudflare D1:** candidates, timestamped public-stat snapshots, trend scores, scan history, verified reuse authorization, and per-destination delivery state.
 - **GitHub:** source control and a manual deployment workflow.
