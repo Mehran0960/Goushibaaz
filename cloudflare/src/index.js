@@ -21,51 +21,6 @@ function base64ToBytes(value) {
   return Uint8Array.from(binary, character => character.charCodeAt(0));
 }
 
-function bytesToBase64(value) {
-  let binary = "";
-  for (const byte of value) binary += String.fromCharCode(byte);
-  return btoa(binary);
-}
-
-async function getEncryptionCryptoKey(env) {
-  if (!env.YT_KEY_ENCRYPTION_KEY) throw new Error("YT_KEY_ENCRYPTION_KEY is not configured");
-  const raw = base64ToBytes(env.YT_KEY_ENCRYPTION_KEY);
-  if (raw.length !== 32) throw new Error("YT_KEY_ENCRYPTION_KEY must decode to 32 bytes");
-  return crypto.subtle.importKey("raw", raw, { name: "AES-GCM" }, false, ["encrypt", "decrypt"]);
-}
-
-async function encryptYoutubeApiKey(env, apiKey) {
-  const key = await getEncryptionCryptoKey(env);
-  const iv = crypto.getRandomValues(new Uint8Array(12));
-  const encrypted = await crypto.subtle.encrypt(
-    { name: "AES-GCM", iv },
-    key,
-    new TextEncoder().encode(apiKey)
-  );
-  return "v1." + bytesToBase64(iv) + "." + bytesToBase64(new Uint8Array(encrypted));
-}
-
-async function decryptYoutubeApiKey(env, ciphertext) {
-  const [version, ivText, dataText] = String(ciphertext || "").split(".");
-  if (version !== "v1" || !ivText || !dataText) throw new Error("encrypted YouTube key format is invalid");
-  const key = await getEncryptionCryptoKey(env);
-  const plaintext = await crypto.subtle.decrypt(
-    { name: "AES-GCM", iv: base64ToBytes(ivText) },
-    key,
-    base64ToBytes(dataText)
-  );
-  return new TextDecoder().decode(plaintext);
-}
-
-async function loadYoutubeApiKey(env) {
-  if (!env.DB || !env.YT_KEY_ENCRYPTION_KEY) return null;
-  const row = await env.DB.prepare(
-    "SELECT value FROM app_config WHERE key = 'youtube_api_key_ciphertext' LIMIT 1"
-  ).first();
-  if (!row || !row.value) return null;
-  return decryptYoutubeApiKey(env, row.value);
-}
-
 async function verifyGitHubActionsToken(token) {
   const parts = String(token || "").split(".");
   if (parts.length !== 3) throw new Error("invalid GitHub OIDC token");
@@ -94,12 +49,11 @@ async function verifyGitHubActionsToken(token) {
     false,
     ["verify"]
   );
-  const signedContent = new TextEncoder().encode(parts[0] + "." + parts[1]);
   const signatureValid = await crypto.subtle.verify(
     { name: "RSASSA-PKCS1-v1_5" },
     publicKey,
     base64ToBytes(parts[2]),
-    signedContent
+    new TextEncoder().encode(parts[0] + "." + parts[1])
   );
   if (!signatureValid) throw new Error("GitHub OIDC signature is invalid");
 
@@ -108,8 +62,8 @@ async function verifyGitHubActionsToken(token) {
   if (claims.iss !== "https://token.actions.githubusercontent.com") throw new Error("unexpected OIDC issuer");
   if (!audience.includes("goushibaaz-trend-scout")) throw new Error("unexpected OIDC audience");
   if (claims.repository !== "Mehran0960/Goushibaaz") throw new Error("unexpected repository");
-  if (claims.ref !== "refs/heads/main") throw new Error("only the main branch may sync credentials");
-  if (claims.workflow_ref !== "Mehran0960/Goushibaaz/.github/workflows/deploy-goushibaaz.yml@refs/heads/main") {
+  if (claims.ref !== "refs/heads/main") throw new Error("only the main branch may ingest data");
+  if (claims.workflow_ref !== "Mehran0960/Goushibaaz/.github/workflows/trend-scout-scan.yml@refs/heads/main") {
     throw new Error("unexpected workflow identity");
   }
   if (!Number.isFinite(Number(claims.exp)) || Number(claims.exp) <= now) throw new Error("OIDC token expired");
@@ -236,98 +190,31 @@ function scoreVideo(video, history, observedAt) {
   };
 }
 
-async function runScan(env, source) {
+async function ingestYoutubeItems(env, rawItems, source) {
   if (!env.DB) return { ok: false, status: "configuration_required", missing: ["D1 binding DB"] };
-  if (!env.YT_KEY_ENCRYPTION_KEY) {
-    return { ok: false, status: "configuration_required", missing: ["YT_KEY_ENCRYPTION_KEY secret"] };
-  }
-  const apiKey = await loadYoutubeApiKey(env).catch(() => null);
-  if (!apiKey) {
-    return { ok: false, status: "configuration_required", missing: ["encrypted YOUTUBE_API_KEY record"] };
-  }
 
   const runId = crypto.randomUUID();
   const startedAt = new Date().toISOString();
   const observedAt = new Date(Math.floor(Date.now() / 60000) * 60000).toISOString();
-  const regionCode = String(env.YT_REGION_CODE || "IR").toUpperCase();
   await env.DB.prepare(
     "INSERT INTO scan_runs (id, source, started_at, status) VALUES (?, ?, ?, 'running')"
-  ).bind(runId, source, startedAt).run();
+  ).bind(runId, String(source || "github_actions").slice(0, 80), startedAt).run();
 
   try {
-    const chartData = await youtube("videos", {
-      part: "snippet,statistics,contentDetails,status",
-      chart: "mostPopular",
-      regionCode,
-      maxResults: 50
-    }, apiKey);
     const itemsById = new Map();
-    for (const item of (chartData.items || [])) {
+    for (const item of (Array.isArray(rawItems) ? rawItems : [])) {
       const parsed = parseVideo(item);
       if (parsed) itemsById.set(parsed.id, parsed);
     }
-
-    let searchWarning = null;
-    const lastSearchRow = await env.DB.prepare(
-      "SELECT value FROM app_config WHERE key = 'last_search_at' LIMIT 1"
-    ).first();
-    const lastSearchAt = lastSearchRow && lastSearchRow.value ? Date.parse(lastSearchRow.value) : 0;
-    const queryRotation = [
-      { q: "دوربین مخفی|شکار لحظه|سوتی|لحظات عجیب", language: "fa", region: "IR" },
-      { q: "حیوانات بامزه|گربه|سگ|کلیپ خنده دار", language: "fa", region: "IR" },
-      { q: "طنز کوتاه|فان|چالش خنده دار|اتفاق باورنکردنی", language: "fa", region: "IR" },
-      { q: "caught on camera|CCTV|dashcam|near miss", language: "en", region: "" },
-      { q: "funny moments|instant karma|epic fails|unexpected moments", language: "en", region: "" },
-      { q: "oddly satisfying|no talking|visual comedy|animal fails", language: "en", region: "" }
-    ];
-    const rotationRow = await env.DB.prepare(
-      "SELECT value FROM app_config WHERE key = 'next_search_index' LIMIT 1"
-    ).first();
-    const searchIndex = clampInt(rotationRow && rotationRow.value, 0, 0, queryRotation.length - 1);
-    const searchSpec = queryRotation[searchIndex];
-    if (!lastSearchAt || Date.now() - lastSearchAt >= 30 * 60 * 1000) {
-      try {
-        const searchData = await youtube("search", {
-          part: "snippet",
-          type: "video",
-          order: "viewCount",
-          q: searchSpec.q,
-          regionCode: searchSpec.region || undefined,
-          relevanceLanguage: searchSpec.language,
-          publishedAfter: new Date(Date.now() - 72 * 3600000).toISOString(),
-          maxResults: 50
-        }, apiKey);
-        const ids = [...new Set((searchData.items || [])
-          .map(item => item && item.id && item.id.videoId)
-          .filter(Boolean))]
-          .filter(id => !itemsById.has(String(id)));
-        if (ids.length) {
-          const detailData = await youtube("videos", {
-            part: "snippet,statistics,contentDetails,status",
-            id: ids.slice(0, 50).join(",")
-          }, apiKey);
-          for (const item of (detailData.items || [])) {
-            const parsed = parseVideo(item);
-            if (parsed) itemsById.set(parsed.id, parsed);
-          }
-        }
-      } catch (error) {
-        searchWarning = safeError(error);
-      } finally {
-        await env.DB.batch([
-          env.DB.prepare(
-            "INSERT INTO app_config (key, value, updated_at) VALUES ('last_search_at', ?, ?) " +
-            "ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at"
-          ).bind(observedAt, observedAt),
-          env.DB.prepare(
-            "INSERT INTO app_config (key, value, updated_at) VALUES ('next_search_index', ?, ?) " +
-            "ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at"
-          ).bind(String((searchIndex + 1) % queryRotation.length), observedAt)
-        ]);
-      }
+    const videos = [...itemsById.values()];
+    if (!videos.length) {
+      const finishedAt = new Date().toISOString();
+      await env.DB.prepare(
+        "UPDATE scan_runs SET finished_at = ?, status = 'success', candidate_count = 0, emerging_count = 0, note = ? WHERE id = ?"
+      ).bind(finishedAt, "No valid YouTube video records received", runId).run();
+      return { ok: true, runId, source, received: rawItems.length, scanned: 0, emerging: 0, observedAt };
     }
 
-    const videos = [...itemsById.values()];
     const cutoff = new Date(Date.parse(observedAt) - 90 * 60000).toISOString();
     const historyResult = await env.DB.prepare(
       "WITH ranked AS (" +
@@ -381,19 +268,17 @@ async function runScan(env, source) {
     if (snapshotStatements.length) await env.DB.batch(snapshotStatements);
 
     const finishedAt = new Date().toISOString();
-    const note = searchWarning ? "Search discovery warning: " + searchWarning : null;
     await env.DB.prepare(
       "UPDATE scan_runs SET finished_at = ?, status = 'success', candidate_count = ?, emerging_count = ?, note = ? WHERE id = ?"
-    ).bind(finishedAt, videos.length, emergingCount, note, runId).run();
+    ).bind(finishedAt, videos.length, emergingCount, null, runId).run();
 
     return {
       ok: true,
       runId,
       source,
-      regionCode,
+      received: rawItems.length,
       scanned: videos.length,
       emerging: emergingCount,
-      searchWarning,
       observedAt
     };
   } catch (error) {
@@ -402,10 +287,9 @@ async function runScan(env, source) {
     await env.DB.prepare(
       "UPDATE scan_runs SET finished_at = ?, status = 'failed', note = ? WHERE id = ?"
     ).bind(finishedAt, message, runId).run().catch(() => {});
-    return { ok: false, runId, status: "scan_failed", error: message };
+    return { ok: false, runId, status: "ingest_failed", error: message };
   }
 }
-
 
 async function dispatchFiloJobs(env, limit = 2) {
   if (!env.DB) return { ok: false, skipped: true, reason: "D1 binding DB is not configured" };
@@ -519,11 +403,8 @@ async function authorized(request, env) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (url.pathname === "/actions/sync-youtube-key" && request.method === "POST") {
-      if (!env.DB || !env.YT_KEY_ENCRYPTION_KEY) {
-        return json({ ok: false, error: "credential_storage_not_configured" }, 503);
-      }
-
+    if (url.pathname === "/actions/ingest-youtube" && request.method === "POST") {
+      if (!env.DB) return json({ ok: false, error: "database_not_configured" }, 503);
       const authorization = request.headers.get("authorization") || "";
       const identityToken = authorization.startsWith("Bearer ") ? authorization.slice(7) : "";
       if (!identityToken) return json({ ok: false, error: "github_oidc_token_required" }, 401);
@@ -534,47 +415,26 @@ export default {
       }
 
       const contentLength = Number(request.headers.get("content-length") || 0);
-      if (contentLength > 8192) return json({ ok: false, error: "request_too_large" }, 413);
+      if (contentLength > 2_000_000) return json({ ok: false, error: "request_too_large" }, 413);
       const rawBody = await request.text();
-      if (rawBody.length > 8192) return json({ ok: false, error: "request_too_large" }, 413);
+      if (rawBody.length > 2_000_000) return json({ ok: false, error: "request_too_large" }, 413);
       let body;
       try { body = JSON.parse(rawBody); } catch { return json({ ok: false, error: "invalid_json" }, 400); }
-      const apiKey = String(body && body.apiKey || "").trim();
-      if (!/^[A-Za-z0-9_-]{20,128}$/.test(apiKey)) {
-        return json({ ok: false, error: "invalid_youtube_api_key_format" }, 400);
+      if (!body || !Array.isArray(body.items) || body.items.length > 100) {
+        return json({ ok: false, error: "items_array_required_max_100" }, 400);
       }
-
-      try {
-        await youtube("videos", { part: "id", chart: "mostPopular", maxResults: 1 }, apiKey);
-        const encryptedKey = await encryptYoutubeApiKey(env, apiKey);
-        const now = new Date().toISOString();
-        await env.DB.prepare(
-          "INSERT INTO app_config (key, value, updated_at) VALUES ('youtube_api_key_ciphertext', ?, ?) " +
-          "ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at"
-        ).bind(encryptedKey, now).run();
-
-        const scan = await runScan(env, "github_oidc_key_sync");
-        return json({
-          ok: true,
-          keyStorage: "encrypted_at_rest",
-          credentialValidated: true,
-          scan
-        }, scan.ok ? 200 : 502);
-      } catch (error) {
-        return json({ ok: false, error: "credential_sync_failed", detail: safeError(error) }, 422);
-      }
+      const result = await ingestYoutubeItems(env, body.items, "github_actions");
+      return json(result, result.ok ? 200 : 500);
     }
 
     if (request.method === "GET" && url.pathname === "/health") {
-      const youtubeKeyConfigured = Boolean(await loadYoutubeApiKey(env).catch(() => null));
       return json({
         ok: true,
         service: "goushibaaz-trend-scout",
-        version: "0.2.0",
+        version: "0.3.0",
         configured: {
           database: Boolean(env.DB),
-          youtubeApiKey: youtubeKeyConfigured,
-          youtubeKeyStorage: "encrypted_at_rest",
+          githubActionsIngest: true,
           adminToken: Boolean(env.ADMIN_TOKEN),
           filoConnector: Boolean(env.FILO_UPLOAD_BRIDGE_URL && env.FILO_UPLOAD_BRIDGE_TOKEN)
         }
@@ -585,7 +445,7 @@ export default {
     if (!auth.ok) return auth.response;
 
     if (url.pathname === "/admin/scan" && request.method === "POST") {
-      return json(await runScan(env, "manual"));
+      return json({ error: "manual_scan_disabled", note: "YouTube scans are supplied by the authenticated GitHub Actions workflow." }, 410);
     }
 
     if (url.pathname === "/admin/filo/status" && request.method === "GET") {
@@ -728,11 +588,6 @@ export default {
   },
 
   async scheduled(controller, env, ctx) {
-    if (env.YT_KEY_ENCRYPTION_KEY && env.DB) {
-      ctx.waitUntil(runScan(env, "cron").then(result => {
-        if (!result.ok) console.error("scheduled scan not successful: " + safeError(result.error || result.status));
-      }).catch(error => console.error("scheduled scan error: " + safeError(error))));
-    }
     if (env.FILO_UPLOAD_BRIDGE_URL && env.FILO_UPLOAD_BRIDGE_TOKEN && env.DB) {
       ctx.waitUntil(dispatchFiloJobs(env).then(result => {
         if (!result.ok) console.error("Filo dispatch not successful: " + safeError(result.reason || result.error || "unknown"));
