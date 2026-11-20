@@ -1,6 +1,12 @@
 name: Deploy Goushibaaz trend scout
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - "cloudflare/**"
+      - ".github/workflows/deploy-goushibaaz.yml"
   workflow_dispatch:
 
 jobs:
