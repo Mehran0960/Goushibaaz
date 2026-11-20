@@ -29,8 +29,9 @@ const crossPathNoLocalGap = evaluateExternalIngestDue({
   scheduleState: { lastAttemptAt: new Date(now - EXTERNAL_SCAN_INTERVAL_MS).toISOString() },
   now
 });
-assert.equal(crossPathNoLocalGap.due, true,
-  'a completed native operation does not impose a local 17-minute cross-path publishing delay');
+assert.equal(crossPathNoLocalGap.due, false);
+assert.equal(crossPathNoLocalGap.reason, 'publication_cooldown',
+  'the shared 40-minute spacing applies to every Filo publication path');
 
 const due = evaluateExternalIngestDue({
   nativeReport,
