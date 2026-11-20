@@ -125,7 +125,7 @@
 
 ### گام صفر — فعال‌سازی پایش YouTube در Cloudflare
 
-- گردش‌کار .github/workflows/deploy-goushibaaz.yml باید مقدار GitHub Secret/Variable به نام YOUTUBE_API_KEY را از طریق stdin به secret Worker با همین نام منتقل کند؛ مقدار هرگز نباید در log چاپ شود.
+- گردش‌کار .github/workflows/deploy-goushibaaz.yml باید مقدار GitHub Secret به نام YOUTUBE_API_KEY را از طریق stdin به secret Worker با همین نام منتقل کند؛ مقدار هرگز نباید در log چاپ شود.
 - یک deploy کنترل‌شده اجرا شود.
 - ظرف دو چرخهٔ ده‌دقیقه‌ای، scan_runs باید رکورد جدید بسازد؛ سپس video_candidates و video_snapshots باید دادهٔ واقعی داشته باشند. اگر این اتفاق نیفتاد، وضعیت باید blocked/configuration_required/API error باشد، نه فعال.
 - secret name و وجود credential قابل گزارش است؛ خود مقدار API key هرگز.
