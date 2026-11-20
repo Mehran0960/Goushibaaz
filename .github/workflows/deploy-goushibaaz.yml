@@ -22,7 +22,7 @@ jobs:
         run: |
           set -euo pipefail
           if [ -z "$YOUTUBE_API_KEY" ]; then
-            echo "::error::YOUTUBE_API_KEY is missing from GitHub Actions secrets/variables; the Cloudflare scout cannot run."
+            echo "::error::YOUTUBE_API_KEY is missing from GitHub Actions repository secrets; the Cloudflare scout cannot run."
             exit 1
           fi
           printf '%s' "$YOUTUBE_API_KEY" | npx --yes wrangler@4 secret put YOUTUBE_API_KEY --config cloudflare/wrangler.jsonc
