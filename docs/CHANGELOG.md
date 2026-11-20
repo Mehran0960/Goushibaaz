@@ -587,3 +587,9 @@
 - Candidate-level play acceleration is primary; candidate-level view acceleration is only a fallback when play acceleration is unavailable (or a zero play counter is demonstrably stalled). Negative acceleration is preserved. All age bands now require positive acceleration, three independent samples and the existing age-adjusted velocity threshold.
 - Rights, source authorization, privacy, explicit harmful-content and platform permission gates remain intact. Regression tests and CI coverage were updated.
 - Production effect remains pending until the new main commit runs in production and any resulting public post is independently verified.
+
+
+## 2026-11-20 — ثبت سیاست اولویت بین‌پروژه‌ای
+- به دستور مالک، ربات معامله‌گر اولویت نخست تخصیص زمان مهندسی است و گوشی‌باز/فیلو در اولویت دوم باقی می‌ماند.
+- سند ریشهٔ `PROJECT_PRIORITY.md` اضافه شد و در README پیوند داده شد.
+- **هیچ Workflow، Cron، Secret، Worker، سقف انتشار، صف، state یا تنظیم ناشر تغییر نکرد.** چرخهٔ خودکار فعلی حفظ می‌شود؛ فقط توسعه‌های غیرفوری ممکن است عقب بیفتند.
