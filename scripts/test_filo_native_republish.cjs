@@ -998,8 +998,14 @@ assert.equal(fitFiloTitleLength('خیلی کوتاه'), '',
 const fittedLongTitle = fitFiloTitleLength('ترانهٔ بسیار زیبا و شنیدنی از خوانندهٔ محبوب و پرطرفدار برای یک شب بارانی در شهر و کوچه‌های قدیمی با صدای گرم و دلنشین');
 assert.equal(fittedLongTitle, '',
   'long titles without a natural sentence boundary must be rejected instead of being cut mid-sentence');
-assert.equal(editorialTitleQualityReason('ترفند آشپزی'), null,
-  'two informative terms are sufficient when the resulting title remains meaningful and within Filo limits');
+assert.equal(editorialTitleQualityReason('ترفند آشپزی'), 'title_generic_without_subject',
+  'category labels alone are not a sufficiently informative editorial headline');
+assert.equal(createRepostMetadata({
+  ...valid,
+  title: 'آموزش پخت کیک شکلاتی / آموزش آشپزی / اسمرفود',
+  description: 'پخت کیک شکلاتی'
+}, 'Cake001').title, 'روش پخت کیک شکلاتی',
+'category suffixes should be removed and specific how-to titles should be rewritten cleanly');
 assert.throws(() => createRepostMetadata({
   ...valid,
   title: 'پیغام توهین آمیز به یک بازیکن',
@@ -1721,17 +1727,17 @@ const oneRecentPublication = { posts: [
   { status:'public_verified', submittedAt:new Date(pacingNow - 10*60*1000).toISOString() }
 ] };
 const immediatelyEligible = getPublicationPacingGate(oneRecentPublication, pacingNow);
-assert.equal(immediatelyEligible.blocked, false);
-assert.deepEqual(immediatelyEligible.reasons, []);
-assert.equal(immediatelyEligible.minimumGapMs, 0);
-assert.equal(immediatelyEligible.nextEligibleAt, null,
-  'a prior operation does not impose an artificial 17-minute local delay');
+assert.equal(immediatelyEligible.blocked, true);
+assert.deepEqual(immediatelyEligible.reasons, ['minimum_gap_between_republish_operations']);
+assert.equal(immediatelyEligible.minimumGapMs, 40 * 60 * 1000);
+assert.equal(immediatelyEligible.nextEligibleAt, new Date(pacingNow + 30 * 60 * 1000).toISOString(),
+  'native publishing waits until the next evenly spaced 40-minute slot');
 
 const rollingHourState = { posts: [
-  { status:'public_verified', submittedAt:new Date(pacingNow - 50*60*1000).toISOString() },
-  { status:'public_verified', submittedAt:new Date(pacingNow - 40*60*1000).toISOString() },
-  { status:'rejected_by_filo', attemptedAt:new Date(pacingNow - 30*60*1000).toISOString() },
-  { status:'public_verified', submittedAt:new Date(pacingNow - 20*60*1000).toISOString() }
+  { status:'public_verified', submittedAt:new Date(pacingNow - 59*60*1000).toISOString() },
+  { status:'public_verified', submittedAt:new Date(pacingNow - 55*60*1000).toISOString() },
+  { status:'rejected_by_filo', attemptedAt:new Date(pacingNow - 48*60*1000).toISOString() },
+  { status:'public_verified', submittedAt:new Date(pacingNow - 41*60*1000).toISOString() }
 ] };
 const unblockedByHourlyVolume = getPublicationPacingGate(rollingHourState, pacingNow);
 assert.equal(unblockedByHourlyVolume.blocked, false,
@@ -1778,17 +1784,20 @@ async function testPublicationPacingWait() {
     maxWaitMs: 5*60*1000
   });
   assert.equal(recordedWait,0,
-    'an eligible follow-up operation must not sleep for a local 17-minute pacing rule');
+    'the five-minute poll must not hold a runner while waiting for the 40-minute slot');
   assert.equal(waitedForExactWindow.waitedMs,0);
-  assert.equal(waitedForExactWindow.gate.blocked,false);
+  assert.equal(waitedForExactWindow.requiredWaitMs,25*60*1000);
+  assert.equal(waitedForExactWindow.waitSkipped,true);
+  assert.equal(waitedForExactWindow.gate.blocked,true);
 
-  const noArtificialWait = await waitForPublicationWindow(oneRecentPublication, {
+  const boundedWait = await waitForPublicationWindow(oneRecentPublication, {
     nowFn: () => pacingNow,
-    sleepFn: async () => { throw new Error('no wait should be requested'); },
-    maxWaitMs: 0
+    sleepFn: async () => { throw new Error('the scheduler must not hold a runner while waiting'); },
+    maxWaitMs: 5 * 60 * 1000
   });
-  assert.equal(noArtificialWait.waitSkipped,false);
-  assert.equal(noArtificialWait.gate.blocked,false);
+  assert.equal(boundedWait.waitSkipped,true);
+  assert.equal(boundedWait.requiredWaitMs,30 * 60 * 1000);
+  assert.equal(boundedWait.gate.blocked,true);
 }
 
 async function testPortraitCoverComposition() {
@@ -1809,13 +1818,15 @@ async function testPortraitCoverComposition() {
       context.fillRect(0, 572, 300, 28);
       return canvas.toDataURL('image/jpeg', 0.96);
     });
-    const composed = await composeFiloCoverDataUrl(page, source);
+    const composed = await composeFiloCoverDataUrl(page, source, 'روش پخت کیک شکلاتی');
     assert.equal(composed.ok, true, 'portrait cover must compose into a valid landscape image');
     assert.deepEqual(composed.sourceDimensions, { width: 300, height: 600 });
     assert.deepEqual(composed.dimensions, { width: 640, height: 360 });
     assert.ok(composed.encodedLength <= 800000,
       'the complete URL-encoded selectedFrame field must stay below Filo’s request limit');
-    assert.equal(composed.strategy, 'blurred_background_full_frame_contain_compact_png_v1');
+    assert.equal(composed.strategy, 'blurred_background_full_frame_contain_editorial_title_overlay_v2');
+    assert.equal(composed.thumbnailTextOverlay, true,
+      'the selected thumbnail should carry the final editorial headline when there is room');
     assert.equal(composed.dataUrl.startsWith('data:image/png;base64,'), true,
       'the composed cover must retain Filo native PNG data URL format');
 
@@ -1829,7 +1840,7 @@ async function testPortraitCoverComposition() {
       const context = canvas.getContext('2d');
       context.drawImage(image, 0, 0);
       const top = context.getImageData(320, 5, 1, 1).data;
-      const bottom = context.getImageData(320, 350, 1, 1).data;
+      const bottom = context.getImageData(18, 350, 1, 1).data;
       return { topRed: top[0], topGreen: top[1], bottomGreen: bottom[1], bottomRed: bottom[0] };
     }, composed.dataUrl);
     assert.ok(preserved.topRed > preserved.topGreen,
