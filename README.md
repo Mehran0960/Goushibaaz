@@ -123,7 +123,7 @@ YouTube Shorts, Instagram Reels and Aparat remain future external publishing lan
 ## Setup
 
 1. Create or use a Google Cloud project with **YouTube Data API v3** enabled and obtain an API key.
-2. Add `YOUTUBE_API_KEY` and a strong random `ADMIN_TOKEN` as **Cloudflare Worker secrets** for `goushibaaz-trend-scout`. Never commit them.
+2. Add `YOUTUBE_API_KEY` as a **GitHub Actions repository secret**. The deployment workflow transfers it to the Cloudflare Worker secret over stdin; the value is never printed. If you use authenticated admin routes, add a separate strong random `ADMIN_TOKEN` directly as a Cloudflare Worker secret. Never commit either value.
 3. Add GitHub Actions secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` to enable the manual deployment workflow.
 4. Run the `Deploy Goushibaaz trend scout` workflow from GitHub Actions.
 5. Check `GET /health`; then use authenticated admin routes described in `cloudflare/README.md`.
