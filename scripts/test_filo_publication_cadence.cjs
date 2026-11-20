@@ -28,19 +28,19 @@ assert.deepEqual(
   'both ledgers are combined, ignored statuses are skipped and future timestamps do not count'
 );
 
-const immediatelyEligible = evaluatePublicationCadence({ nativePosts, externalPosts, now });
-assert.equal(immediatelyEligible.allowed, true);
-assert.equal(immediatelyEligible.status, 'allowed');
-assert.equal(immediatelyEligible.minGapMs, 0);
-assert.equal(immediatelyEligible.nextAllowedAt, null,
-  'native and external paths share one ledger but no artificial 17-minute minimum gap');
+const immediatelyBlocked = evaluatePublicationCadence({ nativePosts, externalPosts, now });
+assert.equal(immediatelyBlocked.allowed, false);
+assert.equal(immediatelyBlocked.status, 'publication_cooldown');
+assert.equal(immediatelyBlocked.minGapMs, 40 * 60 * 1000);
+assert.equal(immediatelyBlocked.nextAllowedAt, '2026-11-17T10:30:00.000Z',
+  'native and external paths share one 40-minute rolling publication interval');
 
 const exactBoundary = evaluatePublicationCadence({
   nativePosts: [{ status: 'public_verified', submittedAt: new Date(now - DEFAULT_MIN_PUBLICATION_GAP_MS).toISOString() }],
   externalPosts: [],
   now
 });
-assert.equal(exactBoundary.allowed, true, 'publishing is allowed without an artificial minimum gap');
+assert.equal(exactBoundary.allowed, true, 'a new slot opens exactly 40 minutes after the previous operation');
 
 const dailyCap = evaluatePublicationCadence({
   nativePosts: Array.from({ length: 3 }, (_, index) => ({
