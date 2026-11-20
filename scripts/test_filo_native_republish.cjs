@@ -1784,9 +1784,11 @@ async function testPublicationPacingWait() {
     maxWaitMs: 5*60*1000
   });
   assert.equal(recordedWait,0,
-    'an eligible follow-up operation must not sleep for a local 17-minute pacing rule');
+    'the five-minute poll must not hold a runner while waiting for the 40-minute slot');
   assert.equal(waitedForExactWindow.waitedMs,0);
-  assert.equal(waitedForExactWindow.gate.blocked,false);
+  assert.equal(waitedForExactWindow.requiredWaitMs,25*60*1000);
+  assert.equal(waitedForExactWindow.waitSkipped,true);
+  assert.equal(waitedForExactWindow.gate.blocked,true);
 
   const boundedWait = await waitForPublicationWindow(oneRecentPublication, {
     nowFn: () => pacingNow,
