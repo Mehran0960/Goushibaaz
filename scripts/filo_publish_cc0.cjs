@@ -7,9 +7,11 @@ const { buildTrendSearches, rotateSearchBatch } = require('./trend_discovery.cjs
 const { probeMedia, validateSourceOrientation, convertToPortrait } = require('./media_format.cjs');
 const { looksRelevant, persianTitle } = require('./editorial_content.cjs');
 const { appendFiloEndCard } = require('./filo_endcard.cjs');
+const { applyFiloEditorialThumbnailOverlay } = require('./filo_thumbnail_overlay.cjs');
 const { discoverPexelsCandidates, PEXELS_LICENSE_URL } = require('./pexels_source.cjs');
 const { buildInternetArchiveSearchQuery } = require('./archive_search.cjs');
 const {
+  DEFAULT_MIN_PUBLICATION_GAP_MS,
   DEFAULT_MAX_DAILY_PUBLICATIONS,
   evaluatePublicationCadence
 } = require('./filo_publication_cadence.cjs');
@@ -35,7 +37,7 @@ const WORK_HEIGHT = 1080;
 const WORK_WIDTH = Math.round(WORK_HEIGHT * TARGET_WIDTH / TARGET_HEIGHT);
 // Fail closed on reuse rights: only explicit CC0 1.0 or CC BY 4.0 license metadata is accepted.
 const MAX_DAILY_PUBLICATIONS = DEFAULT_MAX_DAILY_PUBLICATIONS;
-const MIN_PUBLICATION_GAP_MS = 0;
+const MIN_PUBLICATION_GAP_MS = DEFAULT_MIN_PUBLICATION_GAP_MS;
 const MIN_DURATION_SECONDS = 8;
 const MAX_DURATION_SECONDS = 180;
 const ACTIVE_SOURCE_STATUSES = new Set([
@@ -1088,7 +1090,30 @@ function cleanButtonText(el) {
   return String(el.getAttribute('aria-label') || el.innerText || el.getAttribute('value') || '').trim().replace(/\s+/g, ' ').slice(0, 90);
 }
 
-async function uploadCoverThumbnail(page, coverPath) {
+async function uploadCoverThumbnail(page, coverPath, headline = '') {
+  let uploadPath = coverPath;
+  let editorialOverlayApplied = false;
+  try {
+    const original = fs.readFileSync(coverPath);
+    const sourceMime = /\.png$/i.test(coverPath) ? 'image/png' : 'image/jpeg';
+    const sourceDataUrl = 'data:' + sourceMime + ';base64,' + original.toString('base64');
+    const editorial = await applyFiloEditorialThumbnailOverlay(page, sourceDataUrl, headline, {
+      outputMimeType: 'image/jpeg',
+      quality: 0.93
+    });
+    if (editorial.ok && editorial.dataUrl) {
+      const base64 = editorial.dataUrl.split(',')[1];
+      const editorialPath = coverPath.replace(/\.[^.]+$/, '') + '.editorial.jpg';
+      fs.writeFileSync(editorialPath, Buffer.from(base64, 'base64'));
+      uploadPath = editorialPath;
+      editorialOverlayApplied = true;
+    }
+  } catch (error) {
+    console.log('FILO_THUMBNAIL_EDITORIAL_OVERLAY_FALLBACK', JSON.stringify({
+      reason: String(error && error.message || error).slice(0, 120)
+    }));
+  }
+
   const tile = page.locator('#uploadVideoThumb').first();
   await tile.waitFor({ state: 'attached', timeout: 12000 }).catch(() => {});
   if (!(await tile.count().catch(() => 0))) throw new Error('filo_thumbnail_tile_not_found');
@@ -1117,7 +1142,7 @@ async function uploadCoverThumbnail(page, coverPath) {
   }
 
   if (fileInput) {
-    await fileInput.setInputFiles(coverPath);
+    await fileInput.setInputFiles(uploadPath);
   } else {
     const uploadButton = page.locator('#uploadVideoThumb button, #uploadVideoThumb a[title*="آپلود تصویر"], #uploadVideoThumb button[title*="تصویر"], a[title="آپلود تصویر"]').first();
     if (!(await uploadButton.isVisible().catch(() => false))) {
@@ -1129,11 +1154,11 @@ async function uploadCoverThumbnail(page, coverPath) {
     await uploadButton.click();
     const chooser = await chooserPromise;
     if (chooser) {
-      await chooser.setFiles(coverPath);
+      await chooser.setFiles(uploadPath);
     } else {
       const lateInput = page.locator('#uploadVideoThumb input[type="file"], input[type="file"][name="dut"], input[type="file"][accept*="image"]').first();
       if (!(await lateInput.count().catch(() => 0))) throw new Error('filo_thumbnail_filechooser_not_opened');
-      await lateInput.setInputFiles(coverPath);
+      await lateInput.setInputFiles(uploadPath);
     }
   }
 
@@ -1168,7 +1193,7 @@ async function uploadCoverThumbnail(page, coverPath) {
   const tileClass = await tile.getAttribute('class').catch(() => '');
   const tileSelected = /\bselected\b/.test(tileClass || '');
   if (!tileSelected) throw new Error('filo_cover_uploaded_but_not_selected');
-  return { status, apiSignal, tileSelected: true, tileClass: String(tileClass || '').slice(0, 100) };
+  return { status, apiSignal, tileSelected: true, editorialOverlayApplied, tileClass: String(tileClass || '').slice(0, 100) };
 }
 
 async function attemptFiloUrlImport(page, mediaUrl, observedRequests, observedResponses) {
@@ -1608,7 +1633,7 @@ async function main() {
       await descriptionField.fill(PERSIAN_DESCRIPTION);
     }
 
-    const coverUpload = await uploadCoverThumbnail(page, COVER_FILE);
+    const coverUpload = await uploadCoverThumbnail(page, COVER_FILE, PERSIAN_TITLE);
     const publishButton = await findPublishButton(page);
     if (!publishButton) {
       result = {
