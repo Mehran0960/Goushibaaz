@@ -1,0 +1,135 @@
+name: YouTube trend scout ingestion
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/10 * * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/trend-scout-scan.yml"
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: goushibaaz-youtube-trend-scan
+  cancel-in-progress: true
+
+jobs:
+  scan-and-ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Fetch fresh public YouTube metadata and ingest it securely
+        uses: actions/github-script@v7
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        with:
+          script: |
+            const apiKey = process.env.YOUTUBE_API_KEY || "";
+            if (!apiKey) {
+              core.setFailed("YOUTUBE_API_KEY is missing from GitHub Actions repository secrets.");
+              return;
+            }
+
+            async function youtube(resource, params) {
+              const url = new URL("https://www.googleapis.com/youtube/v3/" + resource);
+              for (const [name, value] of Object.entries({ ...params, key: apiKey })) {
+                if (value !== undefined && value !== null && value !== "") {
+                  url.searchParams.set(name, String(value));
+                }
+              }
+              const response = await fetch(url, { headers: { accept: "application/json" } });
+              const body = await response.json().catch(() => ({}));
+              if (!response.ok) {
+                const reason = body?.error?.errors?.[0]?.reason || "request_failed";
+                throw new Error("YouTube API " + resource + " failed: " + reason);
+              }
+              return body;
+            }
+
+            const itemsById = new Map();
+            const chart = await youtube("videos", {
+              part: "snippet,statistics,contentDetails,status",
+              chart: "mostPopular",
+              regionCode: "IR",
+              maxResults: 50
+            });
+            for (const item of chart.items || []) {
+              if (item?.id) itemsById.set(String(item.id), item);
+            }
+
+            // Search API costs more quota, so run one rotating query every 30 minutes.
+            const minute = new Date().getUTCMinutes();
+            if (minute % 30 < 10) {
+              const queries = [
+                "دوربین مخفی|شکار لحظه|سوتی|لحظات عجیب",
+                "حیوانات بامزه|گربه|سگ|کلیپ خنده دار",
+                "طنز کوتاه|فان|چالش خنده دار|اتفاق باورنکردنی",
+                "caught on camera|CCTV|dashcam|near miss",
+                "funny moments|instant karma|epic fails|unexpected moments",
+                "oddly satisfying|no talking|visual comedy|animal fails"
+              ];
+              const bucket = Math.floor(Date.now() / (30 * 60 * 1000));
+              const query = queries[bucket % queries.length];
+              const search = await youtube("search", {
+                part: "snippet",
+                type: "video",
+                order: "viewCount",
+                q: query,
+                regionCode: "IR",
+                relevanceLanguage: "fa",
+                publishedAfter: new Date(Date.now() - 72 * 60 * 60 * 1000).toISOString(),
+                maxResults: 50
+              });
+              const ids = [...new Set((search.items || [])
+                .map(item => item?.id?.videoId)
+                .filter(Boolean))]
+                .filter(id => !itemsById.has(String(id)));
+
+              if (ids.length) {
+                const details = await youtube("videos", {
+                  part: "snippet,statistics,contentDetails,status",
+                  id: ids.slice(0, 50).join(",")
+                });
+                for (const item of details.items || []) {
+                  if (item?.id) itemsById.set(String(item.id), item);
+                }
+              }
+            }
+
+            const items = [...itemsById.values()].slice(0, 100);
+            const identityToken = await core.getIDToken("goushibaaz-trend-scout");
+            const response = await fetch(
+              "https://goushibaaz-trend-scout.m-hoseyni-6966.workers.dev/actions/ingest-youtube",
+              {
+                method: "POST",
+                headers: {
+                  authorization: `Bearer ${identityToken}`,
+                  "content-type": "application/json",
+                  accept: "application/json"
+                },
+                body: JSON.stringify({
+                  source: "youtube_data_api_v3",
+                  scannedAt: new Date().toISOString(),
+                  items
+                })
+              }
+            );
+            const result = await response.json().catch(() => ({}));
+            if (!response.ok || result.ok !== true) {
+              core.setFailed(
+                "Cloudflare ingestion failed: " +
+                String(result.error || result.status || "unknown error")
+              );
+              return;
+            }
+
+            core.info(
+              "YouTube scan ingested successfully. Unique candidates: " +
+              String(result.scanned) + "; emerging/fast-growth: " +
+              String(result.emerging) + "; source: GitHub Actions + OIDC."
+            );
