@@ -1,6 +1,7 @@
 'use strict';
 
-const DEFAULT_MIN_PUBLICATION_GAP_MS = 0;
+// 36 equally spaced slots across a rolling 24-hour window: one operation every 40 minutes.
+const DEFAULT_MIN_PUBLICATION_GAP_MS = 40 * 60 * 1000;
 const DEFAULT_MAX_DAILY_PUBLICATIONS = 36;
 const OPERATION_STATUSES = new Set([
   'public_verified',
