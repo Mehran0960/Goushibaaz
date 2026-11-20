@@ -1734,7 +1734,7 @@ assert.equal(immediatelyEligible.nextEligibleAt, new Date(pacingNow + 30 * 60 * 
   'native publishing waits until the next evenly spaced 40-minute slot');
 
 const rollingHourState = { posts: [
-  { status:'public_verified', submittedAt:new Date(pacingNow - 60*60*1000).toISOString() },
+  { status:'public_verified', submittedAt:new Date(pacingNow - 59*60*1000).toISOString() },
   { status:'public_verified', submittedAt:new Date(pacingNow - 55*60*1000).toISOString() },
   { status:'rejected_by_filo', attemptedAt:new Date(pacingNow - 48*60*1000).toISOString() },
   { status:'public_verified', submittedAt:new Date(pacingNow - 41*60*1000).toISOString() }
