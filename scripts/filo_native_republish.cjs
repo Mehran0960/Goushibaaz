@@ -5,7 +5,9 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const { chromium } = require('playwright');
 const { buildTrendWeights, categoryFor } = require('./quality_rank.cjs');
+const { applyFiloEditorialThumbnailOverlay } = require('./filo_thumbnail_overlay.cjs');
 const {
+  DEFAULT_MIN_PUBLICATION_GAP_MS,
   DEFAULT_MAX_DAILY_PUBLICATIONS,
   isPublicationOperation: isSharedPublicationOperation,
   operationTimestamp: sharedPublicationTimestamp,
@@ -82,8 +84,8 @@ const ACCOUNT_REPUBLISH_QUOTA_COOLDOWN_MS = 24 * 60 * 60 * 1000;
 // Retry at most one cached 403 candidate every 12 hours to distinguish an
 // account-wide quota from genuinely video-specific access denials.
 const ACCOUNT_QUOTA_403_PROBE_INTERVAL_MS = 12 * 60 * 60 * 1000;
-const MIN_PUBLISH_GAP_MS = 0;
-// No local delay is imposed; Filo's own account quota/cooldown remains authoritative.
+const MIN_PUBLISH_GAP_MS = DEFAULT_MIN_PUBLICATION_GAP_MS;
+// The five-minute workflow poll observes the 40-minute gate without sleeping inside a runner.
 const MAX_PACING_WAIT_MS = 0;
 const MAX_DETAIL_CHECKS = 90;
 const MIN_DURATION_SECONDS = 10;
@@ -1593,7 +1595,10 @@ function editorialTitleQualityReason(value) {
   const lowInformationWords = new Set([
     'جذاب','عاشقانه','احساسی','رمانتیک','باورنکردنی','باور','نکردنی','فوق','العاده',
     'زیبا','دیدنی','جالب','بامزه','خنده','دار','طنز','عالی','خاص','دلنشین','هیجان',
-    'انگیز','سرگرم','کننده','چشم','نواز','محشر'
+    'انگیز','سرگرم','کننده','چشم','نواز','محشر','آموزش','آشپزی','ترفند','ایده',
+    'خلاقیت','نمونه','شماره','جدید','ویدئو','ویدیو','کلیپ','فیلم','کمدی','قسمت',
+    'پارت','موسیقی','آهنگ','راهنمای','روش','طرز','تهیه','پخت','ساخت','درست','کردن',
+    'غذای','خوراک','خوشمزه','کاربردی'
   ]);
   const meaningfulTokens = tokens.filter(token =>
     !lowInformationWords.has(token) && !/^\d+$/u.test(token)
@@ -1682,11 +1687,23 @@ function descriptionBasedTitleCandidate(sourceDescription, sourceTitle = '') {
   return null;
 }
 
+function primaryEditorialTitleSegment(value) {
+  const parts = String(value || '').split(/\s*[|/]\s*/u).map(part => part.trim()).filter(Boolean);
+  if (parts.length <= 1) return String(value || '').trim();
+  // Filo creators often append slash-separated category tags. Keep the first
+  // complete, subject-bearing phrase; reject tag-only strings as headlines.
+  const valid = parts.find(part => part.length >= FILO_TITLE_MIN_CHARS &&
+    !editorialTitleQualityReason(part) && !hasIncompleteEditorialTitle(part));
+  return valid || '';
+}
+
 function createDistinctRepostTitle(sourceTitle, sourceDescription = '', sourceCode = '') {
   let cleaned = '';
-  try { cleaned = cleanRepostCaptionTitle(sourceTitle); } catch { cleaned = ''; }
+  try { cleaned = primaryEditorialTitleSegment(cleanRepostCaptionTitle(sourceTitle)); } catch { cleaned = ''; }
 
   const rules = [
+    [/^آموزش\s+(?:پخت|پختن)\s+(.+)$/u,m=>['روش پخت '+m[1]]],
+    [/^آموزش\s+(?:ساخت|درست کردن)\s+(.+)$/u,m=>['روش ساخت '+m[1]]],
     [/^بلوچی\s+آهنگ\s+بلوچی\s+(.+)$/u,m=>['ترانه بلوچی «'+m[1]+'»']],
     [/^دانلود\s+آهنگ(?:\s+جدید)?\s+(.+?)\s+به\s+نام\s+(.+)$/u,m=>['ترانه «'+m[2]+'» از '+m[1]]],
     [/^آهنگ\s+(افشین\s+آذری)\s+و\s+(وفا\s+شریفوا)\s+(.+)$/u,m=>['همخوانی '+m[1]+' و '+m[2]+' با ترانه «'+m[3]+'»']],
@@ -2246,7 +2263,7 @@ async function captureVideoFrameDataUrl(page) {
   :null;
 }
 
-async function composeFiloCoverDataUrl(page,sourceDataUrl) {
+async function composeFiloCoverDataUrl(page,sourceDataUrl,headline='') {
  const sourceDimensions=imageDimensionsFromDataUrl(sourceDataUrl);
  if(!sourceDimensions)return {ok:false,reason:'cover_source_image_invalid',sourceDimensions:null};
  try {
@@ -2299,15 +2316,29 @@ async function composeFiloCoverDataUrl(page,sourceDataUrl) {
    ok:false,reason:'cover_exceeds_filo_encoded_field_limit',sourceDimensions,
    encodedLength:null,dimensions:null,aspectRatio:null
   };
-  const dimensions=imageDimensionsFromDataUrl(composed.dataUrl);
+  let finalDataUrl=composed.dataUrl;
+  let thumbnailTextOverlay=false;
+  if(String(headline||'').trim()){
+   const overlay=await applyFiloEditorialThumbnailOverlay(page,composed.dataUrl,headline,{outputMimeType:'image/png'});
+   if(overlay.ok&&overlay.dataUrl){
+    const overlayEncodedLength=new URLSearchParams({selectedFrame:overlay.dataUrl}).toString().length;
+    if(overlayEncodedLength<=800000){
+     finalDataUrl=overlay.dataUrl;
+     thumbnailTextOverlay=true;
+    }
+   }
+  }
+  const dimensions=imageDimensionsFromDataUrl(finalDataUrl);
   const aspectRatio=dimensions?dimensions.width/dimensions.height:0;
-  const ok=Boolean(dimensions&&Math.abs(aspectRatio-(16/9))<=0.02&&composed.encodedLength<=800000);
+  const encodedLength=new URLSearchParams({selectedFrame:finalDataUrl}).toString().length;
+  const ok=Boolean(dimensions&&Math.abs(aspectRatio-(16/9))<=0.02&&encodedLength<=800000);
   return {
-   ok,dataUrl:ok?composed.dataUrl:null,
-   strategy:ok?'blurred_background_full_frame_contain_compact_png_v1':null,
+   ok,dataUrl:ok?finalDataUrl:null,
+   strategy:ok?(thumbnailTextOverlay?'blurred_background_full_frame_contain_editorial_title_overlay_v2':'blurred_background_full_frame_contain_compact_png_v1'):null,
+   thumbnailTextOverlay,
    reason:ok?null:'cover_composition_output_invalid',
    sourceDimensions,dimensions,aspectRatio:aspectRatio||null,
-   encodedLength:composed.encodedLength
+   encodedLength
   };
  }catch(error){
   return {ok:false,reason:'cover_composition_failed:'+String(error&&error.message||error).slice(0,140),
@@ -3204,9 +3235,10 @@ async function prepareAndPublish(page, candidate, detail, report, beforeSubmit =
     const readParam = (...aliases) => getPublishBodyParam(params, ...aliases);
     const postedFrame = readParam('selectedFrame', 'selected_frame') || '';
     const preferredSourceFrame = thumbnailSelection.coverFrameDataUrl || postedFrame;
-    let coverComposition = await composeFiloCoverDataUrl(page,preferredSourceFrame);
+    const thumbnailHeadline = readParam('title', 'videoTitle', 'video_title') || '';
+    let coverComposition = await composeFiloCoverDataUrl(page,preferredSourceFrame,thumbnailHeadline);
     if(!coverComposition.ok&&postedFrame&&postedFrame!==preferredSourceFrame){
-      coverComposition=await composeFiloCoverDataUrl(page,postedFrame);
+      coverComposition=await composeFiloCoverDataUrl(page,postedFrame,thumbnailHeadline);
     }
     let selectedFrame=coverComposition.ok
       ?coverComposition.dataUrl
