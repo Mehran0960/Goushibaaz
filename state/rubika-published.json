@@ -261,7 +261,12 @@
       "chatId": "c0EHrgB0fb431bf54ac2552d95d29b86",
       "uploadedAt": "2026-11-18T05:25:21.971Z",
       "messageId": "1975352157277781160",
-      "publishedAt": "2026-11-18T05:25:23.684Z"
+      "publishedAt": "2026-11-18T05:25:23.684Z",
+      "deleteAttempts": 1,
+      "lastDeleteAttemptAt": "2026-11-20T07:49:10.991Z",
+      "retentionStatus": "deleted",
+      "deletedAt": "2026-11-20T07:49:10.991Z",
+      "retentionFailure": null
     }
   ],
   "lastOutcome": {
@@ -272,8 +277,8 @@
     "sha256": "0bed5d53f2056d8d8fc80297ab1b777008f8bdb663d18b5fbb9f23c51dcd382a"
   },
   "lastRetentionRun": {
-    "checkedAt": "2026-11-05T00:18:32.760Z",
-    "deleted": 10,
+    "checkedAt": "2026-11-20T07:49:10.991Z",
+    "deleted": 1,
     "outsideApiWindow": 0,
     "failed": 0
   }
