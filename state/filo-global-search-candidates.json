@@ -1,90 +1,80 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-22T06:25:24.387Z",
-  "trendsFetchedAt": "2026-11-22T06:24:12.990Z",
+  "updatedAt": "2026-11-22T09:30:21.091Z",
+  "trendsFetchedAt": "2026-11-22T09:29:15.078Z",
   "trends": [
     {
-      "title": "استارلینک",
+      "title": "داوید رایا",
       "keywords": [
-        "استارلینک"
+        "داوید",
+        "رایا"
       ],
-      "traffic": 2000,
-      "publishedAt": "Sat, 21 Nov 2026 20:40:00 -0800",
+      "traffic": 5000,
+      "publishedAt": "Sun, 22 Nov 2026 00:20:00 -0800",
+      "ageHours": 1.2
+    },
+    {
+      "title": "باشگاه فوتبال العین",
+      "keywords": [
+        "باشگاه",
+        "فوتبال",
+        "العین"
+      ],
+      "traffic": 1000,
+      "publishedAt": "Sun, 22 Nov 2026 00:30:00 -0800",
+      "ageHours": 1
+    },
+    {
+      "title": "حرکت نفتکش های ایران",
+      "keywords": [
+        "حرکت",
+        "نفتکش",
+        "ایران"
+      ],
+      "traffic": 1000,
+      "publishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+      "ageHours": 3
+    },
+    {
+      "title": "روبرتو پیاتزا",
+      "keywords": [
+        "روبرتو",
+        "پیاتزا"
+      ],
+      "traffic": 200,
+      "publishedAt": "Sun, 22 Nov 2026 00:40:00 -0800",
+      "ageHours": 0.8
+    },
+    {
+      "title": "تیک تو اینتراکتیو",
+      "keywords": [
+        "تیک",
+        "تو",
+        "اینتراکتیو"
+      ],
+      "traffic": 200,
+      "publishedAt": "Sat, 21 Nov 2026 23:50:00 -0800",
       "ageHours": 1.7
     },
     {
-      "title": "بحرین",
+      "title": "محمد شریعتمداری",
       "keywords": [
-        "بحرین"
-      ],
-      "traffic": 1000,
-      "publishedAt": "Sat, 21 Nov 2026 20:20:00 -0800",
-      "ageHours": 2.1
-    },
-    {
-      "title": "تقویم آذر ۱۴۰۵",
-      "keywords": [
-        "تقویم",
-        "آذر",
-        "۱۴۰۵"
-      ],
-      "traffic": 1000,
-      "publishedAt": "Sat, 21 Nov 2026 20:00:00 -0800",
-      "ageHours": 2.4
-    },
-    {
-      "title": "ثبت نام بیمه تکمیلی بازنشستگان تامین اجتماعی",
-      "keywords": [
-        "ثبت",
-        "نام",
-        "بیمه",
-        "تکمیلی",
-        "بازنشستگان",
-        "تامین",
-        "اجتماعی"
-      ],
-      "traffic": 200,
-      "publishedAt": "Sat, 21 Nov 2026 21:30:00 -0800",
-      "ageHours": 0.9
-    },
-    {
-      "title": "کیهان",
-      "keywords": [
-        "کیهان"
-      ],
-      "traffic": 200,
-      "publishedAt": "Sat, 21 Nov 2026 20:50:00 -0800",
-      "ageHours": 1.6
-    },
-    {
-      "title": "تقویم آذر 1405",
-      "keywords": [
-        "تقویم",
-        "آذر",
-        "1405"
-      ],
-      "traffic": 200,
-      "publishedAt": "Sat, 21 Nov 2026 20:40:00 -0800",
-      "ageHours": 1.7
-    },
-    {
-      "title": "آزادراه",
-      "keywords": [
-        "آزادراه"
+        "محمد",
+        "شریعتمداری"
       ],
       "traffic": 100,
-      "publishedAt": "Sat, 21 Nov 2026 21:30:00 -0800",
-      "ageHours": 0.9
+      "publishedAt": "Sun, 22 Nov 2026 00:40:00 -0800",
+      "ageHours": 0.8
     },
     {
-      "title": "باران",
+      "title": "شفق",
       "keywords": [
-        "باران"
+        "شفق"
       ],
       "traffic": 100,
-      "publishedAt": "Sat, 21 Nov 2026 21:30:00 -0800",
-      "ageHours": 0.9
+      "publishedAt": "Sun, 22 Nov 2026 00:20:00 -0800",
+      "ageHours": 1.2
     }
   ],
   "queries": {
@@ -445,12 +435,12 @@
     "اکبر عبدی": {
       "query": "اکبر عبدی",
       "normalized": "اکبر عبدی",
-      "nextPage": 21,
+      "nextPage": 36,
       "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 400,
+      "pagesFetched": 40,
+      "videosSeen": 800,
       "createdAt": "2026-11-19T18:44:36.759Z",
-      "lastAttemptAt": "2026-11-19T19:06:07.159Z",
+      "lastAttemptAt": "2026-11-22T09:30:20.917Z",
       "lastError": null,
       "trendTitle": "اکبر عبدی",
       "trendTraffic": 500,
@@ -859,12 +849,12 @@
     "عربستان از رهگیری موشک حوثی ها به سوی ریاض و انهدام ۶۰ هدف در یمن خبر داد": {
       "query": "عربستان از رهگیری موشک حوثی‌ها به سوی ریاض و انهدام ۶۰ هدف در یمن خبر داد",
       "normalized": "عربستان از رهگیری موشک حوثی ها به سوی ریاض و انهدام ۶۰ هدف در یمن خبر داد",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-19T19:24:34.769Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-22T09:30:20.917Z",
       "lastError": null,
       "trendTitle": "ریاض",
       "trendTraffic": 200,
@@ -873,7 +863,9 @@
         "ریاض"
       ],
       "lastTrendSeenAt": "2026-11-19T19:24:34.769Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-22T09:30:20.917Z"
     },
     "یونس امامی": {
       "query": "یونس امامی",
@@ -4027,7 +4019,7 @@
         "استارلینک"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T06:25:24.180Z"
     },
@@ -4048,7 +4040,7 @@
         "استارلینک"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T06:25:24.180Z"
     },
@@ -4069,7 +4061,7 @@
         "استارلینک"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T06:25:24.180Z"
     },
@@ -4090,7 +4082,7 @@
         "بحرین"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "حمله موشکی و پهپادی سپاه به 2 رادار پدافندی پاتریوت": {
@@ -4110,7 +4102,7 @@
         "بحرین"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T06:25:24.187Z"
     },
@@ -4131,7 +4123,7 @@
         "بحرین"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T06:25:24.187Z"
     },
@@ -4154,7 +4146,7 @@
         "۱۴۰۵"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T06:25:24.191Z"
     },
@@ -4177,7 +4169,7 @@
         "۱۴۰۵"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T06:25:24.191Z"
     },
@@ -4200,7 +4192,7 @@
         "۱۴۰۵"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T06:25:24.191Z"
     },
@@ -4227,7 +4219,7 @@
         "اجتماعی"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T06:25:24.191Z"
     },
@@ -4254,7 +4246,7 @@
         "اجتماعی"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T06:25:24.192Z"
     },
@@ -4281,7 +4273,7 @@
         "اجتماعی"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T06:25:24.192Z"
     },
@@ -4302,7 +4294,7 @@
         "کیهان"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "روزنامه کیهان جنگ قطعی است چرا ما باید دست روی دست بگذاریم منتظر شلیک اول واشنگتن بمانیم": {
       "query": "روزنامه کیهان: جنگ قطعی است/ چرا ما باید دست روی دست بگذاریم، منتظر شلیک اول واشنگتن بمانیم؟",
@@ -4321,7 +4313,7 @@
         "کیهان"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "اختصاصی نکات مهم یک مقام ارشد امنیتی درباره تحولات اخیر منطقه": {
       "query": "اختصاصی| نکات مهم یک مقام ارشد امنیتی درباره تحولات اخیر منطقه",
@@ -4340,7 +4332,7 @@
         "کیهان"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "تقویم آذر 1405": {
       "query": "تقویم آذر 1405",
@@ -4361,7 +4353,7 @@
         "1405"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "آزادراه": {
       "query": "آزادراه",
@@ -4380,7 +4372,7 @@
         "آزادراه"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "وزیر راه مازندران پشتوانه تاب آوری کشور است توسعه زیرساخت های استان باید شتاب بگیرد": {
       "query": "وزیر راه: مازندران پشتوانه تاب‌آوری کشور است / توسعه زیرساخت‌های استان باید شتاب بگیرد",
@@ -4399,7 +4391,7 @@
         "آزادراه"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "ضرورت تکمیل آزادراه تهران شمال و توسعه فرودگاه رامسر": {
       "query": "ضرورت تکمیل آزادراه تهران - شمال و توسعه فرودگاه رامسر",
@@ -4418,7 +4410,7 @@
         "آزادراه"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "باران": {
       "query": "باران",
@@ -4437,7 +4429,7 @@
         "باران"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "هشدار بارش برف و باران در 10 استان": {
       "query": "هشدار بارش برف و باران در 10 استان",
@@ -4456,7 +4448,7 @@
         "باران"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "فعالیت سامانه بارشی جدید کدام استان ها امروز برفی و بارانی می شوند": {
       "query": "فعالیت سامانه بارشی جدید؛ کدام استان‌ها امروز برفی و بارانی می‌شوند؟",
@@ -4475,6 +4467,416 @@
         "باران"
       ],
       "lastTrendSeenAt": "2026-11-22T06:24:13.164Z",
+      "activeInLatestFeed": false
+    },
+    "داوید رایا": {
+      "query": "داوید رایا",
+      "normalized": "داوید رایا",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 399,
+      "createdAt": "2026-11-22T09:29:15.272Z",
+      "lastAttemptAt": "2026-11-22T09:30:20.897Z",
+      "lastError": null,
+      "trendTitle": "داوید رایا",
+      "trendTraffic": 5000,
+      "trendPublishedAt": "Sun, 22 Nov 2026 00:20:00 -0800",
+      "trendKeywords": [
+        "داوید",
+        "رایا"
+      ],
+      "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "خلاصه بازی نیوکاسل ۲ ۲ آرسنال نیم ساعت بیهوشی مطلق در خانه کلاغ ها": {
+      "query": "خلاصه بازی نیوکاسل ۲-۲ آرسنال؛ نیم‌ساعت بیهوشی مطلق در خانه کلاغ‌ها!",
+      "normalized": "خلاصه بازی نیوکاسل ۲ ۲ آرسنال نیم ساعت بیهوشی مطلق در خانه کلاغ ها",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T09:29:15.272Z",
+      "lastAttemptAt": "2026-11-22T09:30:20.897Z",
+      "lastError": null,
+      "trendTitle": "داوید رایا",
+      "trendTraffic": 5000,
+      "trendPublishedAt": "Sun, 22 Nov 2026 00:20:00 -0800",
+      "trendKeywords": [
+        "داوید",
+        "رایا"
+      ],
+      "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-22T09:30:20.897Z"
+    },
+    "شوک به صدرنشین لیگ برتر مصدومیت نگران کننده رایا در شب تلخ آرسنال": {
+      "query": "شوک به صدرنشین لیگ برتر؛ مصدومیت نگران‌کننده رایا در شب تلخ آرسنال",
+      "normalized": "شوک به صدرنشین لیگ برتر مصدومیت نگران کننده رایا در شب تلخ آرسنال",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T09:29:15.272Z",
+      "lastAttemptAt": "2026-11-22T09:30:20.897Z",
+      "lastError": null,
+      "trendTitle": "داوید رایا",
+      "trendTraffic": 5000,
+      "trendPublishedAt": "Sun, 22 Nov 2026 00:20:00 -0800",
+      "trendKeywords": [
+        "داوید",
+        "رایا"
+      ],
+      "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-22T09:30:20.897Z"
+    },
+    "باشگاه فوتبال العین": {
+      "query": "باشگاه فوتبال العین",
+      "normalized": "باشگاه فوتبال العین",
+      "nextPage": 10,
+      "complete": true,
+      "pagesFetched": 9,
+      "videosSeen": 146,
+      "createdAt": "2026-11-22T09:29:15.272Z",
+      "lastAttemptAt": "2026-11-22T09:30:20.900Z",
+      "lastError": null,
+      "trendTitle": "باشگاه فوتبال العین",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Sun, 22 Nov 2026 00:30:00 -0800",
+      "trendKeywords": [
+        "باشگاه",
+        "فوتبال",
+        "العین"
+      ],
+      "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-22T09:30:20.900Z"
+    },
+    "حال و روز خوش زعیم امارات در آستانه دوئل با استقلال ارغوانی ها به دنبال جاودانگی": {
+      "query": "حال و روز خوشِ زعیم امارات در آستانه دوئل با استقلال؛ ارغوانی‌ها به دنبال جاودانگی",
+      "normalized": "حال و روز خوش زعیم امارات در آستانه دوئل با استقلال ارغوانی ها به دنبال جاودانگی",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T09:29:15.272Z",
+      "lastAttemptAt": "2026-11-22T09:30:20.900Z",
+      "lastError": null,
+      "trendTitle": "باشگاه فوتبال العین",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Sun, 22 Nov 2026 00:30:00 -0800",
+      "trendKeywords": [
+        "باشگاه",
+        "فوتبال",
+        "العین"
+      ],
+      "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-22T09:30:20.900Z"
+    },
+    "دیدار العین با آبی پوشان پایتخت دوشنبه 2 آذر زنده از برنامه فوتبال برتر": {
+      "query": "دیدار العین با آبی پوشان پایتخت دوشنبه 2 آذر زنده از برنامه فوتبال برتر",
+      "normalized": "دیدار العین با آبی پوشان پایتخت دوشنبه 2 آذر زنده از برنامه فوتبال برتر",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T09:29:15.272Z",
+      "lastAttemptAt": "2026-11-22T09:30:20.900Z",
+      "lastError": null,
+      "trendTitle": "باشگاه فوتبال العین",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Sun, 22 Nov 2026 00:30:00 -0800",
+      "trendKeywords": [
+        "باشگاه",
+        "فوتبال",
+        "العین"
+      ],
+      "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-22T09:30:20.900Z"
+    },
+    "حرکت نفتکش های ایران": {
+      "query": "حرکت نفتکش های ایران",
+      "normalized": "حرکت نفتکش های ایران",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 394,
+      "createdAt": "2026-11-22T09:29:15.272Z",
+      "lastAttemptAt": "2026-11-22T09:30:20.905Z",
+      "lastError": null,
+      "trendTitle": "حرکت نفتکش های ایران",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+      "trendKeywords": [
+        "حرکت",
+        "نفتکش",
+        "ایران"
+      ],
+      "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "حرکت نفتکش ایران": {
+      "query": "حرکت نفتکش ایران",
+      "normalized": "حرکت نفتکش ایران",
+      "nextPage": 13,
+      "complete": true,
+      "pagesFetched": 12,
+      "videosSeen": 209,
+      "createdAt": "2026-11-22T09:29:15.272Z",
+      "lastAttemptAt": "2026-11-22T09:30:20.908Z",
+      "lastError": null,
+      "trendTitle": "حرکت نفتکش های ایران",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+      "trendKeywords": [
+        "حرکت",
+        "نفتکش",
+        "ایران"
+      ],
+      "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-22T09:30:20.908Z"
+    },
+    "سنتکام محاصره دریایی ایران ۱۳۰ روزه شد تانکر ترکرز اطلاعات مربوط به حرکت نفتکش ایرانی جعلی است": {
+      "query": "سنتکام: محاصره دریایی ایران ۱۳۰ روزه شد؛ تانکر ترکرز: اطلاعات مربوط به حرکت نفتکش ایرانی جعلی است",
+      "normalized": "سنتکام محاصره دریایی ایران ۱۳۰ روزه شد تانکر ترکرز اطلاعات مربوط به حرکت نفتکش ایرانی جعلی است",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T09:29:15.272Z",
+      "lastAttemptAt": "2026-11-22T09:30:20.908Z",
+      "lastError": null,
+      "trendTitle": "حرکت نفتکش های ایران",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+      "trendKeywords": [
+        "حرکت",
+        "نفتکش",
+        "ایران"
+      ],
+      "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-22T09:30:20.908Z"
+    },
+    "روبرتو پیاتزا": {
+      "query": "روبرتو پیاتزا",
+      "normalized": "روبرتو پیاتزا",
+      "nextPage": 11,
+      "complete": true,
+      "pagesFetched": 10,
+      "videosSeen": 171,
+      "createdAt": "2026-11-22T09:29:15.272Z",
+      "lastAttemptAt": "2026-11-22T09:30:20.910Z",
+      "lastError": null,
+      "trendTitle": "روبرتو پیاتزا",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Sun, 22 Nov 2026 00:40:00 -0800",
+      "trendKeywords": [
+        "روبرتو",
+        "پیاتزا"
+      ],
+      "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-22T09:30:20.910Z"
+    },
+    "سرمربی تیم ملی نباید پروازی باشد معروف بازیکن بزرگی بود اما مسیر مربی گری متفاوت است": {
+      "query": "سرمربی تیم ملی نباید پروازی باشد/«معروف» بازیکن بزرگی بود، اما مسیر مربی‌گری متفاوت است",
+      "normalized": "سرمربی تیم ملی نباید پروازی باشد معروف بازیکن بزرگی بود اما مسیر مربی گری متفاوت است",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T09:29:15.272Z",
+      "lastAttemptAt": "2026-11-22T09:30:20.910Z",
+      "lastError": null,
+      "trendTitle": "روبرتو پیاتزا",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Sun, 22 Nov 2026 00:40:00 -0800",
+      "trendKeywords": [
+        "روبرتو",
+        "پیاتزا"
+      ],
+      "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-22T09:30:20.910Z"
+    },
+    "دجورجی در فهرست گزینه های خارجی والیبال ایران": {
+      "query": "دجورجی در فهرست گزینه‌های خارجی والیبال ایران",
+      "normalized": "دجورجی در فهرست گزینه های خارجی والیبال ایران",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T09:29:15.272Z",
+      "lastAttemptAt": "2026-11-22T09:30:20.910Z",
+      "lastError": null,
+      "trendTitle": "روبرتو پیاتزا",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Sun, 22 Nov 2026 00:40:00 -0800",
+      "trendKeywords": [
+        "روبرتو",
+        "پیاتزا"
+      ],
+      "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-22T09:30:20.910Z"
+    },
+    "تیک تو اینتراکتیو": {
+      "query": "تیک تو اینتراکتیو",
+      "normalized": "تیک تو اینتراکتیو",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T09:29:15.272Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "تیک تو اینتراکتیو",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Sat, 21 Nov 2026 23:50:00 -0800",
+      "trendKeywords": [
+        "تیک",
+        "تو",
+        "اینتراکتیو"
+      ],
+      "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
+      "activeInLatestFeed": true
+    },
+    "مدیرعامل سابق تیک تو بازی gta 6 احتمالا آخرین شاهکار بزرگ پیش از انقلاب هوش مصنوعی است": {
+      "query": "مدیرعامل سابق تیک-تو: بازی GTA 6 احتمالاً آخرین شاهکار بزرگ پیش از انقلاب هوش مصنوعی است",
+      "normalized": "مدیرعامل سابق تیک تو بازی gta 6 احتمالا آخرین شاهکار بزرگ پیش از انقلاب هوش مصنوعی است",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T09:29:15.272Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "تیک تو اینتراکتیو",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Sat, 21 Nov 2026 23:50:00 -0800",
+      "trendKeywords": [
+        "تیک",
+        "تو",
+        "اینتراکتیو"
+      ],
+      "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
+      "activeInLatestFeed": true
+    },
+    "هوش مصنوعی در حال تغییر مطالعه کتاب است از طراحی شخصیت با بازی های هوشمند تا ایجاد محیط گفت وگو": {
+      "query": "هوش مصنوعی در حال تغییر مطالعه کتاب است | از طراحی شخصیت با بازی‌های هوشمند تا ایجاد محیط گفت‌وگو",
+      "normalized": "هوش مصنوعی در حال تغییر مطالعه کتاب است از طراحی شخصیت با بازی های هوشمند تا ایجاد محیط گفت وگو",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T09:29:15.272Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "تیک تو اینتراکتیو",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Sat, 21 Nov 2026 23:50:00 -0800",
+      "trendKeywords": [
+        "تیک",
+        "تو",
+        "اینتراکتیو"
+      ],
+      "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
+      "activeInLatestFeed": true
+    },
+    "محمد شریعتمداری": {
+      "query": "محمد شریعتمداری",
+      "normalized": "محمد شریعتمداری",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T09:29:15.272Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "محمد شریعتمداری",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Sun, 22 Nov 2026 00:40:00 -0800",
+      "trendKeywords": [
+        "محمد",
+        "شریعتمداری"
+      ],
+      "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
+      "activeInLatestFeed": true
+    },
+    "رئیس محکمه تجدیدنظر و حاکم شرع دیوان محاسبات حکم انفصال محمد شریعتمداری باید فورا اجرا شود": {
+      "query": "رئیس محکمه تجدیدنظر و حاکم شرع دیوان محاسبات: حکم انفصال محمد شریعتمداری باید فوراً اجرا شود",
+      "normalized": "رئیس محکمه تجدیدنظر و حاکم شرع دیوان محاسبات حکم انفصال محمد شریعتمداری باید فورا اجرا شود",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T09:29:15.272Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "محمد شریعتمداری",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Sun, 22 Nov 2026 00:40:00 -0800",
+      "trendKeywords": [
+        "محمد",
+        "شریعتمداری"
+      ],
+      "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
+      "activeInLatestFeed": true
+    },
+    "سخنگوی قوه قضاییه خبر داد حکم انفصال شریعتمداری قطعی است": {
+      "query": "سخنگوی قوه قضاییه خبر داد: حکم انفصال شریعتمداری قطعی است!",
+      "normalized": "سخنگوی قوه قضاییه خبر داد حکم انفصال شریعتمداری قطعی است",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T09:29:15.272Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "محمد شریعتمداری",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Sun, 22 Nov 2026 00:40:00 -0800",
+      "trendKeywords": [
+        "محمد",
+        "شریعتمداری"
+      ],
+      "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
+      "activeInLatestFeed": true
+    },
+    "شفق": {
+      "query": "شفق",
+      "normalized": "شفق",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T09:29:15.272Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "شفق",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Sun, 22 Nov 2026 00:20:00 -0800",
+      "trendKeywords": [
+        "شفق"
+      ],
+      "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
       "activeInLatestFeed": true
     }
   },
@@ -7190,43 +7592,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T20:35:59.737Z"
     },
-    "OXcegMb": {
-      "video_code": "OXcegMb",
-      "title": "فیلم هری پاتر 2",
-      "sender_name": "گروه نرون",
-      "category_id": 3,
-      "duration": 10464,
-      "visit_count": 9389,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "ستاره اصلی Harry Potter به بازیگر جایگزین خود در سریال HBO هشدار داد",
-          "trendTitle": "اچبیاو",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:20:00 -0800",
-          "trendKeywords": [
-            "اچبیاو"
-          ],
-          "page": 3
-        },
-        {
-          "query": "پدر و مادر «هری پاتر» معرفی شدند",
-          "trendTitle": "اچبیاو",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:20:00 -0800",
-          "trendKeywords": [
-            "اچبیاو"
-          ],
-          "page": 3
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T20:35:59.737Z"
-    },
     "TttDeVu": {
       "video_code": "TttDeVu",
       "title": "فیلم سینمایی هری پاتر ۶",
@@ -8458,43 +8823,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T20:35:59.740Z"
-    },
-    "HYeZykQ": {
-      "video_code": "HYeZykQ",
-      "title": "دانلود فیلم هری پاتر و سنگ جادو با دوبله فارسی پارت 10",
-      "sender_name": "پونوکو",
-      "category_id": 3,
-      "duration": 859,
-      "visit_count": 9369,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "ستاره اصلی Harry Potter به بازیگر جایگزین خود در سریال HBO هشدار داد",
-          "trendTitle": "اچبیاو",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:20:00 -0800",
-          "trendKeywords": [
-            "اچبیاو"
-          ],
-          "page": 13
-        },
-        {
-          "query": "پدر و مادر «هری پاتر» معرفی شدند",
-          "trendTitle": "اچبیاو",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:20:00 -0800",
-          "trendKeywords": [
-            "اچبیاو"
-          ],
-          "page": 13
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T20:35:59.741Z"
     },
     "4mUMZ1Y": {
       "video_code": "4mUMZ1Y",
@@ -13605,34 +13933,6 @@
       "lastTrendMatchedAt": "2026-11-18T14:45:23.131Z",
       "lastMetricsFetchedAt": "2026-11-18T14:44:52.785Z"
     },
-    "iXUTn2e": {
-      "video_code": "iXUTn2e",
-      "title": "ارسطو - بعد از علی حسن بود",
-      "sender_name": "علیرضا",
-      "category_id": 0,
-      "duration": 12,
-      "visit_count": 25499,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حسن حبیبی",
-          "trendTitle": "حسن حبیبی",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 12:50:00 -0800",
-          "trendKeywords": [
-            "حسن",
-            "حبیبی"
-          ],
-          "page": 19
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:30:01.339Z"
-    },
     "DuP4rJm": {
       "video_code": "DuP4rJm",
       "title": "کلیپ خنده دار طنز حسن ریوندی - مزاحم دختر مردم",
@@ -15136,7 +15436,7 @@
       "sender_name": "Moklip",
       "category_id": 1,
       "duration": 571,
-      "visit_count": 223352,
+      "visit_count": 223357,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -15164,9 +15464,22 @@
             "ایرنا"
           ],
           "page": 62
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.886Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.901Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:54.403Z"
     },
     "rLsKEq2": {
       "video_code": "rLsKEq2",
@@ -15212,7 +15525,7 @@
       "sender_name": "فرج",
       "category_id": 1,
       "duration": 38,
-      "visit_count": 260698,
+      "visit_count": 260703,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -15240,9 +15553,22 @@
             "ایرنا"
           ],
           "page": 62
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.886Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.901Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:54.403Z"
     },
     "0xyGN7s": {
       "video_code": "0xyGN7s",
@@ -15968,7 +16294,7 @@
       "sender_name": "نبض تو",
       "category_id": 1,
       "duration": 571,
-      "visit_count": 217075,
+      "visit_count": 217078,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -15996,9 +16322,22 @@
             "ایرنا"
           ],
           "page": 68
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.888Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:54.403Z"
     },
     "P9J2GSw": {
       "video_code": "P9J2GSw",
@@ -16336,7 +16675,7 @@
       "sender_name": "قلم تی وی",
       "category_id": 1,
       "duration": 571,
-      "visit_count": 60575,
+      "visit_count": 60579,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -16364,9 +16703,22 @@
             "ایرنا"
           ],
           "page": 71
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.888Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:55.586Z"
     },
     "uEGDGug": {
       "video_code": "uEGDGug",
@@ -16756,7 +17108,7 @@
       "sender_name": "دنیای فیلم و سریال(فالو=فالو)",
       "category_id": 1,
       "duration": 107,
-      "visit_count": 75180,
+      "visit_count": 75181,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -16784,9 +17136,22 @@
             "ایرنا"
           ],
           "page": 73
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.889Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:55.586Z"
     },
     "A5fi30N": {
       "video_code": "A5fi30N",
@@ -16794,7 +17159,7 @@
       "sender_name": "ایران مال",
       "category_id": 1,
       "duration": 571,
-      "visit_count": 81366,
+      "visit_count": 81370,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -16822,9 +17187,22 @@
             "ایرنا"
           ],
           "page": 73
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.889Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:55.586Z"
     },
     "G1Z8hWq": {
       "video_code": "G1Z8hWq",
@@ -17040,7 +17418,7 @@
       "sender_name": "Ali✅",
       "category_id": 1,
       "duration": 571,
-      "visit_count": 137320,
+      "visit_count": 137325,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -17068,9 +17446,22 @@
             "ایرنا"
           ],
           "page": 74
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.889Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:55.586Z"
     },
     "VeNFHSn": {
       "video_code": "VeNFHSn",
@@ -17408,7 +17799,7 @@
       "sender_name": "فرج",
       "category_id": 1,
       "duration": 253,
-      "visit_count": 29540,
+      "visit_count": 29551,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -17437,9 +17828,22 @@
             "فوری"
           ],
           "page": 3
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 11
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:59:38.764Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.903Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:00.181Z"
     },
     "e6pQEN9": {
       "video_code": "e6pQEN9",
@@ -17569,7 +17973,7 @@
       "sender_name": "دنیای فیلم و سریال(فالو=فالو)",
       "category_id": 1,
       "duration": 25,
-      "visit_count": 99344,
+      "visit_count": 99360,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -17587,9 +17991,22 @@
             "افغانستان"
           ],
           "page": 11
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:31:42.828Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:56.757Z"
     },
     "Oin0Gxh": {
       "video_code": "Oin0Gxh",
@@ -17615,9 +18032,22 @@
             "افغانستان"
           ],
           "page": 11
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:31:42.828Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:56.757Z"
     },
     "CmL7ulw": {
       "video_code": "CmL7ulw",
@@ -17625,7 +18055,7 @@
       "sender_name": "سعید",
       "category_id": 1,
       "duration": 571,
-      "visit_count": 72995,
+      "visit_count": 73002,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -17643,9 +18073,22 @@
             "افغانستان"
           ],
           "page": 11
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:31:42.828Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:56.757Z"
     },
     "MdaUH3o": {
       "video_code": "MdaUH3o",
@@ -17755,9 +18198,22 @@
             "افغانستان"
           ],
           "page": 11
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:31:42.828Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:56.757Z"
     },
     "a6RnOya": {
       "video_code": "a6RnOya",
@@ -18378,34 +18834,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T21:31:42.828Z"
     },
-    "lw2D2og": {
-      "video_code": "lw2D2og",
-      "title": "آهنگ شاد داماد جان با رقص گروهی افغانی 😍🥰",
-      "sender_name": "جهانی ویدیو",
-      "category_id": 9,
-      "duration": 198,
-      "visit_count": 25742,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "افغانی افغانستان",
-          "trendTitle": "افغانی افغانستان",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "افغانی",
-            "افغانستان"
-          ],
-          "page": 13
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:31:42.828Z"
-    },
     "cf0WEUk": {
       "video_code": "cf0WEUk",
       "title": "اهنگ افغانی /بسیار زیبا /استاد ساربان / محل قا",
@@ -18735,34 +19163,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T21:31:42.828Z"
     },
-    "fN8c0oB": {
-      "video_code": "fN8c0oB",
-      "title": "فوری از جنگ ایران و افغانستان",
-      "sender_name": "Mohammadesf27",
-      "category_id": 1,
-      "duration": 114,
-      "visit_count": 25583,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "افغانی افغانستان",
-          "trendTitle": "افغانی افغانستان",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "افغانی",
-            "افغانستان"
-          ],
-          "page": 14
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:31:42.828Z"
-    },
     "Jykntlt": {
       "video_code": "Jykntlt",
       "title": "فوری نیروهای افغانستان در مرز ایران",
@@ -18965,7 +19365,7 @@
       "sender_name": "سادگانه  💯",
       "category_id": 1,
       "duration": 571,
-      "visit_count": 29372,
+      "visit_count": 29374,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -18983,9 +19383,22 @@
             "افغانستان"
           ],
           "page": 15
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:31:42.828Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.903Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:59.086Z"
     },
     "IF4dqi5": {
       "video_code": "IF4dqi5",
@@ -19021,7 +19434,7 @@
       "sender_name": "خبر جنگی",
       "category_id": 1,
       "duration": 71,
-      "visit_count": 68652,
+      "visit_count": 68657,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -19039,9 +19452,22 @@
             "افغانستان"
           ],
           "page": 15
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T21:31:42.828Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.903Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:59.086Z"
     },
     "EhkvS3w": {
       "video_code": "EhkvS3w",
@@ -19358,34 +19784,6 @@
             "افغانستان"
           ],
           "page": 16
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:31:42.829Z"
-    },
-    "M4r0wcP": {
-      "video_code": "M4r0wcP",
-      "title": "آهنگ شاد محلی/آهنگ جدید شاد/آهنگ افغانی/کلیپ شاد",
-      "sender_name": "کلیپ روز",
-      "category_id": 9,
-      "duration": 216,
-      "visit_count": 25675,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "افغانی افغانستان",
-          "trendTitle": "افغانی افغانستان",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "افغانی",
-            "افغانستان"
-          ],
-          "page": 17
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T21:31:42.829Z"
@@ -23289,33 +23687,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-03T02:37:37.092Z"
-    },
-    "rt2o8IF": {
-      "video_code": "rt2o8IF",
-      "title": "قسمت 246 سریال قسم Yemin با دوبله فارسی",
-      "sender_name": "سیم خاردار❤️",
-      "category_id": 3,
-      "duration": 2719,
-      "visit_count": 25485,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 37
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.045Z"
     },
     "RgsOYT6": {
       "video_code": "RgsOYT6",
@@ -33068,10 +33439,34 @@
             "نفتکش"
           ],
           "page": 13
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 3
+        },
+        {
+          "query": "حرکت نفتکش ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.751Z",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:29.605Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.906Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:46.912Z"
     },
     "znHM03v": {
       "video_code": "znHM03v",
@@ -33497,7 +33892,7 @@
       "sender_name": "military news",
       "category_id": 1,
       "duration": 1002,
-      "visit_count": 14312,
+      "visit_count": 14313,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -33525,9 +33920,22 @@
             "فارس"
           ],
           "page": 7
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 13
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.361Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.904Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:03.443Z"
     },
     "bDphgRW": {
       "video_code": "bDphgRW",
@@ -33883,44 +34291,6 @@
       "lastTrendMatchedAt": "2026-11-18T03:40:46.752Z",
       "lastMetricsFetchedAt": "2026-11-18T03:40:33.798Z"
     },
-    "HtzyhXi": {
-      "video_code": "HtzyhXi",
-      "title": "این عشق را چه بنامم قسمت 22 دوبله فارس",
-      "sender_name": "دنیایی از فیلم و سریال   ",
-      "category_id": 3,
-      "duration": 2162,
-      "visit_count": 9447,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فارس",
-          "trendTitle": "فارس",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:30:00 -0800",
-          "trendKeywords": [
-            "فارس"
-          ],
-          "page": 9
-        },
-        {
-          "query": "خبرگزاری فارس",
-          "trendTitle": "خبرگزاری فارس",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:40:00 -0800",
-          "trendKeywords": [
-            "خبرگزاری",
-            "فارس"
-          ],
-          "page": 9
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.361Z"
-    },
     "sKwnYci": {
       "video_code": "sKwnYci",
       "title": "درگیری وحشیانه گروهی در مرودشت فارس",
@@ -34156,10 +34526,34 @@
             "نفتکش"
           ],
           "page": 17
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 4
+        },
+        {
+          "query": "حرکت نفتکش ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.752Z",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:33.062Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.906Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:46.912Z"
     },
     "dAEaM9K": {
       "video_code": "dAEaM9K",
@@ -34504,44 +34898,6 @@
             "فارس"
           ],
           "page": 14
-        },
-        {
-          "query": "خبرگزاری فارس",
-          "trendTitle": "خبرگزاری فارس",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:40:00 -0800",
-          "trendKeywords": [
-            "خبرگزاری",
-            "فارس"
-          ],
-          "page": 15
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.363Z"
-    },
-    "whiLANS": {
-      "video_code": "whiLANS",
-      "title": "سریال کره ای شادی قسمت ۳ زیرنویس فارس Happiness 2021",
-      "sender_name": "⭐ کلیپ آنلاین ⭐",
-      "category_id": 3,
-      "duration": 3731,
-      "visit_count": 9414,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فارس",
-          "trendTitle": "فارس",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:30:00 -0800",
-          "trendKeywords": [
-            "فارس"
-          ],
-          "page": 15
         },
         {
           "query": "خبرگزاری فارس",
@@ -36108,7 +36464,7 @@
       "sender_name": "آرامش",
       "category_id": 1,
       "duration": 28,
-      "visit_count": 28078,
+      "visit_count": 28079,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -36147,10 +36503,22 @@
             "سنجش"
           ],
           "page": 6
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 19
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.287Z",
-      "lastMetricsFetchedAt": "2026-11-18T00:40:06.373Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.905Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:11.041Z"
     },
     "FvFcujf": {
       "video_code": "FvFcujf",
@@ -36489,7 +36857,7 @@
       "sender_name": "نبض تو",
       "category_id": 1,
       "duration": 101,
-      "visit_count": 11025,
+      "visit_count": 11026,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -36529,10 +36897,21 @@
             "فوربس"
           ],
           "page": 2
+        },
+        {
+          "query": "روبرتو پیاتزا",
+          "trendTitle": "روبرتو پیاتزا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Sun, 22 Nov 2026 00:40:00 -0800",
+          "trendKeywords": [
+            "روبرتو",
+            "پیاتزا"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:00:30.415Z",
-      "lastMetricsFetchedAt": "2026-11-18T02:59:55.167Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.909Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:55.594Z"
     },
     "PMiIBxH": {
       "video_code": "PMiIBxH",
@@ -39299,7 +39678,7 @@
       "sender_name": "مسلم حیدری",
       "category_id": 1,
       "duration": 571,
-      "visit_count": 1060234,
+      "visit_count": 1060243,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -39316,9 +39695,22 @@
             "ایرنا"
           ],
           "page": 49
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.062Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.901Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:53.200Z"
     },
     "sl45EuB": {
       "video_code": "sl45EuB",
@@ -39591,7 +39983,7 @@
       "sender_name": "Ali✅",
       "category_id": 1,
       "duration": 107,
-      "visit_count": 854411,
+      "visit_count": 854423,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -39608,9 +40000,22 @@
             "ایرنا"
           ],
           "page": 52
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.062Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.901Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:52.190Z"
     },
     "IVVddfj": {
       "video_code": "IVVddfj",
@@ -39618,7 +40023,7 @@
       "sender_name": "حمیدرضا",
       "category_id": 1,
       "duration": 571,
-      "visit_count": 526262,
+      "visit_count": 526276,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -39635,9 +40040,22 @@
             "ایرنا"
           ],
           "page": 52
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.062Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.901Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:52.190Z"
     },
     "Z89WlPy": {
       "video_code": "Z89WlPy",
@@ -39791,7 +40209,7 @@
       "sender_name": "مهدی",
       "category_id": 1,
       "duration": 486,
-      "visit_count": 48584,
+      "visit_count": 48585,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -39820,10 +40238,22 @@
             "فقیه"
           ],
           "page": 1
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T05:50:36.160Z",
-      "lastMetricsFetchedAt": "2026-11-18T05:50:08.207Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.901Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:53.200Z"
     },
     "vEunpd3": {
       "video_code": "vEunpd3",
@@ -39858,7 +40288,7 @@
       "sender_name": "دیدنی ها",
       "category_id": 1,
       "duration": 609,
-      "visit_count": 199543,
+      "visit_count": 199563,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -39875,9 +40305,22 @@
             "ایرنا"
           ],
           "page": 56
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.063Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.901Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:53.200Z"
     },
     "FySI2Rv": {
       "video_code": "FySI2Rv",
@@ -40112,10 +40555,22 @@
             "نفتکش"
           ],
           "page": 16
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.752Z",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:32.221Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.901Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:53.200Z"
     },
     "G2li9Ke": {
       "video_code": "G2li9Ke",
@@ -40198,7 +40653,7 @@
       "sender_name": "نبض تو",
       "category_id": 1,
       "duration": 588,
-      "visit_count": 66605,
+      "visit_count": 66607,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -40215,9 +40670,22 @@
             "ایرنا"
           ],
           "page": 58
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.063Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.901Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:53.200Z"
     },
     "IgsW3EI": {
       "video_code": "IgsW3EI",
@@ -40279,7 +40747,7 @@
       "sender_name": "احمد علی - 1",
       "category_id": 1,
       "duration": 559,
-      "visit_count": 82031,
+      "visit_count": 82032,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -40296,9 +40764,22 @@
             "ایرنا"
           ],
           "page": 58
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.063Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.901Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:53.200Z"
     },
     "P70zCFd": {
       "video_code": "P70zCFd",
@@ -40563,7 +41044,7 @@
       "sender_name": "سعید",
       "category_id": 1,
       "duration": 520,
-      "visit_count": 82586,
+      "visit_count": 82589,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -40580,9 +41061,22 @@
             "ایرنا"
           ],
           "page": 59
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.064Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.901Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:54.403Z"
     },
     "gw9gCoZ": {
       "video_code": "gw9gCoZ",
@@ -44223,34 +44717,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:16:57.083Z"
     },
-    "iawB642": {
-      "video_code": "iawB642",
-      "title": "پدیدار شدن ابرهای عجیب در آسمان تهران!",
-      "sender_name": "یوتیوب فارسی | Youtube Persian",
-      "category_id": 22,
-      "duration": 69,
-      "visit_count": 25676,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "هوای تهران",
-          "trendTitle": "هوای تهران",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:30:00 -0800",
-          "trendKeywords": [
-            "هوای",
-            "تهران"
-          ],
-          "page": 39
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:16:57.083Z"
-    },
     "uc3pTqF": {
       "video_code": "uc3pTqF",
       "title": "سرقت مسلحانه از طلافروشی در تهران",
@@ -44527,34 +44993,6 @@
             "نفت"
           ],
           "page": 9
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T02:37:37.093Z"
-    },
-    "DDb43MB": {
-      "video_code": "DDb43MB",
-      "title": "فصل اول سریال خارجی The 100 صد نفر با زیرنویس فارسی قسمت 3",
-      "sender_name": "نگین",
-      "category_id": 3,
-      "duration": 2540,
-      "visit_count": 25661,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قیمت نفت",
-          "trendTitle": "قیمت نفت",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 14:00:00 -0800",
-          "trendKeywords": [
-            "قیمت",
-            "نفت"
-          ],
-          "page": 10
         }
       ],
       "lastTrendMatchedAt": "2026-11-03T02:37:37.093Z"
@@ -54816,34 +55254,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T05:06:09.146Z"
     },
-    "Xgnozbe": {
-      "video_code": "Xgnozbe",
-      "title": "قسمت 3 انیمه فرشته ی همسایه بغلی خیلی لوسم می‌کنه با زیرنویس فارسی",
-      "sender_name": "سیم خاردار❤️",
-      "category_id": 21,
-      "duration": 1420,
-      "visit_count": 25462,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فرشته حسینی",
-          "trendTitle": "فرشته حسینی",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 20:30:00 -0800",
-          "trendKeywords": [
-            "فرشته",
-            "حسینی"
-          ],
-          "page": 19
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T05:06:09.146Z"
-    },
     "l16E4lI": {
       "video_code": "l16E4lI",
       "title": "غوغای خوانندگی و نوازندگی شهاب حسینی با آهنگ ناصر عبداللهی | عجب صدای قشنگی داره",
@@ -56832,7 +57242,7 @@
       "sender_name": "فالو مساوی با فالو",
       "category_id": 3,
       "duration": 436,
-      "visit_count": 66030,
+      "visit_count": 66050,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -56860,9 +57270,22 @@
             "ایرنا"
           ],
           "page": 76
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.890Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:55.586Z"
     },
     "WU61hoN": {
       "video_code": "WU61hoN",
@@ -58928,8 +59351,8 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-19T19:06:07.153Z",
-      "lastMetricsFetchedAt": "2026-11-19T19:04:51.718Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.911Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:04.305Z"
     },
     "SBy8BbA": {
       "video_code": "SBy8BbA",
@@ -59307,8 +59730,8 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-19T19:06:07.153Z",
-      "lastMetricsFetchedAt": "2026-11-19T19:04:51.718Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.911Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:04.305Z"
     },
     "cgv4qZ1": {
       "video_code": "cgv4qZ1",
@@ -59316,7 +59739,7 @@
       "sender_name": "فالو مساوی با فالو",
       "category_id": 11,
       "duration": 50,
-      "visit_count": 29019,
+      "visit_count": 29020,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -59347,8 +59770,8 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-19T19:06:07.153Z",
-      "lastMetricsFetchedAt": "2026-11-19T19:04:51.718Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.911Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:04.305Z"
     },
     "tXtqUqA": {
       "video_code": "tXtqUqA",
@@ -59814,8 +60237,8 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-19T19:06:07.153Z",
-      "lastMetricsFetchedAt": "2026-11-19T19:04:51.718Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.911Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:04.305Z"
     },
     "89QQYF3": {
       "video_code": "89QQYF3",
@@ -67157,7 +67580,7 @@
       "sender_name": "ترفند خلاقیت لایف هک  ✅️",
       "category_id": 25,
       "duration": 321,
-      "visit_count": 24468,
+      "visit_count": 24470,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -67197,10 +67620,22 @@
             "خودرو"
           ],
           "page": 13
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T14:25:37.970Z",
-      "lastMetricsFetchedAt": "2026-11-18T14:24:36.411Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.903Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:57.986Z"
     },
     "5RWLRgA": {
       "video_code": "5RWLRgA",
@@ -67260,7 +67695,7 @@
       "sender_name": "military news",
       "category_id": 25,
       "duration": 480,
-      "visit_count": 24809,
+      "visit_count": 24810,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -67290,10 +67725,22 @@
             "خودرو"
           ],
           "page": 12
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 13
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T14:25:37.970Z",
-      "lastMetricsFetchedAt": "2026-11-18T14:24:35.633Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.904Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:03.443Z"
     },
     "SZIY9TG": {
       "video_code": "SZIY9TG",
@@ -69875,9 +70322,9 @@
       "sender_name": "مووی باکس `ღ´-",
       "category_id": 22,
       "duration": 930,
-      "visit_count": 35753,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
+      "visit_count": 35765,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -69892,9 +70339,22 @@
             "ایرنا"
           ],
           "page": 61
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.886Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.901Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:53.200Z"
     },
     "CY6iRMg": {
       "video_code": "CY6iRMg",
@@ -69956,7 +70416,7 @@
       "sender_name": "نبض تو",
       "category_id": 1,
       "duration": 525,
-      "visit_count": 34680,
+      "visit_count": 34681,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -69984,9 +70444,22 @@
             "۳۵"
           ],
           "page": 1
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T03:01:42.328Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:54.403Z"
     },
     "yq5OsMD": {
       "video_code": "yq5OsMD",
@@ -70021,7 +70494,7 @@
       "sender_name": "alimohammadifg",
       "category_id": 1,
       "duration": 514,
-      "visit_count": 28666,
+      "visit_count": 28672,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -70038,9 +70511,22 @@
             "ایرنا"
           ],
           "page": 62
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.886Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.901Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:53.200Z"
     },
     "v7uIpoO": {
       "video_code": "v7uIpoO",
@@ -70248,7 +70734,7 @@
       "sender_name": "الناز",
       "category_id": 1,
       "duration": 520,
-      "visit_count": 82406,
+      "visit_count": 82422,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -70265,9 +70751,22 @@
             "ایرنا"
           ],
           "page": 63
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.886Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:55.586Z"
     },
     "6X6u9Tu": {
       "video_code": "6X6u9Tu",
@@ -70302,7 +70801,7 @@
       "sender_name": "ویدیو های یوتیوب",
       "category_id": 30,
       "duration": 765,
-      "visit_count": 33253,
+      "visit_count": 33272,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -70319,9 +70818,22 @@
             "ایرنا"
           ],
           "page": 63
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.886Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.901Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:54.403Z"
     },
     "x6Sj1Gj": {
       "video_code": "x6Sj1Gj",
@@ -70373,9 +70885,22 @@
             "ایرنا"
           ],
           "page": 64
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.886Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:56.757Z"
     },
     "RIAXHf4": {
       "video_code": "RIAXHf4",
@@ -70675,7 +71200,7 @@
       "sender_name": "سرگرمی متنوع  (فالو = فالو )",
       "category_id": 1,
       "duration": 605,
-      "visit_count": 107758,
+      "visit_count": 107767,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -70703,9 +71228,22 @@
             "۳۵"
           ],
           "page": 1
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T03:01:42.328Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.901Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:54.403Z"
     },
     "gmfYpcI": {
       "video_code": "gmfYpcI",
@@ -70814,7 +71352,7 @@
       "sender_name": "سعید",
       "category_id": 1,
       "duration": 1002,
-      "visit_count": 80410,
+      "visit_count": 80411,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -70831,9 +71369,22 @@
             "ایرنا"
           ],
           "page": 65
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.887Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.901Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:54.403Z"
     },
     "MRDGftR": {
       "video_code": "MRDGftR",
@@ -71175,7 +71726,7 @@
       "sender_name": "سریال 97...تفریحی",
       "category_id": 1,
       "duration": 488,
-      "visit_count": 51057,
+      "visit_count": 51066,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -71192,9 +71743,22 @@
             "ایرنا"
           ],
           "page": 66
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.887Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.901Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:54.403Z"
     },
     "THtyHr8": {
       "video_code": "THtyHr8",
@@ -71348,7 +71912,7 @@
       "sender_name": "سعید",
       "category_id": 1,
       "duration": 524,
-      "visit_count": 61431,
+      "visit_count": 61433,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -71376,10 +71940,34 @@
             "نفتکش"
           ],
           "page": 14
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 3
+        },
+        {
+          "query": "حرکت نفتکش ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.751Z",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:30.610Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.905Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:46.912Z"
     },
     "KlPlGvt": {
       "video_code": "KlPlGvt",
@@ -71587,10 +72175,22 @@
             "چین"
           ],
           "page": 8
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T14:05:35.853Z",
-      "lastMetricsFetchedAt": "2026-11-18T14:04:47.412Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.901Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:54.403Z"
     },
     "eN9H6o8": {
       "video_code": "eN9H6o8",
@@ -71797,7 +72397,7 @@
       "sender_name": "military news",
       "category_id": 1,
       "duration": 554,
-      "visit_count": 80824,
+      "visit_count": 80827,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -71814,9 +72414,22 @@
             "ایرنا"
           ],
           "page": 68
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.888Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:54.403Z"
     },
     "OwA6ccm": {
       "video_code": "OwA6ccm",
@@ -71862,7 +72475,7 @@
       "sender_name": "ایران مال",
       "category_id": 1,
       "duration": 28,
-      "visit_count": 358928,
+      "visit_count": 358932,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -71879,9 +72492,22 @@
             "ایرنا"
           ],
           "page": 68
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.888Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:54.403Z"
     },
     "yH2T3cT": {
       "video_code": "yH2T3cT",
@@ -71889,7 +72515,7 @@
       "sender_name": "military news",
       "category_id": 1,
       "duration": 499,
-      "visit_count": 68497,
+      "visit_count": 68503,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -71906,9 +72532,22 @@
             "ایرنا"
           ],
           "page": 69
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.888Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:55.586Z"
     },
     "6rQ2wgi": {
       "video_code": "6rQ2wgi",
@@ -72105,7 +72744,7 @@
       "sender_name": "familygeme",
       "category_id": 7,
       "duration": 1161,
-      "visit_count": 49071,
+      "visit_count": 49166,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -72122,9 +72761,22 @@
             "ایرنا"
           ],
           "page": 69
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.888Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:55.586Z"
     },
     "hDAL0ds": {
       "video_code": "hDAL0ds",
@@ -72186,7 +72838,7 @@
       "sender_name": "خدیجه",
       "category_id": 1,
       "duration": 131,
-      "visit_count": 202749,
+      "visit_count": 202753,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -72203,9 +72855,22 @@
             "ایرنا"
           ],
           "page": 69
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.888Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:55.586Z"
     },
     "5FdhhmC": {
       "video_code": "5FdhhmC",
@@ -72230,9 +72895,22 @@
             "ایرنا"
           ],
           "page": 70
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.888Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:56.757Z"
     },
     "IQOChav": {
       "video_code": "IQOChav",
@@ -72321,7 +72999,7 @@
       "sender_name": "Javad",
       "category_id": 1,
       "duration": 510,
-      "visit_count": 19625,
+      "visit_count": 19626,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -72360,10 +73038,22 @@
             "اطلاعات"
           ],
           "page": 9
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T16:26:23.156Z",
-      "lastMetricsFetchedAt": "2026-11-18T16:24:46.805Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:56.757Z"
     },
     "tnnmyFr": {
       "video_code": "tnnmyFr",
@@ -72791,7 +73481,7 @@
       "sender_name": "Ali✅",
       "category_id": 3,
       "duration": 497,
-      "visit_count": 26028,
+      "visit_count": 26038,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -72808,9 +73498,22 @@
             "ایرنا"
           ],
           "page": 72
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.889Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:55.586Z"
     },
     "iymJFvp": {
       "video_code": "iymJFvp",
@@ -72953,7 +73656,7 @@
       "sender_name": "احمد علی - 1",
       "category_id": 1,
       "duration": 524,
-      "visit_count": 29101,
+      "visit_count": 29111,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -72981,10 +73684,34 @@
             "نفتکش"
           ],
           "page": 14
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 3
+        },
+        {
+          "query": "حرکت نفتکش ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.751Z",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:30.610Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.906Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:46.912Z"
     },
     "Um7e70X": {
       "video_code": "Um7e70X",
@@ -73063,9 +73790,22 @@
             "ایرنا"
           ],
           "page": 73
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.889Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:55.586Z"
     },
     "Otfse60": {
       "video_code": "Otfse60",
@@ -73073,7 +73813,7 @@
       "sender_name": "نبض تو",
       "category_id": 1,
       "duration": 486,
-      "visit_count": 59366,
+      "visit_count": 59370,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -73090,9 +73830,22 @@
             "ایرنا"
           ],
           "page": 73
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.889Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:55.586Z"
     },
     "X0HG53W": {
       "video_code": "X0HG53W",
@@ -73181,7 +73934,7 @@
       "sender_name": "فالو = فالو",
       "category_id": 1,
       "duration": 582,
-      "visit_count": 83243,
+      "visit_count": 83245,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -73198,9 +73951,22 @@
             "ایرنا"
           ],
           "page": 73
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.889Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:55.586Z"
     },
     "4rDcAkY": {
       "video_code": "4rDcAkY",
@@ -73262,7 +74028,7 @@
       "sender_name": "مهدی",
       "category_id": 1,
       "duration": 1275,
-      "visit_count": 70795,
+      "visit_count": 70800,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -73279,9 +74045,22 @@
             "ایرنا"
           ],
           "page": 74
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.889Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:55.586Z"
     },
     "rM0jsrR": {
       "video_code": "rM0jsrR",
@@ -73289,7 +74068,7 @@
       "sender_name": "سادگانه  💯",
       "category_id": 1,
       "duration": 276,
-      "visit_count": 95023,
+      "visit_count": 95025,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -73306,9 +74085,22 @@
             "ایرنا"
           ],
           "page": 74
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.889Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:55.586Z"
     },
     "axOBGlE": {
       "video_code": "axOBGlE",
@@ -73517,10 +74309,34 @@
             "نفتکش"
           ],
           "page": 14
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 3
+        },
+        {
+          "query": "حرکت نفتکش ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.751Z",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:30.610Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.906Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:46.912Z"
     },
     "u8LE7gj": {
       "video_code": "u8LE7gj",
@@ -73528,7 +74344,7 @@
       "sender_name": "military news",
       "category_id": 1,
       "duration": 500,
-      "visit_count": 30265,
+      "visit_count": 30279,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -73545,9 +74361,22 @@
             "ایرنا"
           ],
           "page": 75
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.889Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:56.757Z"
     },
     "haAJcts": {
       "video_code": "haAJcts",
@@ -73555,7 +74384,7 @@
       "sender_name": "سعید",
       "category_id": 1,
       "duration": 673,
-      "visit_count": 26639,
+      "visit_count": 26640,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -73583,10 +74412,34 @@
             "نفتکش"
           ],
           "page": 14
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 3
+        },
+        {
+          "query": "حرکت نفتکش ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.751Z",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:30.610Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.906Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:46.912Z"
     },
     "C0zUgep": {
       "video_code": "C0zUgep",
@@ -73945,7 +74798,7 @@
       "sender_name": "دانا لرن",
       "category_id": 1,
       "duration": 125,
-      "visit_count": 60199,
+      "visit_count": 60210,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -73962,9 +74815,22 @@
             "ایرنا"
           ],
           "page": 77
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.890Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.903Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:59.086Z"
     },
     "8G2PDQT": {
       "video_code": "8G2PDQT",
@@ -74427,7 +75293,7 @@
       "sender_name": "AM_TEKNOO",
       "category_id": 1,
       "duration": 100,
-      "visit_count": 285731,
+      "visit_count": 285738,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -74444,9 +75310,22 @@
             "ایرنا"
           ],
           "page": 79
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 11
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.891Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.903Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:00.181Z"
     },
     "55MtYG7": {
       "video_code": "55MtYG7",
@@ -75666,7 +76545,7 @@
       "sender_name": "نبض تو",
       "category_id": 1,
       "duration": 605,
-      "visit_count": 38309,
+      "visit_count": 38313,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -75684,9 +76563,22 @@
             "۳۵"
           ],
           "page": 2
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T03:01:42.328Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:56.757Z"
     },
     "X8r0LNI": {
       "video_code": "X8r0LNI",
@@ -75967,7 +76859,7 @@
       "sender_name": "Javad",
       "category_id": 1,
       "duration": 44,
-      "visit_count": 33889,
+      "visit_count": 33896,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -75985,9 +76877,22 @@
             "۳۵"
           ],
           "page": 3
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 18
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T03:01:42.329Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.905Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:09.067Z"
     },
     "yS8q6CE": {
       "video_code": "yS8q6CE",
@@ -76957,34 +77862,6 @@
       "visit_count": 50332,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سوخو-۳۵",
-          "trendTitle": "سوخو-۳۵",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 3 Nov 2026 18:20:00 -0800",
-          "trendKeywords": [
-            "سوخو",
-            "۳۵"
-          ],
-          "page": 24
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.907Z"
-    },
-    "Xj7blul": {
-      "video_code": "Xj7blul",
-      "title": "خواهران و برادران قسمت 35",
-      "sender_name": "سریال نما",
-      "category_id": 8,
-      "duration": 2747,
-      "visit_count": 25499,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -80850,7 +81727,7 @@
       "sender_name": "MiniGun",
       "category_id": 1,
       "duration": 114,
-      "visit_count": 37318,
+      "visit_count": 37322,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -80867,9 +81744,22 @@
             "اخبار"
           ],
           "page": 3
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.913Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.903Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:59.086Z"
     },
     "rMwcAbQ": {
       "video_code": "rMwcAbQ",
@@ -85012,10 +85902,10 @@
       "sender_name": "سعید",
       "category_id": 11,
       "duration": 101,
-      "visit_count": 559528,
+      "visit_count": 559530,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-19T19:05:41.939Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:54.520Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -85053,9 +85943,20 @@
             "خردادیان"
           ],
           "page": 19
+        },
+        {
+          "query": "روبرتو پیاتزا",
+          "trendTitle": "روبرتو پیاتزا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Sun, 22 Nov 2026 00:40:00 -0800",
+          "trendKeywords": [
+            "روبرتو",
+            "پیاتزا"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-19T19:06:07.171Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.909Z"
     },
     "j6fJe4w": {
       "video_code": "j6fJe4w",
@@ -88578,7 +89479,7 @@
       "visit_count": 26795,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:23:09.586Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:06.843Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -88594,9 +89495,21 @@
             "کثیف"
           ],
           "page": 15
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 16
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:23:43.670Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.904Z"
     },
     "PnvnBGf": {
       "video_code": "PnvnBGf",
@@ -88607,7 +89520,7 @@
       "visit_count": 28334,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:23:09.586Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:06.843Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -88623,9 +89536,21 @@
             "کثیف"
           ],
           "page": 15
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 16
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T16:23:43.670Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.904Z"
     },
     "qEiH6oP": {
       "video_code": "qEiH6oP",
@@ -90491,35 +91416,6 @@
       "category_id": 11,
       "duration": 70,
       "visit_count": 71163,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:25:07.280Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پیمان جبلی",
-          "trendTitle": "پیمان جبلی",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 08:10:00 -0800",
-          "trendKeywords": [
-            "پیمان",
-            "جبلی"
-          ],
-          "page": 4
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T18:26:31.299Z"
-    },
-    "h4TGFE2": {
-      "video_code": "h4TGFE2",
-      "title": "آهنگ آبراهام پیمان آدیداس",
-      "sender_name": "الناز",
-      "category_id": 9,
-      "duration": 72,
-      "visit_count": 25625,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T18:25:07.280Z",
@@ -93734,10 +94630,10 @@
       "sender_name": "دنیای فیلم و سریال(فالو=فالو)",
       "category_id": 11,
       "duration": 101,
-      "visit_count": 89842,
+      "visit_count": 89843,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-19T19:25:37.232Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:54.520Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -93775,9 +94671,20 @@
             "خردادیان"
           ],
           "page": 30
+        },
+        {
+          "query": "روبرتو پیاتزا",
+          "trendTitle": "روبرتو پیاتزا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Sun, 22 Nov 2026 00:40:00 -0800",
+          "trendKeywords": [
+            "روبرتو",
+            "پیاتزا"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-19T19:26:18.634Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.909Z"
     },
     "I8fFN4Q": {
       "video_code": "I8fFN4Q",
@@ -94880,35 +95787,6 @@
       "lastMetricsFetchedAt": "2026-11-17T16:45:52.211Z",
       "active": 1,
       "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "محمد شعبانپور",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 35
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T16:45:52.292Z"
-    },
-    "eYgwEI4": {
-      "video_code": "eYgwEI4",
-      "title": "پسر محمد رضا گلزار و همسرش آیسان آقاخانی",
-      "sender_name": "فیلم بازان",
-      "category_id": 8,
-      "duration": 462,
-      "visit_count": 25583,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:45:52.211Z",
-      "active": 1,
-      "can_republish": 0,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -101672,35 +102550,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T17:25:47.891Z"
     },
-    "R2Focea": {
-      "video_code": "R2Focea",
-      "title": "قسمت ۲۰ (قسمت آخر)سریال افسانه خورشید و ماه،دوبله فارسی",
-      "sender_name": "خدیجه",
-      "category_id": 3,
-      "duration": 3809,
-      "visit_count": 25674,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T17:25:31.570Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 39
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T17:25:47.891Z"
-    },
     "NBfJR98": {
       "video_code": "NBfJR98",
       "title": "انیمه شیطان کش فصل 2 قسمت 18 آخر دوبله فارسی کامل",
@@ -104775,35 +105624,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T17:25:47.893Z"
     },
-    "5rgKiUX": {
-      "video_code": "5rgKiUX",
-      "title": "سکانس کوتاه | ( سریال حبیب قسمت 25 _ آخر) .",
-      "sender_name": "d1400",
-      "category_id": 3,
-      "duration": 600,
-      "visit_count": 25491,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T17:25:47.861Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 21,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 50
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T17:25:47.893Z"
-    },
     "Uvac8Md": {
       "video_code": "Uvac8Md",
       "title": "سریال عشق بی حدمرز قسمت آخر",
@@ -105045,7 +105865,7 @@
       "visit_count": 26750,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T17:25:37.137Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:12.587Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -105061,9 +105881,21 @@
             "شعبانپور"
           ],
           "page": 65
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 20
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T17:25:47.897Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.905Z"
     },
     "L7F15BV": {
       "video_code": "L7F15BV",
@@ -113127,34 +113959,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:07:45.403Z"
     },
-    "uSIiRsH": {
-      "video_code": "uSIiRsH",
-      "title": "میکس سریال چینی سوگند به عشق",
-      "sender_name": "سایا",
-      "category_id": 3,
-      "duration": 51,
-      "visit_count": 25654,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:06:58.486Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 9
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.403Z"
-    },
     "QWhGBZG": {
       "video_code": "QWhGBZG",
       "title": "سریال به عشق تو سوگند قسمت 159 دوبله فارسی",
@@ -114088,34 +114892,6 @@
       "visit_count": 48009,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:07:06.065Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 12
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.404Z"
-    },
-    "uVP7Jkf": {
-      "video_code": "uVP7Jkf",
-      "title": "سریال ترکی سوگند قسمت 224، دوبله فارسی",
-      "sender_name": "فیلم +",
-      "category_id": 3,
-      "duration": 2553,
-      "visit_count": 25486,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T19:07:06.065Z",
       "active": 1,
       "can_republish": 0,
@@ -118851,34 +119627,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T20:21:46.072Z"
     },
-    "L2rogE0": {
-      "video_code": "L2rogE0",
-      "title": "فیلم سینمایی فلش با دوبله فارسی The Flash 2023",
-      "sender_name": "filofilm.ss",
-      "category_id": 3,
-      "duration": 7687,
-      "visit_count": 25620,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T20:21:04.129Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فلز",
-          "trendTitle": "فلز",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "فلز"
-          ],
-          "page": 30
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T20:21:46.074Z"
-    },
     "tF4X96p": {
       "video_code": "tF4X96p",
       "title": "فصل هفتم قسمت شانزدهم سریال فلش با زیرنویس چسبیده",
@@ -119346,10 +120094,10 @@
       "sender_name": "Amirali",
       "category_id": 11,
       "duration": 19,
-      "visit_count": 89175,
+      "visit_count": 89176,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T14:44:50.261Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:54.520Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -119375,9 +120123,20 @@
             "کنست"
           ],
           "page": 11
+        },
+        {
+          "query": "روبرتو پیاتزا",
+          "trendTitle": "روبرتو پیاتزا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Sun, 22 Nov 2026 00:40:00 -0800",
+          "trendKeywords": [
+            "روبرتو",
+            "پیاتزا"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T14:45:23.131Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.909Z"
     },
     "XxRQIae": {
       "video_code": "XxRQIae",
@@ -119385,10 +120144,10 @@
       "sender_name": "Amirali",
       "category_id": 11,
       "duration": 93,
-      "visit_count": 71701,
+      "visit_count": 71703,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:59:54.435Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:54.520Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -119404,9 +120163,20 @@
             "فوربس"
           ],
           "page": 1
+        },
+        {
+          "query": "روبرتو پیاتزا",
+          "trendTitle": "روبرتو پیاتزا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Sun, 22 Nov 2026 00:40:00 -0800",
+          "trendKeywords": [
+            "روبرتو",
+            "پیاتزا"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:00:30.414Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.909Z"
     },
     "IubdN0v": {
       "video_code": "IubdN0v",
@@ -119414,10 +120184,10 @@
       "sender_name": "همه چی آزاد",
       "category_id": 11,
       "duration": 61,
-      "visit_count": 28824,
+      "visit_count": 28825,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T02:59:54.435Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:54.520Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -119433,9 +120203,20 @@
             "فوربس"
           ],
           "page": 1
+        },
+        {
+          "query": "روبرتو پیاتزا",
+          "trendTitle": "روبرتو پیاتزا",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Sun, 22 Nov 2026 00:40:00 -0800",
+          "trendKeywords": [
+            "روبرتو",
+            "پیاتزا"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:00:30.415Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.909Z"
     },
     "oWwOSaW": {
       "video_code": "oWwOSaW",
@@ -120537,34 +121318,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T01:00:32.004Z"
     },
-    "DLUTsRX": {
-      "video_code": "DLUTsRX",
-      "title": "انجام معاینات پزشکی برای سلامت یسنا",
-      "sender_name": "فیلم و سریال/ کلیپ",
-      "category_id": 30,
-      "duration": 45,
-      "visit_count": 25671,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T01:40:07.539Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "ایسنا",
-          "trendTitle": "ایسنا",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Tue, 17 Nov 2026 16:10:00 -0800",
-          "trendKeywords": [
-            "ایسنا"
-          ],
-          "page": 53
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T01:40:35.015Z"
-    },
     "4zpqatg": {
       "video_code": "4zpqatg",
       "title": "معاینه پزشکی یسنا در بیمارستان",
@@ -120984,10 +121737,10 @@
       "sender_name": "خبر جنگی",
       "category_id": 1,
       "duration": 28,
-      "visit_count": 29939,
+      "visit_count": 29940,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:32.221Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:52.190Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -121003,9 +121756,21 @@
             "نفتکش"
           ],
           "page": 16
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.752Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.901Z"
     },
     "SJjr1a6": {
       "video_code": "SJjr1a6",
@@ -121016,7 +121781,7 @@
       "visit_count": 37089,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T03:40:32.221Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:46.912Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -121032,9 +121797,33 @@
             "نفتکش"
           ],
           "page": 16
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 3
+        },
+        {
+          "query": "حرکت نفتکش ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T03:40:46.752Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.906Z"
     },
     "TDbtaWs": {
       "video_code": "TDbtaWs",
@@ -122255,36 +123044,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T05:50:36.157Z"
     },
-    "b95o8Km": {
-      "video_code": "b95o8Km",
-      "title": "شما قطارای ژاپن ببین،اونوقت میفهمی قطار یعنی چی",
-      "sender_name": "یوتیوب فارسی",
-      "category_id": 22,
-      "duration": 30,
-      "visit_count": 25697,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T05:50:11.378Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "خرید بلیط قطار",
-          "trendTitle": "خرید بلیط قطار",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Tue, 17 Nov 2026 20:20:00 -0800",
-          "trendKeywords": [
-            "خرید",
-            "بلیط",
-            "قطار"
-          ],
-          "page": 11
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T05:50:36.157Z"
-    },
     "LHMwjJu": {
       "video_code": "LHMwjJu",
       "title": "انیمیشن برو! برو! کوری کارسون فصل 4 قسمت 1 دوبله فارسی",
@@ -123038,35 +123797,6 @@
       "visit_count": 45791,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:14:58.752Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سحر لطفی",
-          "trendTitle": "سحر لطفی",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 21:40:00 -0800",
-          "trendKeywords": [
-            "سحر",
-            "لطفی"
-          ],
-          "page": 27
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T07:15:34.062Z"
-    },
-    "WyRkH2t": {
-      "video_code": "WyRkH2t",
-      "title": "دوربین مخی خواستگاری کردن پویان از سحر",
-      "sender_name": "دوربین مخفی دهقان",
-      "category_id": 2,
-      "duration": 1251,
-      "visit_count": 25586,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
       "lastMetricsFetchedAt": "2026-11-18T07:14:58.752Z",
       "active": 1,
       "can_republish": 1,
@@ -127393,34 +128123,6 @@
       "visit_count": 65121,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T07:35:38.269Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "آشپزی",
-          "trendTitle": "آشپزی",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 22:30:00 -0800",
-          "trendKeywords": [
-            "آشپزی"
-          ],
-          "page": 35
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T07:35:53.656Z"
-    },
-    "tjGTUyk": {
-      "video_code": "tjGTUyk",
-      "title": "زندگی و آشپزی روستایی/کباب لوله ای خوشمزه",
-      "sender_name": "diziturk",
-      "category_id": 29,
-      "duration": 748,
-      "visit_count": 25563,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
       "lastMetricsFetchedAt": "2026-11-18T07:35:38.269Z",
       "active": 1,
       "can_republish": 1,
@@ -134479,7 +135181,7 @@
       "visit_count": 19636,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-19T18:45:42.447Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:09.067Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -134529,9 +135231,21 @@
             "بهران"
           ],
           "page": 1
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 18
         }
       ],
-      "lastTrendMatchedAt": "2026-11-19T18:47:09.703Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.905Z"
     },
     "dT7mZPv": {
       "video_code": "dT7mZPv",
@@ -135749,10 +136463,10 @@
       "sender_name": "بابایی ترین دختر دنیا",
       "category_id": 29,
       "duration": 257,
-      "visit_count": 30088,
+      "visit_count": 30094,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T14:05:08.275Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:59.086Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -135779,9 +136493,21 @@
             "خام"
           ],
           "page": 11
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T14:05:35.861Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.903Z"
     },
     "jtLYnfy": {
       "video_code": "jtLYnfy",
@@ -145467,35 +146193,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T11:15:32.375Z"
     },
-    "CF3LCsI": {
-      "video_code": "CF3LCsI",
-      "title": "اهنگ محسن لرستانی بچه ننه",
-      "sender_name": "علیرضا",
-      "category_id": 9,
-      "duration": 364,
-      "visit_count": 25554,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:15:07.060Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "محسن فخریزاده",
-          "trendTitle": "محسن فخریزاده",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Wed, 18 Nov 2026 01:10:00 -0800",
-          "trendKeywords": [
-            "محسن",
-            "فخریزاده"
-          ],
-          "page": 20
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.375Z"
-    },
     "bQryztp": {
       "video_code": "bQryztp",
       "title": "آهنگ محسن لرستانی به نام زندانی",
@@ -147916,36 +148613,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T12:25:28.830Z"
     },
-    "Uw8NEyj": {
-      "video_code": "Uw8NEyj",
-      "title": "سریال دوقلوها (عموهای فیتیله ای) قسمت 26",
-      "sender_name": "آماندا",
-      "category_id": 3,
-      "duration": 2305,
-      "visit_count": 25582,
-      "create_date": "7 سال پیش",
-      "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:24:38.366Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "جی تی ای ۶",
-          "trendTitle": "جی تی ای ۶",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-          "trendKeywords": [
-            "جی",
-            "تی",
-            "ای"
-          ],
-          "page": 42
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T12:25:28.830Z"
-    },
     "Pwi8Lpv": {
       "video_code": "Pwi8Lpv",
       "title": "سریال کره ای امپراطور افسانه ها قسمت 36",
@@ -149614,45 +150281,6 @@
             "فوتبال"
           ],
           "page": 4
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-21T07:50:04.887Z"
-    },
-    "xFT2qCp": {
-      "video_code": "xFT2qCp",
-      "title": "سرود سرباز های حیدر",
-      "sender_name": "احمد",
-      "category_id": 8,
-      "duration": 255,
-      "visit_count": 9384,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-21T07:49:49.270Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سرباز",
-          "trendTitle": "سرباز",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-          "trendKeywords": [
-            "سرباز"
-          ],
-          "page": 3
-        },
-        {
-          "query": "سرباز بیرانوند؛ به تایلند رسید",
-          "trendTitle": "بازیکن فوتبال",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
-          "trendKeywords": [
-            "بازیکن",
-            "فوتبال"
-          ],
-          "page": 5
         }
       ],
       "lastTrendMatchedAt": "2026-11-21T07:50:04.887Z"
@@ -156676,35 +157304,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T16:26:23.157Z"
     },
-    "TKgNxCA": {
-      "video_code": "TKgNxCA",
-      "title": "فرزانه صادق: رهبر انقلاب روی هیچکدام از وزیران نظر شخصی نداشتند که چه کسی وزیر بشود یا نشود",
-      "sender_name": "رضا",
-      "category_id": 1,
-      "duration": 59,
-      "visit_count": 25484,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T16:24:55.235Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "وزیر اطلاعات",
-          "trendTitle": "وزیر اطلاعات",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Wed, 18 Nov 2026 07:30:00 -0800",
-          "trendKeywords": [
-            "وزیر",
-            "اطلاعات"
-          ],
-          "page": 17
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T16:26:23.159Z"
-    },
     "dVDAwaX": {
       "video_code": "dVDAwaX",
       "title": "فواد ایزدی خطاب به پزشکیان: شما گفتید دولت سوم روحانی نیستم اما الان با وزیر و س",
@@ -158338,35 +158937,6 @@
       "visit_count": 25825,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T17:05:19.078Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "محسن فخریزاده",
-          "trendTitle": "محسن فخریزاده",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Wed, 18 Nov 2026 01:10:00 -0800",
-          "trendKeywords": [
-            "محسن",
-            "فخریزاده"
-          ],
-          "page": 26
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T17:05:35.953Z"
-    },
-    "fUq7S2i": {
-      "video_code": "fUq7S2i",
-      "title": "اهنگ زیبا و قدیمی تریاک از محسن چالوسی",
-      "sender_name": "امیر",
-      "category_id": 9,
-      "duration": 220,
-      "visit_count": 25569,
-      "create_date": "6 سال پیش",
-      "styled_create_date": "6 سال پیش",
       "lastMetricsFetchedAt": "2026-11-18T17:05:19.078Z",
       "active": 1,
       "can_republish": 1,
@@ -161509,34 +162079,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T17:25:48.121Z"
     },
-    "PzBHYiT": {
-      "video_code": "PzBHYiT",
-      "title": "#آموزش نقاشی یک دختر با گیتار//نقاشی آسان",
-      "sender_name": "سبد ویدیو ✅",
-      "category_id": 7,
-      "duration": 771,
-      "visit_count": 25732,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T17:24:51.781Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "آدان",
-          "trendTitle": "آدان",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Wed, 18 Nov 2026 07:40:00 -0800",
-          "trendKeywords": [
-            "آدان"
-          ],
-          "page": 40
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T17:25:48.121Z"
-    },
     "2JoIEcB": {
       "video_code": "2JoIEcB",
       "title": "حلوای گردو رو توخونه به این خوشمزگی درست کن بااشپزی آسان",
@@ -162079,34 +162621,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-18T17:45:31.197Z"
-    },
-    "Dag8RBO": {
-      "video_code": "Dag8RBO",
-      "title": "فیلم سوپر ماریو ۲۰۲۳ دوبله فارسی",
-      "sender_name": "کلیپ میویس",
-      "category_id": 3,
-      "duration": 5545,
-      "visit_count": 25596,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T17:45:01.855Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "کوپر",
-          "trendTitle": "کوپر",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Wed, 18 Nov 2026 08:30:00 -0800",
-          "trendKeywords": [
-            "کوپر"
-          ],
-          "page": 27
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T17:45:31.198Z"
     },
     "0to3YoP": {
       "video_code": "0to3YoP",
@@ -163378,34 +163892,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T18:05:35.008Z"
     },
-    "2gmvrUZ": {
-      "video_code": "2gmvrUZ",
-      "title": "سحر قریشی در کویر",
-      "sender_name": "یاشار?فالو=فالو",
-      "category_id": 22,
-      "duration": 8,
-      "visit_count": 25703,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T18:24:38.402Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "کوپر",
-          "trendTitle": "کوپر",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Wed, 18 Nov 2026 08:30:00 -0800",
-          "trendKeywords": [
-            "کوپر"
-          ],
-          "page": 64
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T18:25:28.598Z"
-    },
     "FiFEMvG": {
       "video_code": "FiFEMvG",
       "title": "خوانندگی جالب مریم امیر جلالی",
@@ -163769,10 +164255,10 @@
       "sender_name": "بادیگارد",
       "category_id": 1,
       "duration": 19,
-      "visit_count": 69662,
+      "visit_count": 69663,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-19T19:04:50.647Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:03.142Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -163790,7 +164276,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-19T19:06:07.153Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.911Z"
     },
     "M6wHEEG": {
       "video_code": "M6wHEEG",
@@ -163798,10 +164284,10 @@
       "sender_name": "منتظر ظهور ",
       "category_id": 3,
       "duration": 6125,
-      "visit_count": 37626,
+      "visit_count": 37628,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-19T19:04:50.647Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:03.142Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -163819,7 +164305,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-19T19:06:07.153Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.911Z"
     },
     "lud5AFx": {
       "video_code": "lud5AFx",
@@ -163827,10 +164313,10 @@
       "sender_name": "رضا",
       "category_id": 3,
       "duration": 5372,
-      "visit_count": 61562,
+      "visit_count": 61570,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-19T19:04:51.718Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:03.142Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -163848,7 +164334,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-19T19:06:07.153Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.911Z"
     },
     "F86sf6P": {
       "video_code": "F86sf6P",
@@ -163856,10 +164342,10 @@
       "sender_name": "ساسان",
       "category_id": 3,
       "duration": 26,
-      "visit_count": 25982,
+      "visit_count": 25983,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-19T19:04:52.849Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:05.348Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -163877,7 +164363,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-19T19:06:07.154Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.911Z"
     },
     "P2iEihg": {
       "video_code": "P2iEihg",
@@ -165033,35 +165519,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-19T19:26:18.627Z"
     },
-    "7Jnt1c3": {
-      "video_code": "7Jnt1c3",
-      "title": "چالش نقاشی جدید(علی ایکس شات)",
-      "sender_name": "ابوالفضل",
-      "category_id": 15,
-      "duration": 977,
-      "visit_count": 25718,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-19T19:25:29.289Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "علی تاجرنیا",
-          "trendTitle": "علی تاجرنیا",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Thu, 19 Nov 2026 09:50:00 -0800",
-          "trendKeywords": [
-            "علی",
-            "تاجرنیا"
-          ],
-          "page": 31
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-19T19:26:18.627Z"
-    },
     "QejJ0QT": {
       "video_code": "QejJ0QT",
       "title": "تمرین علی طولابی با صدای بهشتیش",
@@ -165963,10 +166420,10 @@
       "sender_name": "خادم الشهدا",
       "category_id": 11,
       "duration": 125,
-      "visit_count": 19822,
+      "visit_count": 19823,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-20T22:29:19.740Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:05.695Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -165992,9 +166449,21 @@
             "النصر"
           ],
           "page": 1
+        },
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 15
         }
       ],
-      "lastTrendMatchedAt": "2026-11-20T22:30:03.226Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.904Z"
     },
     "hFMuK04": {
       "video_code": "hFMuK04",
@@ -168053,34 +168522,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-21T07:50:04.869Z"
     },
-    "j9ygiUs": {
-      "video_code": "j9ygiUs",
-      "title": "جشن فارغ التحصیلی دانشگاه پلیس",
-      "sender_name": "Mr",
-      "category_id": 28,
-      "duration": 210,
-      "visit_count": 25504,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-21T07:49:26.348Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "دانشگاه",
-          "trendTitle": "دانشگاه",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Fri, 20 Nov 2026 21:50:00 -0800",
-          "trendKeywords": [
-            "دانشگاه"
-          ],
-          "page": 6
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-21T07:50:04.869Z"
-    },
     "ur1qmrm": {
       "video_code": "ur1qmrm",
       "title": "جشن فارغ التحصیلی دانشجویان دانشگاه اصفهان",
@@ -168692,7 +169133,7 @@
       "visit_count": 70883,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-21T12:24:38.646Z",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:46.912Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -168707,9 +169148,21 @@
             "تویوتا"
           ],
           "page": 2
+        },
+        {
+          "query": "حرکت نفتکش ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-21T12:25:11.018Z"
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.906Z"
     },
     "8yCctYs": {
       "video_code": "8yCctYs",
@@ -173762,8 +174215,1078 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-22T06:25:24.200Z"
+    },
+    "xr3AJfk": {
+      "video_code": "xr3AJfk",
+      "title": "دانلود رایا و آخرین اژدها با دوبله فارسی",
+      "sender_name": "پونوکو",
+      "category_id": 3,
+      "duration": 6448,
+      "visit_count": 140010,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:34.402Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "داوید رایا",
+          "trendTitle": "داوید رایا",
+          "trendTraffic": 5000,
+          "trendPublishedAt": "Sun, 22 Nov 2026 00:20:00 -0800",
+          "trendKeywords": [
+            "داوید",
+            "رایا"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.889Z"
+    },
+    "ENdR2n7": {
+      "video_code": "ENdR2n7",
+      "title": "انیمیشن رایا و اخرین اژدها دوبله فارسی",
+      "sender_name": "سلطان ویدیو",
+      "category_id": 21,
+      "duration": 6448,
+      "visit_count": 95199,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:34.402Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "داوید رایا",
+          "trendTitle": "داوید رایا",
+          "trendTraffic": 5000,
+          "trendPublishedAt": "Sun, 22 Nov 2026 00:20:00 -0800",
+          "trendKeywords": [
+            "داوید",
+            "رایا"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.889Z"
+    },
+    "07Agy1S": {
+      "video_code": "07Agy1S",
+      "title": "انیمیشن رایا و آخرین اژدها دوبله فارسی",
+      "sender_name": "Sahar",
+      "category_id": 21,
+      "duration": 6370,
+      "visit_count": 119334,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:34.402Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "داوید رایا",
+          "trendTitle": "داوید رایا",
+          "trendTraffic": 5000,
+          "trendPublishedAt": "Sun, 22 Nov 2026 00:20:00 -0800",
+          "trendKeywords": [
+            "داوید",
+            "رایا"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.889Z"
+    },
+    "YUiUsBW": {
+      "video_code": "YUiUsBW",
+      "title": "انیمیشن رایا و آخرین اژدها دوبله فارسی",
+      "sender_name": "reza",
+      "category_id": 21,
+      "duration": 5588,
+      "visit_count": 33275,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:34.402Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "داوید رایا",
+          "trendTitle": "داوید رایا",
+          "trendTraffic": 5000,
+          "trendPublishedAt": "Sun, 22 Nov 2026 00:20:00 -0800",
+          "trendKeywords": [
+            "داوید",
+            "رایا"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.889Z"
+    },
+    "k1riC7y": {
+      "video_code": "k1riC7y",
+      "title": "انیمیشن رایا و آخرین اژدها دوبله فارسی",
+      "sender_name": "فیلم کده📽",
+      "category_id": 21,
+      "duration": 6449,
+      "visit_count": 32316,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:34.402Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "داوید رایا",
+          "trendTitle": "داوید رایا",
+          "trendTraffic": 5000,
+          "trendPublishedAt": "Sun, 22 Nov 2026 00:20:00 -0800",
+          "trendKeywords": [
+            "داوید",
+            "رایا"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.889Z"
+    },
+    "RLN4nue": {
+      "video_code": "RLN4nue",
+      "title": "انیمیشن رایا و آخرین اژدها دوبله فارسی",
+      "sender_name": "Faribaa.r",
+      "category_id": 21,
+      "duration": 6370,
+      "visit_count": 30991,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:34.402Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "داوید رایا",
+          "trendTitle": "داوید رایا",
+          "trendTraffic": 5000,
+          "trendPublishedAt": "Sun, 22 Nov 2026 00:20:00 -0800",
+          "trendKeywords": [
+            "داوید",
+            "رایا"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.889Z"
+    },
+    "9eTIUnN": {
+      "video_code": "9eTIUnN",
+      "title": "سریال یاغی/کلیپ لحظه هیجانی خفت کردن جاوید توسط اسی قلک",
+      "sender_name": "abbas",
+      "category_id": 3,
+      "duration": 211,
+      "visit_count": 31188,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:34.402Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "داوید رایا",
+          "trendTitle": "داوید رایا",
+          "trendTraffic": 5000,
+          "trendPublishedAt": "Sun, 22 Nov 2026 00:20:00 -0800",
+          "trendKeywords": [
+            "داوید",
+            "رایا"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.889Z"
+    },
+    "DQPLUpL": {
+      "video_code": "DQPLUpL",
+      "title": "سریال زندگی روزمره پادشاه جاوید فصل ۱ قسمت ۱۵",
+      "sender_name": "کارتون و فیلم",
+      "category_id": 3,
+      "duration": 1294,
+      "visit_count": 29673,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:34.402Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "داوید رایا",
+          "trendTitle": "داوید رایا",
+          "trendTraffic": 5000,
+          "trendPublishedAt": "Sun, 22 Nov 2026 00:20:00 -0800",
+          "trendKeywords": [
+            "داوید",
+            "رایا"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.889Z"
+    },
+    "0wamD8X": {
+      "video_code": "0wamD8X",
+      "title": "زندگی روزمره پادشاه جاوید فصل 1 قسمت 5 دوبله فارسی",
+      "sender_name": "کارتون و فیلم",
+      "category_id": 3,
+      "duration": 1204,
+      "visit_count": 28025,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:35.685Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "داوید رایا",
+          "trendTitle": "داوید رایا",
+          "trendTraffic": 5000,
+          "trendPublishedAt": "Sun, 22 Nov 2026 00:20:00 -0800",
+          "trendKeywords": [
+            "داوید",
+            "رایا"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.890Z"
+    },
+    "nJFAX55": {
+      "video_code": "nJFAX55",
+      "title": "سریال زندگی روزمره پادشاه جاوید فصل ۱ قسمت 10 دوبله فارسی",
+      "sender_name": "کارتون و فیلم",
+      "category_id": 3,
+      "duration": 1625,
+      "visit_count": 28830,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:35.685Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "داوید رایا",
+          "trendTitle": "داوید رایا",
+          "trendTraffic": 5000,
+          "trendPublishedAt": "Sun, 22 Nov 2026 00:20:00 -0800",
+          "trendKeywords": [
+            "داوید",
+            "رایا"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.890Z"
+    },
+    "7boZDI4": {
+      "video_code": "7boZDI4",
+      "title": "حرکت جنگنده‌ بمب افکن‌های نیروی هوایی ارتش ایران / ویدئو",
+      "sender_name": "سعید",
+      "category_id": 1,
+      "duration": 88,
+      "visit_count": 33988,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:46.912Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 12
+        },
+        {
+          "query": "حرکت نفتکش ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.906Z"
+    },
+    "sFYdPm7": {
+      "video_code": "sFYdPm7",
+      "title": "حرکت جنگنده‌ بمب افکن‌های نیروی هوایی ارتش ایران / فیلم",
+      "sender_name": "نبض تو",
+      "category_id": 1,
+      "duration": 258,
+      "visit_count": 11240,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:48.042Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 17
+        },
+        {
+          "query": "حرکت نفتکش ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.906Z"
+    },
+    "dakhBFn": {
+      "video_code": "dakhBFn",
+      "title": "تصرف نفتکش متخلف توسط نیروهای تکاور دریایی ایران",
+      "sender_name": "شاهین",
+      "category_id": 1,
+      "duration": 474,
+      "visit_count": 21880,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:46.912Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 4
+        },
+        {
+          "query": "حرکت نفتکش ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.906Z"
+    },
+    "MCHKhoq": {
+      "video_code": "MCHKhoq",
+      "title": "پاسخ ایران به نفتکش امریکایی - پایان کار وزیر صمت",
+      "sender_name": "احمد علی - 1",
+      "category_id": 1,
+      "duration": 573,
+      "visit_count": 11354,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:46.912Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 4
+        },
+        {
+          "query": "حرکت نفتکش ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.906Z"
+    },
+    "scOMQy7": {
+      "video_code": "scOMQy7",
+      "title": "لحظه ورود تفنگداران دریایی ارتش ایران روی نفتکش متخلف",
+      "sender_name": "احسان",
+      "category_id": 1,
+      "duration": 27,
+      "visit_count": 17941,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:46.912Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 5
+        },
+        {
+          "query": "حرکت نفتکش ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.906Z"
+    },
+    "PaIQjoJ": {
+      "video_code": "PaIQjoJ",
+      "title": "آقای تحلیلگر / حمله جنگنده های آمریکا به عملیات ایران در دریا /",
+      "sender_name": "نبض تو",
+      "category_id": 1,
+      "duration": 1002,
+      "visit_count": 30316,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:56.757Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 8
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z"
+    },
+    "K80OfKC": {
+      "video_code": "K80OfKC",
+      "title": "آزمایش موشک اروپا زن ایران - کل اروپا زیر برد موشک های بالستیک ایرانی",
+      "sender_name": "سعید",
+      "category_id": 1,
+      "duration": 604,
+      "visit_count": 42623,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:57.986Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 9
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z"
+    },
+    "eNqqUvm": {
+      "video_code": "eNqqUvm",
+      "title": "🎥 مشاهده شدن موشک های کروز پرتاب شده از مبدأ ایران بر فراز عراق",
+      "sender_name": "✅کافه فیلم✅",
+      "category_id": 1,
+      "duration": 107,
+      "visit_count": 96497,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:57.986Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 9
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z"
+    },
+    "ypYeU3g": {
+      "video_code": "ypYeU3g",
+      "title": "افشاگری حقیقت ازدواج محمدرضا گلزار و داستان شوگرددی های سینمایی ایران",
+      "sender_name": "فیلمدوانه",
+      "category_id": 3,
+      "duration": 575,
+      "visit_count": 38294,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:57.986Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 9
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.902Z"
+    },
+    "BoLyM62": {
+      "video_code": "BoLyM62",
+      "title": "فوری : ارسال تانک های طالبان به سمت مرز ایران",
+      "sender_name": "خبر جنگی",
+      "category_id": 1,
+      "duration": 9,
+      "visit_count": 85485,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:59.086Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 10
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.903Z"
+    },
+    "dKNCFPu": {
+      "video_code": "dKNCFPu",
+      "title": "دفینه های شمال ایران",
+      "sender_name": "فیلو",
+      "category_id": 22,
+      "duration": 40,
+      "visit_count": 64549,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:59.086Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 10
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.903Z"
+    },
+    "gOy6Nsy": {
+      "video_code": "gOy6Nsy",
+      "title": "بزرگترین موشک های بالستیک ایران",
+      "sender_name": "محمدمهدی",
+      "category_id": 1,
+      "duration": 609,
+      "visit_count": 36963,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:00.181Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 11
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.903Z"
+    },
+    "klH5kid": {
+      "video_code": "klH5kid",
+      "title": "خلاصه بازی ایران 2 ژاپن 1 | برد تاریخی ایران | جام ملت های آسیا 2024",
+      "sender_name": "✅️دنبال=دنبال|فالو=فالو✅️",
+      "category_id": 11,
+      "duration": 600,
+      "visit_count": 35033,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:01.346Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 12
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.903Z"
+    },
+    "5sCJ2FD": {
+      "video_code": "5sCJ2FD",
+      "title": "🎥 مشاهده شدن موشک های کروز پرتاب شده از مبدأ ایران بر فراز عراق",
+      "sender_name": "کافه فیلم",
+      "category_id": 1,
+      "duration": 107,
+      "visit_count": 49231,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:01.346Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 12
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.903Z"
+    },
+    "FpbauHh": {
+      "video_code": "FpbauHh",
+      "title": "شگفت‌زدگی مدرسان دانشکده‌های نظامی آمریکا درباره ایران",
+      "sender_name": "alimohammadifg",
+      "category_id": 1,
+      "duration": 177,
+      "visit_count": 31813,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:03.443Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 13
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.903Z"
+    },
+    "nMPW50t": {
+      "video_code": "nMPW50t",
+      "title": "🎥 مشاهده شدن موشک های کروز پرتاب شده از مبدأ ایران بر فراز عراق",
+      "sender_name": "Joker",
+      "category_id": 1,
+      "duration": 9,
+      "visit_count": 141170,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:03.443Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 13
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.904Z"
+    },
+    "3b23xgM": {
+      "video_code": "3b23xgM",
+      "title": "پیشگویی های عجیب ولی واقعی پیشگوی عرب در مورد آینده ایران...",
+      "sender_name": "مای دراما",
+      "category_id": 1,
+      "duration": 162,
+      "visit_count": 59839,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:04.594Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 14
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.904Z"
+    },
+    "vr2O7u4": {
+      "video_code": "vr2O7u4",
+      "title": "آماده شدن نیرو های طالبان برای حمله به ایران",
+      "sender_name": "علی",
+      "category_id": 1,
+      "duration": 16,
+      "visit_count": 26480,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:04.594Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 14
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.904Z"
+    },
+    "gIENdnq": {
+      "video_code": "gIENdnq",
+      "title": "واکنش جالب رسانه‌های عربی به رزمایش دریایی ایران و توان موشکی و پهپادی",
+      "sender_name": "نبض تو",
+      "category_id": 1,
+      "duration": 142,
+      "visit_count": 37299,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:05.695Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 15
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.904Z"
+    },
+    "ly8dBCD": {
+      "video_code": "ly8dBCD",
+      "title": "موشک جدید ضدزره ایران | تجهیز پهپادهای ایرانی به موشک‌های پیشرفته «تاپ اتک»",
+      "sender_name": "alimohammadifg",
+      "category_id": 1,
+      "duration": 85,
+      "visit_count": 28535,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:05.695Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 15
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.904Z"
+    },
+    "rhusatt": {
+      "video_code": "rhusatt",
+      "title": "فیلم اهانت به پرچم ایران در بازی والیبال ایران و آمریکایی های الدنگ",
+      "sender_name": "Javad",
+      "category_id": 11,
+      "duration": 9,
+      "visit_count": 27430,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:07.917Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 17
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.905Z"
+    },
+    "UNV0cja": {
+      "video_code": "UNV0cja",
+      "title": "پیشگویی های عجیب ولی واقعی پیشگوی عرب در مورد آینده ایران...",
+      "sender_name": "َََAli",
+      "category_id": 1,
+      "duration": 162,
+      "visit_count": 30613,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:11.041Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 19
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.905Z"
+    },
+    "3KkIW42": {
+      "video_code": "3KkIW42",
+      "title": "فوری : هدف قرار دادن ترویست های طالبان توسط ارتش ایران",
+      "sender_name": "خبر جنگی",
+      "category_id": 1,
+      "duration": 5,
+      "visit_count": 36204,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:30:11.041Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش های ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 19
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.905Z"
+    },
+    "q9ny5Wj": {
+      "video_code": "q9ny5Wj",
+      "title": "حرکت جالب افسران اطلاعاتی ایران هنگام اعدام صدام",
+      "sender_name": "اسنیک مامانی (فالو لطفا)",
+      "category_id": 1,
+      "duration": 72,
+      "visit_count": 44325,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T09:29:48.042Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "حرکت نفتکش ایران",
+          "trendTitle": "حرکت نفتکش های ایران",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+          "trendKeywords": [
+            "حرکت",
+            "نفتکش",
+            "ایران"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T09:30:20.906Z"
     }
   },
-  "totalPagesFetched": 15485,
-  "totalVideosSeen": 278211
+  "totalPagesFetched": 15592,
+  "totalVideosSeen": 279930
 }
