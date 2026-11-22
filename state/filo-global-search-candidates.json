@@ -1,80 +1,100 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-22T09:30:21.091Z",
-  "trendsFetchedAt": "2026-11-22T09:29:15.078Z",
+  "updatedAt": "2026-11-22T18:31:22.837Z",
+  "trendsFetchedAt": "2026-11-22T18:29:05.742Z",
   "trends": [
     {
-      "title": "داوید رایا",
+      "title": "لیورپول مقابل منچستر یونایتد",
       "keywords": [
-        "داوید",
-        "رایا"
+        "لیورپول",
+        "مقابل",
+        "منچستر",
+        "یونایتد"
       ],
-      "traffic": 5000,
-      "publishedAt": "Sun, 22 Nov 2026 00:20:00 -0800",
-      "ageHours": 1.2
-    },
-    {
-      "title": "باشگاه فوتبال العین",
-      "keywords": [
-        "باشگاه",
-        "فوتبال",
-        "العین"
-      ],
-      "traffic": 1000,
-      "publishedAt": "Sun, 22 Nov 2026 00:30:00 -0800",
-      "ageHours": 1
-    },
-    {
-      "title": "حرکت نفتکش های ایران",
-      "keywords": [
-        "حرکت",
-        "نفتکش",
-        "ایران"
-      ],
-      "traffic": 1000,
-      "publishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
+      "traffic": 10000,
+      "publishedAt": "Sun, 22 Nov 2026 07:30:00 -0800",
       "ageHours": 3
     },
     {
-      "title": "روبرتو پیاتزا",
+      "title": "میلان مقابل فروزینونه",
       "keywords": [
-        "روبرتو",
-        "پیاتزا"
+        "میلان",
+        "مقابل",
+        "فروزینونه"
+      ],
+      "traffic": 1000,
+      "publishedAt": "Sun, 22 Nov 2026 08:30:00 -0800",
+      "ageHours": 2
+    },
+    {
+      "title": "پرداخت مستقیم",
+      "keywords": [
+        "پرداخت",
+        "مستقیم"
+      ],
+      "traffic": 500,
+      "publishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+      "ageHours": 1.3
+    },
+    {
+      "title": "فیلم کوچ",
+      "keywords": [
+        "فیلم",
+        "کوچ"
       ],
       "traffic": 200,
-      "publishedAt": "Sun, 22 Nov 2026 00:40:00 -0800",
-      "ageHours": 0.8
+      "publishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+      "ageHours": 1.3
     },
     {
-      "title": "تیک تو اینتراکتیو",
+      "title": "milan vs frosinone",
       "keywords": [
-        "تیک",
-        "تو",
-        "اینتراکتیو"
+        "milan",
+        "vs",
+        "frosinone"
       ],
       "traffic": 200,
-      "publishedAt": "Sat, 21 Nov 2026 23:50:00 -0800",
-      "ageHours": 1.7
+      "publishedAt": "Sun, 22 Nov 2026 09:00:00 -0800",
+      "ageHours": 1.5
     },
     {
-      "title": "محمد شریعتمداری",
+      "title": "امید نورافکن",
       "keywords": [
-        "محمد",
-        "شریعتمداری"
+        "امید",
+        "نورافکن"
       ],
       "traffic": 100,
-      "publishedAt": "Sun, 22 Nov 2026 00:40:00 -0800",
+      "publishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+      "ageHours": 0.5
+    },
+    {
+      "title": "s27",
+      "keywords": [
+        "s27"
+      ],
+      "traffic": 100,
+      "publishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+      "ageHours": 0.5
+    },
+    {
+      "title": "کانادا",
+      "keywords": [
+        "کانادا"
+      ],
+      "traffic": 100,
+      "publishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+      "ageHours": 0.5
+    },
+    {
+      "title": "ژابی آلونسو",
+      "keywords": [
+        "ژابی",
+        "آلونسو"
+      ],
+      "traffic": 100,
+      "publishedAt": "Sun, 22 Nov 2026 09:40:00 -0800",
       "ageHours": 0.8
-    },
-    {
-      "title": "شفق",
-      "keywords": [
-        "شفق"
-      ],
-      "traffic": 100,
-      "publishedAt": "Sun, 22 Nov 2026 00:20:00 -0800",
-      "ageHours": 1.2
     }
   ],
   "queries": {
@@ -870,12 +890,12 @@
     "یونس امامی": {
       "query": "یونس امامی",
       "normalized": "یونس امامی",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 370,
       "createdAt": "2026-11-19T19:24:34.769Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-22T18:31:22.557Z",
       "lastError": null,
       "trendTitle": "یونس امامی",
       "trendTraffic": 100,
@@ -885,17 +905,18 @@
         "امامی"
       ],
       "lastTrendSeenAt": "2026-11-19T19:24:34.769Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "max_pages_reached"
     },
     "ستارگان ۶ میلیاردی در استقلال": {
       "query": "ستارگان ۶ میلیاردی در استقلال",
       "normalized": "ستارگان ۶ میلیاردی در استقلال",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-19T19:24:34.769Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-22T18:31:22.557Z",
       "lastError": null,
       "trendTitle": "یونس امامی",
       "trendTraffic": 100,
@@ -905,7 +926,9 @@
         "امامی"
       ],
       "lastTrendSeenAt": "2026-11-19T19:24:34.769Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-22T18:31:22.557Z"
     },
     "کامران قاسمپور استقلالی شد": {
       "query": "کامران قاسمپور استقلالی شد",
@@ -4487,7 +4510,7 @@
         "رایا"
       ],
       "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "خلاصه بازی نیوکاسل ۲ ۲ آرسنال نیم ساعت بیهوشی مطلق در خانه کلاغ ها": {
@@ -4508,7 +4531,7 @@
         "رایا"
       ],
       "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T09:30:20.897Z"
     },
@@ -4530,7 +4553,7 @@
         "رایا"
       ],
       "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T09:30:20.897Z"
     },
@@ -4553,7 +4576,7 @@
         "العین"
       ],
       "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T09:30:20.900Z"
     },
@@ -4576,7 +4599,7 @@
         "العین"
       ],
       "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T09:30:20.900Z"
     },
@@ -4599,7 +4622,7 @@
         "العین"
       ],
       "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T09:30:20.900Z"
     },
@@ -4622,7 +4645,7 @@
         "ایران"
       ],
       "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "حرکت نفتکش ایران": {
@@ -4644,7 +4667,7 @@
         "ایران"
       ],
       "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T09:30:20.908Z"
     },
@@ -4667,7 +4690,7 @@
         "ایران"
       ],
       "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T09:30:20.908Z"
     },
@@ -4689,7 +4712,7 @@
         "پیاتزا"
       ],
       "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T09:30:20.910Z"
     },
@@ -4711,7 +4734,7 @@
         "پیاتزا"
       ],
       "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T09:30:20.910Z"
     },
@@ -4733,7 +4756,7 @@
         "پیاتزا"
       ],
       "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T09:30:20.910Z"
     },
@@ -4756,7 +4779,7 @@
         "اینتراکتیو"
       ],
       "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "مدیرعامل سابق تیک تو بازی gta 6 احتمالا آخرین شاهکار بزرگ پیش از انقلاب هوش مصنوعی است": {
       "query": "مدیرعامل سابق تیک-تو: بازی GTA 6 احتمالاً آخرین شاهکار بزرگ پیش از انقلاب هوش مصنوعی است",
@@ -4777,7 +4800,7 @@
         "اینتراکتیو"
       ],
       "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "هوش مصنوعی در حال تغییر مطالعه کتاب است از طراحی شخصیت با بازی های هوشمند تا ایجاد محیط گفت وگو": {
       "query": "هوش مصنوعی در حال تغییر مطالعه کتاب است | از طراحی شخصیت با بازی‌های هوشمند تا ایجاد محیط گفت‌وگو",
@@ -4798,7 +4821,7 @@
         "اینتراکتیو"
       ],
       "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "محمد شریعتمداری": {
       "query": "محمد شریعتمداری",
@@ -4818,7 +4841,7 @@
         "شریعتمداری"
       ],
       "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "رئیس محکمه تجدیدنظر و حاکم شرع دیوان محاسبات حکم انفصال محمد شریعتمداری باید فورا اجرا شود": {
       "query": "رئیس محکمه تجدیدنظر و حاکم شرع دیوان محاسبات: حکم انفصال محمد شریعتمداری باید فوراً اجرا شود",
@@ -4838,7 +4861,7 @@
         "شریعتمداری"
       ],
       "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "سخنگوی قوه قضاییه خبر داد حکم انفصال شریعتمداری قطعی است": {
       "query": "سخنگوی قوه قضاییه خبر داد: حکم انفصال شریعتمداری قطعی است!",
@@ -4858,7 +4881,7 @@
         "شریعتمداری"
       ],
       "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "شفق": {
       "query": "شفق",
@@ -4877,6 +4900,571 @@
         "شفق"
       ],
       "lastTrendSeenAt": "2026-11-22T09:29:15.272Z",
+      "activeInLatestFeed": false
+    },
+    "لیورپول مقابل منچستر یونایتد": {
+      "query": "لیورپول مقابل منچستر یونایتد",
+      "normalized": "لیورپول مقابل منچستر یونایتد",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 368,
+      "createdAt": "2026-11-22T18:29:06.010Z",
+      "lastAttemptAt": "2026-11-22T18:31:22.508Z",
+      "lastError": null,
+      "trendTitle": "لیورپول مقابل منچستر یونایتد",
+      "trendTraffic": 10000,
+      "trendPublishedAt": "Sun, 22 Nov 2026 07:30:00 -0800",
+      "trendKeywords": [
+        "لیورپول",
+        "مقابل",
+        "منچستر",
+        "یونایتد"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.010Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "فوتبال لیورپول منچستریونایتد گزارش محمد معصومی": {
+      "query": "فوتبال لیورپول - منچستریونایتد (گزارش محمد معصومی)",
+      "normalized": "فوتبال لیورپول منچستریونایتد گزارش محمد معصومی",
+      "nextPage": 10,
+      "complete": true,
+      "pagesFetched": 9,
+      "videosSeen": 139,
+      "createdAt": "2026-11-22T18:29:06.010Z",
+      "lastAttemptAt": "2026-11-22T18:31:22.513Z",
+      "lastError": null,
+      "trendTitle": "لیورپول مقابل منچستر یونایتد",
+      "trendTraffic": 10000,
+      "trendPublishedAt": "Sun, 22 Nov 2026 07:30:00 -0800",
+      "trendKeywords": [
+        "لیورپول",
+        "مقابل",
+        "منچستر",
+        "یونایتد"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.010Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-22T18:31:22.513Z"
+    },
+    "خلاصه نیمه اول بازی لیورپول ۲ ۰ منچستر یونایتد با گزارش عادل فردوسی پور": {
+      "query": "خلاصه نیمه اول بازی لیورپول ۲-۰ منچستر یونایتد | با گزارش عادل فردوسی‌پور",
+      "normalized": "خلاصه نیمه اول بازی لیورپول ۲ ۰ منچستر یونایتد با گزارش عادل فردوسی پور",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 3,
+      "videosSeen": 2,
+      "createdAt": "2026-11-22T18:29:06.010Z",
+      "lastAttemptAt": "2026-11-22T18:31:22.513Z",
+      "lastError": null,
+      "trendTitle": "لیورپول مقابل منچستر یونایتد",
+      "trendTraffic": 10000,
+      "trendPublishedAt": "Sun, 22 Nov 2026 07:30:00 -0800",
+      "trendKeywords": [
+        "لیورپول",
+        "مقابل",
+        "منچستر",
+        "یونایتد"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.010Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-22T18:31:22.513Z"
+    },
+    "میلان مقابل فروزینونه": {
+      "query": "میلان مقابل فروزینونه",
+      "normalized": "میلان مقابل فروزینونه",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 380,
+      "createdAt": "2026-11-22T18:29:06.010Z",
+      "lastAttemptAt": "2026-11-22T18:31:22.521Z",
+      "lastError": null,
+      "trendTitle": "میلان مقابل فروزینونه",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Sun, 22 Nov 2026 08:30:00 -0800",
+      "trendKeywords": [
+        "میلان",
+        "مقابل",
+        "فروزینونه"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.010Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "فوتبال میلان فروزینونه گزارش مهدی معظمی": {
+      "query": "فوتبال میلان - فروزینونه (گزارش مهدی معظمی)",
+      "normalized": "فوتبال میلان فروزینونه گزارش مهدی معظمی",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 5,
+      "videosSeen": 42,
+      "createdAt": "2026-11-22T18:29:06.010Z",
+      "lastAttemptAt": "2026-11-22T18:31:22.521Z",
+      "lastError": null,
+      "trendTitle": "میلان مقابل فروزینونه",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Sun, 22 Nov 2026 08:30:00 -0800",
+      "trendKeywords": [
+        "میلان",
+        "مقابل",
+        "فروزینونه"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.010Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-22T18:31:22.521Z"
+    },
+    "گل اول فروزینونه به میلان ماسینی": {
+      "query": "گل اول فروزینونه به میلان (ماسینی)",
+      "normalized": "گل اول فروزینونه به میلان ماسینی",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": "2026-11-22T18:31:22.521Z",
+      "lastError": null,
+      "trendTitle": "میلان مقابل فروزینونه",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Sun, 22 Nov 2026 08:30:00 -0800",
+      "trendKeywords": [
+        "میلان",
+        "مقابل",
+        "فروزینونه"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-22T18:31:22.521Z"
+    },
+    "پرداخت مستقیم": {
+      "query": "پرداخت مستقیم",
+      "normalized": "پرداخت مستقیم",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 398,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": "2026-11-22T18:31:22.530Z",
+      "lastError": null,
+      "trendTitle": "پرداخت مستقیم",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+      "trendKeywords": [
+        "پرداخت",
+        "مستقیم"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "پرداخت مستقیم حقوق نیروهای شرکتی در سه دستگاه اجرایی آغاز شد": {
+      "query": "پرداخت مستقیم حقوق نیروهای شرکتی در سه دستگاه اجرایی آغاز شد",
+      "normalized": "پرداخت مستقیم حقوق نیروهای شرکتی در سه دستگاه اجرایی آغاز شد",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": "2026-11-22T18:31:22.530Z",
+      "lastError": null,
+      "trendTitle": "پرداخت مستقیم",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+      "trendKeywords": [
+        "پرداخت",
+        "مستقیم"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-22T18:31:22.530Z"
+    },
+    "سازمان اداری و استخدامی برای ساماندهی وضعیت نیرو های شرکتی دولت در روز های آینده حقوق این افراد به صورت": {
+      "query": "سازمان اداری و استخدامی: برای ساماندهی وضعیت نیرو‌های شرکتی دولت، در روز‌های آینده حقوق این افراد به صورت...",
+      "normalized": "سازمان اداری و استخدامی برای ساماندهی وضعیت نیرو های شرکتی دولت در روز های آینده حقوق این افراد به صورت",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": "2026-11-22T18:31:22.530Z",
+      "lastError": null,
+      "trendTitle": "پرداخت مستقیم",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+      "trendKeywords": [
+        "پرداخت",
+        "مستقیم"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-22T18:31:22.530Z"
+    },
+    "فیلم کوچ": {
+      "query": "فیلم کوچ",
+      "normalized": "فیلم کوچ",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 395,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": "2026-11-22T18:31:22.542Z",
+      "lastError": null,
+      "trendTitle": "فیلم کوچ",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+      "trendKeywords": [
+        "فیلم",
+        "کوچ"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "کوچ حاج قاسم سلیمانی به روستاها و شهرهای فاقد سینما": {
+      "query": "«کوچ» حاج قاسم سلیمانی به روستاها و شهرهای فاقد سینما",
+      "normalized": "کوچ حاج قاسم سلیمانی به روستاها و شهرهای فاقد سینما",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": "2026-11-22T18:31:22.542Z",
+      "lastError": null,
+      "trendTitle": "فیلم کوچ",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+      "trendKeywords": [
+        "فیلم",
+        "کوچ"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-22T18:31:22.542Z"
+    },
+    "زینب سلیمانی فیلم کوچ به واقعیت زندگی حاج قاسم وفادار است": {
+      "query": "زینب سلیمانی: فیلم «کوچ» به واقعیت زندگی حاج قاسم وفادار است",
+      "normalized": "زینب سلیمانی فیلم کوچ به واقعیت زندگی حاج قاسم وفادار است",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 400,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": "2026-11-22T18:31:22.551Z",
+      "lastError": null,
+      "trendTitle": "فیلم کوچ",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+      "trendKeywords": [
+        "فیلم",
+        "کوچ"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "milan vs frosinone": {
+      "query": "milan vs frosinone",
+      "normalized": "milan vs frosinone",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "milan vs frosinone",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Sun, 22 Nov 2026 09:00:00 -0800",
+      "trendKeywords": [
+        "milan",
+        "vs",
+        "frosinone"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true
+    },
+    "licensable picture serie a ac milan v frosinone": {
+      "query": "Licensable picture: Serie A - AC Milan v Frosinone",
+      "normalized": "licensable picture serie a ac milan v frosinone",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "milan vs frosinone",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Sun, 22 Nov 2026 09:00:00 -0800",
+      "trendKeywords": [
+        "milan",
+        "vs",
+        "frosinone"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true
+    },
+    "italy serie a soccer": {
+      "query": "Italy Serie A Soccer",
+      "normalized": "italy serie a soccer",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "milan vs frosinone",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Sun, 22 Nov 2026 09:00:00 -0800",
+      "trendKeywords": [
+        "milan",
+        "vs",
+        "frosinone"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true
+    },
+    "امید نورافکن": {
+      "query": "امید نورافکن",
+      "normalized": "امید نورافکن",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "امید نورافکن",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+      "trendKeywords": [
+        "امید",
+        "نورافکن"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true
+    },
+    "بلوغ فوتبالی امید در آستانه 30 سالگی مهندس هوا و فضا": {
+      "query": "بلوغ فوتبالیِ «امید» در آستانه 30 سالگی؛ «مهندسِ هوا و فضا!»",
+      "normalized": "بلوغ فوتبالی امید در آستانه 30 سالگی مهندس هوا و فضا",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "امید نورافکن",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+      "trendKeywords": [
+        "امید",
+        "نورافکن"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true
+    },
+    "مهندس جدید لیگ برتر نورافکن می درخشد": {
+      "query": "مهندس جدید لیگ برتر؛ نورافکن می‌درخشد!",
+      "normalized": "مهندس جدید لیگ برتر نورافکن می درخشد",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "امید نورافکن",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+      "trendKeywords": [
+        "امید",
+        "نورافکن"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true
+    },
+    "s27": {
+      "query": "s27",
+      "normalized": "s27",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "s27",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+      "trendKeywords": [
+        "s27"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true
+    },
+    "galaxy s27 release date early software reveals iphone style overhaul": {
+      "query": "Galaxy S27 Release Date: Early Software Reveals iPhone-Style Overhaul",
+      "normalized": "galaxy s27 release date early software reveals iphone style overhaul",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "s27",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+      "trendKeywords": [
+        "s27"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true
+    },
+    "samsung s now bar could get a dynamic island style redesign with the galaxy s27": {
+      "query": "Samsung's Now Bar could get a Dynamic Island-style redesign with the Galaxy S27",
+      "normalized": "samsung s now bar could get a dynamic island style redesign with the galaxy s27",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "s27",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+      "trendKeywords": [
+        "s27"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true
+    },
+    "کانادا": {
+      "query": "کانادا",
+      "normalized": "کانادا",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "کانادا",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+      "trendKeywords": [
+        "کانادا"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true
+    },
+    "کارنی این بار با بدل ترامپ به تمسخر او پرداخت": {
+      "query": "کارنی این بار با بدل ترامپ به تمسخر او پرداخت",
+      "normalized": "کارنی این بار با بدل ترامپ به تمسخر او پرداخت",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "کانادا",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+      "trendKeywords": [
+        "کانادا"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true
+    },
+    "کارنی باز هم ترامپ را مسخره کرد": {
+      "query": "کارنی باز هم ترامپ را مسخره کرد",
+      "normalized": "کارنی باز هم ترامپ را مسخره کرد",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "کانادا",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+      "trendKeywords": [
+        "کانادا"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true
+    },
+    "ژابی آلونسو": {
+      "query": "ژابی آلونسو",
+      "normalized": "ژابی آلونسو",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "ژابی آلونسو",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Sun, 22 Nov 2026 09:40:00 -0800",
+      "trendKeywords": [
+        "ژابی",
+        "آلونسو"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true
+    },
+    "روزگار تیره آلونسو در لندن هو شدن در استمفوردبریج": {
+      "query": "روزگار تیره‌ آلونسو در لندن؛ هو شدن در استمفوردبریج",
+      "normalized": "روزگار تیره آلونسو در لندن هو شدن در استمفوردبریج",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "ژابی آلونسو",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Sun, 22 Nov 2026 09:40:00 -0800",
+      "trendKeywords": [
+        "ژابی",
+        "آلونسو"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
+      "activeInLatestFeed": true
+    },
+    "لیدز پس از ۲۷ سال در خانه چلسی پیروز شد": {
+      "query": "لیدز پس از ۲۷ سال در خانه چلسی پیروز شد",
+      "normalized": "لیدز پس از ۲۷ سال در خانه چلسی پیروز شد",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-22T18:29:06.011Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "ژابی آلونسو",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Sun, 22 Nov 2026 09:40:00 -0800",
+      "trendKeywords": [
+        "ژابی",
+        "آلونسو"
+      ],
+      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
       "activeInLatestFeed": true
     }
   },
@@ -22725,33 +23313,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-02T21:55:12.043Z"
-    },
-    "Utqplt5": {
-      "video_code": "Utqplt5",
-      "title": "ویدو از پیدا شدن سد ذوالقرنین و قوم یاجوج و ماجوج",
-      "sender_name": "hesam70",
-      "category_id": 13,
-      "duration": 892,
-      "visit_count": 25754,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 33
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.044Z"
     },
     "JPDeGEP": {
       "video_code": "JPDeGEP",
@@ -79869,34 +80430,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-04T03:21:52.910Z"
     },
-    "JsRJqFR": {
-      "video_code": "JsRJqFR",
-      "title": "سریال نفوذی قسمت 35 دوبله فارسی",
-      "sender_name": "سارا",
-      "category_id": 3,
-      "duration": 7685,
-      "visit_count": 25761,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سوخو-۳۵",
-          "trendTitle": "سوخو-۳۵",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 3 Nov 2026 18:20:00 -0800",
-          "trendKeywords": [
-            "سوخو",
-            "۳۵"
-          ],
-          "page": 31
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.910Z"
-    },
     "rqJjQvy": {
       "video_code": "rqJjQvy",
       "title": "سریال یک عشق یک جنون قسمت 235 دوبله فارسی",
@@ -83526,34 +84059,6 @@
       "visit_count": 53834,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "هوای تهران",
-          "trendTitle": "هوای تهران",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:30:00 -0800",
-          "trendKeywords": [
-            "هوای",
-            "تهران"
-          ],
-          "page": 49
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.929Z"
-    },
-    "ZjICQx3": {
-      "video_code": "ZjICQx3",
-      "title": "فیلم لحظه دستگیری زورگیر خطرناک خیابان اسکندری تهران",
-      "sender_name": "آرامش",
-      "category_id": 1,
-      "duration": 79,
-      "visit_count": 25751,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -108116,35 +108621,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T18:05:35.136Z"
     },
-    "5t5QXKM": {
-      "video_code": "5t5QXKM",
-      "title": "سریال ««جامیونگ گو»»قسمت آخر نسخه کامل",
-      "sender_name": "فیلم بازان",
-      "category_id": 3,
-      "duration": 4009,
-      "visit_count": 25747,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:05:26.412Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 60
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T18:05:35.136Z"
-    },
     "jUhGNwO": {
       "video_code": "jUhGNwO",
       "title": "سریال مادرانه قسمت ۲۷ آخر",
@@ -113147,34 +113623,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:07:45.402Z"
     },
-    "MCbbLrC": {
-      "video_code": "MCbbLrC",
-      "title": "سریال به عشق تو سوگند فصل دوم قسمت 1",
-      "sender_name": "ALGU- SGD",
-      "category_id": 3,
-      "duration": 2425,
-      "visit_count": 25789,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:06:51.718Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 7
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.402Z"
-    },
     "LUyMx62": {
       "video_code": "LUyMx62",
       "title": "سریال سوگند قسمت 17 زیرنویس فارسی سانسورشده",
@@ -114164,34 +114612,6 @@
       "visit_count": 42356,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:07:00.970Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 10
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.403Z"
-    },
-    "qvZpNc5": {
-      "video_code": "qvZpNc5",
-      "title": "قسمت 75 سریال به عشق تو سوگند دوبله فارسی",
-      "sender_name": "Apratgram",
-      "category_id": 3,
-      "duration": 2313,
-      "visit_count": 25787,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T19:07:00.970Z",
       "active": 1,
       "can_republish": 0,
@@ -148523,36 +148943,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T12:25:28.830Z"
     },
-    "VUKmT8G": {
-      "video_code": "VUKmT8G",
-      "title": "سریال کره ای پیش برو قسمت 6 دوبله فارسی Run On",
-      "sender_name": "آماندا",
-      "category_id": 3,
-      "duration": 4282,
-      "visit_count": 25778,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:24:37.358Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "جی تی ای ۶",
-          "trendTitle": "جی تی ای ۶",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-          "trendKeywords": [
-            "جی",
-            "تی",
-            "ای"
-          ],
-          "page": 41
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T12:25:28.830Z"
-    },
     "54O2HP9": {
       "video_code": "54O2HP9",
       "title": "سریال عشق اجاره ای قسمت 56 دوبله فارسی",
@@ -150348,45 +150738,6 @@
             "سرباز"
           ],
           "page": 3
-        },
-        {
-          "query": "سرباز بیرانوند؛ به تایلند رسید",
-          "trendTitle": "بازیکن فوتبال",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
-          "trendKeywords": [
-            "بازیکن",
-            "فوتبال"
-          ],
-          "page": 6
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-21T07:50:04.888Z"
-    },
-    "zRtJV4t": {
-      "video_code": "zRtJV4t",
-      "title": "کلیپ عاشقانه سرباز دلتنگی",
-      "sender_name": "qwert",
-      "category_id": 4,
-      "duration": 35,
-      "visit_count": 9475,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-21T07:49:49.270Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سرباز",
-          "trendTitle": "سرباز",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-          "trendKeywords": [
-            "سرباز"
-          ],
-          "page": 4
         },
         {
           "query": "سرباز بیرانوند؛ به تایلند رسید",
@@ -154616,34 +154967,6 @@
       "visit_count": 104302,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T14:44:51.046Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "کنست",
-          "trendTitle": "کنست",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Wed, 18 Nov 2026 06:10:00 -0800",
-          "trendKeywords": [
-            "کنست"
-          ],
-          "page": 12
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T14:45:23.131Z"
-    },
-    "cbWRtVC": {
-      "video_code": "cbWRtVC",
-      "title": "کنسرت تتلو شما زرفدار تتلو هستید با ن تو کامتا بگبد بببنم",
-      "sender_name": "Yeghane",
-      "category_id": 9,
-      "duration": 419,
-      "visit_count": 25758,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
       "lastMetricsFetchedAt": "2026-11-18T14:44:51.046Z",
       "active": 1,
       "can_republish": 1,
@@ -162674,34 +162997,6 @@
             "آدان"
           ],
           "page": 55
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T17:45:31.204Z"
-    },
-    "YHyTMv0": {
-      "video_code": "YHyTMv0",
-      "title": "آموزش بستن بند کفش با یه روش آسان",
-      "sender_name": "larisa",
-      "category_id": 7,
-      "duration": 14,
-      "visit_count": 25784,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T17:45:02.237Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "آدان",
-          "trendTitle": "آدان",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Wed, 18 Nov 2026 07:40:00 -0800",
-          "trendKeywords": [
-            "آدان"
-          ],
-          "page": 57
         }
       ],
       "lastTrendMatchedAt": "2026-11-18T17:45:31.204Z"
@@ -173320,34 +173615,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-22T06:25:24.197Z"
     },
-    "VxUX4cW": {
-      "video_code": "VxUX4cW",
-      "title": "غذای فوق سریع و متفاوت و خوشمزه",
-      "sender_name": "🌺 ثـــریا 🌺",
-      "category_id": 29,
-      "duration": 52,
-      "visit_count": 25759,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-22T06:25:12.602Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "یحیی سریع: 2 مرکز بسیار مهم دشمن سعودی مورد اصابت قرار گرفت",
-          "trendTitle": "ریاض",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Thu, 19 Nov 2026 10:00:00 -0800",
-          "trendKeywords": [
-            "ریاض"
-          ],
-          "page": 11
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-22T06:25:24.197Z"
-    },
     "tsSevhm": {
       "video_code": "tsSevhm",
       "title": "عملیات های واکنش سریع تکاوران تیپ ۲۵ نیرو مخصوص /بیا توضیحات نزاجا در مقابل سردار",
@@ -175285,8 +175552,349 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-22T09:30:20.906Z"
+    },
+    "dnCd8LR": {
+      "video_code": "dnCd8LR",
+      "title": "تیزر فیلم فسیل | دانلود مستقیم با بالاترین کیفیت",
+      "sender_name": "دانلود قانونی فیلم و سریال",
+      "category_id": 3,
+      "duration": 120,
+      "visit_count": 50468,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T18:29:53.804Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 21,
+      "globalTrendSearchMatches": [
+        {
+          "query": "پرداخت مستقیم",
+          "trendTitle": "پرداخت مستقیم",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+          "trendKeywords": [
+            "پرداخت",
+            "مستقیم"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T18:31:22.522Z"
+    },
+    "Kq1YfD2": {
+      "video_code": "Kq1YfD2",
+      "title": "دانلود فیلم بازیووو با لینک مستقیم",
+      "sender_name": "فیلمرسان",
+      "category_id": 3,
+      "duration": 90,
+      "visit_count": 37376,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T18:29:53.804Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "پرداخت مستقیم",
+          "trendTitle": "پرداخت مستقیم",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+          "trendKeywords": [
+            "پرداخت",
+            "مستقیم"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T18:31:22.522Z"
+    },
+    "YxVeMMY": {
+      "video_code": "YxVeMMY",
+      "title": "دومین حمله مستقیم سپاه به امریکا تکرار عین الاسد - معرفی موشک جدید ایرانی",
+      "sender_name": "احمد علی - 1",
+      "category_id": 1,
+      "duration": 555,
+      "visit_count": 69680,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T18:29:54.812Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "پرداخت مستقیم",
+          "trendTitle": "پرداخت مستقیم",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+          "trendKeywords": [
+            "پرداخت",
+            "مستقیم"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T18:31:22.523Z"
+    },
+    "hR6d4D9": {
+      "video_code": "hR6d4D9",
+      "title": "پخش مستقیم تلویزیون ترکیه در هنگام وقوع زلزله شدید دقایقی پیش",
+      "sender_name": "آرامش",
+      "category_id": 1,
+      "duration": 47,
+      "visit_count": 111676,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T18:29:54.812Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "پرداخت مستقیم",
+          "trendTitle": "پرداخت مستقیم",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+          "trendKeywords": [
+            "پرداخت",
+            "مستقیم"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T18:31:22.523Z"
+    },
+    "VO7N8BH": {
+      "video_code": "VO7N8BH",
+      "title": "فیلم نگار با لینک مستقیم و کیفیت عالی",
+      "sender_name": "آماندا",
+      "category_id": 3,
+      "duration": 5590,
+      "visit_count": 38958,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T18:29:54.812Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "پرداخت مستقیم",
+          "trendTitle": "پرداخت مستقیم",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+          "trendKeywords": [
+            "پرداخت",
+            "مستقیم"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T18:31:22.523Z"
+    },
+    "dJRjMwb": {
+      "video_code": "dJRjMwb",
+      "title": "کاتاف رگباری و هارد کاتاف روی موتور پیکان با اگزوز مستقيم",
+      "sender_name": "فیلم سون | Filmseven",
+      "category_id": 25,
+      "duration": 747,
+      "visit_count": 65396,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T18:29:54.812Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "پرداخت مستقیم",
+          "trendTitle": "پرداخت مستقیم",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+          "trendKeywords": [
+            "پرداخت",
+            "مستقیم"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T18:31:22.523Z"
+    },
+    "3jCuY51": {
+      "video_code": "3jCuY51",
+      "title": "انیمیشن عملیات آجیلی 2 دوبله فارسی با لینک مستقیم",
+      "sender_name": "فیلمرسان",
+      "category_id": 21,
+      "duration": 5473,
+      "visit_count": 27603,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T18:29:55.683Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "پرداخت مستقیم",
+          "trendTitle": "پرداخت مستقیم",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+          "trendKeywords": [
+            "پرداخت",
+            "مستقیم"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T18:31:22.523Z"
+    },
+    "Evuckii": {
+      "video_code": "Evuckii",
+      "title": "فیلم برف با لینک مستقیم و کیفیت عالی DVDRip",
+      "sender_name": "امید فتاحی",
+      "category_id": 3,
+      "duration": 5197,
+      "visit_count": 30215,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T18:29:55.683Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "پرداخت مستقیم",
+          "trendTitle": "پرداخت مستقیم",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+          "trendKeywords": [
+            "پرداخت",
+            "مستقیم"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T18:31:22.523Z"
+    },
+    "NQK051h": {
+      "video_code": "NQK051h",
+      "title": "قسمت 32 جیران با لینک مستقیم | سریال جیران قسمت 32",
+      "sender_name": "فیلمرسان",
+      "category_id": 3,
+      "duration": 115,
+      "visit_count": 27644,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T18:29:56.478Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "پرداخت مستقیم",
+          "trendTitle": "پرداخت مستقیم",
+          "trendTraffic": 500,
+          "trendPublishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+          "trendKeywords": [
+            "پرداخت",
+            "مستقیم"
+          ],
+          "page": 6
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T18:31:22.524Z"
+    },
+    "8a4jouZ": {
+      "video_code": "8a4jouZ",
+      "title": "تو مرا آزردی که خودم کوچ کنم",
+      "sender_name": "دهکده عاشقان",
+      "category_id": 4,
+      "duration": 43,
+      "visit_count": 14338,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T18:30:07.928Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "فیلم کوچ",
+          "trendTitle": "فیلم کوچ",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+          "trendKeywords": [
+            "فیلم",
+            "کوچ"
+          ],
+          "page": 1
+        },
+        {
+          "query": "زینب سلیمانی: فیلم «کوچ» به واقعیت زندگی حاج قاسم وفادار است",
+          "trendTitle": "فیلم کوچ",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+          "trendKeywords": [
+            "فیلم",
+            "کوچ"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T18:31:22.542Z"
+    },
+    "zjcPBDH": {
+      "video_code": "zjcPBDH",
+      "title": "سریال زمان کوچ قسمت 1 - دوبله فارسی",
+      "sender_name": "گودزیلا",
+      "category_id": 3,
+      "duration": 2754,
+      "visit_count": 11355,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-22T18:30:07.928Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "فیلم کوچ",
+          "trendTitle": "فیلم کوچ",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+          "trendKeywords": [
+            "فیلم",
+            "کوچ"
+          ],
+          "page": 1
+        },
+        {
+          "query": "زینب سلیمانی: فیلم «کوچ» به واقعیت زندگی حاج قاسم وفادار است",
+          "trendTitle": "فیلم کوچ",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Sun, 22 Nov 2026 09:10:00 -0800",
+          "trendKeywords": [
+            "فیلم",
+            "کوچ"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-22T18:31:22.542Z"
     }
   },
-  "totalPagesFetched": 15592,
-  "totalVideosSeen": 279930
+  "totalPagesFetched": 15739,
+  "totalVideosSeen": 282424
 }
