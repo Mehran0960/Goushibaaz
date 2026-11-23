@@ -1,22 +1,9 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-22T21:34:56.071Z",
-  "trendsFetchedAt": "2026-11-22T21:33:58.731Z",
+  "updatedAt": "2026-11-23T00:40:06.472Z",
+  "trendsFetchedAt": "2026-11-23T00:39:05.877Z",
   "trends": [
-    {
-      "title": "liverpool f.c. vs manchester united f.c. standings",
-      "keywords": [
-        "liverpool",
-        "vs",
-        "manchester",
-        "united",
-        "standings"
-      ],
-      "traffic": 5000,
-      "publishedAt": "Sun, 22 Nov 2026 10:30:00 -0800",
-      "ageHours": 3.1
-    },
     {
       "title": "ختافه مقابل اتلتیکو",
       "keywords": [
@@ -26,7 +13,7 @@
       ],
       "traffic": 2000,
       "publishedAt": "Sun, 22 Nov 2026 11:10:00 -0800",
-      "ageHours": 2.4
+      "ageHours": 5.5
     },
     {
       "title": "آتالانتا مقابل اینتر",
@@ -37,18 +24,17 @@
       ],
       "traffic": 1000,
       "publishedAt": "Sun, 22 Nov 2026 11:00:00 -0800",
-      "ageHours": 2.6
+      "ageHours": 5.7
     },
     {
-      "title": "getafe vs atlético",
+      "title": "avengers doomsday",
       "keywords": [
-        "getafe",
-        "vs",
-        "atlético"
+        "avengers",
+        "doomsday"
       ],
-      "traffic": 200,
+      "traffic": 500,
       "publishedAt": "Sun, 22 Nov 2026 12:00:00 -0800",
-      "ageHours": 1.6
+      "ageHours": 4.7
     },
     {
       "title": "atalanta vs inter",
@@ -59,17 +45,18 @@
       ],
       "traffic": 200,
       "publishedAt": "Sun, 22 Nov 2026 12:00:00 -0800",
-      "ageHours": 1.6
+      "ageHours": 4.7
     },
     {
-      "title": "avengers doomsday",
+      "title": "getafe vs atlético",
       "keywords": [
-        "avengers",
-        "doomsday"
+        "getafe",
+        "vs",
+        "atlético"
       ],
       "traffic": 200,
       "publishedAt": "Sun, 22 Nov 2026 12:00:00 -0800",
-      "ageHours": 1.6
+      "ageHours": 4.7
     },
     {
       "title": "محمد جواد بخشی زاده",
@@ -81,7 +68,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Sun, 22 Nov 2026 11:40:00 -0800",
-      "ageHours": 1.9
+      "ageHours": 5
     },
     {
       "title": "لیبی",
@@ -90,7 +77,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Sun, 22 Nov 2026 11:40:00 -0800",
-      "ageHours": 1.9
+      "ageHours": 5
     },
     {
       "title": "عرضه اولیه آب",
@@ -101,7 +88,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Sun, 22 Nov 2026 11:30:00 -0800",
-      "ageHours": 2.1
+      "ageHours": 5.2
     },
     {
       "title": "s27",
@@ -110,7 +97,17 @@
       ],
       "traffic": 100,
       "publishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
-      "ageHours": 3.6
+      "ageHours": 6.7
+    },
+    {
+      "title": "امید نورافکن",
+      "keywords": [
+        "امید",
+        "نورافکن"
+      ],
+      "traffic": 100,
+      "publishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+      "ageHours": 6.7
     }
   ],
   "queries": {
@@ -602,12 +599,12 @@
     "رحمتی جوان ها حرصمان می دهند و بعد از همسرشان در برنامه های تلویزیونی تشکر می کنند": {
       "query": "رحمتی: جوان‌ها حرصمان می‌دهند و بعد از همسرشان در برنامه‌های تلویزیونی تشکر می‌کنند!",
       "normalized": "رحمتی جوان ها حرصمان می دهند و بعد از همسرشان در برنامه های تلویزیونی تشکر می کنند",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 12,
+      "complete": true,
+      "pagesFetched": 11,
+      "videosSeen": 184,
       "createdAt": "2026-11-20T22:29:00.869Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-23T00:40:06.243Z",
       "lastError": null,
       "trendTitle": "مهدی رحمتی",
       "trendTraffic": 200,
@@ -617,7 +614,9 @@
         "رحمتی"
       ],
       "lastTrendSeenAt": "2026-11-20T22:29:00.869Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-23T00:40:06.243Z"
     },
     "رحمتی در موضوع دروازه بانی خیلی سختگیر نیستم": {
       "query": "رحمتی: در موضوع دروازه‌بانی خیلی سختگیر نیستم!",
@@ -664,12 +663,12 @@
     "حکومت ایران و دادگاه های زنجیره ای در بریتانیا": {
       "query": "حکومت ایران و‌ دادگاه‌های زنجیره‌ای در بریتانیا",
       "normalized": "حکومت ایران و دادگاه های زنجیره ای در بریتانیا",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-20T22:29:00.869Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-23T00:40:06.243Z",
       "lastError": null,
       "trendTitle": "دادگاه",
       "trendTraffic": 100,
@@ -678,7 +677,9 @@
         "دادگاه"
       ],
       "lastTrendSeenAt": "2026-11-20T22:29:00.869Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-23T00:40:06.243Z"
     },
     "متهم پرونده فرفورد در دادگاه نیویورک ما ارتش قاسم سلیمانی هستیم": {
       "query": "متهم پرونده فرفورد در دادگاه نیویورک: ما ارتش قاسم سلیمانی هستیم",
@@ -4452,12 +4453,12 @@
     "امید نورافکن": {
       "query": "امید نورافکن",
       "normalized": "امید نورافکن",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 394,
       "createdAt": "2026-11-22T18:29:06.011Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-23T00:40:06.231Z",
       "lastError": null,
       "trendTitle": "امید نورافکن",
       "trendTraffic": 100,
@@ -4466,18 +4467,19 @@
         "امید",
         "نورافکن"
       ],
-      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
-      "activeInLatestFeed": false
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "بلوغ فوتبالی امید در آستانه 30 سالگی مهندس هوا و فضا": {
       "query": "بلوغ فوتبالیِ «امید» در آستانه 30 سالگی؛ «مهندسِ هوا و فضا!»",
       "normalized": "بلوغ فوتبالی امید در آستانه 30 سالگی مهندس هوا و فضا",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-22T18:29:06.011Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-23T00:40:06.231Z",
       "lastError": null,
       "trendTitle": "امید نورافکن",
       "trendTraffic": 100,
@@ -4486,18 +4488,20 @@
         "امید",
         "نورافکن"
       ],
-      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
-      "activeInLatestFeed": false
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-23T00:40:06.231Z"
     },
     "مهندس جدید لیگ برتر نورافکن می درخشد": {
       "query": "مهندس جدید لیگ برتر؛ نورافکن می‌درخشد!",
       "normalized": "مهندس جدید لیگ برتر نورافکن می درخشد",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-22T18:29:06.011Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-23T00:40:06.231Z",
       "lastError": null,
       "trendTitle": "امید نورافکن",
       "trendTraffic": 100,
@@ -4506,8 +4510,10 @@
         "امید",
         "نورافکن"
       ],
-      "lastTrendSeenAt": "2026-11-22T18:29:06.011Z",
-      "activeInLatestFeed": false
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-23T00:40:06.231Z"
     },
     "s27": {
       "query": "s27",
@@ -4525,19 +4531,19 @@
       "trendKeywords": [
         "s27"
       ],
-      "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "galaxy s27 release date early software reveals iphone style overhaul": {
       "query": "Galaxy S27 Release Date: Early Software Reveals iPhone-Style Overhaul",
       "normalized": "galaxy s27 release date early software reveals iphone style overhaul",
-      "nextPage": 20,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 19,
+      "pagesFetched": 20,
       "videosSeen": 343,
       "createdAt": "2026-11-22T18:29:06.011Z",
-      "lastAttemptAt": "2026-11-22T21:34:55.861Z",
+      "lastAttemptAt": "2026-11-23T00:40:06.231Z",
       "lastError": null,
       "trendTitle": "s27",
       "trendTraffic": 100,
@@ -4545,10 +4551,12 @@
       "trendKeywords": [
         "s27"
       ],
-      "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-22T21:34:55.861Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-23T00:40:06.231Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-23T00:40:06.231Z"
     },
     "samsung s now bar could get a dynamic island style redesign with the galaxy s27": {
       "query": "Samsung's Now Bar could get a Dynamic Island-style redesign with the Galaxy S27",
@@ -4707,7 +4715,7 @@
         "standings"
       ],
       "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T21:34:55.861Z"
     },
@@ -4732,7 +4740,7 @@
         "standings"
       ],
       "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T21:34:55.861Z"
     },
@@ -4757,7 +4765,7 @@
         "standings"
       ],
       "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T21:34:55.861Z"
     },
@@ -4779,19 +4787,19 @@
         "مقابل",
         "اتلتیکو"
       ],
-      "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
+      "lastTrendSeenAt": "2026-11-23T00:39:06.254Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "فوتبال ختافه اتلتیکومادرید": {
       "query": "فوتبال ختافه - اتلتیکومادرید",
       "normalized": "فوتبال ختافه اتلتیکومادرید",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 4,
-      "videosSeen": 26,
+      "pagesFetched": 7,
+      "videosSeen": 52,
       "createdAt": "2026-11-22T21:33:59.159Z",
-      "lastAttemptAt": "2026-11-22T21:34:55.867Z",
+      "lastAttemptAt": "2026-11-23T00:40:06.232Z",
       "lastError": null,
       "trendTitle": "ختافه مقابل اتلتیکو",
       "trendTraffic": 2000,
@@ -4801,10 +4809,12 @@
         "مقابل",
         "اتلتیکو"
       ],
-      "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
+      "lastTrendSeenAt": "2026-11-23T00:39:06.254Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-22T21:34:55.867Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-23T00:40:06.232Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-23T00:40:06.232Z"
     },
     "پخش زنده فوتبال اتلتیکو مادرید و ختافه در لذت فوتبال": {
       "query": "پخش زنده فوتبال اتلتیکو مادرید و ختافه در «لذت فوتبال»",
@@ -4825,7 +4835,7 @@
         "اتلتیکو"
       ],
       "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T21:34:55.867Z"
     },
@@ -4847,19 +4857,19 @@
         "مقابل",
         "اینتر"
       ],
-      "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
+      "lastTrendSeenAt": "2026-11-23T00:39:06.254Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "فوتبال آتالانتا اینتر گزارش پیام بسیجی": {
       "query": "فوتبال آتالانتا - اینتر (گزارش پیام بسیجی)",
       "normalized": "فوتبال آتالانتا اینتر گزارش پیام بسیجی",
-      "nextPage": 8,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 7,
-      "videosSeen": 106,
+      "pagesFetched": 12,
+      "videosSeen": 206,
       "createdAt": "2026-11-22T21:33:59.159Z",
-      "lastAttemptAt": "2026-11-22T21:34:55.875Z",
+      "lastAttemptAt": "2026-11-23T00:40:06.236Z",
       "lastError": null,
       "trendTitle": "آتالانتا مقابل اینتر",
       "trendTraffic": 1000,
@@ -4869,10 +4879,12 @@
         "مقابل",
         "اینتر"
       ],
-      "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-22T21:34:55.875Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-23T00:40:06.236Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-23T00:40:06.236Z"
     },
     "پخش زنده تقابل حساس اینتر و آتالانتا در هفته دوازدهم سری آ ایتالیا": {
       "query": "پخش زنده تقابل حساس اینتر و آتالانتا در هفته دوازدهم سری‌آ ایتالیا",
@@ -4893,19 +4905,19 @@
         "اینتر"
       ],
       "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-22T21:34:55.877Z"
     },
     "getafe vs atlético": {
       "query": "getafe vs atlético",
       "normalized": "getafe vs atlético",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-22T21:33:59.159Z",
-      "lastAttemptAt": "2026-11-22T21:34:55.877Z",
+      "lastAttemptAt": "2026-11-23T00:40:06.236Z",
       "lastError": null,
       "trendTitle": "getafe vs atlético",
       "trendTraffic": 200,
@@ -4915,10 +4927,12 @@
         "vs",
         "atlético"
       ],
-      "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-22T21:34:55.877Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-23T00:40:06.236Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-23T00:40:06.236Z"
     },
     "el getafe uno de los rivales más especiales para un kang in que necesita recuperar gol": {
       "query": "El Getafe, uno de los rivales más especiales para un Kang-in que necesita recuperar gol",
@@ -4939,7 +4953,7 @@
         "atlético"
       ],
       "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "directo getafe 0 2 atlético de madrid el atleti busca el tercero": {
       "query": "DIRECTO | Getafe 0 - 2 Atlético de Madrid; El Atleti busca el tercero",
@@ -4960,17 +4974,17 @@
         "atlético"
       ],
       "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "atalanta vs inter": {
       "query": "atalanta vs inter",
       "normalized": "atalanta vs inter",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 3,
+      "videosSeen": 1,
       "createdAt": "2026-11-22T21:33:59.159Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-23T00:40:06.236Z",
       "lastError": null,
       "trendTitle": "atalanta vs inter",
       "trendTraffic": 200,
@@ -4980,8 +4994,10 @@
         "vs",
         "inter"
       ],
-      "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-23T00:40:06.236Z"
     },
     "atalanta vs inter milan italian serie a stats head to head": {
       "query": "Atalanta vs Inter Milan: Italian Serie A stats & head-to-head",
@@ -5002,7 +5018,7 @@
         "inter"
       ],
       "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "licensable picture atalanta vs inter serie a enilive new balance arena bergamo": {
       "query": "Licensable picture: Atalanta vs Inter - Serie A Enilive - New Balance Arena, Bergamo",
@@ -5023,27 +5039,29 @@
         "inter"
       ],
       "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "avengers doomsday": {
       "query": "avengers doomsday",
       "normalized": "avengers doomsday",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 21,
+      "complete": true,
+      "pagesFetched": 20,
+      "videosSeen": 369,
       "createdAt": "2026-11-22T21:33:59.159Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-23T00:40:06.240Z",
       "lastError": null,
       "trendTitle": "avengers doomsday",
-      "trendTraffic": 200,
+      "trendTraffic": 500,
       "trendPublishedAt": "Sun, 22 Nov 2026 12:00:00 -0800",
       "trendKeywords": [
         "avengers",
         "doomsday"
       ],
-      "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-23T00:40:06.240Z"
     },
     "mcu icon officially confirms when the new avengers doomsday trailer is dropping": {
       "query": "MCU Icon Officially Confirms When the New 'Avengers: Doomsday' Trailer Is Dropping",
@@ -5063,7 +5081,7 @@
         "doomsday"
       ],
       "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "marvel drops sprawling 11 part avengers doomsday characters poster montage": {
       "query": "Marvel Drops Sprawling 11-Part 'Avengers: Doomsday' Characters Poster Montage",
@@ -5083,17 +5101,17 @@
         "doomsday"
       ],
       "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "محمد جواد بخشی زاده": {
       "query": "محمد جواد بخشی زاده",
       "normalized": "محمد جواد بخشی زاده",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 3,
+      "videosSeen": 1,
       "createdAt": "2026-11-22T21:33:59.159Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-23T00:40:06.240Z",
       "lastError": null,
       "trendTitle": "محمد جواد بخشی زاده",
       "trendTraffic": 200,
@@ -5104,18 +5122,20 @@
         "بخشی",
         "زاده"
       ],
-      "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-23T00:40:06.240Z"
     },
     "مراسم تشییع پیکر پیشکسوت تئاتر فارس سوم آذر برگزار می شود": {
       "query": "مراسم تشییع پیکر پیشکسوت تئاتر فارس سوم آذر برگزار می‌شود",
       "normalized": "مراسم تشییع پیکر پیشکسوت تئاتر فارس سوم آذر برگزار می شود",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-22T21:33:59.159Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-23T00:40:06.240Z",
       "lastError": null,
       "trendTitle": "محمد جواد بخشی زاده",
       "trendTraffic": 200,
@@ -5126,18 +5146,20 @@
         "بخشی",
         "زاده"
       ],
-      "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-23T00:40:06.240Z"
     },
     "پیشکسوت تئاتر و سینمای فارس درگذشت": {
       "query": "پیشکسوت تئاتر و سینمای فارس درگذشت",
       "normalized": "پیشکسوت تئاتر و سینمای فارس درگذشت",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-22T21:33:59.159Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-23T00:40:06.240Z",
       "lastError": null,
       "trendTitle": "محمد جواد بخشی زاده",
       "trendTraffic": 200,
@@ -5148,8 +5170,10 @@
         "بخشی",
         "زاده"
       ],
-      "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-23T00:40:06.240Z"
     },
     "لیبی": {
       "query": "لیبی",
@@ -5167,7 +5191,7 @@
       "trendKeywords": [
         "لیبی"
       ],
-      "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
       "activeInLatestFeed": true
     },
     "لیبی یک ناو جنگی روسیه در بندر بنغازی مورد حمله پهپادی قرار گرفته است": {
@@ -5187,7 +5211,7 @@
         "لیبی"
       ],
       "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "رویترز حمله با استفاده از قایق های بدون سرنشین به یک کشتی روسی و یک کشتی دیگر با پرچم مالت در سواحل": {
       "query": "رویترز: حمله با استفاده از قایق‌های بدون سرنشین به یک کشتی روسی و یک کشتی دیگر با پرچم مالت در سواحل...",
@@ -5206,7 +5230,7 @@
         "لیبی"
       ],
       "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "عرضه اولیه آب": {
       "query": "عرضه اولیه آب",
@@ -5226,7 +5250,7 @@
         "اولیه",
         "آب"
       ],
-      "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
       "activeInLatestFeed": true
     },
     "جزئیات تازه از عرضه اولیه سهام شرکت مهندسی توسعه آب آسیا با نماد آب در فرابورس اعلام شد": {
@@ -5247,7 +5271,7 @@
         "اولیه",
         "آب"
       ],
-      "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
       "activeInLatestFeed": true
     },
     "نخستین آب شیرین کن بازار سرمایه با ارزش گذاری ۴۰ هزار میلیارد تومانی در آستانه ورود به فرابورس": {
@@ -5268,7 +5292,7 @@
         "اولیه",
         "آب"
       ],
-      "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
       "activeInLatestFeed": true
     },
     "samsung galaxy s27 series may debut with an iphone dynamic island like feature here s the first look": {
@@ -5288,6 +5312,191 @@
         "s27"
       ],
       "lastTrendSeenAt": "2026-11-22T21:33:59.159Z",
+      "activeInLatestFeed": false
+    },
+    "۳۴۵ پیروزی در لالیگا دیگو سیمئونه به یک رکورد دست نیافتنی رسید": {
+      "query": "۳۴۵ پیروزی در لالیگا؛ دیگو سیمئونه به یک رکورد دست‌نیافتنی رسید",
+      "normalized": "۳۴۵ پیروزی در لالیگا دیگو سیمئونه به یک رکورد دست نیافتنی رسید",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-23T00:39:06.254Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "ختافه مقابل اتلتیکو",
+      "trendTraffic": 2000,
+      "trendPublishedAt": "Sun, 22 Nov 2026 11:10:00 -0800",
+      "trendKeywords": [
+        "ختافه",
+        "مقابل",
+        "اتلتیکو"
+      ],
+      "lastTrendSeenAt": "2026-11-23T00:39:06.254Z",
+      "activeInLatestFeed": true
+    },
+    "آتالانتا ۴ ۴ اینتر هت تریک اسپوزیتو هم مانع کامبک تماشایی میزبان نشد": {
+      "query": "آتالانتا ۴-۴ اینتر؛ هت‌تریک اسپوزیتو هم مانع کامبک تماشایی میزبان نشد",
+      "normalized": "آتالانتا ۴ ۴ اینتر هت تریک اسپوزیتو هم مانع کامبک تماشایی میزبان نشد",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-23T00:39:06.255Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "آتالانتا مقابل اینتر",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Sun, 22 Nov 2026 11:00:00 -0800",
+      "trendKeywords": [
+        "آتالانتا",
+        "مقابل",
+        "اینتر"
+      ],
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
+      "activeInLatestFeed": true
+    },
+    "chris evans anthony mackie simu liu kick off avengers doomsday global press tour at f1 s las vegas grand prix": {
+      "query": "Chris Evans, Anthony Mackie & Simu Liu Kick Off ‘Avengers: Doomsday’ Global Press Tour at F1’s Las Vegas Grand Prix",
+      "normalized": "chris evans anthony mackie simu liu kick off avengers doomsday global press tour at f1 s las vegas grand prix",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-23T00:39:06.255Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "avengers doomsday",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Sun, 22 Nov 2026 12:00:00 -0800",
+      "trendKeywords": [
+        "avengers",
+        "doomsday"
+      ],
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
+      "activeInLatestFeed": true
+    },
+    "steve rogers captain america and shang chi unite in las vegas to launch marvel s nine city avengers doomsday global tour": {
+      "query": "Steve Rogers, Captain America, and Shang-Chi Unite in Las Vegas to Launch Marvel’s Nine-City ‘Avengers: Doomsday’ Global Tour",
+      "normalized": "steve rogers captain america and shang chi unite in las vegas to launch marvel s nine city avengers doomsday global tour",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-23T00:39:06.255Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "avengers doomsday",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Sun, 22 Nov 2026 12:00:00 -0800",
+      "trendKeywords": [
+        "avengers",
+        "doomsday"
+      ],
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
+      "activeInLatestFeed": true
+    },
+    "preview atalanta bc vs inter milan prediction team news lineups": {
+      "query": "Preview: Atalanta BC vs Inter Milan - prediction, team news, lineups",
+      "normalized": "preview atalanta bc vs inter milan prediction team news lineups",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-23T00:39:06.255Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "atalanta vs inter",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Sun, 22 Nov 2026 12:00:00 -0800",
+      "trendKeywords": [
+        "atalanta",
+        "vs",
+        "inter"
+      ],
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
+      "activeInLatestFeed": true
+    },
+    "licensable picture atalanta bc v fc internazionale serie a enilive": {
+      "query": "Licensable picture: Atalanta BC v FC Internazionale - Serie A Enilive",
+      "normalized": "licensable picture atalanta bc v fc internazionale serie a enilive",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-23T00:39:06.255Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "atalanta vs inter",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Sun, 22 Nov 2026 12:00:00 -0800",
+      "trendKeywords": [
+        "atalanta",
+        "vs",
+        "inter"
+      ],
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
+      "activeInLatestFeed": true
+    },
+    "baena sostiene la llama de un buen atlético en su victoria en getafe": {
+      "query": "Baena sostiene la llama de un buen Atlético en su victoria en Getafe",
+      "normalized": "baena sostiene la llama de un buen atlético en su victoria en getafe",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-23T00:39:06.255Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "getafe vs atlético",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Sun, 22 Nov 2026 12:00:00 -0800",
+      "trendKeywords": [
+        "getafe",
+        "vs",
+        "atlético"
+      ],
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
+      "activeInLatestFeed": true
+    },
+    "kill pass pk provocación de expulsión lee kang in brilló sin puntos ofensivos el atlético victoria aplastante 3 0 ante el getafe": {
+      "query": "'Kill pass → PK + provocación de expulsión': Lee Kang-in brilló sin puntos ofensivos... El Atlético, victoria aplastante 3-0 ante el Getafe",
+      "normalized": "kill pass pk provocación de expulsión lee kang in brilló sin puntos ofensivos el atlético victoria aplastante 3 0 ante el getafe",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-23T00:39:06.255Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "getafe vs atlético",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Sun, 22 Nov 2026 12:00:00 -0800",
+      "trendKeywords": [
+        "getafe",
+        "vs",
+        "atlético"
+      ],
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
+      "activeInLatestFeed": true
+    },
+    "samsung might copy the iphone s dynamic island soon but it actually looks good video": {
+      "query": "Samsung might copy the iPhone’s Dynamic Island soon, but it actually looks good [Video]",
+      "normalized": "samsung might copy the iphone s dynamic island soon but it actually looks good video",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-23T00:39:06.255Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "s27",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+      "trendKeywords": [
+        "s27"
+      ],
+      "lastTrendSeenAt": "2026-11-23T00:39:06.255Z",
       "activeInLatestFeed": true
     }
   },
@@ -33860,44 +34069,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T22:01:25.360Z"
     },
-    "4oVuuNH": {
-      "video_code": "4oVuuNH",
-      "title": "سریال نفوذی قسمت 34 دوبله فارس",
-      "sender_name": "سارا",
-      "category_id": 3,
-      "duration": 8175,
-      "visit_count": 9676,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فارس",
-          "trendTitle": "فارس",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:30:00 -0800",
-          "trendKeywords": [
-            "فارس"
-          ],
-          "page": 6
-        },
-        {
-          "query": "خبرگزاری فارس",
-          "trendTitle": "خبرگزاری فارس",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:40:00 -0800",
-          "trendKeywords": [
-            "خبرگزاری",
-            "فارس"
-          ],
-          "page": 7
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.360Z"
-    },
     "jDWmGJ2": {
       "video_code": "jDWmGJ2",
       "title": "فصل سیزدهم کارتون سریالی باب اسفنجی قسمت ۳۲ شلوار مکعبی دوبله فارس",
@@ -38170,33 +38341,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-04T02:45:21.889Z"
-    },
-    "mg9z5kp": {
-      "video_code": "mg9z5kp",
-      "title": "فیلم سینمایی۲۰۲۳ شزم۲(خشم خدایان) دوبله فارسی ،سانسور",
-      "sender_name": "عقاب سرخ قلعه تل",
-      "category_id": 3,
-      "duration": 7813,
-      "visit_count": 26300,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 50
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.342Z"
     },
     "A1bNmd6": {
       "video_code": "A1bNmd6",
@@ -61544,7 +61688,7 @@
       "sender_name": "Ali✅",
       "category_id": 11,
       "duration": 80,
-      "visit_count": 55737,
+      "visit_count": 55739,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -61562,9 +61706,21 @@
             "ابوالقاسمپور"
           ],
           "page": 7
+        },
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 11
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T10:51:08.333Z"
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.226Z",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:38.203Z"
     },
     "kbgv9KO": {
       "video_code": "kbgv9KO",
@@ -68736,33 +68892,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T17:41:43.101Z"
     },
-    "9T0mEza": {
-      "video_code": "9T0mEza",
-      "title": "سریال : تین ولف Teen Wolf فصل ششم قسمت 17",
-      "sender_name": "امیر",
-      "category_id": 3,
-      "duration": 2325,
-      "visit_count": 26263,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 77
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T17:41:43.102Z"
-    },
     "hEmH8JG": {
       "video_code": "hEmH8JG",
       "title": "سریال : تین ولف Teen Wolf فصل ششم قسمت 12",
@@ -72769,33 +72898,6 @@
             "ایرنا"
           ],
           "page": 70
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.888Z"
-    },
-    "UZAqr5n": {
-      "video_code": "UZAqr5n",
-      "title": "کشف راز مکعب باستانی ایران کعبه زرتشت،حتما ببینید خیلی جذابه",
-      "sender_name": "فیلمرسان",
-      "category_id": 15,
-      "duration": 488,
-      "visit_count": 26359,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "ایرنا",
-          "trendTitle": "ایرنا",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "ایرنا"
-          ],
-          "page": 71
         }
       ],
       "lastTrendMatchedAt": "2026-11-04T02:45:21.888Z"
@@ -78916,34 +79018,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-04T03:21:52.909Z"
     },
-    "iLmY4Fz": {
-      "video_code": "iLmY4Fz",
-      "title": "مدگل هم وارد بازی کردین!؟??meme 35 (فرشاد سایلنت)",
-      "sender_name": "BackwardsHustlin",
-      "category_id": 17,
-      "duration": 850,
-      "visit_count": 26325,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سوخو-۳۵",
-          "trendTitle": "سوخو-۳۵",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 3 Nov 2026 18:20:00 -0800",
-          "trendKeywords": [
-            "سوخو",
-            "۳۵"
-          ],
-          "page": 29
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.909Z"
-    },
     "idsWy76": {
       "video_code": "idsWy76",
       "title": "سریال گودال فصل اول قسمت ۳۵",
@@ -80763,34 +80837,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:07:45.407Z",
       "lastMetricsFetchedAt": "2026-11-17T19:07:23.727Z"
-    },
-    "CtFPLj7": {
-      "video_code": "CtFPLj7",
-      "title": "سریال ستاره شمالی kuzey yildizi فصل 1 قسمت 35 دوبله",
-      "sender_name": "مووی باکس `ღ´-",
-      "category_id": 3,
-      "duration": 2633,
-      "visit_count": 26263,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سوخو-۳۵",
-          "trendTitle": "سوخو-۳۵",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 3 Nov 2026 18:20:00 -0800",
-          "trendKeywords": [
-            "سوخو",
-            "۳۵"
-          ],
-          "page": 38
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.912Z"
     },
     "kYg9aNG": {
       "video_code": "kYg9aNG",
@@ -103813,35 +103859,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T17:25:47.892Z"
     },
-    "huDe2mc": {
-      "video_code": "huDe2mc",
-      "title": "سریال کره ای زیبایی درون قسمت 16 (قسمت آخر) دوبله فارسی Beauty Inside",
-      "sender_name": "آماندا",
-      "category_id": 3,
-      "duration": 3557,
-      "visit_count": 26337,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T17:25:40.491Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 45
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T17:25:47.892Z"
-    },
     "aOomvRH": {
       "video_code": "aOomvRH",
       "title": "سریال ایرانی گمشدگان قسمت 31 (قسمت آخر)",
@@ -108122,35 +108139,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-17T18:05:35.139Z"
-    },
-    "VfRk6c8": {
-      "video_code": "VfRk6c8",
-      "title": "فیلم کامل لحظه دستگیری محمد صادقی از سه زاویه بهمراه لایو خودش",
-      "sender_name": "آرامش",
-      "category_id": 3,
-      "duration": 47,
-      "visit_count": 26340,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:05:30.970Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "محمد شعبانپور",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 75
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T18:05:35.140Z"
     },
     "H1wwW5R": {
       "video_code": "H1wwW5R",
@@ -113316,34 +113304,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:07:45.403Z"
     },
-    "KJ2Wxe3": {
-      "video_code": "KJ2Wxe3",
-      "title": "قسمت 10 سریال به عشق تو سوگند دوبله فارسی",
-      "sender_name": "Apratgram",
-      "category_id": 3,
-      "duration": 2462,
-      "visit_count": 26276,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:07:00.970Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 10
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.403Z"
-    },
     "jCrYrOB": {
       "video_code": "jCrYrOB",
       "title": "Ep70)دانلود سریال سوگند با دوبلۀ فارسی",
@@ -113409,34 +113369,6 @@
       "visit_count": 26489,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:07:00.970Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 10
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.403Z"
-    },
-    "1wTRxKn": {
-      "video_code": "1wTRxKn",
-      "title": "به عشق تو سوگند قسمت 108 دوبله فارسی",
-      "sender_name": "دنیایی از فیلم و سریال   ",
-      "category_id": 3,
-      "duration": 2563,
-      "visit_count": 26301,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T19:07:00.970Z",
       "active": 1,
       "can_republish": 0,
@@ -118052,34 +117984,6 @@
       "visit_count": 27597,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:40.708Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 32
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.229Z"
-    },
-    "NJg5PCb": {
-      "video_code": "NJg5PCb",
-      "title": "E197}دانلود سریال سوگند - قسمت ۱۹۷ - دوبله فارسی",
-      "sender_name": "Filo Series",
-      "category_id": 3,
-      "duration": 2626,
-      "visit_count": 26266,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T19:25:40.708Z",
       "active": 1,
       "can_republish": 0,
@@ -128894,35 +128798,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-18T13:25:12.522Z"
-    },
-    "bAvyoZ2": {
-      "video_code": "bAvyoZ2",
-      "title": "کلیپ فوتبال.شوتی که داور را به بیمارستان فرستاد",
-      "sender_name": "abbas",
-      "category_id": 11,
-      "duration": 17,
-      "visit_count": 26313,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T09:24:43.583Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "بازیکن فوتبال",
-          "trendTitle": "بازیکن فوتبال",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
-          "trendKeywords": [
-            "بازیکن",
-            "فوتبال"
-          ],
-          "page": 90
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T09:25:34.235Z"
     },
     "5vl8NV9": {
       "video_code": "5vl8NV9",
@@ -146330,46 +146205,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-19T18:47:09.711Z"
     },
-    "LjSXvGy": {
-      "video_code": "LjSXvGy",
-      "title": "سریال : ذهن خوان ( روانکاو ) The Mentalist فصل هفتم قسمت 12و13",
-      "sender_name": "امیر",
-      "category_id": 3,
-      "duration": 4764,
-      "visit_count": 9653,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-19T18:46:06.119Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "خوان ماتا",
-          "trendTitle": "خوان ماتا",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-          "trendKeywords": [
-            "خوان",
-            "ماتا"
-          ],
-          "page": 5
-        },
-        {
-          "query": "ماتا بطل العالم 2010 يعلن اعتزاله في سن 38 عاما",
-          "trendTitle": "خوان ماتا",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-          "trendKeywords": [
-            "خوان",
-            "ماتا"
-          ],
-          "page": 5
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-19T18:47:09.711Z"
-    },
     "XkCdGPe": {
       "video_code": "XkCdGPe",
       "title": "انیمیشن سینمایی دوبله فارسی باربی : مسابقه اواز خوان ۲۰۱۵ دخترانه ماجراجویی کمدی موزیکال",
@@ -148073,34 +147908,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T13:45:08.259Z"
     },
-    "jT5PG65": {
-      "video_code": "jT5PG65",
-      "title": "دوربین مخفی طنز | عاطفه واسه پسر در استریم بوس فرستاد",
-      "sender_name": "hamidrezahassan3",
-      "category_id": 6,
-      "duration": 900,
-      "visit_count": 26326,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T13:44:47.751Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "استریم",
-          "trendTitle": "استریم",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Wed, 18 Nov 2026 04:00:00 -0800",
-          "trendKeywords": [
-            "استریم"
-          ],
-          "page": 3
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T13:45:08.259Z"
-    },
     "Z9bk1GF": {
       "video_code": "Z9bk1GF",
       "title": "گرفتن پنالتی کریس رونالدو توسط بیرانوند",
@@ -149173,45 +148980,6 @@
       "lastMetricsFetchedAt": "2026-11-21T07:49:51.062Z",
       "active": 1,
       "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سرباز",
-          "trendTitle": "سرباز",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-          "trendKeywords": [
-            "سرباز"
-          ],
-          "page": 5
-        },
-        {
-          "query": "سرباز بیرانوند؛ به تایلند رسید",
-          "trendTitle": "بازیکن فوتبال",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 22:50:00 -0800",
-          "trendKeywords": [
-            "بازیکن",
-            "فوتبال"
-          ],
-          "page": 9
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-21T07:50:04.888Z"
-    },
-    "q1ynnSH": {
-      "video_code": "q1ynnSH",
-      "title": "فیلم کوچک‌ترین سرباز دوبله فارسی 2019",
-      "sender_name": "سمیرا",
-      "category_id": 3,
-      "duration": 5188,
-      "visit_count": 9673,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-21T07:49:51.062Z",
-      "active": 1,
-      "can_republish": 0,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -152080,10 +151848,10 @@
       "sender_name": "lashini2022",
       "category_id": 9,
       "duration": 2508,
-      "visit_count": 53118,
+      "visit_count": 53124,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T14:44:47.739Z",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:36.081Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -152098,9 +151866,20 @@
             "کنست"
           ],
           "page": 8
+        },
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T14:45:23.131Z"
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.225Z"
     },
     "7CdqyUL": {
       "video_code": "7CdqyUL",
@@ -153166,10 +152945,10 @@
       "sender_name": "lashini2022",
       "category_id": 9,
       "duration": 2689,
-      "visit_count": 27841,
+      "visit_count": 27843,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T14:44:51.943Z",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:38.203Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -153184,9 +152963,20 @@
             "کنست"
           ],
           "page": 13
+        },
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 11
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T14:45:23.131Z"
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.226Z"
     },
     "8BROedU": {
       "video_code": "8BROedU",
@@ -157397,35 +157187,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T17:05:35.953Z"
     },
-    "OA0CilC": {
-      "video_code": "OA0CilC",
-      "title": "آهنگ محسن لرستانی امشب میام محلتان",
-      "sender_name": "امیر",
-      "category_id": 9,
-      "duration": 45,
-      "visit_count": 26256,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T17:05:20.185Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "محسن فخریزاده",
-          "trendTitle": "محسن فخریزاده",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Wed, 18 Nov 2026 01:10:00 -0800",
-          "trendKeywords": [
-            "محسن",
-            "فخریزاده"
-          ],
-          "page": 27
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T17:05:35.953Z"
-    },
     "hrZ1D1X": {
       "video_code": "hrZ1D1X",
       "title": "پسربچه خوش صدا غوغا کرد ترانه‌ سرایی زیبا این بار از محسن لرستانی",
@@ -160977,34 +160738,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-18T17:25:48.125Z"
-    },
-    "jyOPPkA": {
-      "video_code": "jyOPPkA",
-      "title": "فیلم سینمایی دیدنی سوپر لوپز 2025",
-      "sender_name": "Golden_time",
-      "category_id": 3,
-      "duration": 54,
-      "visit_count": 26278,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T17:44:56.124Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "کوپر",
-          "trendTitle": "کوپر",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Wed, 18 Nov 2026 08:30:00 -0800",
-          "trendKeywords": [
-            "کوپر"
-          ],
-          "page": 21
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T17:45:31.197Z"
     },
     "ekLsCFQ": {
       "video_code": "ekLsCFQ",
@@ -169768,46 +169501,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-21T22:05:18.019Z"
     },
-    "4Ssxvi9": {
-      "video_code": "4Ssxvi9",
-      "title": "دعوای وحید مرادی با یزدان کرده )شرارتهای _ایران",
-      "sender_name": "دنیای ویدیویی",
-      "category_id": 1,
-      "duration": 309,
-      "visit_count": 9692,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-21T22:05:06.571Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "وحید صابری",
-          "trendTitle": "وحید صابری",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Sat, 21 Nov 2026 12:20:00 -0800",
-          "trendKeywords": [
-            "وحید",
-            "صابری"
-          ],
-          "page": 15
-        },
-        {
-          "query": "وحید صابری، آوازخوان نام‌آشنای افغانستان، در تاشکند درگذشت",
-          "trendTitle": "وحید صابری",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Sat, 21 Nov 2026 12:20:00 -0800",
-          "trendKeywords": [
-            "وحید",
-            "صابری"
-          ],
-          "page": 15
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-21T22:05:18.019Z"
-    },
     "ytR8aOA": {
       "video_code": "ytR8aOA",
       "title": "دوربین مخفی این دفعه وحید با دسته گل میره سراغ سوژه هاش توی پارک",
@@ -175666,8 +175359,530 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-22T21:34:55.853Z"
+    },
+    "2TLL2QW": {
+      "video_code": "2TLL2QW",
+      "title": "امید بهترین گلچین آهنگ های امید",
+      "sender_name": "lashini2022",
+      "category_id": 9,
+      "duration": 1848,
+      "visit_count": 126553,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:33.152Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 6
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.224Z"
+    },
+    "vgKbLvK": {
+      "video_code": "vgKbLvK",
+      "title": "دانلود آهنگ تو محشری از امید",
+      "sender_name": "⭐Aramesh⭐",
+      "category_id": 9,
+      "duration": 270,
+      "visit_count": 91450,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:36.081Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 9
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.225Z"
+    },
+    "iDcGQEe": {
+      "video_code": "iDcGQEe",
+      "title": "تو محشری از امید",
+      "sender_name": "یسنا",
+      "category_id": 4,
+      "duration": 161,
+      "visit_count": 58716,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:36.081Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 9
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.225Z"
+    },
+    "nJOGs60": {
+      "video_code": "nJOGs60",
+      "title": "گل امید عالیشاه به استقلال با گزارش عباس قانع",
+      "sender_name": "رضا",
+      "category_id": 11,
+      "duration": 80,
+      "visit_count": 66857,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:36.081Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 9
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.225Z"
+    },
+    "BZ3thm1": {
+      "video_code": "BZ3thm1",
+      "title": "پیام امید در انجمن ان ای",
+      "sender_name": "عبدالحسین علی نژاد",
+      "category_id": 30,
+      "duration": 142,
+      "visit_count": 42469,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:36.081Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 9
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.225Z"
+    },
+    "sPzD3cy": {
+      "video_code": "sPzD3cy",
+      "title": "آموزش ساخت ترقه چهارشنبه سوری امید اکلیل سرنج",
+      "sender_name": "فهیم",
+      "category_id": 7,
+      "duration": 158,
+      "visit_count": 90510,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:37.286Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 10
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.225Z"
+    },
+    "XvDYS1g": {
+      "video_code": "XvDYS1g",
+      "title": "موزیک ویدیو امید گلپوش",
+      "sender_name": "hafezpj",
+      "category_id": 9,
+      "duration": 263,
+      "visit_count": 37253,
+      "create_date": "8 سال پیش",
+      "styled_create_date": "8 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:37.286Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 10
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.225Z"
+    },
+    "82B6DSg": {
+      "video_code": "82B6DSg",
+      "title": "امید اهنگ امشب میخوام...$###",
+      "sender_name": "رضا",
+      "category_id": 9,
+      "duration": 239,
+      "visit_count": 32736,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:37.286Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 10
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.225Z"
+    },
+    "ykAuQ4h": {
+      "video_code": "ykAuQ4h",
+      "title": "گل امید عالیشاه به استقلال با گزارش عربی /زیرنویس فارسی",
+      "sender_name": "رضا",
+      "category_id": 11,
+      "duration": 58,
+      "visit_count": 86763,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:37.286Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 10
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.225Z"
+    },
+    "xHACCIH": {
+      "video_code": "xHACCIH",
+      "title": "اجرای آهنگ آنور آبی «تو محشری» از امید در برنامه «صداتو»",
+      "sender_name": "Ali✅",
+      "category_id": 9,
+      "duration": 165,
+      "visit_count": 73571,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:37.286Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 10
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.225Z"
+    },
+    "Z98w2SD": {
+      "video_code": "Z98w2SD",
+      "title": "مصدومیت شدید امید عالیشاه",
+      "sender_name": "ترفند خلاقیت لایف هک  ✅️",
+      "category_id": 11,
+      "duration": 21,
+      "visit_count": 33409,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:37.286Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 10
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.225Z"
+    },
+    "pO2uWmA": {
+      "video_code": "pO2uWmA",
+      "title": "موزیک ویدیو امید تو محشری",
+      "sender_name": "hafezpj",
+      "category_id": 0,
+      "duration": 280,
+      "visit_count": 35504,
+      "create_date": "8 سال پیش",
+      "styled_create_date": "8 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:38.203Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 11
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.226Z"
+    },
+    "Ndrqgaz": {
+      "video_code": "Ndrqgaz",
+      "title": "آهنگ و ترانه کودکانه شاد عمو امید- وروجک",
+      "sender_name": "َََAli",
+      "category_id": 21,
+      "duration": 132,
+      "visit_count": 70175,
+      "create_date": "7 سال پیش",
+      "styled_create_date": "7 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:38.203Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 11
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.226Z"
+    },
+    "JKLqvFa": {
+      "video_code": "JKLqvFa",
+      "title": "فیلم سینمایی عاشقانه امید دوبله فارسی 2022",
+      "sender_name": "فیلمرسان",
+      "category_id": 3,
+      "duration": 6515,
+      "visit_count": 66021,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:39.294Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 12
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.226Z"
+    },
+    "DLyWYoS": {
+      "video_code": "DLyWYoS",
+      "title": "آهنگ و ترانه کودکانه شاد عمو امید، مامان قشنگم",
+      "sender_name": "َََAli",
+      "category_id": 21,
+      "duration": 120,
+      "visit_count": 55456,
+      "create_date": "7 سال پیش",
+      "styled_create_date": "7 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:39.294Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 12
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.226Z"
+    },
+    "TYArepL": {
+      "video_code": "TYArepL",
+      "title": "آهنگ عمو امید گوگولی مگولی",
+      "sender_name": "⭐ کلیپ آنلاین ⭐",
+      "category_id": 9,
+      "duration": 103,
+      "visit_count": 26697,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:40.326Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 13
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.226Z"
+    },
+    "N4jV446": {
+      "video_code": "N4jV446",
+      "title": "کلیپ شعر کودکانه قشنگ خاله با صدای عمو امید تقدیم به تمام خاله های دنیا",
+      "sender_name": "سکینه",
+      "category_id": 9,
+      "duration": 43,
+      "visit_count": 49904,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:40.326Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 13
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.226Z"
+    },
+    "eNP0Omh": {
+      "video_code": "eNP0Omh",
+      "title": "کلیپ باران‌ میبارد امشب ... امید‌‌ عالیه گوش کنید????????",
+      "sender_name": "دنیای اهنگ",
+      "category_id": 22,
+      "duration": 125,
+      "visit_count": 40312,
+      "create_date": "6 سال پیش",
+      "styled_create_date": "6 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-23T00:39:42.135Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امید نورافکن",
+          "trendTitle": "امید نورافکن",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "امید",
+            "نورافکن"
+          ],
+          "page": 15
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-23T00:40:06.227Z"
     }
   },
-  "totalPagesFetched": 15851,
-  "totalVideosSeen": 284172
+  "totalPagesFetched": 15928,
+  "totalVideosSeen": 285247
 }
