@@ -1,24 +1,9 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-24T02:34:47.665Z",
-  "trendsFetchedAt": "2026-11-24T02:33:55.586Z",
+  "updatedAt": "2026-11-24T04:09:46.939Z",
+  "trendsFetchedAt": "2026-11-24T04:08:56.780Z",
   "trends": [
-    {
-      "title": "جایگاههای باشگاه فوتبال تراکتور درمقابل الوصل امارات",
-      "keywords": [
-        "جایگاههای",
-        "باشگاه",
-        "فوتبال",
-        "تراکتور",
-        "درمقابل",
-        "الوصل",
-        "امارات"
-      ],
-      "traffic": 50000,
-      "publishedAt": "Mon, 23 Nov 2026 10:10:00 -0800",
-      "ageHours": 8.4
-    },
     {
       "title": "علیرضا بیرانوند",
       "keywords": [
@@ -27,17 +12,38 @@
       ],
       "traffic": 5000,
       "publishedAt": "Mon, 23 Nov 2026 15:50:00 -0800",
-      "ageHours": 2.7
+      "ageHours": 4.3
     },
     {
-      "title": "پارسا جعفری",
+      "title": "صالح حردانی",
       "keywords": [
-        "پارسا",
-        "جعفری"
+        "صالح",
+        "حردانی"
       ],
-      "traffic": 2000,
-      "publishedAt": "Mon, 23 Nov 2026 09:40:00 -0800",
-      "ageHours": 8.9
+      "traffic": 500,
+      "publishedAt": "Mon, 23 Nov 2026 18:00:00 -0800",
+      "ageHours": 2.1
+    },
+    {
+      "title": "سید علی خمینی",
+      "keywords": [
+        "سید",
+        "علی",
+        "خمینی"
+      ],
+      "traffic": 200,
+      "publishedAt": "Mon, 23 Nov 2026 18:30:00 -0800",
+      "ageHours": 1.6
+    },
+    {
+      "title": "دنیای اقتصاد",
+      "keywords": [
+        "دنیای",
+        "اقتصاد"
+      ],
+      "traffic": 200,
+      "publishedAt": "Mon, 23 Nov 2026 18:10:00 -0800",
+      "ageHours": 2
     },
     {
       "title": "سینا ولی الله",
@@ -48,28 +54,17 @@
       ],
       "traffic": 200,
       "publishedAt": "Mon, 23 Nov 2026 11:30:00 -0800",
-      "ageHours": 7.1
-    },
-    {
-      "title": "ورزش سه نتایج",
-      "keywords": [
-        "ورزش",
-        "سه",
-        "نتایج"
-      ],
-      "traffic": 200,
-      "publishedAt": "Mon, 23 Nov 2026 10:00:00 -0800",
       "ageHours": 8.6
     },
     {
-      "title": "صالح حردانی",
+      "title": "دنیس اکرت",
       "keywords": [
-        "صالح",
-        "حردانی"
+        "دنیس",
+        "اکرت"
       ],
-      "traffic": 100,
-      "publishedAt": "Mon, 23 Nov 2026 18:00:00 -0800",
-      "ageHours": 0.6
+      "traffic": 200,
+      "publishedAt": "Mon, 23 Nov 2026 10:20:00 -0800",
+      "ageHours": 9.8
     },
     {
       "title": "بایرن مونیخ",
@@ -79,7 +74,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Mon, 23 Nov 2026 10:50:00 -0800",
-      "ageHours": 7.7
+      "ageHours": 9.3
     },
     {
       "title": "الاتحاد مقابل پاختاکور",
@@ -90,7 +85,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Mon, 23 Nov 2026 10:50:00 -0800",
-      "ageHours": 7.7
+      "ageHours": 9.3
     },
     {
       "title": "علی علیپور",
@@ -100,7 +95,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Mon, 23 Nov 2026 10:50:00 -0800",
-      "ageHours": 7.7
+      "ageHours": 9.3
     },
     {
       "title": "باشگاه فوتبال الهلال",
@@ -111,7 +106,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Mon, 23 Nov 2026 10:30:00 -0800",
-      "ageHours": 8.1
+      "ageHours": 9.6
     }
   ],
   "queries": {
@@ -186,12 +181,12 @@
     "بایرن مونیخ": {
       "query": "بایرن مونیخ",
       "normalized": "بایرن مونیخ",
-      "nextPage": 36,
+      "nextPage": 51,
       "complete": false,
-      "pagesFetched": 40,
-      "videosSeen": 800,
+      "pagesFetched": 60,
+      "videosSeen": 1200,
       "createdAt": "2026-11-20T22:29:00.869Z",
-      "lastAttemptAt": "2026-11-24T01:45:45.416Z",
+      "lastAttemptAt": "2026-11-24T04:09:46.791Z",
       "lastError": null,
       "trendTitle": "بایرن مونیخ",
       "trendTraffic": 100,
@@ -200,7 +195,7 @@
         "بایرن",
         "مونیخ"
       ],
-      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -593,12 +588,12 @@
     "lakers vs kings": {
       "query": "lakers vs kings",
       "normalized": "lakers vs kings",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-24T04:09:46.794Z",
       "lastError": null,
       "trendTitle": "lakers vs kings",
       "trendTraffic": 100,
@@ -609,17 +604,19 @@
         "kings"
       ],
       "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T04:09:46.794Z"
     },
     "recap lakers come back to beat kings in emirates nba cup": {
       "query": "Recap: Lakers Come Back To Beat Kings In Emirates NBA Cup",
       "normalized": "recap lakers come back to beat kings in emirates nba cup",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-24T04:09:46.794Z",
       "lastError": null,
       "trendTitle": "lakers vs kings",
       "trendTraffic": 100,
@@ -630,7 +627,9 @@
         "kings"
       ],
       "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T04:09:46.794Z"
     },
     "kings lakers basketball": {
       "query": "Kings Lakers Basketball",
@@ -5155,7 +5154,7 @@
         "امارات"
       ],
       "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-24T01:45:45.417Z"
     },
@@ -5182,7 +5181,7 @@
         "امارات"
       ],
       "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-24T01:45:45.417Z"
     },
@@ -5209,7 +5208,7 @@
         "امارات"
       ],
       "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-24T01:45:45.417Z"
     },
@@ -5284,12 +5283,12 @@
     "علیرضا بیرانوند": {
       "query": "علیرضا بیرانوند",
       "normalized": "علیرضا بیرانوند",
-      "nextPage": 21,
+      "nextPage": 36,
       "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 400,
+      "pagesFetched": 40,
+      "videosSeen": 776,
       "createdAt": "2026-11-24T01:43:57.656Z",
-      "lastAttemptAt": "2026-11-24T01:45:45.428Z",
+      "lastAttemptAt": "2026-11-24T04:09:46.794Z",
       "lastError": null,
       "trendTitle": "علیرضا بیرانوند",
       "trendTraffic": 5000,
@@ -5298,7 +5297,7 @@
         "علیرضا",
         "بیرانوند"
       ],
-      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -5319,19 +5318,19 @@
         "علیرضا",
         "بیرانوند"
       ],
-      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "آنگاه که معیارهای فوتبالی قربانی تعصب رسانه ای می شوند": {
       "query": "آنگاه که معیارهای فوتبالی، قربانی تعصب رسانه‌ای می‌شوند",
       "normalized": "آنگاه که معیارهای فوتبالی قربانی تعصب رسانه ای می شوند",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-24T01:43:57.656Z",
-      "lastAttemptAt": "2026-11-24T01:45:45.434Z",
+      "lastAttemptAt": "2026-11-24T04:09:46.777Z",
       "lastError": null,
       "trendTitle": "علیرضا بیرانوند",
       "trendTraffic": 5000,
@@ -5340,10 +5339,12 @@
         "علیرضا",
         "بیرانوند"
       ],
-      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-24T01:45:45.434Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-24T04:09:46.777Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-24T04:09:46.777Z"
     },
     "انیمیشن steps": {
       "query": "انیمیشن steps",
@@ -5410,12 +5411,12 @@
     "سینا ولی الله": {
       "query": "سینا ولی الله",
       "normalized": "سینا ولی الله",
-      "nextPage": 11,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 10,
-      "videosSeen": 164,
+      "pagesFetched": 15,
+      "videosSeen": 256,
       "createdAt": "2026-11-24T01:43:57.656Z",
-      "lastAttemptAt": "2026-11-24T02:34:47.451Z",
+      "lastAttemptAt": "2026-11-24T04:09:46.778Z",
       "lastError": null,
       "trendTitle": "سینا ولی الله",
       "trendTraffic": 200,
@@ -5425,20 +5426,22 @@
         "ولی",
         "الله"
       ],
-      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-24T02:34:47.451Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-24T04:09:46.778Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-24T04:09:46.778Z"
     },
     "فحش رکیک المیرا شریفی مقدم به سینا ولی الله": {
       "query": "فحش رکیک المیرا شریفی‌مقدم به سینا ولی‌الله",
       "normalized": "فحش رکیک المیرا شریفی مقدم به سینا ولی الله",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-24T01:43:57.656Z",
-      "lastAttemptAt": "2026-11-24T02:34:47.451Z",
+      "lastAttemptAt": "2026-11-24T04:09:46.778Z",
       "lastError": null,
       "trendTitle": "سینا ولی الله",
       "trendTraffic": 200,
@@ -5448,10 +5451,12 @@
         "ولی",
         "الله"
       ],
-      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-24T02:34:47.451Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-24T04:09:46.778Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-24T04:09:46.778Z"
     },
     "درگیری لفظی المیرا شریفی مقدم با سینا ولی الله": {
       "query": "درگیری لفظی المیرا شریفی‌مقدم با سینا ولی‌الله",
@@ -5493,7 +5498,7 @@
         "نتایج"
       ],
       "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-24T02:34:47.455Z"
     },
@@ -5516,7 +5521,7 @@
         "نتایج"
       ],
       "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-24T02:34:47.455Z"
     },
@@ -5539,19 +5544,19 @@
         "نتایج"
       ],
       "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-24T02:34:47.455Z"
     },
     "تشنج دوباره موسیالا جمال بی رخ": {
       "query": "تشنج دوباره موسیالا؛ جمال بی‌رخ",
       "normalized": "تشنج دوباره موسیالا جمال بی رخ",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 3,
-      "videosSeen": 6,
+      "pagesFetched": 5,
+      "videosSeen": 12,
       "createdAt": "2026-11-24T01:43:57.657Z",
-      "lastAttemptAt": "2026-11-24T02:34:47.455Z",
+      "lastAttemptAt": "2026-11-24T04:09:46.779Z",
       "lastError": null,
       "trendTitle": "بایرن مونیخ",
       "trendTraffic": 100,
@@ -5560,20 +5565,22 @@
         "بایرن",
         "مونیخ"
       ],
-      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-24T02:34:47.455Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-24T04:09:46.779Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-24T04:09:46.779Z"
     },
     "جنجال اظهارات مدیران بایرن مونیخ درباره وضعیت سلامتی جمال موسیالا": {
       "query": "جنجال اظهارات مدیران بایرن مونیخ درباره وضعیت سلامتی جمال موسیالا",
       "normalized": "جنجال اظهارات مدیران بایرن مونیخ درباره وضعیت سلامتی جمال موسیالا",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 3,
-      "videosSeen": 6,
+      "pagesFetched": 5,
+      "videosSeen": 12,
       "createdAt": "2026-11-24T01:43:57.657Z",
-      "lastAttemptAt": "2026-11-24T02:34:47.456Z",
+      "lastAttemptAt": "2026-11-24T04:09:46.779Z",
       "lastError": null,
       "trendTitle": "بایرن مونیخ",
       "trendTraffic": 100,
@@ -5582,10 +5589,12 @@
         "بایرن",
         "مونیخ"
       ],
-      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-24T02:34:47.456Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-24T04:09:46.779Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-24T04:09:46.779Z"
     },
     "الاتحاد مقابل پاختاکور": {
       "query": "الاتحاد مقابل پاختاکور",
@@ -5605,19 +5614,19 @@
         "مقابل",
         "پاختاکور"
       ],
-      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "پخش زنده فوتبال الاتحاد و پاختاکور در شبکه ورزش": {
       "query": "پخش زنده فوتبال الاتحاد و پاختاکور در شبکه ورزش",
       "normalized": "پخش زنده فوتبال الاتحاد و پاختاکور در شبکه ورزش",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-24T01:43:57.657Z",
-      "lastAttemptAt": "2026-11-24T02:34:47.466Z",
+      "lastAttemptAt": "2026-11-24T04:09:46.779Z",
       "lastError": null,
       "trendTitle": "الاتحاد مقابل پاختاکور",
       "trendTraffic": 100,
@@ -5627,20 +5636,22 @@
         "مقابل",
         "پاختاکور"
       ],
-      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-24T02:34:47.466Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-24T04:09:46.779Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-24T04:09:46.779Z"
     },
     "مصدومیت ادامه دار پورعلی گنجی در آسیا": {
       "query": "مصدومیت ادامه‌دار پورعلی‌گنجی در آسیا",
       "normalized": "مصدومیت ادامه دار پورعلی گنجی در آسیا",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 4,
-      "videosSeen": 24,
+      "pagesFetched": 7,
+      "videosSeen": 48,
       "createdAt": "2026-11-24T01:43:57.657Z",
-      "lastAttemptAt": "2026-11-24T02:34:47.466Z",
+      "lastAttemptAt": "2026-11-24T04:09:46.779Z",
       "lastError": null,
       "trendTitle": "الاتحاد مقابل پاختاکور",
       "trendTraffic": 100,
@@ -5650,10 +5661,12 @@
         "مقابل",
         "پاختاکور"
       ],
-      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-24T02:34:47.466Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-24T04:09:46.779Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-24T04:09:46.779Z"
     },
     "علی علیپور": {
       "query": "علی علیپور",
@@ -5672,19 +5685,19 @@
         "علی",
         "علیپور"
       ],
-      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "آشتی سکو با مهاجم سرخ بازگشت علی آقای گل": {
       "query": "آشتی سکو با مهاجم سرخ؛ بازگشت علی «آقای گل»!",
       "normalized": "آشتی سکو با مهاجم سرخ بازگشت علی آقای گل",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-24T01:43:57.657Z",
-      "lastAttemptAt": "2026-11-24T02:34:47.472Z",
+      "lastAttemptAt": "2026-11-24T04:09:46.779Z",
       "lastError": null,
       "trendTitle": "علی علیپور",
       "trendTraffic": 100,
@@ -5693,20 +5706,22 @@
         "علی",
         "علیپور"
       ],
-      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-24T02:34:47.472Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-24T04:09:46.779Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-24T04:09:46.779Z"
     },
     "انتقاد جالب تارتار از علیپور معلوم نیست با ماست یا با اونا": {
       "query": "انتقاد جالب تارتار از علیپور: معلوم نیست با ماست یا با اونا!",
       "normalized": "انتقاد جالب تارتار از علیپور معلوم نیست با ماست یا با اونا",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 400,
       "createdAt": "2026-11-24T01:43:57.657Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-24T04:09:46.784Z",
       "lastError": null,
       "trendTitle": "علی علیپور",
       "trendTraffic": 100,
@@ -5715,18 +5730,19 @@
         "علی",
         "علیپور"
       ],
-      "lastTrendSeenAt": "2026-11-24T02:33:55.991Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "باشگاه فوتبال الهلال": {
       "query": "باشگاه فوتبال الهلال",
       "normalized": "باشگاه فوتبال الهلال",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 14,
+      "complete": true,
+      "pagesFetched": 13,
+      "videosSeen": 219,
       "createdAt": "2026-11-24T01:43:57.657Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-24T04:09:46.786Z",
       "lastError": null,
       "trendTitle": "باشگاه فوتبال الهلال",
       "trendTraffic": 100,
@@ -5736,8 +5752,10 @@
         "فوتبال",
         "الهلال"
       ],
-      "lastTrendSeenAt": "2026-11-24T02:33:55.991Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T04:09:46.786Z"
     },
     "توقف الهلال برابر نفتچی زور زعیم به سرما نرسید": {
       "query": "توقف الهلال برابر نفتچی؛ زور زعیم به سرما نرسید!",
@@ -5758,7 +5776,7 @@
         "الهلال"
       ],
       "lastTrendSeenAt": "2026-11-24T02:33:55.991Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "توقف الهلال برابر نماینده ازبکستان": {
       "query": "توقف الهلال برابر نماینده ازبکستان",
@@ -5779,7 +5797,7 @@
         "الهلال"
       ],
       "lastTrendSeenAt": "2026-11-24T02:33:55.991Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "پارسا جعفری": {
       "query": "پارسا جعفری",
@@ -5799,7 +5817,7 @@
         "جعفری"
       ],
       "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "آخرین خبر از مصدومیت حسین زاده از زبان امیرحسین دعا کنید رباط صلیبی نباشد": {
       "query": "آخرین خبر از مصدومیت حسین‌زاده از زبان امیرحسین؛ «دعا کنید رباط صلیبی نباشد!»",
@@ -5819,7 +5837,7 @@
         "جعفری"
       ],
       "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "پس از بیهوشی در زمین دروازه بان تراکتور به بیمارستان اعزام شد": {
       "query": "پس از بیهوشی در زمین؛ دروازه‌بان تراکتور به بیمارستان اعزام شد",
@@ -5839,7 +5857,7 @@
         "جعفری"
       ],
       "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "صالح حردانی": {
       "query": "صالح حردانی",
@@ -5852,13 +5870,13 @@
       "lastAttemptAt": null,
       "lastError": null,
       "trendTitle": "صالح حردانی",
-      "trendTraffic": 100,
+      "trendTraffic": 500,
       "trendPublishedAt": "Mon, 23 Nov 2026 18:00:00 -0800",
       "trendKeywords": [
         "صالح",
         "حردانی"
       ],
-      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
       "activeInLatestFeed": true
     },
     "مدافع استقلال بازی با نفتچی ازبکستان را از دست داد": {
@@ -5872,13 +5890,13 @@
       "lastAttemptAt": null,
       "lastError": null,
       "trendTitle": "صالح حردانی",
-      "trendTraffic": 100,
+      "trendTraffic": 500,
       "trendPublishedAt": "Mon, 23 Nov 2026 18:00:00 -0800",
       "trendKeywords": [
         "صالح",
         "حردانی"
       ],
-      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
       "activeInLatestFeed": true
     },
     "حردانی اتحاد تیمی و رفاقت راز فرم فوق العاده ما است": {
@@ -5892,13 +5910,238 @@
       "lastAttemptAt": null,
       "lastError": null,
       "trendTitle": "صالح حردانی",
-      "trendTraffic": 100,
+      "trendTraffic": 500,
       "trendPublishedAt": "Mon, 23 Nov 2026 18:00:00 -0800",
       "trendKeywords": [
         "صالح",
         "حردانی"
       ],
-      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
+      "activeInLatestFeed": true
+    },
+    "سید علی خمینی": {
+      "query": "سید علی خمینی",
+      "normalized": "سید علی خمینی",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T04:08:57.139Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "سید علی خمینی",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 18:30:00 -0800",
+      "trendKeywords": [
+        "سید",
+        "علی",
+        "خمینی"
+      ],
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
+      "activeInLatestFeed": true
+    },
+    "سید علی خمینی در جنگ اخیر همه دنیا برای مقامات ایرانی فرش قرمز پهن کرده بودند ترامپ می گفت حتی اگر مسئولان درجه سه و چهار هم بیایند می پذیریم": {
+      "query": "سید علی خمینی: در جنگ اخیر همه دنیا برای مقامات ایرانی فرش قرمز پهن کرده بودند/ ترامپ می‌گفت حتی اگر مسئولان درجه سه و چهار هم بیایند می‌پذیریم",
+      "normalized": "سید علی خمینی در جنگ اخیر همه دنیا برای مقامات ایرانی فرش قرمز پهن کرده بودند ترامپ می گفت حتی اگر مسئولان درجه سه و چهار هم بیایند می پذیریم",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T04:08:57.139Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "سید علی خمینی",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 18:30:00 -0800",
+      "trendKeywords": [
+        "سید",
+        "علی",
+        "خمینی"
+      ],
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
+      "activeInLatestFeed": true
+    },
+    "سید علی خمینی مشکلات اقتصادی نباید تنها بر دوش مردم قرار گیرد مسئولان اجازه سوء استفاده اطرافیان خود از موقعیت و جایگاهشان را ندهند": {
+      "query": "سید علی خمینی: مشکلات اقتصادی نباید تنها بر دوش مردم قرار گیرد/ مسئولان اجازه سوء استفاده اطرافیان خود از موقعیت و جایگاهشان را ندهند",
+      "normalized": "سید علی خمینی مشکلات اقتصادی نباید تنها بر دوش مردم قرار گیرد مسئولان اجازه سوء استفاده اطرافیان خود از موقعیت و جایگاهشان را ندهند",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T04:08:57.139Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "سید علی خمینی",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 18:30:00 -0800",
+      "trendKeywords": [
+        "سید",
+        "علی",
+        "خمینی"
+      ],
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
+      "activeInLatestFeed": true
+    },
+    "دنیای اقتصاد": {
+      "query": "دنیای اقتصاد",
+      "normalized": "دنیای اقتصاد",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T04:08:57.139Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "دنیای اقتصاد",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 18:10:00 -0800",
+      "trendKeywords": [
+        "دنیای",
+        "اقتصاد"
+      ],
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
+      "activeInLatestFeed": true
+    },
+    "ببینید عربستان در باتلاق یمن": {
+      "query": "ببینید|عربستان در باتلاق یمن!",
+      "normalized": "ببینید عربستان در باتلاق یمن",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T04:08:57.139Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "دنیای اقتصاد",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 18:10:00 -0800",
+      "trendKeywords": [
+        "دنیای",
+        "اقتصاد"
+      ],
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
+      "activeInLatestFeed": true
+    },
+    "قمار 6 ماهه ریاض": {
+      "query": "قمار 6 ماهه ریاض",
+      "normalized": "قمار 6 ماهه ریاض",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T04:08:57.139Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "دنیای اقتصاد",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 18:10:00 -0800",
+      "trendKeywords": [
+        "دنیای",
+        "اقتصاد"
+      ],
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
+      "activeInLatestFeed": true
+    },
+    "دنیس اکرت": {
+      "query": "دنیس اکرت",
+      "normalized": "دنیس اکرت",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T04:08:57.139Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "دنیس اکرت",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 10:20:00 -0800",
+      "trendKeywords": [
+        "دنیس",
+        "اکرت"
+      ],
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
+      "activeInLatestFeed": true
+    },
+    "ادامه تعقیب و گریز درگاهی برای آقای گلی برد مهم استاندارد لیژ با گل زودهنگام دنیس": {
+      "query": "ادامه تعقیب‌ و گریز درگاهی برای آقای گلی؛ برد مهم استاندارد لیژ با گل زودهنگام دنیس",
+      "normalized": "ادامه تعقیب و گریز درگاهی برای آقای گلی برد مهم استاندارد لیژ با گل زودهنگام دنیس",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T04:08:57.139Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "دنیس اکرت",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 10:20:00 -0800",
+      "trendKeywords": [
+        "دنیس",
+        "اکرت"
+      ],
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
+      "activeInLatestFeed": true
+    },
+    "آمار خوب دنیس اکرت در بلژیک ۱۲ بازی و تاثیر در ۹ گل": {
+      "query": "آمار خوب دنیس اکرت در بلژیک؛ ۱۲ بازی و تاثیر در ۹ گل!",
+      "normalized": "آمار خوب دنیس اکرت در بلژیک ۱۲ بازی و تاثیر در ۹ گل",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T04:08:57.139Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "دنیس اکرت",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 10:20:00 -0800",
+      "trendKeywords": [
+        "دنیس",
+        "اکرت"
+      ],
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
+      "activeInLatestFeed": true
+    },
+    "خلاصه بازی نفتچی 2 2 الهلال": {
+      "query": "خلاصه بازی نفتچی 2-2 الهلال",
+      "normalized": "خلاصه بازی نفتچی 2 2 الهلال",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T04:08:57.139Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "باشگاه فوتبال الهلال",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Mon, 23 Nov 2026 10:30:00 -0800",
+      "trendKeywords": [
+        "باشگاه",
+        "فوتبال",
+        "الهلال"
+      ],
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
+      "activeInLatestFeed": true
+    },
+    "رسوایی و مایه ننگ عربستانی ها علیه اینزاگی": {
+      "query": "\"رسوایی و مایه ننگ\"؛ عربستانی ها علیه اینزاگی",
+      "normalized": "رسوایی و مایه ننگ عربستانی ها علیه اینزاگی",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T04:08:57.139Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "باشگاه فوتبال الهلال",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Mon, 23 Nov 2026 10:30:00 -0800",
+      "trendKeywords": [
+        "باشگاه",
+        "فوتبال",
+        "الهلال"
+      ],
+      "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
       "activeInLatestFeed": true
     }
   },
@@ -59700,8 +59943,8 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.429Z",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:38.521Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:23.229Z"
     },
     "nwsPA4B": {
       "video_code": "nwsPA4B",
@@ -59859,8 +60102,8 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.429Z",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:38.521Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:23.229Z"
     },
     "bs7ykj9": {
       "video_code": "bs7ykj9",
@@ -60332,8 +60575,8 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.430Z",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:40.176Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:24.187Z"
     },
     "zArgwAa": {
       "video_code": "zArgwAa",
@@ -60555,8 +60798,8 @@
           "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.430Z",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:43.023Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:25.072Z"
     },
     "gv4H0qR": {
       "video_code": "gv4H0qR",
@@ -67008,7 +67251,7 @@
       "sender_name": "امیرسالم",
       "category_id": 1,
       "duration": 24,
-      "visit_count": 18422,
+      "visit_count": 18423,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -67036,10 +67279,21 @@
             "بازداشت"
           ],
           "page": 15
+        },
+        {
+          "query": "انتقاد جالب تارتار از علیپور: معلوم نیست با ماست یا با اونا!",
+          "trendTitle": "علی علیپور",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Mon, 23 Nov 2026 10:50:00 -0800",
+          "trendKeywords": [
+            "علی",
+            "علیپور"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T19:07:45.398Z",
-      "lastMetricsFetchedAt": "2026-11-17T19:07:00.583Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.781Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:34.254Z"
     },
     "mITy8va": {
       "video_code": "mITy8va",
@@ -111350,7 +111604,7 @@
       "visit_count": 36262,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:41.827Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:24.187Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -111432,7 +111686,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.430Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "1dcMgFv": {
       "video_code": "1dcMgFv",
@@ -142039,7 +142293,7 @@
       "visit_count": 50994,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:38.521Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:23.229Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -142110,7 +142364,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.429Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "9yFol1W": {
       "video_code": "9yFol1W",
@@ -142192,7 +142446,7 @@
       "visit_count": 57764,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:38.521Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:23.229Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -142263,7 +142517,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.429Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "cYiyQmg": {
       "video_code": "cYiyQmg",
@@ -142345,7 +142599,7 @@
       "visit_count": 88564,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:40.176Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:24.187Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -142416,7 +142670,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.430Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "OZ3MAci": {
       "video_code": "OZ3MAci",
@@ -142427,7 +142681,7 @@
       "visit_count": 105988,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:40.176Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:24.187Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -142498,7 +142752,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.430Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "GqdGuBF": {
       "video_code": "GqdGuBF",
@@ -142509,7 +142763,7 @@
       "visit_count": 34062,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:40.176Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:24.187Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -142580,7 +142834,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.430Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "5zzUTma": {
       "video_code": "5zzUTma",
@@ -142591,7 +142845,7 @@
       "visit_count": 37298,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:41.827Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:24.187Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -142662,7 +142916,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.430Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "eW5pZNB": {
       "video_code": "eW5pZNB",
@@ -142744,7 +142998,7 @@
       "visit_count": 21942,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:41.827Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:24.187Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -142815,7 +143069,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.430Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "LT42GvP": {
       "video_code": "LT42GvP",
@@ -143315,7 +143569,7 @@
       "visit_count": 918531,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:38.521Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:23.229Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -143375,7 +143629,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.429Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "1fLemxR": {
       "video_code": "1fLemxR",
@@ -147590,10 +147844,10 @@
       "sender_name": "عابد",
       "category_id": 9,
       "duration": 816,
-      "visit_count": 37323,
+      "visit_count": 37325,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T15:05:21.392Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:24.142Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -147608,9 +147862,20 @@
             "کنست"
           ],
           "page": 30
+        },
+        {
+          "query": "انتقاد جالب تارتار از علیپور: معلوم نیست با ماست یا با اونا!",
+          "trendTitle": "علی علیپور",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Mon, 23 Nov 2026 10:50:00 -0800",
+          "trendKeywords": [
+            "علی",
+            "علیپور"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T15:05:53.005Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.779Z"
     },
     "5FUukbH": {
       "video_code": "5FUukbH",
@@ -158420,7 +158685,7 @@
       "visit_count": 70459,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:18.513Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:22.610Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -158438,7 +158703,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.411Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.787Z"
     },
     "OfGNmV3": {
       "video_code": "OfGNmV3",
@@ -158449,7 +158714,7 @@
       "visit_count": 30186,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:18.513Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:22.610Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -158467,7 +158732,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.411Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.787Z"
     },
     "jHEDZxZ": {
       "video_code": "jHEDZxZ",
@@ -176105,7 +176370,7 @@
       "visit_count": 10680,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:38.521Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:23.229Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -176134,7 +176399,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.429Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "2ZnlnWU": {
       "video_code": "2ZnlnWU",
@@ -176145,7 +176410,7 @@
       "visit_count": 10294,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:38.521Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:23.229Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -176174,7 +176439,7 @@
           "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.429Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "I6R8ovO": {
       "video_code": "I6R8ovO",
@@ -176185,7 +176450,7 @@
       "visit_count": 17518,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:40.176Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:23.229Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -176214,7 +176479,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.430Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "HrdhkvO": {
       "video_code": "HrdhkvO",
@@ -176225,7 +176490,7 @@
       "visit_count": 13674,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:40.176Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:23.229Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -176254,7 +176519,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.430Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "Ww6NmYP": {
       "video_code": "Ww6NmYP",
@@ -176265,7 +176530,7 @@
       "visit_count": 11041,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:40.176Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:24.187Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -176294,7 +176559,7 @@
           "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.430Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "FXANIHm": {
       "video_code": "FXANIHm",
@@ -176305,7 +176570,7 @@
       "visit_count": 15154,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:41.827Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:24.187Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -176334,7 +176599,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.430Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "mZHn3E6": {
       "video_code": "mZHn3E6",
@@ -176345,7 +176610,7 @@
       "visit_count": 13966,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:41.827Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:24.187Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -176374,7 +176639,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.430Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "ogPu2qn": {
       "video_code": "ogPu2qn",
@@ -176385,7 +176650,7 @@
       "visit_count": 11976,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:41.827Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:24.187Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -176414,7 +176679,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.430Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "AeDvbVG": {
       "video_code": "AeDvbVG",
@@ -176425,7 +176690,7 @@
       "visit_count": 12507,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:41.827Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:24.187Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -176454,7 +176719,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.430Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "S7AJ2Rt": {
       "video_code": "S7AJ2Rt",
@@ -176465,7 +176730,7 @@
       "visit_count": 17169,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:41.827Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:24.187Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -176494,7 +176759,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.430Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "9nle4zb": {
       "video_code": "9nle4zb",
@@ -176505,7 +176770,7 @@
       "visit_count": 13484,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:41.827Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:24.187Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -176534,7 +176799,7 @@
           "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.430Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "CYp3QhT": {
       "video_code": "CYp3QhT",
@@ -176545,7 +176810,7 @@
       "visit_count": 13010,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:44.313Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:25.072Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -176574,7 +176839,7 @@
           "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.430Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "aDJZUMm": {
       "video_code": "aDJZUMm",
@@ -176585,7 +176850,7 @@
       "visit_count": 17036,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:45.505Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:25.072Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -176614,7 +176879,7 @@
           "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.431Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "u7jy5pQ": {
       "video_code": "u7jy5pQ",
@@ -176625,7 +176890,7 @@
       "visit_count": 12926,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:45.505Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:25.072Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -176654,7 +176919,7 @@
           "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.431Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "DbbVycq": {
       "video_code": "DbbVycq",
@@ -176665,7 +176930,7 @@
       "visit_count": 12308,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:45.505Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:25.072Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -176694,7 +176959,7 @@
           "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.431Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "oeOZype": {
       "video_code": "oeOZype",
@@ -176705,7 +176970,7 @@
       "visit_count": 11634,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:46.725Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:25.942Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -176734,7 +176999,7 @@
           "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.431Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "WKjMtR1": {
       "video_code": "WKjMtR1",
@@ -176745,7 +177010,7 @@
       "visit_count": 11691,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T01:44:46.725Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:25.942Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -176774,7 +177039,7 @@
           "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T01:45:45.431Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
     "FCF5amo": {
       "video_code": "FCF5amo",
@@ -176814,7 +177079,7 @@
       "visit_count": 37428,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T02:34:43.883Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:22.305Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -176830,9 +177095,20 @@
             "علیپور"
           ],
           "page": 16
+        },
+        {
+          "query": "انتقاد جالب تارتار از علیپور: معلوم نیست با ماست یا با اونا!",
+          "trendTitle": "علی علیپور",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Mon, 23 Nov 2026 10:50:00 -0800",
+          "trendKeywords": [
+            "علی",
+            "علیپور"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T02:34:47.470Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.779Z"
     },
     "676xZVt": {
       "video_code": "676xZVt",
@@ -176843,7 +177119,7 @@
       "visit_count": 36853,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T02:34:45.623Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:22.305Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -176859,9 +177135,20 @@
             "علیپور"
           ],
           "page": 18
+        },
+        {
+          "query": "انتقاد جالب تارتار از علیپور: معلوم نیست با ماست یا با اونا!",
+          "trendTitle": "علی علیپور",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Mon, 23 Nov 2026 10:50:00 -0800",
+          "trendKeywords": [
+            "علی",
+            "علیپور"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T02:34:47.471Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.779Z"
     },
     "tCEdQJc": {
       "video_code": "tCEdQJc",
@@ -176872,7 +177159,7 @@
       "visit_count": 64161,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T02:34:46.419Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:22.305Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -176888,9 +177175,20 @@
             "علیپور"
           ],
           "page": 19
+        },
+        {
+          "query": "انتقاد جالب تارتار از علیپور: معلوم نیست با ماست یا با اونا!",
+          "trendTitle": "علی علیپور",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Mon, 23 Nov 2026 10:50:00 -0800",
+          "trendKeywords": [
+            "علی",
+            "علیپور"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T02:34:47.472Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.779Z"
     },
     "SUh7Rxf": {
       "video_code": "SUh7Rxf",
@@ -176901,7 +177199,7 @@
       "visit_count": 41992,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T02:34:47.445Z",
+      "lastMetricsFetchedAt": "2026-11-24T04:09:22.305Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -176917,11 +177215,22 @@
             "علیپور"
           ],
           "page": 20
+        },
+        {
+          "query": "انتقاد جالب تارتار از علیپور: معلوم نیست با ماست یا با اونا!",
+          "trendTitle": "علی علیپور",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Mon, 23 Nov 2026 10:50:00 -0800",
+          "trendKeywords": [
+            "علی",
+            "علیپور"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T02:34:47.472Z"
+      "lastTrendMatchedAt": "2026-11-24T04:09:46.779Z"
     }
   },
-  "totalPagesFetched": 16287,
-  "totalVideosSeen": 291192
+  "totalPagesFetched": 16380,
+  "totalVideosSeen": 292715
 }
