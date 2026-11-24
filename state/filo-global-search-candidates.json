@@ -1,112 +1,95 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-24T04:09:46.939Z",
-  "trendsFetchedAt": "2026-11-24T04:08:56.780Z",
+  "updatedAt": "2026-11-24T08:50:03.524Z",
+  "trendsFetchedAt": "2026-11-24T08:48:59.021Z",
   "trends": [
     {
-      "title": "علیرضا بیرانوند",
+      "title": "bale",
       "keywords": [
-        "علیرضا",
-        "بیرانوند"
+        "bale"
       ],
-      "traffic": 5000,
-      "publishedAt": "Mon, 23 Nov 2026 15:50:00 -0800",
-      "ageHours": 4.3
+      "traffic": 1000,
+      "publishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+      "ageHours": 1.1
     },
     {
-      "title": "صالح حردانی",
+      "title": "پیام رسان بله",
       "keywords": [
-        "صالح",
-        "حردانی"
-      ],
-      "traffic": 500,
-      "publishedAt": "Mon, 23 Nov 2026 18:00:00 -0800",
-      "ageHours": 2.1
-    },
-    {
-      "title": "سید علی خمینی",
-      "keywords": [
-        "سید",
-        "علی",
-        "خمینی"
+        "پیام",
+        "رسان",
+        "بله"
       ],
       "traffic": 200,
-      "publishedAt": "Mon, 23 Nov 2026 18:30:00 -0800",
-      "ageHours": 1.6
+      "publishedAt": "Tue, 24 Nov 2026 00:00:00 -0800",
+      "ageHours": 0.8
     },
     {
-      "title": "دنیای اقتصاد",
+      "title": "gta",
       "keywords": [
-        "دنیای",
-        "اقتصاد"
+        "gta"
       ],
       "traffic": 200,
-      "publishedAt": "Mon, 23 Nov 2026 18:10:00 -0800",
+      "publishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+      "ageHours": 1
+    },
+    {
+      "title": "ncr",
+      "keywords": [
+        "ncr"
+      ],
+      "traffic": 200,
+      "publishedAt": "Mon, 23 Nov 2026 22:50:00 -0800",
       "ageHours": 2
     },
     {
-      "title": "سینا ولی الله",
+      "title": "ذبیح الله مجاهد",
       "keywords": [
-        "سینا",
-        "ولی",
-        "الله"
+        "ذبیح",
+        "الله",
+        "مجاهد"
       ],
       "traffic": 200,
-      "publishedAt": "Mon, 23 Nov 2026 11:30:00 -0800",
-      "ageHours": 8.6
+      "publishedAt": "Mon, 23 Nov 2026 22:40:00 -0800",
+      "ageHours": 2.1
     },
     {
-      "title": "دنیس اکرت",
+      "title": "کارلوس آلکاراس",
       "keywords": [
-        "دنیس",
-        "اکرت"
+        "کارلوس",
+        "آلکاراس"
       ],
       "traffic": 200,
-      "publishedAt": "Mon, 23 Nov 2026 10:20:00 -0800",
-      "ageHours": 9.8
+      "publishedAt": "Mon, 23 Nov 2026 22:00:00 -0800",
+      "ageHours": 2.8
     },
     {
-      "title": "بایرن مونیخ",
+      "title": "سنا",
       "keywords": [
-        "بایرن",
-        "مونیخ"
+        "سنا"
       ],
-      "traffic": 100,
-      "publishedAt": "Mon, 23 Nov 2026 10:50:00 -0800",
-      "ageHours": 9.3
+      "traffic": 200,
+      "publishedAt": "Mon, 23 Nov 2026 22:00:00 -0800",
+      "ageHours": 2.8
     },
     {
-      "title": "الاتحاد مقابل پاختاکور",
+      "title": "نوسان",
       "keywords": [
-        "الاتحاد",
-        "مقابل",
-        "پاختاکور"
+        "نوسان"
       ],
       "traffic": 100,
-      "publishedAt": "Mon, 23 Nov 2026 10:50:00 -0800",
-      "ageHours": 9.3
+      "publishedAt": "Tue, 24 Nov 2026 00:20:00 -0800",
+      "ageHours": 0.5
     },
     {
-      "title": "علی علیپور",
+      "title": "قوه قضاییه",
       "keywords": [
-        "علی",
-        "علیپور"
+        "قوه",
+        "قضاییه"
       ],
       "traffic": 100,
-      "publishedAt": "Mon, 23 Nov 2026 10:50:00 -0800",
-      "ageHours": 9.3
-    },
-    {
-      "title": "باشگاه فوتبال الهلال",
-      "keywords": [
-        "باشگاه",
-        "فوتبال",
-        "الهلال"
-      ],
-      "traffic": 100,
-      "publishedAt": "Mon, 23 Nov 2026 10:30:00 -0800",
-      "ageHours": 9.6
+      "publishedAt": "Mon, 23 Nov 2026 22:00:00 -0800",
+      "ageHours": 2.8
     }
   ],
   "queries": {
@@ -130,54 +113,6 @@
       "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
-    "تأمین اجتماعی": {
-      "query": "تأمین اجتماعی",
-      "normalized": "تأمین اجتماعی",
-      "nextPage": 1,
-      "complete": true,
-      "pagesFetched": 17,
-      "videosSeen": 260,
-      "createdAt": "2026-11-18T15:04:26.775Z",
-      "lastAttemptAt": "2026-11-21T07:50:04.868Z",
-      "lastError": null,
-      "trendTitle": "تأمین اجتماعی",
-      "trendTraffic": 5000,
-      "trendPublishedAt": "Fri, 20 Nov 2026 21:50:00 -0800",
-      "trendKeywords": [
-        "تأمین",
-        "اجتماعی"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false,
-      "termination": "recent_first_pages_refreshed",
-      "completedAt": "2026-11-21T07:50:04.868Z",
-      "refreshOnly": false,
-      "lastRefreshAt": "2026-11-21T07:50:04.868Z"
-    },
-    "زمان واریز حقوق آبان بازنشستگان تأمین اجتماعی اعلام شد": {
-      "query": "زمان واریز حقوق آبان بازنشستگان تأمین اجتماعی اعلام شد",
-      "normalized": "زمان واریز حقوق آبان بازنشستگان تأمین اجتماعی اعلام شد",
-      "nextPage": 1,
-      "complete": true,
-      "pagesFetched": 5,
-      "videosSeen": 4,
-      "createdAt": "2026-11-18T17:24:12.813Z",
-      "lastAttemptAt": "2026-11-21T07:50:04.868Z",
-      "lastError": null,
-      "trendTitle": "تأمین اجتماعی",
-      "trendTraffic": 5000,
-      "trendPublishedAt": "Fri, 20 Nov 2026 21:50:00 -0800",
-      "trendKeywords": [
-        "تأمین",
-        "اجتماعی"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false,
-      "termination": "recent_first_pages_refreshed",
-      "completedAt": "2026-11-21T07:50:04.868Z",
-      "refreshOnly": false,
-      "lastRefreshAt": "2026-11-21T07:50:04.868Z"
-    },
     "بایرن مونیخ": {
       "query": "بایرن مونیخ",
       "normalized": "بایرن مونیخ",
@@ -196,1025 +131,8 @@
         "مونیخ"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true,
-      "termination": "max_pages_reached"
-    },
-    "بیمه تامین اجتماعی": {
-      "query": "بیمه تامین اجتماعی",
-      "normalized": "بیمه تامین اجتماعی",
-      "nextPage": 8,
-      "complete": true,
-      "pagesFetched": 7,
-      "videosSeen": 85,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": "2026-11-21T06:10:01.755Z",
-      "lastError": null,
-      "trendTitle": "بیمه تامین اجتماعی",
-      "trendTraffic": 2000,
-      "trendPublishedAt": "Fri, 20 Nov 2026 20:40:00 -0800",
-      "trendKeywords": [
-        "بیمه",
-        "تامین",
-        "اجتماعی"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-21T06:10:01.755Z"
-    },
-    "بیمه تکمیلی بازنشستگان تأمین اجتماعی از اول آذر آغاز می شود": {
-      "query": "بیمه تکمیلی بازنشستگان تأمین اجتماعی از اول آذر آغاز می‌شود",
-      "normalized": "بیمه تکمیلی بازنشستگان تأمین اجتماعی از اول آذر آغاز می شود",
-      "nextPage": 7,
-      "complete": true,
-      "pagesFetched": 3,
-      "videosSeen": 5,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": "2026-11-21T06:10:01.755Z",
-      "lastError": null,
-      "trendTitle": "بیمه تامین اجتماعی",
-      "trendTraffic": 2000,
-      "trendPublishedAt": "Fri, 20 Nov 2026 20:40:00 -0800",
-      "trendKeywords": [
-        "بیمه",
-        "تامین",
-        "اجتماعی"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-21T06:10:01.755Z"
-    },
-    "بیمه تکمیلی بازنشستگان تامین اجتماعی ۱۴۰۵ جزئیات حق بیمه و تعهدات درمانی دیجی کالا مگ": {
-      "query": "بیمه تکمیلی بازنشستگان تامین اجتماعی ۱۴۰۵؛ جزئیات حق‌بیمه و تعهدات ‌درمانی • دیجی‌کالا مگ",
-      "normalized": "بیمه تکمیلی بازنشستگان تامین اجتماعی ۱۴۰۵ جزئیات حق بیمه و تعهدات درمانی دیجی کالا مگ",
-      "nextPage": 7,
-      "complete": true,
-      "pagesFetched": 2,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": "2026-11-21T06:10:01.755Z",
-      "lastError": null,
-      "trendTitle": "بیمه تامین اجتماعی",
-      "trendTraffic": 2000,
-      "trendPublishedAt": "Fri, 20 Nov 2026 20:40:00 -0800",
-      "trendKeywords": [
-        "بیمه",
-        "تامین",
-        "اجتماعی"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-21T06:10:01.755Z"
-    },
-    "آتش": {
-      "query": "آتش",
-      "normalized": "آتش",
-      "nextPage": 21,
-      "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 400,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": "2026-11-21T06:10:01.767Z",
-      "lastError": null,
-      "trendTitle": "آتش",
-      "trendTraffic": 2000,
-      "trendPublishedAt": "Fri, 20 Nov 2026 20:40:00 -0800",
-      "trendKeywords": [
-        "آتش"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
       "activeInLatestFeed": false,
       "termination": "max_pages_reached"
-    },
-    "انفجار در قشم و آتش سوزی یک نفتکش در تنگۀ هرمز": {
-      "query": "انفجار در قشم و آتش‌سوزی یک نفتکش در تنگۀ هرمز",
-      "normalized": "انفجار در قشم و آتش سوزی یک نفتکش در تنگۀ هرمز",
-      "nextPage": 7,
-      "complete": true,
-      "pagesFetched": 3,
-      "videosSeen": 2,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": "2026-11-21T06:10:01.768Z",
-      "lastError": null,
-      "trendTitle": "آتش",
-      "trendTraffic": 2000,
-      "trendPublishedAt": "Fri, 20 Nov 2026 20:40:00 -0800",
-      "trendKeywords": [
-        "آتش"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-21T06:10:01.768Z"
-    },
-    "آتش سوزی یک نفت کش متخلف در شرق تنگه هرمز": {
-      "query": "آتش‌سوزی یک نفت‌کش متخلف در شرق تنگه هرمز",
-      "normalized": "آتش سوزی یک نفت کش متخلف در شرق تنگه هرمز",
-      "nextPage": 7,
-      "complete": true,
-      "pagesFetched": 3,
-      "videosSeen": 2,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": "2026-11-21T06:10:01.768Z",
-      "lastError": null,
-      "trendTitle": "آتش",
-      "trendTraffic": 2000,
-      "trendPublishedAt": "Fri, 20 Nov 2026 20:40:00 -0800",
-      "trendKeywords": [
-        "آتش"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-21T06:10:01.768Z"
-    },
-    "سید مهدی رحمتی": {
-      "query": "سید مهدی رحمتی",
-      "normalized": "سید مهدی رحمتی",
-      "nextPage": 15,
-      "complete": true,
-      "pagesFetched": 14,
-      "videosSeen": 246,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": "2026-11-21T06:10:01.773Z",
-      "lastError": null,
-      "trendTitle": "سید مهدی رحمتی",
-      "trendTraffic": 1000,
-      "trendPublishedAt": "Fri, 20 Nov 2026 20:10:00 -0800",
-      "trendKeywords": [
-        "سید",
-        "مهدی",
-        "رحمتی"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-21T06:10:01.773Z"
-    },
-    "دیدار غیرمنتظره سیدمهدی رحمتی با دو چهره سرشناس لیگ برتر ملاقات صمیمانه پیش از جدال با پرسپولیس": {
-      "query": "دیدار غیرمنتظره سیدمهدی رحمتی با دو چهره سرشناس لیگ برتر/ ملاقات صمیمانه پیش از جدال با پرسپولیس",
-      "normalized": "دیدار غیرمنتظره سیدمهدی رحمتی با دو چهره سرشناس لیگ برتر ملاقات صمیمانه پیش از جدال با پرسپولیس",
-      "nextPage": 7,
-      "complete": true,
-      "pagesFetched": 2,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": "2026-11-21T06:10:01.773Z",
-      "lastError": null,
-      "trendTitle": "سید مهدی رحمتی",
-      "trendTraffic": 1000,
-      "trendPublishedAt": "Fri, 20 Nov 2026 20:10:00 -0800",
-      "trendKeywords": [
-        "سید",
-        "مهدی",
-        "رحمتی"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-21T06:10:01.773Z"
-    },
-    "قاب ویژه از ساکت پیروز و رحمتی در کنارهم": {
-      "query": "قاب ویژه از ساکت، پیروز و رحمتی در کنارهم",
-      "normalized": "قاب ویژه از ساکت پیروز و رحمتی در کنارهم",
-      "nextPage": 7,
-      "complete": true,
-      "pagesFetched": 2,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": "2026-11-21T06:10:01.773Z",
-      "lastError": null,
-      "trendTitle": "سید مهدی رحمتی",
-      "trendTraffic": 1000,
-      "trendPublishedAt": "Fri, 20 Nov 2026 20:10:00 -0800",
-      "trendKeywords": [
-        "سید",
-        "مهدی",
-        "رحمتی"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-21T06:10:01.773Z"
-    },
-    "گلستان": {
-      "query": "گلستان",
-      "normalized": "گلستان",
-      "nextPage": 36,
-      "complete": false,
-      "pagesFetched": 40,
-      "videosSeen": 800,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": "2026-11-21T07:50:04.880Z",
-      "lastError": null,
-      "trendTitle": "گلستان",
-      "trendTraffic": 500,
-      "trendPublishedAt": "Fri, 20 Nov 2026 21:50:00 -0800",
-      "trendKeywords": [
-        "گلستان"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false,
-      "termination": "max_pages_reached"
-    },
-    "تکمیل محور بجنورد گلستان مطالبه جدی مردم خراسان شمالی است": {
-      "query": "تکمیل محور بجنورد ـ گلستان مطالبه جدی مردم خراسان شمالی است",
-      "normalized": "تکمیل محور بجنورد گلستان مطالبه جدی مردم خراسان شمالی است",
-      "nextPage": 7,
-      "complete": true,
-      "pagesFetched": 2,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": "2026-11-21T06:10:01.780Z",
-      "lastError": null,
-      "trendTitle": "گلستان",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Fri, 20 Nov 2026 21:50:00 -0800",
-      "trendKeywords": [
-        "گلستان"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-21T06:10:01.780Z"
-    },
-    "عزم تازه خراسان شمالی برای پایان جاده های نیمه تمام": {
-      "query": "عزم تازه خراسان شمالی برای پایان جاده‌های نیمه‌تمام",
-      "normalized": "عزم تازه خراسان شمالی برای پایان جاده های نیمه تمام",
-      "nextPage": 7,
-      "complete": true,
-      "pagesFetched": 2,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": "2026-11-21T06:10:01.780Z",
-      "lastError": null,
-      "trendTitle": "گلستان",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Fri, 20 Nov 2026 21:50:00 -0800",
-      "trendKeywords": [
-        "گلستان"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-21T06:10:01.780Z"
-    },
-    "دارایی": {
-      "query": "دارایی",
-      "normalized": "دارایی",
-      "nextPage": 21,
-      "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 382,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": "2026-11-24T01:45:45.445Z",
-      "lastError": null,
-      "trendTitle": "دارایی",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Fri, 20 Nov 2026 21:10:00 -0800",
-      "trendKeywords": [
-        "دارایی"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false,
-      "termination": "max_pages_reached"
-    },
-    "تجربه در ساخت دارایی های پایدار مطابق با استانداردهای جهانی برای خانواده های ویتنامی": {
-      "query": "تجربه در ساخت دارایی‌های پایدار مطابق با استانداردهای جهانی برای خانواده‌های ویتنامی.",
-      "normalized": "تجربه در ساخت دارایی های پایدار مطابق با استانداردهای جهانی برای خانواده های ویتنامی",
-      "nextPage": 7,
-      "complete": true,
-      "pagesFetched": 2,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": "2026-11-24T01:45:45.445Z",
-      "lastError": null,
-      "trendTitle": "دارایی",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Fri, 20 Nov 2026 21:10:00 -0800",
-      "trendKeywords": [
-        "دارایی"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-24T01:45:45.445Z"
-    },
-    "vietinbank premium همکاری با مشتریان برای حفظ دستاوردها و ساختن آینده در طول نسل ها": {
-      "query": "Vietinbank Premium: همکاری با مشتریان برای حفظ دستاوردها و ساختن آینده در طول نسل‌ها.",
-      "normalized": "vietinbank premium همکاری با مشتریان برای حفظ دستاوردها و ساختن آینده در طول نسل ها",
-      "nextPage": 7,
-      "complete": true,
-      "pagesFetched": 4,
-      "videosSeen": 22,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": "2026-11-24T02:34:47.473Z",
-      "lastError": null,
-      "trendTitle": "دارایی",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Fri, 20 Nov 2026 21:10:00 -0800",
-      "trendKeywords": [
-        "دارایی"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-24T02:34:47.473Z"
-    },
-    "دانشگاه": {
-      "query": "دانشگاه",
-      "normalized": "دانشگاه",
-      "nextPage": 21,
-      "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 399,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": "2026-11-21T07:50:04.873Z",
-      "lastError": null,
-      "trendTitle": "دانشگاه",
-      "trendTraffic": 100,
-      "trendPublishedAt": "Fri, 20 Nov 2026 21:50:00 -0800",
-      "trendKeywords": [
-        "دانشگاه"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false,
-      "termination": "max_pages_reached"
-    },
-    "اطلاعیه ثبت نام پذیرفته شدگان مقطع کارشناسی سال تحصیلی 06 1405": {
-      "query": "اطلاعیه ثبت‌نام پذیرفته‌شدگان مقطع کارشناسی سال تحصیلی 06-1405",
-      "normalized": "اطلاعیه ثبت نام پذیرفته شدگان مقطع کارشناسی سال تحصیلی 06 1405",
-      "nextPage": 7,
-      "complete": true,
-      "pagesFetched": 2,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": "2026-11-21T07:50:04.873Z",
-      "lastError": null,
-      "trendTitle": "دانشگاه",
-      "trendTraffic": 100,
-      "trendPublishedAt": "Fri, 20 Nov 2026 21:50:00 -0800",
-      "trendKeywords": [
-        "دانشگاه"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-21T07:50:04.873Z"
-    },
-    "اطلاعیه شماره ۱ ویژه پذیرفته شدگان دوره های کاردانی و کارشناسی ورودی ۱۴۰۵ دانشگاه صنعتی سهند": {
-      "query": "اطلاعیه شماره ۱-ویژه پذیرفته شدگان دوره های کاردانی و کارشناسی ورودی ۱۴۰۵ دانشگاه صنعتی سهند",
-      "normalized": "اطلاعیه شماره ۱ ویژه پذیرفته شدگان دوره های کاردانی و کارشناسی ورودی ۱۴۰۵ دانشگاه صنعتی سهند",
-      "nextPage": 7,
-      "complete": true,
-      "pagesFetched": 2,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": "2026-11-24T02:34:47.473Z",
-      "lastError": null,
-      "trendTitle": "دانشگاه",
-      "trendTraffic": 100,
-      "trendPublishedAt": "Fri, 20 Nov 2026 21:50:00 -0800",
-      "trendKeywords": [
-        "دانشگاه"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-24T02:34:47.473Z"
-    },
-    "lakers vs kings": {
-      "query": "lakers vs kings",
-      "normalized": "lakers vs kings",
-      "nextPage": 7,
-      "complete": true,
-      "pagesFetched": 2,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": "2026-11-24T04:09:46.794Z",
-      "lastError": null,
-      "trendTitle": "lakers vs kings",
-      "trendTraffic": 100,
-      "trendPublishedAt": "Fri, 20 Nov 2026 21:30:00 -0800",
-      "trendKeywords": [
-        "lakers",
-        "vs",
-        "kings"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-24T04:09:46.794Z"
-    },
-    "recap lakers come back to beat kings in emirates nba cup": {
-      "query": "Recap: Lakers Come Back To Beat Kings In Emirates NBA Cup",
-      "normalized": "recap lakers come back to beat kings in emirates nba cup",
-      "nextPage": 7,
-      "complete": true,
-      "pagesFetched": 2,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": "2026-11-24T04:09:46.794Z",
-      "lastError": null,
-      "trendTitle": "lakers vs kings",
-      "trendTraffic": 100,
-      "trendPublishedAt": "Fri, 20 Nov 2026 21:30:00 -0800",
-      "trendKeywords": [
-        "lakers",
-        "vs",
-        "kings"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-24T04:09:46.794Z"
-    },
-    "kings lakers basketball": {
-      "query": "Kings Lakers Basketball",
-      "normalized": "kings lakers basketball",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "lakers vs kings",
-      "trendTraffic": 100,
-      "trendPublishedAt": "Fri, 20 Nov 2026 21:30:00 -0800",
-      "trendKeywords": [
-        "lakers",
-        "vs",
-        "kings"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false
-    },
-    "مورموری": {
-      "query": "مورموری",
-      "normalized": "مورموری",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "مورموری",
-      "trendTraffic": 100,
-      "trendPublishedAt": "Fri, 20 Nov 2026 20:20:00 -0800",
-      "trendKeywords": [
-        "مورموری"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false
-    },
-    "شمار بازداشت شدگان در آبدانان به ۹ تن رسید انتشار جزئیاتی از حکم اعدام علی زاغی شاندیز": {
-      "query": "شمار بازداشت‌شدگان در آبدانان به ۹ تن رسید؛ انتشار جزئیاتی از حکم اعدام علی زاغی‌شاندیز",
-      "normalized": "شمار بازداشت شدگان در آبدانان به ۹ تن رسید انتشار جزئیاتی از حکم اعدام علی زاغی شاندیز",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "مورموری",
-      "trendTraffic": 100,
-      "trendPublishedAt": "Fri, 20 Nov 2026 20:20:00 -0800",
-      "trendKeywords": [
-        "مورموری"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false
-    },
-    "مردم شهر مورموری در استان ایلام برای اعتراض به خیابان آمدند": {
-      "query": "مردم شهر مورموری در استان ایلام برای اعتراض به خیابان آمدند",
-      "normalized": "مردم شهر مورموری در استان ایلام برای اعتراض به خیابان آمدند",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "مورموری",
-      "trendTraffic": 100,
-      "trendPublishedAt": "Fri, 20 Nov 2026 20:20:00 -0800",
-      "trendKeywords": [
-        "مورموری"
-      ],
-      "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false
-    },
-    "صندوق بازنشستگی کشوری": {
-      "query": "صندوق بازنشستگی کشوری",
-      "normalized": "صندوق بازنشستگی کشوری",
-      "nextPage": 7,
-      "complete": true,
-      "pagesFetched": 4,
-      "videosSeen": 28,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": "2026-11-21T07:50:04.880Z",
-      "lastError": null,
-      "trendTitle": "صندوق بازنشستگی کشوری",
-      "trendTraffic": 10000,
-      "trendPublishedAt": "Fri, 20 Nov 2026 22:20:00 -0800",
-      "trendKeywords": [
-        "صندوق",
-        "بازنشستگی",
-        "کشوری"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-21T07:50:04.880Z"
-    },
-    "دو مورد جدید در کسورات بازنشستگی حقوق هنگام بازنشستگی افزایش می یابد": {
-      "query": "دو مورد جدید در کسورات بازنشستگی؛ حقوق هنگام بازنشستگی افزایش می‌یابد",
-      "normalized": "دو مورد جدید در کسورات بازنشستگی حقوق هنگام بازنشستگی افزایش می یابد",
-      "nextPage": 7,
-      "complete": true,
-      "pagesFetched": 2,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": "2026-11-21T07:50:04.880Z",
-      "lastError": null,
-      "trendTitle": "صندوق بازنشستگی کشوری",
-      "trendTraffic": 10000,
-      "trendPublishedAt": "Fri, 20 Nov 2026 22:20:00 -0800",
-      "trendKeywords": [
-        "صندوق",
-        "بازنشستگی",
-        "کشوری"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-21T07:50:04.880Z"
-    },
-    "درخواست متناسب سازی حقوق بازنشستگان کشوری زیرمجموعه وزارت علوم": {
-      "query": "درخواست متناسب‌سازی حقوق بازنشستگان کشوری زیرمجموعه وزارت علوم",
-      "normalized": "درخواست متناسب سازی حقوق بازنشستگان کشوری زیرمجموعه وزارت علوم",
-      "nextPage": 7,
-      "complete": true,
-      "pagesFetched": 2,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": "2026-11-21T07:50:04.880Z",
-      "lastError": null,
-      "trendTitle": "صندوق بازنشستگی کشوری",
-      "trendTraffic": 10000,
-      "trendPublishedAt": "Fri, 20 Nov 2026 22:20:00 -0800",
-      "trendKeywords": [
-        "صندوق",
-        "بازنشستگی",
-        "کشوری"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-21T07:50:04.880Z"
-    },
-    "آغاز واریز حقوق بازنشستگان لشکری یک ماه معوقه فوق العاده خاص پرداخت شد": {
-      "query": "آغاز واریز حقوق بازنشستگان لشکری/ یک ماه معوقه فوق العاده خاص پرداخت شد",
-      "normalized": "آغاز واریز حقوق بازنشستگان لشکری یک ماه معوقه فوق العاده خاص پرداخت شد",
-      "nextPage": 8,
-      "complete": true,
-      "pagesFetched": 7,
-      "videosSeen": 103,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": "2026-11-21T07:50:04.881Z",
-      "lastError": null,
-      "trendTitle": "تأمین اجتماعی",
-      "trendTraffic": 5000,
-      "trendPublishedAt": "Fri, 20 Nov 2026 21:50:00 -0800",
-      "trendKeywords": [
-        "تأمین",
-        "اجتماعی"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-21T07:50:04.881Z"
-    },
-    "کلثوم اکبری": {
-      "query": "کلثوم اکبری",
-      "normalized": "کلثوم اکبری",
-      "nextPage": 21,
-      "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 383,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": "2026-11-21T07:50:04.885Z",
-      "lastError": null,
-      "trendTitle": "کلثوم اکبری",
-      "trendTraffic": 500,
-      "trendPublishedAt": "Fri, 20 Nov 2026 23:00:00 -0800",
-      "trendKeywords": [
-        "کلثوم",
-        "اکبری"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false,
-      "termination": "max_pages_reached"
-    },
-    "تأیید حکم ۱۰ بار قصاص کلثوم اکبری برخی خانواده ها از قصاص صرف نظر کرده اند": {
-      "query": "تأیید حکم ۱۰ بار قصاص کلثوم اکبری؛ برخی خانواده‌ها از قصاص صرف نظر کرده‌اند",
-      "normalized": "تأیید حکم ۱۰ بار قصاص کلثوم اکبری برخی خانواده ها از قصاص صرف نظر کرده اند",
-      "nextPage": 7,
-      "complete": true,
-      "pagesFetched": 3,
-      "videosSeen": 1,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": "2026-11-21T07:50:04.885Z",
-      "lastError": null,
-      "trendTitle": "کلثوم اکبری",
-      "trendTraffic": 500,
-      "trendPublishedAt": "Fri, 20 Nov 2026 23:00:00 -0800",
-      "trendKeywords": [
-        "کلثوم",
-        "اکبری"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-21T07:50:04.885Z"
-    },
-    "اجرای حکم قصاص کلثوم اکبری در انتظار تایید رئیس قوه قضائیه": {
-      "query": "اجرای حکم قصاص «کلثوم اکبری» در انتظار تایید رئیس قوه قضائیه",
-      "normalized": "اجرای حکم قصاص کلثوم اکبری در انتظار تایید رئیس قوه قضائیه",
-      "nextPage": 7,
-      "complete": true,
-      "pagesFetched": 5,
-      "videosSeen": 57,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": "2026-11-21T07:50:04.886Z",
-      "lastError": null,
-      "trendTitle": "کلثوم اکبری",
-      "trendTraffic": 500,
-      "trendPublishedAt": "Fri, 20 Nov 2026 23:00:00 -0800",
-      "trendKeywords": [
-        "کلثوم",
-        "اکبری"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false,
-      "termination": "empty_page",
-      "completedAt": "2026-11-21T07:50:04.886Z"
-    },
-    "راهکارهای توسعه صنایع دستی در استان گلستان بررسی شد": {
-      "query": "راهکارهای توسعه صنایع‌دستی در استان گلستان بررسی شد",
-      "normalized": "راهکارهای توسعه صنایع دستی در استان گلستان بررسی شد",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "گلستان",
-      "trendTraffic": 500,
-      "trendPublishedAt": "Fri, 20 Nov 2026 21:50:00 -0800",
-      "trendKeywords": [
-        "گلستان"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false
-    },
-    "گلستان اکسپو ۲۰۲۶ سکوی ورود تولیدات استان به بازار آسیای میانه می شود": {
-      "query": "گلستان اکسپو ۲۰۲۶؛ سکوی ورود تولیدات استان به بازار آسیای میانه می‌شود",
-      "normalized": "گلستان اکسپو ۲۰۲۶ سکوی ورود تولیدات استان به بازار آسیای میانه می شود",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "گلستان",
-      "trendTraffic": 500,
-      "trendPublishedAt": "Fri, 20 Nov 2026 21:50:00 -0800",
-      "trendKeywords": [
-        "گلستان"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false
-    },
-    "tax": {
-      "query": "tax",
-      "normalized": "tax",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "tax",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Fri, 20 Nov 2026 23:20:00 -0800",
-      "trendKeywords": [
-        "tax"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false
-    },
-    "dozens of lawmakers sign on to hollywood tax credit push": {
-      "query": "Dozens of lawmakers sign on to Hollywood tax credit push",
-      "normalized": "dozens of lawmakers sign on to hollywood tax credit push",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "tax",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Fri, 20 Nov 2026 23:20:00 -0800",
-      "trendKeywords": [
-        "tax"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false
-    },
-    "trump touts federal film tv incentive vows it s going to happen": {
-      "query": "Trump Touts Federal Film & TV Incentive, Vows \"It's Going To Happen\"",
-      "normalized": "trump touts federal film tv incentive vows it s going to happen",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "tax",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Fri, 20 Nov 2026 23:20:00 -0800",
-      "trendKeywords": [
-        "tax"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false
-    },
-    "تعویض پلاک": {
-      "query": "تعویض پلاک",
-      "normalized": "تعویض پلاک",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "تعویض پلاک",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Fri, 20 Nov 2026 22:50:00 -0800",
-      "trendKeywords": [
-        "تعویض",
-        "پلاک"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false
-    },
-    "مراجعات موتورسیکلت ها به مراکز معاینه فنی تهران بسیار ناچیز است": {
-      "query": "مراجعات موتورسیکلت‌ها به مراکز معاینه فنی تهران بسیار ناچیز است",
-      "normalized": "مراجعات موتورسیکلت ها به مراکز معاینه فنی تهران بسیار ناچیز است",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "تعویض پلاک",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Fri, 20 Nov 2026 22:50:00 -0800",
-      "trendKeywords": [
-        "تعویض",
-        "پلاک"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false
-    },
-    "۶۶ درصد خودروهای شهر تهران برای دریافت معاینه فنی به شهرهای دیگر می روند": {
-      "query": "۶۶ درصد خودروهای شهر تهران برای دریافت معاینه فنی به شهرهای دیگر می روند",
-      "normalized": "۶۶ درصد خودروهای شهر تهران برای دریافت معاینه فنی به شهرهای دیگر می روند",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "تعویض پلاک",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Fri, 20 Nov 2026 22:50:00 -0800",
-      "trendKeywords": [
-        "تعویض",
-        "پلاک"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false
-    },
-    "تحریمها علیه ایران": {
-      "query": "تحریمها علیه ایران",
-      "normalized": "تحریمها علیه ایران",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "تحریمها علیه ایران",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Fri, 20 Nov 2026 22:40:00 -0800",
-      "trendKeywords": [
-        "تحریمها",
-        "علیه",
-        "ایران"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false
-    },
-    "آمریکا چهار ایرانی از جمله برادر رییس فدراسیون فوتبال و محمدجواد باوند را تحریم کرد": {
-      "query": "آمریکا چهار ایرانی، از جمله برادر رییس فدراسیون فوتبال و محمدجواد باوند را تحریم کرد",
-      "normalized": "آمریکا چهار ایرانی از جمله برادر رییس فدراسیون فوتبال و محمدجواد باوند را تحریم کرد",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "تحریمها علیه ایران",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Fri, 20 Nov 2026 22:40:00 -0800",
-      "trendKeywords": [
-        "تحریمها",
-        "علیه",
-        "ایران"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false
-    },
-    "بسنت جمهوری اسلامی برای نخستین بار در تاریخ هیچ نفتی روی آب ندارد": {
-      "query": "بسنت: جمهوری اسلامی برای نخستین بار در تاریخ هیچ نفتی روی آب ندارد",
-      "normalized": "بسنت جمهوری اسلامی برای نخستین بار در تاریخ هیچ نفتی روی آب ندارد",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "تحریمها علیه ایران",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Fri, 20 Nov 2026 22:40:00 -0800",
-      "trendKeywords": [
-        "تحریمها",
-        "علیه",
-        "ایران"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false
-    },
-    "emt": {
-      "query": "emt",
-      "normalized": "emt",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "emt",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Fri, 20 Nov 2026 22:40:00 -0800",
-      "trendKeywords": [
-        "emt"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false
-    },
-    "paradise valley community college hosts west mec emt training": {
-      "query": "Paradise Valley Community College hosts West Mec EMT training",
-      "normalized": "paradise valley community college hosts west mec emt training",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "emt",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Fri, 20 Nov 2026 22:40:00 -0800",
-      "trendKeywords": [
-        "emt"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false
-    },
-    "this valley program lets high school students graduate as licensed emts and earn college credit doing it": {
-      "query": "This Valley program lets high school students graduate as licensed EMTs and earn college credit doing it",
-      "normalized": "this valley program lets high school students graduate as licensed emts and earn college credit doing it",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "emt",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Fri, 20 Nov 2026 22:40:00 -0800",
-      "trendKeywords": [
-        "emt"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false
-    },
-    "هیئتمدیره": {
-      "query": "هیئتمدیره",
-      "normalized": "هیئتمدیره",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "هیئتمدیره",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Fri, 20 Nov 2026 22:10:00 -0800",
-      "trendKeywords": [
-        "هیئتمدیره"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false
-    },
-    "صلاحیت حرفه ای سه عضو جدید هیئت مدیره هلدینگ خلیج فارس تأیید شد": {
-      "query": "صلاحیت حرفه‌ای سه عضو جدید هیئت‌مدیره هلدینگ خلیج فارس تأیید شد",
-      "normalized": "صلاحیت حرفه ای سه عضو جدید هیئت مدیره هلدینگ خلیج فارس تأیید شد",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "هیئتمدیره",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Fri, 20 Nov 2026 22:10:00 -0800",
-      "trendKeywords": [
-        "هیئتمدیره"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false
-    },
-    "تأیید صلاحیت عباس زاده مومن زاده و امین نژاد در هلدینگ خلیج فارس": {
-      "query": "تأیید صلاحیت عباس‌زاده، مومن‌زاده و امین‌نژاد در هلدینگ خلیج فارس",
-      "normalized": "تأیید صلاحیت عباس زاده مومن زاده و امین نژاد در هلدینگ خلیج فارس",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "هیئتمدیره",
-      "trendTraffic": 200,
-      "trendPublishedAt": "Fri, 20 Nov 2026 22:10:00 -0800",
-      "trendKeywords": [
-        "هیئتمدیره"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false
-    },
-    "قابل توجه پذیرفته شدگان آزمون سراسری سال ۱۴۰۵ دانشگاه تربیت دبیر شهید رجایی": {
-      "query": "قابل توجه پذیرفته شدگان آزمون سراسری سال ۱۴۰۵ دانشگاه تربیت دبیر شهید رجایی",
-      "normalized": "قابل توجه پذیرفته شدگان آزمون سراسری سال ۱۴۰۵ دانشگاه تربیت دبیر شهید رجایی",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
-      "createdAt": "2026-11-21T07:49:02.122Z",
-      "lastAttemptAt": null,
-      "lastError": null,
-      "trendTitle": "دانشگاه",
-      "trendTraffic": 100,
-      "trendPublishedAt": "Fri, 20 Nov 2026 21:50:00 -0800",
-      "trendKeywords": [
-        "دانشگاه"
-      ],
-      "lastTrendSeenAt": "2026-11-21T07:49:02.122Z",
-      "activeInLatestFeed": false
     },
     "منچستر سیتی مقابل فولام": {
       "query": "منچستر سیتی مقابل فولام",
@@ -1489,12 +407,12 @@
     "اگزینوس": {
       "query": "اگزینوس",
       "normalized": "اگزینوس",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 3,
+      "videosSeen": 16,
       "createdAt": "2026-11-21T12:24:00.705Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-24T08:50:03.303Z",
       "lastError": null,
       "trendTitle": "اگزینوس",
       "trendTraffic": 200,
@@ -1503,17 +421,19 @@
         "اگزینوس"
       ],
       "lastTrendSeenAt": "2026-11-21T12:24:00.705Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T08:50:03.303Z"
     },
     "گلکسی s27 پرو با اگزینوس 2700 محک خورد رقابت نزدیک با اسنپدراگون دیجی کالا مگ": {
       "query": "گلکسی S27 پرو با اگزینوس 2700 محک خورد؛ رقابت نزدیک با اسنپدراگون • دیجی‌کالا مگ",
       "normalized": "گلکسی s27 پرو با اگزینوس 2700 محک خورد رقابت نزدیک با اسنپدراگون دیجی کالا مگ",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-21T12:24:00.705Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-24T08:50:03.303Z",
       "lastError": null,
       "trendTitle": "اگزینوس",
       "trendTraffic": 200,
@@ -1522,7 +442,9 @@
         "اگزینوس"
       ],
       "lastTrendSeenAt": "2026-11-21T12:24:00.705Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T08:50:03.303Z"
     },
     "سامسونگ احتمالا expert raw را در گلکسی s27 بازطراحی می کند": {
       "query": "سامسونگ احتمالا Expert RAW را در گلکسی S27 بازطراحی می‌کند",
@@ -5298,7 +4220,7 @@
         "بیرانوند"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "بیرانوند به هیچ کس برای معافیت زنگ نمی زنم بی احترامی نکردم": {
@@ -5319,7 +4241,7 @@
         "بیرانوند"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "آنگاه که معیارهای فوتبالی قربانی تعصب رسانه ای می شوند": {
@@ -5340,7 +4262,7 @@
         "بیرانوند"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-24T04:09:46.777Z",
       "refreshOnly": false,
@@ -5427,7 +4349,7 @@
         "الله"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-24T04:09:46.778Z",
       "refreshOnly": false,
@@ -5452,7 +4374,7 @@
         "الله"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-24T04:09:46.778Z",
       "refreshOnly": false,
@@ -5566,7 +4488,7 @@
         "مونیخ"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-24T04:09:46.779Z",
       "refreshOnly": false,
@@ -5590,7 +4512,7 @@
         "مونیخ"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-24T04:09:46.779Z",
       "refreshOnly": false,
@@ -5615,7 +4537,7 @@
         "پاختاکور"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "پخش زنده فوتبال الاتحاد و پاختاکور در شبکه ورزش": {
@@ -5637,7 +4559,7 @@
         "پاختاکور"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-24T04:09:46.779Z",
       "refreshOnly": false,
@@ -5662,7 +4584,7 @@
         "پاختاکور"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-24T04:09:46.779Z",
       "refreshOnly": false,
@@ -5686,7 +4608,7 @@
         "علیپور"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "آشتی سکو با مهاجم سرخ بازگشت علی آقای گل": {
@@ -5707,7 +4629,7 @@
         "علیپور"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-24T04:09:46.779Z",
       "refreshOnly": false,
@@ -5731,7 +4653,7 @@
         "علیپور"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "باشگاه فوتبال الهلال": {
@@ -5753,7 +4675,7 @@
         "الهلال"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-24T04:09:46.786Z"
     },
@@ -5877,7 +4799,7 @@
         "حردانی"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "مدافع استقلال بازی با نفتچی ازبکستان را از دست داد": {
       "query": "مدافع استقلال بازی با نفتچی ازبکستان را از دست داد",
@@ -5897,7 +4819,7 @@
         "حردانی"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "حردانی اتحاد تیمی و رفاقت راز فرم فوق العاده ما است": {
       "query": "حردانی: اتحاد تیمی و رفاقت، راز فرم فوق‌العاده ما است",
@@ -5917,7 +4839,7 @@
         "حردانی"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "سید علی خمینی": {
       "query": "سید علی خمینی",
@@ -5938,7 +4860,7 @@
         "خمینی"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "سید علی خمینی در جنگ اخیر همه دنیا برای مقامات ایرانی فرش قرمز پهن کرده بودند ترامپ می گفت حتی اگر مسئولان درجه سه و چهار هم بیایند می پذیریم": {
       "query": "سید علی خمینی: در جنگ اخیر همه دنیا برای مقامات ایرانی فرش قرمز پهن کرده بودند/ ترامپ می‌گفت حتی اگر مسئولان درجه سه و چهار هم بیایند می‌پذیریم",
@@ -5959,7 +4881,7 @@
         "خمینی"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "سید علی خمینی مشکلات اقتصادی نباید تنها بر دوش مردم قرار گیرد مسئولان اجازه سوء استفاده اطرافیان خود از موقعیت و جایگاهشان را ندهند": {
       "query": "سید علی خمینی: مشکلات اقتصادی نباید تنها بر دوش مردم قرار گیرد/ مسئولان اجازه سوء استفاده اطرافیان خود از موقعیت و جایگاهشان را ندهند",
@@ -5980,7 +4902,7 @@
         "خمینی"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "دنیای اقتصاد": {
       "query": "دنیای اقتصاد",
@@ -6000,7 +4922,7 @@
         "اقتصاد"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "ببینید عربستان در باتلاق یمن": {
       "query": "ببینید|عربستان در باتلاق یمن!",
@@ -6020,7 +4942,7 @@
         "اقتصاد"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "قمار 6 ماهه ریاض": {
       "query": "قمار 6 ماهه ریاض",
@@ -6040,7 +4962,7 @@
         "اقتصاد"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "دنیس اکرت": {
       "query": "دنیس اکرت",
@@ -6060,7 +4982,7 @@
         "اکرت"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "ادامه تعقیب و گریز درگاهی برای آقای گلی برد مهم استاندارد لیژ با گل زودهنگام دنیس": {
       "query": "ادامه تعقیب‌ و گریز درگاهی برای آقای گلی؛ برد مهم استاندارد لیژ با گل زودهنگام دنیس",
@@ -6080,7 +5002,7 @@
         "اکرت"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "آمار خوب دنیس اکرت در بلژیک ۱۲ بازی و تاثیر در ۹ گل": {
       "query": "آمار خوب دنیس اکرت در بلژیک؛ ۱۲ بازی و تاثیر در ۹ گل!",
@@ -6100,7 +5022,7 @@
         "اکرت"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "خلاصه بازی نفتچی 2 2 الهلال": {
       "query": "خلاصه بازی نفتچی 2-2 الهلال",
@@ -6121,7 +5043,7 @@
         "الهلال"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "رسوایی و مایه ننگ عربستانی ها علیه اینزاگی": {
       "query": "\"رسوایی و مایه ننگ\"؛ عربستانی ها علیه اینزاگی",
@@ -6142,6 +5064,557 @@
         "الهلال"
       ],
       "lastTrendSeenAt": "2026-11-24T04:08:57.139Z",
+      "activeInLatestFeed": false
+    },
+    "bale": {
+      "query": "bale",
+      "normalized": "bale",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 399,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": "2026-11-24T08:50:03.284Z",
+      "lastError": null,
+      "trendTitle": "bale",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+      "trendKeywords": [
+        "bale"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "raiders mark davis unhappy with unfair image of his father in madden movie": {
+      "query": "Raiders' Mark Davis unhappy with 'unfair' image of his father in 'Madden' movie",
+      "normalized": "raiders mark davis unhappy with unfair image of his father in madden movie",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 400,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": "2026-11-24T08:50:03.291Z",
+      "lastError": null,
+      "trendTitle": "bale",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+      "trendKeywords": [
+        "bale"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "madden review nicolas cage is a cartoonish nfl legend in david o russell s stinker": {
+      "query": "Madden review – Nicolas Cage is a cartoonish NFL legend in David O Russell’s stinker",
+      "normalized": "madden review nicolas cage is a cartoonish nfl legend in david o russell s stinker",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": "2026-11-24T08:50:03.292Z",
+      "lastError": null,
+      "trendTitle": "bale",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+      "trendKeywords": [
+        "bale"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T08:50:03.292Z"
+    },
+    "پیام رسان بله": {
+      "query": "پیام رسان بله",
+      "normalized": "پیام رسان بله",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 394,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": "2026-11-24T08:50:03.297Z",
+      "lastError": null,
+      "trendTitle": "پیام رسان بله",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 24 Nov 2026 00:00:00 -0800",
+      "trendKeywords": [
+        "پیام",
+        "رسان",
+        "بله"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "پیام رسان اتوبوسرانی تهران در بله راه اندازی شد": {
+      "query": "پیام رسان اتوبوسرانی تهران در «بله» راه‌اندازی شد",
+      "normalized": "پیام رسان اتوبوسرانی تهران در بله راه اندازی شد",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": "2026-11-24T08:50:03.297Z",
+      "lastError": null,
+      "trendTitle": "پیام رسان بله",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 24 Nov 2026 00:00:00 -0800",
+      "trendKeywords": [
+        "پیام",
+        "رسان",
+        "بله"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T08:50:03.297Z"
+    },
+    "پیام رسان اتوبوسرانی تهران راه اندازی شد": {
+      "query": "پیام‌رسان اتوبوسرانی تهران راه‌اندازی شد",
+      "normalized": "پیام رسان اتوبوسرانی تهران راه اندازی شد",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": "2026-11-24T08:50:03.297Z",
+      "lastError": null,
+      "trendTitle": "پیام رسان بله",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Tue, 24 Nov 2026 00:00:00 -0800",
+      "trendKeywords": [
+        "پیام",
+        "رسان",
+        "بله"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T08:50:03.297Z"
+    },
+    "gta": {
+      "query": "gta",
+      "normalized": "gta",
+      "nextPage": 21,
+      "complete": false,
+      "pagesFetched": 20,
+      "videosSeen": 400,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": "2026-11-24T08:50:03.301Z",
+      "lastError": null,
+      "trendTitle": "gta",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+      "trendKeywords": [
+        "gta"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
+    },
+    "box office sunrise on the reaping reignites hunger games franchise with 120 million debut": {
+      "query": "Box Office: ‘Sunrise on the Reaping’ Reignites ‘Hunger Games’ Franchise With $120 Million Debut",
+      "normalized": "box office sunrise on the reaping reignites hunger games franchise with 120 million debut",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": "2026-11-24T08:50:03.301Z",
+      "lastError": null,
+      "trendTitle": "gta",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+      "trendKeywords": [
+        "gta"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T08:50:03.301Z"
+    },
+    "new hunger games film is true to the story": {
+      "query": "New ‘Hunger Games’ film is true to the story",
+      "normalized": "new hunger games film is true to the story",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": "2026-11-24T08:50:03.301Z",
+      "lastError": null,
+      "trendTitle": "gta",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+      "trendKeywords": [
+        "gta"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T08:50:03.301Z"
+    },
+    "ncr": {
+      "query": "ncr",
+      "normalized": "ncr",
+      "nextPage": 21,
+      "complete": true,
+      "pagesFetched": 20,
+      "videosSeen": 364,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": "2026-11-24T08:50:03.303Z",
+      "lastError": null,
+      "trendTitle": "ncr",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 22:50:00 -0800",
+      "trendKeywords": [
+        "ncr"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T08:50:03.303Z"
+    },
+    "cardinal cupich us bishops failed to read signs of the times at recent meeting": {
+      "query": "Cardinal Cupich: US bishops failed to read signs of the times at recent meeting",
+      "normalized": "cardinal cupich us bishops failed to read signs of the times at recent meeting",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": "2026-11-24T08:50:03.303Z",
+      "lastError": null,
+      "trendTitle": "ncr",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 22:50:00 -0800",
+      "trendKeywords": [
+        "ncr"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T08:50:03.303Z"
+    },
+    "india s recurring pollution crisis calls for a sustained movement for cleaner air": {
+      "query": "India’s recurring pollution crisis calls for a sustained movement for cleaner air",
+      "normalized": "india s recurring pollution crisis calls for a sustained movement for cleaner air",
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": "2026-11-24T08:50:03.303Z",
+      "lastError": null,
+      "trendTitle": "ncr",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 22:50:00 -0800",
+      "trendKeywords": [
+        "ncr"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T08:50:03.303Z"
+    },
+    "ذبیح الله مجاهد": {
+      "query": "ذبیح الله مجاهد",
+      "normalized": "ذبیح الله مجاهد",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "ذبیح الله مجاهد",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 22:40:00 -0800",
+      "trendKeywords": [
+        "ذبیح",
+        "الله",
+        "مجاهد"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true
+    },
+    "توقف تجارت با افغانستان و افزایش هزینه ها رشد صادرات نساجی پاکستان را محدود کرد": {
+      "query": "توقف تجارت با افغانستان و افزایش هزینه‌ها رشد صادرات نساجی پاکستان را محدود کرد",
+      "normalized": "توقف تجارت با افغانستان و افزایش هزینه ها رشد صادرات نساجی پاکستان را محدود کرد",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "ذبیح الله مجاهد",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 22:40:00 -0800",
+      "trendKeywords": [
+        "ذبیح",
+        "الله",
+        "مجاهد"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true
+    },
+    "مقام پاکستانی اختلافات سیاسی نباید تجارت با افغانستان را مختل کند": {
+      "query": "مقام پاکستانی: اختلافات سیاسی نباید تجارت با افغانستان را مختل کند",
+      "normalized": "مقام پاکستانی اختلافات سیاسی نباید تجارت با افغانستان را مختل کند",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "ذبیح الله مجاهد",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 22:40:00 -0800",
+      "trendKeywords": [
+        "ذبیح",
+        "الله",
+        "مجاهد"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true
+    },
+    "کارلوس آلکاراس": {
+      "query": "کارلوس آلکاراس",
+      "normalized": "کارلوس آلکاراس",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "کارلوس آلکاراس",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 22:00:00 -0800",
+      "trendKeywords": [
+        "کارلوس",
+        "آلکاراس"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true
+    },
+    "بازگشت رویایی آلکاراس ۸۴ روز توفانی چهار جام و یک رکورد تاریخی در تورین": {
+      "query": "بازگشت رویایی آلکاراس؛ ۸۴ روز توفانی، چهار جام و یک رکورد تاریخی در تورین",
+      "normalized": "بازگشت رویایی آلکاراس ۸۴ روز توفانی چهار جام و یک رکورد تاریخی در تورین",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "کارلوس آلکاراس",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 22:00:00 -0800",
+      "trendKeywords": [
+        "کارلوس",
+        "آلکاراس"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true
+    },
+    "پایان فصل تورین جایزه ۵ ۱۷ میلیون دلاری برای قهرمانی بدون شکست": {
+      "query": "پایان فصل تورین؛ جایزه ۵.۱۷ میلیون دلاری برای قهرمانی بدون شکست",
+      "normalized": "پایان فصل تورین جایزه ۵ ۱۷ میلیون دلاری برای قهرمانی بدون شکست",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "کارلوس آلکاراس",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 22:00:00 -0800",
+      "trendKeywords": [
+        "کارلوس",
+        "آلکاراس"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true
+    },
+    "سنا": {
+      "query": "سنا",
+      "normalized": "سنا",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "سنا",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 22:00:00 -0800",
+      "trendKeywords": [
+        "سنا"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true
+    },
+    "إعلان أسماء الفائزین فی انتخابات مجلس إدارة غرفة تجارة وصناعة ع مان ومجالس إدارات فروعها": {
+      "query": "إعلان أسماء الفائزين في انتخابات مجلس إدارة غرفة تجارة وصناعة عُمان ومجالس إدارات فروعها",
+      "normalized": "إعلان أسماء الفائزین فی انتخابات مجلس إدارة غرفة تجارة وصناعة ع مان ومجالس إدارات فروعها",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "سنا",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 22:00:00 -0800",
+      "trendKeywords": [
+        "سنا"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true
+    },
+    "الوفاء تستمع لمطالب تجار طارق وتتعهد بمتابعة التعویضات وحل أزمة الاصطفاف": {
+      "query": "\"الوفاء\" تستمع لمطالب تجار طارق وتتعهد بمتابعة التعويضات وحل أزمة الاصطفاف",
+      "normalized": "الوفاء تستمع لمطالب تجار طارق وتتعهد بمتابعة التعویضات وحل أزمة الاصطفاف",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "سنا",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Mon, 23 Nov 2026 22:00:00 -0800",
+      "trendKeywords": [
+        "سنا"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true
+    },
+    "نوسان": {
+      "query": "نوسان",
+      "normalized": "نوسان",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "نوسان",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 24 Nov 2026 00:20:00 -0800",
+      "trendKeywords": [
+        "نوسان"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true
+    },
+    "افزایش بهای ارز در ایران ادامه دارد دلار در کانال ۲۷۰ هزار تومان": {
+      "query": "افزایش بهای ارز در ایران ادامه دارد؛ دلار در کانال ۲۷۰ هزار تومان",
+      "normalized": "افزایش بهای ارز در ایران ادامه دارد دلار در کانال ۲۷۰ هزار تومان",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "نوسان",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 24 Nov 2026 00:20:00 -0800",
+      "trendKeywords": [
+        "نوسان"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true
+    },
+    "یورو در آبان بازنده شد حواله دلار و درهم بیشترین بازدهی را ثبت کردند": {
+      "query": "یورو در آبان بازنده شد؛ حواله دلار و درهم بیشترین بازدهی را ثبت کردند",
+      "normalized": "یورو در آبان بازنده شد حواله دلار و درهم بیشترین بازدهی را ثبت کردند",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "نوسان",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Tue, 24 Nov 2026 00:20:00 -0800",
+      "trendKeywords": [
+        "نوسان"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true
+    },
+    "قوه قضاییه": {
+      "query": "قوه قضاییه",
+      "normalized": "قوه قضاییه",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "قوه قضاییه",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Mon, 23 Nov 2026 22:00:00 -0800",
+      "trendKeywords": [
+        "قوه",
+        "قضاییه"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true
+    },
+    "بیستمین تور نظارتی قوه قضاییه مازندران": {
+      "query": "بیستمین تور نظارتی قوه قضاییه - مازندران",
+      "normalized": "بیستمین تور نظارتی قوه قضاییه مازندران",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "قوه قضاییه",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Mon, 23 Nov 2026 22:00:00 -0800",
+      "trendKeywords": [
+        "قوه",
+        "قضاییه"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
+      "activeInLatestFeed": true
+    },
+    "تور رسانه ای قوه قضاییه در مازندران": {
+      "query": "تور رسانه‌ای قوه قضاییه در مازندران",
+      "normalized": "تور رسانه ای قوه قضاییه در مازندران",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T08:48:59.239Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "قوه قضاییه",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Mon, 23 Nov 2026 22:00:00 -0800",
+      "trendKeywords": [
+        "قوه",
+        "قضاییه"
+      ],
+      "lastTrendSeenAt": "2026-11-24T08:48:59.239Z",
       "activeInLatestFeed": true
     }
   },
@@ -6191,7 +5664,7 @@
       "sender_name": "hamidrezahassan3",
       "category_id": 6,
       "duration": 316,
-      "visit_count": 5883,
+      "visit_count": 5884,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -6229,10 +5702,20 @@
             "کنکور"
           ],
           "page": 7
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.275Z",
-      "lastMetricsFetchedAt": "2026-11-18T00:39:49.165Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:42.640Z"
     },
     "gjZjmXk": {
       "video_code": "gjZjmXk",
@@ -19408,34 +18891,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T21:31:42.828Z"
     },
-    "89Noppf": {
-      "video_code": "89Noppf",
-      "title": "مبارزه با طالبان - نبرد در داخل افغانستان",
-      "sender_name": "شهر تماشا",
-      "category_id": 1,
-      "duration": 5082,
-      "visit_count": 28010,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "افغانی افغانستان",
-          "trendTitle": "افغانی افغانستان",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "افغانی",
-            "افغانستان"
-          ],
-          "page": 13
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:31:42.828Z"
-    },
     "hCqZHAa": {
       "video_code": "hCqZHAa",
       "title": "آهنگ افغانی پشتو ــ شاد عاشقانه ــ آواز: نازیه اقبال",
@@ -23622,33 +23077,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-02T21:55:12.044Z"
     },
-    "pkIKFew": {
-      "video_code": "pkIKFew",
-      "title": "قسمت 242 سریال قسم Yemin با دوبله فارسی",
-      "sender_name": "سیم خاردار❤️",
-      "category_id": 3,
-      "duration": 2834,
-      "visit_count": 27957,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 36
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.045Z"
-    },
     "8MmxMOP": {
       "video_code": "8MmxMOP",
       "title": "سریال قسم قسمت 356 زیرنویس فارسی",
@@ -23979,33 +23407,6 @@
       "visit_count": 65273,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 38
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.046Z"
-    },
-    "Y8GNAcu": {
-      "video_code": "Y8GNAcu",
-      "title": "21سریال قسم قسمت 21 زیرنویس فارسی",
-      "sender_name": "سریال کده | نیم بها ببین",
-      "category_id": 3,
-      "duration": 3661,
-      "visit_count": 28018,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -39773,7 +39174,7 @@
       "sender_name": "MEHDI",
       "category_id": 22,
       "duration": 1244,
-      "visit_count": 76485,
+      "visit_count": 76509,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -39800,9 +39201,20 @@
             "جیتیای"
           ],
           "page": 7
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.640Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:41.178Z"
     },
     "S57b34q": {
       "video_code": "S57b34q",
@@ -44020,34 +43432,6 @@
             "نفت"
           ],
           "page": 9
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T02:37:37.093Z"
-    },
-    "zoyTP1O": {
-      "video_code": "zoyTP1O",
-      "title": "فصل اول سریال خارجی The 100 صد نفر با زیرنویس فارسی قسمت 8",
-      "sender_name": "نگین",
-      "category_id": 3,
-      "duration": 2538,
-      "visit_count": 28041,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قیمت نفت",
-          "trendTitle": "قیمت نفت",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 14:00:00 -0800",
-          "trendKeywords": [
-            "قیمت",
-            "نفت"
-          ],
-          "page": 10
         }
       ],
       "lastTrendMatchedAt": "2026-11-03T02:37:37.093Z"
@@ -63890,7 +63274,7 @@
       "sender_name": "فیلم سون | Filmseven",
       "category_id": 7,
       "duration": 665,
-      "visit_count": 184247,
+      "visit_count": 184305,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
       "active": 1,
@@ -63907,9 +63291,20 @@
             "جیتیای"
           ],
           "page": 4
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.638Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:37.773Z"
     },
     "shKNLGm": {
       "video_code": "shKNLGm",
@@ -63917,7 +63312,7 @@
       "sender_name": "MEHDI",
       "category_id": 2,
       "duration": 1258,
-      "visit_count": 86550,
+      "visit_count": 86632,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -63934,9 +63329,20 @@
             "جیتیای"
           ],
           "page": 4
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:37.773Z"
     },
     "cZKCJmV": {
       "video_code": "cZKCJmV",
@@ -63944,7 +63350,7 @@
       "sender_name": "MEHDI",
       "category_id": 11,
       "duration": 1527,
-      "visit_count": 115996,
+      "visit_count": 116050,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -63961,9 +63367,20 @@
             "جیتیای"
           ],
           "page": 4
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:37.773Z"
     },
     "LXVwLrS": {
       "video_code": "LXVwLrS",
@@ -63971,7 +63388,7 @@
       "sender_name": "MEHDI",
       "category_id": 17,
       "duration": 1257,
-      "visit_count": 78350,
+      "visit_count": 78429,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -63988,9 +63405,20 @@
             "جیتیای"
           ],
           "page": 4
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:37.773Z"
     },
     "WsSnTvA": {
       "video_code": "WsSnTvA",
@@ -63998,7 +63426,7 @@
       "sender_name": "MEHDI",
       "category_id": 17,
       "duration": 1809,
-      "visit_count": 97496,
+      "visit_count": 97632,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64015,9 +63443,20 @@
             "جیتیای"
           ],
           "page": 4
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:37.773Z"
     },
     "2rninfJ": {
       "video_code": "2rninfJ",
@@ -64025,7 +63464,7 @@
       "sender_name": "MEHDI",
       "category_id": 2,
       "duration": 827,
-      "visit_count": 95659,
+      "visit_count": 95771,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64042,9 +63481,20 @@
             "جیتیای"
           ],
           "page": 4
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:37.773Z"
     },
     "3dmCJHO": {
       "video_code": "3dmCJHO",
@@ -64052,7 +63502,7 @@
       "sender_name": "MEHDI",
       "category_id": 17,
       "duration": 1181,
-      "visit_count": 117656,
+      "visit_count": 117676,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64069,9 +63519,20 @@
             "جیتیای"
           ],
           "page": 4
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:37.773Z"
     },
     "xpXPL56": {
       "video_code": "xpXPL56",
@@ -64079,7 +63540,7 @@
       "sender_name": "MEHDI",
       "category_id": 22,
       "duration": 1217,
-      "visit_count": 67955,
+      "visit_count": 67989,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64096,9 +63557,20 @@
             "جیتیای"
           ],
           "page": 4
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:38.727Z"
     },
     "xu1ZoTl": {
       "video_code": "xu1ZoTl",
@@ -64106,7 +63578,7 @@
       "sender_name": "MEHDI",
       "category_id": 17,
       "duration": 1071,
-      "visit_count": 96335,
+      "visit_count": 96383,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64123,9 +63595,20 @@
             "جیتیای"
           ],
           "page": 4
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:38.727Z"
     },
     "o7piazo": {
       "video_code": "o7piazo",
@@ -64133,7 +63616,7 @@
       "sender_name": "MEHDI",
       "category_id": 17,
       "duration": 939,
-      "visit_count": 110801,
+      "visit_count": 110933,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64150,9 +63633,20 @@
             "جیتیای"
           ],
           "page": 4
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:38.727Z"
     },
     "zrKIOWI": {
       "video_code": "zrKIOWI",
@@ -64160,7 +63654,7 @@
       "sender_name": "MEHDI",
       "category_id": 17,
       "duration": 928,
-      "visit_count": 79603,
+      "visit_count": 79613,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64188,10 +63682,20 @@
             "تاجرنیا"
           ],
           "page": 33
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-19T19:26:18.627Z",
-      "lastMetricsFetchedAt": "2026-11-19T19:25:31.013Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:38.727Z"
     },
     "llTvaZl": {
       "video_code": "llTvaZl",
@@ -64199,7 +63703,7 @@
       "sender_name": "MEHDI",
       "category_id": 25,
       "duration": 953,
-      "visit_count": 74290,
+      "visit_count": 74293,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64238,10 +63742,20 @@
             "تاجرنیا"
           ],
           "page": 33
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-19T19:26:18.627Z",
-      "lastMetricsFetchedAt": "2026-11-19T19:25:31.013Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:38.727Z"
     },
     "m74li4X": {
       "video_code": "m74li4X",
@@ -64249,7 +63763,7 @@
       "sender_name": "MEHDI",
       "category_id": 17,
       "duration": 925,
-      "visit_count": 91160,
+      "visit_count": 91163,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64277,10 +63791,20 @@
             "تاجرنیا"
           ],
           "page": 33
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-19T19:26:18.628Z",
-      "lastMetricsFetchedAt": "2026-11-19T19:25:31.013Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:38.727Z"
     },
     "SDIskXp": {
       "video_code": "SDIskXp",
@@ -64288,7 +63812,7 @@
       "sender_name": "MEHDI",
       "category_id": 17,
       "duration": 1295,
-      "visit_count": 80420,
+      "visit_count": 80496,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64305,9 +63829,20 @@
             "جیتیای"
           ],
           "page": 5
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:38.727Z"
     },
     "QwCVK0D": {
       "video_code": "QwCVK0D",
@@ -64315,7 +63850,7 @@
       "sender_name": "MEHDI",
       "category_id": 2,
       "duration": 1332,
-      "visit_count": 76249,
+      "visit_count": 76296,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64332,9 +63867,20 @@
             "جیتیای"
           ],
           "page": 5
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:38.727Z"
     },
     "5QC3yCL": {
       "video_code": "5QC3yCL",
@@ -64342,7 +63888,7 @@
       "sender_name": "MEHDI",
       "category_id": 11,
       "duration": 250,
-      "visit_count": 67735,
+      "visit_count": 67765,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64359,9 +63905,20 @@
             "جیتیای"
           ],
           "page": 5
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:38.727Z"
     },
     "9MiQfv6": {
       "video_code": "9MiQfv6",
@@ -64369,7 +63926,7 @@
       "sender_name": "MEHDI",
       "category_id": 17,
       "duration": 107,
-      "visit_count": 50875,
+      "visit_count": 51152,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64386,9 +63943,20 @@
             "جیتیای"
           ],
           "page": 5
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:38.727Z"
     },
     "kja3y2s": {
       "video_code": "kja3y2s",
@@ -64396,7 +63964,7 @@
       "sender_name": "MEHDI",
       "category_id": 29,
       "duration": 159,
-      "visit_count": 56587,
+      "visit_count": 56636,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64413,9 +63981,20 @@
             "جیتیای"
           ],
           "page": 5
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:38.727Z"
     },
     "Wg4VTb0": {
       "video_code": "Wg4VTb0",
@@ -64423,7 +64002,7 @@
       "sender_name": "MEHDI",
       "category_id": 17,
       "duration": 152,
-      "visit_count": 47599,
+      "visit_count": 47683,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64440,9 +64019,20 @@
             "جیتیای"
           ],
           "page": 5
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:38.727Z"
     },
     "Wu3GG1m": {
       "video_code": "Wu3GG1m",
@@ -64450,7 +64040,7 @@
       "sender_name": "hamidrezahassan3",
       "category_id": 21,
       "duration": 556,
-      "visit_count": 87910,
+      "visit_count": 87924,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -64479,10 +64069,20 @@
             "ای"
           ],
           "page": 9
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.362Z",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:42.455Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:38.727Z"
     },
     "YcAHEfK": {
       "video_code": "YcAHEfK",
@@ -64490,7 +64090,7 @@
       "sender_name": "MEHDI",
       "category_id": 1,
       "duration": 1045,
-      "visit_count": 48481,
+      "visit_count": 48526,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64507,9 +64107,20 @@
             "جیتیای"
           ],
           "page": 5
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:38.727Z"
     },
     "rurP9NH": {
       "video_code": "rurP9NH",
@@ -64517,7 +64128,7 @@
       "sender_name": "MEHDI",
       "category_id": 17,
       "duration": 1016,
-      "visit_count": 51901,
+      "visit_count": 51944,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64534,9 +64145,20 @@
             "جیتیای"
           ],
           "page": 5
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:38.727Z"
     },
     "WZEhqEu": {
       "video_code": "WZEhqEu",
@@ -64544,7 +64166,7 @@
       "sender_name": "MEHDI",
       "category_id": 17,
       "duration": 776,
-      "visit_count": 120701,
+      "visit_count": 120710,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64572,10 +64194,20 @@
             "تاجرنیا"
           ],
           "page": 35
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-19T19:26:18.628Z",
-      "lastMetricsFetchedAt": "2026-11-19T19:25:32.775Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:38.727Z"
     },
     "8nRfou9": {
       "video_code": "8nRfou9",
@@ -64583,7 +64215,7 @@
       "sender_name": "MEHDI",
       "category_id": 17,
       "duration": 1163,
-      "visit_count": 100676,
+      "visit_count": 100693,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64611,10 +64243,20 @@
             "تاجرنیا"
           ],
           "page": 27
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-19T19:26:18.626Z",
-      "lastMetricsFetchedAt": "2026-11-19T19:25:26.117Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:38.727Z"
     },
     "kGDNPzC": {
       "video_code": "kGDNPzC",
@@ -64622,7 +64264,7 @@
       "sender_name": "فیلی فیلم",
       "category_id": 17,
       "duration": 1285,
-      "visit_count": 36405,
+      "visit_count": 36413,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -64651,10 +64293,20 @@
             "ای"
           ],
           "page": 10
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.362Z",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:43.196Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:38.727Z"
     },
     "CWAHkGX": {
       "video_code": "CWAHkGX",
@@ -64662,7 +64314,7 @@
       "sender_name": "MEHDI",
       "category_id": 17,
       "duration": 873,
-      "visit_count": 75019,
+      "visit_count": 75055,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64679,9 +64331,20 @@
             "جیتیای"
           ],
           "page": 5
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.297Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:38.727Z"
     },
     "jQJ1x5g": {
       "video_code": "jQJ1x5g",
@@ -64689,7 +64352,7 @@
       "sender_name": "MEHDI",
       "category_id": 11,
       "duration": 1226,
-      "visit_count": 65578,
+      "visit_count": 65785,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64706,9 +64369,20 @@
             "جیتیای"
           ],
           "page": 5
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:39.654Z"
     },
     "BzQnL6e": {
       "video_code": "BzQnL6e",
@@ -64716,7 +64390,7 @@
       "sender_name": "MEHDI",
       "category_id": 11,
       "duration": 887,
-      "visit_count": 38735,
+      "visit_count": 38766,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64733,9 +64407,20 @@
             "جیتیای"
           ],
           "page": 5
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:39.654Z"
     },
     "R2gaKaZ": {
       "video_code": "R2gaKaZ",
@@ -64743,7 +64428,7 @@
       "sender_name": "یوتیوب فارسی",
       "category_id": 9,
       "duration": 771,
-      "visit_count": 46952,
+      "visit_count": 46956,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -64784,10 +64469,20 @@
             "ای"
           ],
           "page": 10
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-20T22:30:03.252Z",
-      "lastMetricsFetchedAt": "2026-11-20T22:29:42.520Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:39.654Z"
     },
     "WsgbxKU": {
       "video_code": "WsgbxKU",
@@ -64795,7 +64490,7 @@
       "sender_name": "hamidrezahassan3",
       "category_id": 21,
       "duration": 781,
-      "visit_count": 26828,
+      "visit_count": 26834,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -64824,10 +64519,20 @@
             "ای"
           ],
           "page": 11
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.363Z",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:43.895Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:39.654Z"
     },
     "UPGGOT8": {
       "video_code": "UPGGOT8",
@@ -64835,7 +64540,7 @@
       "sender_name": "MEHDI",
       "category_id": 17,
       "duration": 1099,
-      "visit_count": 30440,
+      "visit_count": 30496,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64852,9 +64557,20 @@
             "جیتیای"
           ],
           "page": 6
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:39.654Z"
     },
     "pW2jqUI": {
       "video_code": "pW2jqUI",
@@ -64862,7 +64578,7 @@
       "sender_name": "MEHDI",
       "category_id": 17,
       "duration": 209,
-      "visit_count": 43229,
+      "visit_count": 43289,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64879,9 +64595,20 @@
             "جیتیای"
           ],
           "page": 6
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:39.654Z"
     },
     "33qNH4i": {
       "video_code": "33qNH4i",
@@ -64889,7 +64616,7 @@
       "sender_name": "MEHDI",
       "category_id": 15,
       "duration": 864,
-      "visit_count": 135979,
+      "visit_count": 136019,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64906,9 +64633,20 @@
             "جیتیای"
           ],
           "page": 6
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:39.654Z"
     },
     "cM7ujjh": {
       "video_code": "cM7ujjh",
@@ -64916,7 +64654,7 @@
       "sender_name": "MEHDI",
       "category_id": 11,
       "duration": 266,
-      "visit_count": 33285,
+      "visit_count": 33320,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64933,9 +64671,20 @@
             "جیتیای"
           ],
           "page": 6
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:39.654Z"
     },
     "2r9aS6Z": {
       "video_code": "2r9aS6Z",
@@ -64943,7 +64692,7 @@
       "sender_name": "MEHDI",
       "category_id": 11,
       "duration": 125,
-      "visit_count": 49060,
+      "visit_count": 49081,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64960,9 +64709,20 @@
             "جیتیای"
           ],
           "page": 6
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:39.654Z"
     },
     "oNZ8ftD": {
       "video_code": "oNZ8ftD",
@@ -64970,7 +64730,7 @@
       "sender_name": "MEHDI",
       "category_id": 17,
       "duration": 141,
-      "visit_count": 56702,
+      "visit_count": 56722,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -64987,9 +64747,20 @@
             "جیتیای"
           ],
           "page": 6
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:39.654Z"
     },
     "67MDnFq": {
       "video_code": "67MDnFq",
@@ -64997,7 +64768,7 @@
       "sender_name": "hamidrezahassan3",
       "category_id": 6,
       "duration": 469,
-      "visit_count": 28434,
+      "visit_count": 28466,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -65014,9 +64785,20 @@
             "جیتیای"
           ],
           "page": 6
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:39.654Z"
     },
     "a4wi4im": {
       "video_code": "a4wi4im",
@@ -65024,7 +64806,7 @@
       "sender_name": "MEHDI",
       "category_id": 4,
       "duration": 1097,
-      "visit_count": 38950,
+      "visit_count": 38977,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -65041,9 +64823,20 @@
             "جیتیای"
           ],
           "page": 6
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:39.654Z"
     },
     "NA2OmFf": {
       "video_code": "NA2OmFf",
@@ -65051,7 +64844,7 @@
       "sender_name": "MEHDI",
       "category_id": 17,
       "duration": 323,
-      "visit_count": 33883,
+      "visit_count": 33921,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -65068,9 +64861,20 @@
             "جیتیای"
           ],
           "page": 6
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:39.654Z"
     },
     "TfYMSbX": {
       "video_code": "TfYMSbX",
@@ -65078,7 +64882,7 @@
       "sender_name": "MEHDI",
       "category_id": 13,
       "duration": 154,
-      "visit_count": 39805,
+      "visit_count": 39848,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -65095,9 +64899,20 @@
             "جیتیای"
           ],
           "page": 6
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:39.654Z"
     },
     "s8HnIJ8": {
       "video_code": "s8HnIJ8",
@@ -65105,7 +64920,7 @@
       "sender_name": "MEHDI",
       "category_id": 1,
       "duration": 1180,
-      "visit_count": 45246,
+      "visit_count": 45385,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -65122,9 +64937,20 @@
             "جیتیای"
           ],
           "page": 6
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:40.419Z"
     },
     "XdxcAZG": {
       "video_code": "XdxcAZG",
@@ -65132,7 +64958,7 @@
       "sender_name": "MEHDI",
       "category_id": 1,
       "duration": 326,
-      "visit_count": 47646,
+      "visit_count": 47683,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -65149,9 +64975,20 @@
             "جیتیای"
           ],
           "page": 6
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.639Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:40.419Z"
     },
     "EumYkRb": {
       "video_code": "EumYkRb",
@@ -65159,7 +64996,7 @@
       "sender_name": "hamidrezahassan3",
       "category_id": 6,
       "duration": 623,
-      "visit_count": 17415,
+      "visit_count": 17416,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -65197,10 +65034,20 @@
             "کوپر"
           ],
           "page": 9
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T17:25:48.109Z",
-      "lastMetricsFetchedAt": "2026-11-18T17:24:49.553Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:40.419Z"
     },
     "mRcmL2C": {
       "video_code": "mRcmL2C",
@@ -65208,7 +65055,7 @@
       "sender_name": "MEHDI",
       "category_id": 17,
       "duration": 1173,
-      "visit_count": 37465,
+      "visit_count": 37474,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -65249,10 +65096,20 @@
             "ای"
           ],
           "page": 13
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-20T22:30:03.252Z",
-      "lastMetricsFetchedAt": "2026-11-20T22:29:42.520Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:40.419Z"
     },
     "hLlQZmf": {
       "video_code": "hLlQZmf",
@@ -65260,7 +65117,7 @@
       "sender_name": "فیلی فیلم",
       "category_id": 6,
       "duration": 509,
-      "visit_count": 23555,
+      "visit_count": 23558,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -65289,10 +65146,20 @@
             "ای"
           ],
           "page": 11
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.363Z",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:43.895Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:40.419Z"
     },
     "hEaayl7": {
       "video_code": "hEaayl7",
@@ -65300,7 +65167,7 @@
       "sender_name": "مهدی ",
       "category_id": 3,
       "duration": 290,
-      "visit_count": 20477,
+      "visit_count": 20483,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
       "active": 1,
@@ -65329,10 +65196,20 @@
             "ای"
           ],
           "page": 14
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.364Z",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:46.225Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:41.178Z"
     },
     "sysJFYu": {
       "video_code": "sysJFYu",
@@ -65340,7 +65217,7 @@
       "sender_name": "MEHDI",
       "category_id": 17,
       "duration": 110,
-      "visit_count": 36640,
+      "visit_count": 36664,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -65357,9 +65234,20 @@
             "جیتیای"
           ],
           "page": 8
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.640Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:41.178Z"
     },
     "dV1qNHh": {
       "video_code": "dV1qNHh",
@@ -65367,7 +65255,7 @@
       "sender_name": "تاپ ویدیو",
       "category_id": 7,
       "duration": 199,
-      "visit_count": 42690,
+      "visit_count": 42700,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
       "active": 1,
@@ -65384,9 +65272,20 @@
             "جیتیای"
           ],
           "page": 8
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.640Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:41.178Z"
     },
     "N2ocat3": {
       "video_code": "N2ocat3",
@@ -65394,7 +65293,7 @@
       "sender_name": "hamidrezahassan3",
       "category_id": 21,
       "duration": 901,
-      "visit_count": 21524,
+      "visit_count": 21531,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -65434,10 +65333,20 @@
             "ای"
           ],
           "page": 16
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.364Z",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:47.760Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:41.178Z"
     },
     "h7D55f0": {
       "video_code": "h7D55f0",
@@ -65445,7 +65354,7 @@
       "sender_name": "hamidrezahassan3",
       "category_id": 6,
       "duration": 509,
-      "visit_count": 14178,
+      "visit_count": 14206,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -65473,9 +65382,20 @@
             "۳۵"
           ],
           "page": 27
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.909Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:41.880Z"
     },
     "WgBOxj1": {
       "video_code": "WgBOxj1",
@@ -65483,7 +65403,7 @@
       "sender_name": "MEHDI",
       "category_id": 4,
       "duration": 783,
-      "visit_count": 34304,
+      "visit_count": 34330,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -65500,9 +65420,20 @@
             "جیتیای"
           ],
           "page": 9
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T16:10:32.640Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:41.880Z"
     },
     "sd2bNRr": {
       "video_code": "sd2bNRr",
@@ -65510,7 +65441,7 @@
       "sender_name": "گیم و سلامت",
       "category_id": 17,
       "duration": 126,
-      "visit_count": 29888,
+      "visit_count": 29894,
       "create_date": "8 سال پیش",
       "styled_create_date": "8 سال پیش",
       "active": 1,
@@ -65548,10 +65479,20 @@
             "فوتبال"
           ],
           "page": 10
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 9
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T13:05:23.805Z",
-      "lastMetricsFetchedAt": "2026-11-18T13:05:12.935Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.298Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:42.640Z"
     },
     "GDJ8697": {
       "video_code": "GDJ8697",
@@ -65559,7 +65500,7 @@
       "sender_name": "عرفان",
       "category_id": 7,
       "duration": 59,
-      "visit_count": 13138,
+      "visit_count": 13142,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -65596,15 +65537,25 @@
             "ps5"
           ],
           "page": 1
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 10
         }
       ],
-      "lastTrendMatchedAt": "2026-11-20T22:30:03.261Z",
-      "lastMetricsFetchedAt": "2026-11-20T22:29:47.437Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.299Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:43.390Z"
     },
     "0W7G2i2": {
       "video_code": "0W7G2i2",
       "title": "گیم پلی 2020 GTA 6 جی تی آی 6 با گرافیک بی نظیر کنسول PS4",
-      "sender_name": "کاربر فیلو",
+      "sender_name": "ارسلان",
       "category_id": 17,
       "duration": 926,
       "visit_count": 13126,
@@ -65646,10 +65597,20 @@
             "ای"
           ],
           "page": 27
+        },
+        {
+          "query": "gta",
+          "trendTitle": "gta",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:50:00 -0800",
+          "trendKeywords": [
+            "gta"
+          ],
+          "page": 15
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T11:45:28.875Z",
-      "lastMetricsFetchedAt": "2026-11-18T11:45:10.661Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.300Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:47.386Z"
     },
     "AxPuR7U": {
       "video_code": "AxPuR7U",
@@ -81301,34 +81262,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-04T03:21:52.930Z"
     },
-    "5ERJHIZ": {
-      "video_code": "5ERJHIZ",
-      "title": "سرقت از بانوان با آبمیوه مسموم به داروی بیهوشی و دستگیری توسط پلیس آگاهی تهران",
-      "sender_name": "سعید",
-      "category_id": 1,
-      "duration": 264,
-      "visit_count": 28002,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "هوای تهران",
-          "trendTitle": "هوای تهران",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:30:00 -0800",
-          "trendKeywords": [
-            "هوای",
-            "تهران"
-          ],
-          "page": 55
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T03:21:52.931Z"
-    },
     "DxxJMkK": {
       "video_code": "DxxJMkK",
       "title": "فوری زلزله ۷/۳ استان تهران که برج میلاد را کج کرد",
@@ -86909,35 +86842,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T16:45:52.258Z"
     },
-    "6ZK28ZL": {
-      "video_code": "6ZK28ZL",
-      "title": "فیلم تخریب و تکه تکه کردن ۳۶۵ بمب افکن بی ۵۲ که امریکا با گیوتین تخریب کرد",
-      "sender_name": "نبض تو",
-      "category_id": 1,
-      "duration": 317,
-      "visit_count": 27935,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:45:17.993Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "بمب کثیف",
-          "trendTitle": "بمب کثیف",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بمب",
-            "کثیف"
-          ],
-          "page": 21
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T16:45:52.261Z"
-    },
     "U0NxGAX": {
       "video_code": "U0NxGAX",
       "title": "بمب‌افکن‌های سوخو-۲۵ آذربایجان در تمرین تاکتیکی-پرواز بین‌المللی عقاب",
@@ -87750,34 +87654,6 @@
       "lastMetricsFetchedAt": "2026-11-17T16:45:21.213Z",
       "active": 1,
       "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "شکارچی",
-          "trendTitle": "شکارچی",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Tue, 17 Nov 2026 06:50:00 -0800",
-          "trendKeywords": [
-            "شکارچی"
-          ],
-          "page": 6
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T16:45:52.267Z"
-    },
-    "3KDk0BU": {
-      "video_code": "3KDk0BU",
-      "title": "فیلم سینمایی شکارچی: نبرد زمستان / The Huntsman Winter`s war دوبله فارسی",
-      "sender_name": "⭐Aramesh⭐",
-      "category_id": 3,
-      "duration": 5728,
-      "visit_count": 28048,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:45:21.213Z",
-      "active": 1,
-      "can_republish": 0,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -89173,35 +89049,6 @@
       "visit_count": 28503,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:45:34.042Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پیمان جبلی",
-          "trendTitle": "پیمان جبلی",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 08:10:00 -0800",
-          "trendKeywords": [
-            "پیمان",
-            "جبلی"
-          ],
-          "page": 6
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T16:45:52.274Z"
-    },
-    "mTGYv57": {
-      "video_code": "mTGYv57",
-      "title": "پیمان و غزل (حرمت بزرگتر واجبه)",
-      "sender_name": "محسن مهرعلیان",
-      "category_id": 8,
-      "duration": 88,
-      "visit_count": 28010,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T16:45:34.042Z",
       "active": 1,
       "can_republish": 1,
@@ -98536,35 +98383,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T17:25:47.890Z"
     },
-    "bRYILiU": {
-      "video_code": "bRYILiU",
-      "title": "سریال حکم رشد قسمت ۲۷ (آخر)",
-      "sender_name": "پرشین فیلم",
-      "category_id": 3,
-      "duration": 2620,
-      "visit_count": 28039,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T17:25:28.385Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 37
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T17:25:47.890Z"
-    },
     "PdM6bXr": {
       "video_code": "PdM6bXr",
       "title": "دانلود سریال افسانه جومونگ قسمت آخر دوبله فارسی",
@@ -99977,35 +99795,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T17:25:47.892Z"
     },
-    "jViaW6F": {
-      "video_code": "jViaW6F",
-      "title": "باب اسفنجی. فصل آخر قسمت اخر",
-      "sender_name": "Radin فالو مساوی فالو",
-      "category_id": 21,
-      "duration": 656,
-      "visit_count": 28083,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T17:25:35.813Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 42
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T17:25:47.892Z"
-    },
     "iPqkUH3": {
       "video_code": "iPqkUH3",
       "title": "انیمه شیطان کش فصل 3 قسمت 11 آخر دوبله فارسی کامل",
@@ -101207,35 +100996,6 @@
       "lastMetricsFetchedAt": "2026-11-17T17:25:41.993Z",
       "active": 1,
       "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 46
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T17:25:47.893Z"
-    },
-    "GIdhKNB": {
-      "video_code": "GIdhKNB",
-      "title": "انیمیشن شاهزاده اژدها فصل ۵ قسمت ۹ دوبله فارسی آخر",
-      "sender_name": "Filo film فالو=فالو",
-      "category_id": 21,
-      "duration": 1689,
-      "visit_count": 28024,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T17:25:41.993Z",
-      "active": 1,
-      "can_republish": 1,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -103730,35 +103490,6 @@
       "visit_count": 29217,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:05:23.665Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 58
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T18:05:35.135Z"
-    },
-    "W2aFNeP": {
-      "video_code": "W2aFNeP",
-      "title": "اتفاقات شوکه کننده قسمت آخر سریال بابا دانلود از فیلو",
-      "sender_name": "نیما",
-      "category_id": 3,
-      "duration": 194,
-      "visit_count": 28069,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T18:05:23.665Z",
       "active": 1,
       "can_republish": 0,
@@ -112171,34 +111902,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:25:53.225Z"
     },
-    "2q7eZ3y": {
-      "video_code": "2q7eZ3y",
-      "title": "E208}دانلود سریال سوگند - قسمت ۲۰۸ - دوبله فارسی",
-      "sender_name": "Filo Series",
-      "category_id": 3,
-      "duration": 2596,
-      "visit_count": 27984,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:28.789Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 22
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.225Z"
-    },
     "wYlWaQj": {
       "video_code": "wYlWaQj",
       "title": "E204}دانلود سریال سوگند - قسمت ۲۰۴ - دوبله فارسی",
@@ -112339,34 +112042,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:25:53.226Z"
     },
-    "SnStL9l": {
-      "video_code": "SnStL9l",
-      "title": "E216}دانلود سریال سوگند - قسمت ۲۱۶ - دوبله فارسی",
-      "sender_name": "Filo Series",
-      "category_id": 3,
-      "duration": 2747,
-      "visit_count": 27968,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:29.914Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 23
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.226Z"
-    },
     "MQkNWnU": {
       "video_code": "MQkNWnU",
       "title": "Ep98)دانلود سریال سوگند با دوبلۀ فارسی _ قسمت 98",
@@ -112395,34 +112070,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T19:25:53.226Z"
     },
-    "cianCX8": {
-      "video_code": "cianCX8",
-      "title": "سریال سوگند قسمت 12 زیرنویس فارسی سانسورشده",
-      "sender_name": "Mehrshad",
-      "category_id": 3,
-      "duration": 3533,
-      "visit_count": 27991,
-      "create_date": "6 سال پیش",
-      "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:29.914Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 23
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.226Z"
-    },
     "r1Kw185": {
       "video_code": "r1Kw185",
       "title": "Ep134}دانلود سریال سوگند - قسمت ۱۳۴ - دوبله فارسی",
@@ -112432,34 +112079,6 @@
       "visit_count": 38841,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:31.487Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 24
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.226Z"
-    },
-    "Y7TV0Gi": {
-      "video_code": "Y7TV0Gi",
-      "title": "Ep36)دانلود سریال سوگند با دوبلۀ فارسی",
-      "sender_name": "Filo Series",
-      "category_id": 3,
-      "duration": 2495,
-      "visit_count": 28018,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T19:25:31.487Z",
       "active": 1,
       "can_republish": 0,
@@ -112870,34 +112489,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-17T19:25:53.226Z"
-    },
-    "FKKS2Rs": {
-      "video_code": "FKKS2Rs",
-      "title": "Ep110}دانلود سریال سوگند با دوبلۀ فارسی _ قسمت 110",
-      "sender_name": "Filo Series",
-      "category_id": 3,
-      "duration": 2564,
-      "visit_count": 28032,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:35.002Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 27
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.227Z"
     },
     "pYYRGER": {
       "video_code": "pYYRGER",
@@ -113468,62 +113059,6 @@
       "visit_count": 28918,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:40.708Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 32
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.229Z"
-    },
-    "PVPBx4n": {
-      "video_code": "PVPBx4n",
-      "title": "Ep45)دانلود سریال سوگند با دوبلۀ فارسی _ قسمت 45",
-      "sender_name": "Filo Series",
-      "category_id": 3,
-      "duration": 2605,
-      "visit_count": 28010,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:40.708Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 32
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.229Z"
-    },
-    "PP7jRbC": {
-      "video_code": "PP7jRbC",
-      "title": "E199}دانلود سریال سوگند - قسمت ۱۹۹ - دوبله فارسی",
-      "sender_name": "Filo Series",
-      "category_id": 3,
-      "duration": 2631,
-      "visit_count": 28006,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T19:25:40.708Z",
       "active": 1,
       "can_republish": 0,
@@ -122357,10 +121892,10 @@
       "sender_name": "جهان ویدیو",
       "category_id": 21,
       "duration": 321,
-      "visit_count": 42972,
+      "visit_count": 42978,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T08:06:55.633Z",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:22.393Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -122375,9 +121910,19 @@
             "آشپزی"
           ],
           "page": 45
+        },
+        {
+          "query": "bale",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T08:07:23.248Z"
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.281Z"
     },
     "LsUGS5A": {
       "video_code": "LsUGS5A",
@@ -137996,36 +137541,6 @@
       "category_id": 6,
       "duration": 730,
       "visit_count": 49923,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T11:14:42.455Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "جی تی ای",
-          "trendTitle": "جی تی ای ۶",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-          "trendKeywords": [
-            "جی",
-            "تی",
-            "ای"
-          ],
-          "page": 9
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T11:15:32.362Z"
-    },
-    "XPU6BNK": {
-      "video_code": "XPU6BNK",
-      "title": "جی تی ای وی احسان باکستر .........",
-      "sender_name": "ابوالفضل",
-      "category_id": 25,
-      "duration": 704,
-      "visit_count": 27940,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "lastMetricsFetchedAt": "2026-11-18T11:14:42.455Z",
@@ -157607,35 +157122,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-19T19:26:18.628Z"
     },
-    "ZKrFWXf": {
-      "video_code": "ZKrFWXf",
-      "title": "آهنگ رپ علی بیغم",
-      "sender_name": "asma",
-      "category_id": 9,
-      "duration": 372,
-      "visit_count": 28005,
-      "create_date": "6 سال پیش",
-      "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-19T19:25:31.997Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "علی تاجرنیا",
-          "trendTitle": "علی تاجرنیا",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Thu, 19 Nov 2026 09:50:00 -0800",
-          "trendKeywords": [
-            "علی",
-            "تاجرنیا"
-          ],
-          "page": 34
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-19T19:26:18.628Z"
-    },
     "fzUXZMq": {
       "video_code": "fzUXZMq",
       "title": "دعای الهی عظم البلا با صدای دلنشین علی فانی",
@@ -165084,34 +164570,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-22T06:25:24.198Z"
     },
-    "2T20gFl": {
-      "video_code": "2T20gFl",
-      "title": "فیلم سریع و خشن The Fast and the Furious 200۱ دوبله فارسی",
-      "sender_name": "Mohsen",
-      "category_id": 3,
-      "duration": 5499,
-      "visit_count": 28068,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-22T06:25:17.975Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "یحیی سریع: 2 مرکز بسیار مهم دشمن سعودی مورد اصابت قرار گرفت",
-          "trendTitle": "ریاض",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Thu, 19 Nov 2026 10:00:00 -0800",
-          "trendKeywords": [
-            "ریاض"
-          ],
-          "page": 15
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-22T06:25:24.198Z"
-    },
     "625NC38": {
       "video_code": "625NC38",
       "title": "اژدهای کومودو؛ سریع، مرگبار و با یک روش عجیب تولیدمثل!",
@@ -165483,35 +164941,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-22T09:30:20.889Z"
-    },
-    "0wamD8X": {
-      "video_code": "0wamD8X",
-      "title": "زندگی روزمره پادشاه جاوید فصل 1 قسمت 5 دوبله فارسی",
-      "sender_name": "کارتون و فیلم",
-      "category_id": 3,
-      "duration": 1204,
-      "visit_count": 28025,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-22T09:29:35.685Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "داوید رایا",
-          "trendTitle": "داوید رایا",
-          "trendTraffic": 5000,
-          "trendPublishedAt": "Sun, 22 Nov 2026 00:20:00 -0800",
-          "trendKeywords": [
-            "داوید",
-            "رایا"
-          ],
-          "page": 2
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-22T09:30:20.890Z"
     },
     "nJFAX55": {
       "video_code": "nJFAX55",
@@ -166544,34 +165973,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-22T18:31:22.542Z"
-    },
-    "PzIvt2O": {
-      "video_code": "PzIvt2O",
-      "title": "سریال سربازان یا زامبی ها قسمت 7 با دوبله فارسی S.O.Z: Soldados o Zombies 2021",
-      "sender_name": "milloo",
-      "category_id": 3,
-      "duration": 1541,
-      "visit_count": 27990,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-22T21:34:31.543Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "s27",
-          "trendTitle": "s27",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
-          "trendKeywords": [
-            "s27"
-          ],
-          "page": 15
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-22T21:34:55.848Z"
     },
     "X6KfseZ": {
       "video_code": "X6KfseZ",
@@ -167886,34 +167287,6 @@
       "lastMetricsFetchedAt": "2026-11-22T21:34:34.546Z",
       "active": 1,
       "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "s27",
-          "trendTitle": "s27",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Sun, 22 Nov 2026 10:00:00 -0800",
-          "trendKeywords": [
-            "s27"
-          ],
-          "page": 18
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-22T21:34:55.852Z"
-    },
-    "M28zV0N": {
-      "video_code": "M28zV0N",
-      "title": "فیلم سجین 7 Sijjin 2023 زیرنویس فارسی",
-      "sender_name": "✅کافه فیلم✅",
-      "category_id": 3,
-      "duration": 5258,
-      "visit_count": 27978,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-22T21:34:34.546Z",
-      "active": 1,
-      "can_republish": 1,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -176401,46 +175774,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
     },
-    "2ZnlnWU": {
-      "video_code": "2ZnlnWU",
-      "title": "سوتی خیلی خنده دار علیرضا بیرانوند???",
-      "sender_name": "محمد",
-      "category_id": 6,
-      "duration": 36,
-      "visit_count": 10294,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T04:09:23.229Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "علیرضا بیرانوند",
-          "trendTitle": "علیرضا بیرانوند",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 23 Nov 2026 15:50:00 -0800",
-          "trendKeywords": [
-            "علیرضا",
-            "بیرانوند"
-          ],
-          "page": 1
-        },
-        {
-          "query": "بیرانوند: به هیچ‌کس برای معافیت زنگ نمی‌زنم/ بی‌احترامی نکردم",
-          "trendTitle": "علیرضا بیرانوند",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Mon, 23 Nov 2026 15:50:00 -0800",
-          "trendKeywords": [
-            "علیرضا",
-            "بیرانوند"
-          ],
-          "page": 2
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-24T04:09:46.791Z"
-    },
     "I6R8ovO": {
       "video_code": "I6R8ovO",
       "title": "پرتاب دست علیرضا بیرانوند، رکورد گینس",
@@ -177229,8 +176562,738 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-24T04:09:46.779Z"
+    },
+    "XG34hAf": {
+      "video_code": "XG34hAf",
+      "title": "------ . فال امروز شما . ------_fale rooz _fale emrooz_فال روزانه _pishgoo_طالع",
+      "sender_name": "Filo Series",
+      "category_id": 7,
+      "duration": 897,
+      "visit_count": 46697,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:22.393Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "bale",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.281Z"
+    },
+    "uihH0BC": {
+      "video_code": "uihH0BC",
+      "title": "سریال افسانه نوکدو قسمت شانزدهم دوبله فارسی The Tale of Nokdu 2019",
+      "sender_name": "دنیای انیمیشن و سینما",
+      "category_id": 3,
+      "duration": 3574,
+      "visit_count": 43530,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:22.393Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "bale",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.281Z"
+    },
+    "BfZoLGq": {
+      "video_code": "BfZoLGq",
+      "title": "سریال افسانه نوکدو قسمت پانزدهم دوبله فارسی The Tale of Nokdu 2019",
+      "sender_name": "دنیای انیمیشن و سینما",
+      "category_id": 3,
+      "duration": 3636,
+      "visit_count": 46221,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:22.393Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "bale",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.281Z"
+    },
+    "wWRn8BL": {
+      "video_code": "wWRn8BL",
+      "title": "دانلود فیلم داستانی از برانکس – A Bronx Tale",
+      "sender_name": "فیلم و سریال",
+      "category_id": 3,
+      "duration": 7147,
+      "visit_count": 68584,
+      "create_date": "1 سال پیش",
+      "styled_create_date": "1 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:22.393Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "bale",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.281Z"
+    },
+    "qbbQmnS": {
+      "video_code": "qbbQmnS",
+      "title": "فیلم ترسناک A Tale of Two Sisters 2003 (داستان دو خواهر)",
+      "sender_name": "علی",
+      "category_id": 3,
+      "duration": 6871,
+      "visit_count": 41286,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:22.393Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "bale",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.281Z"
+    },
+    "N7se8FP": {
+      "video_code": "N7se8FP",
+      "title": "سریال کره ای افسانه نوکدو قسمت 15 دوبله فارسی The Tale of Nokdu 2019",
+      "sender_name": "آماندا",
+      "category_id": 3,
+      "duration": 3636,
+      "visit_count": 31451,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:22.393Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "bale",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.281Z"
+    },
+    "5ZfqTvV": {
+      "video_code": "5ZfqTvV",
+      "title": "فیلم سفید برفی با دوبله فارسی Snow White: A Tale of Terror 1997",
+      "sender_name": "امیرسالم",
+      "category_id": 3,
+      "duration": 5448,
+      "visit_count": 53135,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:22.393Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "bale",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.281Z"
+    },
+    "eL5hWVv": {
+      "video_code": "eL5hWVv",
+      "title": "دانلود سریال سرگذشت ندیمه قسمت 1 فصل 1 دوبله فارسی The Handmaid’s Tale",
+      "sender_name": "zar",
+      "category_id": 3,
+      "duration": 3251,
+      "visit_count": 32596,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:23.357Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "bale",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 6
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.281Z"
+    },
+    "cSlfIqF": {
+      "video_code": "cSlfIqF",
+      "title": "فیلم داستانی از برانکس A Bronx Tale 1993 با زیرنویس فارسی",
+      "sender_name": "سیم خاردار❤️",
+      "category_id": 3,
+      "duration": 7147,
+      "visit_count": 51500,
+      "create_date": "1 سال پیش",
+      "styled_create_date": "1 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:23.357Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "bale",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 6
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.281Z"
+    },
+    "49Rbxjv": {
+      "video_code": "49Rbxjv",
+      "title": "سریال کره ای افسانه نوکدو قسمت 16 (قسمت آخر) دوبله فارسی The Tale of Nokdu 2019",
+      "sender_name": "آماندا",
+      "category_id": 3,
+      "duration": 3574,
+      "visit_count": 34672,
+      "create_date": "5 سال پیش",
+      "styled_create_date": "5 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:23.357Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "bale",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 6
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.281Z"
+    },
+    "LhXz5Xe": {
+      "video_code": "LhXz5Xe",
+      "title": "فضانوردان لگویی با شاتل ساخته‌شده با چاپ سه‌بعدی از فرودگاه Male Bielice در نزدی",
+      "sender_name": "Javad",
+      "category_id": 2,
+      "duration": 104,
+      "visit_count": 65433,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:24.800Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "bale",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 8
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.281Z"
+    },
+    "vNPC1Q2": {
+      "video_code": "vNPC1Q2",
+      "title": "انیمیشن مکاماتو دوبله فارسی Mechamato Movie",
+      "sender_name": "⭐ کلیپ آنلاین ⭐",
+      "category_id": 21,
+      "duration": 7477,
+      "visit_count": 116907,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:23.863Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "Raiders' Mark Davis unhappy with 'unfair' image of his father in 'Madden' movie",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.285Z"
+    },
+    "LtsArQd": {
+      "video_code": "LtsArQd",
+      "title": "فیلم سینمایی هزارتو Hezartoo Movie",
+      "sender_name": "یزدان شمشیری",
+      "category_id": 3,
+      "duration": 4951,
+      "visit_count": 105761,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:25.715Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "Raiders' Mark Davis unhappy with 'unfair' image of his father in 'Madden' movie",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.285Z"
+    },
+    "IEKOaBZ": {
+      "video_code": "IEKOaBZ",
+      "title": "دانلود انیمیشن مکاماتو Mechamato Movie 2022",
+      "sender_name": "اهواز تی وی",
+      "category_id": 21,
+      "duration": 7477,
+      "visit_count": 31402,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:25.715Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "Raiders' Mark Davis unhappy with 'unfair' image of his father in 'Madden' movie",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.285Z"
+    },
+    "lvo56WI": {
+      "video_code": "lvo56WI",
+      "title": "انیمیشن گارفیلد جدید با دوبله فارسی سورن / The Garfield Movie 2024",
+      "sender_name": "فیلم و انیمیشن",
+      "category_id": 21,
+      "duration": 6152,
+      "visit_count": 73243,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:25.715Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "Raiders' Mark Davis unhappy with 'unfair' image of his father in 'Madden' movie",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.285Z"
+    },
+    "odnJYXK": {
+      "video_code": "odnJYXK",
+      "title": "انیمیشن گارفیلد 3 The Garfield Movie 2024 دوبله سورن",
+      "sender_name": "Onichaan",
+      "category_id": 21,
+      "duration": 5992,
+      "visit_count": 46594,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:25.715Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "Raiders' Mark Davis unhappy with 'unfair' image of his father in 'Madden' movie",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.285Z"
+    },
+    "DG3SDxy": {
+      "video_code": "DG3SDxy",
+      "title": "دانلود کارتون مکاماتو دوبله فارسی🔥 Mechamato Movie 2022",
+      "sender_name": "تماشای آنلاین با ترافیک نیم بها",
+      "category_id": 21,
+      "duration": 7477,
+      "visit_count": 34547,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:25.715Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "Raiders' Mark Davis unhappy with 'unfair' image of his father in 'Madden' movie",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.285Z"
+    },
+    "wjP6SLE": {
+      "video_code": "wjP6SLE",
+      "title": "فیلم کوتاه ترسناک مومو Momo - Short Horror Movie",
+      "sender_name": "d1400",
+      "category_id": 3,
+      "duration": 346,
+      "visit_count": 31995,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:25.715Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "Raiders' Mark Davis unhappy with 'unfair' image of his father in 'Madden' movie",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.285Z"
+    },
+    "YUBNW2B": {
+      "video_code": "YUBNW2B",
+      "title": "دانلود انیمه سینمایی Naruto: Shippuuden Movie 6 - Road to Ninja با زیرنوی چسبیده",
+      "sender_name": "انیمه وانتد",
+      "category_id": 21,
+      "duration": 6595,
+      "visit_count": 42843,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:25.715Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "Raiders' Mark Davis unhappy with 'unfair' image of his father in 'Madden' movie",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.285Z"
+    },
+    "KqA0UMm": {
+      "video_code": "KqA0UMm",
+      "title": "فیلم سینمایی monster hight the movie 2022 دوبله فارسی",
+      "sender_name": "کلیپ کده / فیلم سریال",
+      "category_id": 3,
+      "duration": 5512,
+      "visit_count": 70474,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:25.715Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "Raiders' Mark Davis unhappy with 'unfair' image of his father in 'Madden' movie",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.285Z"
+    },
+    "7ndoVCU": {
+      "video_code": "7ndoVCU",
+      "title": "انیمیشن استیچ Stitch! The Movie 2003 دوبله فارسی",
+      "sender_name": "ایلیا C4",
+      "category_id": 21,
+      "duration": 3345,
+      "visit_count": 34148,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:27.470Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "Raiders' Mark Davis unhappy with 'unfair' image of his father in 'Madden' movie",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.285Z"
+    },
+    "UCj8tz8": {
+      "video_code": "UCj8tz8",
+      "title": "فیلم سینمایی monster hight the movie 2022 دوبله فارسی",
+      "sender_name": "filmmix",
+      "category_id": 3,
+      "duration": 5513,
+      "visit_count": 28558,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:27.470Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "Raiders' Mark Davis unhappy with 'unfair' image of his father in 'Madden' movie",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.286Z"
+    },
+    "Qc0QKIc": {
+      "video_code": "Qc0QKIc",
+      "title": "فیلم سینمایی فرمول یک با دوبله فارسی F1: The Movie 2025",
+      "sender_name": "آی‌آرمووی",
+      "category_id": 3,
+      "duration": 9110,
+      "visit_count": 50356,
+      "create_date": "1 سال پیش",
+      "styled_create_date": "1 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:28.855Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "Raiders' Mark Davis unhappy with 'unfair' image of his father in 'Madden' movie",
+          "trendTitle": "bale",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 23:40:00 -0800",
+          "trendKeywords": [
+            "bale"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.286Z"
+    },
+    "nRQoNZT": {
+      "video_code": "nRQoNZT",
+      "title": "دسترسی به شماره افراد در پیام رسان سروش",
+      "sender_name": "ʍօհąʍʍąժ ʝąѵąժ",
+      "category_id": 2,
+      "duration": 51,
+      "visit_count": 60375,
+      "create_date": "7 سال پیش",
+      "styled_create_date": "7 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:18.061Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "پیام رسان بله",
+          "trendTitle": "پیام رسان بله",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 24 Nov 2026 00:00:00 -0800",
+          "trendKeywords": [
+            "پیام",
+            "رسان",
+            "بله"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.292Z"
+    },
+    "N82mqGa": {
+      "video_code": "N82mqGa",
+      "title": "دوربین مخفی آرایشگری در ماشین پویانnr",
+      "sender_name": "حمیدرضا",
+      "category_id": 2,
+      "duration": 1024,
+      "visit_count": 29392,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:46.326Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "ncr",
+          "trendTitle": "ncr",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "ncr"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.301Z"
+    },
+    "lfvgJIC": {
+      "video_code": "lfvgJIC",
+      "title": "ریزش برج میلاد با پویانnrبرج میلاد ریخت 😱😱😱😱 چرا اخه",
+      "sender_name": "Radin فالو مساوی فالو",
+      "category_id": 22,
+      "duration": 543,
+      "visit_count": 117021,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T08:49:47.275Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "ncr",
+          "trendTitle": "ncr",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 22:50:00 -0800",
+          "trendKeywords": [
+            "ncr"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T08:50:03.301Z"
     }
   },
-  "totalPagesFetched": 16380,
-  "totalVideosSeen": 292715
+  "totalPagesFetched": 16499,
+  "totalVideosSeen": 294688
 }
