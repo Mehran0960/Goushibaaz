@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-24T01:45:45.590Z",
-  "trendsFetchedAt": "2026-11-24T01:43:57.411Z",
+  "updatedAt": "2026-11-24T02:34:47.665Z",
+  "trendsFetchedAt": "2026-11-24T02:33:55.586Z",
   "trends": [
     {
       "title": "جایگاههای باشگاه فوتبال تراکتور درمقابل الوصل امارات",
@@ -17,18 +17,7 @@
       ],
       "traffic": 50000,
       "publishedAt": "Mon, 23 Nov 2026 10:10:00 -0800",
-      "ageHours": 7.6
-    },
-    {
-      "title": "جدول لیگ نخبگان",
-      "keywords": [
-        "جدول",
-        "لیگ",
-        "نخبگان"
-      ],
-      "traffic": 5000,
-      "publishedAt": "Mon, 23 Nov 2026 09:50:00 -0800",
-      "ageHours": 7.9
+      "ageHours": 8.4
     },
     {
       "title": "علیرضا بیرانوند",
@@ -36,19 +25,19 @@
         "علیرضا",
         "بیرانوند"
       ],
-      "traffic": 1000,
+      "traffic": 5000,
       "publishedAt": "Mon, 23 Nov 2026 15:50:00 -0800",
-      "ageHours": 1.9
+      "ageHours": 2.7
     },
     {
-      "title": "انیمیشن steps",
+      "title": "پارسا جعفری",
       "keywords": [
-        "انیمیشن",
-        "steps"
+        "پارسا",
+        "جعفری"
       ],
-      "traffic": 1000,
+      "traffic": 2000,
       "publishedAt": "Mon, 23 Nov 2026 09:40:00 -0800",
-      "ageHours": 8.1
+      "ageHours": 8.9
     },
     {
       "title": "سینا ولی الله",
@@ -59,7 +48,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Mon, 23 Nov 2026 11:30:00 -0800",
-      "ageHours": 6.2
+      "ageHours": 7.1
     },
     {
       "title": "ورزش سه نتایج",
@@ -70,7 +59,17 @@
       ],
       "traffic": 200,
       "publishedAt": "Mon, 23 Nov 2026 10:00:00 -0800",
-      "ageHours": 7.7
+      "ageHours": 8.6
+    },
+    {
+      "title": "صالح حردانی",
+      "keywords": [
+        "صالح",
+        "حردانی"
+      ],
+      "traffic": 100,
+      "publishedAt": "Mon, 23 Nov 2026 18:00:00 -0800",
+      "ageHours": 0.6
     },
     {
       "title": "بایرن مونیخ",
@@ -80,7 +79,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Mon, 23 Nov 2026 10:50:00 -0800",
-      "ageHours": 6.9
+      "ageHours": 7.7
     },
     {
       "title": "الاتحاد مقابل پاختاکور",
@@ -91,7 +90,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Mon, 23 Nov 2026 10:50:00 -0800",
-      "ageHours": 6.9
+      "ageHours": 7.7
     },
     {
       "title": "علی علیپور",
@@ -101,7 +100,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Mon, 23 Nov 2026 10:50:00 -0800",
-      "ageHours": 6.9
+      "ageHours": 7.7
     },
     {
       "title": "باشگاه فوتبال الهلال",
@@ -112,7 +111,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Mon, 23 Nov 2026 10:30:00 -0800",
-      "ageHours": 7.2
+      "ageHours": 8.1
     }
   ],
   "queries": {
@@ -201,7 +200,7 @@
         "بایرن",
         "مونیخ"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.657Z",
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -511,12 +510,12 @@
     "vietinbank premium همکاری با مشتریان برای حفظ دستاوردها و ساختن آینده در طول نسل ها": {
       "query": "Vietinbank Premium: همکاری با مشتریان برای حفظ دستاوردها و ساختن آینده در طول نسل‌ها.",
       "normalized": "vietinbank premium همکاری با مشتریان برای حفظ دستاوردها و ساختن آینده در طول نسل ها",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 4,
+      "videosSeen": 22,
       "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-24T02:34:47.473Z",
       "lastError": null,
       "trendTitle": "دارایی",
       "trendTraffic": 200,
@@ -525,7 +524,9 @@
         "دارایی"
       ],
       "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T02:34:47.473Z"
     },
     "دانشگاه": {
       "query": "دانشگاه",
@@ -571,12 +572,12 @@
     "اطلاعیه شماره ۱ ویژه پذیرفته شدگان دوره های کاردانی و کارشناسی ورودی ۱۴۰۵ دانشگاه صنعتی سهند": {
       "query": "اطلاعیه شماره ۱-ویژه پذیرفته شدگان دوره های کاردانی و کارشناسی ورودی ۱۴۰۵ دانشگاه صنعتی سهند",
       "normalized": "اطلاعیه شماره ۱ ویژه پذیرفته شدگان دوره های کاردانی و کارشناسی ورودی ۱۴۰۵ دانشگاه صنعتی سهند",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-21T06:09:07.186Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-24T02:34:47.473Z",
       "lastError": null,
       "trendTitle": "دانشگاه",
       "trendTraffic": 100,
@@ -585,7 +586,9 @@
         "دانشگاه"
       ],
       "lastTrendSeenAt": "2026-11-21T06:09:07.186Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T02:34:47.473Z"
     },
     "lakers vs kings": {
       "query": "lakers vs kings",
@@ -5151,7 +5154,7 @@
         "الوصل",
         "امارات"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.656Z",
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-24T01:45:45.417Z"
@@ -5178,7 +5181,7 @@
         "الوصل",
         "امارات"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.656Z",
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-24T01:45:45.417Z"
@@ -5205,7 +5208,7 @@
         "الوصل",
         "امارات"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.656Z",
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-24T01:45:45.417Z"
@@ -5229,7 +5232,7 @@
         "نخبگان"
       ],
       "lastTrendSeenAt": "2026-11-24T01:43:57.656Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "گزارش ویژه تک امتیاز و بذر انتقام سوغات شب فوتبالی ایران و امارات": {
@@ -5251,7 +5254,7 @@
         "نخبگان"
       ],
       "lastTrendSeenAt": "2026-11-24T01:43:57.656Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-24T01:45:45.423Z"
     },
@@ -5274,7 +5277,7 @@
         "نخبگان"
       ],
       "lastTrendSeenAt": "2026-11-24T01:43:57.656Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-24T01:45:45.423Z"
     },
@@ -5289,13 +5292,13 @@
       "lastAttemptAt": "2026-11-24T01:45:45.428Z",
       "lastError": null,
       "trendTitle": "علیرضا بیرانوند",
-      "trendTraffic": 1000,
+      "trendTraffic": 5000,
       "trendPublishedAt": "Mon, 23 Nov 2026 15:50:00 -0800",
       "trendKeywords": [
         "علیرضا",
         "بیرانوند"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.656Z",
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -5310,13 +5313,13 @@
       "lastAttemptAt": "2026-11-24T01:45:45.433Z",
       "lastError": null,
       "trendTitle": "علیرضا بیرانوند",
-      "trendTraffic": 1000,
+      "trendTraffic": 5000,
       "trendPublishedAt": "Mon, 23 Nov 2026 15:50:00 -0800",
       "trendKeywords": [
         "علیرضا",
         "بیرانوند"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.656Z",
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -5331,13 +5334,13 @@
       "lastAttemptAt": "2026-11-24T01:45:45.434Z",
       "lastError": null,
       "trendTitle": "علیرضا بیرانوند",
-      "trendTraffic": 1000,
+      "trendTraffic": 5000,
       "trendPublishedAt": "Mon, 23 Nov 2026 15:50:00 -0800",
       "trendKeywords": [
         "علیرضا",
         "بیرانوند"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.656Z",
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
       "activeInLatestFeed": true,
       "termination": "empty_page",
       "completedAt": "2026-11-24T01:45:45.434Z"
@@ -5360,7 +5363,7 @@
         "steps"
       ],
       "lastTrendSeenAt": "2026-11-24T01:43:57.656Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "پوستر جدیدی از انیمیشن steps با صداپیشگی دنیل ردکلیف و آماندا سایفرد منتشر شد": {
@@ -5381,7 +5384,7 @@
         "steps"
       ],
       "lastTrendSeenAt": "2026-11-24T01:43:57.656Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "تماشای انیمیشن خواهران ناتنی 2026 steps معرفی و داستان": {
@@ -5402,17 +5405,17 @@
         "steps"
       ],
       "lastTrendSeenAt": "2026-11-24T01:43:57.656Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "سینا ولی الله": {
       "query": "سینا ولی الله",
       "normalized": "سینا ولی الله",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 11,
+      "complete": true,
+      "pagesFetched": 10,
+      "videosSeen": 164,
       "createdAt": "2026-11-24T01:43:57.656Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-24T02:34:47.451Z",
       "lastError": null,
       "trendTitle": "سینا ولی الله",
       "trendTraffic": 200,
@@ -5422,18 +5425,20 @@
         "ولی",
         "الله"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.656Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T02:34:47.451Z"
     },
     "فحش رکیک المیرا شریفی مقدم به سینا ولی الله": {
       "query": "فحش رکیک المیرا شریفی‌مقدم به سینا ولی‌الله",
       "normalized": "فحش رکیک المیرا شریفی مقدم به سینا ولی الله",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-24T01:43:57.656Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-24T02:34:47.451Z",
       "lastError": null,
       "trendTitle": "سینا ولی الله",
       "trendTraffic": 200,
@@ -5443,8 +5448,10 @@
         "ولی",
         "الله"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.656Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T02:34:47.451Z"
     },
     "درگیری لفظی المیرا شریفی مقدم با سینا ولی الله": {
       "query": "درگیری لفظی المیرا شریفی‌مقدم با سینا ولی‌الله",
@@ -5465,17 +5472,17 @@
         "الله"
       ],
       "lastTrendSeenAt": "2026-11-24T01:43:57.656Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "ورزش سه نتایج": {
       "query": "ورزش سه نتایج",
       "normalized": "ورزش سه نتایج",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 12,
+      "complete": true,
+      "pagesFetched": 11,
+      "videosSeen": 188,
       "createdAt": "2026-11-24T01:43:57.656Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-24T02:34:47.455Z",
       "lastError": null,
       "trendTitle": "ورزش سه نتایج",
       "trendTraffic": 200,
@@ -5485,18 +5492,20 @@
         "سه",
         "نتایج"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.656Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T02:34:47.455Z"
     },
     "اسنوکر جک جونز جاشوا توموند": {
       "query": "اسنوکر جک جونز - جاشوا توموند",
       "normalized": "اسنوکر جک جونز جاشوا توموند",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-24T01:43:57.656Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-24T02:34:47.455Z",
       "lastError": null,
       "trendTitle": "ورزش سه نتایج",
       "trendTraffic": 200,
@@ -5506,18 +5515,20 @@
         "سه",
         "نتایج"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.656Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T02:34:47.455Z"
     },
     "اسنوکر قهرمانی بریتانیا": {
       "query": "اسنوکر قهرمانی بریتانیا",
       "normalized": "اسنوکر قهرمانی بریتانیا",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 3,
+      "videosSeen": 3,
       "createdAt": "2026-11-24T01:43:57.656Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-24T02:34:47.455Z",
       "lastError": null,
       "trendTitle": "ورزش سه نتایج",
       "trendTraffic": 200,
@@ -5527,18 +5538,20 @@
         "سه",
         "نتایج"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.656Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T02:34:47.455Z"
     },
     "تشنج دوباره موسیالا جمال بی رخ": {
       "query": "تشنج دوباره موسیالا؛ جمال بی‌رخ",
       "normalized": "تشنج دوباره موسیالا جمال بی رخ",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 3,
+      "videosSeen": 6,
       "createdAt": "2026-11-24T01:43:57.657Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-24T02:34:47.455Z",
       "lastError": null,
       "trendTitle": "بایرن مونیخ",
       "trendTraffic": 100,
@@ -5547,18 +5560,20 @@
         "بایرن",
         "مونیخ"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.657Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T02:34:47.455Z"
     },
     "جنجال اظهارات مدیران بایرن مونیخ درباره وضعیت سلامتی جمال موسیالا": {
       "query": "جنجال اظهارات مدیران بایرن مونیخ درباره وضعیت سلامتی جمال موسیالا",
       "normalized": "جنجال اظهارات مدیران بایرن مونیخ درباره وضعیت سلامتی جمال موسیالا",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 3,
+      "videosSeen": 6,
       "createdAt": "2026-11-24T01:43:57.657Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-24T02:34:47.456Z",
       "lastError": null,
       "trendTitle": "بایرن مونیخ",
       "trendTraffic": 100,
@@ -5567,18 +5582,20 @@
         "بایرن",
         "مونیخ"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.657Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T02:34:47.456Z"
     },
     "الاتحاد مقابل پاختاکور": {
       "query": "الاتحاد مقابل پاختاکور",
       "normalized": "الاتحاد مقابل پاختاکور",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 381,
       "createdAt": "2026-11-24T01:43:57.657Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-24T02:34:47.466Z",
       "lastError": null,
       "trendTitle": "الاتحاد مقابل پاختاکور",
       "trendTraffic": 100,
@@ -5588,18 +5605,19 @@
         "مقابل",
         "پاختاکور"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.657Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "پخش زنده فوتبال الاتحاد و پاختاکور در شبکه ورزش": {
       "query": "پخش زنده فوتبال الاتحاد و پاختاکور در شبکه ورزش",
       "normalized": "پخش زنده فوتبال الاتحاد و پاختاکور در شبکه ورزش",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-24T01:43:57.657Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-24T02:34:47.466Z",
       "lastError": null,
       "trendTitle": "الاتحاد مقابل پاختاکور",
       "trendTraffic": 100,
@@ -5609,18 +5627,20 @@
         "مقابل",
         "پاختاکور"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.657Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T02:34:47.466Z"
     },
     "مصدومیت ادامه دار پورعلی گنجی در آسیا": {
       "query": "مصدومیت ادامه‌دار پورعلی‌گنجی در آسیا",
       "normalized": "مصدومیت ادامه دار پورعلی گنجی در آسیا",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 4,
+      "videosSeen": 24,
       "createdAt": "2026-11-24T01:43:57.657Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-24T02:34:47.466Z",
       "lastError": null,
       "trendTitle": "الاتحاد مقابل پاختاکور",
       "trendTraffic": 100,
@@ -5630,18 +5650,20 @@
         "مقابل",
         "پاختاکور"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.657Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T02:34:47.466Z"
     },
     "علی علیپور": {
       "query": "علی علیپور",
       "normalized": "علی علیپور",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 394,
       "createdAt": "2026-11-24T01:43:57.657Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-24T02:34:47.472Z",
       "lastError": null,
       "trendTitle": "علی علیپور",
       "trendTraffic": 100,
@@ -5650,18 +5672,19 @@
         "علی",
         "علیپور"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.657Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "آشتی سکو با مهاجم سرخ بازگشت علی آقای گل": {
       "query": "آشتی سکو با مهاجم سرخ؛ بازگشت علی «آقای گل»!",
       "normalized": "آشتی سکو با مهاجم سرخ بازگشت علی آقای گل",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-24T01:43:57.657Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-24T02:34:47.472Z",
       "lastError": null,
       "trendTitle": "علی علیپور",
       "trendTraffic": 100,
@@ -5670,8 +5693,10 @@
         "علی",
         "علیپور"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.657Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-24T02:34:47.472Z"
     },
     "انتقاد جالب تارتار از علیپور معلوم نیست با ماست یا با اونا": {
       "query": "انتقاد جالب تارتار از علیپور: معلوم نیست با ماست یا با اونا!",
@@ -5690,7 +5715,7 @@
         "علی",
         "علیپور"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.657Z",
+      "lastTrendSeenAt": "2026-11-24T02:33:55.991Z",
       "activeInLatestFeed": true
     },
     "باشگاه فوتبال الهلال": {
@@ -5711,7 +5736,7 @@
         "فوتبال",
         "الهلال"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.657Z",
+      "lastTrendSeenAt": "2026-11-24T02:33:55.991Z",
       "activeInLatestFeed": true
     },
     "توقف الهلال برابر نفتچی زور زعیم به سرما نرسید": {
@@ -5732,7 +5757,7 @@
         "فوتبال",
         "الهلال"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.657Z",
+      "lastTrendSeenAt": "2026-11-24T02:33:55.991Z",
       "activeInLatestFeed": true
     },
     "توقف الهلال برابر نماینده ازبکستان": {
@@ -5753,7 +5778,127 @@
         "فوتبال",
         "الهلال"
       ],
-      "lastTrendSeenAt": "2026-11-24T01:43:57.657Z",
+      "lastTrendSeenAt": "2026-11-24T02:33:55.991Z",
+      "activeInLatestFeed": true
+    },
+    "پارسا جعفری": {
+      "query": "پارسا جعفری",
+      "normalized": "پارسا جعفری",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T02:33:55.990Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "پارسا جعفری",
+      "trendTraffic": 2000,
+      "trendPublishedAt": "Mon, 23 Nov 2026 09:40:00 -0800",
+      "trendKeywords": [
+        "پارسا",
+        "جعفری"
+      ],
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "activeInLatestFeed": true
+    },
+    "آخرین خبر از مصدومیت حسین زاده از زبان امیرحسین دعا کنید رباط صلیبی نباشد": {
+      "query": "آخرین خبر از مصدومیت حسین‌زاده از زبان امیرحسین؛ «دعا کنید رباط صلیبی نباشد!»",
+      "normalized": "آخرین خبر از مصدومیت حسین زاده از زبان امیرحسین دعا کنید رباط صلیبی نباشد",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T02:33:55.990Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "پارسا جعفری",
+      "trendTraffic": 2000,
+      "trendPublishedAt": "Mon, 23 Nov 2026 09:40:00 -0800",
+      "trendKeywords": [
+        "پارسا",
+        "جعفری"
+      ],
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "activeInLatestFeed": true
+    },
+    "پس از بیهوشی در زمین دروازه بان تراکتور به بیمارستان اعزام شد": {
+      "query": "پس از بیهوشی در زمین؛ دروازه‌بان تراکتور به بیمارستان اعزام شد",
+      "normalized": "پس از بیهوشی در زمین دروازه بان تراکتور به بیمارستان اعزام شد",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T02:33:55.990Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "پارسا جعفری",
+      "trendTraffic": 2000,
+      "trendPublishedAt": "Mon, 23 Nov 2026 09:40:00 -0800",
+      "trendKeywords": [
+        "پارسا",
+        "جعفری"
+      ],
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "activeInLatestFeed": true
+    },
+    "صالح حردانی": {
+      "query": "صالح حردانی",
+      "normalized": "صالح حردانی",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T02:33:55.990Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "صالح حردانی",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Mon, 23 Nov 2026 18:00:00 -0800",
+      "trendKeywords": [
+        "صالح",
+        "حردانی"
+      ],
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "activeInLatestFeed": true
+    },
+    "مدافع استقلال بازی با نفتچی ازبکستان را از دست داد": {
+      "query": "مدافع استقلال بازی با نفتچی ازبکستان را از دست داد",
+      "normalized": "مدافع استقلال بازی با نفتچی ازبکستان را از دست داد",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T02:33:55.990Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "صالح حردانی",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Mon, 23 Nov 2026 18:00:00 -0800",
+      "trendKeywords": [
+        "صالح",
+        "حردانی"
+      ],
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
+      "activeInLatestFeed": true
+    },
+    "حردانی اتحاد تیمی و رفاقت راز فرم فوق العاده ما است": {
+      "query": "حردانی: اتحاد تیمی و رفاقت، راز فرم فوق‌العاده ما است",
+      "normalized": "حردانی اتحاد تیمی و رفاقت راز فرم فوق العاده ما است",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-24T02:33:55.990Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "صالح حردانی",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Mon, 23 Nov 2026 18:00:00 -0800",
+      "trendKeywords": [
+        "صالح",
+        "حردانی"
+      ],
+      "lastTrendSeenAt": "2026-11-24T02:33:55.990Z",
       "activeInLatestFeed": true
     }
   },
@@ -23527,33 +23672,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T11:45:28.875Z",
       "lastMetricsFetchedAt": "2026-11-18T11:45:12.711Z"
-    },
-    "arEPD9n": {
-      "video_code": "arEPD9n",
-      "title": "سریال قسم قسمت 14 زیرنویس فارسی",
-      "sender_name": "سریال کده | نیم بها ببین",
-      "category_id": 3,
-      "duration": 3677,
-      "visit_count": 27928,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قشم",
-          "trendTitle": "قشم",
-          "trendTraffic": 500,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "قشم"
-          ],
-          "page": 38
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:55:12.046Z"
     },
     "FN8a7PN": {
       "video_code": "FN8a7PN",
@@ -114314,10 +114432,10 @@
       "sender_name": "فیلمی",
       "category_id": 1,
       "duration": 106,
-      "visit_count": 28814,
+      "visit_count": 28819,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T00:39:49.165Z",
+      "lastMetricsFetchedAt": "2026-11-24T02:34:14.591Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -114333,9 +114451,21 @@
             "کنکور"
           ],
           "page": 7
+        },
+        {
+          "query": "ورزش سه نتایج",
+          "trendTitle": "ورزش سه نتایج",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "ورزش",
+            "سه",
+            "نتایج"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.275Z"
+      "lastTrendMatchedAt": "2026-11-24T02:34:47.451Z"
     },
     "aJ35Tzs": {
       "video_code": "aJ35Tzs",
@@ -114343,10 +114473,10 @@
       "sender_name": "امیرسالم",
       "category_id": 1,
       "duration": 106,
-      "visit_count": 34409,
+      "visit_count": 34412,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T00:39:49.165Z",
+      "lastMetricsFetchedAt": "2026-11-24T02:34:14.591Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -114362,9 +114492,21 @@
             "کنکور"
           ],
           "page": 7
+        },
+        {
+          "query": "ورزش سه نتایج",
+          "trendTitle": "ورزش سه نتایج",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Mon, 23 Nov 2026 10:00:00 -0800",
+          "trendKeywords": [
+            "ورزش",
+            "سه",
+            "نتایج"
+          ],
+          "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T00:40:19.275Z"
+      "lastTrendMatchedAt": "2026-11-24T02:34:47.451Z"
     },
     "VZqnRQq": {
       "video_code": "VZqnRQq",
@@ -116020,34 +116162,6 @@
       "lastMetricsFetchedAt": "2026-11-18T12:45:18.827Z",
       "active": 1,
       "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "مجلس",
-          "trendTitle": "مجلس",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 17 Nov 2026 19:50:00 -0800",
-          "trendKeywords": [
-            "مجلس"
-          ],
-          "page": 5
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T12:45:32.639Z"
-    },
-    "g4kUrdR": {
-      "video_code": "g4kUrdR",
-      "title": "عصبانیت ظریف از کنایه های نمایندگان مجلس .",
-      "sender_name": "انتگرال",
-      "category_id": 1,
-      "duration": 86,
-      "visit_count": 27920,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:45:18.827Z",
-      "active": 1,
-      "can_republish": 0,
       "is_publish_able": 1,
       "status_id": 1,
       "globalTrendSearchMatches": [
@@ -158237,36 +158351,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-20T22:30:03.256Z"
     },
-    "qsPJnnJ": {
-      "video_code": "qsPJnnJ",
-      "title": "سریال کره ای بازی مرکب قسمت 6 دوبله فارسی Squid Game 2021",
-      "sender_name": "آماندا",
-      "category_id": 3,
-      "duration": 3698,
-      "visit_count": 27919,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-20T22:29:53.048Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "جی تی ای ۶",
-          "trendTitle": "جی تی ای ۶",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-          "trendKeywords": [
-            "جی",
-            "تی",
-            "ای"
-          ],
-          "page": 57
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-20T22:30:03.256Z"
-    },
     "wPmB7Pd": {
       "video_code": "wPmB7Pd",
       "title": "(ویژه طنز) | ای بابا چی شد 😂🤣🔥",
@@ -171836,35 +171920,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-23T16:30:57.960Z"
     },
-    "HCh7xgc": {
-      "video_code": "HCh7xgc",
-      "title": "سریال پرچم سرخ دوبله فارسی قسمت 36",
-      "sender_name": "هرمز",
-      "category_id": 3,
-      "duration": 3852,
-      "visit_count": 27923,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-23T16:30:38.495Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "تصاویر کمتر دیده شده علی شادمان در سریال سرخ و سیاه",
-          "trendTitle": "علی شادمان",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Fri, 20 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "علی",
-            "شادمان"
-          ],
-          "page": 12
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-23T16:30:57.960Z"
-    },
     "3ubqXq5": {
       "video_code": "3ubqXq5",
       "title": "سریال پرچم سرخ دوبله فارسی قسمت 29",
@@ -176749,8 +176804,124 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-24T01:45:45.429Z"
+    },
+    "j86GswE": {
+      "video_code": "j86GswE",
+      "title": "فرج علیپور - آفرین قمرتاج",
+      "sender_name": "SCANIA",
+      "category_id": 0,
+      "duration": 577,
+      "visit_count": 37428,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T02:34:43.883Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "علی علیپور",
+          "trendTitle": "علی علیپور",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Mon, 23 Nov 2026 10:50:00 -0800",
+          "trendKeywords": [
+            "علی",
+            "علیپور"
+          ],
+          "page": 16
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T02:34:47.470Z"
+    },
+    "676xZVt": {
+      "video_code": "676xZVt",
+      "title": "فرج علیپور - آهنگ قدیمی مریم",
+      "sender_name": "SCANIA",
+      "category_id": 9,
+      "duration": 319,
+      "visit_count": 36853,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T02:34:45.623Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "علی علیپور",
+          "trendTitle": "علی علیپور",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Mon, 23 Nov 2026 10:50:00 -0800",
+          "trendKeywords": [
+            "علی",
+            "علیپور"
+          ],
+          "page": 18
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T02:34:47.471Z"
+    },
+    "tCEdQJc": {
+      "video_code": "tCEdQJc",
+      "title": "اجرای بینظیر قطعه لری به نام مریم مریم با هنرمندی فرج علیپور",
+      "sender_name": "فیلو فیلم تک",
+      "category_id": 9,
+      "duration": 280,
+      "visit_count": 64161,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T02:34:46.419Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "علی علیپور",
+          "trendTitle": "علی علیپور",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Mon, 23 Nov 2026 10:50:00 -0800",
+          "trendKeywords": [
+            "علی",
+            "علیپور"
+          ],
+          "page": 19
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T02:34:47.472Z"
+    },
+    "SUh7Rxf": {
+      "video_code": "SUh7Rxf",
+      "title": "اجرای بینظیر قطعه لری عاشقانه*مریم مریم*توسط استاد فرج علیپور",
+      "sender_name": "سعید",
+      "category_id": 9,
+      "duration": 280,
+      "visit_count": 41992,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-24T02:34:47.445Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "علی علیپور",
+          "trendTitle": "علی علیپور",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Mon, 23 Nov 2026 10:50:00 -0800",
+          "trendKeywords": [
+            "علی",
+            "علیپور"
+          ],
+          "page": 20
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-24T02:34:47.472Z"
     }
   },
-  "totalPagesFetched": 16199,
-  "totalVideosSeen": 290004
+  "totalPagesFetched": 16287,
+  "totalVideosSeen": 291192
 }
