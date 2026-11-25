@@ -7,8 +7,8 @@ on:
       - "scripts/cleanup_published_retention.cjs"
       - "scripts/test_cleanup_published_retention.cjs"
   schedule:
-    # Items become deletion-eligible at 46h; a 15-minute poll still leaves at least 1h45m before the 48h Bot API cutoff.
-    - cron: "*/15 * * * *"
+    # Items become deletion-eligible at 46h; a 30-minute poll still leaves at least 1h30m before the 48h Bot API cutoff.
+    - cron: "*/30 * * * *"
   workflow_dispatch:
 
 permissions:
