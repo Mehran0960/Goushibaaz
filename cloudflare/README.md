@@ -12,10 +12,6 @@ Goushibaaz focuses on discovering videos that are gaining momentum **before** th
 
 The first discovery source is YouTube Data API v3. The worker samples Iran-region popular videos and periodically searches for newly published Persian-language videos. It stores repeated view snapshots and calculates views/minute plus changes in velocity. A first sighting is not treated as proof of growth.
 
-## Scheduled execution and resource policy
-
-The Worker has no Cloudflare Cron trigger while the optional Filo upload bridge is not configured. Its authenticated YouTube ingestion endpoint remains active and is called by `.github/workflows/trend-scout-scan.yml`; that workflow is the active 20-minute scanner. The Worker's scheduled handler previously only attempted Filo bridge delivery when both `FILO_UPLOAD_BRIDGE_URL` and `FILO_UPLOAD_BRIDGE_TOKEN` were bound, and no Worker secrets are currently configured. Re-enable a Cron only together with a verified, authorized bridge and a tested delivery flow.
-
 ## Filo publishing: first destination
 
 The Worker now includes a Filo-specific queue, status, jobs, and dispatch interface:
