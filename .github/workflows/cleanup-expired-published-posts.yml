@@ -2,8 +2,8 @@ name: Retain only recent Goushibaaz channel posts
 
 on:
   schedule:
-    # Delete Telegram/Bale posts with a safety buffer before the Bot API 48-hour limit.
-    - cron: "*/5 * * * *"
+    # Items become deletion-eligible at 46h; a 15-minute poll still leaves at least 1h45m before the 48h Bot API cutoff.
+    - cron: "*/15 * * * *"
   workflow_dispatch:
 
 permissions:
