@@ -1,9 +1,14 @@
 name: Retain only recent Goushibaaz channel posts
 
 on:
+  pull_request:
+    paths:
+      - ".github/workflows/cleanup-expired-published-posts.yml"
+      - "scripts/cleanup_published_retention.cjs"
+      - "scripts/test_cleanup_published_retention.cjs"
   schedule:
-    # Delete Telegram/Bale posts with a safety buffer before the Bot API 48-hour limit.
-    - cron: "*/5 * * * *"
+    # Items become deletion-eligible at 46h; a 15-minute poll still leaves at least 1h45m before the 48h Bot API cutoff.
+    - cron: "*/15 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -33,6 +38,7 @@ jobs:
           node scripts/test_cleanup_published_retention.cjs
 
       - name: Delete expired posts independently on each supported destination
+        if: ${{ github.event_name != 'pull_request' }}
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -47,21 +53,21 @@ jobs:
         run: node scripts/cleanup_published_retention.cjs
 
       - name: Persist Telegram retention state
-        if: ${{ always() && hashFiles('state/telegram-published.json') != '' }}
+        if: ${{ always() && github.event_name != 'pull_request' && hashFiles('state/telegram-published.json') != '' }}
         run: bash scripts/persist_state_file.sh state/telegram-published.json "Record Telegram retention cleanup"
 
       - name: Persist Bale retention state
-        if: ${{ always() && hashFiles('state/bale-published.json') != '' }}
+        if: ${{ always() && github.event_name != 'pull_request' && hashFiles('state/bale-published.json') != '' }}
         run: bash scripts/persist_state_file.sh state/bale-published.json "Record Bale retention cleanup"
 
       - name: Persist Rubika retention state
-        if: ${{ always() && hashFiles('state/rubika-published.json') != '' }}
+        if: ${{ always() && github.event_name != 'pull_request' && hashFiles('state/rubika-published.json') != '' }}
         run: bash scripts/persist_state_file.sh state/rubika-published.json "Record Rubika retention cleanup"
 
       - name: Persist Eitaa retention state
-        if: ${{ always() && hashFiles('state/eitaa-published.json') != '' }}
+        if: ${{ always() && github.event_name != 'pull_request' && hashFiles('state/eitaa-published.json') != '' }}
         run: bash scripts/persist_state_file.sh state/eitaa-published.json "Record Eitaa retention cleanup"
 
       - name: Persist Jetra retention state
-        if: ${{ always() && hashFiles('state/jetra-published.json') != '' }}
+        if: ${{ always() && github.event_name != 'pull_request' && hashFiles('state/jetra-published.json') != '' }}
         run: bash scripts/persist_state_file.sh state/jetra-published.json "Record Jetra retention cleanup"
