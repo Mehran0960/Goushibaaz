@@ -85,7 +85,7 @@ const ACCOUNT_REPUBLISH_QUOTA_COOLDOWN_MS = 24 * 60 * 60 * 1000;
 // account-wide quota from genuinely video-specific access denials.
 const ACCOUNT_QUOTA_403_PROBE_INTERVAL_MS = 12 * 60 * 60 * 1000;
 const MIN_PUBLISH_GAP_MS = DEFAULT_MIN_PUBLICATION_GAP_MS;
-// The five-minute workflow poll observes the 40-minute gate without sleeping inside a runner.
+// The ten-minute workflow poll observes the 40-minute gate without sleeping inside a runner.
 const MAX_PACING_WAIT_MS = 0;
 const MAX_DETAIL_CHECKS = 90;
 const MIN_DURATION_SECONDS = 10;
