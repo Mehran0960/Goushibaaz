@@ -1,8 +1,7 @@
 name: Goushibaaz Multi-Source Trend Intelligence
 on:
   schedule:
-    # Auxiliary topic weighting only; source snapshots stay usable for 48h.
-    - cron: "7 * * * *"
+    - cron: "7,37 * * * *"
   workflow_dispatch:
   push:
     branches: [main]
