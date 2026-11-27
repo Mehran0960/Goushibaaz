@@ -88,7 +88,12 @@
       "attemptedAt": "2026-11-25T13:36:07.836Z",
       "chatId": "-1004484936700",
       "messageId": "8",
-      "publishedAt": "2026-11-25T13:36:10.887Z"
+      "publishedAt": "2026-11-25T13:36:10.887Z",
+      "deleteAttempts": 1,
+      "lastDeleteAttemptAt": "2026-11-27T12:59:33.405Z",
+      "retentionStatus": "deleted",
+      "deletedAt": "2026-11-27T12:59:33.405Z",
+      "retentionFailure": null
     },
     {
       "sourcePage": "https://commons.wikimedia.org/wiki/File:Kin_Wikipedia_25_15_9x16_Caption.webm",
@@ -125,9 +130,9 @@
     "sha256": "10a45914a5e81e4cebf07deb04d552df55557711ad47675c3a77b62473bfeef0"
   },
   "lastRetentionRun": {
-    "checkedAt": "2026-11-20T07:49:10.991Z",
-    "deleted": 0,
-    "outsideApiWindow": 1,
+    "checkedAt": "2026-11-27T12:59:33.405Z",
+    "deleted": 1,
+    "outsideApiWindow": 0,
     "failed": 0
   }
 }
