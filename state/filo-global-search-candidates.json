@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-26T23:05:48.009Z",
-  "trendsFetchedAt": "2026-11-26T23:04:43.811Z",
+  "updatedAt": "2026-11-27T00:55:53.860Z",
+  "trendsFetchedAt": "2026-11-27T00:54:45.772Z",
   "trends": [
     {
       "title": "دیجیکالا",
@@ -11,7 +11,7 @@
       ],
       "traffic": 5000,
       "publishedAt": "Thu, 26 Nov 2026 12:40:00 -0800",
-      "ageHours": 2.4
+      "ageHours": 4.2
     },
     {
       "title": "اسنپ پی",
@@ -21,7 +21,18 @@
       ],
       "traffic": 2000,
       "publishedAt": "Thu, 26 Nov 2026 12:50:00 -0800",
-      "ageHours": 2.2
+      "ageHours": 4.1
+    },
+    {
+      "title": "یوونتوس مقابل اومانیا",
+      "keywords": [
+        "یوونتوس",
+        "مقابل",
+        "اومانیا"
+      ],
+      "traffic": 2000,
+      "publishedAt": "Thu, 26 Nov 2026 11:20:00 -0800",
+      "ageHours": 5.6
     },
     {
       "title": "محسن رضایی",
@@ -31,18 +42,7 @@
       ],
       "traffic": 1000,
       "publishedAt": "Thu, 26 Nov 2026 13:40:00 -0800",
-      "ageHours": 1.4
-    },
-    {
-      "title": "یوونتوس مقابل اومانیا",
-      "keywords": [
-        "یوونتوس",
-        "مقابل",
-        "اومانیا"
-      ],
-      "traffic": 1000,
-      "publishedAt": "Thu, 26 Nov 2026 11:20:00 -0800",
-      "ageHours": 3.7
+      "ageHours": 3.2
     },
     {
       "title": "آنجلینا جولی",
@@ -50,9 +50,9 @@
         "آنجلینا",
         "جولی"
       ],
-      "traffic": 500,
+      "traffic": 1000,
       "publishedAt": "Thu, 26 Nov 2026 12:20:00 -0800",
-      "ageHours": 2.7
+      "ageHours": 4.6
     },
     {
       "title": "juventus vs omonoia",
@@ -63,7 +63,17 @@
       ],
       "traffic": 500,
       "publishedAt": "Thu, 26 Nov 2026 11:50:00 -0800",
-      "ageHours": 3.2
+      "ageHours": 5.1
+    },
+    {
+      "title": "دراگان اسکوچیچ",
+      "keywords": [
+        "دراگان",
+        "اسکوچیچ"
+      ],
+      "traffic": 200,
+      "publishedAt": "Thu, 26 Nov 2026 13:50:00 -0800",
+      "ageHours": 3.1
     },
     {
       "title": "احمدرضا عابدزاده",
@@ -73,7 +83,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Thu, 26 Nov 2026 12:30:00 -0800",
-      "ageHours": 2.6
+      "ageHours": 4.4
     },
     {
       "title": "امین حیایی",
@@ -83,7 +93,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Thu, 26 Nov 2026 11:30:00 -0800",
-      "ageHours": 3.6
+      "ageHours": 5.4
     },
     {
       "title": "207 دیجی کالا",
@@ -94,17 +104,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Thu, 26 Nov 2026 14:00:00 -0800",
-      "ageHours": 1.1
-    },
-    {
-      "title": "دراگان اسکوچیچ",
-      "keywords": [
-        "دراگان",
-        "اسکوچیچ"
-      ],
-      "traffic": 100,
-      "publishedAt": "Thu, 26 Nov 2026 13:50:00 -0800",
-      "ageHours": 1.2
+      "ageHours": 2.9
     }
   ],
   "queries": {
@@ -305,12 +305,12 @@
     "جدول لیگ نخبگان": {
       "query": "جدول لیگ نخبگان",
       "normalized": "جدول لیگ نخبگان",
-      "nextPage": 21,
-      "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 396,
+      "nextPage": 28,
+      "complete": true,
+      "pagesFetched": 32,
+      "videosSeen": 597,
       "createdAt": "2026-11-24T01:43:57.656Z",
-      "lastAttemptAt": "2026-11-24T01:45:45.423Z",
+      "lastAttemptAt": "2026-11-27T00:55:53.598Z",
       "lastError": null,
       "trendTitle": "جدول لیگ نخبگان",
       "trendTraffic": 5000,
@@ -322,7 +322,8 @@
       ],
       "lastTrendSeenAt": "2026-11-24T01:43:57.656Z",
       "activeInLatestFeed": false,
-      "termination": "max_pages_reached"
+      "termination": "empty_page",
+      "completedAt": "2026-11-27T00:55:53.598Z"
     },
     "گزارش ویژه تک امتیاز و بذر انتقام سوغات شب فوتبالی ایران و امارات": {
       "query": "گزارش ویژه؛ تک امتیاز و بذر انتقام، سوغات شب فوتبالی ایران و امارات!",
@@ -437,12 +438,12 @@
     "انیمیشن steps": {
       "query": "انیمیشن steps",
       "normalized": "انیمیشن steps",
-      "nextPage": 21,
+      "nextPage": 36,
       "complete": false,
-      "pagesFetched": 20,
-      "videosSeen": 400,
+      "pagesFetched": 40,
+      "videosSeen": 800,
       "createdAt": "2026-11-24T01:43:57.656Z",
-      "lastAttemptAt": "2026-11-24T01:45:45.437Z",
+      "lastAttemptAt": "2026-11-27T00:55:53.605Z",
       "lastError": null,
       "trendTitle": "انیمیشن steps",
       "trendTraffic": 1000,
@@ -5361,7 +5362,7 @@
       "trendKeywords": [
         "دیجیکالا"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.098Z",
+      "lastTrendSeenAt": "2026-11-27T00:54:45.936Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -5382,7 +5383,7 @@
         "دیجیکالا"
       ],
       "lastTrendSeenAt": "2026-11-26T23:04:44.098Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-26T23:05:47.850Z"
     },
@@ -5403,7 +5404,7 @@
         "دیجیکالا"
       ],
       "lastTrendSeenAt": "2026-11-26T23:04:44.098Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-26T23:05:47.850Z"
     },
@@ -5424,7 +5425,7 @@
         "اسنپ",
         "پی"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.098Z",
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -5445,19 +5446,19 @@
         "اسنپ",
         "پی"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.098Z",
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "درخواست کد تأیید پیامکی سرقت حساب های کاربری": {
       "query": "درخواست کد تأیید پیامکی، سرقت حساب‌های کاربری",
       "normalized": "درخواست کد تأیید پیامکی سرقت حساب های کاربری",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-26T23:04:44.098Z",
-      "lastAttemptAt": "2026-11-26T23:05:47.861Z",
+      "lastAttemptAt": "2026-11-27T00:55:53.561Z",
       "lastError": null,
       "trendTitle": "اسنپ پی",
       "trendTraffic": 2000,
@@ -5466,10 +5467,12 @@
         "اسنپ",
         "پی"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.098Z",
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-26T23:05:47.861Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-27T00:55:53.561Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-27T00:55:53.561Z"
     },
     "محسن رضایی": {
       "query": "محسن رضایی",
@@ -5488,19 +5491,19 @@
         "محسن",
         "رضایی"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.098Z",
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "سردار قاآنی وحدت ساحات تا رسیدن به حکومت جهانی حضرت مهدی عج استمرار خواهد یافت": {
       "query": "سردار قاآنی: وحدت ساحات تا رسیدن به حکومت جهانی حضرت مهدی (عج) استمرار خواهد یافت",
       "normalized": "سردار قاآنی وحدت ساحات تا رسیدن به حکومت جهانی حضرت مهدی عج استمرار خواهد یافت",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-26T23:04:44.098Z",
-      "lastAttemptAt": "2026-11-26T23:05:47.865Z",
+      "lastAttemptAt": "2026-11-27T00:55:53.561Z",
       "lastError": null,
       "trendTitle": "محسن رضایی",
       "trendTraffic": 1000,
@@ -5509,20 +5512,22 @@
         "محسن",
         "رضایی"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.098Z",
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-26T23:05:47.865Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-27T00:55:53.561Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-27T00:55:53.561Z"
     },
     "سرلشکر رضایی ایران ابرقدرت فقط با قدرت نظامی ساخته نمی شود": {
       "query": "سرلشکر رضایی: ایرانِ ابرقدرت، فقط با قدرت نظامی ساخته نمی‌شود",
       "normalized": "سرلشکر رضایی ایران ابرقدرت فقط با قدرت نظامی ساخته نمی شود",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-26T23:04:44.099Z",
-      "lastAttemptAt": "2026-11-26T23:05:47.865Z",
+      "lastAttemptAt": "2026-11-27T00:55:53.561Z",
       "lastError": null,
       "trendTitle": "محسن رضایی",
       "trendTraffic": 1000,
@@ -5531,10 +5536,12 @@
         "محسن",
         "رضایی"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-26T23:05:47.865Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-27T00:55:53.561Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-27T00:55:53.561Z"
     },
     "یوونتوس مقابل اومانیا": {
       "query": "یوونتوس مقابل اومانیا",
@@ -5547,39 +5554,41 @@
       "lastAttemptAt": "2026-11-26T23:05:47.871Z",
       "lastError": null,
       "trendTitle": "یوونتوس مقابل اومانیا",
-      "trendTraffic": 1000,
+      "trendTraffic": 2000,
       "trendPublishedAt": "Thu, 26 Nov 2026 11:20:00 -0800",
       "trendKeywords": [
         "یوونتوس",
         "مقابل",
         "اومانیا"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "یوونتوس ۴ ۱ اومونیا پیروزی چهارگله بانوی پیر در لیگ اروپا پس از دریافت گل زودهنگام": {
       "query": "یوونتوس ۴-۱ اومونیا؛ پیروزی چهارگله بانوی پیر در لیگ اروپا پس از دریافت گل زودهنگام",
       "normalized": "یوونتوس ۴ ۱ اومونیا پیروزی چهارگله بانوی پیر در لیگ اروپا پس از دریافت گل زودهنگام",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-26T23:04:44.099Z",
-      "lastAttemptAt": "2026-11-26T23:05:47.871Z",
+      "lastAttemptAt": "2026-11-27T00:55:53.561Z",
       "lastError": null,
       "trendTitle": "یوونتوس مقابل اومانیا",
-      "trendTraffic": 1000,
+      "trendTraffic": 2000,
       "trendPublishedAt": "Thu, 26 Nov 2026 11:20:00 -0800",
       "trendKeywords": [
         "یوونتوس",
         "مقابل",
         "اومانیا"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-26T23:05:47.871Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-27T00:55:53.561Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-27T00:55:53.561Z"
     },
     "ستاره سابق منچستریونایتد در اندیشه شگفتی مقابل یوونتوس": {
       "query": "ستاره سابق منچستریونایتد در اندیشه شگفتی مقابل یوونتوس",
@@ -5600,49 +5609,53 @@
         "اومانیا"
       ],
       "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-26T23:05:47.871Z"
     },
     "آنجلینا جولی": {
       "query": "آنجلینا جولی",
       "normalized": "آنجلینا جولی",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 16,
+      "complete": true,
+      "pagesFetched": 15,
+      "videosSeen": 189,
       "createdAt": "2026-11-26T23:04:44.099Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-27T00:55:53.569Z",
       "lastError": null,
       "trendTitle": "آنجلینا جولی",
-      "trendTraffic": 500,
+      "trendTraffic": 1000,
       "trendPublishedAt": "Thu, 26 Nov 2026 12:20:00 -0800",
       "trendKeywords": [
         "آنجلینا",
         "جولی"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-27T00:55:53.569Z"
     },
     "جدال حقوقی طولانی آنجلینا جولی و برد پیت بر سر تاکستان شراب فرانسوی پایان یافت": {
       "query": "جدال حقوقی طولانی آنجلینا جولی و برد پیت بر سر تاکستان شراب فرانسوی پایان یافت",
       "normalized": "جدال حقوقی طولانی آنجلینا جولی و برد پیت بر سر تاکستان شراب فرانسوی پایان یافت",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-26T23:04:44.099Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-27T00:55:53.569Z",
       "lastError": null,
       "trendTitle": "آنجلینا جولی",
-      "trendTraffic": 500,
+      "trendTraffic": 1000,
       "trendPublishedAt": "Thu, 26 Nov 2026 12:20:00 -0800",
       "trendKeywords": [
         "آنجلینا",
         "جولی"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-27T00:55:53.569Z"
     },
     "برد پیت و آنجلینا جولی اختلاف حقوقی دیرینه خود را به طور دوستانه حل و فصل کردند": {
       "query": "برد پیت و آنجلینا جولی اختلاف حقوقی دیرینه خود را به طور دوستانه حل و فصل کردند.",
@@ -5662,17 +5675,17 @@
         "جولی"
       ],
       "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "juventus vs omonoia": {
       "query": "juventus vs omonoia",
       "normalized": "juventus vs omonoia",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 3,
+      "videosSeen": 4,
       "createdAt": "2026-11-26T23:04:44.099Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-27T00:55:53.569Z",
       "lastError": null,
       "trendTitle": "juventus vs omonoia",
       "trendTraffic": 500,
@@ -5682,18 +5695,20 @@
         "vs",
         "omonoia"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-27T00:55:53.569Z"
     },
     "licensable picture soccer uefa europa league juventus fc vs ac omonia nicosia": {
       "query": "Licensable picture: SOCCER - UEFA Europa League - Juventus FC vs. AC Omonia Nicosia",
       "normalized": "licensable picture soccer uefa europa league juventus fc vs ac omonia nicosia",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-26T23:04:44.099Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-27T00:55:53.569Z",
       "lastError": null,
       "trendTitle": "juventus vs omonoia",
       "trendTraffic": 500,
@@ -5703,8 +5718,10 @@
         "vs",
         "omonoia"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-27T00:55:53.569Z"
     },
     "press room comments after juventus omonia": {
       "query": "Press Room | Comments after Juventus-Omonia",
@@ -5725,17 +5742,17 @@
         "omonoia"
       ],
       "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "احمدرضا عابدزاده": {
       "query": "احمدرضا عابدزاده",
       "normalized": "احمدرضا عابدزاده",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 17,
+      "complete": true,
+      "pagesFetched": 16,
+      "videosSeen": 263,
       "createdAt": "2026-11-26T23:04:44.099Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-27T00:55:53.578Z",
       "lastError": null,
       "trendTitle": "احمدرضا عابدزاده",
       "trendTraffic": 200,
@@ -5744,18 +5761,20 @@
         "احمدرضا",
         "عابدزاده"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-27T00:55:53.578Z"
     },
     "عابدزاده کارهایی با من کرد که تا آخر عمر فراموش نمی کنم": {
       "query": "عابدزاده کارهایی با من کرد که تا آخر عمر فراموش نمی‌کنم!",
       "normalized": "عابدزاده کارهایی با من کرد که تا آخر عمر فراموش نمی کنم",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 11,
+      "complete": true,
+      "pagesFetched": 10,
+      "videosSeen": 166,
       "createdAt": "2026-11-26T23:04:44.099Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-27T00:55:53.585Z",
       "lastError": null,
       "trendTitle": "احمدرضا عابدزاده",
       "trendTraffic": 200,
@@ -5764,18 +5783,20 @@
         "احمدرضا",
         "عابدزاده"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-27T00:55:53.585Z"
     },
     "مطهری و رحمتی روی صندلی داغ برجام با محمدرضا احمدی": {
       "query": "مطهری و رحمتی روی صندلی داغ برجام با محمدرضا احمدی",
       "normalized": "مطهری و رحمتی روی صندلی داغ برجام با محمدرضا احمدی",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-26T23:04:44.099Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-27T00:55:53.585Z",
       "lastError": null,
       "trendTitle": "احمدرضا عابدزاده",
       "trendTraffic": 200,
@@ -5784,18 +5805,20 @@
         "احمدرضا",
         "عابدزاده"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-27T00:55:53.585Z"
     },
     "امین حیایی": {
       "query": "امین حیایی",
       "normalized": "امین حیایی",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 400,
       "createdAt": "2026-11-26T23:04:44.099Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-27T00:55:53.594Z",
       "lastError": null,
       "trendTitle": "امین حیایی",
       "trendTraffic": 200,
@@ -5804,8 +5827,9 @@
         "امین",
         "حیایی"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "تراس رؤیایی خانه امین حیایی حسرت همه را برانگیخت": {
       "query": "تراس رؤیایی خانه امین حیایی حسرت همه را برانگیخت!",
@@ -5824,7 +5848,7 @@
         "امین",
         "حیایی"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
       "activeInLatestFeed": true
     },
     "207 دیجی کالا": {
@@ -5845,7 +5869,7 @@
         "دیجی",
         "کالا"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
       "activeInLatestFeed": true
     },
     "پژو ۲۰۷ با ۱۰۰ هزار تومان امشب رأس ساعت ۱۲ در بلک فرایدی دیجی کالا": {
@@ -5867,7 +5891,7 @@
         "کالا"
       ],
       "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "از پژو207 تا بنز 19میلیاردی دیجی کالا با کدام مجوز خودرو صفر می فروشد": {
       "query": "از پژو207 تا بنز 19میلیاردی؛دیجی‌کالا با کدام مجوز خودرو صفر می‌فروشد؟",
@@ -5888,7 +5912,7 @@
         "کالا"
       ],
       "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "دراگان اسکوچیچ": {
       "query": "دراگان اسکوچیچ",
@@ -5901,13 +5925,13 @@
       "lastAttemptAt": null,
       "lastError": null,
       "trendTitle": "دراگان اسکوچیچ",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Thu, 26 Nov 2026 13:50:00 -0800",
       "trendKeywords": [
         "دراگان",
         "اسکوچیچ"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
       "activeInLatestFeed": true
     },
     "پاسخ اسکوچیچ به پیشنهاد تراکتور مرد محبوب به تبریز بازمی گردد": {
@@ -5921,13 +5945,13 @@
       "lastAttemptAt": null,
       "lastError": null,
       "trendTitle": "دراگان اسکوچیچ",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Thu, 26 Nov 2026 13:50:00 -0800",
       "trendKeywords": [
         "دراگان",
         "اسکوچیچ"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
       "activeInLatestFeed": true
     },
     "تهدید زنوزی توسط بازیکن سابق تراکتور": {
@@ -5941,13 +5965,155 @@
       "lastAttemptAt": null,
       "lastError": null,
       "trendTitle": "دراگان اسکوچیچ",
-      "trendTraffic": 100,
+      "trendTraffic": 200,
       "trendPublishedAt": "Thu, 26 Nov 2026 13:50:00 -0800",
       "trendKeywords": [
         "دراگان",
         "اسکوچیچ"
       ],
-      "lastTrendSeenAt": "2026-11-26T23:04:44.099Z",
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
+      "activeInLatestFeed": true
+    },
+    "فروش ۸ هزار میلیارد تومانی دیجی کالا در نخستین روز بلک فرایدی بیش از ۱ ۳ میلیون سفارش ثبت شد": {
+      "query": "فروش ۸ هزار میلیارد تومانی دیجی‌کالا در نخستین روز بلک‌فرایدی؛ بیش از ۱٫۳ میلیون سفارش ثبت شد",
+      "normalized": "فروش ۸ هزار میلیارد تومانی دیجی کالا در نخستین روز بلک فرایدی بیش از ۱ ۳ میلیون سفارش ثبت شد",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-27T00:54:45.936Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "دیجیکالا",
+      "trendTraffic": 5000,
+      "trendPublishedAt": "Thu, 26 Nov 2026 12:40:00 -0800",
+      "trendKeywords": [
+        "دیجیکالا"
+      ],
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
+      "activeInLatestFeed": true
+    },
+    "ورود پلیس فتا به بلک فرایدی شناسایی ۴۰ نفر از گردانندگان سایت های متخلف": {
+      "query": "ورود پلیس فتا به «بلک فرایدی»؛ شناسایی ۴۰ نفر از گردانندگان سایت‌های متخلف",
+      "normalized": "ورود پلیس فتا به بلک فرایدی شناسایی ۴۰ نفر از گردانندگان سایت های متخلف",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-27T00:54:45.937Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "دیجیکالا",
+      "trendTraffic": 5000,
+      "trendPublishedAt": "Thu, 26 Nov 2026 12:40:00 -0800",
+      "trendKeywords": [
+        "دیجیکالا"
+      ],
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
+      "activeInLatestFeed": true
+    },
+    "خلاصه بازی یوونتوس 4 1 اومونیا": {
+      "query": "خلاصه بازی یوونتوس 4-1 اومونیا",
+      "normalized": "خلاصه بازی یوونتوس 4 1 اومونیا",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-27T00:54:45.937Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "یوونتوس مقابل اومانیا",
+      "trendTraffic": 2000,
+      "trendPublishedAt": "Thu, 26 Nov 2026 11:20:00 -0800",
+      "trendKeywords": [
+        "یوونتوس",
+        "مقابل",
+        "اومانیا"
+      ],
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
+      "activeInLatestFeed": true
+    },
+    "یک دهه خصومت بین برد پیت و آنجلینا جولی": {
+      "query": "یک دهه خصومت بین برد پیت و آنجلینا جولی",
+      "normalized": "یک دهه خصومت بین برد پیت و آنجلینا جولی",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-27T00:54:45.937Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "آنجلینا جولی",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Thu, 26 Nov 2026 12:20:00 -0800",
+      "trendKeywords": [
+        "آنجلینا",
+        "جولی"
+      ],
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
+      "activeInLatestFeed": true
+    },
+    "spalletti juventus back on track with cambiaso my job is to find solutions": {
+      "query": "Spalletti: ‘Juventus back on track with Cambiaso, my job is to find solutions’",
+      "normalized": "spalletti juventus back on track with cambiaso my job is to find solutions",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-27T00:54:45.937Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "juventus vs omonoia",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Thu, 26 Nov 2026 11:50:00 -0800",
+      "trendKeywords": [
+        "juventus",
+        "vs",
+        "omonoia"
+      ],
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
+      "activeInLatestFeed": true
+    },
+    "جزئیات قرعه کشی خرید بنز و پژو ۲۰۷ با ۵۰ درصد تخفیف در بلک فرایدی دیجی کالا": {
+      "query": "جزئیات قرعه‌کشی خرید بنز و پژو ۲۰۷ با ۵۰ درصد تخفیف در بلک‌فرایدی دیجی‌کالا",
+      "normalized": "جزئیات قرعه کشی خرید بنز و پژو ۲۰۷ با ۵۰ درصد تخفیف در بلک فرایدی دیجی کالا",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-27T00:54:45.937Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "207 دیجی کالا",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Thu, 26 Nov 2026 14:00:00 -0800",
+      "trendKeywords": [
+        "207",
+        "دیجی",
+        "کالا"
+      ],
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
+      "activeInLatestFeed": true
+    },
+    "دیجی کالا خودرو می فروشد آگهی های عجیب با قیمت های نجومی را ببینید از پژو۲۰۷ تا بنز ۱۹میلیاردی": {
+      "query": "دیجی‌کالا خودرو می فروشد؛ آگهی های عجیب با قیمت های نجومی را ببینید از پژو۲۰۷ تا بنز ۱۹میلیاردی",
+      "normalized": "دیجی کالا خودرو می فروشد آگهی های عجیب با قیمت های نجومی را ببینید از پژو۲۰۷ تا بنز ۱۹میلیاردی",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-27T00:54:45.937Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "207 دیجی کالا",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Thu, 26 Nov 2026 14:00:00 -0800",
+      "trendKeywords": [
+        "207",
+        "دیجی",
+        "کالا"
+      ],
+      "lastTrendSeenAt": "2026-11-27T00:54:45.937Z",
       "activeInLatestFeed": true
     }
   },
@@ -18691,34 +18857,6 @@
       "category_id": 1,
       "duration": 60,
       "visit_count": 73054,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "افغانی افغانستان",
-          "trendTitle": "افغانی افغانستان",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "افغانی",
-            "افغانستان"
-          ],
-          "page": 12
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:31:42.828Z"
-    },
-    "JOXHDzg": {
-      "video_code": "JOXHDzg",
-      "title": "استقرار نیروهای سپاه در مرز افغانستان",
-      "sender_name": "فرج",
-      "category_id": 1,
-      "duration": 571,
-      "visit_count": 30575,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -33177,7 +33315,7 @@
       "sender_name": "فیلو و میلو ",
       "category_id": 11,
       "duration": 152,
-      "visit_count": 11556,
+      "visit_count": 11559,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -33205,9 +33343,22 @@
             "فارس"
           ],
           "page": 11
+        },
+        {
+          "query": "جدول لیگ نخبگان",
+          "trendTitle": "جدول لیگ نخبگان",
+          "trendTraffic": 5000,
+          "trendPublishedAt": "Mon, 23 Nov 2026 09:50:00 -0800",
+          "trendKeywords": [
+            "جدول",
+            "لیگ",
+            "نخبگان"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.362Z"
+      "lastTrendMatchedAt": "2026-11-27T00:55:53.594Z",
+      "lastMetricsFetchedAt": "2026-11-27T00:55:31.415Z"
     },
     "rmS18x5": {
       "video_code": "rmS18x5",
@@ -33705,44 +33856,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-20T22:30:03.244Z",
       "lastMetricsFetchedAt": "2026-11-20T22:29:50.257Z"
-    },
-    "4Yyx4AP": {
-      "video_code": "4Yyx4AP",
-      "title": "Hell’s Paradise: Jigokuraku انيمه بهشت جهنميان قسمت 10 زبرنويس فارسى",
-      "sender_name": "anime world (دنبال=دنبال)",
-      "category_id": 8,
-      "duration": 1465,
-      "visit_count": 11239,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "فارس",
-          "trendTitle": "فارس",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:30:00 -0800",
-          "trendKeywords": [
-            "فارس"
-          ],
-          "page": 18
-        },
-        {
-          "query": "خبرگزاری فارس",
-          "trendTitle": "خبرگزاری فارس",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:40:00 -0800",
-          "trendKeywords": [
-            "خبرگزاری",
-            "فارس"
-          ],
-          "page": 19
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T22:01:25.365Z"
     },
     "GUaQmLs": {
       "video_code": "GUaQmLs",
@@ -42685,33 +42798,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-03T04:05:15.869Z"
-    },
-    "K4iCfei": {
-      "video_code": "K4iCfei",
-      "title": "مقاومت پهپاد در مقابل شلیک گلوله | میلاد وان اس تی",
-      "sender_name": "فیلی فیلم",
-      "category_id": 1,
-      "duration": 1166,
-      "visit_count": 30594,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پهپاد",
-          "trendTitle": "پهپاد",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Mon, 2 Nov 2026 18:10:00 -0800",
-          "trendKeywords": [
-            "پهپاد"
-          ],
-          "page": 3
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T04:05:15.870Z"
     },
     "3say77y": {
       "video_code": "3say77y",
@@ -60299,33 +60385,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-03T10:51:08.346Z"
     },
-    "oKFYODw": {
-      "video_code": "oKFYODw",
-      "title": "انیمیشن تیم اومی زومی قسمت 13 فصل چهارم دوبله فارسی",
-      "sender_name": "✅کافه فیلم✅",
-      "category_id": 21,
-      "duration": 1360,
-      "visit_count": 30549,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "تیم",
-          "trendTitle": "تیم",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 3 Nov 2026 02:00:00 -0800",
-          "trendKeywords": [
-            "تیم"
-          ],
-          "page": 16
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-03T10:51:08.346Z"
-    },
     "N2x6c1f": {
       "video_code": "N2x6c1f",
       "title": "انیمیشن تیم اومی زومی قسمت 8 فصل سوم دوبله فارسی",
@@ -68417,33 +68476,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-04T03:21:52.917Z"
-    },
-    "45Nga5X": {
-      "video_code": "45Nga5X",
-      "title": "رزمایش. ارتش جمهوری اسلامی ایران",
-      "sender_name": "Javad",
-      "category_id": 1,
-      "duration": 165,
-      "visit_count": 30569,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "ایرنا",
-          "trendTitle": "ایرنا",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "ایرنا"
-          ],
-          "page": 68
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.887Z"
     },
     "PazHjff": {
       "video_code": "PazHjff",
@@ -89120,10 +89152,10 @@
       "sender_name": "Saleh",
       "category_id": 3,
       "duration": 87,
-      "visit_count": 39015,
+      "visit_count": 39020,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-19T19:25:41.234Z",
+      "lastMetricsFetchedAt": "2026-11-27T00:55:21.525Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -89150,9 +89182,20 @@
             "خردادیان"
           ],
           "page": 35
+        },
+        {
+          "query": "امین حیایی",
+          "trendTitle": "امین حیایی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 26 Nov 2026 11:30:00 -0800",
+          "trendKeywords": [
+            "امین",
+            "حیایی"
+          ],
+          "page": 2
         }
       ],
-      "lastTrendMatchedAt": "2026-11-19T19:26:18.637Z"
+      "lastTrendMatchedAt": "2026-11-27T00:55:53.585Z"
     },
     "jxbFwzJ": {
       "video_code": "jxbFwzJ",
@@ -93770,35 +93813,6 @@
       "visit_count": 46021,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T17:05:50.511Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 34
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T17:05:51.948Z"
-    },
-    "ll4IC1f": {
-      "video_code": "ll4IC1f",
-      "title": "قسمت آخر سریال کره ای افسانه ماه و خورشید",
-      "sender_name": "فیلو فیلم تک",
-      "category_id": 3,
-      "duration": 3809,
-      "visit_count": 30554,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T17:05:50.511Z",
       "active": 1,
       "can_republish": 0,
@@ -103484,34 +103498,6 @@
       "visit_count": 59118,
       "create_date": "4 سال پیش",
       "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T19:25:26.196Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پدر و مدیر مدرسه سوگند صیادی بازداشت شدند",
-          "trendTitle": "بازداشت",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بازداشت"
-          ],
-          "page": 5
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T19:25:53.225Z"
-    },
-    "XPwcPcE": {
-      "video_code": "XPwcPcE",
-      "title": "سریال به عشق تو سوگند قسمت 276",
-      "sender_name": "سریال نما",
-      "category_id": 3,
-      "duration": 2381,
-      "visit_count": 30555,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T19:25:26.196Z",
       "active": 1,
       "can_republish": 0,
@@ -151995,34 +151981,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-21T06:10:01.765Z"
     },
-    "tuhKKMt": {
-      "video_code": "tuhKKMt",
-      "title": "سریال پرندگان آتش - قسمت (22) زیرنویس فارسی چسبیده",
-      "sender_name": "Bia2MOVIEStv",
-      "category_id": 3,
-      "duration": 8815,
-      "visit_count": 30583,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-21T06:09:41.690Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "آتش",
-          "trendTitle": "آتش",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Fri, 20 Nov 2026 20:40:00 -0800",
-          "trendKeywords": [
-            "آتش"
-          ],
-          "page": 18
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-21T06:10:01.765Z"
-    },
     "KcBAXZ7": {
       "video_code": "KcBAXZ7",
       "title": "فیلم| عاقبت هتاکی به مقدسات و آتش زدن پرچم ایران و عکس امام خمینی (ره)",
@@ -157455,48 +157413,6 @@
             "ایران"
           ],
           "page": 1
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-22T09:30:20.906Z"
-    },
-    "sFYdPm7": {
-      "video_code": "sFYdPm7",
-      "title": "حرکت جنگنده‌ بمب افکن‌های نیروی هوایی ارتش ایران / فیلم",
-      "sender_name": "نبض تو",
-      "category_id": 1,
-      "duration": 258,
-      "visit_count": 11240,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-22T09:29:48.042Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حرکت نفتکش های ایران",
-          "trendTitle": "حرکت نفتکش های ایران",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
-          "trendKeywords": [
-            "حرکت",
-            "نفتکش",
-            "ایران"
-          ],
-          "page": 17
-        },
-        {
-          "query": "حرکت نفتکش ایران",
-          "trendTitle": "حرکت نفتکش های ایران",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
-          "trendKeywords": [
-            "حرکت",
-            "نفتکش",
-            "ایران"
-          ],
-          "page": 2
         }
       ],
       "lastTrendMatchedAt": "2026-11-22T09:30:20.906Z"
@@ -182756,8 +182672,291 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-26T23:05:47.859Z"
+    },
+    "8cVA3EH": {
+      "video_code": "8cVA3EH",
+      "title": "فیلم اکشن و مهیج « مهاجم مقبره، گهواره حیات» با بازی بانو «آنجلینا جولی»",
+      "sender_name": "آتی گرام",
+      "category_id": 3,
+      "duration": 6730,
+      "visit_count": 51517,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-27T00:55:08.316Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "آنجلینا جولی",
+          "trendTitle": "آنجلینا جولی",
+          "trendTraffic": 1000,
+          "trendPublishedAt": "Thu, 26 Nov 2026 12:20:00 -0800",
+          "trendKeywords": [
+            "آنجلینا",
+            "جولی"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-27T00:55:53.562Z"
+    },
+    "CEA0Qb3": {
+      "video_code": "CEA0Qb3",
+      "title": "خاطرات جواد خیابانی در برنامه شب آهنگی از احمدرضا عابدزاده",
+      "sender_name": "DinarTavalod",
+      "category_id": 9,
+      "duration": 427,
+      "visit_count": 12681,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-27T00:55:16.751Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "احمدرضا عابدزاده",
+          "trendTitle": "احمدرضا عابدزاده",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 26 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "احمدرضا",
+            "عابدزاده"
+          ],
+          "page": 1
+        },
+        {
+          "query": "عابدزاده کارهایی با من کرد که تا آخر عمر فراموش نمی‌کنم!",
+          "trendTitle": "احمدرضا عابدزاده",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 26 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "احمدرضا",
+            "عابدزاده"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-27T00:55:53.578Z"
+    },
+    "OR5oeOU": {
+      "video_code": "OR5oeOU",
+      "title": "فیلم | ماجرای عشق نعیمه نظام دوست به احمدرضا عابدزاده",
+      "sender_name": "Ali✅",
+      "category_id": 3,
+      "duration": 206,
+      "visit_count": 21935,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-27T00:55:16.751Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "احمدرضا عابدزاده",
+          "trendTitle": "احمدرضا عابدزاده",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 26 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "احمدرضا",
+            "عابدزاده"
+          ],
+          "page": 1
+        },
+        {
+          "query": "عابدزاده کارهایی با من کرد که تا آخر عمر فراموش نمی‌کنم!",
+          "trendTitle": "احمدرضا عابدزاده",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 26 Nov 2026 12:30:00 -0800",
+          "trendKeywords": [
+            "احمدرضا",
+            "عابدزاده"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-27T00:55:53.578Z"
+    },
+    "dmq53ZZ": {
+      "video_code": "dmq53ZZ",
+      "title": "رقص هندی امین حیایی و محمدرضا گلزار",
+      "sender_name": "فیلمدوانه",
+      "category_id": 9,
+      "duration": 286,
+      "visit_count": 383111,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-27T00:55:20.452Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امین حیایی",
+          "trendTitle": "امین حیایی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 26 Nov 2026 11:30:00 -0800",
+          "trendKeywords": [
+            "امین",
+            "حیایی"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-27T00:55:53.585Z"
+    },
+    "uVadlAI": {
+      "video_code": "uVadlAI",
+      "title": "فیلم سینمایی « کما » محمدرضا گلزار _ امین حیایی",
+      "sender_name": "سرگرمخانه",
+      "category_id": 3,
+      "duration": 5123,
+      "visit_count": 50359,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-27T00:55:20.452Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امین حیایی",
+          "trendTitle": "امین حیایی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 26 Nov 2026 11:30:00 -0800",
+          "trendKeywords": [
+            "امین",
+            "حیایی"
+          ],
+          "page": 1
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-27T00:55:53.585Z"
+    },
+    "9fV1qp4": {
+      "video_code": "9fV1qp4",
+      "title": "فیلم سینمایی ایرانی کمدی زن ها فرشته اند ۱ با هنرمندی امین حیایی",
+      "sender_name": "زکریا ایرندگانی",
+      "category_id": 3,
+      "duration": 5819,
+      "visit_count": 144419,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-27T00:55:21.525Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امین حیایی",
+          "trendTitle": "امین حیایی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 26 Nov 2026 11:30:00 -0800",
+          "trendKeywords": [
+            "امین",
+            "حیایی"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-27T00:55:53.585Z"
+    },
+    "JJgrbnX": {
+      "video_code": "JJgrbnX",
+      "title": "رقص هندی امین حیایی و محمدرضا گلزار",
+      "sender_name": "FC",
+      "category_id": 9,
+      "duration": 288,
+      "visit_count": 42098,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-27T00:55:21.525Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امین حیایی",
+          "trendTitle": "امین حیایی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 26 Nov 2026 11:30:00 -0800",
+          "trendKeywords": [
+            "امین",
+            "حیایی"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-27T00:55:53.585Z"
+    },
+    "OFDfd37": {
+      "video_code": "OFDfd37",
+      "title": "مهمان مامان به کارگردانی داریوش مهرجویی با بازی پارسا پیروزفر امین حیایی",
+      "sender_name": "حسین معقول",
+      "category_id": 3,
+      "duration": 6225,
+      "visit_count": 63074,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-27T00:55:21.525Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امین حیایی",
+          "trendTitle": "امین حیایی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 26 Nov 2026 11:30:00 -0800",
+          "trendKeywords": [
+            "امین",
+            "حیایی"
+          ],
+          "page": 2
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-27T00:55:53.585Z"
+    },
+    "e85rJ88": {
+      "video_code": "e85rJ88",
+      "title": "خاطره خنده‌دار امین حیایی از تبدیل شدنش به زن",
+      "sender_name": "اسنیک مامانی (فالو لطفا)",
+      "category_id": 6,
+      "duration": 78,
+      "visit_count": 30717,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-27T00:55:22.632Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "امین حیایی",
+          "trendTitle": "امین حیایی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Thu, 26 Nov 2026 11:30:00 -0800",
+          "trendKeywords": [
+            "امین",
+            "حیایی"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-27T00:55:53.586Z"
     }
   },
-  "totalPagesFetched": 17513,
-  "totalVideosSeen": 311775
+  "totalPagesFetched": 17619,
+  "totalVideosSeen": 313398
 }
