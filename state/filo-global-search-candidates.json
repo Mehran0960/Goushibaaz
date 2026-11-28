@@ -1,9 +1,18 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-28T00:55:29.850Z",
-  "trendsFetchedAt": "2026-11-28T00:54:39.239Z",
+  "updatedAt": "2026-11-28T02:05:21.375Z",
+  "trendsFetchedAt": "2026-11-28T02:04:37.260Z",
   "trends": [
+    {
+      "title": "حفاری",
+      "keywords": [
+        "حفاری"
+      ],
+      "traffic": 2000,
+      "publishedAt": "Fri, 27 Nov 2026 12:40:00 -0800",
+      "ageHours": 5.4
+    },
     {
       "title": "ناتینگهام فارست مقابل چلسی",
       "keywords": [
@@ -14,16 +23,7 @@
       ],
       "traffic": 2000,
       "publishedAt": "Fri, 27 Nov 2026 11:10:00 -0800",
-      "ageHours": 5.7
-    },
-    {
-      "title": "حفاری",
-      "keywords": [
-        "حفاری"
-      ],
-      "traffic": 1000,
-      "publishedAt": "Fri, 27 Nov 2026 12:40:00 -0800",
-      "ageHours": 4.2
+      "ageHours": 6.9
     },
     {
       "title": "nottm forest vs chelsea",
@@ -35,16 +35,7 @@
       ],
       "traffic": 1000,
       "publishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
-      "ageHours": 5.6
-    },
-    {
-      "title": "ok",
-      "keywords": [
-        "ok"
-      ],
-      "traffic": 500,
-      "publishedAt": "Fri, 27 Nov 2026 10:40:00 -0800",
-      "ageHours": 6.2
+      "ageHours": 6.7
     },
     {
       "title": "سید حسن خمینی",
@@ -55,7 +46,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Fri, 27 Nov 2026 12:40:00 -0800",
-      "ageHours": 4.2
+      "ageHours": 5.4
     },
     {
       "title": "جواد عزتی",
@@ -65,7 +56,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Fri, 27 Nov 2026 11:50:00 -0800",
-      "ageHours": 5.1
+      "ageHours": 6.2
     },
     {
       "title": "منصور عباس",
@@ -75,7 +66,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
-      "ageHours": 5.6
+      "ageHours": 6.7
     },
     {
       "title": "پیکاپ هامون",
@@ -85,7 +76,20 @@
       ],
       "traffic": 200,
       "publishedAt": "Fri, 27 Nov 2026 11:00:00 -0800",
-      "ageHours": 5.9
+      "ageHours": 7.1
+    },
+    {
+      "title": "کلمبوس کرو مقابل اینتر میامی",
+      "keywords": [
+        "کلمبوس",
+        "کرو",
+        "مقابل",
+        "اینتر",
+        "میامی"
+      ],
+      "traffic": 100,
+      "publishedAt": "Fri, 27 Nov 2026 17:30:00 -0800",
+      "ageHours": 0.6
     },
     {
       "title": "دردسرهای عظیم",
@@ -95,7 +99,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Fri, 27 Nov 2026 12:10:00 -0800",
-      "ageHours": 4.7
+      "ageHours": 5.9
     },
     {
       "title": "حسام نواب صفوی",
@@ -106,7 +110,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Fri, 27 Nov 2026 11:10:00 -0800",
-      "ageHours": 5.7
+      "ageHours": 6.9
     }
   ],
   "queries": {
@@ -628,12 +632,12 @@
     "اختلاف گولر و مورینیو در رئال مادرید نمی خواهم عقب تر بازی کنم": {
       "query": "اختلاف گولر و مورینیو در رئال مادرید؛ نمی‌خواهم عقب‌تر بازی کنم!",
       "normalized": "اختلاف گولر و مورینیو در رئال مادرید نمی خواهم عقب تر بازی کنم",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-25T02:19:06.872Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-28T02:05:21.186Z",
       "lastError": null,
       "trendTitle": "آردا گولر",
       "trendTraffic": 200,
@@ -643,17 +647,19 @@
         "گولر"
       ],
       "lastTrendSeenAt": "2026-11-25T02:19:06.872Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-28T02:05:21.186Z"
     },
     "psv": {
       "query": "psv",
       "normalized": "psv",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 400,
       "createdAt": "2026-11-25T02:19:06.872Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-28T02:05:21.189Z",
       "lastError": null,
       "trendTitle": "psv",
       "trendTraffic": 200,
@@ -662,7 +668,8 @@
         "psv"
       ],
       "lastTrendSeenAt": "2026-11-25T02:19:06.872Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "max_pages_reached"
     },
     "real madrid trainer josé mourinho mysterieus na zege op psv wat er in las vegas gebeurt blijft in las vegas": {
       "query": "Real Madrid-trainer José Mourinho mysterieus na zege op PSV: ’Wat er in Las Vegas gebeurt, blijft in Las Vegas’",
@@ -1556,7 +1563,7 @@
         "جواد",
         "عزتی"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -4148,10 +4155,10 @@
       "normalized": "ناتینگهام فارست مقابل چلسی",
       "nextPage": 1,
       "complete": true,
-      "pagesFetched": 22,
-      "videosSeen": 343,
+      "pagesFetched": 27,
+      "videosSeen": 425,
       "createdAt": "2026-11-27T19:34:39.615Z",
-      "lastAttemptAt": "2026-11-28T00:55:29.652Z",
+      "lastAttemptAt": "2026-11-28T02:05:21.175Z",
       "lastError": null,
       "trendTitle": "ناتینگهام فارست مقابل چلسی",
       "trendTraffic": 2000,
@@ -4162,12 +4169,12 @@
         "مقابل",
         "چلسی"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
-      "completedAt": "2026-11-28T00:55:29.652Z",
+      "completedAt": "2026-11-28T02:05:21.175Z",
       "refreshOnly": false,
-      "lastRefreshAt": "2026-11-28T00:55:29.652Z"
+      "lastRefreshAt": "2026-11-28T02:05:21.175Z"
     },
     "ناتینگهام فارست چلسی زنده از برنامه گزارش ورزشی": {
       "query": "ناتینگهام فارست - چلسی زنده از برنامه گزارش ورزشی",
@@ -4299,10 +4306,10 @@
       "normalized": "حسام نواب صفوی",
       "nextPage": 1,
       "complete": true,
-      "pagesFetched": 9,
-      "videosSeen": 102,
+      "pagesFetched": 13,
+      "videosSeen": 153,
       "createdAt": "2026-11-27T19:34:39.615Z",
-      "lastAttemptAt": "2026-11-28T00:55:29.653Z",
+      "lastAttemptAt": "2026-11-28T02:05:21.176Z",
       "lastError": null,
       "trendTitle": "حسام نواب صفوی",
       "trendTraffic": 100,
@@ -4312,12 +4319,12 @@
         "نواب",
         "صفوی"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
-      "completedAt": "2026-11-28T00:55:29.653Z",
+      "completedAt": "2026-11-28T02:05:21.176Z",
       "refreshOnly": false,
-      "lastRefreshAt": "2026-11-28T00:55:29.653Z"
+      "lastRefreshAt": "2026-11-28T02:05:21.176Z"
     },
     "پزشکیان جنایت آمریکا و صهیونیستها در میناب را هرگز فراموش نخواهیم کرد": {
       "query": "پزشکیان: جنایت آمریکا و صهیونیستها در میناب را هرگز فراموش نخواهیم کرد",
@@ -4345,10 +4352,10 @@
       "normalized": "حسام نواب صفوی بازیگر وکیل پرونده خون خواهی دانش آموزان شهید میناب شد",
       "nextPage": 1,
       "complete": true,
-      "pagesFetched": 5,
-      "videosSeen": 2,
+      "pagesFetched": 7,
+      "videosSeen": 3,
       "createdAt": "2026-11-27T19:34:39.615Z",
-      "lastAttemptAt": "2026-11-28T00:55:29.653Z",
+      "lastAttemptAt": "2026-11-28T02:05:21.176Z",
       "lastError": null,
       "trendTitle": "حسام نواب صفوی",
       "trendTraffic": 100,
@@ -4358,12 +4365,12 @@
         "نواب",
         "صفوی"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
-      "completedAt": "2026-11-28T00:55:29.653Z",
+      "completedAt": "2026-11-28T02:05:21.176Z",
       "refreshOnly": false,
-      "lastRefreshAt": "2026-11-28T00:55:29.653Z"
+      "lastRefreshAt": "2026-11-28T02:05:21.176Z"
     },
     "صلاح": {
       "query": "صلاح",
@@ -4427,10 +4434,10 @@
       "normalized": "فوتبال ناتینگهام فارست چلسی گزارش محمد معصومی",
       "nextPage": 1,
       "complete": true,
-      "pagesFetched": 5,
-      "videosSeen": 26,
+      "pagesFetched": 8,
+      "videosSeen": 52,
       "createdAt": "2026-11-27T21:58:36.185Z",
-      "lastAttemptAt": "2026-11-28T00:55:29.654Z",
+      "lastAttemptAt": "2026-11-28T02:05:21.177Z",
       "lastError": null,
       "trendTitle": "ناتینگهام فارست مقابل چلسی",
       "trendTraffic": 2000,
@@ -4441,12 +4448,12 @@
         "مقابل",
         "چلسی"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
-      "completedAt": "2026-11-28T00:55:29.654Z",
+      "completedAt": "2026-11-28T02:05:21.177Z",
       "refreshOnly": false,
-      "lastRefreshAt": "2026-11-28T00:55:29.654Z"
+      "lastRefreshAt": "2026-11-28T02:05:21.177Z"
     },
     "حفاری": {
       "query": "حفاری",
@@ -4459,12 +4466,12 @@
       "lastAttemptAt": "2026-11-27T21:59:44.136Z",
       "lastError": null,
       "trendTitle": "حفاری",
-      "trendTraffic": 1000,
+      "trendTraffic": 2000,
       "trendPublishedAt": "Fri, 27 Nov 2026 12:40:00 -0800",
       "trendKeywords": [
         "حفاری"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -4534,10 +4541,10 @@
       "normalized": "nottm forest vs chelsea",
       "nextPage": 1,
       "complete": true,
-      "pagesFetched": 3,
+      "pagesFetched": 4,
       "videosSeen": 0,
       "createdAt": "2026-11-27T21:58:36.185Z",
-      "lastAttemptAt": "2026-11-28T00:55:29.654Z",
+      "lastAttemptAt": "2026-11-28T02:05:21.177Z",
       "lastError": null,
       "trendTitle": "nottm forest vs chelsea",
       "trendTraffic": 1000,
@@ -4548,12 +4555,12 @@
         "vs",
         "chelsea"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
-      "completedAt": "2026-11-28T00:55:29.654Z",
+      "completedAt": "2026-11-28T02:05:21.177Z",
       "refreshOnly": false,
-      "lastRefreshAt": "2026-11-28T00:55:29.654Z"
+      "lastRefreshAt": "2026-11-28T02:05:21.177Z"
     },
     "predicted xi alonso dodges big decisions and picks player fans are sick of": {
       "query": "Predicted XI: Alonso dodges big decisions and picks player fans are sick of",
@@ -4619,19 +4626,19 @@
         "حسن",
         "خمینی"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "دیدار جمعی از اعضای بنیاد زنان متخصص با آیت الله سیدحسن خمینی": {
       "query": "دیدار جمعی از اعضای بنیاد زنان متخصص با آیت الله سیدحسن خمینی",
       "normalized": "دیدار جمعی از اعضای بنیاد زنان متخصص با آیت الله سیدحسن خمینی",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-27T21:58:36.185Z",
-      "lastAttemptAt": "2026-11-28T00:55:29.663Z",
+      "lastAttemptAt": "2026-11-28T02:05:21.177Z",
       "lastError": null,
       "trendTitle": "سید حسن خمینی",
       "trendTraffic": 200,
@@ -4641,20 +4648,22 @@
         "حسن",
         "خمینی"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-28T00:55:29.663Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-28T02:05:21.177Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-28T02:05:21.177Z"
     },
     "سید حسن خمینی زنان پرچمدار میادین هستند": {
       "query": "سید حسن خمینی: زنان پرچمدار میادین هستند",
       "normalized": "سید حسن خمینی زنان پرچمدار میادین هستند",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 4,
-      "videosSeen": 32,
+      "pagesFetched": 7,
+      "videosSeen": 64,
       "createdAt": "2026-11-27T21:58:36.185Z",
-      "lastAttemptAt": "2026-11-28T00:55:29.664Z",
+      "lastAttemptAt": "2026-11-28T02:05:21.178Z",
       "lastError": null,
       "trendTitle": "سید حسن خمینی",
       "trendTraffic": 200,
@@ -4664,20 +4673,22 @@
         "حسن",
         "خمینی"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-28T00:55:29.664Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-28T02:05:21.178Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-28T02:05:21.178Z"
     },
     "فروش بیش از ۳۵۰ میلیارد ریالی سینماهای خراسان رضوی در آبان ماه": {
       "query": "فروش بیش از ۳۵۰ میلیارد ریالی سینماهای خراسان رضوی در آبان‌ماه",
       "normalized": "فروش بیش از ۳۵۰ میلیارد ریالی سینماهای خراسان رضوی در آبان ماه",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-27T21:58:36.185Z",
-      "lastAttemptAt": "2026-11-28T00:55:29.664Z",
+      "lastAttemptAt": "2026-11-28T02:05:21.178Z",
       "lastError": null,
       "trendTitle": "جواد عزتی",
       "trendTraffic": 200,
@@ -4686,20 +4697,22 @@
         "جواد",
         "عزتی"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-28T00:55:29.664Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-28T02:05:21.178Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-28T02:05:21.178Z"
     },
     "بورسیه همچنان پیشتاز گیشه است": {
       "query": "«بورسیه» همچنان پیشتاز گیشه است",
       "normalized": "بورسیه همچنان پیشتاز گیشه است",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-27T21:58:36.185Z",
-      "lastAttemptAt": "2026-11-28T00:55:29.664Z",
+      "lastAttemptAt": "2026-11-28T02:05:21.178Z",
       "lastError": null,
       "trendTitle": "جواد عزتی",
       "trendTraffic": 200,
@@ -4708,10 +4721,12 @@
         "جواد",
         "عزتی"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-28T00:55:29.664Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-28T02:05:21.178Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-28T02:05:21.178Z"
     },
     "منصور عباس": {
       "query": "منصور عباس",
@@ -4730,19 +4745,19 @@
         "منصور",
         "عباس"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
     "موقف مرتقب لمنصور عباس تجاه حماس یثیر جدلا فی إسرائیل": {
       "query": "موقف مرتقب لمنصور عباس تجاه \"حماس\" يثير جدلا في إسرائيل",
       "normalized": "موقف مرتقب لمنصور عباس تجاه حماس یثیر جدلا فی إسرائیل",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 3,
-      "videosSeen": 9,
+      "pagesFetched": 5,
+      "videosSeen": 18,
       "createdAt": "2026-11-27T21:58:36.185Z",
-      "lastAttemptAt": "2026-11-28T00:55:29.670Z",
+      "lastAttemptAt": "2026-11-28T02:05:21.178Z",
       "lastError": null,
       "trendTitle": "منصور عباس",
       "trendTraffic": 200,
@@ -4751,20 +4766,22 @@
         "منصور",
         "عباس"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-28T00:55:29.670Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-28T02:05:21.178Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-28T02:05:21.178Z"
     },
     "منصور عباس قد یعترف بحماس إرهابیة للانضمام إلی حکومة آیزنکوت ونتانیاهو یواصل مناوراته": {
       "query": "منصور عباس قد يعترف بحماس \"إرهابية\" للانضمام إلى حكومة آيزنكوت.. ونتانياهو يواصل مناوراته",
       "normalized": "منصور عباس قد یعترف بحماس إرهابیة للانضمام إلی حکومة آیزنکوت ونتانیاهو یواصل مناوراته",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-27T21:58:36.185Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-28T02:05:21.178Z",
       "lastError": null,
       "trendTitle": "منصور عباس",
       "trendTraffic": 200,
@@ -4773,8 +4790,10 @@
         "منصور",
         "عباس"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-28T02:05:21.178Z"
     },
     "chelsea": {
       "query": "chelsea",
@@ -4836,12 +4855,12 @@
     "دردسرهای عظیم": {
       "query": "دردسرهای عظیم",
       "normalized": "دردسرهای عظیم",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 357,
       "createdAt": "2026-11-27T21:58:36.185Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-28T02:05:21.186Z",
       "lastError": null,
       "trendTitle": "دردسرهای عظیم",
       "trendTraffic": 100,
@@ -4850,8 +4869,9 @@
         "دردسرهای",
         "عظیم"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "افشاگری الناز حبیبی از دلیل جدایی از همسر سابقش ویدیو": {
       "query": "افشاگری الناز حبیبی از دلیل جدایی از همسر سابقش + ویدیو",
@@ -4870,7 +4890,7 @@
         "دردسرهای",
         "عظیم"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true
     },
     "مسافرکشی بازیگر زن مطرح سینمای ایران در تهران ویدئو": {
@@ -4890,7 +4910,7 @@
         "دردسرهای",
         "عظیم"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true
     },
     "پزشکیان جنایت دشمن در میناب را هرگز فراموش نخواهیم کرد": {
@@ -4911,7 +4931,7 @@
         "نواب",
         "صفوی"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true
     },
     "خلاصه بازی ناتینگام فارست ۳ ۲ چلسی گیبس وایت ماری که ژابی را نیش زد": {
@@ -4933,7 +4953,7 @@
         "مقابل",
         "چلسی"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true
     },
     "alonso sack coming without 60m saviour as chelsea lose to forest before kick off": {
@@ -4955,7 +4975,7 @@
         "vs",
         "chelsea"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true
     },
     "licensable picture premier league nottingham forest v chelsea": {
@@ -4977,7 +4997,7 @@
         "vs",
         "chelsea"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true
     },
     "ok": {
@@ -4997,7 +5017,7 @@
         "ok"
       ],
       "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "ok movement pulls nationwide structures out of obi s ndc": {
       "query": "OK Movement Pulls Nationwide Structures Out of Obi’s NDC",
@@ -5016,7 +5036,7 @@
         "ok"
       ],
       "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "media office counters ok movement faction says support group loyal to obi kwankwaso": {
       "query": "Media office counters OK Movement faction, says support group loyal to Obi, Kwankwaso",
@@ -5035,7 +5055,7 @@
         "ok"
       ],
       "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "پیکاپ هامون": {
       "query": "پیکاپ هامون",
@@ -5054,7 +5074,7 @@
         "پیکاپ",
         "هامون"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true
     },
     "پیکاپ هامون زامیاد هانتر پلاس نیامده ۳ میلیارد گران شد": {
@@ -5074,7 +5094,7 @@
         "پیکاپ",
         "هامون"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true
     },
     "گرانی ۴۰ تا ۷۰ درصدی محصولات تجاری زامیاد کلید خورد پیکاپ هامون رکورد زد": {
@@ -5094,7 +5114,76 @@
         "پیکاپ",
         "هامون"
       ],
-      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
+      "activeInLatestFeed": true
+    },
+    "کلمبوس کرو مقابل اینتر میامی": {
+      "query": "کلمبوس کرو مقابل اینتر میامی",
+      "normalized": "کلمبوس کرو مقابل اینتر میامی",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-28T02:04:37.635Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "کلمبوس کرو مقابل اینتر میامی",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Fri, 27 Nov 2026 17:30:00 -0800",
+      "trendKeywords": [
+        "کلمبوس",
+        "کرو",
+        "مقابل",
+        "اینتر",
+        "میامی"
+      ],
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
+      "activeInLatestFeed": true
+    },
+    "match guide crew vs inter miami round one game 2": {
+      "query": "MATCH GUIDE | Crew vs. Inter Miami | Round One, Game 2",
+      "normalized": "match guide crew vs inter miami round one game 2",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-28T02:04:37.635Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "کلمبوس کرو مقابل اینتر میامی",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Fri, 27 Nov 2026 17:30:00 -0800",
+      "trendKeywords": [
+        "کلمبوس",
+        "کرو",
+        "مقابل",
+        "اینتر",
+        "میامی"
+      ],
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
+      "activeInLatestFeed": true
+    },
+    "lionel messi embracing mls supervillain role with inter miami cf": {
+      "query": "Lionel Messi embracing MLS supervillain role with Inter Miami CF",
+      "normalized": "lionel messi embracing mls supervillain role with inter miami cf",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-28T02:04:37.635Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "کلمبوس کرو مقابل اینتر میامی",
+      "trendTraffic": 100,
+      "trendPublishedAt": "Fri, 27 Nov 2026 17:30:00 -0800",
+      "trendKeywords": [
+        "کلمبوس",
+        "کرو",
+        "مقابل",
+        "اینتر",
+        "میامی"
+      ],
+      "lastTrendSeenAt": "2026-11-28T02:04:37.635Z",
       "activeInLatestFeed": true
     }
   },
@@ -14668,34 +14757,6 @@
       "category_id": 1,
       "duration": 270,
       "visit_count": 137653,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "افغانی افغانستان",
-          "trendTitle": "افغانی افغانستان",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Mon, 2 Nov 2026 11:00:00 -0800",
-          "trendKeywords": [
-            "افغانی",
-            "افغانستان"
-          ],
-          "page": 6
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-02T21:31:42.827Z"
-    },
-    "hL2doHW": {
-      "video_code": "hL2doHW",
-      "title": "زودنیوز در افغانستان | طنز شرایط جدیدطالبان در افغانستان",
-      "sender_name": "اسنیک مامانی (فالو لطفا)",
-      "category_id": 6,
-      "duration": 143,
-      "visit_count": 30905,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -62874,7 +62935,7 @@
       "sender_name": "عرفان",
       "category_id": 7,
       "duration": 59,
-      "visit_count": 13142,
+      "visit_count": 13148,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -62921,10 +62982,20 @@
             "gta"
           ],
           "page": 10
+        },
+        {
+          "query": "psv",
+          "trendTitle": "psv",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 24 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "psv"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T08:50:03.299Z",
-      "lastMetricsFetchedAt": "2026-11-24T08:49:43.390Z"
+      "lastTrendMatchedAt": "2026-11-28T02:05:21.186Z",
+      "lastMetricsFetchedAt": "2026-11-28T02:05:08.460Z"
     },
     "0W7G2i2": {
       "video_code": "0W7G2i2",
@@ -62932,7 +63003,7 @@
       "sender_name": "ارسلان",
       "category_id": 17,
       "duration": 926,
-      "visit_count": 13126,
+      "visit_count": 13128,
       "create_date": "6 سال پیش",
       "styled_create_date": "6 سال پیش",
       "active": 1,
@@ -62981,10 +63052,20 @@
             "gta"
           ],
           "page": 15
+        },
+        {
+          "query": "psv",
+          "trendTitle": "psv",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 24 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "psv"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-24T08:50:03.300Z",
-      "lastMetricsFetchedAt": "2026-11-24T08:49:47.386Z"
+      "lastTrendMatchedAt": "2026-11-28T02:05:21.187Z",
+      "lastMetricsFetchedAt": "2026-11-28T02:05:10.128Z"
     },
     "AxPuR7U": {
       "video_code": "AxPuR7U",
@@ -106911,10 +106992,10 @@
       "sender_name": "دیجیتال گالری",
       "category_id": 11,
       "duration": 904,
-      "visit_count": 4917,
+      "visit_count": 4921,
       "create_date": "5 سال پیش",
       "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-20T22:29:51.006Z",
+      "lastMetricsFetchedAt": "2026-11-28T02:05:12.546Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -106983,9 +107064,19 @@
             "ps5"
           ],
           "page": 4
+        },
+        {
+          "query": "psv",
+          "trendTitle": "psv",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Tue, 24 Nov 2026 13:10:00 -0800",
+          "trendKeywords": [
+            "psv"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-20T22:30:03.263Z"
+      "lastTrendMatchedAt": "2026-11-28T02:05:21.187Z"
     },
     "3q0Y9xd": {
       "video_code": "3q0Y9xd",
@@ -176804,34 +176895,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-25T02:20:23.348Z"
     },
-    "1gGyjMA": {
-      "video_code": "1gGyjMA",
-      "title": "فیلم سینمایی مارها در هواپیما - دوبله فارسی",
-      "sender_name": "ارسلان",
-      "category_id": 3,
-      "duration": 4558,
-      "visit_count": 30902,
-      "create_date": "6 سال پیش",
-      "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-25T02:19:35.914Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "هواپیما",
-          "trendTitle": "هواپیما",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Tue, 24 Nov 2026 13:30:00 -0800",
-          "trendKeywords": [
-            "هواپیما"
-          ],
-          "page": 5
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-25T02:20:23.348Z"
-    },
     "RQ4D85p": {
       "video_code": "RQ4D85p",
       "title": "خروج خلبان از هواپیما و تعویض با هواپیمای دیگر",
@@ -177358,10 +177421,10 @@
       "sender_name": "رضا احمدی",
       "category_id": 13,
       "duration": 17,
-      "visit_count": 32707,
+      "visit_count": 32714,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-25T21:05:53.999Z",
+      "lastMetricsFetchedAt": "2026-11-28T02:05:13.962Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -177377,9 +177440,20 @@
             "عزتی"
           ],
           "page": 7
+        },
+        {
+          "query": "دردسرهای عظیم",
+          "trendTitle": "دردسرهای عظیم",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Fri, 27 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "دردسرهای",
+            "عظیم"
+          ],
+          "page": 12
         }
       ],
-      "lastTrendMatchedAt": "2026-11-25T21:06:22.436Z"
+      "lastTrendMatchedAt": "2026-11-28T02:05:21.183Z"
     },
     "iAYUTTY": {
       "video_code": "iAYUTTY",
@@ -181426,7 +181500,7 @@
       "visit_count": 190094,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-28T00:54:58.271Z",
+      "lastMetricsFetchedAt": "2026-11-28T02:04:56.526Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -181445,7 +181519,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-28T00:55:29.652Z"
+      "lastTrendMatchedAt": "2026-11-28T02:05:21.175Z"
     },
     "nj4J9Gp": {
       "video_code": "nj4J9Gp",
@@ -182079,8 +182153,66 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-28T00:55:29.669Z"
+    },
+    "06f1mfg": {
+      "video_code": "06f1mfg",
+      "title": "یک سگ گرگ عظیم الجثه یک ژرمن شپرد",
+      "sender_name": "lashini2022",
+      "category_id": 13,
+      "duration": 199,
+      "visit_count": 75607,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-28T02:05:10.994Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "دردسرهای عظیم",
+          "trendTitle": "دردسرهای عظیم",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Fri, 27 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "دردسرهای",
+            "عظیم"
+          ],
+          "page": 8
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-28T02:05:21.181Z"
+    },
+    "GdxW5qH": {
+      "video_code": "GdxW5qH",
+      "title": "حفره عظیم ۱۴۰۰ متری در ترکیه پس از زلزله اخیر",
+      "sender_name": "filmchi",
+      "category_id": 1,
+      "duration": 124,
+      "visit_count": 37227,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-28T02:05:10.994Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "دردسرهای عظیم",
+          "trendTitle": "دردسرهای عظیم",
+          "trendTraffic": 100,
+          "trendPublishedAt": "Fri, 27 Nov 2026 12:10:00 -0800",
+          "trendKeywords": [
+            "دردسرهای",
+            "عظیم"
+          ],
+          "page": 8
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-28T02:05:21.181Z"
     }
   },
-  "totalPagesFetched": 18037,
-  "totalVideosSeen": 319956
+  "totalPagesFetched": 18104,
+  "totalVideosSeen": 320914
 }
