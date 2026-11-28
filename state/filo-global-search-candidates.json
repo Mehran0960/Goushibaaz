@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "createdAt": "2026-11-02T20:27:46.850Z",
-  "updatedAt": "2026-11-27T21:59:44.312Z",
-  "trendsFetchedAt": "2026-11-27T21:58:36.016Z",
+  "updatedAt": "2026-11-28T00:55:29.850Z",
+  "trendsFetchedAt": "2026-11-28T00:54:39.239Z",
   "trends": [
     {
       "title": "ناتینگهام فارست مقابل چلسی",
@@ -14,25 +14,16 @@
       ],
       "traffic": 2000,
       "publishedAt": "Fri, 27 Nov 2026 11:10:00 -0800",
-      "ageHours": 2.8
+      "ageHours": 5.7
     },
     {
       "title": "حفاری",
       "keywords": [
         "حفاری"
       ],
-      "traffic": 500,
+      "traffic": 1000,
       "publishedAt": "Fri, 27 Nov 2026 12:40:00 -0800",
-      "ageHours": 1.3
-    },
-    {
-      "title": "چلسی",
-      "keywords": [
-        "چلسی"
-      ],
-      "traffic": 500,
-      "publishedAt": "Fri, 27 Nov 2026 12:00:00 -0800",
-      "ageHours": 2
+      "ageHours": 4.2
     },
     {
       "title": "nottm forest vs chelsea",
@@ -42,9 +33,18 @@
         "vs",
         "chelsea"
       ],
-      "traffic": 500,
+      "traffic": 1000,
       "publishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
-      "ageHours": 2.6
+      "ageHours": 5.6
+    },
+    {
+      "title": "ok",
+      "keywords": [
+        "ok"
+      ],
+      "traffic": 500,
+      "publishedAt": "Fri, 27 Nov 2026 10:40:00 -0800",
+      "ageHours": 6.2
     },
     {
       "title": "سید حسن خمینی",
@@ -55,7 +55,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Fri, 27 Nov 2026 12:40:00 -0800",
-      "ageHours": 1.3
+      "ageHours": 4.2
     },
     {
       "title": "جواد عزتی",
@@ -65,7 +65,7 @@
       ],
       "traffic": 200,
       "publishedAt": "Fri, 27 Nov 2026 11:50:00 -0800",
-      "ageHours": 2.1
+      "ageHours": 5.1
     },
     {
       "title": "منصور عباس",
@@ -75,16 +75,17 @@
       ],
       "traffic": 200,
       "publishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
-      "ageHours": 2.6
+      "ageHours": 5.6
     },
     {
-      "title": "chelsea",
+      "title": "پیکاپ هامون",
       "keywords": [
-        "chelsea"
+        "پیکاپ",
+        "هامون"
       ],
-      "traffic": 100,
-      "publishedAt": "Fri, 27 Nov 2026 13:30:00 -0800",
-      "ageHours": 0.5
+      "traffic": 200,
+      "publishedAt": "Fri, 27 Nov 2026 11:00:00 -0800",
+      "ageHours": 5.9
     },
     {
       "title": "دردسرهای عظیم",
@@ -94,7 +95,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Fri, 27 Nov 2026 12:10:00 -0800",
-      "ageHours": 1.8
+      "ageHours": 4.7
     },
     {
       "title": "حسام نواب صفوی",
@@ -105,7 +106,7 @@
       ],
       "traffic": 100,
       "publishedAt": "Fri, 27 Nov 2026 11:10:00 -0800",
-      "ageHours": 2.8
+      "ageHours": 5.7
     }
   ],
   "queries": {
@@ -583,12 +584,12 @@
     "آردا گولر": {
       "query": "آردا گولر",
       "normalized": "آردا گولر",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 6,
+      "videosSeen": 43,
       "createdAt": "2026-11-25T02:19:06.872Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-28T00:55:29.671Z",
       "lastError": null,
       "trendTitle": "آردا گولر",
       "trendTraffic": 200,
@@ -598,17 +599,19 @@
         "گولر"
       ],
       "lastTrendSeenAt": "2026-11-25T02:19:06.872Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-28T00:55:29.671Z"
     },
     "درخواست آردا گولر از مورینیو بازی در کناره ها": {
       "query": "درخواست آردا گولر از مورینیو؛ بازی در کناره‌ها",
       "normalized": "درخواست آردا گولر از مورینیو بازی در کناره ها",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-25T02:19:06.872Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-28T00:55:29.671Z",
       "lastError": null,
       "trendTitle": "آردا گولر",
       "trendTraffic": 200,
@@ -618,7 +621,9 @@
         "گولر"
       ],
       "lastTrendSeenAt": "2026-11-25T02:19:06.872Z",
-      "activeInLatestFeed": false
+      "activeInLatestFeed": false,
+      "termination": "empty_page",
+      "completedAt": "2026-11-28T00:55:29.671Z"
     },
     "اختلاف گولر و مورینیو در رئال مادرید نمی خواهم عقب تر بازی کنم": {
       "query": "اختلاف گولر و مورینیو در رئال مادرید؛ نمی‌خواهم عقب‌تر بازی کنم!",
@@ -1551,7 +1556,7 @@
         "جواد",
         "عزتی"
       ],
-      "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -4143,10 +4148,10 @@
       "normalized": "ناتینگهام فارست مقابل چلسی",
       "nextPage": 1,
       "complete": true,
-      "pagesFetched": 17,
-      "videosSeen": 261,
+      "pagesFetched": 22,
+      "videosSeen": 343,
       "createdAt": "2026-11-27T19:34:39.615Z",
-      "lastAttemptAt": "2026-11-27T21:59:44.131Z",
+      "lastAttemptAt": "2026-11-28T00:55:29.652Z",
       "lastError": null,
       "trendTitle": "ناتینگهام فارست مقابل چلسی",
       "trendTraffic": 2000,
@@ -4157,12 +4162,12 @@
         "مقابل",
         "چلسی"
       ],
-      "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
       "activeInLatestFeed": true,
       "termination": "recent_first_pages_refreshed",
-      "completedAt": "2026-11-27T21:59:44.131Z",
+      "completedAt": "2026-11-28T00:55:29.652Z",
       "refreshOnly": false,
-      "lastRefreshAt": "2026-11-27T21:59:44.131Z"
+      "lastRefreshAt": "2026-11-28T00:55:29.652Z"
     },
     "ناتینگهام فارست چلسی زنده از برنامه گزارش ورزشی": {
       "query": "ناتینگهام فارست - چلسی زنده از برنامه گزارش ورزشی",
@@ -4184,7 +4189,7 @@
         "چلسی"
       ],
       "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "recent_first_pages_refreshed",
       "completedAt": "2026-11-27T21:59:44.131Z",
       "refreshOnly": false,
@@ -4292,12 +4297,12 @@
     "حسام نواب صفوی": {
       "query": "حسام نواب صفوی",
       "normalized": "حسام نواب صفوی",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 5,
-      "videosSeen": 51,
+      "pagesFetched": 9,
+      "videosSeen": 102,
       "createdAt": "2026-11-27T19:34:39.615Z",
-      "lastAttemptAt": "2026-11-27T21:59:44.132Z",
+      "lastAttemptAt": "2026-11-28T00:55:29.653Z",
       "lastError": null,
       "trendTitle": "حسام نواب صفوی",
       "trendTraffic": 100,
@@ -4307,10 +4312,12 @@
         "نواب",
         "صفوی"
       ],
-      "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-27T21:59:44.132Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-28T00:55:29.653Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-28T00:55:29.653Z"
     },
     "پزشکیان جنایت آمریکا و صهیونیستها در میناب را هرگز فراموش نخواهیم کرد": {
       "query": "پزشکیان: جنایت آمریکا و صهیونیستها در میناب را هرگز فراموش نخواهیم کرد",
@@ -4336,12 +4343,12 @@
     "حسام نواب صفوی بازیگر وکیل پرونده خون خواهی دانش آموزان شهید میناب شد": {
       "query": "حسام نواب صفوی، بازیگر، وکیل پرونده خون‌خواهی دانش‌آموزان شهید میناب شد",
       "normalized": "حسام نواب صفوی بازیگر وکیل پرونده خون خواهی دانش آموزان شهید میناب شد",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 3,
-      "videosSeen": 1,
+      "pagesFetched": 5,
+      "videosSeen": 2,
       "createdAt": "2026-11-27T19:34:39.615Z",
-      "lastAttemptAt": "2026-11-27T21:59:44.132Z",
+      "lastAttemptAt": "2026-11-28T00:55:29.653Z",
       "lastError": null,
       "trendTitle": "حسام نواب صفوی",
       "trendTraffic": 100,
@@ -4351,10 +4358,12 @@
         "نواب",
         "صفوی"
       ],
-      "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-27T21:59:44.132Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-28T00:55:29.653Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-28T00:55:29.653Z"
     },
     "صلاح": {
       "query": "صلاح",
@@ -4416,12 +4425,12 @@
     "فوتبال ناتینگهام فارست چلسی گزارش محمد معصومی": {
       "query": "فوتبال ناتینگهام فارست - چلسی (گزارش محمد معصومی)",
       "normalized": "فوتبال ناتینگهام فارست چلسی گزارش محمد معصومی",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
-      "videosSeen": 0,
+      "pagesFetched": 5,
+      "videosSeen": 26,
       "createdAt": "2026-11-27T21:58:36.185Z",
-      "lastAttemptAt": "2026-11-27T21:59:44.132Z",
+      "lastAttemptAt": "2026-11-28T00:55:29.654Z",
       "lastError": null,
       "trendTitle": "ناتینگهام فارست مقابل چلسی",
       "trendTraffic": 2000,
@@ -4432,10 +4441,12 @@
         "مقابل",
         "چلسی"
       ],
-      "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-27T21:59:44.132Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-28T00:55:29.654Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-28T00:55:29.654Z"
     },
     "حفاری": {
       "query": "حفاری",
@@ -4448,12 +4459,12 @@
       "lastAttemptAt": "2026-11-27T21:59:44.136Z",
       "lastError": null,
       "trendTitle": "حفاری",
-      "trendTraffic": 500,
+      "trendTraffic": 1000,
       "trendPublishedAt": "Fri, 27 Nov 2026 12:40:00 -0800",
       "trendKeywords": [
         "حفاری"
       ],
-      "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
       "activeInLatestFeed": true,
       "termination": "max_pages_reached"
     },
@@ -4474,7 +4485,7 @@
         "چلسی"
       ],
       "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "بررسی جذب رودیگر در لندن چلسی دنبال همکاری دوباره": {
@@ -4494,7 +4505,7 @@
         "چلسی"
       ],
       "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "max_pages_reached"
     },
     "رقابت آرسنال و نیوکاسل برای جذب ستاره بورنموث": {
@@ -4514,22 +4525,22 @@
         "چلسی"
       ],
       "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-27T21:59:44.149Z"
     },
     "nottm forest vs chelsea": {
       "query": "nottm forest vs chelsea",
       "normalized": "nottm forest vs chelsea",
-      "nextPage": 7,
+      "nextPage": 1,
       "complete": true,
-      "pagesFetched": 2,
+      "pagesFetched": 3,
       "videosSeen": 0,
       "createdAt": "2026-11-27T21:58:36.185Z",
-      "lastAttemptAt": "2026-11-27T21:59:44.149Z",
+      "lastAttemptAt": "2026-11-28T00:55:29.654Z",
       "lastError": null,
       "trendTitle": "nottm forest vs chelsea",
-      "trendTraffic": 500,
+      "trendTraffic": 1000,
       "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
       "trendKeywords": [
         "nottm",
@@ -4537,10 +4548,12 @@
         "vs",
         "chelsea"
       ],
-      "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
       "activeInLatestFeed": true,
-      "termination": "empty_page",
-      "completedAt": "2026-11-27T21:59:44.149Z"
+      "termination": "recent_first_pages_refreshed",
+      "completedAt": "2026-11-28T00:55:29.654Z",
+      "refreshOnly": false,
+      "lastRefreshAt": "2026-11-28T00:55:29.654Z"
     },
     "predicted xi alonso dodges big decisions and picks player fans are sick of": {
       "query": "Predicted XI: Alonso dodges big decisions and picks player fans are sick of",
@@ -4562,7 +4575,7 @@
         "chelsea"
       ],
       "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
-      "activeInLatestFeed": true,
+      "activeInLatestFeed": false,
       "termination": "empty_page",
       "completedAt": "2026-11-27T21:59:44.149Z"
     },
@@ -4586,17 +4599,17 @@
         "chelsea"
       ],
       "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "سید حسن خمینی": {
       "query": "سید حسن خمینی",
       "normalized": "سید حسن خمینی",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 386,
       "createdAt": "2026-11-27T21:58:36.185Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-28T00:55:29.663Z",
       "lastError": null,
       "trendTitle": "سید حسن خمینی",
       "trendTraffic": 200,
@@ -4606,18 +4619,19 @@
         "حسن",
         "خمینی"
       ],
-      "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "دیدار جمعی از اعضای بنیاد زنان متخصص با آیت الله سیدحسن خمینی": {
       "query": "دیدار جمعی از اعضای بنیاد زنان متخصص با آیت الله سیدحسن خمینی",
       "normalized": "دیدار جمعی از اعضای بنیاد زنان متخصص با آیت الله سیدحسن خمینی",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-27T21:58:36.185Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-28T00:55:29.663Z",
       "lastError": null,
       "trendTitle": "سید حسن خمینی",
       "trendTraffic": 200,
@@ -4627,18 +4641,20 @@
         "حسن",
         "خمینی"
       ],
-      "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-28T00:55:29.663Z"
     },
     "سید حسن خمینی زنان پرچمدار میادین هستند": {
       "query": "سید حسن خمینی: زنان پرچمدار میادین هستند",
       "normalized": "سید حسن خمینی زنان پرچمدار میادین هستند",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 4,
+      "videosSeen": 32,
       "createdAt": "2026-11-27T21:58:36.185Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-28T00:55:29.664Z",
       "lastError": null,
       "trendTitle": "سید حسن خمینی",
       "trendTraffic": 200,
@@ -4648,18 +4664,20 @@
         "حسن",
         "خمینی"
       ],
-      "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-28T00:55:29.664Z"
     },
     "فروش بیش از ۳۵۰ میلیارد ریالی سینماهای خراسان رضوی در آبان ماه": {
       "query": "فروش بیش از ۳۵۰ میلیارد ریالی سینماهای خراسان رضوی در آبان‌ماه",
       "normalized": "فروش بیش از ۳۵۰ میلیارد ریالی سینماهای خراسان رضوی در آبان ماه",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-27T21:58:36.185Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-28T00:55:29.664Z",
       "lastError": null,
       "trendTitle": "جواد عزتی",
       "trendTraffic": 200,
@@ -4668,18 +4686,20 @@
         "جواد",
         "عزتی"
       ],
-      "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-28T00:55:29.664Z"
     },
     "بورسیه همچنان پیشتاز گیشه است": {
       "query": "«بورسیه» همچنان پیشتاز گیشه است",
       "normalized": "بورسیه همچنان پیشتاز گیشه است",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 2,
       "videosSeen": 0,
       "createdAt": "2026-11-27T21:58:36.185Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-28T00:55:29.664Z",
       "lastError": null,
       "trendTitle": "جواد عزتی",
       "trendTraffic": 200,
@@ -4688,18 +4708,20 @@
         "جواد",
         "عزتی"
       ],
-      "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-28T00:55:29.664Z"
     },
     "منصور عباس": {
       "query": "منصور عباس",
       "normalized": "منصور عباس",
-      "nextPage": 1,
+      "nextPage": 21,
       "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "pagesFetched": 20,
+      "videosSeen": 399,
       "createdAt": "2026-11-27T21:58:36.185Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-28T00:55:29.670Z",
       "lastError": null,
       "trendTitle": "منصور عباس",
       "trendTraffic": 200,
@@ -4708,18 +4730,19 @@
         "منصور",
         "عباس"
       ],
-      "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "activeInLatestFeed": true,
+      "termination": "max_pages_reached"
     },
     "موقف مرتقب لمنصور عباس تجاه حماس یثیر جدلا فی إسرائیل": {
       "query": "موقف مرتقب لمنصور عباس تجاه \"حماس\" يثير جدلا في إسرائيل",
       "normalized": "موقف مرتقب لمنصور عباس تجاه حماس یثیر جدلا فی إسرائیل",
-      "nextPage": 1,
-      "complete": false,
-      "pagesFetched": 0,
-      "videosSeen": 0,
+      "nextPage": 7,
+      "complete": true,
+      "pagesFetched": 3,
+      "videosSeen": 9,
       "createdAt": "2026-11-27T21:58:36.185Z",
-      "lastAttemptAt": null,
+      "lastAttemptAt": "2026-11-28T00:55:29.670Z",
       "lastError": null,
       "trendTitle": "منصور عباس",
       "trendTraffic": 200,
@@ -4728,8 +4751,10 @@
         "منصور",
         "عباس"
       ],
-      "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
-      "activeInLatestFeed": true
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "activeInLatestFeed": true,
+      "termination": "empty_page",
+      "completedAt": "2026-11-28T00:55:29.670Z"
     },
     "منصور عباس قد یعترف بحماس إرهابیة للانضمام إلی حکومة آیزنکوت ونتانیاهو یواصل مناوراته": {
       "query": "منصور عباس قد يعترف بحماس \"إرهابية\" للانضمام إلى حكومة آيزنكوت.. ونتانياهو يواصل مناوراته",
@@ -4748,7 +4773,7 @@
         "منصور",
         "عباس"
       ],
-      "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
       "activeInLatestFeed": true
     },
     "chelsea": {
@@ -4768,7 +4793,7 @@
         "chelsea"
       ],
       "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "xabi alonso urged to show no mercy to 70m chelsea player": {
       "query": "Xabi Alonso urged to show no mercy to £70m Chelsea player",
@@ -4787,7 +4812,7 @@
         "chelsea"
       ],
       "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "the four winners from wesley fofana s catastrophic interview": {
       "query": "The four winners from Wesley Fofana's catastrophic interview",
@@ -4806,7 +4831,7 @@
         "chelsea"
       ],
       "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
-      "activeInLatestFeed": true
+      "activeInLatestFeed": false
     },
     "دردسرهای عظیم": {
       "query": "دردسرهای عظیم",
@@ -4825,7 +4850,7 @@
         "دردسرهای",
         "عظیم"
       ],
-      "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
       "activeInLatestFeed": true
     },
     "افشاگری الناز حبیبی از دلیل جدایی از همسر سابقش ویدیو": {
@@ -4845,7 +4870,7 @@
         "دردسرهای",
         "عظیم"
       ],
-      "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
       "activeInLatestFeed": true
     },
     "مسافرکشی بازیگر زن مطرح سینمای ایران در تهران ویدئو": {
@@ -4865,7 +4890,7 @@
         "دردسرهای",
         "عظیم"
       ],
-      "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
       "activeInLatestFeed": true
     },
     "پزشکیان جنایت دشمن در میناب را هرگز فراموش نخواهیم کرد": {
@@ -4886,7 +4911,190 @@
         "نواب",
         "صفوی"
       ],
-      "lastTrendSeenAt": "2026-11-27T21:58:36.185Z",
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "activeInLatestFeed": true
+    },
+    "خلاصه بازی ناتینگام فارست ۳ ۲ چلسی گیبس وایت ماری که ژابی را نیش زد": {
+      "query": "خلاصه بازی ناتینگام فارست ۳-۲ چلسی؛ گیبس‌وایت، ماری که ژابی را نیش زد!",
+      "normalized": "خلاصه بازی ناتینگام فارست ۳ ۲ چلسی گیبس وایت ماری که ژابی را نیش زد",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-28T00:54:39.635Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "ناتینگهام فارست مقابل چلسی",
+      "trendTraffic": 2000,
+      "trendPublishedAt": "Fri, 27 Nov 2026 11:10:00 -0800",
+      "trendKeywords": [
+        "ناتینگهام",
+        "فارست",
+        "مقابل",
+        "چلسی"
+      ],
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "activeInLatestFeed": true
+    },
+    "alonso sack coming without 60m saviour as chelsea lose to forest before kick off": {
+      "query": "Alonso sack coming without £60m saviour as Chelsea lose to Forest before kick-off",
+      "normalized": "alonso sack coming without 60m saviour as chelsea lose to forest before kick off",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-28T00:54:39.635Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "nottm forest vs chelsea",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+      "trendKeywords": [
+        "nottm",
+        "forest",
+        "vs",
+        "chelsea"
+      ],
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "activeInLatestFeed": true
+    },
+    "licensable picture premier league nottingham forest v chelsea": {
+      "query": "Licensable picture: Premier League - Nottingham Forest v Chelsea",
+      "normalized": "licensable picture premier league nottingham forest v chelsea",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-28T00:54:39.635Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "nottm forest vs chelsea",
+      "trendTraffic": 1000,
+      "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+      "trendKeywords": [
+        "nottm",
+        "forest",
+        "vs",
+        "chelsea"
+      ],
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "activeInLatestFeed": true
+    },
+    "ok": {
+      "query": "ok",
+      "normalized": "ok",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-28T00:54:39.635Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "ok",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Fri, 27 Nov 2026 10:40:00 -0800",
+      "trendKeywords": [
+        "ok"
+      ],
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "activeInLatestFeed": true
+    },
+    "ok movement pulls nationwide structures out of obi s ndc": {
+      "query": "OK Movement Pulls Nationwide Structures Out of Obi’s NDC",
+      "normalized": "ok movement pulls nationwide structures out of obi s ndc",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-28T00:54:39.635Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "ok",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Fri, 27 Nov 2026 10:40:00 -0800",
+      "trendKeywords": [
+        "ok"
+      ],
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "activeInLatestFeed": true
+    },
+    "media office counters ok movement faction says support group loyal to obi kwankwaso": {
+      "query": "Media office counters OK Movement faction, says support group loyal to Obi, Kwankwaso",
+      "normalized": "media office counters ok movement faction says support group loyal to obi kwankwaso",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-28T00:54:39.635Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "ok",
+      "trendTraffic": 500,
+      "trendPublishedAt": "Fri, 27 Nov 2026 10:40:00 -0800",
+      "trendKeywords": [
+        "ok"
+      ],
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "activeInLatestFeed": true
+    },
+    "پیکاپ هامون": {
+      "query": "پیکاپ هامون",
+      "normalized": "پیکاپ هامون",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-28T00:54:39.635Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "پیکاپ هامون",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Fri, 27 Nov 2026 11:00:00 -0800",
+      "trendKeywords": [
+        "پیکاپ",
+        "هامون"
+      ],
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "activeInLatestFeed": true
+    },
+    "پیکاپ هامون زامیاد هانتر پلاس نیامده ۳ میلیارد گران شد": {
+      "query": "پیکاپ هامون زامیاد (هانتر پلاس) نیامده ۳ میلیارد گران شد!",
+      "normalized": "پیکاپ هامون زامیاد هانتر پلاس نیامده ۳ میلیارد گران شد",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-28T00:54:39.635Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "پیکاپ هامون",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Fri, 27 Nov 2026 11:00:00 -0800",
+      "trendKeywords": [
+        "پیکاپ",
+        "هامون"
+      ],
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
+      "activeInLatestFeed": true
+    },
+    "گرانی ۴۰ تا ۷۰ درصدی محصولات تجاری زامیاد کلید خورد پیکاپ هامون رکورد زد": {
+      "query": "گرانی ۴۰ تا ۷۰ درصدی محصولات تجاری زامیاد کلید خورد | پیکاپ هامون رکورد زد",
+      "normalized": "گرانی ۴۰ تا ۷۰ درصدی محصولات تجاری زامیاد کلید خورد پیکاپ هامون رکورد زد",
+      "nextPage": 1,
+      "complete": false,
+      "pagesFetched": 0,
+      "videosSeen": 0,
+      "createdAt": "2026-11-28T00:54:39.635Z",
+      "lastAttemptAt": null,
+      "lastError": null,
+      "trendTitle": "پیکاپ هامون",
+      "trendTraffic": 200,
+      "trendPublishedAt": "Fri, 27 Nov 2026 11:00:00 -0800",
+      "trendKeywords": [
+        "پیکاپ",
+        "هامون"
+      ],
+      "lastTrendSeenAt": "2026-11-28T00:54:39.635Z",
       "activeInLatestFeed": true
     }
   },
@@ -5425,7 +5633,7 @@
       "sender_name": "اهواز تی وی",
       "category_id": 8,
       "duration": 410,
-      "visit_count": 32319,
+      "visit_count": 32335,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -5442,9 +5650,21 @@
             "کنکور"
           ],
           "page": 11
+        },
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-02T20:28:38.667Z"
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.666Z",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:16.835Z"
     },
     "qOgB2kw": {
       "video_code": "qOgB2kw",
@@ -26289,7 +26509,7 @@
       "sender_name": "امیرسالم",
       "category_id": 1,
       "duration": 36,
-      "visit_count": 38484,
+      "visit_count": 38504,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
       "active": 1,
@@ -26336,10 +26556,21 @@
             "کویت"
           ],
           "page": 7
+        },
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 17
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:40:59.323Z",
-      "lastMetricsFetchedAt": "2026-11-17T23:40:33.522Z"
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.669Z",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:27.204Z"
     },
     "3W75inn": {
       "video_code": "3W75inn",
@@ -29057,7 +29288,7 @@
       "sender_name": "علیرضا",
       "category_id": 1,
       "duration": 31,
-      "visit_count": 14628,
+      "visit_count": 14631,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
       "active": 1,
@@ -29094,10 +29325,22 @@
             "کویت"
           ],
           "page": 15
+        },
+        {
+          "query": "سید حسن خمینی",
+          "trendTitle": "سید حسن خمینی",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 12:40:00 -0800",
+          "trendKeywords": [
+            "سید",
+            "حسن",
+            "خمینی"
+          ],
+          "page": 3
         }
       ],
-      "lastTrendMatchedAt": "2026-11-17T23:40:59.328Z",
-      "lastMetricsFetchedAt": "2026-11-17T23:40:42.019Z"
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.655Z",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:07.080Z"
     },
     "b9f5wT6": {
       "video_code": "b9f5wT6",
@@ -56770,7 +57013,7 @@
       "sender_name": "Ali✅",
       "category_id": 11,
       "duration": 80,
-      "visit_count": 55739,
+      "visit_count": 55741,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -56799,10 +57042,21 @@
             "نورافکن"
           ],
           "page": 11
+        },
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-23T00:40:06.226Z",
-      "lastMetricsFetchedAt": "2026-11-23T00:39:38.203Z"
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.666Z",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:17.630Z"
     },
     "kbgv9KO": {
       "video_code": "kbgv9KO",
@@ -57054,7 +57308,7 @@
       "sender_name": "آماندا",
       "category_id": 11,
       "duration": 503,
-      "visit_count": 65506,
+      "visit_count": 65522,
       "create_date": "7 سال پیش",
       "styled_create_date": "7 سال پیش",
       "active": 1,
@@ -57072,9 +57326,21 @@
             "ابوالقاسمپور"
           ],
           "page": 9
+        },
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 7
         }
       ],
-      "lastTrendMatchedAt": "2026-11-03T10:51:08.334Z"
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.666Z",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:18.639Z"
     },
     "vpnr1bu": {
       "video_code": "vpnr1bu",
@@ -57185,7 +57451,7 @@
       "sender_name": "Ali✅",
       "category_id": 11,
       "duration": 83,
-      "visit_count": 36727,
+      "visit_count": 36732,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "active": 1,
@@ -57225,10 +57491,21 @@
             "اربابی"
           ],
           "page": 23
+        },
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 8
         }
       ],
-      "lastTrendMatchedAt": "2026-11-18T18:05:35.020Z",
-      "lastMetricsFetchedAt": "2026-11-18T18:05:17.038Z"
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.666Z",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:19.431Z"
     },
     "yd0KGRw": {
       "video_code": "yd0KGRw",
@@ -66645,33 +66922,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-04T03:01:42.328Z"
     },
-    "861EHlC": {
-      "video_code": "861EHlC",
-      "title": "قدرتمند ترین خلبانان نظامی ایران که امریکایها را مبهوت کردن",
-      "sender_name": "military news",
-      "category_id": 1,
-      "duration": 504,
-      "visit_count": 30894,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "ایرنا",
-          "trendTitle": "ایرنا",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Mon, 2 Nov 2026 13:00:00 -0800",
-          "trendKeywords": [
-            "ایرنا"
-          ],
-          "page": 66
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-04T02:45:21.887Z"
-    },
     "vVwstV5": {
       "video_code": "vVwstV5",
       "title": "فوری درگیری جدید دریایی ایران و آمریکا، توقیف نفتکش ایرانی و آمریکایی",
@@ -71872,46 +72122,6 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-04T03:21:52.906Z"
-    },
-    "9QAjgTx": {
-      "video_code": "9QAjgTx",
-      "title": "روسیه جدا شدن بمب از سوخو ۳۴",
-      "sender_name": "کاربر فیلو",
-      "category_id": 1,
-      "duration": 35,
-      "visit_count": 11345,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سوخو-۳۵",
-          "trendTitle": "سوخو-۳۵",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 3 Nov 2026 18:20:00 -0800",
-          "trendKeywords": [
-            "سوخو",
-            "۳۵"
-          ],
-          "page": 23
-        },
-        {
-          "query": "بمب کثیف",
-          "trendTitle": "بمب کثیف",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 07:50:00 -0800",
-          "trendKeywords": [
-            "بمب",
-            "کثیف"
-          ],
-          "page": 27
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T16:45:52.262Z",
-      "lastMetricsFetchedAt": "2026-11-17T16:45:23.147Z"
     },
     "C77dz7H": {
       "video_code": "C77dz7H",
@@ -84671,35 +84881,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T18:26:31.300Z"
     },
-    "NGF5C4y": {
-      "video_code": "NGF5C4y",
-      "title": "کلیپ پیمان آدیداس",
-      "sender_name": "فیلو",
-      "category_id": 11,
-      "duration": 18,
-      "visit_count": 30859,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:25:08.148Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پیمان جبلی",
-          "trendTitle": "پیمان جبلی",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 08:10:00 -0800",
-          "trendKeywords": [
-            "پیمان",
-            "جبلی"
-          ],
-          "page": 5
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T18:26:31.300Z"
-    },
     "8IjDg6C": {
       "video_code": "8IjDg6C",
       "title": "آخرین مصاحبه پیمان آدیداس قبل از مرگ",
@@ -85885,35 +86066,6 @@
             "جبلی"
           ],
           "page": 17
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T16:45:52.277Z"
-    },
-    "AFd5tdD": {
-      "video_code": "AFd5tdD",
-      "title": "میکس از پیمان با شعر داداشی آخرش قصه یه جای بعد تموم شد",
-      "sender_name": "مسعود",
-      "category_id": 21,
-      "duration": 42,
-      "visit_count": 30801,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T16:45:49.703Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "پیمان جبلی",
-          "trendTitle": "پیمان جبلی",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 08:10:00 -0800",
-          "trendKeywords": [
-            "پیمان",
-            "جبلی"
-          ],
-          "page": 18
         }
       ],
       "lastTrendMatchedAt": "2026-11-17T16:45:52.277Z"
@@ -90870,35 +91022,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T17:05:51.946Z"
     },
-    "KsZ0UY9": {
-      "video_code": "KsZ0UY9",
-      "title": "سریال دردسرهای شیرین قسمت آخر",
-      "sender_name": "منتخب فیلو✅",
-      "category_id": 3,
-      "duration": 2785,
-      "visit_count": 30875,
-      "create_date": "4 سال پیش",
-      "styled_create_date": "4 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T17:05:45.178Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 30
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T17:05:51.946Z"
-    },
     "0UYmhNG": {
       "video_code": "0UYmhNG",
       "title": "سریال نفوذی قسمت 126 ( آخر ) دوبله فارسی",
@@ -94836,35 +94959,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-17T17:25:47.891Z"
     },
-    "cJ7g44M": {
-      "video_code": "cJ7g44M",
-      "title": "سریال لحظه گرگ و میش ، قسمت 50 (آخر)",
-      "sender_name": "ji_hell",
-      "category_id": 3,
-      "duration": 2189,
-      "visit_count": 30802,
-      "create_date": "5 سال پیش",
-      "styled_create_date": "5 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T17:25:35.813Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 42
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T17:25:47.892Z"
-    },
     "PpqlIBw": {
       "video_code": "PpqlIBw",
       "title": "باب اسفنجی فصل آخر قسمت اخر::«دوبله فارسی",
@@ -97532,35 +97626,6 @@
       "visit_count": 31574,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-17T18:05:14.654Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "قسمت آخر برنامه شفرونی با حضور الهام اخوان و محمد شعبان‌پور (امشب ۲۵ آبان ۱۴۰۵)",
-          "trendTitle": "محمد شعبانپور",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 05:50:00 -0800",
-          "trendKeywords": [
-            "محمد",
-            "شعبانپور"
-          ],
-          "page": 51
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-17T18:05:35.134Z"
-    },
-    "016XeDJ": {
-      "video_code": "016XeDJ",
-      "title": "قسمت ۶۵ سریال تلویزیونی سوجان - قسمت آخر - خلاصه آنچه پخش شد",
-      "sender_name": "⭐ کلیپ آنلاین ⭐",
-      "category_id": 3,
-      "duration": 320,
-      "visit_count": 30891,
-      "create_date": "1 سال پیش",
-      "styled_create_date": "1 سال پیش",
       "lastMetricsFetchedAt": "2026-11-17T18:05:14.654Z",
       "active": 1,
       "can_republish": 1,
@@ -108396,35 +108461,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T08:25:08.895Z"
     },
-    "ykubeHw": {
-      "video_code": "ykubeHw",
-      "title": "سریال سوجان ازدواج سوجان با سهراب",
-      "sender_name": "animeland84",
-      "category_id": 3,
-      "duration": 119,
-      "visit_count": 30820,
-      "create_date": "9 ماه پیش",
-      "styled_create_date": "9 ماه پیش",
-      "lastMetricsFetchedAt": "2026-11-18T08:24:41.577Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سهراب بختیاریزاده",
-          "trendTitle": "سهراب بختیاریزاده",
-          "trendTraffic": 100,
-          "trendPublishedAt": "Tue, 17 Nov 2026 18:50:00 -0800",
-          "trendKeywords": [
-            "سهراب",
-            "بختیاریزاده"
-          ],
-          "page": 4
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T08:25:08.895Z"
-    },
     "FUePOGc": {
       "video_code": "FUePOGc",
       "title": "سوجان و قربان یا سهراب و سوجان...",
@@ -116910,10 +116946,10 @@
       "sender_name": "رضا",
       "category_id": 11,
       "duration": 83,
-      "visit_count": 55883,
+      "visit_count": 55892,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-21T01:34:47.740Z",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:16.835Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -116962,9 +116998,20 @@
             "رحمتی"
           ],
           "page": 16
+        },
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 5
         }
       ],
-      "lastTrendMatchedAt": "2026-11-21T01:35:01.282Z"
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.666Z"
     },
     "Yzza1Dp": {
       "video_code": "Yzza1Dp",
@@ -132974,36 +133021,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T12:25:28.829Z"
     },
-    "TlMEq0k": {
-      "video_code": "TlMEq0k",
-      "title": "سریال دروغگوی دوست داشتنی من قسمت ۶ دوبله فارسی کره ای",
-      "sender_name": "اشکان",
-      "category_id": 3,
-      "duration": 3494,
-      "visit_count": 30850,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T12:24:34.360Z",
-      "active": 1,
-      "can_republish": 0,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "جی تی ای ۶",
-          "trendTitle": "جی تی ای ۶",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Wed, 18 Nov 2026 02:20:00 -0800",
-          "trendKeywords": [
-            "جی",
-            "تی",
-            "ای"
-          ],
-          "page": 38
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T12:25:28.829Z"
-    },
     "1SQ9cht": {
       "video_code": "1SQ9cht",
       "title": "انیمیشن دختر کفشدوزکی و پسر گربه ای فصل 4 قسمت 6 دوبله فارسی",
@@ -144379,34 +144396,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-18T17:25:48.113Z"
     },
-    "mr5LPIf": {
-      "video_code": "mr5LPIf",
-      "title": "فیلم سینمایی اکشن سوپر 30 دوبله فارسی",
-      "sender_name": "AHILHOME",
-      "category_id": 3,
-      "duration": 3600,
-      "visit_count": 30865,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-18T17:24:58.907Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "کوپر",
-          "trendTitle": "کوپر",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Wed, 18 Nov 2026 08:30:00 -0800",
-          "trendKeywords": [
-            "کوپر"
-          ],
-          "page": 16
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-18T17:25:48.113Z"
-    },
     "hFJGdjF": {
       "video_code": "hFJGdjF",
       "title": "فیلم نقطه کور The Blind Side 2009",
@@ -149261,56 +149250,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-20T22:30:03.226Z"
     },
-    "jdRyT26": {
-      "video_code": "jdRyT26",
-      "title": "خلاصه بازی دیشب النصر ۲-۱ الشباب، گلزنی کریستیانو رونالدو از روی نقطه پنالتی",
-      "sender_name": "hamechiplus",
-      "category_id": 11,
-      "duration": 119,
-      "visit_count": 4181,
-      "create_date": "2 سال پیش",
-      "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-20T22:29:27.115Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "النصر",
-          "trendTitle": "النصر",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Fri, 20 Nov 2026 09:30:00 -0800",
-          "trendKeywords": [
-            "النصر"
-          ],
-          "page": 4
-        },
-        {
-          "query": "بازی النصر",
-          "trendTitle": "بازی النصر",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Fri, 20 Nov 2026 09:30:00 -0800",
-          "trendKeywords": [
-            "بازی",
-            "النصر"
-          ],
-          "page": 2
-        },
-        {
-          "query": "شکست النصر در شب تلخ و شیرین کریستیانو رونالدو",
-          "trendTitle": "بازی النصر",
-          "trendTraffic": 2000,
-          "trendPublishedAt": "Fri, 20 Nov 2026 09:30:00 -0800",
-          "trendKeywords": [
-            "بازی",
-            "النصر"
-          ],
-          "page": 1
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-20T22:30:03.236Z"
-    },
     "YJyeDkU": {
       "video_code": "YJyeDkU",
       "title": "اتفاق خنده دار در سرقت مسلحانه از طلا فروشی در رباط کریم .سارقان غافلگیر شدند!",
@@ -153527,46 +153466,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-21T22:05:18.021Z"
     },
-    "DgksVEm": {
-      "video_code": "DgksVEm",
-      "title": "mohamad_salehi9999 داش وحید روحت شاد داداش",
-      "sender_name": "امیر",
-      "category_id": 0,
-      "duration": 60,
-      "visit_count": 11332,
-      "create_date": "6 سال پیش",
-      "styled_create_date": "6 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-21T22:05:12.491Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "وحید صابری",
-          "trendTitle": "وحید صابری",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Sat, 21 Nov 2026 12:20:00 -0800",
-          "trendKeywords": [
-            "وحید",
-            "صابری"
-          ],
-          "page": 20
-        },
-        {
-          "query": "وحید صابری، آوازخوان نام‌آشنای افغانستان، در تاشکند درگذشت",
-          "trendTitle": "وحید صابری",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Sat, 21 Nov 2026 12:20:00 -0800",
-          "trendKeywords": [
-            "وحید",
-            "صابری"
-          ],
-          "page": 20
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-21T22:05:18.021Z"
-    },
     "iMCjp7T": {
       "video_code": "iMCjp7T",
       "title": "آموزش اتصال به اینترنت استارلینک برای گوشی های شیائومی",
@@ -155727,48 +155626,6 @@
       "category_id": 1,
       "duration": 474,
       "visit_count": 21880,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-22T09:29:46.912Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "حرکت نفتکش های ایران",
-          "trendTitle": "حرکت نفتکش های ایران",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
-          "trendKeywords": [
-            "حرکت",
-            "نفتکش",
-            "ایران"
-          ],
-          "page": 4
-        },
-        {
-          "query": "حرکت نفتکش ایران",
-          "trendTitle": "حرکت نفتکش های ایران",
-          "trendTraffic": 1000,
-          "trendPublishedAt": "Sat, 21 Nov 2026 22:30:00 -0800",
-          "trendKeywords": [
-            "حرکت",
-            "نفتکش",
-            "ایران"
-          ],
-          "page": 1
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-22T09:30:20.906Z"
-    },
-    "MCHKhoq": {
-      "video_code": "MCHKhoq",
-      "title": "پاسخ ایران به نفتکش امریکایی - پایان کار وزیر صمت",
-      "sender_name": "احمد علی - 1",
-      "category_id": 1,
-      "duration": 573,
-      "visit_count": 11354,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
       "lastMetricsFetchedAt": "2026-11-22T09:29:46.912Z",
@@ -158178,10 +158035,10 @@
       "sender_name": "رضا",
       "category_id": 11,
       "duration": 80,
-      "visit_count": 66857,
+      "visit_count": 66858,
       "create_date": "3 سال پیش",
       "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-23T00:39:36.081Z",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:16.045Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -158197,9 +158054,20 @@
             "نورافکن"
           ],
           "page": 9
+        },
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 4
         }
       ],
-      "lastTrendMatchedAt": "2026-11-23T00:40:06.225Z"
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.666Z"
     },
     "BZ3thm1": {
       "video_code": "BZ3thm1",
@@ -161856,10 +161724,10 @@
       "sender_name": "Ali✅",
       "category_id": 9,
       "duration": 93,
-      "visit_count": 48441,
+      "visit_count": 48442,
       "create_date": "2 سال پیش",
       "styled_create_date": "2 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-23T16:29:52.198Z",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:17.630Z",
       "active": 1,
       "can_republish": 1,
       "is_publish_able": 1,
@@ -161874,9 +161742,20 @@
             "شبکه"
           ],
           "page": 4
+        },
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 6
         }
       ],
-      "lastTrendMatchedAt": "2026-11-23T16:30:57.952Z"
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.666Z"
     },
     "h2ry3SV": {
       "video_code": "h2ry3SV",
@@ -173149,46 +173028,6 @@
       ],
       "lastTrendMatchedAt": "2026-11-24T10:25:47.669Z"
     },
-    "QHen1RU": {
-      "video_code": "QHen1RU",
-      "title": "داعش سینه این سردار را زنده زنده شکافت/سردار از دست داعش نجات یافت",
-      "sender_name": "سعید",
-      "category_id": 1,
-      "duration": 58,
-      "visit_count": 11336,
-      "create_date": "3 سال پیش",
-      "styled_create_date": "3 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-24T10:25:16.789Z",
-      "active": 1,
-      "can_republish": 1,
-      "is_publish_able": 1,
-      "status_id": 1,
-      "globalTrendSearchMatches": [
-        {
-          "query": "سردار شادمانی",
-          "trendTitle": "سردار شادمانی",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 24 Nov 2026 02:00:00 -0800",
-          "trendKeywords": [
-            "سردار",
-            "شادمانی"
-          ],
-          "page": 9
-        },
-        {
-          "query": "یک روحانی: اسرائیل با استفاده از «جن»، سردار شادمانی را ترور کرد!",
-          "trendTitle": "سردار شادمانی",
-          "trendTraffic": 200,
-          "trendPublishedAt": "Tue, 24 Nov 2026 02:00:00 -0800",
-          "trendKeywords": [
-            "سردار",
-            "شادمانی"
-          ],
-          "page": 9
-        }
-      ],
-      "lastTrendMatchedAt": "2026-11-24T10:25:47.669Z"
-    },
     "chOSRmP": {
       "video_code": "chOSRmP",
       "title": "اتمام حجت فرمانده فراجا سردار رادان با اراذل و اوباش",
@@ -181587,7 +181426,7 @@
       "visit_count": 190094,
       "create_date": "1 سال پیش",
       "styled_create_date": "1 سال پیش",
-      "lastMetricsFetchedAt": "2026-11-27T21:58:57.023Z",
+      "lastMetricsFetchedAt": "2026-11-28T00:54:58.271Z",
       "active": 1,
       "can_republish": 0,
       "is_publish_able": 1,
@@ -181606,7 +181445,7 @@
           "page": 1
         }
       ],
-      "lastTrendMatchedAt": "2026-11-27T21:59:44.131Z"
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.652Z"
     },
     "nj4J9Gp": {
       "video_code": "nj4J9Gp",
@@ -181834,8 +181673,414 @@
         }
       ],
       "lastTrendMatchedAt": "2026-11-27T21:59:44.143Z"
+    },
+    "PbOW3W7": {
+      "video_code": "PbOW3W7",
+      "title": "فیلم ایرانی کامل منصور",
+      "sender_name": "محمد15صدرا",
+      "category_id": 3,
+      "duration": 6076,
+      "visit_count": 386591,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:15.048Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.665Z"
+    },
+    "6GRGryM": {
+      "video_code": "6GRGryM",
+      "title": "سکانس کوتاه | فیلم سینمایی ایرانی منصور",
+      "sender_name": "نگین",
+      "category_id": 3,
+      "duration": 120,
+      "visit_count": 354988,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:15.048Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 21,
+      "globalTrendSearchMatches": [
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 3
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.665Z"
+    },
+    "uLNmu6J": {
+      "video_code": "uLNmu6J",
+      "title": "آهنگ عاشقانه منصور. بزن بریم",
+      "sender_name": "Khajeh",
+      "category_id": 9,
+      "duration": 201,
+      "visit_count": 48145,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:16.045Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.665Z"
+    },
+    "7TKYoHj": {
+      "video_code": "7TKYoHj",
+      "title": "سکانس شهادت حضرت عباس / مختار نامه",
+      "sender_name": "Mr",
+      "category_id": 8,
+      "duration": 595,
+      "visit_count": 129938,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:16.045Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.665Z"
+    },
+    "eaPfT0i": {
+      "video_code": "eaPfT0i",
+      "title": "سکانس سریال شوق پرواز شهید عباس بابایی",
+      "sender_name": "فیلم انیمیشن کارتون",
+      "category_id": 3,
+      "duration": 91,
+      "visit_count": 58836,
+      "create_date": "1 سال پیش",
+      "styled_create_date": "1 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:16.045Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.665Z"
+    },
+    "NDDfg5E": {
+      "video_code": "NDDfg5E",
+      "title": "چه هوایی چه بارونی عجب عطر زمستانی ، عباس کهزادی",
+      "sender_name": "دهکده فیلم و کلیپ",
+      "category_id": 29,
+      "duration": 59,
+      "visit_count": 80064,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:16.045Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.665Z"
+    },
+    "zhOfUI0": {
+      "video_code": "zhOfUI0",
+      "title": "سکانس حذف شده شهادت حضرت عباس در مختارنامه",
+      "sender_name": "لیلا",
+      "category_id": 8,
+      "duration": 557,
+      "visit_count": 70259,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:16.045Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 4
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.666Z"
+    },
+    "hzAxz8n": {
+      "video_code": "hzAxz8n",
+      "title": "چه هوایی چه بارونی عجب عطر زمستانی ، عباس کهزادی",
+      "sender_name": "لسان الغیب",
+      "category_id": 29,
+      "duration": 59,
+      "visit_count": 31973,
+      "create_date": "2 سال پیش",
+      "styled_create_date": "2 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:16.835Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.666Z"
+    },
+    "cW60e4t": {
+      "video_code": "cW60e4t",
+      "title": "سکانس کوتاه | خواستگاری عباس جکسون از لیلا اوتادی",
+      "sender_name": "محسن مهرعلیان",
+      "category_id": 3,
+      "duration": 120,
+      "visit_count": 71139,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:16.835Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 21,
+      "globalTrendSearchMatches": [
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 5
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.666Z"
+    },
+    "SZrNEVf": {
+      "video_code": "SZrNEVf",
+      "title": "سکانس حذف شده شهادت حضرت عباس(ع) در سریال «مختارنامه»",
+      "sender_name": "فیلم برتر",
+      "category_id": 3,
+      "duration": 592,
+      "visit_count": 47849,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:17.630Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 6
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.666Z"
+    },
+    "8rS3vgN": {
+      "video_code": "8rS3vgN",
+      "title": "سکانس فوق طنز سریال اجل معلق((عباس جمشیدی؛رضا عطاران))🎬🎥🍿",
+      "sender_name": "فیلم کده",
+      "category_id": 6,
+      "duration": 142,
+      "visit_count": 55200,
+      "create_date": "1 سال پیش",
+      "styled_create_date": "1 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:17.630Z",
+      "active": 1,
+      "can_republish": 0,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 6
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.666Z"
+    },
+    "DQrLswy": {
+      "video_code": "DQrLswy",
+      "title": "سکانس کوتاه | خواستگاری عباس جکسون از لیلا اوتادی قسمت دوم",
+      "sender_name": "محسن مهرعلیان",
+      "category_id": 3,
+      "duration": 120,
+      "visit_count": 62813,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:18.639Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 21,
+      "globalTrendSearchMatches": [
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 7
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.666Z"
+    },
+    "VZu5lyB": {
+      "video_code": "VZu5lyB",
+      "title": "نوای دشتی پدر _ عباس مفتاح",
+      "sender_name": "دنیای انیمیشن و سینما",
+      "category_id": 9,
+      "duration": 1380,
+      "visit_count": 63537,
+      "create_date": "4 سال پیش",
+      "styled_create_date": "4 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:19.431Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 8
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.667Z"
+    },
+    "MsUlQdE": {
+      "video_code": "MsUlQdE",
+      "title": "اجرای خنده دار عباس جکسون برای خواستگاری از لیلا اوتادی در برنامه با تیپ دهه ۶۰",
+      "sender_name": "فیلم نگار  فالو=فالو",
+      "category_id": 6,
+      "duration": 143,
+      "visit_count": 33714,
+      "create_date": "3 سال پیش",
+      "styled_create_date": "3 سال پیش",
+      "lastMetricsFetchedAt": "2026-11-28T00:55:27.204Z",
+      "active": 1,
+      "can_republish": 1,
+      "is_publish_able": 1,
+      "status_id": 1,
+      "globalTrendSearchMatches": [
+        {
+          "query": "منصور عباس",
+          "trendTitle": "منصور عباس",
+          "trendTraffic": 200,
+          "trendPublishedAt": "Fri, 27 Nov 2026 11:20:00 -0800",
+          "trendKeywords": [
+            "منصور",
+            "عباس"
+          ],
+          "page": 17
+        }
+      ],
+      "lastTrendMatchedAt": "2026-11-28T00:55:29.669Z"
     }
   },
-  "totalPagesFetched": 17961,
-  "totalVideosSeen": 318927
+  "totalPagesFetched": 18037,
+  "totalVideosSeen": 319956
 }
